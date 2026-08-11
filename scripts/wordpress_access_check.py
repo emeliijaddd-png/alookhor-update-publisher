@@ -228,10 +228,16 @@ try:
                 and 'alookhor-mf-main-grid' in footer_html and 'alookhor-mf-news-social' in footer_html
             )
             report['checks']['footer_no_store'] = 'no-store' in footer_cache.lower()
+            report['checks']['footer_homepage'] = (
+                'id="alookhor-managed-footer"' in homepage
+                and 'alookhor-mf-hide-legacy' in homepage
+                and 'frontend-footer.js' in homepage
+            )
         except Exception as error:
             report['managed_footer'] = {'error':str(error)}
             report['checks']['footer_endpoint'] = False
             report['checks']['footer_no_store'] = False
+            report['checks']['footer_homepage'] = False
 
     # Non-mutating feasibility probe. Application Passwords are expected to be
     # REST-only on this site; never record a nonce or any authenticated HTML.
