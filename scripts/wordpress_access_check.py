@@ -112,6 +112,32 @@ try:
         report['checks']['homepage_http'] = response.status == 200
     report['checks']['header_content'] = 'خرید عمده' in homepage and ('ALOOKHOR' in homepage or 'آلوخور' in homepage)
 
+    localized = {}
+    localized_match = re.search(r'var\s+ALOOKHOR_TOPBAR\s*=\s*(\{.*?\});', homepage, re.S)
+    if localized_match:
+        try:
+            raw_topbar = json.loads(localized_match.group(1))
+            for key in [
+                'topbar_bg', 'topbar_text_color', 'topbar_border_color',
+                'topbar_button_bg', 'topbar_button_text', 'topbar_height',
+                'show_topbar', 'show_wholesale',
+            ]:
+                localized[key] = raw_topbar.get(key)
+        except Exception as error:
+            localized = {'parse_error': str(error)}
+    class_names = sorted({
+        name
+        for value in re.findall(r'class=["\']([^"\']+)["\']', homepage, re.I)
+        for name in value.split()
+        if any(token in name.lower() for token in ['top', 'bar', 'header', 'trade', 'contact', 'wholesale'])
+    })
+    report['public_topbar'] = {
+        'managed_wrapper': 'alookhor-managed-legacy-header' in homepage,
+        'manager_script': 'frontend-topbar-manager.js' in homepage,
+        'localized': localized,
+        'relevant_classes': class_names[:100],
+    }
+
     # Non-mutating feasibility probe. Application Passwords are expected to be
     # REST-only on this site; never record a nonce or any authenticated HTML.
     try:
