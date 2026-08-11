@@ -22,7 +22,7 @@ jobs:
       sha256: ${{ steps.release.outputs.sha256 }}
     steps:
       - name: Checkout private publisher repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Build and validate release
         id: release
@@ -58,7 +58,7 @@ jobs:
     environment: production
     steps:
       - name: Checkout private publisher repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Rebuild verified release
         run: python3 scripts/build_release.py
@@ -87,33 +87,53 @@ jobs:
           PACKAGE: ${{ needs.build.outputs.package }}
         run: |
           python3 - <<'PY'
-          import os
+          import os, re
           from pathlib import Path
-          server = os.environ['FTP_SERVER'].replace('\n','').replace('\r','')
-          user = os.environ['FTP_USERNAME'].replace('\n','').replace('\r','')
-          password = os.environ['FTP_PASSWORD'].replace('\n','').replace('\r','')
-          Path.home().joinpath('.netrc').write_text(f'machine {server}\nlogin {user}\npassword {password}\n')
-          Path.home().joinpath('.netrc').chmod(0o600)
+
+          def lftp_quote(value):
+              if '\n' in value or '\r' in value:
+                  raise SystemExit('FTP secret contains a newline')
+              return '"' + value.replace('\\', '\\\\').replace('"', '\\"') + '"'
+
+          server = os.environ['FTP_SERVER'].strip()
+          port = os.environ['FTP_PORT'].strip()
+          user = os.environ['FTP_USERNAME'].strip()
+          password = os.environ['FTP_PASSWORD']
+          package = os.environ['PACKAGE'].strip()
+          if not re.fullmatch(r'[A-Za-z0-9.-]+', server):
+              raise SystemExit('Invalid FTP_SERVER')
+          if not port.isdigit():
+              raise SystemExit('Invalid FTP_PORT')
+          if not re.fullmatch(r'[A-Za-z0-9._-]+\.zip', package):
+              raise SystemExit('Invalid package name')
+
+          commands = [
+              'set cmd:fail-exit true',
+              'set net:max-retries 2',
+              'set net:timeout 20',
+              'set ftp:passive-mode true',
+              'set ftp:ssl-auth TLS',
+              'set ftp:ssl-force true',
+              'set ftp:ssl-protect-data true',
+              'set ssl:verify-certificate true',
+              f'open -p {port} ftp://{server}',
+              f'user {lftp_quote(user)} {lftp_quote(password)}',
+              'mkdir -p releases',
+              f'put public/releases/{package} -o releases/{package}',
+              'put public/releases/SHA256SUMS.txt -o releases/SHA256SUMS.txt',
+              'put public/index.html -o index.html',
+              'put public/changelog.html -o changelog.html',
+              'put public/.htaccess -o .htaccess',
+              'put public/manifest.json -o manifest.json.next',
+              'mv manifest.json.next manifest.json',
+              'bye',
+          ]
+          path = Path('/tmp/alookhor-deploy.lftp')
+          path.write_text(';\n'.join(commands) + ';\n')
+          path.chmod(0o600)
           PY
-          lftp -e "
-            set cmd:fail-exit true;
-            set net:max-retries 2;
-            set net:timeout 20;
-            set ftp:ssl-force true;
-            set ftp:ssl-protect-data true;
-            set ssl:verify-certificate true;
-            open -p ${FTP_PORT} ftp://${FTP_SERVER};
-            mkdir -p releases;
-            put public/releases/${PACKAGE} -o releases/${PACKAGE};
-            put public/releases/SHA256SUMS.txt -o releases/SHA256SUMS.txt;
-            put public/index.html -o index.html;
-            put public/changelog.html -o changelog.html;
-            put public/.htaccess -o .htaccess;
-            put public/manifest.json -o manifest.json.next;
-            mv manifest.json.next manifest.json;
-            bye;
-          "
-          rm -f ~/.netrc
+          lftp -f /tmp/alookhor-deploy.lftp
+          rm -f /tmp/alookhor-deploy.lftp
 
       - name: Verify production manifest
         run: |
