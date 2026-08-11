@@ -221,7 +221,7 @@ try:
                 footer_state = json.load(response)
                 footer_cache = response.headers.get('Cache-Control','')
             footer_html = str(footer_state.get('html',''))
-            report['managed_footer'] = {'version':footer_state.get('version'),'enabled':footer_state.get('enabled'),'html_length':len(footer_html)}
+            report['managed_footer'] = {'version':footer_state.get('version'),'enabled':footer_state.get('enabled'),'html_length':len(footer_html),'html':footer_html}
             report['checks']['footer_endpoint'] = (
                 str(footer_state.get('version')) == production_version and footer_state.get('enabled') is True
                 and 'id="alookhor-managed-footer"' in footer_html
