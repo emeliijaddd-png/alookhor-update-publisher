@@ -6,8 +6,8 @@
 
 - **نام افزونه:** ALOOKHOR Control Center
 - **نسخه پایه بازیابی‌شده:** `3.8.4`
-- **Production نصب‌شده:** `3.8.9` (فعال و Contact spanهای هدر تأییدشده)
-- **Release در حال توسعه:** `3.9.0 DRAFT` (فوتر حرفه‌ای مدیریت‌شده Desktop/Mobile داخل پنل اصلی)
+- **Production پیش از این Release:** `3.8.9` (فعال و Contact spanهای هدر تأییدشده)
+- **Release آماده انتشار اتمی:** `3.9.0` (فوتر حرفه‌ای مدیریت‌شده Desktop/Mobile داخل پنل اصلی)
 - **تاریخ بازیابی:** 2026-08-11
 - **منبع بازیابی:** ZIP واقعی افزونه `alookhor-control-center (5).zip`
 - **حداقل WordPress:** 6.0
