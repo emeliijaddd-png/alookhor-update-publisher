@@ -1,4 +1,3 @@
-<?php
 /**
  * ALOOKHOR CI Bootstrap Bridge
  * One-time bridge for updating 3.8.5 -> 3.8.6 through WordPress Application Passwords.
