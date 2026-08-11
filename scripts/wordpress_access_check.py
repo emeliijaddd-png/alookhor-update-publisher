@@ -20,6 +20,10 @@ def authenticated_request(base, auth, path, accept='application/json'):
     })
 
 
+def version_tuple(value):
+    return tuple(int(part) for part in str(value).split('.'))
+
+
 try:
     base = os.environ.get('WP_BASE_URL', '').strip().rstrip('/')
     username = os.environ.get('WP_USERNAME', '').strip()
@@ -46,6 +50,26 @@ try:
     )
 
     auth = base64.b64encode(f'{username}:{app_password}'.encode()).decode()
+    transition_required = version_tuple(source_version) > version_tuple(production_version)
+    report['transition_bridge_required'] = transition_required
+    if transition_required:
+        try:
+            with urlopen(authenticated_request(base, auth, '/wp-json/alookhor-ci/v1/bridge-status'), timeout=30) as response:
+                bridge = json.load(response)
+            report['transition_bridge'] = bridge
+            caps = bridge.get('capabilities', {})
+            report['checks']['transition_bridge'] = (
+                bridge.get('version') == '2026.08.11-reactivation-v1'
+                and bridge.get('activation_guard') is True
+                and bridge.get('plugin_active') is True
+                and caps.get('read') is True
+                and caps.get('update_plugins') is True
+                and caps.get('activate_plugins') is False
+            )
+        except Exception as error:
+            report['transition_bridge'] = {'ok': False, 'error': str(error)}
+            report['checks']['transition_bridge'] = False
+
     errors = []
     status = None
     source = None

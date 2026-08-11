@@ -72,8 +72,31 @@ function alookhor_ci_option_hash($name){
 }
 
 add_action('rest_api_init', function(){
-    // After 3.8.6 is active, the native alookhor-cc/v1 API takes over and this
-    // bootstrap bridge becomes inert while the restricted CI role remains.
+    // This status route remains available during the one-time 3.8.6 -> 3.8.7
+    // transition so CI can prove that the activation bridge and least-privilege
+    // Publisher role are live before a release is allowed.
+    register_rest_route('alookhor-ci/v1', '/bridge-status', [
+        'methods' => WP_REST_Server::READABLE,
+        'permission_callback' => 'alookhor_ci_permission',
+        'callback' => function(){
+            require_once ABSPATH . 'wp-admin/includes/plugin.php';
+            $role = get_role('alookhor_publisher');
+            $caps = is_object($role) ? (array) $role->capabilities : [];
+            return rest_ensure_response([
+                'version' => '2026.08.11-reactivation-v1',
+                'activation_guard' => true,
+                'plugin_active' => is_plugin_active('alookhor-control-center/alookhor-control-center.php'),
+                'capabilities' => [
+                    'read' => !empty($caps['read']),
+                    'update_plugins' => !empty($caps['update_plugins']),
+                    'activate_plugins' => !empty($caps['activate_plugins']),
+                ],
+            ]);
+        },
+    ]);
+
+    // After 3.8.6 is active, the native alookhor-cc/v1 API owns status/install;
+    // only bridge-status and the upgrader callbacks above remain live.
     if (defined('ALOOKHOR_CC_VERSION') && version_compare(ALOOKHOR_CC_VERSION, '3.8.6', '>=')) return;
 
     register_rest_route('alookhor-ci/v1', '/status', [
