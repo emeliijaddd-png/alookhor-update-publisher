@@ -1,12 +1,12 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
-## v3.8.8 — DRAFT — Atomic First Paint for Legacy Top Bar
+## v3.8.8 — 2026-08-11 — Atomic First Paint for Legacy Top Bar
 - FIX: بارگذاری Manager در `head` تا MutationObserver پیش از Paint هدر Legacy آماده باشد.
 - FIX: شروع فوری درخواست REST با `no-store` و Cache-buster، بدون انتظار برای `DOMContentLoaded`.
 - UX: Top Bar کش‌شده با حفظ ارتفاع مخفی می‌ماند و فقط پس از اعمال State تازه Reveal می‌شود؛ رنگ/تلفن قدیمی دیگر لحظه‌ای دیده نمی‌شوند.
 - FAILSAFE: Abort خودکار پس از 2.5 ثانیه و Reveal داده Localized؛ Header در خطای شبکه مخفی باقی نمی‌ماند.
 - COMPAT: ساختار DOM، Mega Menu، Hamburger، هویت Luxury و تمام قواعد Responsive بدون بازطراحی حفظ شدند.
-- RELEASE: Draft؛ تا موفقیت Build، Bridge-independent reactivation audit و آزمون DOM نباید Tag ساخته شود.
+- RELEASE: آزمون DOM برای Pending/Success/Failure، Build و Access Audit موفق شدند؛ Release آماده انتشار اتمی است.
 
 ## v3.8.7 — 2026-08-11 — Top Bar Persistence & Activation-State Recovery
 - FIX: هر دو دکمه ذخیره پنل اصلی ابتدا کنترل‌های باز Top Bar را به State منتقل و سپس در WordPress ذخیره می‌کنند.

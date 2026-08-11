@@ -371,6 +371,11 @@ export const settingsModule = {
           const result = await Config.save({notify:false});
           btnApplyHeader.disabled = false;
           if(!result.ok) return;
+          const persistedPhone = result.data?.header_settings?.phone;
+          if(persistedPhone !== undefined && String(persistedPhone).trim() !== String(cfg.header_settings.phone || '').trim()){
+            window.ALOOKHOR.toast('شماره تلفن در WordPress تأیید نشد؛ ذخیره متوقف شد','error');
+            return;
+          }
           Config.apply();
           const liveTitle=document.getElementById('liveLogoText'); if(liveTitle) liveTitle.textContent=inpLogoText?.value||'ALOOKHOR';
           const liveSub=document.getElementById('liveLogoSub'); if(liveSub) liveSub.textContent=inpLogoSub?.value||'';
@@ -484,6 +489,11 @@ export const settingsModule = {
       const result = await Config.save({notify:false});
       button.disabled = false;
       if(!result.ok) return;
+      const persistedPhone = result.data?.header_settings?.phone;
+      if(persistedPhone !== undefined && String(persistedPhone).trim() !== String(cfg.header_settings.phone || '').trim()){
+        window.ALOOKHOR.toast('شماره تلفن در WordPress تأیید نشد؛ ذخیره متوقف شد','error');
+        return;
+      }
       Config.apply();
       container.querySelector('#lastSave').textContent = new Date().toLocaleString('fa-IR');
       window.ALOOKHOR.toast('همه تنظیمات واقعاً در WordPress ذخیره شدند','success');

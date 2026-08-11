@@ -99,6 +99,11 @@ function alookhor_ajax_save_settings(){
         'message' => 'ذخیره واقعی WordPress تأیید شد',
         'updated_at' => $merged['updated_at'],
         'header_settings' => is_array($persisted_header) ? [
+            'phone' => $persisted_header['phone'] ?? null,
+            'email' => $persisted_header['email'] ?? null,
+            'whatsapp' => $persisted_header['whatsapp'] ?? null,
+            'export_text' => $persisted_header['export_text'] ?? null,
+            'wholesale_text' => $persisted_header['wholesale_text'] ?? null,
             'topbar_bg' => $persisted_header['topbar_bg'] ?? null,
             'topbar_text_color' => $persisted_header['topbar_text_color'] ?? null,
             'topbar_border_color' => $persisted_header['topbar_border_color'] ?? null,
