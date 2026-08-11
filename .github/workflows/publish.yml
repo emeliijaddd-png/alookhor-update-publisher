@@ -24,6 +24,38 @@ jobs:
       - name: Checkout private publisher repository
         uses: actions/checkout@v5
 
+      - name: Inspect Explicit FTPS certificate
+        env:
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+          FTP_PORT: ${{ secrets.FTP_PORT }}
+        run: |
+          set -o pipefail
+          test -n "$FTP_SERVER"
+          test -n "$FTP_PORT"
+          timeout 30 openssl s_client \
+            -starttls ftp \
+            -connect "${FTP_SERVER}:${FTP_PORT}" \
+            -servername "${FTP_SERVER}" \
+            -showcerts </dev/null > /tmp/ftps-chain.txt 2>/tmp/ftps-connect.txt
+          awk '/-----BEGIN CERTIFICATE-----/{capture=1} capture{print} /-----END CERTIFICATE-----/{exit}' /tmp/ftps-chain.txt > /tmp/ftps-leaf.pem
+          test -s /tmp/ftps-leaf.pem
+          echo '=== FTPS LEAF CERTIFICATE ==='
+          openssl x509 -in /tmp/ftps-leaf.pem -noout -subject -issuer -dates -fingerprint -sha256 -ext subjectAltName
+          echo '=== HOSTNAME CHECK: configured FTP_SERVER ==='
+          openssl x509 -in /tmp/ftps-leaf.pem -noout -checkhost "$FTP_SERVER" || true
+          echo '=== REVERSE DNS ==='
+          python3 - <<'PY'
+          import os, socket
+          host = os.environ['FTP_SERVER']
+          ip = socket.gethostbyname(host)
+          print('Configured host:', host)
+          print('Resolved IP:', ip)
+          try:
+              print('PTR hostname:', socket.gethostbyaddr(ip)[0])
+          except OSError as error:
+              print('PTR lookup failed:', error)
+          PY
+
       - name: Build and validate release
         id: release
         run: python3 scripts/build_release.py
