@@ -92,15 +92,15 @@ jobs:
           python3 - <<'PY'
           import os, re
           from pathlib import Path
-          def quote(value):
-              if '\n' in value or '\r' in value: raise SystemExit('FTP secret contains a newline')
-              return '"' + value.replace('\\', '\\\\').replace('"', '\\"') + '"'
+          from urllib.parse import quote
           server=os.environ['FTP_SERVER'].strip(); port=os.environ['FTP_PORT'].strip()
           user=os.environ['FTP_USERNAME'].strip(); password=os.environ['FTP_PASSWORD']; name=os.environ['PROBE_NAME']
+          if '\n' in password or '\r' in password: raise SystemExit('FTP secret contains a newline')
+          auth_url=f"ftp://{quote(user,safe='')}:{quote(password,safe='')}@{server}"
           if not re.fullmatch(r'[A-Za-z0-9.-]+',server) or not port.isdigit(): raise SystemExit('Invalid FTP endpoint')
           content='ALOOKHOR_PUBLISHER_PROBE_' + os.environ['GITHUB_RUN_ID']
           Path('/tmp/publisher-probe.txt').write_text(content)
-          common=['set cmd:fail-exit true','set net:max-retries 2','set ftp:passive-mode true','set ftp:ssl-auth TLS','set ftp:ssl-force true','set ftp:ssl-protect-data true','set ssl:verify-certificate true',f'open -p {port} ftp://{server}',f'user {quote(user)} {quote(password)}']
+          common=['set cmd:fail-exit true','set net:max-retries 2','set ftp:passive-mode true','set ftp:ssl-auth TLS','set ftp:ssl-force true','set ftp:ssl-protect-data true','set ssl:verify-certificate true',f'open -p {port} "{auth_url}"']
           for path,commands in {
               '/tmp/probe-upload.lftp':common+[f'put /tmp/publisher-probe.txt -o {name}','bye'],
               '/tmp/probe-delete.lftp':common+[f'rm -f {name}','bye'],
@@ -149,13 +149,15 @@ jobs:
           import json, os
           from datetime import datetime, timezone
           from pathlib import Path
+          from urllib.parse import quote
           report_path = Path('/tmp/wordpress-access.json')
           wordpress = json.loads(report_path.read_text()) if report_path.exists() else None
           ftps_log_path = Path('/tmp/ftps-probe.log')
           ftps_log = ftps_log_path.read_text(errors='replace') if ftps_log_path.exists() else ''
           for secret_name in ['FTP_PASSWORD','FTP_USERNAME','FTP_SERVER']:
               value = os.environ.get(secret_name,'')
-              if value: ftps_log = ftps_log.replace(value,'[REDACTED]')
+              if value:
+                  ftps_log = ftps_log.replace(value,'[REDACTED]').replace(quote(value,safe=''),'[REDACTED]')
           report = {
               'type': 'access_audit',
               'run_id': os.environ['GITHUB_RUN_ID'],
@@ -231,13 +233,13 @@ jobs:
           python3 - <<'PY'
           import json, os, re
           from pathlib import Path
-          def quote(value):
-              if '\n' in value or '\r' in value: raise SystemExit('FTP secret contains a newline')
-              return '"' + value.replace('\\', '\\\\').replace('"', '\\"') + '"'
+          from urllib.parse import quote
           server = os.environ['FTP_SERVER'].strip()
           port = os.environ['FTP_PORT'].strip()
           user = os.environ['FTP_USERNAME'].strip()
           password = os.environ['FTP_PASSWORD']
+          if '\n' in password or '\r' in password: raise SystemExit('FTP secret contains a newline')
+          auth_url = f"ftp://{quote(user,safe='')}:{quote(password,safe='')}@{server}"
           manifest = json.loads(Path('public/manifest.json').read_text())
           package = Path(manifest['download_url']).name
           if not re.fullmatch(r'[A-Za-z0-9.-]+', server): raise SystemExit('Invalid FTP_SERVER')
@@ -247,7 +249,7 @@ jobs:
               'set cmd:fail-exit true', 'set net:max-retries 2', 'set net:timeout 20',
               'set ftp:passive-mode true', 'set ftp:ssl-auth TLS', 'set ftp:ssl-force true',
               'set ftp:ssl-protect-data true', 'set ssl:verify-certificate true',
-              f'open -p {port} ftp://{server}', f'user {quote(user)} {quote(password)}',
+              f'open -p {port} "{auth_url}"',
           ]
           scripts = {
               '/tmp/alookhor-upload-package.lftp': common + ['mkdir -p releases', f'put public/releases/{package} -o releases/{package}', 'bye'],
@@ -358,9 +360,10 @@ jobs:
           import json, os
           from datetime import datetime, timezone
           from pathlib import Path
+          from urllib.parse import quote
           secrets = [os.environ.get('FTP_PASSWORD',''), os.environ.get('FTP_USERNAME',''), os.environ.get('FTP_SERVER',''), os.environ.get('WP_APP_PASSWORD',''), os.environ.get('WP_USERNAME','')]
           def clean(text):
-              for value in sorted((v for v in secrets if v), key=len, reverse=True): text = text.replace(value, '[REDACTED]')
+              for value in sorted((v for v in secrets if v), key=len, reverse=True): text = text.replace(value, '[REDACTED]').replace(quote(value,safe=''), '[REDACTED]')
               return text[-12000:]
           logs = {}
           for name in ['upload-zip','verify-zip','upload-metadata','publish-manifest','verify-production','wordpress-update']:
