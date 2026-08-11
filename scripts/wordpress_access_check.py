@@ -158,7 +158,7 @@ try:
             'contact', 'app-download', 'copyright', 'guarantee',
         ])
     })
-    footer_index = homepage.find('alookhor-footer-system')
+    footer_index = homepage.rfind('alookhor-footer-system')
     footer_fragment = ''
     if footer_index >= 0:
         style_start = homepage.rfind('<style', 0, footer_index)
