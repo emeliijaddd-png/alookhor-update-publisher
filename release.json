@@ -1,31 +1,31 @@
 {
-  "version": "3.8.8",
-  "previous": "3.8.7",
+  "version": "3.8.9",
+  "previous": "3.8.8",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "نمایش اتمی Top Bar با داده تازه؛ بدون نمایش لحظه‌ای رنگ یا محتوای قدیمی هنگام بارگذاری.",
+  "description": "اتصال مستقیم مقادیر تلفن و ایمیل به ساختار واقعی span-based هدر Legacy.",
   "changelog": [
     {
-      "tag": "NO FLASH",
-      "title": "حذف نمایش لحظه‌ای ظاهر قدیمی",
-      "desc": "Manager در head بارگذاری می‌شود، خواندن REST را فوراً آغاز می‌کند و Top Bar کش‌شده را تا آماده‌شدن State تازه با حفظ فضای Layout مخفی نگه می‌دارد."
+      "tag": "PHONE",
+      "title": "اصلاح قطعی تلفن هدر Legacy",
+      "desc": "شماره تلفن اکنون علاوه بر لینک tel، در span واقعی topbar-contact-txt شناسایی و با مقدار تازه WordPress جایگزین می‌شود."
     },
     {
-      "tag": "CONTENT",
-      "title": "همگام‌سازی قطعی تلفن و محتوای Top Bar",
-      "desc": "رنگ، تلفن، ایمیل، متن صادرات، خرید عمده و ارتفاع قبل از Reveal از State تازه WordPress روی هدر Legacy اعمال می‌شوند."
+      "tag": "EMAIL",
+      "title": "اصلاح قطعی ایمیل هدر Legacy",
+      "desc": "ایمیل plain-text هدر قدیمی بدون نیاز به mailto از State تازه REST همگام می‌شود."
     },
     {
-      "tag": "FAILSAFE",
-      "title": "Fallback محدود و بدون پنهان‌ماندن هدر",
-      "desc": "اگر REST در 2.5 ثانیه پاسخ ندهد، داده Localized نمایش داده می‌شود و Header هرگز مخفی باقی نمی‌ماند."
+      "tag": "DOM",
+      "title": "حفظ آیکون‌های دکمه و صادرات",
+      "desc": "جایگزینی متن مستقیم، SVG و ساختار اصلی دکمه خرید عمده را حذف یا بازطراحی نمی‌کند."
     },
     {
-      "tag": "COMPAT",
-      "title": "هویت Luxury و Responsive بدون تغییر",
-      "desc": "DOM، Mega Menu، Hamburger و قواعد Responsive هدر قبلی حفظ شده‌اند."
+      "tag": "TEST",
+      "title": "آزمون با DOM واقعی Production",
+      "desc": "Selectorها روی کلاس‌های alookhor-topbar-wrapper، topbar-contact-txt و topbar-btn-wholesale استخراج‌شده از Production آزمایش شدند."
     }
   ]
 }

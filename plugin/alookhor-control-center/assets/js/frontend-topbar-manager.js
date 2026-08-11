@@ -1,5 +1,5 @@
 /**
- * ALOOKHOR Legacy Top Bar Manager — v3.8.8
+ * ALOOKHOR Legacy Top Bar Manager — v3.8.9
  * Preserves the legacy header/mega-menu HTML and synchronizes managed Top Bar
  * values from a fresh read-only REST endpoint, even when the page HTML is cached.
  */
@@ -29,6 +29,20 @@
       .filter(el => (el.textContent || '').includes(phrase));
     return matches.sort((a, b) => a.textContent.trim().length - b.textContent.trim().length)[0] || null;
   };
+  const replaceVisibleText = (element, value, matcher = () => true) => {
+    if (!element) return;
+    const direct = [...element.childNodes].find(node =>
+      node.nodeType === Node.TEXT_NODE && node.textContent.trim() && matcher(node.textContent)
+    );
+    if (direct) {
+      direct.textContent = element.children.length ? ` ${value || ''} ` : (value || '');
+      return;
+    }
+    const target = [...element.querySelectorAll('span,b,strong')]
+      .find(node => matcher(node.textContent || ''));
+    if (target) target.textContent = value || '';
+    else element.appendChild(document.createTextNode(` ${value || ''} `));
+  };
   const closestItem = element => element?.closest('a,button,li,[class*="item"],[class*="contact"]') || element;
   const commonAncestor = (elements, boundary) => {
     const valid = elements.filter(Boolean);
@@ -43,10 +57,15 @@
   const topbarSelector = '[class*="topbar" i],[class*="top-bar" i],[class*="top_bar" i]';
 
   function manage(root, force = false) {
-    if (!root || (!force && root.dataset.topbarManaged === '3.8.8')) return;
+    if (!root || (!force && root.dataset.topbarManaged === '3.8.9')) return;
 
-    const phone = root.querySelector('a[href^="tel:"]');
-    const email = root.querySelector('a[href^="mailto:"]');
+    const contactTexts = [...root.querySelectorAll('.topbar-contact-txt,[class*="contact-txt" i]')];
+    const phone = root.querySelector('a[href^="tel:"]') || contactTexts.find(element => {
+      const text = element.textContent || '';
+      const number = digits(text).replace(/\D/g, '');
+      return !text.includes('@') && number.length >= 7 && number.length <= 15;
+    });
+    const email = root.querySelector('a[href^="mailto:"]') || contactTexts.find(element => (element.textContent || '').includes('@'));
     const wholesale = smallestTextMatch(root, 'خرید عمده')?.closest('a,button') || root.querySelector('a[href*="b2b"],a[href*="wholesale"]');
     const exportNote = smallestTextMatch(root, 'صادرات به');
 
@@ -77,13 +96,13 @@
     }
 
     if (phone) {
-      phone.href = `tel:${phoneHref(cfg.phone)}`;
-      phone.textContent = cfg.phone || '';
+      if (phone.matches('a')) phone.href = `tel:${phoneHref(cfg.phone)}`;
+      replaceVisibleText(phone, cfg.phone);
       setVisible(closestItem(phone), asBool(cfg.show_phone) && Boolean(cfg.phone));
     }
     if (email) {
-      email.href = `mailto:${cfg.email || ''}`;
-      email.textContent = cfg.email || '';
+      if (email.matches('a')) email.href = `mailto:${cfg.email || ''}`;
+      replaceVisibleText(email, cfg.email);
       setVisible(closestItem(email), asBool(cfg.show_email) && Boolean(cfg.email));
     }
     if (whatsapp) {
@@ -91,11 +110,7 @@
       setVisible(closestItem(whatsapp), asBool(cfg.show_whatsapp) && Boolean(cfg.whatsapp));
     }
     if (wholesale) {
-      const textTarget = [...wholesale.querySelectorAll('span,b,strong')]
-        .sort((a,b) => a.textContent.length - b.textContent.length)
-        .find(el => el.textContent.includes('خرید عمده'));
-      if (textTarget) textTarget.textContent = cfg.wholesale_text || '';
-      else wholesale.textContent = cfg.wholesale_text || '';
+      replaceVisibleText(wholesale, cfg.wholesale_text, text => text.includes('خرید عمده'));
       if (cfg.wholesale_url) wholesale.href = cfg.wholesale_url;
       wholesale.target = asBool(cfg.wholesale_new_tab) ? '_blank' : '_self';
       if (wholesale.target === '_blank') wholesale.rel = 'noopener';
@@ -157,8 +172,8 @@
       }
     }
 
-    root.dataset.topbarManaged = '3.8.8';
-    root.dispatchEvent(new CustomEvent('alookhor:topbar-managed', {bubbles:true, detail:{version:'3.8.8'}}));
+    root.dataset.topbarManaged = '3.8.9';
+    root.dispatchEvent(new CustomEvent('alookhor:topbar-managed', {bubbles:true, detail:{version:'3.8.9'}}));
   }
 
   function init(scope = document, force = false) {

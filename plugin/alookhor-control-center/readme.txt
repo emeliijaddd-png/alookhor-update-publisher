@@ -4,7 +4,7 @@ Tags: control center, luxury, alookhor, admin, dashboard
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 3.8.8
+Stable tag: 3.8.9
 License: Private
 License URI: https://alookhor.ir
 
@@ -43,6 +43,12 @@ License URI: https://alookhor.ir
 در `config/site.json` و `wp_options: alookhor_cc_settings` — همان حافظه واقعی که در چت قبلی ویرایش می‌شد.
 
 == Changelog ==
+
+= 3.8.9 =
+* شناسایی و همگام‌سازی تلفن plain-text در `topbar-contact-txt`
+* شناسایی و همگام‌سازی ایمیل بدون نیاز به لینک `mailto`
+* حفظ SVG و ساختار دکمه هنگام جایگزینی متن خرید عمده
+* آزمون Selectorها با DOM واقعی استخراج‌شده از Production
 
 = 3.8.8 =
 * حذف نمایش لحظه‌ای رنگ‌ها و محتوای قدیمی هنگام بارگذاری Top Bar
