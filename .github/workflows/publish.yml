@@ -66,6 +66,67 @@ jobs:
           if-no-files-found: error
           retention-days: 7
 
+  access_audit:
+    needs: build
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout private publisher repository
+        uses: actions/checkout@v5
+
+      - name: Check authenticated WordPress access without updating
+        id: wp_access
+        continue-on-error: true
+        env:
+          WP_BASE_URL: ${{ secrets.WP_BASE_URL }}
+          WP_USERNAME: ${{ secrets.WP_USERNAME }}
+          WP_APP_PASSWORD: ${{ secrets.WP_APP_PASSWORD }}
+          WP_REPORT_PATH: /tmp/wordpress-access.json
+        run: python3 scripts/wordpress_access_check.py > /tmp/wordpress-access.log 2>&1
+
+      - name: Write machine-readable access status
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ACCESS_OUTCOME: ${{ steps.wp_access.outcome }}
+        run: |
+          python3 - <<'PY'
+          import json, os
+          from datetime import datetime, timezone
+          from pathlib import Path
+          report_path = Path('/tmp/wordpress-access.json')
+          wordpress = json.loads(report_path.read_text()) if report_path.exists() else None
+          report = {
+              'type': 'access_audit',
+              'run_id': os.environ['GITHUB_RUN_ID'],
+              'ref': os.environ['GITHUB_REF'],
+              'sha': os.environ['GITHUB_SHA'],
+              'created_at': datetime.now(timezone.utc).isoformat(),
+              'outcome': os.environ.get('ACCESS_OUTCOME',''),
+              'wordpress': wordpress,
+          }
+          Path('/tmp/latest.json').write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n')
+          PY
+          rm -rf /tmp/status-repo
+          mkdir /tmp/status-repo
+          cd /tmp/status-repo
+          git init -b publisher-status
+          git config user.name 'ALOOKHOR Publisher Bot'
+          git config user.email 'publisher@alookhor.ir'
+          cp /tmp/latest.json .
+          git add latest.json
+          git commit -m "Access audit for run ${GITHUB_RUN_ID}"
+          git remote add origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          git push --force origin HEAD:publisher-status
+
+      - name: Enforce authenticated WordPress access
+        if: always()
+        env:
+          ACCESS_OUTCOME: ${{ steps.wp_access.outcome }}
+        run: test "$ACCESS_OUTCOME" = success
+
   deploy:
     needs: build
     if: startsWith(github.ref, 'refs/tags/v')
@@ -105,12 +166,9 @@ jobs:
           python3 - <<'PY'
           import json, os, re
           from pathlib import Path
-
           def quote(value):
-              if '\n' in value or '\r' in value:
-                  raise SystemExit('FTP secret contains a newline')
+              if '\n' in value or '\r' in value: raise SystemExit('FTP secret contains a newline')
               return '"' + value.replace('\\', '\\\\').replace('"', '\\"') + '"'
-
           server = os.environ['FTP_SERVER'].strip()
           port = os.environ['FTP_PORT'].strip()
           user = os.environ['FTP_USERNAME'].strip()
@@ -120,43 +178,19 @@ jobs:
           if not re.fullmatch(r'[A-Za-z0-9.-]+', server): raise SystemExit('Invalid FTP_SERVER')
           if not port.isdigit(): raise SystemExit('Invalid FTP_PORT')
           if not re.fullmatch(r'[A-Za-z0-9._-]+\.zip', package): raise SystemExit('Invalid package name')
-
           common = [
-              'set cmd:fail-exit true',
-              'set net:max-retries 2',
-              'set net:timeout 20',
-              'set ftp:passive-mode true',
-              'set ftp:ssl-auth TLS',
-              'set ftp:ssl-force true',
-              'set ftp:ssl-protect-data true',
-              'set ssl:verify-certificate true',
-              f'open -p {port} ftp://{server}',
-              f'user {quote(user)} {quote(password)}',
+              'set cmd:fail-exit true', 'set net:max-retries 2', 'set net:timeout 20',
+              'set ftp:passive-mode true', 'set ftp:ssl-auth TLS', 'set ftp:ssl-force true',
+              'set ftp:ssl-protect-data true', 'set ssl:verify-certificate true',
+              f'open -p {port} ftp://{server}', f'user {quote(user)} {quote(password)}',
           ]
           scripts = {
-              '/tmp/alookhor-upload-package.lftp': common + [
-                  'mkdir -p releases',
-                  f'put public/releases/{package} -o releases/{package}',
-                  'bye',
-              ],
-              '/tmp/alookhor-upload-metadata.lftp': common + [
-                  'mkdir -p releases',
-                  'put public/releases/SHA256SUMS.txt -o releases/SHA256SUMS.txt',
-                  'put public/index.html -o index.html',
-                  'put public/changelog.html -o changelog.html',
-                  'put public/.htaccess -o .htaccess',
-                  'bye',
-              ],
-              '/tmp/alookhor-publish-manifest.lftp': common + [
-                  'put public/manifest.json -o manifest.json.next',
-                  'mv manifest.json.next manifest.json',
-                  'bye',
-              ],
+              '/tmp/alookhor-upload-package.lftp': common + ['mkdir -p releases', f'put public/releases/{package} -o releases/{package}', 'bye'],
+              '/tmp/alookhor-upload-metadata.lftp': common + ['mkdir -p releases', 'put public/releases/SHA256SUMS.txt -o releases/SHA256SUMS.txt', 'put public/index.html -o index.html', 'put public/changelog.html -o changelog.html', 'put public/.htaccess -o .htaccess', 'bye'],
+              '/tmp/alookhor-publish-manifest.lftp': common + ['put public/manifest.json -o manifest.json.next', 'mv manifest.json.next manifest.json', 'bye'],
           }
           for filename, commands in scripts.items():
-              path = Path(filename)
-              path.write_text(';\n'.join(commands) + ';\n')
-              path.chmod(0o600)
+              path = Path(filename); path.write_text(';\n'.join(commands) + ';\n'); path.chmod(0o600)
           PY
 
       - name: Upload release ZIP
@@ -180,17 +214,14 @@ jobs:
           target = Path('/tmp/remote-release.zip')
           for attempt in range(6):
               try:
-                  with urllib.request.urlopen(url, timeout=30) as response:
-                      target.write_bytes(response.read())
+                  with urllib.request.urlopen(url, timeout=30) as response: target.write_bytes(response.read())
                   actual = hashlib.sha256(target.read_bytes()).hexdigest()
-                  if actual != expected['sha256']:
-                      raise ValueError(f"SHA mismatch: {actual} != {expected['sha256']}")
+                  if actual != expected['sha256']: raise ValueError(f"SHA mismatch: {actual} != {expected['sha256']}")
                   with ZipFile(target) as archive:
                       assert archive.testzip() is None
                       bootstrap = archive.read('alookhor-control-center/alookhor-control-center.php').decode('utf-8')
                       assert f"Version: {expected['version']}" in bootstrap
-                  print('Remote package verified:', expected['version'], actual)
-                  break
+                  print('Remote package verified:', expected['version'], actual); break
               except Exception as error:
                   print(f'Attempt {attempt + 1} failed:', error)
                   if attempt == 5: raise
@@ -222,11 +253,9 @@ jobs:
           expected = json.loads(Path('public/manifest.json').read_text())
           url = f"https://updates.alookhor.ir/manifest.json?github_run={os.environ['GITHUB_RUN_ID']}"
           for attempt in range(6):
-              with urllib.request.urlopen(url, timeout=20) as response:
-                  production = json.load(response)
+              with urllib.request.urlopen(url, timeout=20) as response: production = json.load(response)
               if production.get('version') == expected['version'] and production.get('sha256') == expected['sha256']:
-                  print('Production verified:', production['version'], production['sha256'])
-                  break
+                  print('Production verified:', production['version'], production['sha256']); break
               if attempt == 5: raise SystemExit(f'Production manifest did not update: {production}')
               time.sleep(10)
           PY
@@ -241,9 +270,7 @@ jobs:
           WP_APP_PASSWORD: ${{ secrets.WP_APP_PASSWORD }}
           WP_REPORT_PATH: /tmp/wordpress-report.json
         run: |
-          test -n "$WP_BASE_URL"
-          test -n "$WP_USERNAME"
-          test -n "$WP_APP_PASSWORD"
+          test -n "$WP_BASE_URL"; test -n "$WP_USERNAME"; test -n "$WP_APP_PASSWORD"
           python3 scripts/wordpress_release_test.py > /tmp/wordpress-update.log 2>&1
 
       - name: Write sanitized publisher status branch
@@ -266,51 +293,29 @@ jobs:
           import json, os
           from datetime import datetime, timezone
           from pathlib import Path
-
-          secrets = [
-              os.environ.get('FTP_PASSWORD',''), os.environ.get('FTP_USERNAME',''), os.environ.get('FTP_SERVER',''),
-              os.environ.get('WP_APP_PASSWORD',''), os.environ.get('WP_USERNAME','')
-          ]
+          secrets = [os.environ.get('FTP_PASSWORD',''), os.environ.get('FTP_USERNAME',''), os.environ.get('FTP_SERVER',''), os.environ.get('WP_APP_PASSWORD',''), os.environ.get('WP_USERNAME','')]
           def clean(text):
-              for value in sorted((v for v in secrets if v), key=len, reverse=True):
-                  text = text.replace(value, '[REDACTED]')
+              for value in sorted((v for v in secrets if v), key=len, reverse=True): text = text.replace(value, '[REDACTED]')
               return text[-12000:]
-
           logs = {}
           for name in ['upload-zip','verify-zip','upload-metadata','publish-manifest','verify-production','wordpress-update']:
-              path = Path('/tmp') / f'{name}.log'
-              logs[name] = clean(path.read_text(errors='replace')) if path.exists() else ''
+              path = Path('/tmp') / f'{name}.log'; logs[name] = clean(path.read_text(errors='replace')) if path.exists() else ''
           wp_report = Path('/tmp/wordpress-report.json')
           wordpress = json.loads(clean(wp_report.read_text(errors='replace'))) if wp_report.exists() else None
           report = {
-              'run_id': os.environ['GITHUB_RUN_ID'],
-              'ref': os.environ['GITHUB_REF'],
-              'sha': os.environ['GITHUB_SHA'],
+              'run_id': os.environ['GITHUB_RUN_ID'], 'ref': os.environ['GITHUB_REF'], 'sha': os.environ['GITHUB_SHA'],
               'created_at': datetime.now(timezone.utc).isoformat(),
               'outcomes': {
-                  'upload_zip': os.environ.get('UPLOAD_ZIP',''),
-                  'verify_zip': os.environ.get('VERIFY_ZIP',''),
-                  'upload_metadata': os.environ.get('UPLOAD_METADATA',''),
-                  'publish_manifest': os.environ.get('PUBLISH_MANIFEST',''),
-                  'verify_production': os.environ.get('VERIFY_PRODUCTION',''),
-                  'wordpress_verify': os.environ.get('WORDPRESS_VERIFY',''),
-              },
-              'logs': logs,
-              'wordpress': wordpress,
+                  'upload_zip': os.environ.get('UPLOAD_ZIP',''), 'verify_zip': os.environ.get('VERIFY_ZIP',''),
+                  'upload_metadata': os.environ.get('UPLOAD_METADATA',''), 'publish_manifest': os.environ.get('PUBLISH_MANIFEST',''),
+                  'verify_production': os.environ.get('VERIFY_PRODUCTION',''), 'wordpress_verify': os.environ.get('WORDPRESS_VERIFY',''),
+              }, 'logs': logs, 'wordpress': wordpress,
           }
-          out = Path('/tmp/publisher-status')
-          out.mkdir(exist_ok=True)
-          (out / 'latest.json').write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n')
+          out = Path('/tmp/publisher-status'); out.mkdir(exist_ok=True); (out / 'latest.json').write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n')
           PY
-          rm -rf /tmp/status-repo
-          mkdir /tmp/status-repo
-          cd /tmp/status-repo
-          git init -b publisher-status
-          git config user.name 'ALOOKHOR Publisher Bot'
-          git config user.email 'publisher@alookhor.ir'
-          cp /tmp/publisher-status/latest.json .
-          git add latest.json
-          git commit -m "Publisher status for run ${GITHUB_RUN_ID}"
+          rm -rf /tmp/status-repo; mkdir /tmp/status-repo; cd /tmp/status-repo
+          git init -b publisher-status; git config user.name 'ALOOKHOR Publisher Bot'; git config user.email 'publisher@alookhor.ir'
+          cp /tmp/publisher-status/latest.json .; git add latest.json; git commit -m "Publisher status for run ${GITHUB_RUN_ID}"
           git remote add origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
           git push --force origin HEAD:publisher-status
 
