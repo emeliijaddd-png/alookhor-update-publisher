@@ -148,6 +148,27 @@ try:
         'relevant_classes': class_names[:100],
         'markup_fragment': topbar_fragment,
     }
+
+    footer_classes = sorted({
+        name
+        for value in re.findall(r'class=["\']([^"\']+)["\']', homepage, re.I)
+        for name in value.split()
+        if any(token in name.lower() for token in [
+            'footer', 'newsletter', 'social', 'payment', 'trust', 'license',
+            'contact', 'app-download', 'copyright', 'guarantee',
+        ])
+    })
+    footer_markers = ['<footer', 'site-footer', 'alookhor-footer', 'main-footer', 'footer-container']
+    footer_positions = [homepage.rfind(marker) for marker in footer_markers]
+    footer_index = max(footer_positions)
+    footer_fragment = ''
+    if footer_index >= 0:
+        footer_start = homepage.rfind('<', 0, footer_index + 1)
+        footer_fragment = re.sub(r'\s+', ' ', homepage[max(0, footer_start - 3000):footer_index + 18000]).strip()
+    report['public_footer'] = {
+        'relevant_classes': footer_classes[:160],
+        'markup_fragment': footer_fragment,
+    }
     manager_match = re.search(r'<script[^>]+src=["\']([^"\']*frontend-topbar-manager\.js[^"\']*)["\']', homepage, re.I)
     if manager_match:
         try:
