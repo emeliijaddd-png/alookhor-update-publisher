@@ -134,11 +134,17 @@ try:
         for name in value.split()
         if any(token in name.lower() for token in ['top', 'bar', 'header', 'trade', 'contact', 'wholesale'])
     })
+    topbar_index = homepage.find('alookhor-topbar-wrapper')
+    topbar_fragment = ''
+    if topbar_index >= 0:
+        fragment_start = homepage.rfind('<', 0, topbar_index)
+        topbar_fragment = re.sub(r'\s+', ' ', homepage[max(0, fragment_start):topbar_index + 6000]).strip()
     report['public_topbar'] = {
         'managed_wrapper': 'alookhor-managed-legacy-header' in homepage,
         'manager_script': 'frontend-topbar-manager.js' in homepage,
         'localized': localized,
         'relevant_classes': class_names[:100],
+        'markup_fragment': topbar_fragment,
     }
     if version_tuple(production_version) >= version_tuple('3.8.7'):
         topbar_url = base + '/wp-json/alookhor-cc/v1/topbar?access_audit=' + str(int(time.time()))
