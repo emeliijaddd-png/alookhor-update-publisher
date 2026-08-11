@@ -1,6 +1,6 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
-## v3.8.6 — Draft — Managed Top Bar
+## v3.8.6 — 2026-08-11 — Managed Top Bar
 - ADD: کنترل کامل Top Bar داخل پنل اصلی: «تنظیمات پیشرفته → تنظیمات سریع هر ماژول → هدر و لوگوها».
 - ADD: صفحه فرعی «نوار بالای سایت و هدر» به‌عنوان Mirror کمکی با همان Option مشترک.
 - ADD: ویرایش تلفن، ایمیل، WhatsApp، متن/لینک صادرات و متن/لینک CTA خرید عمده.
