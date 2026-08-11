@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 from pathlib import Path
 from urllib.request import Request, urlopen
+from urllib.parse import urljoin
+from html import unescape
 import base64
 import json
 import os
@@ -146,6 +148,25 @@ try:
         'relevant_classes': class_names[:100],
         'markup_fragment': topbar_fragment,
     }
+    manager_match = re.search(r'<script[^>]+src=["\']([^"\']*frontend-topbar-manager\.js[^"\']*)["\']', homepage, re.I)
+    if manager_match:
+        try:
+            manager_url = urljoin(base + '/', unescape(manager_match.group(1)))
+            separator = '&' if '?' in manager_url else '?'
+            with urlopen(Request(manager_url + separator + 'audit=' + str(int(time.time())), headers={'User-Agent': 'ALOOKHOR-GitHub-Publisher/1.0'}), timeout=30) as response:
+                manager_source = response.read().decode(errors='replace')
+            report['public_topbar']['manager_asset'] = manager_url
+            report['checks']['manager_contact_span'] = (
+                '.topbar-contact-txt' in manager_source
+                and 'contactTexts.find' in manager_source
+                and f"=== '{production_version}'" in manager_source
+            )
+        except Exception as error:
+            report['public_topbar']['manager_asset_error'] = str(error)
+            report['checks']['manager_contact_span'] = False
+    elif version_tuple(production_version) >= version_tuple('3.8.9'):
+        report['checks']['manager_contact_span'] = False
+
     if version_tuple(production_version) >= version_tuple('3.8.7'):
         topbar_url = base + '/wp-json/alookhor-cc/v1/topbar?access_audit=' + str(int(time.time()))
         try:
