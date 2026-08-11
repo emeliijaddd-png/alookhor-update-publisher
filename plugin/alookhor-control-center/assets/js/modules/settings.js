@@ -228,6 +228,7 @@ export const settingsModule = {
     // — تعاملات واقعی —
     const quick = container.querySelector('#quickSettings');
     const quickTitle = container.querySelector('#quickTitle');
+    let commitQuickSettings = null;
 
     const detailRenderers = {
       header: () => `
@@ -295,6 +296,7 @@ export const settingsModule = {
     };
 
     function showQuick(key){
+      commitQuickSettings = null;
       const r = detailRenderers[key];
       quick.innerHTML = r ? r() : '<div style="text-align:center; color:var(--text-muted)">بخش یافت نشد</div>';
       quickTitle.textContent = cfg.modules[key]?.title || 'تنظیمات';
@@ -348,7 +350,7 @@ export const settingsModule = {
       });
 
       if(btnApplyHeader){
-        btnApplyHeader.addEventListener('click', ()=>{
+        commitQuickSettings = () => {
           Object.assign(cfg.header_settings, {
             logo_text:value('inpLogoText'), logo_sub:value('inpLogoSub'),
             phone:value('inpHeaderPhone'), email:value('inpHeaderEmail'), whatsapp:value('inpHeaderWhatsapp'),
@@ -362,11 +364,17 @@ export const settingsModule = {
           });
           quick.querySelectorAll('[data-header-flag]').forEach(el=> cfg.header_settings[el.dataset.headerFlag]=el.checked);
           cfg.site.logoLetter = inpLogoLetter?.value || 'A';
-          Config.save();
+        };
+        btnApplyHeader.addEventListener('click', async ()=>{
+          commitQuickSettings();
+          btnApplyHeader.disabled = true;
+          const result = await Config.save({notify:false});
+          btnApplyHeader.disabled = false;
+          if(!result.ok) return;
           Config.apply();
           const liveTitle=document.getElementById('liveLogoText'); if(liveTitle) liveTitle.textContent=inpLogoText?.value||'ALOOKHOR';
           const liveSub=document.getElementById('liveLogoSub'); if(liveSub) liveSub.textContent=inpLogoSub?.value||'';
-          window.ALOOKHOR.toast('تمام تنظیمات Top Bar و هدر از پنل اصلی ذخیره شد','success');
+          window.ALOOKHOR.toast('ذخیره WordPress تأیید شد؛ تغییرات Top Bar روی سایت آماده است','success');
         });
       }
       quick.querySelectorAll('[data-quick-toggle]').forEach(t=>{
@@ -469,11 +477,16 @@ export const settingsModule = {
       const b = container.querySelector('#btnRefreshStatus');
       b.textContent='بررسی شد ✓'; setTimeout(()=> b.textContent='بررسی مجدد', 1600);
     });
-    container.querySelector('#btnSaveAll')?.addEventListener('click', ()=>{
-      Config.save();
+    container.querySelector('#btnSaveAll')?.addEventListener('click', async (event)=>{
+      commitQuickSettings?.();
+      const button = event.currentTarget;
+      button.disabled = true;
+      const result = await Config.save({notify:false});
+      button.disabled = false;
+      if(!result.ok) return;
       Config.apply();
       container.querySelector('#lastSave').textContent = new Date().toLocaleString('fa-IR');
-      window.ALOOKHOR.toast('همه تنظیمات ذخیره و روی سایت اصلی اعمال شد','success');
+      window.ALOOKHOR.toast('همه تنظیمات واقعاً در WordPress ذخیره شدند','success');
     });
     container.querySelector('#btnExportSettings')?.addEventListener('click', ()=>{
       const data = Config.exportJSON();

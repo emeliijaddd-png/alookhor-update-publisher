@@ -109,6 +109,20 @@ try:
     report['checks']['homepage_http'] = response.status == 200
     report['checks']['header_content'] = 'خرید عمده' in homepage and ('ALOOKHOR' in homepage or 'آلوخور' in homepage)
 
+    topbar_url = BASE + '/wp-json/alookhor-cc/v1/topbar?release_test=' + TARGET.replace('.', '')
+    with urlopen(Request(topbar_url, headers={'Accept': 'application/json', 'Cache-Control': 'no-cache', 'User-Agent': 'ALOOKHOR-GitHub-Publisher/1.0'}), timeout=30) as response:
+        topbar = json.load(response)
+        cache_control = response.headers.get('Cache-Control', '')
+    report['topbar'] = topbar
+    report['checks']['topbar_endpoint'] = (
+        str(topbar.get('version')) == TARGET
+        and all(isinstance(topbar.get(key), str) and len(topbar[key]) == 7 and topbar[key].startswith('#') for key in [
+            'topbar_bg', 'topbar_text_color', 'topbar_border_color',
+            'topbar_button_bg', 'topbar_button_text',
+        ])
+    )
+    report['checks']['topbar_no_store'] = 'no-store' in cache_control.lower()
+
     failed = [name for name, passed in report['checks'].items() if passed is not True]
     report['ok'] = not failed
     report['failed_checks'] = failed

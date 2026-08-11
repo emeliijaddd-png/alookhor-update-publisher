@@ -43,6 +43,36 @@ function alookhor_ajax_save_settings(){
     }
     $payload = alookhor_cc_sanitize_state($payload);
 
+    // فیلدهای Top Bar در ذخیره پنل اصلی نیز باید با همان قرارداد فرم
+    // تخصصی هدر نرمال شوند؛ Preview مرورگر منبع حقیقت نیست.
+    if (!empty($payload['header_settings']) && is_array($payload['header_settings'])) {
+        $header_current = get_option(ALOOKHOR_CC_HEADER_OPTION, []);
+        if (!is_array($header_current)) $header_current = [];
+        $header = $payload['header_settings'];
+        foreach ([
+            'topbar_bg' => '#11091D',
+            'topbar_text_color' => '#E8D5B5',
+            'topbar_border_color' => '#3A2C20',
+            'topbar_button_bg' => '#C9A86A',
+            'topbar_button_text' => '#1A1206',
+        ] as $key => $fallback) {
+            if (array_key_exists($key, $header)) {
+                $header[$key] = sanitize_hex_color($header[$key]) ?: ($header_current[$key] ?? $fallback);
+            }
+        }
+        foreach (['export_url', 'wholesale_url', 'top_logo_url', 'top_logo_link'] as $key) {
+            if (array_key_exists($key, $header)) $header[$key] = esc_url_raw($header[$key]);
+        }
+        if (array_key_exists('email', $header)) $header['email'] = sanitize_email($header['email']);
+        if (array_key_exists('whatsapp', $header)) $header['whatsapp'] = preg_replace('/\D+/', '', (string) $header['whatsapp']);
+        if (array_key_exists('topbar_height', $header)) $header['topbar_height'] = max(30, min(60, absint($header['topbar_height'])));
+        if (array_key_exists('top_logo_width', $header)) $header['top_logo_width'] = max(50, min(180, absint($header['top_logo_width'])));
+        foreach (['sticky', 'show_topbar', 'show_contact', 'show_account', 'show_phone', 'show_email', 'show_whatsapp', 'show_export', 'show_wholesale', 'wholesale_new_tab'] as $key) {
+            if (array_key_exists($key, $header)) $header[$key] = rest_sanitize_boolean($header[$key]);
+        }
+        $payload['header_settings'] = $header;
+    }
+
     // ذخیره کل تنظیمات
     $current = get_option(ALOOKHOR_CC_OPTION, []);
     $merged = array_replace_recursive(is_array($current) ? $current : [], $payload);
@@ -64,7 +94,19 @@ function alookhor_ajax_save_settings(){
         update_option(ALOOKHOR_CC_HEADER_OPTION, $h);
     }
 
-    wp_send_json_success(['message'=>'ذخیره شد — بدون رفرش اعمال شد','updated_at'=> $merged['updated_at']]);
+    $persisted_header = get_option(ALOOKHOR_CC_HEADER_OPTION, []);
+    wp_send_json_success([
+        'message' => 'ذخیره واقعی WordPress تأیید شد',
+        'updated_at' => $merged['updated_at'],
+        'header_settings' => is_array($persisted_header) ? [
+            'topbar_bg' => $persisted_header['topbar_bg'] ?? null,
+            'topbar_text_color' => $persisted_header['topbar_text_color'] ?? null,
+            'topbar_border_color' => $persisted_header['topbar_border_color'] ?? null,
+            'topbar_button_bg' => $persisted_header['topbar_button_bg'] ?? null,
+            'topbar_button_text' => $persisted_header['topbar_button_text'] ?? null,
+            'topbar_height' => $persisted_header['topbar_height'] ?? null,
+        ] : null,
+    ]);
 }
 
 function alookhor_ajax_toggle_module(){

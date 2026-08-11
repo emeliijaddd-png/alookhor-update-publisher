@@ -137,6 +137,25 @@ try:
         'localized': localized,
         'relevant_classes': class_names[:100],
     }
+    if version_tuple(production_version) >= version_tuple('3.8.7'):
+        topbar_url = base + '/wp-json/alookhor-cc/v1/topbar?access_audit=' + str(int(time.time()))
+        try:
+            with urlopen(Request(topbar_url, headers={'Accept': 'application/json', 'Cache-Control': 'no-cache', 'User-Agent': 'ALOOKHOR-GitHub-Publisher/1.0'}), timeout=30) as response:
+                topbar_state = json.load(response)
+                cache_control = response.headers.get('Cache-Control', '')
+            report['public_topbar']['fresh_endpoint'] = topbar_state
+            report['checks']['topbar_endpoint'] = (
+                str(topbar_state.get('version')) == production_version
+                and all(bool(re.fullmatch(r'#[a-fA-F0-9]{6}', str(topbar_state.get(key, '')))) for key in [
+                    'topbar_bg', 'topbar_text_color', 'topbar_border_color',
+                    'topbar_button_bg', 'topbar_button_text',
+                ])
+            )
+            report['checks']['topbar_no_store'] = 'no-store' in cache_control.lower()
+        except Exception as error:
+            report['public_topbar']['fresh_endpoint_error'] = str(error)
+            report['checks']['topbar_endpoint'] = False
+            report['checks']['topbar_no_store'] = False
 
     # Non-mutating feasibility probe. Application Passwords are expected to be
     # REST-only on this site; never record a nonce or any authenticated HTML.

@@ -54,6 +54,46 @@ function alookhor_cc_runtime_status(){
 }
 
 add_action('rest_api_init', function(){
+    // Public read-only Top Bar state. These values are already rendered on the
+    // public page; serving them separately lets cached pages refresh managed
+    // colors/content without exposing admin settings or accepting writes.
+    register_rest_route('alookhor-cc/v1', '/topbar', [
+        'methods' => WP_REST_Server::READABLE,
+        'permission_callback' => '__return_true',
+        'callback' => function(){
+            $settings = alookhor_cc_front_header_settings();
+            $response = rest_ensure_response([
+                'version' => ALOOKHOR_CC_VERSION,
+                'phone' => sanitize_text_field($settings['phone'] ?? ''),
+                'email' => sanitize_email($settings['email'] ?? ''),
+                'whatsapp' => preg_replace('/\D+/', '', (string) ($settings['whatsapp'] ?? '')),
+                'export_text' => sanitize_text_field($settings['export_text'] ?? ''),
+                'export_url' => esc_url_raw($settings['export_url'] ?? ''),
+                'wholesale_text' => sanitize_text_field($settings['wholesale_text'] ?? ''),
+                'wholesale_url' => esc_url_raw($settings['wholesale_url'] ?? ''),
+                'wholesale_new_tab' => rest_sanitize_boolean($settings['wholesale_new_tab'] ?? false),
+                'top_logo_url' => esc_url_raw($settings['top_logo_url'] ?? ''),
+                'top_logo_alt' => sanitize_text_field($settings['top_logo_alt'] ?? ''),
+                'top_logo_link' => esc_url_raw($settings['top_logo_link'] ?? ''),
+                'topbar_bg' => sanitize_hex_color($settings['topbar_bg'] ?? '') ?: '#11091D',
+                'topbar_text_color' => sanitize_hex_color($settings['topbar_text_color'] ?? '') ?: '#E8D5B5',
+                'topbar_border_color' => sanitize_hex_color($settings['topbar_border_color'] ?? '') ?: '#3A2C20',
+                'topbar_button_bg' => sanitize_hex_color($settings['topbar_button_bg'] ?? '') ?: '#C9A86A',
+                'topbar_button_text' => sanitize_hex_color($settings['topbar_button_text'] ?? '') ?: '#1A1206',
+                'topbar_height' => max(30, min(60, absint($settings['topbar_height'] ?? 38))),
+                'top_logo_width' => max(50, min(180, absint($settings['top_logo_width'] ?? 96))),
+                'show_topbar' => rest_sanitize_boolean($settings['show_topbar'] ?? true),
+                'show_phone' => rest_sanitize_boolean($settings['show_phone'] ?? true),
+                'show_email' => rest_sanitize_boolean($settings['show_email'] ?? true),
+                'show_whatsapp' => rest_sanitize_boolean($settings['show_whatsapp'] ?? true),
+                'show_export' => rest_sanitize_boolean($settings['show_export'] ?? true),
+                'show_wholesale' => rest_sanitize_boolean($settings['show_wholesale'] ?? true),
+            ]);
+            $response->header('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0');
+            return $response;
+        },
+    ]);
+
     register_rest_route('alookhor-cc/v1', '/status', [
         'methods' => WP_REST_Server::READABLE,
         'permission_callback' => 'alookhor_cc_rest_update_permission',

@@ -1,12 +1,12 @@
 /**
  * ALOOKHOR Legacy Top Bar Manager — v3.8.7
- * Preserves the legacy header/mega-menu HTML and only synchronizes managed
- * Top Bar values from alookhor_header_settings.
+ * Preserves the legacy header/mega-menu HTML and synchronizes managed Top Bar
+ * values from a fresh read-only REST endpoint, even when the page HTML is cached.
  */
 (() => {
   'use strict';
 
-  const cfg = window.ALOOKHOR_TOPBAR || {};
+  const cfg = {...(window.ALOOKHOR_TOPBAR || {})};
   const asBool = value => value === true || value === 1 || value === '1' || value === 'true';
   const digits = value => String(value || '')
     .replace(/[۰-۹]/g, d => String('۰۱۲۳۴۵۶۷۸۹'.indexOf(d)))
@@ -39,15 +39,29 @@
     }
     return null;
   };
+  const topbarSelector = '[class*="topbar" i],[class*="top-bar" i],[class*="top_bar" i]';
 
-  function manage(root) {
-    if (!root || root.dataset.topbarManaged === '3.8.7') return;
+  function manage(root, force = false) {
+    if (!root || (!force && root.dataset.topbarManaged === '3.8.7')) return;
 
     const phone = root.querySelector('a[href^="tel:"]');
     const email = root.querySelector('a[href^="mailto:"]');
-    const whatsapp = root.querySelector('a[href*="wa.me"],a[href*="whatsapp.com"],a[aria-label*="WhatsApp" i]');
     const wholesale = smallestTextMatch(root, 'خرید عمده')?.closest('a,button') || root.querySelector('a[href*="b2b"],a[href*="wholesale"]');
     const exportNote = smallestTextMatch(root, 'صادرات به');
+
+    const explicitCandidates = [...root.querySelectorAll(topbarSelector)];
+    const primaryItems = [phone, email, wholesale, exportNote].filter(Boolean);
+    const candidateScore = element => primaryItems.filter(item => element.contains(item)).length;
+    explicitCandidates.sort((a, b) => candidateScore(b) - candidateScore(a));
+    const explicitTopbar = explicitCandidates.find(element => candidateScore(element) >= 2) || explicitCandidates[0] || null;
+    const inferredTopbar = commonAncestor(primaryItems, root);
+    const topbar = explicitTopbar || inferredTopbar;
+
+    // Limit WhatsApp lookup to the selected Top Bar first. Legacy headers often
+    // contain a second WhatsApp link in a drawer, which must not distort Top Bar
+    // ancestor detection.
+    const whatsapp = topbar?.querySelector('a[href*="wa.me"],a[href*="whatsapp.com"],a[aria-label*="WhatsApp" i]')
+      || root.querySelector('a[href*="wa.me"],a[href*="whatsapp.com"],a[aria-label*="WhatsApp" i]');
 
     if (phone) {
       phone.href = `tel:${phoneHref(cfg.phone)}`;
@@ -72,8 +86,12 @@
       if (cfg.wholesale_url) wholesale.href = cfg.wholesale_url;
       wholesale.target = asBool(cfg.wholesale_new_tab) ? '_blank' : '_self';
       if (wholesale.target === '_blank') wholesale.rel = 'noopener';
+      else wholesale.removeAttribute('rel');
       wholesale.style.setProperty('background', cfg.topbar_button_bg || '#C9A86A', 'important');
       wholesale.style.setProperty('color', cfg.topbar_button_text || '#1A1206', 'important');
+      wholesale.querySelectorAll('span,b,strong,i').forEach(element => {
+        element.style.setProperty('color', cfg.topbar_button_text || '#1A1206', 'important');
+      });
       setVisible(closestItem(wholesale), asBool(cfg.show_wholesale) && Boolean(cfg.wholesale_text));
     }
     if (exportNote) {
@@ -85,17 +103,31 @@
       setVisible(closestItem(exportNote), asBool(cfg.show_export) && Boolean(cfg.export_text));
     }
 
-    const explicitTopbar = root.querySelector('[class*="topbar" i],[class*="top-bar" i],[class*="top_bar" i]');
-    const inferredTopbar = commonAncestor([phone, email, whatsapp, wholesale, exportNote], root);
-    const topbar = explicitTopbar || inferredTopbar;
     if (topbar) {
       setVisible(topbar, asBool(cfg.show_topbar));
-      topbar.style.setProperty('background', cfg.topbar_bg || '#11091D', 'important');
-      topbar.style.setProperty('color', cfg.topbar_text_color || '#E8D5B5', 'important');
-      topbar.style.setProperty('border-bottom-color', cfg.topbar_border_color || '#3A2C20', 'important');
+      const color = cfg.topbar_text_color || '#E8D5B5';
+      const background = cfg.topbar_bg || '#11091D';
+      const border = cfg.topbar_border_color || '#3A2C20';
       const height = Math.max(30, Math.min(60, Number(cfg.topbar_height) || 38));
-      topbar.style.setProperty('min-height', `${height}px`, 'important');
-      topbar.style.setProperty('height', `${height}px`, 'important');
+      const layers = explicitCandidates.filter(element => {
+        const score = candidateScore(element);
+        return element === topbar || (score >= 2 && (element.contains(topbar) || topbar.contains(element)));
+      });
+      if (!layers.includes(topbar)) layers.unshift(topbar);
+      layers.forEach(element => {
+        element.style.setProperty('--alookhor-topbar-bg', background);
+        element.style.setProperty('--alookhor-topbar-text', color);
+        element.style.setProperty('--alookhor-topbar-border', border);
+        element.style.setProperty('background', background, 'important');
+        element.style.setProperty('color', color, 'important');
+        element.style.setProperty('border-bottom-color', border, 'important');
+        element.style.setProperty('min-height', `${height}px`, 'important');
+        element.style.setProperty('height', `${height}px`, 'important');
+      });
+      topbar.querySelectorAll('a,span,p,b,strong,i').forEach(element => {
+        if (wholesale && (element === wholesale || wholesale.contains(element))) return;
+        element.style.setProperty('color', color, 'important');
+      });
     }
 
     if (cfg.top_logo_url) {
@@ -114,12 +146,39 @@
     root.dispatchEvent(new CustomEvent('alookhor:topbar-managed', {bubbles:true, detail:{version:'3.8.7'}}));
   }
 
-  function init(scope = document) {
-    scope.querySelectorAll('.alookhor-managed-legacy-header').forEach(manage);
+  function init(scope = document, force = false) {
+    scope.querySelectorAll('.alookhor-managed-legacy-header').forEach(root => manage(root, force));
+    if (scope instanceof Element) {
+      const owner = scope.closest('.alookhor-managed-legacy-header');
+      if (owner) manage(owner, force);
+    }
   }
 
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', () => init(), {once:true});
-  else init();
+  async function refreshFromWordPress() {
+    if (!cfg.endpoint) return;
+    try {
+      const endpoint = new URL(cfg.endpoint, window.location.href);
+      if (endpoint.origin !== window.location.origin) return;
+      endpoint.searchParams.set('_alookhor', String(Date.now()));
+      const response = await fetch(endpoint.href, {
+        cache: 'no-store',
+        credentials: 'same-origin',
+        headers: {'Accept': 'application/json'}
+      });
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      Object.assign(cfg, await response.json());
+      init(document, true);
+    } catch (error) {
+      console.warn('ALOOKHOR Top Bar refresh failed; localized settings remain active.', error);
+    }
+  }
+
+  const start = () => {
+    init();
+    refreshFromWordPress();
+  };
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start, {once:true});
+  else start();
 
   new MutationObserver(mutations => {
     for (const mutation of mutations) {

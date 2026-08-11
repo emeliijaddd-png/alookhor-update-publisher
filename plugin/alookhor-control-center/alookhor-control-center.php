@@ -64,6 +64,8 @@ add_action('wp_enqueue_scripts', function(){
         $h = alookhor_cc_front_header_settings();
         wp_enqueue_script('alookhor-cc-legacy-topbar-manager', ALOOKHOR_CC_URL . 'assets/js/frontend-topbar-manager.js', [], ALOOKHOR_CC_BUILD, true);
         wp_localize_script('alookhor-cc-legacy-topbar-manager', 'ALOOKHOR_TOPBAR', [
+            'endpoint' => rest_url('alookhor-cc/v1/topbar'),
+            'version' => ALOOKHOR_CC_VERSION,
             'phone' => $h['phone'],
             'email' => $h['email'],
             'whatsapp' => $h['whatsapp'],

@@ -108,28 +108,36 @@ export const Config = {
     this.data = { site:{name:'ALOOKHOR', subtitle:'Control Center • Luxury', logoLetter:'A'}, modules:{}, system:{}, ai_assistant:{suggestions:[]}, header_settings:{logo_text:'ALOOKHOR', logo_sub:'Control Center • Luxury'} };
     return this.data;
   },
-  save(){
-    if(!this.data) return;
+  async save({notify=true} = {}){
+    if(!this.data) return {ok:false, error:'config_not_loaded'};
     this.data.updated_at = new Date().toISOString();
     try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(this.data)); }catch(e){ console.warn('localStorage blocked', e); }
-    // همچنین برای دانلود / بکاپ
     try{ localStorage.setItem('alookhor_config_last_save', new Date().toLocaleString('fa-IR')); }catch(e){}
-    // WP MODE: ذخیره آنی روی وردپرس بدون رفرش
+
+    let result = {ok:true, source:'local'};
     if(window.ALOOKHOR_CC && window.ALOOKHOR_CC.ajax_url){
+      try{
         const form = new FormData();
         form.append('action','alookhor_save_settings');
         form.append('nonce', window.ALOOKHOR_CC.nonce);
         form.append('payload', JSON.stringify(this.data));
-        fetch(window.ALOOKHOR_CC.ajax_url, {method:'POST', body:form, credentials:'same-origin'})
-        .then(r=>r.json()).then(json=>{
-            if(json && json.success){
-                if(window.ALOOKHOR && window.ALOOKHOR.toast){
-                    window.ALOOKHOR.toast('ذخیره شد — بدون رفرش روی وردپرس اعمال شد','success');
-                }
-            }
-        }).catch(err=> console.warn('WP save failed', err));
+        const response = await fetch(window.ALOOKHOR_CC.ajax_url, {method:'POST', body:form, credentials:'same-origin'});
+        if(!response.ok) throw new Error(`HTTP ${response.status}`);
+        const json = await response.json();
+        if(!json || !json.success){
+          const message = typeof json?.data === 'string' ? json.data : 'پاسخ ذخیره وردپرس معتبر نیست.';
+          throw new Error(message);
+        }
+        result = {ok:true, source:'wordpress', data:json.data};
+        if(notify) window.ALOOKHOR?.toast?.('ذخیره واقعی در WordPress تأیید شد','success');
+      }catch(error){
+        console.warn('WP save failed', error);
+        result = {ok:false, source:'wordpress', error:error.message};
+        window.ALOOKHOR?.toast?.(`ذخیره انجام نشد: ${error.message}`,'error');
+      }
     }
     window.dispatchEvent(new CustomEvent('alookhor:config:changed', {detail: this.data}));
+    return result;
   },
   get(path){
     return path.split('.').reduce((o,k)=> o?.[k], this.data);
