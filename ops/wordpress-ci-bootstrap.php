@@ -1,8 +1,9 @@
 <?php
 /**
  * ALOOKHOR CI Bootstrap Bridge
- * One-time bridge for updating 3.8.5 -> 3.8.6 through WordPress Application Passwords.
- * Remove this snippet after 3.8.6 is installed and its native REST API is verified.
+ * Bootstrap for the 3.8.5 -> 3.8.6 authenticated transition and the one-time
+ * 3.8.6 -> 3.8.7 activation-state bridge. Remove only after 3.8.7 is active
+ * and its native reactivation diagnostic has been verified.
  */
 
 if (!defined('ABSPATH')) return;
@@ -15,6 +16,50 @@ add_action('init', function(){
         ]);
     }
 });
+
+/**
+ * One-transition activation bridge. Version 3.8.6 predates the native
+ * reactivation guard. These callbacks preserve an already-active Control
+ * Center while 3.8.7 is installed; they never activate an unrelated or
+ * previously inactive plugin and grant no additional role capability.
+ */
+function alookhor_ci_targets_control_center($options){
+    if (!is_array($options)) return false;
+    $basename = 'alookhor-control-center/alookhor-control-center.php';
+    $plugin = $options['plugin'] ?? '';
+    $plugins = $options['plugins'] ?? [];
+    return $plugin === $basename || (is_array($plugins) && in_array($basename, $plugins, true));
+}
+
+add_filter('upgrader_pre_install', function($response, $options){
+    if (is_wp_error($response) || !alookhor_ci_targets_control_center($options)) return $response;
+    require_once ABSPATH . 'wp-admin/includes/plugin.php';
+    $basename = 'alookhor-control-center/alookhor-control-center.php';
+    $GLOBALS['alookhor_ci_pre_update_activation'] = [
+        'active' => is_plugin_active($basename),
+        'network_active' => is_multisite() && is_plugin_active_for_network($basename),
+    ];
+    return $response;
+}, 4, 2);
+
+add_action('upgrader_process_complete', function($upgrader, $options){
+    if (($options['action'] ?? '') !== 'update' || ($options['type'] ?? '') !== 'plugin') return;
+    if (!alookhor_ci_targets_control_center($options)) return;
+    $state = $GLOBALS['alookhor_ci_pre_update_activation'] ?? [];
+    if (empty($state['active'])) return;
+
+    require_once ABSPATH . 'wp-admin/includes/plugin.php';
+    $basename = 'alookhor-control-center/alookhor-control-center.php';
+    if (!is_plugin_active($basename)) {
+        $result = activate_plugin($basename, '', !empty($state['network_active']), true);
+        set_site_transient('alookhor_ci_last_activation_restore', [
+            'ok' => !is_wp_error($result) && is_plugin_active($basename),
+            'error' => is_wp_error($result) ? $result->get_error_code() : null,
+            'checked_at' => time(),
+        ], DAY_IN_SECONDS);
+    }
+    unset($GLOBALS['alookhor_ci_pre_update_activation']);
+}, 21, 2);
 
 function alookhor_ci_permission(){
     if (!is_user_logged_in() || !current_user_can('update_plugins')) {

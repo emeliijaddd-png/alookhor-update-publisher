@@ -6,8 +6,8 @@
 
 - **نام افزونه:** ALOOKHOR Control Center
 - **نسخه پایه بازیابی‌شده:** `3.8.4`
-- **Release نصب‌شده Production:** `3.8.5`
-- **Release آماده انتشار:** `3.8.6` (مدیریت کامل Top Bar؛ انتشار فقط از Publisher خودکار)
+- **Release نصب‌شده Production:** `3.8.6` (فعال و تأییدشده از Native REST)
+- **Release در حال توسعه:** `3.8.7 DRAFT` (بازیابی خودکار Activation؛ بدون Tag یا انتشار تا تکمیل Bridge انتقال)
 - **تاریخ بازیابی:** 2026-08-11
 - **منبع بازیابی:** ZIP واقعی افزونه `alookhor-control-center (5).zip`
 - **حداقل WordPress:** 6.0

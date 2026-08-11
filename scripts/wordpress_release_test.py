@@ -93,6 +93,11 @@ try:
     report['checks']['header_option'] = after.get('settings', {}).get('header_option') is True
     report['checks']['module_count'] = int(after.get('settings', {}).get('module_count', 0)) >= 8
     report['checks']['shortcode'] = after.get('settings', {}).get('header_shortcode') is True
+    if current != TARGET:
+        restore = after.get('last_activation_restore') or after.get('transition_activation_restore')
+        report['checks']['activation_restore'] = isinstance(restore, dict) and (
+            restore.get('active') is True or restore.get('ok') is True
+        )
 
     before_header_hash = before.get('header_option_hash') or before.get('settings', {}).get('header_option_hash')
     after_header_hash = after.get('settings', {}).get('header_option_hash')

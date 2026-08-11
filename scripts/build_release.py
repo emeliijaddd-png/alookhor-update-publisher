@@ -16,10 +16,13 @@ PUBLIC = ROOT / 'public'
 CONFIG = json.loads((ROOT / 'release.json').read_text(encoding='utf-8'))
 VERSION = str(CONFIG['version'])
 PREVIOUS = str(CONFIG.get('previous', ''))
+STATE = str(CONFIG.get('state', 'draft')).lower()
 SEMVER = re.compile(r'^\d+\.\d+\.\d+$')
 
 if not SEMVER.fullmatch(VERSION):
     raise SystemExit(f'Invalid release version: {VERSION}')
+if STATE not in {'draft', 'ready'}:
+    raise SystemExit(f'Invalid release state: {STATE}')
 
 main = (PLUGIN / 'alookhor-control-center.php').read_text(encoding='utf-8')
 readme = (PLUGIN / 'readme.txt').read_text(encoding='utf-8')
@@ -38,6 +41,8 @@ if set(checks.values()) != {VERSION}:
 tag = os.environ.get('GITHUB_REF_NAME', '')
 if tag.startswith('v') and tag[1:] != VERSION:
     raise SystemExit(f'Git tag {tag} does not match plugin version {VERSION}')
+if tag.startswith('v') and STATE != 'ready':
+    raise SystemExit(f'Release {VERSION} is still {STATE}; set release.json state to ready before tagging')
 
 if PUBLIC.exists():
     shutil.rmtree(PUBLIC)
@@ -93,4 +98,4 @@ output = os.environ.get('GITHUB_OUTPUT')
 if output:
     with open(output, 'a', encoding='utf-8') as stream:
         stream.write(f'version={VERSION}\npackage={package_name}\nsha256={sha256}\n')
-print(json.dumps({'version': VERSION, 'package': package_name, 'sha256': sha256, 'files': len(files)}, ensure_ascii=False))
+print(json.dumps({'version': VERSION, 'state': STATE, 'package': package_name, 'sha256': sha256, 'files': len(files)}, ensure_ascii=False))

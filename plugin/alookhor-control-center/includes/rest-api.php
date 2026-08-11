@@ -44,6 +44,8 @@ function alookhor_cc_runtime_status(){
             'header_shortcode' => shortcode_exists('alookhor_portal_header'),
         ],
         'last_verified_package' => is_array($verified) ? $verified : null,
+        'last_activation_restore' => get_site_transient('alookhor_cc_last_activation_restore') ?: null,
+        'transition_activation_restore' => get_site_transient('alookhor_ci_last_activation_restore') ?: null,
         'php' => PHP_VERSION,
         'wordpress' => get_bloginfo('version'),
         'rollback_supported' => version_compare(get_bloginfo('version'), '6.3', '>='),
@@ -118,6 +120,8 @@ add_action('rest_api_init', function(){
 
                 require_once ABSPATH . 'wp-admin/includes/plugin.php';
                 require_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
+                $was_active = is_plugin_active(ALOOKHOR_CC_PLUGIN_BASENAME);
+                $was_network_active = is_multisite() && is_plugin_active_for_network(ALOOKHOR_CC_PLUGIN_BASENAME);
                 $skin = new Automatic_Upgrader_Skin();
                 $upgrader = new Plugin_Upgrader($skin);
                 $result = $upgrader->upgrade(ALOOKHOR_CC_PLUGIN_BASENAME, [
@@ -132,12 +136,26 @@ add_action('rest_api_init', function(){
                 }
 
                 wp_clean_plugins_cache(true);
+                $activation = alookhor_cc_restore_activation_state(
+                    $was_active,
+                    $was_network_active,
+                    'rest_install_update'
+                );
+                if (is_wp_error($activation)) {
+                    return new WP_Error(
+                        'alookhor_reactivation_failed',
+                        'فایل‌های بروزرسانی نصب شدند اما وضعیت فعال افزونه بازیابی نشد.',
+                        ['status' => 500, 'cause' => $activation->get_error_code()]
+                    );
+                }
                 $plugin_data = get_plugin_data(ALOOKHOR_CC_FILE, false, false);
                 return rest_ensure_response([
                     'updated' => true,
                     'version' => $plugin_data['Version'] ?? $target,
                     'target' => $target,
                     'verified_package' => get_site_transient('alookhor_cc_last_verified_package'),
+                    'activation' => $activation,
+                    'active' => is_plugin_active(ALOOKHOR_CC_PLUGIN_BASENAME),
                 ]);
             } finally {
                 delete_transient($lock_key);

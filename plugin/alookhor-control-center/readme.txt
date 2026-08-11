@@ -2,9 +2,9 @@
 Contributors: alookhor
 Tags: control center, luxury, alookhor, admin, dashboard
 Requires at least: 6.0
-Tested up to: 6.6
+Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 3.8.6
+Stable tag: 3.8.7
 License: Private
 License URI: https://alookhor.ir
 
@@ -26,11 +26,10 @@ License URI: https://alookhor.ir
 
 == Installation ==
 
-1. فایل `alookhor-control-center.zip` را دانلود کنید
-2. وردپرس → افزونه‌ها → افزودن → بارگذاری افزونه → انتخاب ZIP → نصب و فعال‌سازی
-3. منوی جدید **ALOOKHOR Center** در پیشخوان ظاهر می‌شود
-4. بروید `ALOOKHOR Center` → همه تنظیمات را آنجا ببینید
-5. برای هدر: المنتور → Header → المان Shortcode → `[alookhor_portal_header]`
+1. نسخه‌های جدید فقط از کانال خصوصی `updates.alookhor.ir` منتشر می‌شوند.
+2. در **ALOOKHOR Center → Update Center** نسخه موجود را بررسی و نصب کنید؛ افزونه را حذف یا Upload مجدد نکنید.
+3. منوی **ALOOKHOR Center** و تمام تنظیمات فعلی پس از بروزرسانی حفظ می‌شوند.
+4. برای هدر: المنتور → Header → المان Shortcode → `[alookhor_portal_header]`
 
 == Frequently Asked Questions ==
 
@@ -44,6 +43,12 @@ License URI: https://alookhor.ir
 در `config/site.json` و `wp_options: alookhor_cc_settings` — همان حافظه واقعی که در چت قبلی ویرایش می‌شد.
 
 == Changelog ==
+
+= 3.8.7 =
+* بازیابی خودکار وضعیت فعال افزونه پس از Core Upgrader
+* حفظ اصل حداقل دسترسی؛ Reactivation فقط برای افزونه‌ای که قبلاً فعال بوده است
+* ثبت وضعیت ماشین‌خوان Reactivation برای تست Production
+* بدون تغییر در هدر، Top Bar، تنظیمات، معماری ماژولار یا Responsive
 
 = 3.8.6 =
 * مدیریت کامل تمام گزینه‌های Top Bar از پیشخوان

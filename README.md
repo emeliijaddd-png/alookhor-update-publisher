@@ -4,12 +4,13 @@ Private release publisher for `updates.alookhor.ir`.
 
 ## Safety model
 
-- Pushes to `main` run a build-only dry run.
-- Production deployment runs only for a SemVer tag such as `v3.8.6`.
-- The plugin package uploads before the manifest.
-- `manifest.json` is uploaded as `manifest.json.next` and renamed atomically.
-- FTP credentials exist only in GitHub Actions Secrets.
-- The FTP account must be restricted to the update subdomain Document Root.
+- Pushes to `main` run a build-only dry run plus non-mutating FTPS/WordPress access audit.
+- Production deployment requires both a matching SemVer tag and `release.json` state `ready`; Draft tags fail closed.
+- Explicit FTPS uses port 21, certificate/hostname verification, and the certificate-valid host `cp174.mihancheck.com`.
+- Publication order is ZIP → remote ZIP/SHA/archive/version verification → metadata → atomic Manifest-last rename.
+- `manifest.json` cannot advance when any package or metadata stage fails.
+- FTP and WordPress Application Password credentials exist only in GitHub Actions Secrets.
+- The FTP account is restricted to the update subdomain Document Root.
 
 ## Required repository secrets
 
@@ -20,11 +21,13 @@ Private release publisher for `updates.alookhor.ir`.
 
 Never commit credentials to this repository.
 
-## One-time WordPress CI bootstrap for 3.8.5 → 3.8.6
+## One-time WordPress CI and activation-state bridge
 
-Until 3.8.6 installs its native authenticated REST endpoints, activate the code in
-`ops/wordpress-ci-bootstrap.php` through Code Snippets. It creates the restricted
-`ALOOKHOR Publisher` role and authenticated status/install endpoints.
+The code in `ops/wordpress-ci-bootstrap.php` created the restricted `ALOOKHOR
+Publisher` role and authenticated bridge for 3.8.5 → 3.8.6. Keep its updated
+activation-state callbacks enabled through the first 3.8.6 → 3.8.7 transition.
+They restore only this plugin when it was active before Core Upgrader and do not
+grant `activate_plugins` or any other new capability.
 
 Create a dedicated WordPress user with that role, create an Application Password,
 and store these values only as GitHub Actions Secrets:
@@ -33,8 +36,8 @@ and store these values only as GitHub Actions Secrets:
 - `WP_USERNAME`
 - `WP_APP_PASSWORD`
 
-After 3.8.6 is installed and `/wp-json/alookhor-cc/v1/status` is verified, the
-bootstrap snippet can be disabled and removed.
+After 3.8.7 is installed, active, and `/wp-json/alookhor-cc/v1/status` reports a
+successful activation restore, the bootstrap snippet can be disabled and removed.
 
 ## Machine-readable diagnostics
 

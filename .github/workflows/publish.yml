@@ -133,9 +133,7 @@ jobs:
           WP_USERNAME: ${{ secrets.WP_USERNAME }}
           WP_APP_PASSWORD: ${{ secrets.WP_APP_PASSWORD }}
           WP_REPORT_PATH: /tmp/wordpress-access.json
-        run: |
-          python3 scripts/build_release.py > /tmp/wordpress-access-build.log
-          python3 scripts/wordpress_access_check.py > /tmp/wordpress-access.log 2>&1
+        run: python3 scripts/wordpress_access_check.py > /tmp/wordpress-access.log 2>&1
 
       - name: Write machine-readable access status
         if: always()

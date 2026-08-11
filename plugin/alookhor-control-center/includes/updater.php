@@ -311,8 +311,75 @@ add_action('wp_ajax_alookhor_check_updates', function(){
     ]);
 });
 
-add_action('upgrader_process_complete', function($upgrader, $options){
-    if (($options['action'] ?? '') === 'update' && ($options['type'] ?? '') === 'plugin') {
-        delete_site_transient(ALOOKHOR_CC_UPDATE_CACHE_KEY);
+/**
+ * Determine whether an upgrader operation targets this plugin. Both the
+ * single-plugin and bulk-plugin argument shapes are supported.
+ */
+function alookhor_cc_upgrader_targets_self($options){
+    if (!is_array($options)) return false;
+    $plugin = $options['plugin'] ?? '';
+    $plugins = $options['plugins'] ?? [];
+    return $plugin === ALOOKHOR_CC_PLUGIN_BASENAME
+        || (is_array($plugins) && in_array(ALOOKHOR_CC_PLUGIN_BASENAME, $plugins, true));
+}
+
+/**
+ * Restore only an activation state that existed before the update. This does
+ * not grant a caller permission to activate an independently inactive plugin.
+ */
+function alookhor_cc_restore_activation_state($was_active, $was_network_active = false, $context = 'upgrader'){
+    require_once ABSPATH . 'wp-admin/includes/plugin.php';
+    if (!$was_active) {
+        return ['required' => false, 'active' => is_plugin_active(ALOOKHOR_CC_PLUGIN_BASENAME)];
     }
-}, 10, 2);
+    if (is_plugin_active(ALOOKHOR_CC_PLUGIN_BASENAME)) {
+        return ['required' => true, 'reactivated' => false, 'active' => true];
+    }
+
+    $result = activate_plugin(ALOOKHOR_CC_PLUGIN_BASENAME, '', (bool) $was_network_active, true);
+    $status = [
+        'required' => true,
+        'reactivated' => !is_wp_error($result),
+        'active' => is_plugin_active(ALOOKHOR_CC_PLUGIN_BASENAME),
+        'network_active' => is_multisite() && is_plugin_active_for_network(ALOOKHOR_CC_PLUGIN_BASENAME),
+        'context' => sanitize_key($context),
+        'checked_at' => time(),
+    ];
+    if (is_wp_error($result)) {
+        $status['error'] = $result->get_error_code();
+        set_site_transient('alookhor_cc_last_activation_restore', $status, DAY_IN_SECONDS);
+        return $result;
+    }
+    set_site_transient('alookhor_cc_last_activation_restore', $status, DAY_IN_SECONDS);
+    return $status;
+}
+
+/**
+ * Plugin_Upgrader::upgrade() silently deactivates active plugins during a
+ * foreground request. Capture our state before Core's priority-10 callback,
+ * then restore it after a successful replacement. Registered callbacks stay
+ * alive for this request even while this plugin's files are being replaced.
+ */
+add_filter('upgrader_pre_install', function($response, $options){
+    if (is_wp_error($response) || !alookhor_cc_upgrader_targets_self($options)) return $response;
+    require_once ABSPATH . 'wp-admin/includes/plugin.php';
+    $GLOBALS['alookhor_cc_pre_update_activation'] = [
+        'active' => is_plugin_active(ALOOKHOR_CC_PLUGIN_BASENAME),
+        'network_active' => is_multisite() && is_plugin_active_for_network(ALOOKHOR_CC_PLUGIN_BASENAME),
+    ];
+    return $response;
+}, 5, 2);
+
+add_action('upgrader_process_complete', function($upgrader, $options){
+    if (($options['action'] ?? '') !== 'update' || ($options['type'] ?? '') !== 'plugin') return;
+    delete_site_transient(ALOOKHOR_CC_UPDATE_CACHE_KEY);
+    if (!alookhor_cc_upgrader_targets_self($options)) return;
+
+    $state = $GLOBALS['alookhor_cc_pre_update_activation'] ?? [];
+    alookhor_cc_restore_activation_state(
+        !empty($state['active']),
+        !empty($state['network_active']),
+        'upgrader_process_complete'
+    );
+    unset($GLOBALS['alookhor_cc_pre_update_activation']);
+}, 20, 2);

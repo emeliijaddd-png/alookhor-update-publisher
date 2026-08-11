@@ -1,30 +1,31 @@
 {
-  "version": "3.8.6",
-  "previous": "3.8.5",
+  "version": "3.8.7",
+  "previous": "3.8.6",
+  "state": "draft",
   "requires": "6.0",
-  "tested": "6.6",
+  "tested": "7.0",
   "requires_php": "8.0",
-  "description": "مدیریت کامل Top Bar از داخل پنل اصلی ALOOKHOR Control Center.",
+  "description": "بازیابی خودکار وضعیت فعال افزونه پس از بروزرسانی امن WordPress.",
   "changelog": [
     {
-      "tag": "MAIN PANEL",
-      "title": "تمام تنظیمات Top Bar داخل پنل اصلی",
-      "desc": "گزینه‌ها در تنظیمات بوتیک، تنظیمات سریع هر ماژول و ماژول هدر و لوگوها قرار گرفتند."
+      "tag": "ACTIVATION",
+      "title": "حفظ خودکار وضعیت فعال افزونه",
+      "desc": "اگر Control Center پیش از بروزرسانی فعال باشد، وضعیت آن پس از Core Upgrader به‌صورت محدود و صریح بازیابی می‌شود."
     },
     {
-      "tag": "TOP BAR",
-      "title": "کنترل کامل محتوای نوار بالا",
-      "desc": "تلفن، ایمیل، WhatsApp، صادرات، خرید عمده و نمایش مستقل هر آیتم."
+      "tag": "SECURITY",
+      "title": "اصل حداقل دسترسی حفظ شد",
+      "desc": "بازیابی فقط برای همین افزونه و فقط وقتی پیش از بروزرسانی فعال بوده انجام می‌شود؛ هیچ مجوز دائمی تازه‌ای به کاربر Publisher داده نمی‌شود."
     },
     {
-      "tag": "MEDIA",
-      "title": "لوگو، رنگ‌ها و ارتفاع",
-      "desc": "انتخاب لوگو از Media Library و مدیریت کامل ظاهر Top Bar."
+      "tag": "CI",
+      "title": "گزارش ماشین‌خوان وضعیت Reactivation",
+      "desc": "REST Status و تست Production نتیجه بازیابی Activation را ثبت و کنترل می‌کنند."
     },
     {
       "tag": "COMPAT",
-      "title": "حفظ هدر حرفه‌ای فعلی",
-      "desc": "Mega Menu و Hamburger حفظ می‌شوند و فقط لایه مدیریت به آن‌ها متصل است."
+      "title": "هدر، Top Bar و تنظیمات بدون تغییر",
+      "desc": "اصلاح فقط مسیر بروزرسانی را سخت‌سازی می‌کند و معماری ماژولار، Responsive و هویت Luxury حفظ می‌شوند."
     }
   ]
 }

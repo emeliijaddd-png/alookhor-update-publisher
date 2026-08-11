@@ -1,5 +1,5 @@
 /**
- * ALOOKHOR Legacy Top Bar Manager — v3.8.6
+ * ALOOKHOR Legacy Top Bar Manager — v3.8.7
  * Preserves the legacy header/mega-menu HTML and only synchronizes managed
  * Top Bar values from alookhor_header_settings.
  */
@@ -41,7 +41,7 @@
   };
 
   function manage(root) {
-    if (!root || root.dataset.topbarManaged === '3.8.6') return;
+    if (!root || root.dataset.topbarManaged === '3.8.7') return;
 
     const phone = root.querySelector('a[href^="tel:"]');
     const email = root.querySelector('a[href^="mailto:"]');
@@ -110,8 +110,8 @@
       }
     }
 
-    root.dataset.topbarManaged = '3.8.6';
-    root.dispatchEvent(new CustomEvent('alookhor:topbar-managed', {bubbles:true, detail:{version:'3.8.6'}}));
+    root.dataset.topbarManaged = '3.8.7';
+    root.dispatchEvent(new CustomEvent('alookhor:topbar-managed', {bubbles:true, detail:{version:'3.8.7'}}));
   }
 
   function init(scope = document) {
