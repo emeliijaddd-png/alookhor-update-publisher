@@ -1,0 +1,136 @@
+name: Build and Publish ALOOKHOR Release
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*.*.*']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: alookhor-production-publisher
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.release.outputs.version }}
+      package: ${{ steps.release.outputs.package }}
+      sha256: ${{ steps.release.outputs.sha256 }}
+    steps:
+      - name: Checkout private publisher repository
+        uses: actions/checkout@v4
+
+      - name: Build and validate release
+        id: release
+        run: python3 scripts/build_release.py
+
+      - name: Verify generated manifest and package
+        run: |
+          python3 - <<'PY'
+          import hashlib, json
+          from pathlib import Path
+          from zipfile import ZipFile
+          manifest = json.loads(Path('public/manifest.json').read_text())
+          package = Path('public/releases') / Path(manifest['download_url']).name
+          assert package.is_file()
+          assert hashlib.sha256(package.read_bytes()).hexdigest() == manifest['sha256']
+          with ZipFile(package) as archive:
+              assert archive.testzip() is None
+          print('Release verification passed:', manifest['version'], manifest['sha256'])
+          PY
+
+      - name: Store dry-run artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: alookhor-release-${{ steps.release.outputs.version }}
+          path: public/
+          if-no-files-found: error
+          retention-days: 7
+
+  deploy:
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: Checkout private publisher repository
+        uses: actions/checkout@v4
+
+      - name: Rebuild verified release
+        run: python3 scripts/build_release.py
+
+      - name: Install FTPS client
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq lftp
+
+      - name: Validate deployment secrets
+        env:
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+          FTP_PORT: ${{ secrets.FTP_PORT }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+        run: |
+          test -n "$FTP_SERVER"
+          test -n "$FTP_PORT"
+          test -n "$FTP_USERNAME"
+          test -n "$FTP_PASSWORD"
+
+      - name: Publish package first and manifest last
+        env:
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+          FTP_PORT: ${{ secrets.FTP_PORT }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          PACKAGE: ${{ needs.build.outputs.package }}
+        run: |
+          python3 - <<'PY'
+          import os
+          from pathlib import Path
+          server = os.environ['FTP_SERVER'].replace('\n','').replace('\r','')
+          user = os.environ['FTP_USERNAME'].replace('\n','').replace('\r','')
+          password = os.environ['FTP_PASSWORD'].replace('\n','').replace('\r','')
+          Path.home().joinpath('.netrc').write_text(f'machine {server}\nlogin {user}\npassword {password}\n')
+          Path.home().joinpath('.netrc').chmod(0o600)
+          PY
+          lftp -e "
+            set cmd:fail-exit true;
+            set net:max-retries 2;
+            set net:timeout 20;
+            set ftp:ssl-force true;
+            set ftp:ssl-protect-data true;
+            set ssl:verify-certificate true;
+            open -p ${FTP_PORT} ftp://${FTP_SERVER};
+            mkdir -p releases;
+            put public/releases/${PACKAGE} -o releases/${PACKAGE};
+            put public/releases/SHA256SUMS.txt -o releases/SHA256SUMS.txt;
+            put public/index.html -o index.html;
+            put public/changelog.html -o changelog.html;
+            put public/.htaccess -o .htaccess;
+            put public/manifest.json -o manifest.json.next;
+            mv manifest.json.next manifest.json;
+            bye;
+          "
+          rm -f ~/.netrc
+
+      - name: Verify production manifest
+        run: |
+          python3 - <<'PY'
+          import json, os, time, urllib.request
+          url = f"https://updates.alookhor.ir/manifest.json?github_run={os.environ['GITHUB_RUN_ID']}"
+          for attempt in range(6):
+              with urllib.request.urlopen(url, timeout=20) as response:
+                  manifest = json.load(response)
+              if manifest.get('version') == os.environ['EXPECTED_VERSION'] and manifest.get('sha256') == os.environ['EXPECTED_SHA']:
+                  print('Production verified:', manifest['version'], manifest['sha256'])
+                  break
+              time.sleep(10)
+          else:
+              raise SystemExit(f'Production manifest did not update: {manifest}')
+          PY
+        env:
+          EXPECTED_VERSION: ${{ needs.build.outputs.version }}
+          EXPECTED_SHA: ${{ needs.build.outputs.sha256 }}
+          GITHUB_RUN_ID: ${{ github.run_id }}

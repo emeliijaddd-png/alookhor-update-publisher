@@ -1,0 +1,22 @@
+Options -Indexes
+
+<IfModule mod_mime.c>
+  AddType application/json .json
+  AddType application/zip .zip
+</IfModule>
+
+<IfModule mod_headers.c>
+  <FilesMatch "\.(json)$">
+    Header set Cache-Control "no-store, no-cache, must-revalidate"
+    Header set X-Content-Type-Options "nosniff"
+  </FilesMatch>
+  <FilesMatch "\.(zip)$">
+    Header set Cache-Control "public, max-age=3600, immutable"
+    Header set X-Content-Type-Options "nosniff"
+  </FilesMatch>
+  Header always set Referrer-Policy "no-referrer"
+</IfModule>
+
+<FilesMatch "^(\.ht|DEPLOY|README|SHA256SUMS)">
+  Require all denied
+</FilesMatch>

@@ -1,0 +1,30 @@
+{
+  "version": "3.8.6",
+  "previous": "3.8.5",
+  "requires": "6.0",
+  "tested": "6.6",
+  "requires_php": "8.0",
+  "description": "مدیریت کامل Top Bar از داخل پنل اصلی ALOOKHOR Control Center.",
+  "changelog": [
+    {
+      "tag": "MAIN PANEL",
+      "title": "تمام تنظیمات Top Bar داخل پنل اصلی",
+      "desc": "گزینه‌ها در تنظیمات بوتیک، تنظیمات سریع هر ماژول و ماژول هدر و لوگوها قرار گرفتند."
+    },
+    {
+      "tag": "TOP BAR",
+      "title": "کنترل کامل محتوای نوار بالا",
+      "desc": "تلفن، ایمیل، WhatsApp، صادرات، خرید عمده و نمایش مستقل هر آیتم."
+    },
+    {
+      "tag": "MEDIA",
+      "title": "لوگو، رنگ‌ها و ارتفاع",
+      "desc": "انتخاب لوگو از Media Library و مدیریت کامل ظاهر Top Bar."
+    },
+    {
+      "tag": "COMPAT",
+      "title": "حفظ هدر حرفه‌ای فعلی",
+      "desc": "Mega Menu و Hamburger حفظ می‌شوند و فقط لایه مدیریت به آن‌ها متصل است."
+    }
+  ]
+}
