@@ -87,7 +87,7 @@ jobs:
           FTP_PORT: ${{ secrets.FTP_PORT }}
           FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
           FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
-          PROBE_NAME: publisher-probe-${{ github.run_id }}.txt
+          PROBE_NAME: releases/publisher-probe-${{ github.run_id }}.txt
         run: |
           python3 - <<'PY'
           import os, re
@@ -252,8 +252,8 @@ jobs:
               f'open -p {port} "{auth_url}"',
           ]
           scripts = {
-              '/tmp/alookhor-upload-package.lftp': common + ['mkdir -p releases', f'put public/releases/{package} -o releases/{package}', 'bye'],
-              '/tmp/alookhor-upload-metadata.lftp': common + ['mkdir -p releases', 'put public/releases/SHA256SUMS.txt -o releases/SHA256SUMS.txt', 'put public/index.html -o index.html', 'put public/changelog.html -o changelog.html', 'put public/.htaccess -o .htaccess', 'bye'],
+              '/tmp/alookhor-upload-package.lftp': common + [f'put public/releases/{package} -o releases/{package}', 'bye'],
+              '/tmp/alookhor-upload-metadata.lftp': common + ['put public/releases/SHA256SUMS.txt -o releases/SHA256SUMS.txt', 'put public/index.html -o index.html', 'put public/changelog.html -o changelog.html', 'put public/.htaccess -o .htaccess', 'bye'],
               '/tmp/alookhor-publish-manifest.lftp': common + ['put public/manifest.json -o manifest.json.next', 'mv manifest.json.next manifest.json', 'bye'],
           }
           for filename, commands in scripts.items():
