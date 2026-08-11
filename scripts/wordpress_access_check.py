@@ -158,13 +158,19 @@ try:
             'contact', 'app-download', 'copyright', 'guarantee',
         ])
     })
-    footer_markers = ['<footer', 'site-footer', 'alookhor-footer', 'main-footer', 'footer-container']
-    footer_positions = [homepage.rfind(marker) for marker in footer_markers]
-    footer_index = max(footer_positions)
+    footer_index = homepage.find('alookhor-footer-system')
     footer_fragment = ''
     if footer_index >= 0:
-        footer_start = homepage.rfind('<', 0, footer_index + 1)
-        footer_fragment = re.sub(r'\s+', ' ', homepage[max(0, footer_start - 3000):footer_index + 18000]).strip()
+        style_start = homepage.rfind('<style', 0, footer_index)
+        markup_start = homepage.rfind('<div', 0, footer_index)
+        footer_start = style_start if style_start >= 0 and footer_index - style_start < 30000 else markup_start
+        footer_fragment = re.sub(r'\s+', ' ', homepage[max(0, footer_start):footer_index + 50000]).strip()
+    else:
+        footer_positions = [homepage.rfind(marker) for marker in ['<footer', 'site-footer', 'main-footer', 'footer-container']]
+        footer_index = max(footer_positions)
+        if footer_index >= 0:
+            footer_start = homepage.rfind('<', 0, footer_index + 1)
+            footer_fragment = re.sub(r'\s+', ' ', homepage[max(0, footer_start - 3000):footer_index + 18000]).strip()
     report['public_footer'] = {
         'relevant_classes': footer_classes[:160],
         'markup_fragment': footer_fragment,
