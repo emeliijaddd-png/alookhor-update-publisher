@@ -56,6 +56,19 @@ function alookhor_cc_normalize_update_manifest($payload){
 
     $download_url = esc_url_raw($payload['download_url'] ?? $payload['package'] ?? '');
     $details_url  = esc_url_raw($payload['details_url'] ?? $payload['url'] ?? '');
+    $sha256 = strtolower(sanitize_text_field($payload['sha256'] ?? ''));
+
+    if (!$download_url || wp_parse_url($download_url, PHP_URL_SCHEME) !== 'https') {
+        return new WP_Error('alookhor_invalid_package_url', 'آدرس بسته بروزرسانی باید HTTPS معتبر باشد.');
+    }
+    $allowed_hosts = (array) apply_filters('alookhor_cc_update_allowed_hosts', ['updates.alookhor.ir']);
+    $package_host = strtolower((string) wp_parse_url($download_url, PHP_URL_HOST));
+    if (!$package_host || !in_array($package_host, array_map('strtolower', $allowed_hosts), true)) {
+        return new WP_Error('alookhor_untrusted_package_host', 'دامنه بسته بروزرسانی مورد اعتماد نیست.');
+    }
+    if (!preg_match('/^[a-f0-9]{64}$/', $sha256)) {
+        return new WP_Error('alookhor_invalid_sha256', 'Manifest فاقد SHA-256 معتبر است.');
+    }
 
     $changelog = [];
     if (!empty($payload['changelog']) && is_array($payload['changelog'])) {
@@ -78,6 +91,7 @@ function alookhor_cc_normalize_update_manifest($payload){
     return [
         'version'      => $version,
         'download_url' => $download_url,
+        'sha256'       => $sha256,
         'details_url'  => $details_url ?: 'https://alookhor.ir',
         'requires'     => sanitize_text_field($payload['requires'] ?? '6.0'),
         'tested'       => sanitize_text_field($payload['tested'] ?? ''),
@@ -176,6 +190,47 @@ add_filter('pre_set_site_transient_update_plugins', function($transient){
 });
 
 /**
+ * Download ALOOKHOR packages through WordPress, then enforce the SHA-256 from
+ * the trusted manifest before Core Upgrader can unpack or replace any files.
+ */
+add_filter('upgrader_pre_download', function($reply, $package, $upgrader, $hook_extra){
+    if (false !== $reply || !is_string($package)) return $reply;
+
+    $package_host = strtolower((string) wp_parse_url($package, PHP_URL_HOST));
+    $allowed_hosts = array_map('strtolower', (array) apply_filters('alookhor_cc_update_allowed_hosts', ['updates.alookhor.ir']));
+    if (!in_array($package_host, $allowed_hosts, true)) return $reply;
+
+    $plugin = $hook_extra['plugin'] ?? '';
+    $plugins = $hook_extra['plugins'] ?? [];
+    $targets_alookhor = $plugin === ALOOKHOR_CC_PLUGIN_BASENAME
+        || (is_array($plugins) && in_array(ALOOKHOR_CC_PLUGIN_BASENAME, $plugins, true));
+    if (!$targets_alookhor && strpos(wp_basename($package), 'alookhor-control-center-') !== 0) return $reply;
+
+    $manifest = alookhor_cc_get_update_manifest(true);
+    if (is_wp_error($manifest)) return $manifest;
+    if (!hash_equals($manifest['download_url'], $package)) {
+        return new WP_Error('alookhor_package_url_mismatch', 'آدرس بسته با Manifest مورد اعتماد مطابقت ندارد.');
+    }
+
+    require_once ABSPATH . 'wp-admin/includes/file.php';
+    $downloaded = download_url($package, 300, false);
+    if (is_wp_error($downloaded)) return $downloaded;
+
+    $actual = strtolower((string) hash_file('sha256', $downloaded));
+    if (!$actual || !hash_equals($manifest['sha256'], $actual)) {
+        wp_delete_file($downloaded);
+        return new WP_Error('alookhor_sha256_mismatch', 'SHA-256 بسته بروزرسانی معتبر نیست؛ نصب متوقف شد.');
+    }
+
+    set_site_transient('alookhor_cc_last_verified_package', [
+        'version' => $manifest['version'],
+        'sha256' => $actual,
+        'verified_at' => time(),
+    ], DAY_IN_SECONDS);
+    return $downloaded;
+}, 10, 4);
+
+/**
  * Supply the details modal used by WordPress' Plugins screen.
  */
 add_filter('plugins_api', function($result, $action, $args){
@@ -249,6 +304,7 @@ add_action('wp_ajax_alookhor_check_updates', function(){
         'installable' => $available && !empty($manifest['download_url']),
         'current'     => ALOOKHOR_CC_VERSION,
         'latest'      => $manifest['version'],
+        'sha256'      => $manifest['sha256'],
         'details_url' => $manifest['details_url'],
         'message'     => $available ? 'نسخه جدید آماده نصب است.' : 'افزونه به‌روز است.',
         'changelog'   => $manifest['changelog'],

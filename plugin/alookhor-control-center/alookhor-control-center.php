@@ -53,6 +53,7 @@ function alookhor_cc_activate(){
 require_once ALOOKHOR_CC_DIR . 'includes/admin.php';
 require_once ALOOKHOR_CC_DIR . 'includes/ajax.php';
 require_once ALOOKHOR_CC_DIR . 'includes/updater.php';
+require_once ALOOKHOR_CC_DIR . 'includes/rest-api.php';
 require_once ALOOKHOR_CC_DIR . 'includes/shortcode-header.php';
 
 // ——— Enqueue برای فرانت (هدر لوکس، کاملاً Scoped) ———

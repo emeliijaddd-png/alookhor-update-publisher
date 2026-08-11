@@ -193,6 +193,11 @@ Breakpointهای رسمی:
 - کش Manifest: Site Transient به مدت شش ساعت
 - بررسی دسترسی: `manage_options` + Nonce
 - دریافت امن: `wp_safe_remote_get`
+- الزام Package Host امن: `https://updates.alookhor.ir`
+- بررسی SHA-256 بسته در `upgrader_pre_download` قبل از Extract/Install
+- REST API مدیریتی: `/wp-json/alookhor-cc/v1/status|check-update|install-update`
+- احراز هویت REST فقط با WordPress Application Password و capability `update_plugins`
+- قفل هم‌زمانی و الزام WordPress 6.3+ برای Core Rollback در بروزرسانی خودکار
 
 کانال Production از نسخه `3.8.5` به بعد به‌صورت پیش‌فرض روی این آدرس است:
 

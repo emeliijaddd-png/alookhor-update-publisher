@@ -9,7 +9,11 @@
 - ADD: کنترل رنگ پس‌زمینه، متن، حاشیه، دکمه CTA و ارتفاع Top Bar.
 - COMPAT: Wrapper خنثی و Manager سازگار برای کنترل هدر قدیمی بدون بازطراحی Mega Menu یا حذف قابلیت‌های آن.
 - RESPONSIVE: حفظ کامل رفتار فعلی هدر و اعمال تنظیمات بدون تغییر ساختار DOM اصلی.
-- STATUS: تا تأیید Live Preview روی کانال Production منتشر نمی‌شود.
+- STATUS: تا تأیید معماری Publisher و تست کامل روی کانال Production منتشر نمی‌شود.
+- SECURITY: الزام SHA-256 معتبر در Manifest و بررسی بسته دانلودشده قبل از Core Upgrader.
+- SECURITY: محدودکردن Package Host به HTTPS و `updates.alookhor.ir`.
+- API: افزودن REST API احراز هویت‌شده با WordPress Application Password برای Status، Check و Install.
+- SAFETY: قفل هم‌زمانی Update و الزام WordPress 6.3+ برای پشتیبانی Core Rollback در بروزرسانی خودکار.
 
 ## v3.8.5 — 2026-08-11 — Header Recovery & Native Update Release
 - RECOVERY: ثبت `docs/PROJECT_MEMORY.md` شامل معماری، قوانین Responsive، قرارداد ماژول و نقطه توقف واقعی.

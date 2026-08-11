@@ -1,0 +1,143 @@
+<?php
+/**
+ * ALOOKHOR CI Bootstrap Bridge
+ * One-time bridge for updating 3.8.5 -> 3.8.6 through WordPress Application Passwords.
+ * Remove this snippet after 3.8.6 is installed and its native REST API is verified.
+ */
+
+if (!defined('ABSPATH')) return;
+
+add_action('init', function(){
+    if (!get_role('alookhor_publisher')) {
+        add_role('alookhor_publisher', 'ALOOKHOR Publisher', [
+            'read' => true,
+            'update_plugins' => true,
+        ]);
+    }
+});
+
+function alookhor_ci_permission(){
+    if (!is_user_logged_in() || !current_user_can('update_plugins')) {
+        return new WP_Error('alookhor_ci_forbidden', 'Application Password user with update_plugins is required.', ['status' => 403]);
+    }
+    return true;
+}
+
+function alookhor_ci_option_hash($name){
+    return hash('sha256', wp_json_encode(get_option($name, null)));
+}
+
+add_action('rest_api_init', function(){
+    register_rest_route('alookhor-ci/v1', '/status', [
+        'methods' => WP_REST_Server::READABLE,
+        'permission_callback' => 'alookhor_ci_permission',
+        'callback' => function(){
+            $plugin_file = defined('ALOOKHOR_CC_FILE') ? ALOOKHOR_CC_FILE : WP_PLUGIN_DIR . '/alookhor-control-center/alookhor-control-center.php';
+            require_once ABSPATH . 'wp-admin/includes/plugin.php';
+            $data = file_exists($plugin_file) ? get_plugin_data($plugin_file, false, false) : [];
+            return rest_ensure_response([
+                'version' => $data['Version'] ?? null,
+                'active' => is_plugin_active('alookhor-control-center/alookhor-control-center.php'),
+                'main_option_hash' => alookhor_ci_option_hash('alookhor_cc_settings'),
+                'header_option_hash' => alookhor_ci_option_hash('alookhor_header_settings'),
+                'shortcode' => shortcode_exists('alookhor_portal_header'),
+                'checked_at' => current_time('mysql', true),
+            ]);
+        },
+    ]);
+
+    register_rest_route('alookhor-ci/v1', '/install', [
+        'methods' => WP_REST_Server::CREATABLE,
+        'permission_callback' => 'alookhor_ci_permission',
+        'args' => [
+            'target_version' => [
+                'required' => true,
+                'type' => 'string',
+                'sanitize_callback' => 'sanitize_text_field',
+                'validate_callback' => function($value){ return (bool) preg_match('/^\d+\.\d+\.\d+$/', (string) $value); },
+            ],
+        ],
+        'callback' => function(WP_REST_Request $request){
+            if (!defined('ALOOKHOR_CC_PLUGIN_BASENAME') || !function_exists('alookhor_cc_get_update_manifest')) {
+                return new WP_Error('alookhor_ci_plugin_missing', 'ALOOKHOR updater is not loaded.', ['status' => 500]);
+            }
+            if (version_compare(get_bloginfo('version'), '6.3', '<')) {
+                return new WP_Error('alookhor_ci_rollback_unavailable', 'WordPress 6.3+ is required for automatic rollback.', ['status' => 409]);
+            }
+            $target = (string) $request->get_param('target_version');
+            $lock_key = 'alookhor_ci_update_lock';
+            if (get_transient($lock_key)) {
+                return new WP_Error('alookhor_ci_update_locked', 'Another update request is running.', ['status' => 409]);
+            }
+            set_transient($lock_key, 1, 5 * MINUTE_IN_SECONDS);
+            register_shutdown_function(function() use ($lock_key){ delete_transient($lock_key); });
+
+            $manifest_response = wp_safe_remote_get('https://updates.alookhor.ir/manifest.json', [
+                'timeout' => 20,
+                'redirection' => 2,
+                'headers' => ['Accept' => 'application/json'],
+            ]);
+            if (is_wp_error($manifest_response)) return $manifest_response;
+            if ((int) wp_remote_retrieve_response_code($manifest_response) !== 200) {
+                return new WP_Error('alookhor_ci_manifest_http', 'Update manifest is unavailable.', ['status' => 502]);
+            }
+            $raw = json_decode(wp_remote_retrieve_body($manifest_response), true);
+            $version = sanitize_text_field($raw['version'] ?? '');
+            $package = esc_url_raw($raw['download_url'] ?? '');
+            $sha256 = strtolower(sanitize_text_field($raw['sha256'] ?? ''));
+            if (!hash_equals($target, $version)) return new WP_Error('alookhor_ci_target_mismatch', 'Target does not match manifest.', ['status' => 409]);
+            if (wp_parse_url($package, PHP_URL_SCHEME) !== 'https' || wp_parse_url($package, PHP_URL_HOST) !== 'updates.alookhor.ir') {
+                return new WP_Error('alookhor_ci_untrusted_package', 'Package host is not trusted.', ['status' => 400]);
+            }
+            if (!preg_match('/^[a-f0-9]{64}$/', $sha256)) return new WP_Error('alookhor_ci_invalid_sha', 'Manifest SHA-256 is invalid.', ['status' => 400]);
+
+            require_once ABSPATH . 'wp-admin/includes/file.php';
+            $downloaded = download_url($package, 300, false);
+            if (is_wp_error($downloaded)) return $downloaded;
+            $actual = strtolower((string) hash_file('sha256', $downloaded));
+            if (!$actual || !hash_equals($sha256, $actual)) {
+                wp_delete_file($downloaded);
+                return new WP_Error('alookhor_ci_sha_mismatch', 'Downloaded package SHA-256 mismatch.', ['status' => 409]);
+            }
+
+            $manifest = alookhor_cc_get_update_manifest(true);
+            if (is_wp_error($manifest)) {
+                wp_delete_file($downloaded);
+                return $manifest;
+            }
+            $transient = get_site_transient('update_plugins');
+            if (!is_object($transient)) $transient = new stdClass();
+            $transient->last_checked = time();
+            set_site_transient('update_plugins', alookhor_cc_apply_manifest_to_update_transient($transient, $manifest));
+
+            $pre_download = function($reply, $remote_package) use ($package, $downloaded){
+                return $remote_package === $package ? $downloaded : $reply;
+            };
+            add_filter('upgrader_pre_download', $pre_download, 1, 2);
+            require_once ABSPATH . 'wp-admin/includes/plugin.php';
+            require_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
+            $before_main = alookhor_ci_option_hash('alookhor_cc_settings');
+            $before_header = alookhor_ci_option_hash('alookhor_header_settings');
+            $skin = new Automatic_Upgrader_Skin();
+            $upgrader = new Plugin_Upgrader($skin);
+            $result = $upgrader->upgrade(ALOOKHOR_CC_PLUGIN_BASENAME, ['clear_update_cache' => true]);
+            remove_filter('upgrader_pre_download', $pre_download, 1);
+            if (file_exists($downloaded)) wp_delete_file($downloaded);
+            if (is_wp_error($result)) return $result;
+            if (!$result) return new WP_Error('alookhor_ci_update_failed', 'WordPress upgrader did not complete.', ['status' => 500]);
+
+            wp_clean_plugins_cache(true);
+            $data = get_plugin_data(ALOOKHOR_CC_FILE, false, false);
+            return rest_ensure_response([
+                'updated' => true,
+                'version' => $data['Version'] ?? $target,
+                'sha256' => $actual,
+                'settings_preserved' => [
+                    'main' => hash_equals($before_main, alookhor_ci_option_hash('alookhor_cc_settings')),
+                    'header' => hash_equals($before_header, alookhor_ci_option_hash('alookhor_header_settings')),
+                ],
+                'active' => is_plugin_active(ALOOKHOR_CC_PLUGIN_BASENAME),
+            ]);
+        },
+    ]);
+});
