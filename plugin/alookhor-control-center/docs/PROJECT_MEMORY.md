@@ -6,8 +6,8 @@
 
 - **نام افزونه:** ALOOKHOR Control Center
 - **نسخه پایه بازیابی‌شده:** `3.8.4`
-- **Production پیش از این Release:** `3.8.6` (فعال و تأییدشده از Native REST)
-- **Release آماده انتشار اتمی:** `3.8.7` (ذخیره/اعمال تازه Top Bar و بازیابی خودکار Activation؛ Bridge انتقال تأیید شده)
+- **Release نصب‌شده Production:** `3.8.7` (فعال، حفظ Activation و Top Bar REST تأییدشده)
+- **Release در حال توسعه:** `3.8.8 DRAFT` (حذف Flash ظاهر/محتوای قدیمی پیش از اعمال State تازه Top Bar)
 - **تاریخ بازیابی:** 2026-08-11
 - **منبع بازیابی:** ZIP واقعی افزونه `alookhor-control-center (5).zip`
 - **حداقل WordPress:** 6.0
@@ -219,11 +219,11 @@ Schema حداقلی Manifest:
 
 ```json
 {
-  "version": "3.8.7",
-  "download_url": "https://updates.alookhor.ir/releases/alookhor-control-center-3.8.7.zip",
+  "version": "3.8.8",
+  "download_url": "https://updates.alookhor.ir/releases/alookhor-control-center-3.8.8.zip",
   "details_url": "https://alookhor.ir/changelog",
   "requires": "6.0",
-  "tested": "6.6",
+  "tested": "7.0",
   "requires_php": "8.0",
   "changelog": [
     {

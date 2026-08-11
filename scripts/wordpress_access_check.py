@@ -50,7 +50,10 @@ try:
     )
 
     auth = base64.b64encode(f'{username}:{app_password}'.encode()).decode()
-    transition_required = version_tuple(source_version) > version_tuple(production_version)
+    transition_required = (
+        version_tuple(production_version) < version_tuple('3.8.7')
+        and version_tuple(source_version) >= version_tuple('3.8.7')
+    )
     report['transition_bridge_required'] = transition_required
     if transition_required:
         try:

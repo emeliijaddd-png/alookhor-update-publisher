@@ -3,7 +3,7 @@
  * Plugin Name: ALOOKHOR Control Center
  * Plugin URI: https://alookhor.ir
  * Description: کنترل سنتر لوکس و ماژولار آلوخور — مدیریت کامل سایت (هدر، اسلایدر، سورت، محصولات، مشتریان VIP، مالی، آنالیتیکس) با آپدیت آنی بدون رفرش. تمام تنظیمات چت قبلی + شورت‌کد [alookhor_portal_header] اینجا مدیریت می‌شود.
- * Version: 3.8.7
+ * Version: 3.8.8
  * Author: ALOOKHOR Team — Luxury Modular
  * Author URI: https://alookhor.ir
  * Update URI: https://alookhor.ir/alookhor-control-center
@@ -16,8 +16,8 @@
 
 if (!defined('ABSPATH')) exit;
 
-define('ALOOKHOR_CC_VERSION', '3.8.7');
-define('ALOOKHOR_CC_BUILD', '3.8.7');
+define('ALOOKHOR_CC_VERSION', '3.8.8');
+define('ALOOKHOR_CC_BUILD', '3.8.8');
 define('ALOOKHOR_CC_FILE', __FILE__);
 define('ALOOKHOR_CC_DIR', plugin_dir_path(__FILE__));
 define('ALOOKHOR_CC_URL', plugin_dir_url(__FILE__));
@@ -62,7 +62,9 @@ add_action('wp_enqueue_scripts', function(){
     if (!empty($GLOBALS['alookhor_cc_legacy_header_provider'])) {
         // خروجی و CSS هدر قدیمی دست‌نخورده می‌ماند؛ فقط مقادیر Top Bar مدیریت می‌شوند.
         $h = alookhor_cc_front_header_settings();
-        wp_enqueue_script('alookhor-cc-legacy-topbar-manager', ALOOKHOR_CC_URL . 'assets/js/frontend-topbar-manager.js', [], ALOOKHOR_CC_BUILD, true);
+        // Load in <head>: the observer can hide stale legacy markup before the
+        // browser paints it, then reveal only freshly synchronized Top Bar data.
+        wp_enqueue_script('alookhor-cc-legacy-topbar-manager', ALOOKHOR_CC_URL . 'assets/js/frontend-topbar-manager.js', [], ALOOKHOR_CC_BUILD, false);
         wp_localize_script('alookhor-cc-legacy-topbar-manager', 'ALOOKHOR_TOPBAR', [
             'endpoint' => rest_url('alookhor-cc/v1/topbar'),
             'version' => ALOOKHOR_CC_VERSION,

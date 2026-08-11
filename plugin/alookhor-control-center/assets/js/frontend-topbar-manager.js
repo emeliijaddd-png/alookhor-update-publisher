@@ -1,5 +1,5 @@
 /**
- * ALOOKHOR Legacy Top Bar Manager — v3.8.7
+ * ALOOKHOR Legacy Top Bar Manager — v3.8.8
  * Preserves the legacy header/mega-menu HTML and synchronizes managed Top Bar
  * values from a fresh read-only REST endpoint, even when the page HTML is cached.
  */
@@ -7,6 +7,7 @@
   'use strict';
 
   const cfg = {...(window.ALOOKHOR_TOPBAR || {})};
+  let freshState = cfg.endpoint ? 'pending' : 'fallback';
   const asBool = value => value === true || value === 1 || value === '1' || value === 'true';
   const digits = value => String(value || '')
     .replace(/[۰-۹]/g, d => String('۰۱۲۳۴۵۶۷۸۹'.indexOf(d)))
@@ -42,7 +43,7 @@
   const topbarSelector = '[class*="topbar" i],[class*="top-bar" i],[class*="top_bar" i]';
 
   function manage(root, force = false) {
-    if (!root || (!force && root.dataset.topbarManaged === '3.8.7')) return;
+    if (!root || (!force && root.dataset.topbarManaged === '3.8.8')) return;
 
     const phone = root.querySelector('a[href^="tel:"]');
     const email = root.querySelector('a[href^="mailto:"]');
@@ -62,6 +63,18 @@
     // ancestor detection.
     const whatsapp = topbar?.querySelector('a[href*="wa.me"],a[href*="whatsapp.com"],a[aria-label*="WhatsApp" i]')
       || root.querySelector('a[href*="wa.me"],a[href*="whatsapp.com"],a[aria-label*="WhatsApp" i]');
+
+    // A cached legacy header can contain old text/colors. Reserve its layout but
+    // never paint stale content while the fresh same-origin REST read is pending.
+    if (topbar && freshState === 'pending') {
+      const pendingHeight = Math.max(30, Math.min(60, Number(cfg.topbar_height) || 38));
+      topbar.style.setProperty('min-height', `${pendingHeight}px`, 'important');
+      topbar.style.setProperty('height', `${pendingHeight}px`, 'important');
+      topbar.style.setProperty('visibility', 'hidden', 'important');
+      topbar.style.setProperty('opacity', '0', 'important');
+      root.dataset.topbarManaged = 'pending';
+      return;
+    }
 
     if (phone) {
       phone.href = `tel:${phoneHref(cfg.phone)}`;
@@ -128,6 +141,8 @@
         if (wholesale && (element === wholesale || wholesale.contains(element))) return;
         element.style.setProperty('color', color, 'important');
       });
+      topbar.style.setProperty('visibility', 'visible', 'important');
+      topbar.style.setProperty('opacity', '1', 'important');
     }
 
     if (cfg.top_logo_url) {
@@ -142,8 +157,8 @@
       }
     }
 
-    root.dataset.topbarManaged = '3.8.7';
-    root.dispatchEvent(new CustomEvent('alookhor:topbar-managed', {bubbles:true, detail:{version:'3.8.7'}}));
+    root.dataset.topbarManaged = '3.8.8';
+    root.dispatchEvent(new CustomEvent('alookhor:topbar-managed', {bubbles:true, detail:{version:'3.8.8'}}));
   }
 
   function init(scope = document, force = false) {
@@ -155,28 +170,38 @@
   }
 
   async function refreshFromWordPress() {
-    if (!cfg.endpoint) return;
+    if (!cfg.endpoint) {
+      freshState = 'fallback';
+      return;
+    }
+    const controller = new AbortController();
+    const timeout = window.setTimeout(() => controller.abort(), 2500);
     try {
       const endpoint = new URL(cfg.endpoint, window.location.href);
-      if (endpoint.origin !== window.location.origin) return;
+      if (endpoint.origin !== window.location.origin) throw new Error('Top Bar endpoint origin mismatch');
       endpoint.searchParams.set('_alookhor', String(Date.now()));
       const response = await fetch(endpoint.href, {
         cache: 'no-store',
         credentials: 'same-origin',
-        headers: {'Accept': 'application/json'}
+        headers: {'Accept': 'application/json'},
+        signal: controller.signal
       });
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       Object.assign(cfg, await response.json());
-      init(document, true);
+      freshState = 'ready';
     } catch (error) {
+      freshState = 'fallback';
       console.warn('ALOOKHOR Top Bar refresh failed; localized settings remain active.', error);
+    } finally {
+      window.clearTimeout(timeout);
+      init(document, true);
     }
   }
 
-  const start = () => {
-    init();
-    refreshFromWordPress();
-  };
+  // Begin the fresh read while <head> is still being parsed. MutationObserver
+  // hides any stale legacy Top Bar that arrives before this promise resolves.
+  refreshFromWordPress();
+  const start = () => init();
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start, {once:true});
   else start();
 

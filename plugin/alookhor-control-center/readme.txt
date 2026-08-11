@@ -4,7 +4,7 @@ Tags: control center, luxury, alookhor, admin, dashboard
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 3.8.7
+Stable tag: 3.8.8
 License: Private
 License URI: https://alookhor.ir
 
@@ -43,6 +43,13 @@ License URI: https://alookhor.ir
 در `config/site.json` و `wp_options: alookhor_cc_settings` — همان حافظه واقعی که در چت قبلی ویرایش می‌شد.
 
 == Changelog ==
+
+= 3.8.8 =
+* حذف نمایش لحظه‌ای رنگ‌ها و محتوای قدیمی هنگام بارگذاری Top Bar
+* شروع خواندن State تازه REST از head و پیش از Paint هدر Legacy
+* Reveal فقط پس از اعمال رنگ، تلفن، ایمیل، متن‌ها و ارتفاع تازه
+* Fallback خودکار 2.5 ثانیه‌ای بدون خطر مخفی‌ماندن هدر
+* حفظ کامل DOM، Mega Menu، Hamburger و Responsive قبلی
 
 = 3.8.7 =
 * ذخیره واقعی رنگ‌ها و کنترل‌های باز Top Bar با هر دو دکمه ذخیره
