@@ -76,6 +76,55 @@ jobs:
       - name: Checkout private publisher repository
         uses: actions/checkout@v5
 
+      - name: Install FTPS client for safe probe
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq lftp
+
+      - name: Probe restricted FTPS write, HTTPS read, and delete
+        id: ftps_probe
+        continue-on-error: true
+        env:
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+          FTP_PORT: ${{ secrets.FTP_PORT }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          PROBE_NAME: publisher-probe-${{ github.run_id }}.txt
+        run: |
+          python3 - <<'PY'
+          import os, re
+          from pathlib import Path
+          def quote(value):
+              if '\n' in value or '\r' in value: raise SystemExit('FTP secret contains a newline')
+              return '"' + value.replace('\\', '\\\\').replace('"', '\\"') + '"'
+          server=os.environ['FTP_SERVER'].strip(); port=os.environ['FTP_PORT'].strip()
+          user=os.environ['FTP_USERNAME'].strip(); password=os.environ['FTP_PASSWORD']; name=os.environ['PROBE_NAME']
+          if not re.fullmatch(r'[A-Za-z0-9.-]+',server) or not port.isdigit(): raise SystemExit('Invalid FTP endpoint')
+          content='ALOOKHOR_PUBLISHER_PROBE_' + os.environ['GITHUB_RUN_ID']
+          Path('/tmp/publisher-probe.txt').write_text(content)
+          common=['set cmd:fail-exit true','set net:max-retries 2','set ftp:passive-mode true','set ftp:ssl-auth TLS','set ftp:ssl-force true','set ftp:ssl-protect-data true','set ssl:verify-certificate true',f'open -p {port} ftp://{server}',f'user {quote(user)} {quote(password)}']
+          for path,commands in {
+              '/tmp/probe-upload.lftp':common+[f'put /tmp/publisher-probe.txt -o {name}','bye'],
+              '/tmp/probe-delete.lftp':common+[f'rm -f {name}','bye'],
+          }.items():
+              p=Path(path);p.write_text(';\n'.join(commands)+';\n');p.chmod(0o600)
+          PY
+          set +e
+          lftp -f /tmp/probe-upload.lftp > /tmp/ftps-probe.log 2>&1
+          code=$?
+          if [ "$code" -eq 0 ]; then
+            python3 - <<'PY' >> /tmp/ftps-probe.log 2>&1
+          import os, urllib.request
+          expected='ALOOKHOR_PUBLISHER_PROBE_' + os.environ['GITHUB_RUN_ID']
+          url='https://updates.alookhor.ir/' + os.environ['PROBE_NAME'] + '?run=' + os.environ['GITHUB_RUN_ID']
+          with urllib.request.urlopen(url,timeout=30) as response: actual=response.read().decode()
+          if actual != expected: raise SystemExit('HTTPS probe content mismatch')
+          print('FTPS root mapping and HTTPS read verified')
+          PY
+            code=$?
+          fi
+          lftp -f /tmp/probe-delete.lftp >> /tmp/ftps-probe.log 2>&1 || true
+          rm -f /tmp/probe-upload.lftp /tmp/probe-delete.lftp /tmp/publisher-probe.txt
+          exit "$code"
+
       - name: Check authenticated WordPress access without updating
         id: wp_access
         continue-on-error: true
@@ -90,6 +139,10 @@ jobs:
         if: always()
         env:
           GH_TOKEN: ${{ github.token }}
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          FTPS_OUTCOME: ${{ steps.ftps_probe.outcome }}
           ACCESS_OUTCOME: ${{ steps.wp_access.outcome }}
         run: |
           python3 - <<'PY'
@@ -98,13 +151,22 @@ jobs:
           from pathlib import Path
           report_path = Path('/tmp/wordpress-access.json')
           wordpress = json.loads(report_path.read_text()) if report_path.exists() else None
+          ftps_log_path = Path('/tmp/ftps-probe.log')
+          ftps_log = ftps_log_path.read_text(errors='replace') if ftps_log_path.exists() else ''
+          for secret_name in ['FTP_PASSWORD','FTP_USERNAME','FTP_SERVER']:
+              value = os.environ.get(secret_name,'')
+              if value: ftps_log = ftps_log.replace(value,'[REDACTED]')
           report = {
               'type': 'access_audit',
               'run_id': os.environ['GITHUB_RUN_ID'],
               'ref': os.environ['GITHUB_REF'],
               'sha': os.environ['GITHUB_SHA'],
               'created_at': datetime.now(timezone.utc).isoformat(),
-              'outcome': os.environ.get('ACCESS_OUTCOME',''),
+              'outcomes': {
+                  'ftps_probe': os.environ.get('FTPS_OUTCOME',''),
+                  'wordpress_access': os.environ.get('ACCESS_OUTCOME',''),
+              },
+              'ftps_log': ftps_log[-8000:],
               'wordpress': wordpress,
           }
           Path('/tmp/latest.json').write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n')
@@ -121,11 +183,14 @@ jobs:
           git remote add origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
           git push --force origin HEAD:publisher-status
 
-      - name: Enforce authenticated WordPress access
+      - name: Enforce FTPS and authenticated WordPress access
         if: always()
         env:
+          FTPS_OUTCOME: ${{ steps.ftps_probe.outcome }}
           ACCESS_OUTCOME: ${{ steps.wp_access.outcome }}
-        run: test "$ACCESS_OUTCOME" = success
+        run: |
+          test "$FTPS_OUTCOME" = success
+          test "$ACCESS_OUTCOME" = success
 
   deploy:
     needs: build
