@@ -1,18 +1,32 @@
 #!/usr/bin/env python3
 from pathlib import Path
-from urllib.error import HTTPError
 from urllib.request import Request, urlopen
 import base64
 import json
 import os
+import re
 
+ROOT = Path(__file__).resolve().parents[1]
 report_path = Path(os.environ.get('WP_REPORT_PATH', '/tmp/wordpress-access.json'))
 report = {'ok': False, 'checks': {}}
+
+
+def authenticated_request(base, auth, path, accept='application/json'):
+    return Request(base + path, headers={
+        'Authorization': f'Basic {auth}',
+        'Accept': accept,
+        'User-Agent': 'ALOOKHOR-GitHub-Publisher/1.0',
+    })
+
 
 try:
     base = os.environ.get('WP_BASE_URL', '').strip().rstrip('/')
     username = os.environ.get('WP_USERNAME', '').strip()
     app_password = os.environ.get('WP_APP_PASSWORD', '').strip()
+    expected_version = str(json.loads((ROOT / 'release.json').read_text())['version'])
+    expected_manifest = json.loads((ROOT / 'public' / 'manifest.json').read_text())
+
+    report['expected_version'] = expected_version
     report['checks']['secrets_present'] = bool(base and username and app_password)
     if not report['checks']['secrets_present']:
         raise RuntimeError('Required WordPress GitHub Secrets are missing')
@@ -27,13 +41,8 @@ try:
         ('native', '/wp-json/alookhor-cc/v1/status'),
         ('bootstrap', '/wp-json/alookhor-ci/v1/status'),
     ]:
-        request = Request(base + path, headers={
-            'Authorization': f'Basic {auth}',
-            'Accept': 'application/json',
-            'User-Agent': 'ALOOKHOR-GitHub-Publisher/1.0',
-        })
         try:
-            with urlopen(request, timeout=30) as response:
+            with urlopen(authenticated_request(base, auth, path), timeout=30) as response:
                 status = json.load(response)
             source = candidate
             break
@@ -44,11 +53,45 @@ try:
 
     report['source'] = source
     report['status'] = status
+    settings = status.get('settings', {})
+    manifest = status.get('manifest', {})
     report['checks']['authenticated'] = True
-    report['checks']['version'] = str(status.get('version')) == '3.8.5'
+    report['checks']['native_api'] = source == 'native'
+    report['checks']['version'] = str(status.get('version')) == expected_version
     report['checks']['active'] = status.get('active') is True
-    report['checks']['header_option'] = bool(status.get('header_option_hash') or status.get('settings', {}).get('header_option'))
-    report['checks']['shortcode'] = bool(status.get('shortcode') or status.get('settings', {}).get('header_shortcode'))
+    report['checks']['manifest'] = (
+        manifest.get('ok') is True
+        and str(manifest.get('version')) == expected_version
+        and manifest.get('sha256') == expected_manifest.get('sha256')
+        and manifest.get('package_host') == 'updates.alookhor.ir'
+    )
+    report['checks']['main_option'] = settings.get('main_option') is True
+    report['checks']['header_option'] = settings.get('header_option') is True
+    report['checks']['module_count'] = int(settings.get('module_count', 0)) >= 8
+    report['checks']['shortcode'] = settings.get('header_shortcode') is True
+
+    public_url = base + '/?alookhor_access_audit=' + expected_version.replace('.', '')
+    with urlopen(Request(public_url, headers={'User-Agent': 'ALOOKHOR-GitHub-Publisher/1.0'}), timeout=30) as response:
+        homepage = response.read().decode(errors='replace')
+        report['checks']['homepage_http'] = response.status == 200
+    report['checks']['header_content'] = 'خرید عمده' in homepage and ('ALOOKHOR' in homepage or 'آلوخور' in homepage)
+
+    # Non-mutating feasibility probe for a future core AJAX/bulk updater path.
+    # Never record the nonce itself; report only whether the Application Password
+    # reaches wp-admin and whether an updates nonce is present in the HTML.
+    try:
+        with urlopen(authenticated_request(base, auth, '/wp-admin/index.php', 'text/html'), timeout=30) as response:
+            admin_html = response.read().decode(errors='replace')
+            admin_url = response.geturl()
+        report['admin_probe'] = {
+            'http_status': response.status,
+            'final_path': re.sub(r'^https?://[^/]+', '', admin_url).split('?', 1)[0],
+            'authenticated': '/wp-admin/' in admin_url and 'loginform' not in admin_html,
+            'updates_nonce_present': bool(re.search(r'["\']ajax_nonce["\']\s*:\s*["\'][^"\']+', admin_html)),
+        }
+    except Exception as error:
+        report['admin_probe'] = {'authenticated': False, 'updates_nonce_present': False, 'error': str(error)}
+
     failed = [name for name, value in report['checks'].items() if value is not True]
     report['failed_checks'] = failed
     report['ok'] = not failed
