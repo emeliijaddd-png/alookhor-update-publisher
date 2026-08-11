@@ -73,6 +73,35 @@ function alookhor_ajax_save_settings(){
         $payload['header_settings'] = $header;
     }
 
+    if (!empty($payload['footer_settings']) && is_array($payload['footer_settings'])) {
+        $footer = $payload['footer_settings'];
+        foreach (['background'=>'#070809','surface'=>'#0D0F10','gold'=>'#C89A3D','gold_soft'=>'#E3BD69','text'=>'#E9E5DF','muted'=>'#A7A39D','border'=>'#4A3820'] as $key=>$fallback) {
+            if (array_key_exists($key,$footer)) $footer[$key] = sanitize_hex_color($footer[$key]) ?: $fallback;
+        }
+        foreach (['logo_url','cta_url','instagram_url','telegram_url','whatsapp_url','product_image_url','enamad_image_url','enamad_url','samandehi_image_url','samandehi_url'] as $key) {
+            if (array_key_exists($key,$footer)) $footer[$key] = esc_url_raw($footer[$key]);
+        }
+        if (array_key_exists('email',$footer)) $footer['email'] = sanitize_email($footer['email']);
+        foreach (['phone','whatsapp'] as $key) if (array_key_exists($key,$footer)) $footer[$key] = sanitize_text_field($footer[$key]);
+        foreach (['enabled','hide_legacy','hide_old_newsletter','use_header_contact','newsletter_enabled','show_payments','show_benefits','show_product_image'] as $key) {
+            if (array_key_exists($key,$footer)) $footer[$key] = rest_sanitize_boolean($footer[$key]);
+        }
+        foreach (['customer_menu_id','order_menu_id','about_menu_id'] as $key) if (array_key_exists($key,$footer)) $footer[$key] = absint($footer[$key]);
+        if (array_key_exists('container_width',$footer)) $footer['container_width'] = max(960,min(1600,absint($footer['container_width'])));
+        if (array_key_exists('desktop_logo_width',$footer)) $footer['desktop_logo_width'] = max(100,min(320,absint($footer['desktop_logo_width'])));
+        if (array_key_exists('mobile_logo_width',$footer)) $footer['mobile_logo_width'] = max(100,min(280,absint($footer['mobile_logo_width'])));
+        foreach (['customer_links','order_links','about_links'] as $group) {
+            if (!isset($footer[$group]) || !is_array($footer[$group])) continue;
+            $footer[$group] = array_values(array_filter(array_map(function($link){
+                if (!is_array($link)) return null;
+                $title = sanitize_text_field($link['title'] ?? '');
+                if (!$title) return null;
+                return ['title'=>$title,'url'=>esc_url_raw($link['url'] ?? '#')];
+            }, $footer[$group])));
+        }
+        $payload['footer_settings'] = $footer;
+    }
+
     // ذخیره کل تنظیمات
     $current = get_option(ALOOKHOR_CC_OPTION, []);
     $merged = array_replace_recursive(is_array($current) ? $current : [], $payload);
@@ -110,6 +139,16 @@ function alookhor_ajax_save_settings(){
             'topbar_button_bg' => $persisted_header['topbar_button_bg'] ?? null,
             'topbar_button_text' => $persisted_header['topbar_button_text'] ?? null,
             'topbar_height' => $persisted_header['topbar_height'] ?? null,
+        ] : null,
+        'footer_settings' => is_array($merged['footer_settings'] ?? null) ? [
+            'enabled' => !empty($merged['footer_settings']['enabled']),
+            'brand_name' => $merged['footer_settings']['brand_name'] ?? null,
+            'phone' => $merged['footer_settings']['phone'] ?? null,
+            'email' => $merged['footer_settings']['email'] ?? null,
+            'background' => $merged['footer_settings']['background'] ?? null,
+            'customer_menu_id' => $merged['footer_settings']['customer_menu_id'] ?? 0,
+            'order_menu_id' => $merged['footer_settings']['order_menu_id'] ?? 0,
+            'about_menu_id' => $merged['footer_settings']['about_menu_id'] ?? 0,
         ] : null,
     ]);
 }

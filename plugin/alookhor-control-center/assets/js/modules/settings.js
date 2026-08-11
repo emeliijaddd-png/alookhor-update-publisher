@@ -1,9 +1,15 @@
-import { Config } from '../core/config.js?v=3.8.9';
+import { Config } from '../core/config.js?v=3.9.0';
 
 const escapeAttr = value => String(value ?? '').replace(/[&<>'"]/g, char => ({
   '&':'&amp;', '<':'&lt;', '>':'&gt;', "'":'&#039;', '"':'&quot;'
 })[char]);
 const isEnabled = value => value === true || value === 1 || value === '1' || value === 'true';
+const footerLinksText = links => (Array.isArray(links) ? links : []).map(link => `${link.title || ''}|${link.url || ''}`).join('\n');
+const parseFooterLinks = value => String(value || '').split(/\r?\n/).map(line => {
+  const [title, ...url] = line.split('|');
+  return {title:String(title || '').trim(), url:url.join('|').trim()};
+}).filter(link => link.title);
+const footerMenuOptions = selected => `<option value="0">لینک‌های سفارشی زیر</option>${(window.ALOOKHOR_CC?.footer_menus || []).map(menu => `<option value="${Number(menu.id)}" ${Number(selected)===Number(menu.id)?'selected':''}>${escapeAttr(menu.name)}</option>`).join('')}`;
 
 export const settingsModule = {
   meta: { id: 'settings', title: 'تنظیمات پیشرفته' },
@@ -23,6 +29,21 @@ export const settingsModule = {
       show_topbar:true, show_phone:true, show_email:true, show_whatsapp:true, show_export:true,
       show_wholesale:true, wholesale_new_tab:false
     }, cfg.header_settings || {});
+    cfg.footer_settings = Object.assign({
+      enabled:true, hide_legacy:true, hide_old_newsletter:true, use_header_contact:true,
+      logo_url:'', logo_alt:'لوگوی رسمی آلوخور', brand_name:'ALOOKHOR', brand_subtitle:'PREMIUM PERSIAN DRIED PLUMS',
+      brand_kicker:'From Iranian Orchards to the World', brand_description:'', cta_text:'درخواست قیمت عمده و صادراتی', cta_url:'',
+      phone:'', email:'', whatsapp:'', address:'خراسان رضوی، خور نیشابور', support_label:'تلفن پشتیبانی و سفارش عمده',
+      hours_week:'شنبه تا پنجشنبه: ۸ الی ۲۰', hours_friday:'جمعه‌ها: ۹ الی ۱۴',
+      customer_title:'خدمات مشتریان', customer_menu_id:0, customer_links:[], order_title:'خرید و سفارش', order_menu_id:0, order_links:[],
+      about_title:'درباره آلوخور', about_mobile_title:'راهنمای صادراتی', about_menu_id:0, about_links:[],
+      instagram_url:'', telegram_url:'', whatsapp_url:'', social_title:'آلوخور را دنبال کنید', social_desc:'',
+      newsletter_enabled:true, newsletter_title:'عضویت در خبرنامه', newsletter_desc:'', newsletter_placeholder:'ایمیل شما', newsletter_button:'عضویت',
+      product_image_url:'', enamad_title:'Enamad', enamad_image_url:'', enamad_url:'', samandehi_title:'ساماندهی', samandehi_image_url:'', samandehi_url:'',
+      copyright_text:'تمامی حقوق محفوظ است.', copyright_en:'Premium Persian Dried Plums Exporter',
+      background:'#070809', surface:'#0D0F10', gold:'#C89A3D', gold_soft:'#E3BD69', text:'#E9E5DF', muted:'#A7A39D', border:'#4A3820',
+      container_width:1280, desktop_logo_width:210, mobile_logo_width:190, show_payments:true, show_benefits:true, show_product_image:true
+    }, cfg.footer_settings || {});
     if(!cfg.site) cfg.site = {name:'ALOOKHOR', subtitle:'Control Center • Luxury', logoLetter:'A'};
     if(!cfg.system) cfg.system = {uptime:'99.9%', cache:'فعال', woocommerce:'فعال', woodmart_plus:'فعال', elementor_pro:'فعال', php_version:'8.1.6', memory:'256MB / 512MB', ssl:'فعال (امن)'};
     if(!cfg.ai_assistant) cfg.ai_assistant = {suggestions:[]};
@@ -166,7 +187,7 @@ export const settingsModule = {
 
     // — رندر ماژول‌ها از حافظه واقعی —
     const listEl = container.querySelector('#modulesList');
-    const iconMap = { stats:'📊', header:'◈', export:'👑', sort:'①', collection:'②', app:'📱', hero:'🎠', auto:'🔄' };
+    const iconMap = { stats:'📊', header:'◈', footer:'◫', export:'👑', sort:'①', collection:'②', app:'📱', hero:'🎠', auto:'🔄' };
     function renderModules(){
       listEl.innerHTML = Object.entries(cfg.modules||{}).sort((a,b)=> a[1].order - b[1].order).map(([key,m])=>`
         <div class="mod-item ${m.enabled?'':'disabled'}" data-mod="${key}">
@@ -286,6 +307,39 @@ export const settingsModule = {
           .qh-section{padding:12px;margin-top:9px;border:1px solid var(--gold-border);border-radius:11px;background:rgba(255,255,255,.018)}.qh-title{display:flex;justify-content:space-between;gap:8px;margin-bottom:10px}.qh-title b{font-size:11.5px}.qh-title small{color:var(--gold);font:9px Arial}.qh-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.qh-colors{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.qh-section label{display:grid;gap:4px;color:var(--text-muted);font-size:10.5px}.qh-section input{width:100%;min-width:0;background:rgba(255,255,255,.035);border:1px solid var(--gold-border);border-radius:8px;padding:8px;color:var(--text-primary)}.qh-section input[type=color]{height:37px;padding:3px}.qh-inline{display:flex;gap:6px}.qh-inline button{border:1px solid var(--gold-border-strong);border-radius:8px;background:rgba(201,168,106,.1);color:var(--gold-soft);cursor:pointer}.qh-span-2{grid-column:span 2}.qh-flags{display:flex;gap:6px;flex-wrap:wrap}.qh-flags label{display:flex;align-items:center;gap:5px;padding:6px 8px;border:1px solid var(--gold-border);border-radius:999px}.qh-flags input{width:auto;accent-color:var(--gold)}.qh-actions{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-top:11px}.qh-actions button{padding:9px 15px;font-size:11px}.qh-actions span{color:var(--text-faint);font-size:10px}@media(max-width:700px){.qh-grid,.qh-colors{grid-template-columns:1fr}.qh-span-2{grid-column:auto}.qh-contact{display:none}}
         </style>
       `,
+      footer: () => {
+        const f = cfg.footer_settings;
+        return `
+        <div class="qh-head"><div><h4>◫ فوتر حرفه‌ای ALOOKHOR</h4><p>Desktop پنج‌ستونه + Mobile کارت‌های دو‌ستونه — جایگزینی خودکار فوتر قدیمی بدون ویرایش Elementor</p></div><code>MANAGED FOOTER</code></div>
+        <div class="qh-section"><div class="qh-title"><b>وضعیت و منابع WordPress</b><small>CORE</small></div><div class="qh-flags">
+          ${[['enabled','فعال‌بودن فوتر'],['hide_legacy','مخفی‌کردن فوتر قدیمی'],['hide_old_newsletter','ادغام خبرنامه قدیمی'],['use_header_contact','تلفن/ایمیل مشترک با هدر'],['newsletter_enabled','نمایش خبرنامه'],['show_product_image','تصویر محصول'],['show_payments','روش‌های پرداخت'],['show_benefits','مزیت‌های پایین']].map(([key,label])=>`<label><input type="checkbox" data-footer-flag="${key}" ${isEnabled(f[key])?'checked':''}>${label}</label>`).join('')}
+        </div></div>
+        <div class="qh-section"><div class="qh-title"><b>هویت برند و CTA</b><small>BRAND</small></div><div class="qh-grid">
+          <label class="qh-span-2">لوگوی فوتر<span class="qh-inline"><input id="ftLogoUrl" value="${escapeAttr(f.logo_url)}" dir="ltr"><button type="button" data-footer-media="ftLogoUrl">انتخاب</button></span></label>
+          <label>نام انگلیسی<input id="ftBrandName" value="${escapeAttr(f.brand_name)}"></label><label>زیرعنوان<input id="ftBrandSubtitle" value="${escapeAttr(f.brand_subtitle)}"></label>
+          <label>شعار<input id="ftBrandKicker" value="${escapeAttr(f.brand_kicker)}"></label><label>متن دکمه<input id="ftCtaText" value="${escapeAttr(f.cta_text)}"></label>
+          <label class="qh-span-2">توضیحات<textarea id="ftBrandDesc" rows="3">${escapeAttr(f.brand_description)}</textarea></label><label class="qh-span-2">لینک CTA<input id="ftCtaUrl" value="${escapeAttr(f.cta_url)}" dir="ltr"></label>
+        </div></div>
+        <div class="qh-section"><div class="qh-title"><b>اطلاعات تماس</b><small>CONTACT</small></div><div class="qh-grid">
+          <label>تلفن<input id="ftPhone" value="${escapeAttr(f.phone)}" dir="ltr"></label><label>ایمیل<input id="ftEmail" value="${escapeAttr(f.email)}" dir="ltr"></label>
+          <label>WhatsApp<input id="ftWhatsapp" value="${escapeAttr(f.whatsapp)}" dir="ltr"></label><label>عنوان پشتیبانی<input id="ftSupportLabel" value="${escapeAttr(f.support_label)}"></label>
+          <label class="qh-span-2">آدرس<input id="ftAddress" value="${escapeAttr(f.address)}"></label><label>ساعات هفته<input id="ftHoursWeek" value="${escapeAttr(f.hours_week)}"></label><label>ساعات جمعه<input id="ftHoursFriday" value="${escapeAttr(f.hours_friday)}"></label>
+        </div></div>
+        ${[['customer','خدمات مشتریان'],['order','خرید و سفارش'],['about','درباره/راهنمای صادرات']].map(([key,label])=>`<div class="qh-section"><div class="qh-title"><b>ستون ${label}</b><small>WORDPRESS MENU</small></div><div class="qh-grid"><label>عنوان<input id="ft${key}Title" value="${escapeAttr(f[`${key}_title`])}"></label>${key==='about'?`<label>عنوان موبایل<input id="ftAboutMobileTitle" value="${escapeAttr(f.about_mobile_title)}"></label>`:''}<label>فهرست WordPress<select id="ft${key}Menu">${footerMenuOptions(f[`${key}_menu_id`])}</select></label><label class="qh-span-2">لینک‌های جایگزین — هر خط: عنوان|URL<textarea id="ft${key}Links" rows="6" dir="ltr">${escapeAttr(footerLinksText(f[`${key}_links`]))}</textarea></label></div></div>`).join('')}
+        <div class="qh-section"><div class="qh-title"><b>شبکه‌های اجتماعی و خبرنامه</b><small>ENGAGEMENT</small></div><div class="qh-grid">
+          <label>Instagram<input id="ftInstagram" value="${escapeAttr(f.instagram_url)}" dir="ltr"></label><label>Telegram<input id="ftTelegram" value="${escapeAttr(f.telegram_url)}" dir="ltr"></label><label>WhatsApp URL<input id="ftWhatsappUrl" value="${escapeAttr(f.whatsapp_url)}" dir="ltr"></label>
+          <label>عنوان شبکه‌ها<input id="ftSocialTitle" value="${escapeAttr(f.social_title)}"></label><label>عنوان خبرنامه<input id="ftNewsletterTitle" value="${escapeAttr(f.newsletter_title)}"></label><label>دکمه خبرنامه<input id="ftNewsletterButton" value="${escapeAttr(f.newsletter_button)}"></label>
+          <label class="qh-span-2">توضیح شبکه‌ها<input id="ftSocialDesc" value="${escapeAttr(f.social_desc)}"></label><label class="qh-span-2">توضیح خبرنامه<input id="ftNewsletterDesc" value="${escapeAttr(f.newsletter_desc)}"></label>
+          <label class="qh-span-2">تصویر محصول<span class="qh-inline"><input id="ftProductImage" value="${escapeAttr(f.product_image_url)}" dir="ltr"><button type="button" data-footer-media="ftProductImage">انتخاب</button></span></label>
+        </div></div>
+        <div class="qh-section"><div class="qh-title"><b>مجوزها، کپی‌رایت و ظاهر</b><small>TRUST & STYLE</small></div><div class="qh-grid">
+          <label>عنوان Enamad<input id="ftEnamadTitle" value="${escapeAttr(f.enamad_title)}"></label><label>لینک Enamad<input id="ftEnamadUrl" value="${escapeAttr(f.enamad_url)}" dir="ltr"></label><label class="qh-span-2">تصویر Enamad<span class="qh-inline"><input id="ftEnamadImage" value="${escapeAttr(f.enamad_image_url)}" dir="ltr"><button type="button" data-footer-media="ftEnamadImage">انتخاب</button></span></label>
+          <label>عنوان ساماندهی<input id="ftSamandehiTitle" value="${escapeAttr(f.samandehi_title)}"></label><label>لینک ساماندهی<input id="ftSamandehiUrl" value="${escapeAttr(f.samandehi_url)}" dir="ltr"></label><label class="qh-span-2">تصویر ساماندهی<span class="qh-inline"><input id="ftSamandehiImage" value="${escapeAttr(f.samandehi_image_url)}" dir="ltr"><button type="button" data-footer-media="ftSamandehiImage">انتخاب</button></span></label>
+          <label>Copyright<input id="ftCopyright" value="${escapeAttr(f.copyright_text)}"></label><label>Copyright English<input id="ftCopyrightEn" value="${escapeAttr(f.copyright_en)}"></label>
+        </div><div class="qh-colors" style="margin-top:10px">${[['Background','background'],['Surface','surface'],['Gold','gold'],['Gold Soft','gold_soft'],['Text','text'],['Muted','muted'],['Border','border']].map(([label,key])=>`<label>${label}<input type="color" id="ftColor_${key}" value="${escapeAttr(f[key])}"></label>`).join('')}<label>عرض محتوا<input type="number" id="ftContainerWidth" value="${Number(f.container_width)||1280}"></label><label>لوگو Desktop<input type="number" id="ftDesktopLogo" value="${Number(f.desktop_logo_width)||210}"></label><label>لوگو Mobile<input type="number" id="ftMobileLogo" value="${Number(f.mobile_logo_width)||190}"></label></div></div>
+        <div class="qh-actions"><button class="btn-gold" id="btnApplyFooter">ذخیره و اعمال فوتر</button><a class="btn-ghost" href="${escapeAttr(window.ALOOKHOR_CC?.home_url || '/')}" target="_blank">مشاهده سایت</a><span>پیام موفقیت فقط بعد از تأیید WordPress نمایش داده می‌شود.</span></div>
+        <style>.qh-section textarea,.qh-section select{width:100%;min-width:0;background:rgba(255,255,255,.035);border:1px solid var(--gold-border);border-radius:8px;padding:8px;color:var(--text-primary);font-family:inherit}.qh-section select option{background:#171419}</style>`;
+      },
       stats: () => `<h4>📊 پیشخوان هوشمند آمار</h4><p style="color:var(--text-muted); font-size:12.5px">KPI ها و نمودار فروش در داشبورد. فعال: <b style="color:${cfg.modules.stats.enabled?'var(--success)':'var(--danger)'}">${cfg.modules.stats.enabled?'بله':'خیر'}</b></p><label style="display:flex; justify-content:space-between; align-items:center; background:rgba(255,255,255,0.03); border:1px solid var(--gold-border); border-radius:10px; padding:10px; margin-top:10px"><span>نمایش در داشبورد</span><span class="mod-toggle ${cfg.modules.stats.enabled?'on':''}" data-quick-toggle="stats"><i></i></span></label>`,
       export: () => `<h4>👑 محصولات ممبر صادراتی</h4><p style="color:var(--text-muted); font-size:12.5px">فقط برای ممبرها: ${cfg.modules.export.enabled?'فعال':'غیرفعال'}</p><label style="display:flex; justify-content:space-between; align-items:center; background:rgba(255,255,255,0.03); border:1px solid var(--gold-border); border-radius:10px; padding:10px"><span>فقط ممبرها ببینند</span><span class="mod-toggle ${cfg.modules.export.enabled?'on':''}" data-quick-toggle="export"><i></i></span></label>`,
       sort: () => `<h4>① مرکز سورت و بسته‌بندی</h4><div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:10px"><div style="background:rgba(255,255,255,0.03); border:1px solid var(--gold-border); border-radius:10px; padding:10px; text-align:center"><div style="font-size:11px; color:var(--text-faint)">ظرفیت روزانه</div><b>${cfg.modules.sort.capacity}</b></div><div style="background:rgba(255,255,255,0.03); border:1px solid var(--gold-border); border-radius:10px; padding:10px; text-align:center"><div style="font-size:11px; color:var(--text-faint)">سورت امروز</div><b style="color:var(--success)">${cfg.modules.sort.today}</b></div></div><div style="margin-top:10px"><label style="font-size:12px; color:var(--text-muted)">ظرفیت (تن) <input id="inpCapacity" value="${cfg.modules.sort.capacity}" style="width:100%; margin-top:4px; background:rgba(255,255,255,0.04); border:1px solid var(--gold-border); border-radius:8px; padding:8px; color:var(--text-primary)"></label></div>`,
@@ -380,6 +434,34 @@ export const settingsModule = {
           const liveTitle=document.getElementById('liveLogoText'); if(liveTitle) liveTitle.textContent=inpLogoText?.value||'ALOOKHOR';
           const liveSub=document.getElementById('liveLogoSub'); if(liveSub) liveSub.textContent=inpLogoSub?.value||'';
           window.ALOOKHOR.toast('ذخیره WordPress تأیید شد؛ تغییرات Top Bar روی سایت آماده است','success');
+        });
+      }
+
+      if(key === 'footer'){
+        quick.querySelectorAll('[data-footer-media]').forEach(button=>button.addEventListener('click', ()=>{
+          if(!window.wp?.media){ window.ALOOKHOR.toast('Media Library در دسترس نیست','info'); return; }
+          const frame=window.wp.media({title:'انتخاب تصویر فوتر',button:{text:'استفاده از تصویر'},multiple:false});
+          frame.on('select',()=>{ const item=frame.state().get('selection').first().toJSON(); const input=quick.querySelector(`#${button.dataset.footerMedia}`); if(input) input.value=item.url; });
+          frame.open();
+        }));
+        commitQuickSettings = () => {
+          const f=cfg.footer_settings;
+          const fv=id=>quick.querySelector(`#${id}`)?.value ?? '';
+          Object.assign(f, {
+            logo_url:fv('ftLogoUrl'), brand_name:fv('ftBrandName'), brand_subtitle:fv('ftBrandSubtitle'), brand_kicker:fv('ftBrandKicker'), brand_description:fv('ftBrandDesc'), cta_text:fv('ftCtaText'), cta_url:fv('ftCtaUrl'),
+            phone:fv('ftPhone'), email:fv('ftEmail'), whatsapp:fv('ftWhatsapp'), support_label:fv('ftSupportLabel'), address:fv('ftAddress'), hours_week:fv('ftHoursWeek'), hours_friday:fv('ftHoursFriday'),
+            customer_title:fv('ftcustomerTitle'), customer_menu_id:Number(fv('ftcustomerMenu'))||0, customer_links:parseFooterLinks(fv('ftcustomerLinks')),
+            order_title:fv('ftorderTitle'), order_menu_id:Number(fv('ftorderMenu'))||0, order_links:parseFooterLinks(fv('ftorderLinks')),
+            about_title:fv('ftaboutTitle'), about_mobile_title:fv('ftAboutMobileTitle'), about_menu_id:Number(fv('ftaboutMenu'))||0, about_links:parseFooterLinks(fv('ftaboutLinks')),
+            instagram_url:fv('ftInstagram'), telegram_url:fv('ftTelegram'), whatsapp_url:fv('ftWhatsappUrl'), social_title:fv('ftSocialTitle'), social_desc:fv('ftSocialDesc'), newsletter_title:fv('ftNewsletterTitle'), newsletter_desc:fv('ftNewsletterDesc'), newsletter_button:fv('ftNewsletterButton'), product_image_url:fv('ftProductImage'),
+            enamad_title:fv('ftEnamadTitle'), enamad_url:fv('ftEnamadUrl'), enamad_image_url:fv('ftEnamadImage'), samandehi_title:fv('ftSamandehiTitle'), samandehi_url:fv('ftSamandehiUrl'), samandehi_image_url:fv('ftSamandehiImage'), copyright_text:fv('ftCopyright'), copyright_en:fv('ftCopyrightEn'),
+            background:fv('ftColor_background'), surface:fv('ftColor_surface'), gold:fv('ftColor_gold'), gold_soft:fv('ftColor_gold_soft'), text:fv('ftColor_text'), muted:fv('ftColor_muted'), border:fv('ftColor_border'),
+            container_width:Math.max(960,Math.min(1600,Number(fv('ftContainerWidth'))||1280)), desktop_logo_width:Math.max(100,Math.min(320,Number(fv('ftDesktopLogo'))||210)), mobile_logo_width:Math.max(100,Math.min(280,Number(fv('ftMobileLogo'))||190))
+          });
+          quick.querySelectorAll('[data-footer-flag]').forEach(input=>f[input.dataset.footerFlag]=input.checked);
+        };
+        quick.querySelector('#btnApplyFooter')?.addEventListener('click', async event=>{
+          commitQuickSettings(); const button=event.currentTarget; button.disabled=true; const result=await Config.save({notify:false}); button.disabled=false; if(!result.ok)return; window.ALOOKHOR.toast('تنظیمات فوتر در WordPress ذخیره و روی سایت اعمال شد','success');
         });
       }
       quick.querySelectorAll('[data-quick-toggle]').forEach(t=>{

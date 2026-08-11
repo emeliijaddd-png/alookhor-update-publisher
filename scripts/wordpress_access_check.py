@@ -214,6 +214,25 @@ try:
             report['checks']['topbar_endpoint'] = False
             report['checks']['topbar_no_store'] = False
 
+    if version_tuple(production_version) >= version_tuple('3.9.0'):
+        footer_url = base + '/wp-json/alookhor-cc/v1/footer?access_audit=' + str(int(time.time()))
+        try:
+            with urlopen(Request(footer_url, headers={'Accept':'application/json','Cache-Control':'no-cache','User-Agent':'ALOOKHOR-GitHub-Publisher/1.0'}), timeout=30) as response:
+                footer_state = json.load(response)
+                footer_cache = response.headers.get('Cache-Control','')
+            footer_html = str(footer_state.get('html',''))
+            report['managed_footer'] = {'version':footer_state.get('version'),'enabled':footer_state.get('enabled'),'html_length':len(footer_html)}
+            report['checks']['footer_endpoint'] = (
+                str(footer_state.get('version')) == production_version and footer_state.get('enabled') is True
+                and 'id="alookhor-managed-footer"' in footer_html
+                and 'alookhor-mf-main-grid' in footer_html and 'alookhor-mf-news-social' in footer_html
+            )
+            report['checks']['footer_no_store'] = 'no-store' in footer_cache.lower()
+        except Exception as error:
+            report['managed_footer'] = {'error':str(error)}
+            report['checks']['footer_endpoint'] = False
+            report['checks']['footer_no_store'] = False
+
     # Non-mutating feasibility probe. Application Passwords are expected to be
     # REST-only on this site; never record a nonce or any authenticated HTML.
     try:

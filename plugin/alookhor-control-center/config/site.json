@@ -8,14 +8,63 @@
     "goldAccent": "#C9A86A"
   },
   "modules": {
-    "stats": { "enabled": true, "title": "پیشخوان هوشمند آمار", "order": 1 },
-    "header": { "enabled": true, "title": "تنظیمات هدر و لوگوها", "order": 2 },
-    "export": { "enabled": false, "title": "محصولات ممبر صادراتی", "order": 3, "note": "فقط برای ممبرها" },
-    "sort": { "enabled": true, "title": "مرکز سورت و بسته‌بندی", "order": 4, "capacity": "2.4 تن", "today": "1.8 تن" },
-    "collection": { "enabled": true, "title": "مجموعه منتخب آلوخور", "order": 5, "collections": ["سورت ۱ طلایی", "بسته اقتصادی", "صادراتی"] },
-    "app": { "enabled": false, "title": "دانلود اپلیکیشن آلوخور", "order": 6, "link": "https://alookhor.ir/app" },
-    "hero": { "enabled": true, "title": "اسلایدر هیروی بالای صفحه", "order": 7, "slides": 4, "autoplay": true },
-    "auto": { "enabled": true, "title": "بروزرسانی خودکار افزونه", "order": 8, "schedule": "03:00" }
+    "stats": {
+      "enabled": true,
+      "title": "پیشخوان هوشمند آمار",
+      "order": 1
+    },
+    "header": {
+      "enabled": true,
+      "title": "تنظیمات هدر و لوگوها",
+      "order": 2
+    },
+    "footer": {
+      "enabled": true,
+      "title": "فوتر حرفه‌ای و اعتمادساز",
+      "order": 3
+    },
+    "export": {
+      "enabled": false,
+      "title": "محصولات ممبر صادراتی",
+      "order": 4,
+      "note": "فقط برای ممبرها"
+    },
+    "sort": {
+      "enabled": true,
+      "title": "مرکز سورت و بسته‌بندی",
+      "order": 5,
+      "capacity": "2.4 تن",
+      "today": "1.8 تن"
+    },
+    "collection": {
+      "enabled": true,
+      "title": "مجموعه منتخب آلوخور",
+      "order": 6,
+      "collections": [
+        "سورت ۱ طلایی",
+        "بسته اقتصادی",
+        "صادراتی"
+      ]
+    },
+    "app": {
+      "enabled": false,
+      "title": "دانلود اپلیکیشن آلوخور",
+      "order": 7,
+      "link": "https://alookhor.ir/app"
+    },
+    "hero": {
+      "enabled": true,
+      "title": "اسلایدر هیروی بالای صفحه",
+      "order": 8,
+      "slides": 4,
+      "autoplay": true
+    },
+    "auto": {
+      "enabled": true,
+      "title": "بروزرسانی خودکار افزونه",
+      "order": 9,
+      "schedule": "03:00"
+    }
   },
   "system": {
     "woocommerce": "فعال",
@@ -32,10 +81,34 @@
   "ai_assistant": {
     "enabled": true,
     "suggestions": [
-      { "id": "stock", "title": "پیشنهاد افزایش موجودی آلو بترا همتار", "status": "pending", "detail": "هوش مصنوعی پیشنهاد می‌دهد موجودی آلو بخارا سورت ۱ را ۲۲٪ افزایش دهی — فروش هفته گذشته ۱۸٪ رشد داشت.", "action": "increase_stock" },
-      { "id": "images", "title": "بهینه‌سازی خودکار تصاویر محصولات اسلایدر", "status": "pending", "detail": "۴ تصویر با حجم بالا شناسایی شد. بهینه‌سازی ۶۸٪ حجم را کم می‌کند.", "action": "optimize_images" },
-      { "id": "speed", "title": "افزایش چشمگیر سرعت بارگذاری هوم‌پیج", "status": "pending", "detail": "با LazyLoad و کش طلایی، سرعت از ۳.۴ به ۲.۲ ثانیه می‌رسد.", "action": "enable_cache" },
-      { "id": "feedback", "title": "بررسی و ثبت بازخورد مراجعین خارجی", "status": "new", "detail": "۱۲ بازخورد خارجی جدید از روسیه و امارات — تایید برای نمایش در بخش صادرات.", "action": "review_feedback" }
+      {
+        "id": "stock",
+        "title": "پیشنهاد افزایش موجودی آلو بترا همتار",
+        "status": "pending",
+        "detail": "هوش مصنوعی پیشنهاد می‌دهد موجودی آلو بخارا سورت ۱ را ۲۲٪ افزایش دهی — فروش هفته گذشته ۱۸٪ رشد داشت.",
+        "action": "increase_stock"
+      },
+      {
+        "id": "images",
+        "title": "بهینه‌سازی خودکار تصاویر محصولات اسلایدر",
+        "status": "pending",
+        "detail": "۴ تصویر با حجم بالا شناسایی شد. بهینه‌سازی ۶۸٪ حجم را کم می‌کند.",
+        "action": "optimize_images"
+      },
+      {
+        "id": "speed",
+        "title": "افزایش چشمگیر سرعت بارگذاری هوم‌پیج",
+        "status": "pending",
+        "detail": "با LazyLoad و کش طلایی، سرعت از ۳.۴ به ۲.۲ ثانیه می‌رسد.",
+        "action": "enable_cache"
+      },
+      {
+        "id": "feedback",
+        "title": "بررسی و ثبت بازخورد مراجعین خارجی",
+        "status": "new",
+        "detail": "۱۲ بازخورد خارجی جدید از روسیه و امارات — تایید برای نمایش در بخش صادرات.",
+        "action": "review_feedback"
+      }
     ]
   },
   "header_settings": {
@@ -46,5 +119,5 @@
   },
   "updated_at": "2026-08-10T16:20:00Z",
   "updated_by": "AI Assistant — recovered from previous chat",
-  "version": "3.8.9"
+  "version": "3.9.0"
 }

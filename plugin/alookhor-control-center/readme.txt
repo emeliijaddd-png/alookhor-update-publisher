@@ -4,7 +4,7 @@ Tags: control center, luxury, alookhor, admin, dashboard
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 3.8.9
+Stable tag: 3.9.0
 License: Private
 License URI: https://alookhor.ir
 
@@ -43,6 +43,14 @@ License URI: https://alookhor.ir
 در `config/site.json` و `wp_options: alookhor_cc_settings` — همان حافظه واقعی که در چت قبلی ویرایش می‌شد.
 
 == Changelog ==
+
+= 3.9.0 =
+* فوتر حرفه‌ای Luxury مطابق تصاویر Desktop و Mobile
+* اتصال لوگو، منو، تلفن، ایمیل، Home URL و سال به WordPress
+* ماژول تنظیمات کامل فوتر داخل پنل اصلی ALOOKHOR
+* جایگزینی خودکار فوتر Legacy بدون ویرایش Elementor
+* خبرنامه داخلی Rate-limited و تنظیمات شبکه‌های اجتماعی/مجوزها
+* Responsive واقعی 320 تا 1920px و حفظ نوار ابزار موبایل Woodmart
 
 = 3.8.9 =
 * شناسایی و همگام‌سازی تلفن plain-text در `topbar-contact-txt`

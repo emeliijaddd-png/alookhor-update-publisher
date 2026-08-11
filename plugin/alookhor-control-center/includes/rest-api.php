@@ -42,6 +42,9 @@ function alookhor_cc_runtime_status(){
             'header_option_hash' => hash('sha256', wp_json_encode(get_option(ALOOKHOR_CC_HEADER_OPTION, null))),
             'module_count' => is_array($settings['modules'] ?? null) ? count($settings['modules']) : 0,
             'header_shortcode' => shortcode_exists('alookhor_portal_header'),
+            'footer_settings' => is_array($settings['footer_settings'] ?? null),
+            'footer_enabled' => !empty($settings['footer_settings']['enabled']),
+            'footer_module' => !empty($settings['modules']['footer']['enabled']),
         ],
         'last_verified_package' => is_array($verified) ? $verified : null,
         'last_activation_restore' => get_site_transient('alookhor_cc_last_activation_restore') ?: null,
@@ -91,6 +94,46 @@ add_action('rest_api_init', function(){
             ]);
             $response->header('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0');
             return $response;
+        },
+    ]);
+
+    register_rest_route('alookhor-cc/v1', '/footer', [
+        'methods' => WP_REST_Server::READABLE,
+        'permission_callback' => '__return_true',
+        'callback' => function(){
+            $settings = alookhor_cc_get_footer_settings();
+            $response = rest_ensure_response([
+                'version' => ALOOKHOR_CC_VERSION,
+                'enabled' => !empty($settings['enabled']),
+                'html' => alookhor_cc_footer_markup($settings),
+            ]);
+            $response->header('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0');
+            return $response;
+        },
+    ]);
+
+    register_rest_route('alookhor-cc/v1', '/footer-subscribe', [
+        'methods' => WP_REST_Server::CREATABLE,
+        'permission_callback' => '__return_true',
+        'args' => [
+            'email' => ['required'=>true,'type'=>'string','sanitize_callback'=>'sanitize_email'],
+            'company' => ['required'=>false,'type'=>'string','sanitize_callback'=>'sanitize_text_field'],
+        ],
+        'callback' => function(WP_REST_Request $request){
+            if ((string)$request->get_param('company') !== '') return rest_ensure_response(['message'=>'عضویت ثبت شد.']);
+            $email = sanitize_email((string)$request->get_param('email'));
+            if (!$email || !is_email($email)) return new WP_Error('alookhor_footer_email_invalid','ایمیل معتبر وارد کنید.',['status'=>400]);
+            $ip = sanitize_text_field($_SERVER['REMOTE_ADDR'] ?? 'unknown');
+            $rate_key = 'alookhor_footer_sub_' . substr(hash_hmac('sha256',$ip,wp_salt('nonce')),0,24);
+            if (get_transient($rate_key)) return new WP_Error('alookhor_footer_rate_limit','لطفاً یک دقیقه بعد دوباره تلاش کنید.',['status'=>429]);
+            set_transient($rate_key,1,MINUTE_IN_SECONDS);
+            $subscribers = get_option('alookhor_footer_subscribers',[]);
+            if (!is_array($subscribers)) $subscribers=[];
+            $key = hash('sha256',strtolower($email));
+            $subscribers[$key] = ['email'=>$email,'created_at'=>current_time('mysql',true)];
+            if (count($subscribers)>5000) $subscribers=array_slice($subscribers,-5000,null,true);
+            update_option('alookhor_footer_subscribers',$subscribers,false);
+            return rest_ensure_response(['message'=>'عضویت شما با موفقیت ثبت شد.']);
         },
     ]);
 

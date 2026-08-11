@@ -6,8 +6,8 @@
 
 - **نام افزونه:** ALOOKHOR Control Center
 - **نسخه پایه بازیابی‌شده:** `3.8.4`
-- **Production پیش از این Release:** `3.8.8` (فعال و نمایش اتمی Top Bar تأییدشده)
-- **Release آماده انتشار اتمی:** `3.8.9` (اتصال تلفن/ایمیل به spanهای واقعی DOM هدر Legacy)
+- **Production نصب‌شده:** `3.8.9` (فعال و Contact spanهای هدر تأییدشده)
+- **Release در حال توسعه:** `3.9.0 DRAFT` (فوتر حرفه‌ای مدیریت‌شده Desktop/Mobile داخل پنل اصلی)
 - **تاریخ بازیابی:** 2026-08-11
 - **منبع بازیابی:** ZIP واقعی افزونه `alookhor-control-center (5).zip`
 - **حداقل WordPress:** 6.0
@@ -219,8 +219,8 @@ Schema حداقلی Manifest:
 
 ```json
 {
-  "version": "3.8.9",
-  "download_url": "https://updates.alookhor.ir/releases/alookhor-control-center-3.8.9.zip",
+  "version": "3.9.0",
+  "download_url": "https://updates.alookhor.ir/releases/alookhor-control-center-3.9.0.zip",
   "details_url": "https://alookhor.ir/changelog",
   "requires": "6.0",
   "tested": "7.0",

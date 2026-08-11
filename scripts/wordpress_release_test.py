@@ -93,6 +93,9 @@ try:
     report['checks']['header_option'] = after.get('settings', {}).get('header_option') is True
     report['checks']['module_count'] = int(after.get('settings', {}).get('module_count', 0)) >= 8
     report['checks']['shortcode'] = after.get('settings', {}).get('header_shortcode') is True
+    report['checks']['footer_settings'] = after.get('settings', {}).get('footer_settings') is True
+    report['checks']['footer_enabled'] = after.get('settings', {}).get('footer_enabled') is True
+    report['checks']['footer_module'] = after.get('settings', {}).get('footer_module') is True
     if current != TARGET:
         restore = after.get('last_activation_restore') or after.get('transition_activation_restore')
         report['checks']['activation_restore'] = isinstance(restore, dict) and (
@@ -122,6 +125,21 @@ try:
         ])
     )
     report['checks']['topbar_no_store'] = 'no-store' in cache_control.lower()
+
+    footer_url = BASE + '/wp-json/alookhor-cc/v1/footer?release_test=' + TARGET.replace('.', '')
+    with urlopen(Request(footer_url, headers={'Accept':'application/json','Cache-Control':'no-cache','User-Agent':'ALOOKHOR-GitHub-Publisher/1.0'}), timeout=30) as response:
+        footer = json.load(response)
+        footer_cache = response.headers.get('Cache-Control','')
+    report['footer'] = {'version':footer.get('version'),'enabled':footer.get('enabled'),'html_length':len(str(footer.get('html','')))}
+    footer_html = str(footer.get('html',''))
+    report['checks']['footer_endpoint'] = (
+        str(footer.get('version')) == TARGET and footer.get('enabled') is True
+        and 'id="alookhor-managed-footer"' in footer_html
+        and 'alookhor-mf-main-grid' in footer_html
+        and 'alookhor-mf-news-social' in footer_html
+        and 'alookhor-mf-benefits' in footer_html
+    )
+    report['checks']['footer_no_store'] = 'no-store' in footer_cache.lower()
 
     failed = [name for name, passed in report['checks'].items() if passed is not True]
     report['ok'] = not failed

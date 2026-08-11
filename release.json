@@ -1,31 +1,36 @@
 {
-  "version": "3.8.9",
-  "previous": "3.8.8",
-  "state": "ready",
+  "version": "3.9.0",
+  "previous": "3.8.9",
+  "state": "draft",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "اتصال مستقیم مقادیر تلفن و ایمیل به ساختار واقعی span-based هدر Legacy.",
+  "description": "فوتر حرفه‌ای مدیریت‌شده ALOOKHOR با طراحی مستقل Desktop/Mobile و تنظیمات کامل داخل پنل اصلی.",
   "changelog": [
     {
-      "tag": "PHONE",
-      "title": "اصلاح قطعی تلفن هدر Legacy",
-      "desc": "شماره تلفن اکنون علاوه بر لینک tel، در span واقعی topbar-contact-txt شناسایی و با مقدار تازه WordPress جایگزین می‌شود."
+      "tag": "FOOTER",
+      "title": "فوتر Luxury مطابق مراجع Desktop و Mobile",
+      "desc": "چیدمان پنج‌ستونه دسکتاپ، کارت‌های دو‌ستونه موبایل، برند، تماس، منوها، اعتماد، خبرنامه و مزیت‌ها پیاده‌سازی شدند."
     },
     {
-      "tag": "EMAIL",
-      "title": "اصلاح قطعی ایمیل هدر Legacy",
-      "desc": "ایمیل plain-text هدر قدیمی بدون نیاز به mailto از State تازه REST همگام می‌شود."
+      "tag": "WORDPRESS",
+      "title": "اتصال به منابع واقعی WordPress",
+      "desc": "لوگو، فهرست‌های انتخابی، Home URL، سال جاری و تلفن/ایمیل مشترک هدر از WordPress خوانده می‌شوند."
     },
     {
-      "tag": "DOM",
-      "title": "حفظ آیکون‌های دکمه و صادرات",
-      "desc": "جایگزینی متن مستقیم، SVG و ساختار اصلی دکمه خرید عمده را حذف یا بازطراحی نمی‌کند."
+      "tag": "CONTROL CENTER",
+      "title": "تنظیمات کامل در پنل اصلی ALOOKHOR",
+      "desc": "ماژول فوتر به تنظیمات سریع هر ماژول افزوده شد و محتوا، منوها، رسانه، مجوزها، شبکه‌ها و رنگ‌ها را مدیریت می‌کند."
     },
     {
-      "tag": "TEST",
-      "title": "آزمون با DOM واقعی Production",
-      "desc": "Selectorها روی کلاس‌های alookhor-topbar-wrapper، topbar-contact-txt و topbar-btn-wholesale استخراج‌شده از Production آزمایش شدند."
+      "tag": "MIGRATION",
+      "title": "جایگزینی خودکار فوتر Legacy",
+      "desc": "بدون ویرایش Elementor یا Code Snippets، فوتر قدیمی مخفی و فوتر مدیریت‌شده در همان انتهای محتوای سایت رندر می‌شود."
+    },
+    {
+      "tag": "RESPONSIVE",
+      "title": "Responsive واقعی 320 تا 1920px",
+      "desc": "Mobile grid، حفظ نوار ابزار Woodmart، عدم overflow و ترتیب بخش‌ها مطابق تصویر مرجع موبایل اعمال شدند."
     }
   ]
 }
