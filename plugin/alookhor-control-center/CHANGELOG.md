@@ -1,5 +1,11 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.9.1 — 2026-08-11 — Desktop Footer Direction Polish
+- FIX: نوار میانی با Direction مستقل: Social چپ، Newsletter مرکز و Product Image راست.
+- FIX: نوار اعتماد: Licenses چپ، Payments مرکز و Copyright راست.
+- RESPONSIVE: قواعد Mobile 3.9.0 بدون تغییر حفظ شدند.
+- TEST: Screenshot محلی 1440px و 430px بدون horizontal overflow تولید و با مراجع مقایسه شد.
+
 ## v3.9.0 — 2026-08-11 — Managed Responsive Footer
 - ADD: فوتر مدیریت‌شده با چیدمان پنج‌ستونه Desktop و کارت‌های دو‌ستونه Mobile مطابق تصاویر مرجع.
 - WP: خواندن لوگو/Media، فهرست‌های انتخابی، Home URL، سال جاری و Contact مشترک با Header از WordPress.

@@ -1,4 +1,4 @@
-import { Config } from '../core/config.js?v=3.9.0';
+import { Config } from '../core/config.js?v=3.9.1';
 
 const escapeAttr = value => String(value ?? '').replace(/[&<>'"]/g, char => ({
   '&':'&amp;', '<':'&lt;', '>':'&gt;', "'":'&#039;', '"':'&quot;'
