@@ -2,7 +2,7 @@
 // UI/state remain modular; version discovery and installation are delegated to WordPress.
 
 const runtimeConfig = window.ALOOKHOR_CC || {};
-const runtimeVersion = String(runtimeConfig.version || '3.9.1');
+const runtimeVersion = String(runtimeConfig.version || '3.9.2');
 
 function normalizeResult(data = {}) {
   const current = String(data.current || runtimeVersion);
@@ -55,6 +55,7 @@ export const Updater = {
   latest: runtimeVersion,
   lastCheck: null,
   changelog: [
+    { tag: 'ADMIN UI', title: 'v3.9.2 — فرم منظم تنظیمات فوتر', desc: 'تمام فیلدها، انتخاب رسانه، رنگ‌ها و منوها با Grid Responsive و بدون هم‌پوشانی نمایش داده می‌شوند.' },
     { tag: 'FOOTER', title: 'v3.9.1 — تطبیق نهایی Desktop', desc: 'ترتیب خبرنامه، تصویر، اجتماعی، مجوزها و Copyright مطابق تصویر مرجع نهایی شد.' },
     { tag: 'FOOTER', title: 'v3.9.0 — فوتر حرفه‌ای مدیریت‌شده', desc: 'فوتر Luxury مستقل Desktop/Mobile با تنظیمات کامل در پنل اصلی ALOOKHOR.' },
     { tag: 'CONTACT', title: 'v3.8.9 — اتصال مستقیم تلفن و ایمیل Legacy', desc: 'spanهای واقعی تماس در هدر قدیمی از State تازه WordPress همگام می‌شوند.' },

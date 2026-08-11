@@ -55,10 +55,12 @@ jobs:
               assert Path(name).is_file() and Path(name).stat().st_size > 0, name
           php = Path(required[0]).read_text()
           css = Path(required[1]).read_text()
+          admin_css = Path('plugin/alookhor-control-center/assets/css/luxury.css').read_text()
           js = Path(required[2]).read_text()
           assert 'id="alookhor-managed-footer"' in php
           assert "register_rest_route('alookhor-cc/v1', '/footer'" in Path('plugin/alookhor-control-center/includes/rest-api.php').read_text()
           assert '@media(max-width:767px)' in css and '.alookhor-mf-main-grid' in css
+          assert '#quickSettings .qh-grid' in admin_css and '#quickSettings .qh-section textarea' in admin_css
           assert 'cache:\'no-store\'' in js and 'alookhor-mf-newsletter-form' in js
           print('Managed footer contract passed')
           PY

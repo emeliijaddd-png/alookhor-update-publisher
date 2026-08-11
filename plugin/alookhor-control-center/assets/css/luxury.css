@@ -495,3 +495,38 @@ tr:last-child td{border-bottom:0}
   width:32px; height:32px; border-radius:999px; display:grid; place-items:center;
   background: rgba(61,214,140,0.14); color:var(--success); flex:0 0 32px;
 }
+
+/* Shared Quick Settings form system — Header + Managed Footer */
+#quickSettings{min-width:0}
+#quickSettings .qh-head{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;margin-bottom:14px;padding:14px 16px;border:1px solid var(--gold-border);border-radius:14px;background:linear-gradient(135deg,rgba(201,168,106,.08),rgba(255,255,255,.018))}
+#quickSettings .qh-head h4{margin:0;color:var(--text-primary);font-size:15px;line-height:1.6}
+#quickSettings .qh-head p{margin:4px 0 0;color:var(--text-muted);font-size:11.5px;line-height:1.7;max-width:680px}
+#quickSettings .qh-head code{direction:ltr;white-space:nowrap;padding:7px 10px;border:1px solid var(--gold-border-strong);border-radius:9px;background:rgba(0,0,0,.22);color:var(--gold-soft);font-size:10px}
+#quickSettings .qh-section{padding:15px;margin-top:11px;border:1px solid var(--gold-border);border-radius:13px;background:rgba(255,255,255,.018);overflow:hidden}
+#quickSettings .qh-title{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px;padding-bottom:9px;border-bottom:1px solid rgba(201,168,106,.09)}
+#quickSettings .qh-title b{font-size:12.5px;color:var(--text-primary)}
+#quickSettings .qh-title small{direction:ltr;color:var(--gold);font:700 9px/1 Arial;letter-spacing:.09em}
+#quickSettings .qh-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+#quickSettings .qh-colors{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+#quickSettings .qh-span-2{grid-column:span 2}
+#quickSettings .qh-section label{display:grid;align-content:start;gap:6px;min-width:0;color:var(--text-muted);font-size:11px;line-height:1.5}
+#quickSettings .qh-section input:not([type=checkbox]),
+#quickSettings .qh-section select,
+#quickSettings .qh-section textarea{display:block;width:100%;min-width:0;min-height:39px;margin:0;padding:9px 10px;border:1px solid var(--gold-border);border-radius:9px;outline:0;background:rgba(5,5,7,.46);color:var(--text-primary);font:12px/1.65 inherit;box-shadow:none;transition:border-color .18s ease,background .18s ease}
+#quickSettings .qh-section textarea{resize:vertical;min-height:88px;direction:rtl;text-align:right}
+#quickSettings .qh-section textarea[dir=ltr],#quickSettings .qh-section input[dir=ltr]{direction:ltr;text-align:left}
+#quickSettings .qh-section select{cursor:pointer}
+#quickSettings .qh-section select option{background:#171419;color:#f5f1e9}
+#quickSettings .qh-section input:focus,#quickSettings .qh-section select:focus,#quickSettings .qh-section textarea:focus{border-color:var(--gold);background:rgba(201,168,106,.045);box-shadow:0 0 0 3px rgba(201,168,106,.09)}
+#quickSettings .qh-section input[type=color]{height:42px;padding:4px;cursor:pointer}
+#quickSettings .qh-inline{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:stretch;gap:7px}
+#quickSettings .qh-inline button{min-width:76px;margin:0;padding:7px 10px;border:1px solid var(--gold-border-strong);border-radius:9px;background:rgba(201,168,106,.1);color:var(--gold-soft);font:700 11px inherit;cursor:pointer}
+#quickSettings .qh-inline button:hover{background:rgba(201,168,106,.18)}
+#quickSettings .qh-flags{display:flex;gap:7px;flex-wrap:wrap}
+#quickSettings .qh-flags label{display:flex;align-items:center;gap:7px;padding:7px 10px;border:1px solid var(--gold-border);border-radius:999px;background:rgba(255,255,255,.025);color:var(--text-secondary);cursor:pointer}
+#quickSettings .qh-flags input[type=checkbox]{width:16px;height:16px;margin:0;accent-color:var(--gold);cursor:pointer}
+#quickSettings .qh-actions{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-top:14px;padding:12px;border:1px solid var(--gold-border);border-radius:12px;background:rgba(255,255,255,.018)}
+#quickSettings .qh-actions button,#quickSettings .qh-actions a{margin:0;padding:9px 15px;font-size:11.5px;text-decoration:none}
+#quickSettings .qh-actions span{color:var(--text-faint);font-size:10.5px;line-height:1.6}
+@media(max-width:900px){#quickSettings .qh-colors{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:700px){#quickSettings .qh-head{display:grid}#quickSettings .qh-head code{justify-self:start}#quickSettings .qh-grid,#quickSettings .qh-colors{grid-template-columns:1fr}#quickSettings .qh-span-2{grid-column:auto}#quickSettings .qh-inline{grid-template-columns:1fr}#quickSettings .qh-actions>*{width:100%;text-align:center}}

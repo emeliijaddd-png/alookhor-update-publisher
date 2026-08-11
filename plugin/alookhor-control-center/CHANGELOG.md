@@ -1,5 +1,12 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.9.2 — 2026-08-11 — Managed Footer Admin Form Layout
+- FIX: انتقال قواعد مشترک `.qh-*` از Template موقت Header به `luxury.css` اصلی Admin.
+- UI: Grid دو‌ستونه فرم، Grid چهار‌ستونه رنگ‌ها، Labelهای مستقل و Fieldهای تمام‌عرض.
+- UI: Checkbox pill، Media picker، Select، Textarea و Action bar با هویت Luxury هماهنگ شدند.
+- RESPONSIVE: در ≤900px رنگ‌ها دو‌ستونه و در ≤700px تمام فرم تک‌ستونه می‌شود.
+- FIX: حذف هم‌پوشانی عنوان/فیلد و نمایش به‌هم‌ریخته‌ای که هنگام انتخاب ماژول Footer رخ می‌داد.
+
 ## v3.9.1 — 2026-08-11 — Desktop Footer Direction Polish
 - FIX: نوار میانی با Direction مستقل: Social چپ، Newsletter مرکز و Product Image راست.
 - FIX: نوار اعتماد: Licenses چپ، Payments مرکز و Copyright راست.

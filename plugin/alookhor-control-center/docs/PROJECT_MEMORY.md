@@ -6,8 +6,8 @@
 
 - **نام افزونه:** ALOOKHOR Control Center
 - **نسخه پایه بازیابی‌شده:** `3.8.4`
-- **Production پیش از این Release:** `3.9.0` (فوتر مدیریت‌شده فعال و REST/Homepage تأییدشده)
-- **Release آماده انتشار اتمی:** `3.9.1` (تطبیق نهایی ترتیب افقی Desktop با تصویر مرجع)
+- **Production پیش از این Release:** `3.9.1` (فوتر مدیریت‌شده Desktop/Mobile فعال)
+- **Release آماده انتشار اتمی:** `3.9.2` (سامان‌دهی کامل UI تنظیمات فوتر در پنل اصلی)
 - **تاریخ بازیابی:** 2026-08-11
 - **منبع بازیابی:** ZIP واقعی افزونه `alookhor-control-center (5).zip`
 - **حداقل WordPress:** 6.0
@@ -219,8 +219,8 @@ Schema حداقلی Manifest:
 
 ```json
 {
-  "version": "3.9.1",
-  "download_url": "https://updates.alookhor.ir/releases/alookhor-control-center-3.9.1.zip",
+  "version": "3.9.2",
+  "download_url": "https://updates.alookhor.ir/releases/alookhor-control-center-3.9.2.zip",
   "details_url": "https://alookhor.ir/changelog",
   "requires": "6.0",
   "tested": "7.0",
