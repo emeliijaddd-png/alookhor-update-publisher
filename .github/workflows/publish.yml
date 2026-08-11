@@ -38,6 +38,31 @@ jobs:
           openssl x509 -in /tmp/ftps-leaf.pem -noout -subject -issuer -dates -fingerprint -sha256 -ext subjectAltName
           openssl x509 -in /tmp/ftps-leaf.pem -noout -checkhost "$FTP_SERVER"
 
+      - name: Validate source syntax and managed-footer contract
+        run: |
+          python3 -m py_compile scripts/*.py
+          find plugin/alookhor-control-center -name '*.php' -type f -print0 | xargs -0 -n1 php -l
+          while IFS= read -r file; do node --check "$file"; done < <(find plugin/alookhor-control-center/assets/js -name '*.js' -type f | sort)
+          python3 - <<'PY'
+          from pathlib import Path
+          required = [
+              'plugin/alookhor-control-center/includes/footer.php',
+              'plugin/alookhor-control-center/assets/css/frontend-footer.css',
+              'plugin/alookhor-control-center/assets/js/frontend-footer.js',
+              'plugin/alookhor-control-center/assets/images/footer-prunes.png',
+          ]
+          for name in required:
+              assert Path(name).is_file() and Path(name).stat().st_size > 0, name
+          php = Path(required[0]).read_text()
+          css = Path(required[1]).read_text()
+          js = Path(required[2]).read_text()
+          assert 'id="alookhor-managed-footer"' in php
+          assert "register_rest_route('alookhor-cc/v1', '/footer'" in Path('plugin/alookhor-control-center/includes/rest-api.php').read_text()
+          assert '@media(max-width:767px)' in css and '.alookhor-mf-main-grid' in css
+          assert 'cache:\'no-store\'' in js and 'alookhor-mf-newsletter-form' in js
+          print('Managed footer contract passed')
+          PY
+
       - name: Build and validate release
         id: release
         run: python3 scripts/build_release.py
