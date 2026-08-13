@@ -21,12 +21,11 @@ When sources disagree, the newer provable runtime/source wins. Missing source is
 
 ## Authoritative current state
 
-- **Production runtime:** ALOOKHOR Control Center `3.10.7`
-- **Current source target:** `3.10.8` — live-browser geometry and Sticky correction; pending tagged deployment and verification.
-- **Last Production tag/source:** `v3.10.7` / `6b408aa52be584c95fd2fe0b97032aed4191d6d9`
-- **Last published package SHA-256:** `790bff23f18a1ec5ea188f7e681bd3bd7d9ef3b7372c38336f986cd4e789dc7d`
-- **Deployment run:** `31721366338`
-- **Independent audit run:** `31721670113`
+- **Production runtime:** ALOOKHOR Control Center `3.10.8`
+- **Current Production tag/source:** `v3.10.8` / `b92dce4ce5fcb8abb78a963297af754ae75857b4`
+- **Published package SHA-256:** `f147e47b73e6f23d9db2feaa5b9d900c98215f6f58ef47ac3abc4c19a5b26a99`
+- **Deployment run:** `31726553030` (installation succeeded; one obsolete preservation assertion was corrected afterward)
+- **Independent WordPress + rendered Chrome audit:** `31726873937` — all checks passed
 - **Production:** active and verified
 - **Repository:** `alookhor-update-publisher`
 - **Update channel:** `https://updates.alookhor.ir/manifest.json`
