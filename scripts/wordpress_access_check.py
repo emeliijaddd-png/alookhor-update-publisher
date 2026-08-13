@@ -110,7 +110,8 @@ try:
     report['checks']['header_option'] = settings.get('header_option') is True
     report['checks']['module_count'] = int(settings.get('module_count', 0)) >= 8
     report['checks']['shortcode'] = settings.get('header_shortcode') is True
-    report['checks']['category_shortcode'] = settings.get('category_shortcode') is True
+    production_parts = tuple(int(part) for part in production_version.split('.'))
+    report['checks']['category_shortcode'] = settings.get('category_shortcode') is True if production_parts >= (3, 10, 3) else True
 
     public_url = base + '/?alookhor_access_audit=' + production_version.replace('.', '')
     with urlopen(Request(public_url, headers={'User-Agent': 'ALOOKHOR-GitHub-Publisher/1.0'}), timeout=30) as response:
