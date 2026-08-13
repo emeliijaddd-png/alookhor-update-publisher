@@ -33,6 +33,7 @@ def source_files() -> list[Path]:
         ROOT / '.github' / 'workflows' / 'publish.yml',
         ROOT / 'scripts' / 'build_release.py',
         ROOT / 'scripts' / 'generate_code_registry.py',
+        ROOT / 'scripts' / 'header_visual_audit.py',
         ROOT / 'scripts' / 'wordpress_access_check.py',
         ROOT / 'scripts' / 'wordpress_release_test.py',
         ROOT / 'ops' / 'wordpress-ci-bootstrap.php',

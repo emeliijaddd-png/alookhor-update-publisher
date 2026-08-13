@@ -211,6 +211,17 @@ jobs:
           WP_REPORT_PATH: /tmp/wordpress-access.json
         run: python3 scripts/wordpress_access_check.py > /tmp/wordpress-access.log 2>&1
 
+      - name: Audit rendered Production Header in Desktop and Mobile Chrome
+        id: header_visual
+        continue-on-error: true
+        env:
+          WP_BASE_URL: ${{ secrets.WP_BASE_URL }}
+          HEADER_VISUAL_REPORT: /tmp/header-visual.json
+          HEADER_VISUAL_SHOTS: /tmp/header-shots
+        run: |
+          python3 -m pip install --quiet selenium
+          python3 scripts/header_visual_audit.py > /tmp/header-visual.log 2>&1
+
       - name: Write machine-readable access status
         if: always()
         env:
@@ -220,6 +231,7 @@ jobs:
           FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
           FTPS_OUTCOME: ${{ steps.ftps_probe.outcome }}
           ACCESS_OUTCOME: ${{ steps.wp_access.outcome }}
+          HEADER_VISUAL_OUTCOME: ${{ steps.header_visual.outcome }}
         run: |
           python3 - <<'PY'
           import json, os
@@ -228,6 +240,8 @@ jobs:
           from urllib.parse import quote
           report_path = Path('/tmp/wordpress-access.json')
           wordpress = json.loads(report_path.read_text()) if report_path.exists() else None
+          visual_path = Path('/tmp/header-visual.json')
+          visual = json.loads(visual_path.read_text()) if visual_path.exists() else None
           ftps_log_path = Path('/tmp/ftps-probe.log')
           ftps_log = ftps_log_path.read_text(errors='replace') if ftps_log_path.exists() else ''
           for secret_name in ['FTP_PASSWORD','FTP_USERNAME','FTP_SERVER']:
@@ -243,9 +257,11 @@ jobs:
               'outcomes': {
                   'ftps_probe': os.environ.get('FTPS_OUTCOME',''),
                   'wordpress_access': os.environ.get('ACCESS_OUTCOME',''),
+                  'header_visual': os.environ.get('HEADER_VISUAL_OUTCOME',''),
               },
               'ftps_log': ftps_log[-8000:],
               'wordpress': wordpress,
+              'header_visual': visual,
           }
           Path('/tmp/latest.json').write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n')
           PY
@@ -256,7 +272,8 @@ jobs:
           git config user.name 'ALOOKHOR Publisher Bot'
           git config user.email 'publisher@alookhor.ir'
           cp /tmp/latest.json .
-          git add latest.json
+          if [ -d /tmp/header-shots ]; then mkdir -p visual; cp /tmp/header-shots/*.png visual/ 2>/dev/null || true; fi
+          git add latest.json visual 2>/dev/null || git add latest.json
           git commit -m "Access audit for run ${GITHUB_RUN_ID}"
           git remote add origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
           git push --force origin HEAD:publisher-status

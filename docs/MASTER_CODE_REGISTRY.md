@@ -145,7 +145,7 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 
 | File | Lines | SHA-256 |
 |---|---:|---|
-| `.github/workflows/publish.yml` | 481 | `57a6ddbd2c7cfa95bd013bad5962637da42fecc21c914298f474a8da92a003d7` |
+| `.github/workflows/publish.yml` | 498 | `fc0834adb52c87bfb0b5e91195190b450dae7ae29fb51216f5a1150392fa3ea4` |
 | `ops/wordpress-ci-bootstrap.php` | 215 | `409c23f2be99c6651b0e75dc877c91c884534e6b16f9985c177cf65d14fd4c95` |
 | `plugin/alookhor-control-center/alookhor-control-center.php` | 310 | `747c023834d940c2481807bc49e0b2bfa7ede01385ea8618f2f9a8ee1b8d660b` |
 | `plugin/alookhor-control-center/assets/css/frontend-categories.css` | 9 | `b811fb4f96023711a593cd593eb9ae3846ebfd9c912c57e3e623d0965f7d494a` |
@@ -179,7 +179,8 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 | `plugin/alookhor-control-center/templates/admin-control-center.php` | 388 | `df7bd3342533b3efcd8b92995976056397f197f2d4f70d9ca3240dba5d62019f` |
 | `plugin/alookhor-control-center/uninstall.php` | 6 | `d69282a9ab7c0865b6c60e6fca272d0859433e9c8730754fb2995295209ff84c` |
 | `scripts/build_release.py` | 101 | `f07af70658e73dd9e42f018cfa3e2ca35a7287599d7e6a4cf8e06951665126d8` |
-| `scripts/generate_code_registry.py` | 239 | `cecea9b08e788f6671f27bddbf12658cc19d158eeba51c42be908beac7f084ac` |
+| `scripts/generate_code_registry.py` | 240 | `19f81c1ae220c00b6df6da4084322d3374bfbd2bb9281e25f00e88593d0b5a93` |
+| `scripts/header_visual_audit.py` | 83 | `b70230ea206342e4547d8435eeac4b68c1c46dbab27bf011e390b870a44070a9` |
 | `scripts/wordpress_access_check.py` | 355 | `665bc6ffafa33fe4ad51f5faeb6a5ec68860b565798b58e3acf246d68632511c` |
 | `scripts/wordpress_release_test.py` | 207 | `9c35106f334488cf1261475bae3491bc85df0997ab8ed6b7f534519a0e4379ab` |
 
@@ -403,6 +404,17 @@ jobs:
           WP_REPORT_PATH: /tmp/wordpress-access.json
         run: python3 scripts/wordpress_access_check.py > /tmp/wordpress-access.log 2>&1
 
+      - name: Audit rendered Production Header in Desktop and Mobile Chrome
+        id: header_visual
+        continue-on-error: true
+        env:
+          WP_BASE_URL: ${{ secrets.WP_BASE_URL }}
+          HEADER_VISUAL_REPORT: /tmp/header-visual.json
+          HEADER_VISUAL_SHOTS: /tmp/header-shots
+        run: |
+          python3 -m pip install --quiet selenium
+          python3 scripts/header_visual_audit.py > /tmp/header-visual.log 2>&1
+
       - name: Write machine-readable access status
         if: always()
         env:
@@ -412,6 +424,7 @@ jobs:
           FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
           FTPS_OUTCOME: ${{ steps.ftps_probe.outcome }}
           ACCESS_OUTCOME: ${{ steps.wp_access.outcome }}
+          HEADER_VISUAL_OUTCOME: ${{ steps.header_visual.outcome }}
         run: |
           python3 - <<'PY'
           import json, os
@@ -420,6 +433,8 @@ jobs:
           from urllib.parse import quote
           report_path = Path('/tmp/wordpress-access.json')
           wordpress = json.loads(report_path.read_text()) if report_path.exists() else None
+          visual_path = Path('/tmp/header-visual.json')
+          visual = json.loads(visual_path.read_text()) if visual_path.exists() else None
           ftps_log_path = Path('/tmp/ftps-probe.log')
           ftps_log = ftps_log_path.read_text(errors='replace') if ftps_log_path.exists() else ''
           for secret_name in ['FTP_PASSWORD','FTP_USERNAME','FTP_SERVER']:
@@ -435,9 +450,11 @@ jobs:
               'outcomes': {
                   'ftps_probe': os.environ.get('FTPS_OUTCOME',''),
                   'wordpress_access': os.environ.get('ACCESS_OUTCOME',''),
+                  'header_visual': os.environ.get('HEADER_VISUAL_OUTCOME',''),
               },
               'ftps_log': ftps_log[-8000:],
               'wordpress': wordpress,
+              'header_visual': visual,
           }
           Path('/tmp/latest.json').write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n')
           PY
@@ -448,7 +465,8 @@ jobs:
           git config user.name 'ALOOKHOR Publisher Bot'
           git config user.email 'publisher@alookhor.ir'
           cp /tmp/latest.json .
-          git add latest.json
+          if [ -d /tmp/header-shots ]; then mkdir -p visual; cp /tmp/header-shots/*.png visual/ 2>/dev/null || true; fi
+          git add latest.json visual 2>/dev/null || git add latest.json
           git commit -m "Access audit for run ${GITHUB_RUN_ID}"
           git remote add origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
           git push --force origin HEAD:publisher-status
@@ -7086,6 +7104,7 @@ def source_files() -> list[Path]:
         ROOT / '.github' / 'workflows' / 'publish.yml',
         ROOT / 'scripts' / 'build_release.py',
         ROOT / 'scripts' / 'generate_code_registry.py',
+        ROOT / 'scripts' / 'header_visual_audit.py',
         ROOT / 'scripts' / 'wordpress_access_check.py',
         ROOT / 'scripts' / 'wordpress_release_test.py',
         ROOT / 'ops' / 'wordpress-ci-bootstrap.php',
@@ -7290,6 +7309,94 @@ def main() -> None:
 
 if __name__ == '__main__':
     main()
+````
+
+## Source Snapshot — `scripts/header_visual_audit.py`
+
+````python
+#!/usr/bin/env python3
+"""Rendered Production Header audit using Chrome/Selenium."""
+from __future__ import annotations
+import json, os, time
+from pathlib import Path
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.support.ui import WebDriverWait
+
+BASE = os.environ.get('WP_BASE_URL', 'https://alookhor.ir').rstrip('/')
+OUT = Path(os.environ.get('HEADER_VISUAL_REPORT', '/tmp/header-visual.json'))
+SHOT_DIR = Path(os.environ.get('HEADER_VISUAL_SHOTS', '/tmp/header-shots'))
+SHOT_DIR.mkdir(parents=True, exist_ok=True)
+
+JS_METRICS = r"""
+const one=s=>document.querySelector(s), all=s=>[...document.querySelectorAll(s)];
+const rect=e=>e?Object.fromEntries(['top','right','bottom','left','width','height'].map(k=>[k,Math.round(e.getBoundingClientRect()[k]*10)/10])):null;
+const visible=e=>!!e&&getComputedStyle(e).display!=='none'&&getComputedStyle(e).visibility!=='hidden'&&e.getBoundingClientRect().height>0;
+const root=one('.alookhor-managed-legacy-header'),topbar=one('.alookhor-topbar-wrapper'),header=one('.alookhor-header'),stage=one('.alookhor-legacy-nav-stage'),capsule=one('.header-capsule');
+const main=one('#main-content')||one('.main-page-wrapper')||one('main');
+const visibleBottom=[topbar,header,stage].filter(visible).map(e=>e.getBoundingClientRect().bottom);
+const footprintBottom=visibleBottom.length?Math.max(...visibleBottom):0;
+return {
+  viewport:{width:innerWidth,height:innerHeight,dpr:devicePixelRatio},
+  root:!!root,topbar:rect(topbar),header:rect(header),stage:rect(stage),capsule:rect(capsule),main:rect(main),
+  stage_display:stage?getComputedStyle(stage).display:null,stage_position:stage?getComputedStyle(stage).position:null,stage_stuck:stage?.classList.contains('is-stuck')||false,
+  search_count:all('.alookhor-legacy-main-search').length,mobile_extra_toggle_count:all('.alookhor-mobile-sticky-toggle').length,
+  original_drawer_id_count:all('#openDrawer').length,cart_count:all('.alookhor-header-cart-link').length,
+  main_toggle_count:all('.alookhor-main-menu-toggle').length,logo_count:all('.header-capsule-logo img').length,
+  body_scroll_width:document.documentElement.scrollWidth,body_client_width:document.documentElement.clientWidth,
+  horizontal_overflow:Math.max(0,document.documentElement.scrollWidth-document.documentElement.clientWidth),
+  header_to_main_gap:main?Math.round((main.getBoundingClientRect().top-footprintBottom)*10)/10:null,
+  body_classes:document.body.className
+};
+"""
+
+def audit(width: int, height: int, label: str) -> dict:
+    options = Options()
+    options.add_argument('--headless=new'); options.add_argument('--no-sandbox'); options.add_argument('--disable-dev-shm-usage')
+    options.add_argument('--disable-gpu'); options.add_argument(f'--window-size={width},{height}')
+    options.add_argument('--hide-scrollbars'); options.add_argument('--force-device-scale-factor=1')
+    driver = webdriver.Chrome(options=options)
+    try:
+        driver.set_window_size(width, height)
+        driver.get(f'{BASE}/?rendered_header_audit=3107-{label}-{int(time.time())}')
+        WebDriverWait(driver, 40).until(lambda d: d.execute_script("return !!document.querySelector('.alookhor-managed-legacy-header .header-capsule')"))
+        time.sleep(4)
+        before = driver.execute_script(JS_METRICS)
+        driver.save_screenshot(str(SHOT_DIR / f'{label}-before.png'))
+        driver.execute_script('window.scrollTo(0, Math.min(900, document.documentElement.scrollHeight-innerHeight));')
+        time.sleep(1.2)
+        after = driver.execute_script(JS_METRICS)
+        driver.save_screenshot(str(SHOT_DIR / f'{label}-after.png'))
+        expected_mobile = width <= 1023
+        checks = {
+            'root': before['root'] is True,
+            'search_removed': before['search_count'] == 0,
+            'no_rejected_mobile_toggle': before['mobile_extra_toggle_count'] == 0,
+            'drawer_id_unique': before['original_drawer_id_count'] == 1,
+            'cart_present': before['cart_count'] == 1,
+            'main_toggle_present': before['main_toggle_count'] == 1,
+            'logo_present': before['logo_count'] == 1,
+            'no_horizontal_overflow': before['horizontal_overflow'] <= 2,
+            'mobile_stage_hidden': before['stage_display'] == 'none' if expected_mobile else True,
+            'desktop_stage_visible': before['stage_display'] != 'none' if not expected_mobile else True,
+            'desktop_nav_sticky': (after['stage_position'] == 'sticky' and after['stage_stuck'] is True and abs(after['stage']['top']) <= 2) if not expected_mobile else True,
+            'upper_rows_leave_viewport': (after['topbar']['bottom'] < 2 and after['header']['bottom'] < 2) if not expected_mobile else True,
+            'no_large_header_gap': before['header_to_main_gap'] is None or before['header_to_main_gap'] <= 100,
+        }
+        return {'label':label,'before':before,'after':after,'checks':checks,'ok':all(checks.values())}
+    finally:
+        driver.quit()
+
+report={'url':BASE,'created_at':int(time.time()),'views':{},'ok':False}
+try:
+    report['views']['desktop']=audit(1440,1050,'desktop')
+    report['views']['mobile']=audit(430,932,'mobile')
+    report['ok']=all(v['ok'] for v in report['views'].values())
+except Exception as error:
+    report['error']=f'{type(error).__name__}: {error}'
+OUT.write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
+print(json.dumps(report,ensure_ascii=False,indent=2))
+if not report['ok']: raise SystemExit(1)
 ````
 
 ## Source Snapshot — `scripts/wordpress_access_check.py`
