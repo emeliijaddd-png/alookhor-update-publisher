@@ -1,36 +1,41 @@
 {
-  "version": "3.10.0",
-  "previous": "3.9.2",
+  "version": "3.10.1",
+  "previous": "3.10.0",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "فاز Desktop بخش دسته‌بندی محصولات واقعی WooCommerce با Carousel لوکس مدیریت‌شده.",
+  "description": "تکمیل حرفه‌ای UX موبایل Carousel دسته‌بندی محصولات WooCommerce.",
   "changelog": [
     {
-      "tag": "WOOCOMMERCE",
-      "title": "دسته‌های واقعی محصول",
-      "desc": "عنوان، URL، تعداد، توضیح و تصویر از taxonomy واقعی product_cat ووکامرس خوانده می‌شوند."
+      "tag": "MOBILE CARD",
+      "title": "ارتفاع و تناسب حرفه‌ای کارت موبایل",
+      "desc": "ارتفاع تصویر و Body کاهش یافت و اندازه کارت با عرض قابل تنظیم، Radius و Gap مستقل موبایل هماهنگ شد."
     },
     {
-      "tag": "DESKTOP UX",
-      "title": "Carousel چهارکارته حرفه‌ای",
-      "desc": "کارت‌های تصویرمحور، آیکون، Hover، CTA، فلش، Dot و Autoplay مطابق مرجع Desktop پیاده‌سازی شدند."
+      "tag": "CENTERED PEEK",
+      "title": "کارت فعال کامل و وسط",
+      "desc": "کارت فعال دیگر از چپ بریده نمی‌شود و کارت‌های قبل و بعد با Peek متقارن دیده می‌شوند."
     },
     {
-      "tag": "CONTROL CENTER",
-      "title": "تنظیمات کامل داخل پنل اصلی",
-      "desc": "انتخاب دسته‌ها، تصویر و توضیح جایگزین، محتوا، رفتار Carousel، تعداد کارت، فاصله، ارتفاع و رنگ‌ها قابل مدیریت‌اند."
+      "tag": "INFINITE",
+      "title": "حرکت حلقه‌ای بدون بن‌بست",
+      "desc": "Cloneهای ابتدا و انتها، Carousel موبایل را به حلقه بی‌نهایت نرم تبدیل کردند."
     },
     {
-      "tag": "MIGRATION",
-      "title": "جایگزینی خودکار بخش قدیمی",
-      "desc": "بخش category-carousel-section قدیمی بدون ویرایش Elementor مخفی و با خروجی مدیریت‌شده جایگزین می‌شود."
+      "tag": "CONTROLS",
+      "title": "فلش‌های Glass Gold حرفه‌ای",
+      "desc": "فلش متنی ساده با کنترل SVG دوحلقه، Blur، Glow، Hover و اندازه مناسب لمس جایگزین شد."
     },
     {
-      "tag": "PHASE",
-      "title": "فاز اول: Desktop",
-      "desc": "این Release فاز Desktop است؛ Mobile baseline ایمن دارد و تطبیق کامل مرجع موبایل در فاز بعد انجام می‌شود."
+      "tag": "DOTS",
+      "title": "Pagination پویا مطابق تعداد دسته",
+      "desc": "Dotها در هر Breakpoint بازسازی می‌شوند؛ حالت فعال Pill طلایی و حالت‌های غیرفعال Dot واقعی هستند."
+    },
+    {
+      "tag": "ADMIN",
+      "title": "کنترل کامل Mobile در پنل",
+      "desc": "عرض کارت، Peek، ارتفاع تصویر، Gap و Radius موبایل داخل ماژول دسته‌بندی قابل تنظیم‌اند."
     }
   ]
 }

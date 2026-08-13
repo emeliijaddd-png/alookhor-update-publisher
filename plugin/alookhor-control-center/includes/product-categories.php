@@ -11,6 +11,7 @@ function alookhor_cc_category_defaults(){
         'button_text'=>'مشاهده محصولات','show_description'=>true,'show_count'=>false,
         'show_icons'=>true,'show_arrows'=>true,'show_dots'=>true,'autoplay'=>true,
         'autoplay_interval'=>5000,'desktop_cards'=>4,'desktop_gap'=>18,'image_height'=>285,
+        'mobile_card_width'=>84,'mobile_gap'=>14,'mobile_image_height'=>225,'mobile_radius'=>18,'mobile_peek'=>8,
         'section_background'=>'#090610','card_background'=>'#0D0916','gold'=>'#D4A436',
         'text'=>'#F7F2EA','muted'=>'#B8B0BD','border'=>'#6F5426','button_background'=>'#120B1C',
         'overrides'=>[
@@ -49,8 +50,8 @@ function alookhor_cc_category_icon($slug){
 function alookhor_cc_category_markup($settings=null){
     $s=is_array($settings)?$settings:alookhor_cc_get_category_settings();if(empty($s['enabled']))return '';
     $terms=alookhor_cc_category_terms($s);if(!$terms)return '';
-    $style=sprintf('--mc-bg:%s;--mc-card:%s;--mc-gold:%s;--mc-text:%s;--mc-muted:%s;--mc-border:%s;--mc-btn:%s;--mc-cards:%d;--mc-gap:%dpx;--mc-image:%dpx',
-        sanitize_hex_color($s['section_background'])?:'#090610',sanitize_hex_color($s['card_background'])?:'#0D0916',sanitize_hex_color($s['gold'])?:'#D4A436',sanitize_hex_color($s['text'])?:'#F7F2EA',sanitize_hex_color($s['muted'])?:'#B8B0BD',sanitize_hex_color($s['border'])?:'#6F5426',sanitize_hex_color($s['button_background'])?:'#120B1C',max(2,min(6,absint($s['desktop_cards']))),max(8,min(40,absint($s['desktop_gap']))),max(180,min(430,absint($s['image_height']))));
+    $style=sprintf('--mc-bg:%s;--mc-card:%s;--mc-gold:%s;--mc-text:%s;--mc-muted:%s;--mc-border:%s;--mc-btn:%s;--mc-cards:%d;--mc-gap:%dpx;--mc-image:%dpx;--mc-mobile-width:%d;--mc-mobile-gap:%dpx;--mc-mobile-image:%dpx;--mc-mobile-radius:%dpx;--mc-mobile-peek:%d',
+        sanitize_hex_color($s['section_background'])?:'#090610',sanitize_hex_color($s['card_background'])?:'#0D0916',sanitize_hex_color($s['gold'])?:'#D4A436',sanitize_hex_color($s['text'])?:'#F7F2EA',sanitize_hex_color($s['muted'])?:'#B8B0BD',sanitize_hex_color($s['border'])?:'#6F5426',sanitize_hex_color($s['button_background'])?:'#120B1C',max(2,min(6,absint($s['desktop_cards']))),max(8,min(40,absint($s['desktop_gap']))),max(180,min(430,absint($s['image_height']))),max(72,min(94,absint($s['mobile_card_width']))),max(8,min(28,absint($s['mobile_gap']))),max(170,min(330,absint($s['mobile_image_height']))),max(10,min(32,absint($s['mobile_radius']))),max(3,min(14,absint($s['mobile_peek']))));
     $count=count($terms);$pages=(int)ceil($count/max(1,absint($s['desktop_cards'])));
     ob_start(); ?>
     <section id="alookhor-managed-categories" class="alookhor-mc" dir="rtl" style="<?php echo esc_attr($style); ?>" data-version="<?php echo esc_attr(ALOOKHOR_CC_VERSION); ?>" data-autoplay="<?php echo !empty($s['autoplay'])?'1':'0'; ?>" data-interval="<?php echo esc_attr(max(2500,min(15000,absint($s['autoplay_interval'])))); ?>">
@@ -65,7 +66,7 @@ function alookhor_cc_category_markup($settings=null){
             </article>
           <?php endforeach; ?>
           </div></div>
-          <?php if(!empty($s['show_arrows'])&&$count>1):?><button class="alookhor-mc-arrow alookhor-mc-prev" type="button" aria-label="قبلی">‹</button><button class="alookhor-mc-arrow alookhor-mc-next" type="button" aria-label="بعدی">›</button><?php endif;?>
+          <?php if(!empty($s['show_arrows'])&&$count>1):?><button class="alookhor-mc-arrow alookhor-mc-prev" type="button" aria-label="دسته قبلی"><svg viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></svg><span></span></button><button class="alookhor-mc-arrow alookhor-mc-next" type="button" aria-label="دسته بعدی"><svg viewBox="0 0 24 24"><path d="m15 5-7 7 7 7"/></svg><span></span></button><?php endif;?>
         </div>
         <?php if(!empty($s['show_dots'])):?><div class="alookhor-mc-dots" role="tablist"><?php for($i=0;$i<max(1,$pages);$i++):?><button type="button" data-page="<?php echo esc_attr($i); ?>" class="<?php echo $i===0?'is-active':''; ?>" aria-label="صفحه <?php echo esc_attr($i+1); ?>"></button><?php endfor;?></div><?php endif;?>
       </div>

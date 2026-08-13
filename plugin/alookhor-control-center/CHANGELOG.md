@@ -1,5 +1,15 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.1 — 2026-08-13 — Professional Mobile Category Carousel
+- FIX: کارت موبایل از 100%/310px به Width/Peek/Image Height مستقل و قابل تنظیم منتقل شد.
+- FIX: Padding هندسی Track و محاسبه دقیق Card width مانع بریدگی کارت فعال در سمت چپ می‌شود.
+- ADD: Clone ابتدا/انتها و Snap بدون Animation برای Infinite loop نرم.
+- UI: فلش‌های SVG با Glass/Gold double ring، Blur، Glow و Touch target 46px.
+- UI: Dotهای پویا بر اساس Page واقعی هر Breakpoint؛ Active pill طلایی و inactive circle.
+- UX: کارت فعال `is-active` کامل، Neighborها با Scale/Opacity و Peek متقارن.
+- ADMIN: Mobile width، Peek، Image height، Gap و Radius به پنل اصلی اضافه شدند.
+- TEST: JSDOM در عرض 430px، Clone=2، Width=361.2px، Dots=4 و Transform centered پاس شد.
+
 ## v3.10.0 — 2026-08-13 — WooCommerce Category Showcase Desktop
 - ADD: بخش مدیریت‌شده دسته‌بندی واقعی WooCommerce با `get_terms(product_cat)` و URL/Count/Thumbnail واقعی.
 - DESKTOP: Carousel چهارکارته، تصویر 4:3، Icon medallion، Hover، CTA، Arrow، Dots و Autoplay مطابق تصویر مرجع.

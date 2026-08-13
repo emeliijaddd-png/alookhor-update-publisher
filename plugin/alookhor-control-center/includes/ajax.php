@@ -115,6 +115,11 @@ function alookhor_ajax_save_settings(){
         $category['desktop_cards']=max(2,min(6,absint($category['desktop_cards']??4)));
         $category['desktop_gap']=max(8,min(40,absint($category['desktop_gap']??18)));
         $category['image_height']=max(180,min(430,absint($category['image_height']??285)));
+        $category['mobile_card_width']=max(72,min(94,absint($category['mobile_card_width']??84)));
+        $category['mobile_peek']=max(3,min(14,absint($category['mobile_peek']??8)));
+        $category['mobile_image_height']=max(170,min(330,absint($category['mobile_image_height']??225)));
+        $category['mobile_gap']=max(8,min(28,absint($category['mobile_gap']??14)));
+        $category['mobile_radius']=max(10,min(32,absint($category['mobile_radius']??18)));
         $category['autoplay_interval']=max(2500,min(15000,absint($category['autoplay_interval']??5000)));
         $category['orderby']=in_array(($category['orderby']??''),['include','name','count','term_id','menu_order'],true)?$category['orderby']:'include';
         $category['order']=strtoupper($category['order']??'ASC')==='DESC'?'DESC':'ASC';
