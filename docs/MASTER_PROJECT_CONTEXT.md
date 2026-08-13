@@ -21,14 +21,13 @@ When sources disagree, the newer provable runtime/source wins. Missing source is
 
 ## Authoritative current state
 
-- **Production runtime:** ALOOKHOR Control Center `3.10.12`
-- **Current Production tag/source:** `v3.10.12` / `d2ec4b044d4bf9d8dc8e07f7e5063f5ce37544c1`
-- **Published package SHA-256:** `2c4f6c88762960caa014e9c1d1a110c426e890fc0ba8095826fc0f90e7301add`
-- **Deployment run:** `31732111449` — all publication/native WordPress checks passed.
-- **Final rendered Chrome audit:** `31732438329` — Desktop and Mobile both passed every visual check.
-- **Production:** active and verified
-- **Current source target:** `3.10.13` — managed four-slide Hero prepared for test/publication; Production remains 3.10.12 until tagged deployment succeeds.
-- **3.10.13 candidate package SHA-256:** `141ff48ebe8142d99c76c8310d12fe2b59fef1c9effefdf7d79e28a5ce884729`
+- **Production runtime:** ALOOKHOR Control Center `3.10.13`
+- **Current Production tag/source:** `v3.10.13` / `989b88671f67ff2af86796568834bc9a5e8edd82`
+- **Published package SHA-256:** `141ff48ebe8142d99c76c8310d12fe2b59fef1c9effefdf7d79e28a5ce884729`
+- **Deployment run:** `31742279596` — ZIP/SHA, Manifest and native WordPress checks all passed.
+- **Final rendered Chrome audit:** pending fresh 3.10.13 audit; the last Header-only baseline was `31732438329` on 3.10.12.
+- **Production:** 3.10.13 active; final Hero visual audit pending
+- **Current source target:** `3.10.13` — deployed managed four-slide Hero; awaiting independent rendered acceptance.
 - **Repository:** `alookhor-update-publisher`
 - **Update channel:** `https://updates.alookhor.ir/manifest.json`
 - **Release pipeline:** Git push → GitHub Actions → deterministic ZIP/SHA → Explicit FTPS → remote verification → atomic Manifest → native WordPress updater → activation restoration → Production audit
