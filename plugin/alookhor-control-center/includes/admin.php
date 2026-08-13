@@ -122,7 +122,9 @@ function alookhor_cc_render_header_settings(){
                     </label>
                     <label>متن جایگزین لوگو <input name="top_logo_alt" value="<?php echo esc_attr($h['top_logo_alt']); ?>" class="alookhor-field"></label>
                     <label>لینک لوگو <input type="url" name="top_logo_link" value="<?php echo esc_attr($h['top_logo_link']); ?>" class="alookhor-field" dir="ltr"></label>
-                    <label>عرض لوگو (50–180px) <input type="number" min="50" max="180" name="top_logo_width" value="<?php echo esc_attr($h['top_logo_width']); ?>" class="alookhor-field"></label>
+                    <label>عرض لوگوی Top Bar (50–180px) <input type="number" min="50" max="180" name="top_logo_width" value="<?php echo esc_attr($h['top_logo_width']); ?>" class="alookhor-field"></label>
+                    <label>عرض لوگوی Header در Desktop <input type="number" min="70" max="220" name="header_logo_desktop_width" value="<?php echo esc_attr($h['header_logo_desktop_width']); ?>" class="alookhor-field"></label>
+                    <label>عرض لوگوی Header در Mobile <input type="number" min="42" max="110" name="header_logo_mobile_width" value="<?php echo esc_attr($h['header_logo_mobile_width']); ?>" class="alookhor-field"></label>
                 </div>
             </section>
 
@@ -135,7 +137,10 @@ function alookhor_cc_render_header_settings(){
                         'topbar_border_color' => 'رنگ خط پایین',
                         'topbar_button_bg' => 'رنگ دکمه عمده',
                         'topbar_button_text' => 'متن دکمه عمده',
-                        'gold' => 'طلایی اصلی هدر'
+                        'gold' => 'طلایی اصلی هدر',
+                        'header_surface' => 'سطح Navigation',
+                        'header_text_color' => 'متن Navigation',
+                        'header_muted_color' => 'متن فرعی Navigation'
                     ] as $color_key => $color_label): ?>
                         <label><?php echo esc_html($color_label); ?><input type="color" name="<?php echo esc_attr($color_key); ?>" value="<?php echo esc_attr($h[$color_key]); ?>" class="alookhor-field alookhor-color-field"></label>
                     <?php endforeach; ?>
@@ -150,6 +155,7 @@ function alookhor_cc_render_header_settings(){
                     <label>زیرعنوان <input name="logo_sub" value="<?php echo esc_attr($h['logo_sub']); ?>" class="alookhor-field"></label>
                     <label>حرف لوگو <input name="logo_letter" value="<?php echo esc_attr($h['logo_letter']); ?>" maxlength="2" class="alookhor-field"></label>
                     <label>متن ورود <input name="account_text" value="<?php echo esc_attr($h['account_text']); ?>" class="alookhor-field"></label>
+                    <label>متن جستجوی محصول <input name="search_placeholder" value="<?php echo esc_attr($h['search_placeholder']); ?>" class="alookhor-field"></label>
                     <label>فهرست اصلی
                         <select name="primary_menu" class="alookhor-field">
                             <option value="0">تشخیص خودکار از WordPress</option>
@@ -162,7 +168,8 @@ function alookhor_cc_render_header_settings(){
             </section>
             <div style="display:flex;gap:10px;flex-wrap:wrap">
                 <?php foreach ([
-                    'sticky' => 'هدر Sticky',
+                    'sticky' => 'Sticky فقط Navigation اصلی',
+                    'show_search' => 'نمایش جستجوی محصولات',
                     'show_topbar' => 'نمایش Top Bar',
                     'show_phone' => 'نمایش تلفن',
                     'show_email' => 'نمایش ایمیل',

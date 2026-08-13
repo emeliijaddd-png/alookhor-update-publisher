@@ -1,36 +1,39 @@
 {
-  "version": "3.10.4",
-  "previous": "3.10.3",
+  "version": "3.10.5",
+  "previous": "3.10.4",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "بازآرایی پنل مدیریت: بوتیک در اولویت، فضای کاری وسیع و پایش سیستم فقط در Dashboard.",
+  "description": "هدر سه‌ردیفه در جریان عادی صفحه با Sticky فقط برای Navigation اصلی و بدون Layout Shift.",
   "changelog": [
     {
-      "tag": "BOUTIQUE FIRST",
-      "title": "مدیریت بوتیک به‌عنوان فضای اصلی",
-      "desc": "مدیریت بوتیک به بالای Navigation منتقل و صفحه پیش‌فرض شد؛ بخش‌های فروش و آزمایشی پایین‌تر و بسته قرار گرفتند."
+      "tag": "NAV-ONLY STICKY",
+      "title": "فقط Navigation اصلی چسبان می‌ماند",
+      "desc": "Top Bar و Header اصلی از حالت fixed خارج شدند و همراه صفحه حرکت می‌کنند؛ منوی WordPress موجود بدون بازسازی به Stage چسبان منتقل شد."
     },
     {
-      "tag": "WIDE WORKSPACE",
-      "title": "استفاده کامل از عرض خالی پنل",
-      "desc": "محدودیت 1440px حذف و فرم ماژول انتخاب‌شده در Workspace وسیع و Responsive روبه‌روی ستون مدیریت باز می‌شود."
+      "tag": "ZERO LAYOUT SHIFT",
+      "title": "Sticky بدون پرش محتوا",
+      "desc": "Navigation جای خود را در جریان صفحه حفظ می‌کند، هنگام چسبان‌شدن ارتفاع تغییر نمی‌دهد و با Offset صحیح WordPress Admin Bar کار می‌کند."
     },
     {
-      "tag": "DASHBOARD ONLY",
-      "title": "AI و سلامت سیستم فقط در Dashboard",
-      "desc": "دستیار هوشمند و وضعیت WooCommerce، Woodmart، Elementor، PHP، Memory و SSL از بوتیک حذف و فقط در Dashboard رندر می‌شوند."
+      "tag": "BRAND & RESPONSIVE",
+      "title": "Black/Gold واقعی سایت و لوگوی شفاف مشترک",
+      "desc": "Navigation با رنگ‌های ذخیره‌شده ALOOKHOR، Glass ظریف، لوگوی مشترک Desktop/Mobile، جستجوی محصول و کنترل عرض مستقل لوگو اجرا شد."
     }
   ],
   "project": "ALOOKHOR",
-  "area": "WordPress Admin / Boutique Workspace / Dashboard Monitoring",
-  "reason": "استفاده از عرض خالی پنل، اولویت‌دادن به مدیریت واقعی بوتیک و جداسازی پایش سیستم از فرم‌های مدیریتی.",
+  "area": "Frontend Header / Legacy Compatibility / Sticky Primary Navigation",
+  "reason": "اجرای رفتار حرفه‌ای مورد تأیید کاربر بدون بازسازی Shortcode، منوها یا Mega Menu فعلی و رفع تعارض fixed موجود در CSS Legacy.",
   "files": [
-    "plugin/alookhor-control-center/templates/admin-control-center.php",
-    "plugin/alookhor-control-center/assets/css/luxury.css",
-    "plugin/alookhor-control-center/assets/js/app.js",
-    "plugin/alookhor-control-center/assets/js/modules/dashboard.js",
+    "plugin/alookhor-control-center/assets/css/frontend-header-scroll.css",
+    "plugin/alookhor-control-center/assets/js/frontend-topbar-manager.js",
+    "plugin/alookhor-control-center/alookhor-control-center.php",
+    "plugin/alookhor-control-center/includes/shortcode-header.php",
+    "plugin/alookhor-control-center/includes/rest-api.php",
+    "plugin/alookhor-control-center/includes/ajax.php",
+    "plugin/alookhor-control-center/includes/admin.php",
     "plugin/alookhor-control-center/assets/js/modules/settings.js"
   ]
 }

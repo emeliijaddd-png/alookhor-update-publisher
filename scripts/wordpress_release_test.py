@@ -115,6 +115,7 @@ try:
         homepage = response.read().decode(errors='replace')
     report['checks']['homepage_http'] = response.status == 200
     report['checks']['header_content'] = 'خرید عمده' in homepage and ('ALOOKHOR' in homepage or 'آلوخور' in homepage)
+    report['checks']['header_scroll_asset'] = 'frontend-header-scroll.css' in homepage
 
     topbar_url = BASE + '/wp-json/alookhor-cc/v1/topbar?release_test=' + TARGET.replace('.', '')
     with urlopen(Request(topbar_url, headers={'Accept': 'application/json', 'Cache-Control': 'no-cache', 'User-Agent': 'ALOOKHOR-GitHub-Publisher/1.0'}), timeout=30) as response:
@@ -125,8 +126,13 @@ try:
         str(topbar.get('version')) == TARGET
         and all(isinstance(topbar.get(key), str) and len(topbar[key]) == 7 and topbar[key].startswith('#') for key in [
             'topbar_bg', 'topbar_text_color', 'topbar_border_color',
-            'topbar_button_bg', 'topbar_button_text',
+            'topbar_button_bg', 'topbar_button_text', 'header_surface', 'header_text_color', 'header_muted_color', 'gold',
         ])
+        and isinstance(topbar.get('sticky'), bool)
+        and isinstance(topbar.get('show_search'), bool)
+        and isinstance(topbar.get('search_placeholder'), str)
+        and 70 <= int(topbar.get('header_logo_desktop_width', 0)) <= 220
+        and 42 <= int(topbar.get('header_logo_mobile_width', 0)) <= 110
     )
     report['checks']['topbar_no_store'] = 'no-store' in cache_control.lower()
 

@@ -119,10 +119,17 @@
   "header_settings": {
     "logo_text": "ALOOKHOR",
     "logo_sub": "Control Center • Luxury",
+    "sticky": true,
+    "header_surface": "#0D0916",
+    "header_text_color": "#F7F2EA",
+    "header_muted_color": "#B8B0BD",
+    "header_logo_desktop_width": 118,
+    "header_logo_mobile_width": 58,
     "show_search": true,
+    "search_placeholder": "جستجوی محصول…",
     "show_version": true
   },
   "updated_at": "2026-08-10T16:20:00Z",
   "updated_by": "AI Assistant — recovered from previous chat",
-  "version": "3.10.4"
+  "version": "3.10.5"
 }

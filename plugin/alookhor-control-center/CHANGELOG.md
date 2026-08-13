@@ -1,5 +1,18 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.5 — 2026-08-13 — Navigation-Only Sticky Header
+- DETECT: ممیزی CSS واقعی Production ثابت کرد Top Bar و `.alookhor-header` با `position:fixed!important` قفل شده بودند و Wrapper ارتفاع صفر داشت.
+- COMPAT: همان DOM، Shortcode، WordPress Menu، Mega Menu، Drawer ID و کلاس‌های Legacy حفظ شدند؛ `.header-nav-center` موجود بدون بازسازی به Stage مستقل منتقل شد.
+- FLOW: Top Bar و Header اصلی به جریان عادی صفحه بازگشتند و هنگام Scroll همراه صفحه حرکت می‌کنند.
+- STICKY: فقط Navigation اصلی با `position:sticky` و Offset صحیح WordPress Admin Bar در بالای viewport باقی می‌ماند.
+- CLS: Marker صفرارتفاع و Stage دارای Footprint ثابت از Layout Shift هنگام Sticky شدن جلوگیری می‌کنند.
+- BRAND: سطح، متن، رنگ فرعی و Gold Navigation از تنظیمات ALOOKHOR خوانده می‌شوند؛ Blur فقط در حالت Stuck و به‌صورت ظریف فعال است.
+- LOGO: همان تصویر شفاف برای Desktop/Mobile استفاده می‌شود و عرض هر حالت از پنل اصلی قابل تنظیم است.
+- SEARCH: جستجوی واقعی WooCommerce به Header اصلی اضافه شد؛ وضعیت نمایش و Placeholder داخل مدیریت بوتیک قرار گرفت.
+- MOBILE: Navigation چسبان Mobile با لوگوی مشترک و Trigger همان Drawer موجود ساخته شد؛ Event/ID اصلی Hamburger تغییر نکرد.
+- SETTINGS: تنظیمات Sticky Navigation، Search، رنگ‌های Navigation و عرض لوگوی Desktop/Mobile به پنل اصلی و Mirror هدر اضافه شدند.
+- FALLBACK: رفتار Sticky کل Wrapper در Renderer داخلی نیز به Sticky فقط برای `.alookhor-nav-stage` اصلاح شد.
+
 ## v3.10.4 — 2026-08-13 — Boutique-First Admin Workspace
 - NAVIGATION: انتقال «مدیریت بوتیک» به آیتم اصلی بالای Sidebar و انتخاب آن به‌عنوان صفحه پیش‌فرض پنل.
 - PRIORITY: انتقال گروه‌های فروش، مشتریان، مالی و گزارش‌های آزمایشی به پایین Navigation و بسته‌بودن پیش‌فرض آن‌ها.

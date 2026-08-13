@@ -20,7 +20,7 @@
   isolation:isolate;
   font-family:Tahoma,"Segoe UI",Arial,sans-serif;
 }
-.alookhor-portal-header.is-sticky{position:sticky;top:0}
+.alookhor-portal-header.is-sticky{position:relative;top:auto}.alookhor-portal-header.is-sticky .alookhor-nav-stage{position:sticky;top:0;z-index:9996}body.admin-bar .alookhor-portal-header.is-sticky .alookhor-nav-stage{top:32px}@media(max-width:782px){body.admin-bar .alookhor-portal-header.is-sticky .alookhor-nav-stage{top:46px}}
 .alookhor-portal-header,
 .alookhor-portal-header *{box-sizing:border-box}
 .alookhor-portal-header a{color:inherit;text-decoration:none}

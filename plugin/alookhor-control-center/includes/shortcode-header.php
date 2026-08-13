@@ -20,7 +20,14 @@ function alookhor_cc_front_header_settings(){
         'logo_sub'        => $site['header_settings']['logo_sub'] ?? $site['site']['subtitle'] ?? 'آلوخور؛ طعم اصیل خراسان',
         'logo_letter'     => $site['site']['logoLetter'] ?? 'A',
         'gold'            => $site['site']['goldAccent'] ?? '#C9A86A',
+        'header_surface'  => '#0D0916',
+        'header_text_color' => '#F7F2EA',
+        'header_muted_color' => '#B8B0BD',
+        'header_logo_desktop_width' => 118,
+        'header_logo_mobile_width' => 58,
         'sticky'          => true,
+        'show_search'     => true,
+        'search_placeholder' => 'جستجوی محصول…',
         'show_topbar'     => true,
         'show_account'    => true,
         'show_contact'    => true,
@@ -313,7 +320,7 @@ function alookhor_cc_render_managed_legacy_header($atts = [], $content = null, $
 
     $html = call_user_func($provider, $atts, $content, $tag ?: 'alookhor_portal_header');
     if (!is_string($html)) $html = '';
-    return '<div class="alookhor-managed-legacy-header" data-alookhor-managed="3.10.4" style="display:contents">' . $html . '</div>';
+    return '<div class="alookhor-managed-legacy-header" data-alookhor-managed="3.10.5" style="display:contents">' . $html . '</div>';
 }
 
 /**

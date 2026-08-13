@@ -55,6 +55,9 @@ function alookhor_ajax_save_settings(){
             'topbar_border_color' => '#3A2C20',
             'topbar_button_bg' => '#C9A86A',
             'topbar_button_text' => '#1A1206',
+            'header_surface' => '#0D0916',
+            'header_text_color' => '#F7F2EA',
+            'header_muted_color' => '#B8B0BD',
         ] as $key => $fallback) {
             if (array_key_exists($key, $header)) {
                 $header[$key] = sanitize_hex_color($header[$key]) ?: ($header_current[$key] ?? $fallback);
@@ -67,7 +70,9 @@ function alookhor_ajax_save_settings(){
         if (array_key_exists('whatsapp', $header)) $header['whatsapp'] = preg_replace('/\D+/', '', (string) $header['whatsapp']);
         if (array_key_exists('topbar_height', $header)) $header['topbar_height'] = max(30, min(60, absint($header['topbar_height'])));
         if (array_key_exists('top_logo_width', $header)) $header['top_logo_width'] = max(50, min(180, absint($header['top_logo_width'])));
-        foreach (['sticky', 'show_topbar', 'show_contact', 'show_account', 'show_phone', 'show_email', 'show_whatsapp', 'show_export', 'show_wholesale', 'wholesale_new_tab'] as $key) {
+        if (array_key_exists('header_logo_desktop_width', $header)) $header['header_logo_desktop_width'] = max(70, min(220, absint($header['header_logo_desktop_width'])));
+        if (array_key_exists('header_logo_mobile_width', $header)) $header['header_logo_mobile_width'] = max(42, min(110, absint($header['header_logo_mobile_width'])));
+        foreach (['sticky', 'show_search', 'show_topbar', 'show_contact', 'show_account', 'show_phone', 'show_email', 'show_whatsapp', 'show_export', 'show_wholesale', 'wholesale_new_tab'] as $key) {
             if (array_key_exists($key, $header)) $header[$key] = rest_sanitize_boolean($header[$key]);
         }
         $payload['header_settings'] = $header;
@@ -165,6 +170,12 @@ function alookhor_ajax_save_settings(){
             'topbar_border_color' => $persisted_header['topbar_border_color'] ?? null,
             'topbar_button_bg' => $persisted_header['topbar_button_bg'] ?? null,
             'topbar_button_text' => $persisted_header['topbar_button_text'] ?? null,
+            'header_surface' => $persisted_header['header_surface'] ?? null,
+            'header_text_color' => $persisted_header['header_text_color'] ?? null,
+            'header_muted_color' => $persisted_header['header_muted_color'] ?? null,
+            'header_logo_desktop_width' => $persisted_header['header_logo_desktop_width'] ?? null,
+            'header_logo_mobile_width' => $persisted_header['header_logo_mobile_width'] ?? null,
+            'sticky' => $persisted_header['sticky'] ?? null,
             'topbar_height' => $persisted_header['topbar_height'] ?? null,
         ] : null,
         'footer_settings' => is_array($merged['footer_settings'] ?? null) ? [
@@ -214,6 +225,7 @@ function alookhor_ajax_save_header_wp(){
     $data['logo_text'] = sanitize_text_field(wp_unslash($_POST['logo_text'] ?? ($current['logo_text'] ?? 'ALOOKHOR')));
     $data['logo_sub'] = sanitize_text_field(wp_unslash($_POST['logo_sub'] ?? ($current['logo_sub'] ?? 'Control Center • Luxury')));
     $data['logo_letter'] = sanitize_text_field(wp_unslash($_POST['logo_letter'] ?? ($current['logo_letter'] ?? 'A')));
+    $data['search_placeholder'] = sanitize_text_field(wp_unslash($_POST['search_placeholder'] ?? ($current['search_placeholder'] ?? 'جستجوی محصول…')));
     if (isset($_POST['gold'])) {
         $data['gold'] = sanitize_hex_color(wp_unslash($_POST['gold'])) ?: ($current['gold'] ?? '#C9A86A');
     } elseif (empty($data['gold'])) {
@@ -236,14 +248,19 @@ function alookhor_ajax_save_header_wp(){
         'topbar_border_color' => '#3A2C20',
         'topbar_button_bg' => '#C9A86A',
         'topbar_button_text' => '#1A1206',
+        'header_surface' => '#0D0916',
+        'header_text_color' => '#F7F2EA',
+        'header_muted_color' => '#B8B0BD',
     ] as $color_key => $color_default) {
         $data[$color_key] = sanitize_hex_color(wp_unslash($_POST[$color_key] ?? ($current[$color_key] ?? $color_default))) ?: $color_default;
     }
     $data['topbar_height'] = max(30, min(60, absint($_POST['topbar_height'] ?? ($current['topbar_height'] ?? 38))));
     $data['top_logo_width'] = max(50, min(180, absint($_POST['top_logo_width'] ?? ($current['top_logo_width'] ?? 96))));
+    $data['header_logo_desktop_width'] = max(70, min(220, absint($_POST['header_logo_desktop_width'] ?? ($current['header_logo_desktop_width'] ?? 118))));
+    $data['header_logo_mobile_width'] = max(42, min(110, absint($_POST['header_logo_mobile_width'] ?? ($current['header_logo_mobile_width'] ?? 58))));
     $data['account_text'] = sanitize_text_field(wp_unslash($_POST['account_text'] ?? ($current['account_text'] ?? 'ورود / ثبت‌نام')));
     $data['primary_menu'] = absint($_POST['primary_menu'] ?? ($current['primary_menu'] ?? 0));
-    foreach (['sticky', 'show_topbar', 'show_contact', 'show_account', 'show_phone', 'show_email', 'show_whatsapp', 'show_export', 'show_wholesale', 'wholesale_new_tab'] as $flag) {
+    foreach (['sticky', 'show_search', 'show_topbar', 'show_contact', 'show_account', 'show_phone', 'show_email', 'show_whatsapp', 'show_export', 'show_wholesale', 'wholesale_new_tab'] as $flag) {
         $data[$flag] = isset($_POST[$flag]) ? rest_sanitize_boolean(wp_unslash($_POST[$flag])) : !empty($current[$flag]);
     }
 

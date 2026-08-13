@@ -118,6 +118,11 @@ try:
         homepage = response.read().decode(errors='replace')
         report['checks']['homepage_http'] = response.status == 200
     report['checks']['header_content'] = 'خرید عمده' in homepage and ('ALOOKHOR' in homepage or 'آلوخور' in homepage)
+    report['checks']['header_scroll_asset'] = (
+        'frontend-header-scroll.css' in homepage
+        if version_tuple(production_version) >= version_tuple('3.10.5')
+        else True
+    )
 
     localized = {}
     localized_match = re.search(r'var\s+ALOOKHOR_TOPBAR\s*=\s*(\{.*?\});', homepage, re.S)
@@ -204,6 +209,10 @@ try:
                 '.topbar-contact-txt' in manager_source
                 and 'contactTexts.find' in manager_source
                 and f"=== '{production_version}'" in manager_source
+                and (
+                    version_tuple(production_version) < version_tuple('3.10.5')
+                    or all(token in manager_source for token in ['setupHeaderBehavior', 'data-alookhor-navigation', 'header.after(marker, stage)'])
+                )
             )
         except Exception as error:
             report['public_topbar']['manager_asset_error'] = str(error)
@@ -224,6 +233,17 @@ try:
                     'topbar_bg', 'topbar_text_color', 'topbar_border_color',
                     'topbar_button_bg', 'topbar_button_text',
                 ])
+                and (
+                    version_tuple(production_version) < version_tuple('3.10.5')
+                    or (
+                        all(bool(re.fullmatch(r'#[a-fA-F0-9]{6}', str(topbar_state.get(key, '')))) for key in ['header_surface','header_text_color','header_muted_color','gold'])
+                        and isinstance(topbar_state.get('sticky'), bool)
+                        and isinstance(topbar_state.get('show_search'), bool)
+                        and isinstance(topbar_state.get('search_placeholder'), str)
+                        and 70 <= int(topbar_state.get('header_logo_desktop_width', 0)) <= 220
+                        and 42 <= int(topbar_state.get('header_logo_mobile_width', 0)) <= 110
+                    )
+                )
             )
             report['checks']['topbar_no_store'] = 'no-store' in cache_control.lower()
         except Exception as error:

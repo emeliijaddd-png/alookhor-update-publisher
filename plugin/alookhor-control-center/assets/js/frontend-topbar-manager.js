@@ -1,5 +1,5 @@
 /**
- * ALOOKHOR Legacy Top Bar Manager — v3.10.4
+ * ALOOKHOR Legacy Top Bar Manager — v3.10.5
  * Preserves the legacy header/mega-menu HTML and synchronizes managed Top Bar
  * values from a fresh read-only REST endpoint, even when the page HTML is cached.
  */
@@ -55,9 +55,145 @@
     return null;
   };
   const topbarSelector = '[class*="topbar" i],[class*="top-bar" i],[class*="top_bar" i]';
+  const clamp = (value, min, max, fallback) => Math.max(min, Math.min(max, Number(value) || fallback));
+
+  function setupHeaderBehavior(root) {
+    const topbar = root.querySelector('.alookhor-topbar-wrapper');
+    const header = root.querySelector('.alookhor-header');
+    const capsule = header?.querySelector('.header-capsule');
+    const navigation = header?.querySelector('.header-nav-center') || root.querySelector('.alookhor-legacy-nav-shell .header-nav-center');
+    if (!topbar || !header || !capsule || !navigation) return;
+
+    const system = root.querySelector('.alookhor-header-system') || root.closest('.alookhor-header-system');
+    if (system) {
+      system.style.setProperty('height', 'auto', 'important');
+      system.style.setProperty('min-height', '0', 'important');
+      system.style.setProperty('margin-bottom', '0', 'important');
+      system.style.setProperty('overflow', 'visible', 'important');
+    }
+    [topbar, header].forEach(element => {
+      element.style.setProperty('position', 'relative', 'important');
+      element.style.setProperty('top', 'auto', 'important');
+      element.style.setProperty('left', 'auto', 'important');
+      element.style.setProperty('right', 'auto', 'important');
+      element.style.setProperty('transform', 'none', 'important');
+      element.style.setProperty('width', '100%', 'important');
+    });
+    header.style.setProperty('height', 'auto', 'important');
+
+    root.style.setProperty('--alookhor-header-gold', cfg.gold || '#D4A436');
+    root.style.setProperty('--alookhor-header-surface', cfg.header_surface || '#0D0916');
+    root.style.setProperty('--alookhor-header-text', cfg.header_text_color || '#F7F2EA');
+    root.style.setProperty('--alookhor-header-muted', cfg.header_muted_color || '#B8B0BD');
+    root.style.setProperty('--alookhor-mobile-logo-width', `${clamp(cfg.header_logo_mobile_width, 42, 110, 58)}px`);
+
+    let search = capsule.querySelector('.alookhor-legacy-main-search');
+    if (!search) {
+      search = document.createElement('form');
+      search.className = 'alookhor-legacy-main-search';
+      search.method = 'get';
+      search.action = cfg.home_url || '/';
+      search.setAttribute('role', 'search');
+      search.innerHTML = `<input type="search" name="s" autocomplete="off" aria-label="جستجوی محصولات" placeholder="${String(cfg.search_placeholder || 'جستجوی محصول…').replace(/[\"<>]/g, '')}"><input type="hidden" name="post_type" value="product"><button type="submit" aria-label="اجرای جستجو"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg></button>`;
+      capsule.prepend(search);
+    }
+    search.action = cfg.home_url || '/';
+    const searchInput = search.querySelector('input[type="search"]');
+    if (searchInput) searchInput.placeholder = cfg.search_placeholder || 'جستجوی محصول…';
+    setVisible(search, asBool(cfg.show_search));
+
+    let stage = root.querySelector('.alookhor-legacy-nav-stage');
+    if (!stage) {
+      stage = document.createElement('div');
+      stage.className = 'alookhor-legacy-nav-stage';
+      stage.setAttribute('data-alookhor-navigation', 'primary');
+      const shell = document.createElement('div');
+      shell.className = 'alookhor-legacy-nav-shell';
+      navigation.before(document.createComment('ALOOKHOR primary navigation moved intact to sticky stage'));
+      shell.append(navigation);
+
+      const mobile = document.createElement('div');
+      mobile.className = 'alookhor-legacy-mobile-nav';
+      const brand = document.createElement('a');
+      brand.className = 'alookhor-legacy-mobile-brand';
+      brand.href = cfg.home_url || '/';
+      brand.setAttribute('aria-label', cfg.top_logo_alt || 'ALOOKHOR');
+      const sourceLogo = header.querySelector('.header-capsule-logo img');
+      if (sourceLogo?.src) {
+        const image = document.createElement('img');
+        image.src = sourceLogo.src;
+        image.alt = sourceLogo.alt || cfg.top_logo_alt || 'ALOOKHOR';
+        brand.append(image);
+      }
+      const brandText = document.createElement('span');
+      brandText.textContent = cfg.logo_text || 'ALOOKHOR';
+      brand.append(brandText);
+
+      const mobileToggle = document.createElement('button');
+      mobileToggle.type = 'button';
+      mobileToggle.className = 'alookhor-mobile-sticky-toggle';
+      mobileToggle.setAttribute('aria-label', 'بازکردن منوی اصلی');
+      mobileToggle.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>';
+      mobileToggle.addEventListener('click', () => {
+        const original = root.querySelector('#openDrawer,.alookhor-hamburger-btn,[class*="hamburger" i]');
+        original?.click();
+      });
+      mobile.append(brand, mobileToggle);
+      shell.append(mobile);
+      stage.append(shell);
+      const marker = document.createElement('span');
+      marker.className = 'alookhor-legacy-nav-marker';
+      marker.setAttribute('aria-hidden', 'true');
+      header.after(marker, stage);
+
+      let stageTop = 0;
+      let ticking = false;
+      const measure = () => {
+        stageTop = marker.getBoundingClientRect().top + window.scrollY;
+      };
+      const update = () => {
+        ticking = false;
+        const adminOffset = document.body.classList.contains('admin-bar') ? (window.innerWidth <= 782 ? 46 : 32) : 0;
+        stage.classList.toggle('is-stuck', stage.classList.contains('is-enabled') && window.scrollY + adminOffset >= stageTop - 1);
+      };
+      const requestUpdate = () => {
+        if (ticking) return;
+        ticking = true;
+        window.requestAnimationFrame(update);
+      };
+      window.addEventListener('scroll', requestUpdate, {passive:true});
+      window.addEventListener('resize', () => { measure(); requestUpdate(); }, {passive:true});
+      window.addEventListener('load', () => { measure(); requestUpdate(); }, {once:true});
+      window.requestAnimationFrame(() => { measure(); update(); });
+    }
+
+    stage.classList.toggle('is-enabled', asBool(cfg.sticky));
+    if (!asBool(cfg.sticky)) stage.classList.remove('is-stuck');
+
+    const headerLogo = header.querySelector('.header-capsule-logo img');
+    if (headerLogo) {
+      const setLogoSize = () => {
+        const width = window.innerWidth <= 767
+          ? clamp(cfg.header_logo_mobile_width, 42, 110, 58)
+          : clamp(cfg.header_logo_desktop_width, 70, 220, 118);
+        headerLogo.style.setProperty('width', `${width}px`, 'important');
+        headerLogo.style.setProperty('max-width', `${width}px`, 'important');
+        headerLogo.style.setProperty('height', 'auto', 'important');
+        headerLogo.style.setProperty('background', 'transparent', 'important');
+        const mobileLogo = stage.querySelector('.alookhor-legacy-mobile-brand img');
+        if (mobileLogo) mobileLogo.src = headerLogo.src;
+      };
+      setLogoSize();
+      if (root.dataset.headerLogoResize !== '1') {
+        root.dataset.headerLogoResize = '1';
+        window.addEventListener('resize', setLogoSize, {passive:true});
+      }
+    }
+    root.dataset.headerBehaviorReady = '1';
+  }
 
   function manage(root, force = false) {
-    if (!root || (!force && root.dataset.topbarManaged === '3.10.4')) return;
+    if (!root || (!force && root.dataset.topbarManaged === '3.10.5')) return;
 
     const contactTexts = [...root.querySelectorAll('.topbar-contact-txt,[class*="contact-txt" i]')];
     const phone = root.querySelector('a[href^="tel:"]') || contactTexts.find(element => {
@@ -82,6 +218,10 @@
     // ancestor detection.
     const whatsapp = topbar?.querySelector('a[href*="wa.me"],a[href*="whatsapp.com"],a[aria-label*="WhatsApp" i]')
       || root.querySelector('a[href*="wa.me"],a[href*="whatsapp.com"],a[aria-label*="WhatsApp" i]');
+
+    // Establish the three-row in-flow layout immediately when the legacy DOM
+    // arrives, before paint. Fresh REST values can update colors/content later.
+    setupHeaderBehavior(root);
 
     // A cached legacy header can contain old text/colors. Reserve its layout but
     // never paint stale content while the fresh same-origin REST read is pending.
@@ -161,19 +301,25 @@
     }
 
     if (cfg.top_logo_url) {
-      const logo = topbar?.querySelector('[class*="logo" i] img,img[alt*="لوگو"],img[alt*="alookhor" i]')
-        || root.querySelector('[class*="top-logo" i] img');
-      if (logo) {
+      const logos = [
+        topbar?.querySelector('[class*="logo" i] img,img[alt*="لوگو"],img[alt*="alookhor" i]'),
+        root.querySelector('.header-capsule-logo img'),
+        root.querySelector('.alookhor-legacy-mobile-brand img')
+      ].filter(Boolean);
+      logos.forEach(logo => {
         logo.src = cfg.top_logo_url;
         logo.alt = cfg.top_logo_alt || 'ALOOKHOR';
-        logo.style.setProperty('max-width', `${Math.max(50, Math.min(180, Number(cfg.top_logo_width) || 96))}px`, 'important');
+        logo.style.setProperty('background', 'transparent', 'important');
         const logoLink = logo.closest('a');
         if (logoLink && cfg.top_logo_link) logoLink.href = cfg.top_logo_link;
-      }
+      });
+      const topLogo = logos[0];
+      if (topLogo) topLogo.style.setProperty('max-width', `${Math.max(50, Math.min(180, Number(cfg.top_logo_width) || 96))}px`, 'important');
     }
 
-    root.dataset.topbarManaged = '3.10.4';
-    root.dispatchEvent(new CustomEvent('alookhor:topbar-managed', {bubbles:true, detail:{version:'3.10.4'}}));
+    setupHeaderBehavior(root);
+    root.dataset.topbarManaged = '3.10.5';
+    root.dispatchEvent(new CustomEvent('alookhor:topbar-managed', {bubbles:true, detail:{version:'3.10.5'}}));
   }
 
   function init(scope = document, force = false) {

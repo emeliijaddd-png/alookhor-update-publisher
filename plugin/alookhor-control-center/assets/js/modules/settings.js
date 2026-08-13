@@ -1,4 +1,4 @@
-import { Config } from '../core/config.js?v=3.10.4';
+import { Config } from '../core/config.js?v=3.10.5';
 
 const escapeAttr = value => String(value ?? '').replace(/[&<>'"]/g, char => ({
   '&':'&amp;', '<':'&lt;', '>':'&gt;', "'":'&#039;', '"':'&quot;'
@@ -26,7 +26,9 @@ export const settingsModule = {
       top_logo_url:'', top_logo_alt:'ALOOKHOR', top_logo_link:'', top_logo_width:96,
       topbar_bg:'#11091D', topbar_text_color:'#E8D5B5', topbar_border_color:'#3A2C20',
       topbar_button_bg:'#C9A86A', topbar_button_text:'#1A1206', topbar_height:38,
-      show_topbar:true, show_phone:true, show_email:true, show_whatsapp:true, show_export:true,
+      header_surface:'#0D0916', header_text_color:'#F7F2EA', header_muted_color:'#B8B0BD',
+      header_logo_desktop_width:118, header_logo_mobile_width:58,
+      show_search:true, search_placeholder:'جستجوی محصول…', show_topbar:true, show_phone:true, show_email:true, show_whatsapp:true, show_export:true,
       show_wholesale:true, wholesale_new_tab:false
     }, cfg.header_settings || {});
     cfg.footer_settings = Object.assign({
@@ -266,10 +268,20 @@ export const settingsModule = {
           <label>ارتفاع<input id="inpTopbarHeight" type="number" min="30" max="60" value="${Number(cfg.header_settings.topbar_height)||38}"></label>
         </div></div>
 
+        <div class="qh-section"><div class="qh-title"><b>هدر اصلی و Navigation چسبان</b><small>STICKY NAV</small></div><div class="qh-grid">
+          <label>عرض لوگو Desktop<input id="inpHeaderLogoDesktop" type="number" min="70" max="220" value="${Number(cfg.header_settings.header_logo_desktop_width)||118}"></label>
+          <label>عرض لوگو Mobile<input id="inpHeaderLogoMobile" type="number" min="42" max="110" value="${Number(cfg.header_settings.header_logo_mobile_width)||58}"></label>
+          <label class="qh-span-2">متن داخل جستجو<input id="inpHeaderSearchPlaceholder" value="${escapeAttr(cfg.header_settings.search_placeholder)}"></label>
+        </div><div class="qh-colors" style="margin-top:9px">
+          <label>سطح Navigation<input id="inpHeaderSurface" type="color" value="${escapeAttr(cfg.header_settings.header_surface)}"></label>
+          <label>متن Navigation<input id="inpHeaderText" type="color" value="${escapeAttr(cfg.header_settings.header_text_color)}"></label>
+          <label>متن فرعی<input id="inpHeaderMuted" type="color" value="${escapeAttr(cfg.header_settings.header_muted_color)}"></label>
+        </div><p style="margin:9px 0 0;color:var(--text-faint);font-size:10.5px;line-height:1.8">Top Bar و Header اصلی در جریان عادی صفحه می‌مانند؛ فقط Navigation بدون Layout Shift به بالای viewport می‌چسبد.</p></div>
+
         <div class="qh-section"><div class="qh-title"><b>نمایش یا عدم نمایش</b><small>VISIBILITY</small></div><div class="qh-flags">
           ${[
-            ['show_topbar','کل Top Bar'],['show_phone','تلفن'],['show_email','ایمیل'],['show_whatsapp','WhatsApp'],
-            ['show_export','صادرات'],['show_wholesale','خرید عمده'],['wholesale_new_tab','لینک عمده در تب جدید']
+            ['sticky','Sticky فقط Navigation'],['show_search','جستجوی محصولات'],['show_topbar','کل Top Bar'],['show_phone','تلفن'],['show_email','ایمیل'],['show_whatsapp','WhatsApp'],
+            ['show_export','صادرات'],['show_wholesale','خرید عمده'],['show_account','ورود/حساب'],['wholesale_new_tab','لینک عمده در تب جدید']
           ].map(([key,label])=>`<label><input type="checkbox" data-header-flag="${key}" ${isEnabled(cfg.header_settings[key])?'checked':''}>${label}</label>`).join('')}
         </div></div>
 
@@ -403,6 +415,10 @@ export const settingsModule = {
             wholesale_text:value('inpHeaderWholesaleText'), wholesale_url:value('inpHeaderWholesaleUrl'),
             top_logo_url:value('inpTopLogoUrl'), top_logo_alt:value('inpTopLogoAlt'), top_logo_link:value('inpTopLogoLink'),
             top_logo_width:Math.max(50,Math.min(180,Number(value('inpTopLogoWidth'))||96)),
+            header_logo_desktop_width:Math.max(70,Math.min(220,Number(value('inpHeaderLogoDesktop'))||118)),
+            header_logo_mobile_width:Math.max(42,Math.min(110,Number(value('inpHeaderLogoMobile'))||58)),
+            search_placeholder:value('inpHeaderSearchPlaceholder'),
+            header_surface:value('inpHeaderSurface'), header_text_color:value('inpHeaderText'), header_muted_color:value('inpHeaderMuted'),
             topbar_bg:value('inpTopbarBg'), topbar_text_color:value('inpTopbarText'), topbar_border_color:value('inpTopbarBorder'),
             topbar_button_bg:value('inpTopbarButtonBg'), topbar_button_text:value('inpTopbarButtonText'),
             topbar_height:Math.max(30,Math.min(60,Number(value('inpTopbarHeight'))||38))

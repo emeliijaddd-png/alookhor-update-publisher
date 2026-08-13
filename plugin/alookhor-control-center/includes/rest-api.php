@@ -71,6 +71,17 @@ add_action('rest_api_init', function(){
             $settings = alookhor_cc_front_header_settings();
             $response = rest_ensure_response([
                 'version' => ALOOKHOR_CC_VERSION,
+                'home_url' => home_url('/'),
+                'logo_text' => sanitize_text_field($settings['logo_text'] ?? 'ALOOKHOR'),
+                'gold' => sanitize_hex_color($settings['gold'] ?? '') ?: '#C9A86A',
+                'sticky' => rest_sanitize_boolean($settings['sticky'] ?? true),
+                'show_search' => rest_sanitize_boolean($settings['show_search'] ?? true),
+                'search_placeholder' => sanitize_text_field($settings['search_placeholder'] ?? 'جستجوی محصول…'),
+                'header_surface' => sanitize_hex_color($settings['header_surface'] ?? '') ?: '#0D0916',
+                'header_text_color' => sanitize_hex_color($settings['header_text_color'] ?? '') ?: '#F7F2EA',
+                'header_muted_color' => sanitize_hex_color($settings['header_muted_color'] ?? '') ?: '#B8B0BD',
+                'header_logo_desktop_width' => max(70, min(220, absint($settings['header_logo_desktop_width'] ?? 118))),
+                'header_logo_mobile_width' => max(42, min(110, absint($settings['header_logo_mobile_width'] ?? 58))),
                 'phone' => sanitize_text_field($settings['phone'] ?? ''),
                 'email' => sanitize_email($settings['email'] ?? ''),
                 'whatsapp' => preg_replace('/\D+/', '', (string) ($settings['whatsapp'] ?? '')),

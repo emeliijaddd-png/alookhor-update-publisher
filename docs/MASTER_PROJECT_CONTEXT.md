@@ -22,8 +22,9 @@ When sources disagree, the newer provable runtime/source wins. Missing source is
 ## Authoritative current state
 
 - **Production runtime:** ALOOKHOR Control Center `3.10.4`
-- **Current Production tag/source:** `v3.10.4` / `71c3f8483d56495c3ed2212498d26e835ecaa079`
-- **Published package SHA-256:** `8c8906e76e0fbed96dec51808a9b7be4cb61553e886b1ea1104465426d491dc3`
+- **Current source target:** `3.10.5` — Navigation-only Sticky Header; pending tagged deployment and verification.
+- **Last Production tag/source:** `v3.10.4` / `71c3f8483d56495c3ed2212498d26e835ecaa079`
+- **Last published package SHA-256:** `8c8906e76e0fbed96dec51808a9b7be4cb61553e886b1ea1104465426d491dc3`
 - **Deployment run:** `31713677974`
 - **Independent audit run:** `31713982075`
 - **Production:** active and verified
@@ -50,6 +51,21 @@ Full metadata and complete source snapshots are generated in `docs/MASTER_CODE_R
 - Authenticated private updater and rollback-capable native WordPress installation
 - Main option: `alookhor_cc_settings`
 - Header option: `alookhor_header_settings`
+
+## Current Header behavior contract
+
+This rule supersedes every earlier interpretation of full-header Sticky behavior:
+
+1. At page start, all three rows are visible in normal document flow: Top Bar, Main Header, and Primary Navigation.
+2. Top Bar and Main Header must never remain fixed/sticky while scrolling down; they leave the viewport with the page.
+3. The existing WordPress-driven `.header-nav-center` is moved intact—not rebuilt—into a dedicated Navigation stage immediately after the Main Header.
+4. Only that Primary Navigation stage may use `position: sticky` and remain usable at the top of the viewport.
+5. The sticky stage retains its normal-flow footprint and does not change height when stuck, preventing Layout Shift.
+6. Scrolling back toward the page start naturally and smoothly returns the Main Header and Top Bar; at `scrollY=0` all rows are in their initial state.
+7. Existing shortcode, menu nodes, Mega Menu, Drawer trigger, IDs, classes, and WordPress menu data are preserved.
+8. Visual treatment uses current ALOOKHOR Black/Gold settings with restrained glass/blur only when Navigation is stuck.
+9. Desktop and Mobile use the same transparent logo source; separate safe width controls are available in the main Boutique Header settings.
+10. Rollback remains available through the existing `sticky` setting and versioned plugin release.
 
 ## Current categories contract
 
