@@ -21,11 +21,11 @@ When sources disagree, the newer provable runtime/source wins. Missing source is
 
 ## Authoritative current state
 
-- **Production runtime:** ALOOKHOR Control Center `3.10.11`
-- **Current source target:** `3.10.12` — final Desktop logo Y alignment; pending rendered verification.
-- **Last Production tag/source:** `v3.10.11` / `f1f2581b9c4ee046b0b3e0ac5e2680a8b4a12839`
-- **Last published package SHA-256:** `c38db194f851953b5b573f0bbde899af446c76565dcda09f4ad87fa6ccadfaad`
-- **Latest rendered Chrome audit:** `31731281931` — Mobile passed; Desktop Symbol remained 5px below capsule.
+- **Production runtime:** ALOOKHOR Control Center `3.10.12`
+- **Current Production tag/source:** `v3.10.12` / `d2ec4b044d4bf9d8dc8e07f7e5063f5ce37544c1`
+- **Published package SHA-256:** `2c4f6c88762960caa014e9c1d1a110c426e890fc0ba8095826fc0f90e7301add`
+- **Deployment run:** `31732111449` — all publication/native WordPress checks passed.
+- **Final rendered Chrome audit:** `31732438329` — Desktop and Mobile both passed every visual check.
 - **Production:** active and verified
 - **Repository:** `alookhor-update-publisher`
 - **Update channel:** `https://updates.alookhor.ir/manifest.json`
