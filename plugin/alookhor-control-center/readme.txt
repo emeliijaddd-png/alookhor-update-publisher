@@ -4,7 +4,7 @@ Tags: control center, luxury, alookhor, admin, dashboard
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 3.10.8
+Stable tag: 3.10.9
 License: Private
 License URI: https://alookhor.ir
 
@@ -44,6 +44,13 @@ License URI: https://alookhor.ir
 در `config/site.json` و `wp_options: alookhor_cc_settings` — همان حافظه واقعی که در چت قبلی ویرایش می‌شد.
 
 == Changelog ==
+
+= 3.10.9 =
+* لوگوی افقی بزرگ و شفاف در مرکز Mobile
+* Account آیکنی بدون متن/Pill
+* Cart واقعی در چپ و Hamburger ساده در راست
+* Top Bar سه‌بخشی تلفن، پیام مرکزی و پشتیبانی
+* ممیزی تصویری تطبیق اجزای مرجع
 
 = 3.10.8 =
 * حذف Offset واقعی 135px Desktop و 100px Mobile بالای سایت

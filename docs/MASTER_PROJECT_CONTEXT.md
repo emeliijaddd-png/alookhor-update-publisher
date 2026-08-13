@@ -22,10 +22,10 @@ When sources disagree, the newer provable runtime/source wins. Missing source is
 ## Authoritative current state
 
 - **Production runtime:** ALOOKHOR Control Center `3.10.8`
-- **Current Production tag/source:** `v3.10.8` / `b92dce4ce5fcb8abb78a963297af754ae75857b4`
-- **Published package SHA-256:** `f147e47b73e6f23d9db2feaa5b9d900c98215f6f58ef47ac3abc4c19a5b26a99`
-- **Deployment run:** `31726553030` (installation succeeded; one obsolete preservation assertion was corrected afterward)
-- **Independent WordPress + rendered Chrome audit:** `31726873937` — all checks passed
+- **Current source target:** `3.10.9` — exact Mobile Header visual-reference match; pending tagged deployment and rendered verification.
+- **Last Production tag/source:** `v3.10.8` / `b92dce4ce5fcb8abb78a963297af754ae75857b4`
+- **Last published package SHA-256:** `f147e47b73e6f23d9db2feaa5b9d900c98215f6f58ef47ac3abc4c19a5b26a99`
+- **Latest rendered Chrome audit:** `31726873937` — geometry and sticky checks passed
 - **Production:** active and verified
 - **Repository:** `alookhor-update-publisher`
 - **Update channel:** `https://updates.alookhor.ir/manifest.json`
@@ -68,7 +68,7 @@ This rule supersedes every earlier interpretation of full-header Sticky behavior
 11. The approved Header palette is the site’s own Black/Gold state—not the orange/green colors in the structural reference: `#11091D`, `#0D0916`, `#C9A86A`, `#E8D5B5`, `#F7F2EA`, and `#B8B0BD`.
 12. The authoritative shared Header/Footer contact phone is `09159513173`; any ending in 3174 or 3179 is a regression.
 13. Mobile has exactly two visible rows: Top Bar and one Main Capsule. No extra sticky Navigation row is rendered at `≤1023px`.
-14. The Main Capsule layout is: original Hamburger/Drawer trigger on the right, shared transparent logo in the center, and account plus real WooCommerce cart on the left.
+14. The Main Capsule layout is: original simple Hamburger/Drawer trigger on the right, a large horizontal transparent logo composition (symbol + «آلوخور» wordmark) in the center, and icon-only Account plus real WooCommerce Cart/Badge on the left.
 15. Product Search is explicitly rejected and must not be rendered in Desktop or Mobile Header, nor exposed as a Boutique setting.
 16. When Woodmart's native Header is hidden, its reserved Body offset and the Home main-content top padding must be collapsed only on pages containing `.alookhor-managed-legacy-header`; the live Top Bar should begin within 25px of the viewport top.
 17. Visual acceptance requires rendered Chrome audits at 1440×1050 and 430×932, unique Drawer ID, no horizontal overflow, contained logo, hidden duplicate Top Bar logo, hidden Mobile nav stage, and a pinned Desktop navigation rail.

@@ -1,5 +1,13 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.9 — 2026-08-13 — Exact Mobile Header Reference Match
+- ACCOUNT: حذف متن و Pill بزرگ ورود در Mobile؛ فقط Icon استاندارد باقی ماند.
+- CART: Cart واقعی WooCommerce در چپ‌ترین موقعیت با Badge پویا قرار گرفت.
+- LOGO: تصویر موجود به Symbol دایره‌ای محدود و Wordmark «آلوخور» + زیرعنوان در ترکیب افقی شفاف افزوده شد.
+- MENU: Hamburger ساده و بدون حلقه سنگین در سمت راست کپسول قرار گرفت؛ همان `#openDrawer` حفظ شد.
+- TOPBAR: سه ناحیه Phone، پیام صادرات/ارسال مرکزی و پشتیبانی ۲۴/۷؛ لوگو و CTA تکراری حذف شدند.
+- VISUAL CI: وجود Wordmark، Support و Account icon-only به Browser audit اضافه شد.
+
 ## v3.10.8 — 2026-08-13 — Live Browser Header Geometry Fix
 - BROWSER: ممیزی Chrome واقعی Production در 1440×1050 و 430×932 همراه Screenshot و Geometry اجرا شد.
 - OFFSET: تشخیص Padding رزروشده 135px Desktop و 100px Mobile روی Body و Padding داخلی 40px؛ Collapse فقط هنگام وجود Header مدیریت‌شده.

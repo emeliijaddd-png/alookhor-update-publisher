@@ -1,5 +1,5 @@
 /**
- * ALOOKHOR Legacy Top Bar Manager — v3.10.8
+ * ALOOKHOR Legacy Top Bar Manager — v3.10.9
  * Preserves the legacy header/mega-menu HTML and synchronizes managed Top Bar
  * values from a fresh read-only REST endpoint, even when the page HTML is cached.
  */
@@ -99,6 +99,21 @@
       mainToggle.classList.add('alookhor-main-menu-toggle');
       if (mainToggle.parentElement !== capsule) capsule.append(mainToggle);
     }
+    const logoBox = capsule.querySelector('.header-capsule-logo');
+    if (logoBox && !logoBox.querySelector('.alookhor-logo-copy')) {
+      const copy = document.createElement('span');
+      copy.className = 'alookhor-logo-copy';
+      copy.innerHTML = '<b>آلوخور</b><small>پایتخت آلوی ایران</small>';
+      logoBox.append(copy);
+    }
+    const topbarContainer = topbar.querySelector('.alookhor-topbar-container');
+    if (topbarContainer && !topbarContainer.querySelector('.alookhor-topbar-support')) {
+      const support = document.createElement('span');
+      support.className = 'alookhor-topbar-support';
+      support.innerHTML = '<span aria-hidden="true">◉</span><b>پشتیبانی ۲۴/۷</b>';
+      topbarContainer.append(support);
+    }
+
     const actions = capsule.querySelector('.header-capsule-left');
     if (actions && !actions.querySelector('.alookhor-header-cart-link')) {
       const cart = document.createElement('a');
@@ -161,14 +176,14 @@
     if (headerLogo) {
       const setLogoSize = () => {
         const mobile = window.innerWidth <= 767;
-        const maxWidth = mobile
-          ? clamp(cfg.header_logo_mobile_width, 42, 110, 58)
-          : clamp(cfg.header_logo_desktop_width, 70, 220, 118);
-        const height = mobile ? 50 : 68;
-        headerLogo.style.setProperty('width', 'auto', 'important');
-        headerLogo.style.setProperty('max-width', `${maxWidth}px`, 'important');
-        headerLogo.style.setProperty('height', `${height}px`, 'important');
-        headerLogo.style.setProperty('max-height', `${height}px`, 'important');
+        const size = mobile ? 50 : 62;
+        headerLogo.style.setProperty('width', `${size}px`, 'important');
+        headerLogo.style.setProperty('max-width', `${size}px`, 'important');
+        headerLogo.style.setProperty('height', `${size}px`, 'important');
+        headerLogo.style.setProperty('max-height', `${size}px`, 'important');
+        headerLogo.style.setProperty('object-fit', 'cover', 'important');
+        headerLogo.style.setProperty('object-position', 'top center', 'important');
+        headerLogo.style.setProperty('border-radius', '50%', 'important');
         headerLogo.style.setProperty('background', 'transparent', 'important');
       };
       setLogoSize();
@@ -181,7 +196,7 @@
   }
 
   function manage(root, force = false) {
-    if (!root || (!force && root.dataset.topbarManaged === '3.10.8')) return;
+    if (!root || (!force && root.dataset.topbarManaged === '3.10.9')) return;
 
     const contactTexts = [...root.querySelectorAll('.topbar-contact-txt,[class*="contact-txt" i]')];
     const phone = root.querySelector('a[href^="tel:"]') || contactTexts.find(element => {
@@ -307,8 +322,8 @@
     }
 
     setupHeaderBehavior(root);
-    root.dataset.topbarManaged = '3.10.8';
-    root.dispatchEvent(new CustomEvent('alookhor:topbar-managed', {bubbles:true, detail:{version:'3.10.8'}}));
+    root.dataset.topbarManaged = '3.10.9';
+    root.dispatchEvent(new CustomEvent('alookhor:topbar-managed', {bubbles:true, detail:{version:'3.10.9'}}));
   }
 
   function init(scope = document, force = false) {

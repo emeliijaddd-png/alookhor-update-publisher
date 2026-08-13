@@ -1,35 +1,18 @@
 {
-  "version": "3.10.8",
-  "previous": "3.10.7",
+  "version": "3.10.9",
+  "previous": "3.10.8",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "اصلاح مبتنی بر Browser audit: حذف Offset واقعی بالای سایت، Sticky قطعی Desktop و مهار کامل لوگو/Top Bar.",
+  "description": "تطبیق نهایی Mobile Header با مرجع: لوگوی افقی بزرگ، Account آیکنی، Cart چپ و Top Bar سه‌بخشی.",
   "changelog": [
-    {
-      "tag": "LIVE BROWSER FIX",
-      "title": "حذف فضای خالی 100–185px بالای سایت",
-      "desc": "Padding رزروشده Woodmart روی Body و فاصله 40px محتوای اصلی فقط در صفحه دارای Header مدیریت‌شده Collapse شدند."
-    },
-    {
-      "tag": "FIXED STICKY RAIL",
-      "title": "Navigation واقعاً در بالای viewport باقی می‌ماند",
-      "desc": "محدودیت Elementor containing block با Rail ثابت و Spacer هم‌اندازه رفع شد؛ بدون Layout Shift و فقط در Desktop."
-    },
-    {
-      "tag": "LOGO & TOPBAR",
-      "title": "حذف لوگوی تکراری Top Bar و مهار لوگوی کپسول",
-      "desc": "لوگوی وسط Top Bar مخفی، لوگوی اصلی داخل ارتفاع کپسول محدود و Top Bar Mobile به 34px فشرده شد."
-    }
+    {"tag":"REFERENCE MATCH","title":"چیدمان دقیق کپسول Mobile","desc":"Cart در چپ، Account آیکنی کنار آن، لوگوی افقی بزرگ در مرکز و Hamburger ساده در راست تثبیت شدند."},
+    {"tag":"HORIZONTAL LOGO","title":"لوگوی افقی بدون پس‌زمینه مشکی","desc":"آیکن موجود به‌همراه Wordmark و زیرعنوان متنی در یک ترکیب افقی شفاف رندر و داخل کپسول مهار شد."},
+    {"tag":"THREE-PART TOPBAR","title":"تلفن، پیام مرکزی و پشتیبانی","desc":"Top Bar به سه ستون مرجع تبدیل، لوگوی تکراری و CTA نامربوط حذف و پشتیبانی ۲۴/۷ اضافه شد."}
   ],
-  "project": "ALOOKHOR",
-  "area": "Rendered Production Header / Browser-measured Regression Fix",
-  "reason": "Chrome audit زنده نشان داد Body دارای Offset 100/135px بود، Desktop sticky به‌علت والد Elementor از viewport خارج می‌شد و لوگو از کپسول بیرون می‌زد.",
-  "files": [
-    "plugin/alookhor-control-center/assets/css/frontend-header-scroll.css",
-    "plugin/alookhor-control-center/assets/js/frontend-topbar-manager.js",
-    "scripts/header_visual_audit.py",
-    ".github/workflows/publish.yml"
-  ]
+  "project":"ALOOKHOR",
+  "area":"Mobile Header / Exact Visual Reference",
+  "reason":"Browser screenshot نسخه 3.10.8 از نظر هندسه صحیح بود اما Account، Logo و Top Bar هنوز از نظر بصری با مرجع کاربر مطابقت نداشت.",
+  "files":["plugin/alookhor-control-center/assets/css/frontend-header-scroll.css","plugin/alookhor-control-center/assets/js/frontend-topbar-manager.js","scripts/header_visual_audit.py"]
 }

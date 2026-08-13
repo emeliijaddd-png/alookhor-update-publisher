@@ -3,7 +3,7 @@
  * Plugin Name: ALOOKHOR Control Center
  * Plugin URI: https://alookhor.ir
  * Description: کنترل سنتر لوکس و ماژولار آلوخور — مدیریت کامل سایت (هدر، اسلایدر، سورت، محصولات، مشتریان VIP، مالی، آنالیتیکس) با آپدیت آنی بدون رفرش. تمام تنظیمات چت قبلی + شورت‌کد [alookhor_portal_header] اینجا مدیریت می‌شود.
- * Version: 3.10.8
+ * Version: 3.10.9
  * Author: ALOOKHOR Team — Luxury Modular
  * Author URI: https://alookhor.ir
  * Update URI: https://alookhor.ir/alookhor-control-center
@@ -16,8 +16,8 @@
 
 if (!defined('ABSPATH')) exit;
 
-define('ALOOKHOR_CC_VERSION', '3.10.8');
-define('ALOOKHOR_CC_BUILD', '3.10.8');
+define('ALOOKHOR_CC_VERSION', '3.10.9');
+define('ALOOKHOR_CC_BUILD', '3.10.9');
 define('ALOOKHOR_CC_FILE', __FILE__);
 define('ALOOKHOR_CC_DIR', plugin_dir_path(__FILE__));
 define('ALOOKHOR_CC_URL', plugin_dir_url(__FILE__));
@@ -239,7 +239,7 @@ function alookhor_cc_get_header_settings(){
 }
 
 /**
- * One-time 3.10.8 migration requested by the site owner: restore the verified
+ * One-time 3.10.9 migration requested by the site owner: restore the verified
  * ALOOKHOR Black/Gold Header palette (not the orange/green reference colors)
  * and the authoritative contact phone ending in 3173. Every unrelated Header
  * value remains untouched.
