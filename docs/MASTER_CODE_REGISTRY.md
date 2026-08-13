@@ -181,7 +181,7 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 | `scripts/build_release.py` | 101 | `f07af70658e73dd9e42f018cfa3e2ca35a7287599d7e6a4cf8e06951665126d8` |
 | `scripts/generate_code_registry.py` | 240 | `19f81c1ae220c00b6df6da4084322d3374bfbd2bb9281e25f00e88593d0b5a93` |
 | `scripts/header_visual_audit.py` | 95 | `a73353a3e6b94d92462adb2aea1593f859a4b9d7a2476ab071a6ecdbb5204582` |
-| `scripts/wordpress_access_check.py` | 355 | `665bc6ffafa33fe4ad51f5faeb6a5ec68860b565798b58e3acf246d68632511c` |
+| `scripts/wordpress_access_check.py` | 373 | `3f3b6813256d2ab43dcb16369d0dcdf078cd5dcf3a04e6a6cc78638efaedab21` |
 | `scripts/wordpress_release_test.py` | 210 | `f2eb396d042c4e0d0b84ef018b56867ba84e7589fddef923f287bcee4b41696f` |
 
 # COMPLETE SOURCE SNAPSHOTS
@@ -7677,6 +7677,24 @@ try:
         'relevant_classes': class_names[:100],
         'markup_fragment': topbar_fragment,
         'legacy_header_rules': legacy_header_rules[:160],
+    }
+
+    hero_index = homepage.find('slide1.jpg')
+    hero_fragment = ''
+    if hero_index >= 0:
+        hero_start = homepage.rfind('<', 0, max(0, hero_index - 5000))
+        hero_fragment = re.sub(r'\s+', ' ', homepage[max(0, hero_start):hero_index + 12000]).strip()
+    hero_classes = sorted({
+        name
+        for value in re.findall(r'class=["\']([^"\']+)["\']', hero_fragment, re.I)
+        for name in value.split()
+    })
+    hero_assets = sorted(set(re.findall(r'https?://[^"\'\s>]+alookhor-categories-manager/[^"\'\s<]+', homepage, re.I)))
+    report['legacy_hero'] = {
+        'found': hero_index >= 0,
+        'classes': hero_classes[:160],
+        'fragment': hero_fragment,
+        'assets': hero_assets[:80],
     }
 
     footer_classes = sorted({

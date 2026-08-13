@@ -186,6 +186,24 @@ try:
         'legacy_header_rules': legacy_header_rules[:160],
     }
 
+    hero_index = homepage.find('slide1.jpg')
+    hero_fragment = ''
+    if hero_index >= 0:
+        hero_start = homepage.rfind('<', 0, max(0, hero_index - 5000))
+        hero_fragment = re.sub(r'\s+', ' ', homepage[max(0, hero_start):hero_index + 12000]).strip()
+    hero_classes = sorted({
+        name
+        for value in re.findall(r'class=["\']([^"\']+)["\']', hero_fragment, re.I)
+        for name in value.split()
+    })
+    hero_assets = sorted(set(re.findall(r'https?://[^"\'\s>]+alookhor-categories-manager/[^"\'\s<]+', homepage, re.I)))
+    report['legacy_hero'] = {
+        'found': hero_index >= 0,
+        'classes': hero_classes[:160],
+        'fragment': hero_fragment,
+        'assets': hero_assets[:80],
+    }
+
     footer_classes = sorted({
         name
         for value in re.findall(r'class=["\']([^"\']+)["\']', homepage, re.I)
