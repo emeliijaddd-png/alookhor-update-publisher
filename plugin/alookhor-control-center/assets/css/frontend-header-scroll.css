@@ -40,6 +40,7 @@ body:has(.alookhor-managed-legacy-header){padding-top:0!important}
 @media(min-width:1024px){
   .alookhor-managed-legacy-header .header-capsule{display:grid!important;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr)!important;grid-template-areas:"actions logo menu"!important;align-items:center!important;justify-content:stretch!important;direction:ltr!important}
   .alookhor-managed-legacy-header .header-capsule-logo{grid-area:logo!important;justify-self:center!important;direction:rtl!important}
+  .alookhor-managed-legacy-header .header-capsule-logo img{transform:translateY(-6px)!important}
   .alookhor-managed-legacy-header .header-capsule-left{grid-area:actions!important;justify-self:start!important;direction:rtl!important}
   .alookhor-managed-legacy-header .alookhor-main-menu-toggle{grid-area:menu!important;justify-self:end!important;direction:rtl!important}
 }

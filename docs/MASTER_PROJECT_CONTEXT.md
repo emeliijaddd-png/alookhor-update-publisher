@@ -21,11 +21,11 @@ When sources disagree, the newer provable runtime/source wins. Missing source is
 
 ## Authoritative current state
 
-- **Production runtime:** ALOOKHOR Control Center `3.10.10`
-- **Current source target:** `3.10.11` — contain the Desktop logo symbol detected 11px outside the capsule.
-- **Last Production tag/source:** `v3.10.10` / `d9863bcfc4bee22af29b6a89233a903fd69320ee`
-- **Last published package SHA-256:** `7fcda5e8ccb9dbd7f24036d340d10abf0242ebbf0e7b1dc195ef51047b4c201d`
-- **Latest rendered Chrome audit:** `31730123781` — Mobile passed every check; only Desktop logo containment remained.
+- **Production runtime:** ALOOKHOR Control Center `3.10.11`
+- **Current source target:** `3.10.12` — final Desktop logo Y alignment; pending rendered verification.
+- **Last Production tag/source:** `v3.10.11` / `f1f2581b9c4ee046b0b3e0ac5e2680a8b4a12839`
+- **Last published package SHA-256:** `c38db194f851953b5b573f0bbde899af446c76565dcda09f4ad87fa6ccadfaad`
+- **Latest rendered Chrome audit:** `31731281931` — Mobile passed; Desktop Symbol remained 5px below capsule.
 - **Production:** active and verified
 - **Repository:** `alookhor-update-publisher`
 - **Update channel:** `https://updates.alookhor.ir/manifest.json`
