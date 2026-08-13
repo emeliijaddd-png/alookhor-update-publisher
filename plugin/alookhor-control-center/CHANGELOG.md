@@ -1,5 +1,14 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.4 — 2026-08-13 — Boutique-First Admin Workspace
+- NAVIGATION: انتقال «مدیریت بوتیک» به آیتم اصلی بالای Sidebar و انتخاب آن به‌عنوان صفحه پیش‌فرض پنل.
+- PRIORITY: انتقال گروه‌های فروش، مشتریان، مالی و گزارش‌های آزمایشی به پایین Navigation و بسته‌بودن پیش‌فرض آن‌ها.
+- WORKSPACE: حذف محدودیت 1440px از Header/Shell پنل و استفاده از کل عرض امن WordPress برای فرم‌های مدیریتی.
+- BOUTIQUE: ستون ماژول‌ها در کنار Workspace وسیع قرار گرفت و تنظیمات کامل ماژول انتخاب‌شده در همان فضای بزرگ باز می‌شود.
+- DASHBOARD: انتقال AI Assistant و System Status شامل WooCommerce، Woodmart، Elementor، PHP، Memory و SSL به Dashboard.
+- ISOLATION: AI و سلامت سیستم دیگر داخل «مدیریت بوتیک» رندر نمی‌شوند و فقط با انتخاب Dashboard دیده می‌شوند.
+- RESPONSIVE: Workspace در عرض‌های محدود تک‌ستونه می‌شود و Sidebar موبایل/Tablet قبلی حفظ شده است.
+
 ## v3.10.3 — 2026-08-13 — Elementor Placement & Desktop Controls
 - ELEMENTOR: افزودن شورت‌کد اختصاصی `[alookhor_managed_categories]` برای قرار دادن مستقیم بخش مدیریت‌شده در Widget نوع Shortcode.
 - DEDUPLICATION: وقتی شورت‌کد رندر می‌شود، Template خودکار Footer تولید نمی‌شود و فقط یک نمونه در DOM باقی می‌ماند.

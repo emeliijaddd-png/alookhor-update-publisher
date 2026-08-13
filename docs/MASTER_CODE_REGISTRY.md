@@ -3,7 +3,7 @@
 > این سند از روی فایل‌های واقعی Repository تولید می‌شود. Source اصلی همچنان فایل‌های اجرایی است؛ Snapshotهای کامل زیر برای بازیابی، ممیزی و انتقال دانش نگهداری می‌شوند.
 
 - **Registry version:** `1.0.0`
-- **Plugin/runtime version:** `3.10.3`
+- **Plugin/source version:** `3.10.4`
 - **Generated:** `2026-08-13`
 - **Repository:** `alookhor-update-publisher`
 - **Production:** `https://alookhor.ir`
@@ -13,8 +13,8 @@
 
 ## Current Project State
 
-- CURRENT VERSION: `3.10.3`
-- LAST FUNCTIONAL CHANGE: Elementor placement shortcode, Desktop arrow isolation, and smart single-page controls.
+- CURRENT VERSION: `3.10.4`
+- LAST FUNCTIONAL CHANGE: بازآرایی پنل مدیریت: بوتیک در اولویت، فضای کاری وسیع و پایش سیستم فقط در Dashboard.
 - ACTIVE DESIGN: Luxury Black/Gold; actual component colors remain controlled by saved WordPress settings and existing module defaults.
 - ACTIVE SHORTCODES: `[alookhor_portal_header]`, `[alookhor_managed_categories]`.
 - ACTIVE PANELS: Main ALOOKHOR Control Center and Header/Top Bar submenu.
@@ -26,38 +26,38 @@
 
 ```text
 PROJECT: ALOOKHOR
-AREA: Documentation Governance / Master Code Registry
-CURRENT VERSION: 3.10.3
-CHANGE: Added generated registry, complete source snapshots, usage records, and CI drift enforcement.
-REASON: Prevent loss, guessing, or divergence of shortcode/panel/CSS/JS/PHP documentation.
-FILES: docs/MASTER_CODE_REGISTRY.md; scripts/generate_code_registry.py; .github/workflows/publish.yml
-STATUS: ACTIVE — documentation-only; no Production runtime behavior changed.
+AREA: WordPress Admin / Boutique Workspace / Dashboard Monitoring
+CURRENT VERSION: 3.10.4
+CHANGE: بازآرایی پنل مدیریت: بوتیک در اولویت، فضای کاری وسیع و پایش سیستم فقط در Dashboard.
+REASON: استفاده از عرض خالی پنل، اولویت‌دادن به مدیریت واقعی بوتیک و جداسازی پایش سیستم از فرم‌های مدیریتی.
+FILES: plugin/alookhor-control-center/templates/admin-control-center.php; plugin/alookhor-control-center/assets/css/luxury.css; plugin/alookhor-control-center/assets/js/app.js; plugin/alookhor-control-center/assets/js/modules/dashboard.js; plugin/alookhor-control-center/assets/js/modules/settings.js
+STATUS: SOURCE READY — deployment status must be verified separately.
 ```
 
 # MASTER CODE REGISTRY
 
 | ID | Type | Name | File | Used In | Version | Status |
 |---|---|---|---|---|---:|---|
-| SC-001 | Shortcode | `[alookhor_portal_header]` | `includes/shortcode-header.php` | Elementor Header Shortcode widget; exact template ID unavailable | 3.10.3 | Active / compatibility-preserving |
-| SC-002 | Shortcode | `[alookhor_managed_categories]` | `includes/product-categories.php` | Home page → Elementor Shortcode widget | 3.10.3 | Active |
+| SC-001 | Shortcode | `[alookhor_portal_header]` | `includes/shortcode-header.php` | Elementor Header Shortcode widget; exact template ID unavailable | 3.10.4 | Active / compatibility-preserving |
+| SC-002 | Shortcode | `[alookhor_managed_categories]` | `includes/product-categories.php` | Home page → Elementor Shortcode widget | 3.10.4 | Active |
 | SC-EXT-001 | External shortcode | `[alookhor_categories_carousel]` | External plugin source unavailable | Former Home showcase | External | Replaced on Home / do not reconstruct |
-| PN-001 | Admin panel | ALOOKHOR Control Center | `includes/admin.php` | WP Admin top-level menu | 3.10.3 | Active |
-| PN-002 | Admin panel | Header & Top Bar | `includes/admin.php` | WP Admin submenu | 3.10.3 | Active mirror |
-| MOD-001 | Managed module | WooCommerce Categories | `includes/product-categories.php` | Home / Elementor / REST | 3.10.3 | Active |
-| MOD-002 | Managed module | Responsive Footer | `includes/footer.php` | Frontend footer / REST | 3.10.3 | Active |
-| API-001 | REST API | `alookhor-cc/v1` | `includes/rest-api.php` | Public state + authenticated updater | 3.10.3 | Active |
-| UPD-001 | Updater | Private native updater | `includes/updater.php` | Control Center + GitHub Actions | 3.10.3 | Active |
-| CFG-001 | WordPress state | Main settings | `alookhor_cc_settings` | All managed modules | 3.10.3 | Active |
-| CFG-002 | WordPress state | Header settings | `alookhor_header_settings` | Header and Top Bar | 3.10.3 | Active |
-| CSS-001 | CSS | Managed Header | `assets/css/frontend-header.css` | `[alookhor_portal_header]` fallback renderer | 3.10.3 | Active |
-| JS-001 | JavaScript | Managed Header runtime | `assets/js/frontend-header.js` | `[alookhor_portal_header]` fallback renderer | 3.10.3 | Active |
-| JS-002 | JavaScript | Legacy Top Bar manager | `assets/js/frontend-topbar-manager.js` | Preserved legacy header provider | 3.10.3 | Active when legacy provider exists |
-| CSS-002 | CSS | WooCommerce Categories | `assets/css/frontend-categories.css` | `[alookhor_managed_categories]` | 3.10.3 | Active |
-| JS-003 | JavaScript | Categories carousel | `assets/js/frontend-categories.js` | `[alookhor_managed_categories]` | 3.10.3 | Active |
-| CSS-003 | CSS | Managed Footer | `assets/css/frontend-footer.css` | Managed Footer module | 3.10.3 | Active |
-| JS-004 | JavaScript | Managed Footer | `assets/js/frontend-footer.js` | Managed Footer module | 3.10.3 | Active |
-| CSS-004 | CSS | Control Center UI | `assets/css/luxury.css` | WP Admin ALOOKHOR pages | 3.10.3 | Active |
-| JS-005 | JavaScript | Control Center app | `assets/js/app.js` + modules | WP Admin ALOOKHOR pages | 3.10.3 | Active |
+| PN-001 | Admin panel | ALOOKHOR Control Center | `includes/admin.php` | WP Admin top-level menu | 3.10.4 | Active |
+| PN-002 | Admin panel | Header & Top Bar | `includes/admin.php` | WP Admin submenu | 3.10.4 | Active mirror |
+| MOD-001 | Managed module | WooCommerce Categories | `includes/product-categories.php` | Home / Elementor / REST | 3.10.4 | Active |
+| MOD-002 | Managed module | Responsive Footer | `includes/footer.php` | Frontend footer / REST | 3.10.4 | Active |
+| API-001 | REST API | `alookhor-cc/v1` | `includes/rest-api.php` | Public state + authenticated updater | 3.10.4 | Active |
+| UPD-001 | Updater | Private native updater | `includes/updater.php` | Control Center + GitHub Actions | 3.10.4 | Active |
+| CFG-001 | WordPress state | Main settings | `alookhor_cc_settings` | All managed modules | 3.10.4 | Active |
+| CFG-002 | WordPress state | Header settings | `alookhor_header_settings` | Header and Top Bar | 3.10.4 | Active |
+| CSS-001 | CSS | Managed Header | `assets/css/frontend-header.css` | `[alookhor_portal_header]` fallback renderer | 3.10.4 | Active |
+| JS-001 | JavaScript | Managed Header runtime | `assets/js/frontend-header.js` | `[alookhor_portal_header]` fallback renderer | 3.10.4 | Active |
+| JS-002 | JavaScript | Legacy Top Bar manager | `assets/js/frontend-topbar-manager.js` | Preserved legacy header provider | 3.10.4 | Active when legacy provider exists |
+| CSS-002 | CSS | WooCommerce Categories | `assets/css/frontend-categories.css` | `[alookhor_managed_categories]` | 3.10.4 | Active |
+| JS-003 | JavaScript | Categories carousel | `assets/js/frontend-categories.js` | `[alookhor_managed_categories]` | 3.10.4 | Active |
+| CSS-003 | CSS | Managed Footer | `assets/css/frontend-footer.css` | Managed Footer module | 3.10.4 | Active |
+| JS-004 | JavaScript | Managed Footer | `assets/js/frontend-footer.js` | Managed Footer module | 3.10.4 | Active |
+| CSS-004 | CSS | Control Center UI | `assets/css/luxury.css` | WP Admin ALOOKHOR pages | 3.10.4 | Active |
+| JS-005 | JavaScript | Control Center app | `assets/js/app.js` + modules | WP Admin ALOOKHOR pages | 3.10.4 | Active |
 
 ## SC-001 — Portal Header
 
@@ -145,40 +145,40 @@ STATUS: ACTIVE — documentation-only; no Production runtime behavior changed.
 
 | File | Lines | SHA-256 |
 |---|---:|---|
-| `.github/workflows/publish.yml` | 449 | `4fa86d1ed3cd2b31605033883d1d7eb41437bd0547f9a0c341f3492e3432ccc4` |
+| `.github/workflows/publish.yml` | 459 | `f9f104efc5f38863a75c4f4d5f010ba7cc1de6f582caa2457bec9e80d661a683` |
 | `ops/wordpress-ci-bootstrap.php` | 215 | `409c23f2be99c6651b0e75dc877c91c884534e6b16f9985c177cf65d14fd4c95` |
-| `plugin/alookhor-control-center/alookhor-control-center.php` | 218 | `1eb5fbf6c0f638a77e2aacc067df827a515eafbf8909c5d9382b1f77bb14af93` |
+| `plugin/alookhor-control-center/alookhor-control-center.php` | 218 | `eaad8550a77198f5f5503fd251ebd50a8bd20645bc5881ae35b15439067e1188` |
 | `plugin/alookhor-control-center/assets/css/frontend-categories.css` | 9 | `b811fb4f96023711a593cd593eb9ae3846ebfd9c912c57e3e623d0965f7d494a` |
 | `plugin/alookhor-control-center/assets/css/frontend-footer.css` | 26 | `f0dd733870b626c5581fc84ad2d5311bcf37374ab351cfc74ade1808ae5b1089` |
 | `plugin/alookhor-control-center/assets/css/frontend-header.css` | 255 | `26a7e047b5238779aeaa3843171003ed4211d2a7770ac2eab3f4ce067537dc33` |
-| `plugin/alookhor-control-center/assets/css/luxury.css` | 532 | `7f3bd437af41cca3f75e42b8525d4e350f156a7e6deb35faa97a187b942800a8` |
+| `plugin/alookhor-control-center/assets/css/luxury.css` | 564 | `eef0550c9d8b090dbe799d9a969518207519fdb585c9701e2d897a507e669f8f` |
 | `plugin/alookhor-control-center/assets/js/admin-wp.js` | 84 | `b8ff32723f2f46dc44add19fdc441eec1c611f5229ce7e13ac8b773457be6afc` |
-| `plugin/alookhor-control-center/assets/js/app.js` | 325 | `3ab36985fafcdd4932255ea1625830328677f918ec2ce612148738112ed7d75c` |
+| `plugin/alookhor-control-center/assets/js/app.js` | 325 | `a366fec6fdff808d6b08fd86911a1ddc2c10abefda8effc5daea3902ad866ac3` |
 | `plugin/alookhor-control-center/assets/js/core/config.js` | 199 | `1c89b0d0d8121bce7fc7097f9d1974eb1e38d1ec7f6b0f6f6d5244ab60ea1e85` |
 | `plugin/alookhor-control-center/assets/js/core/responsive.js` | 52 | `0848ef0deef9aaa532581904c4adab9b45cbe8445a99fbeb71f92d358a1aa724` |
-| `plugin/alookhor-control-center/assets/js/core/updateSystem.js` | 171 | `1237c8698729019f3b84612bdbe97173f9776a8bcfca7d657a0bae458f676975` |
+| `plugin/alookhor-control-center/assets/js/core/updateSystem.js` | 172 | `7f8e54c83d1c63b91ad99eb8869bd462cf6e28cd8128326cc2b5ce28183911f1` |
 | `plugin/alookhor-control-center/assets/js/frontend-categories.js` | 27 | `7ae122e4427522d6004a97f43cc22d271476a3a8dee4980bd2c05ca398e75bb0` |
 | `plugin/alookhor-control-center/assets/js/frontend-footer.js` | 75 | `70b41991fca96014f6951a81012d6163222839cf6914cd7efbed186088168542` |
 | `plugin/alookhor-control-center/assets/js/frontend-header.js` | 106 | `85929c6fc5c92d9f7b79378b4542f0407306fb337ac61d7797fd267a330971cd` |
-| `plugin/alookhor-control-center/assets/js/frontend-topbar-manager.js` | 232 | `68e81a922d3ecf506254198192fc2c6e3423c357bd53e8ce9f657f57f7c7ad15` |
+| `plugin/alookhor-control-center/assets/js/frontend-topbar-manager.js` | 232 | `73913301925b8fa0d72467023fcd94d0c734336fec835890bd3127a655d85fa9` |
 | `plugin/alookhor-control-center/assets/js/modules/analytics.js` | 21 | `5e35bdba45de5750af08d6cfea337fd7a6eb8cc852ef1c955ee5ba1e7a56bf0c` |
-| `plugin/alookhor-control-center/assets/js/modules/dashboard.js` | 111 | `1787ae9fecbb70c39ef3cc3e848b2512296afb1852f8a51212f6f82e5e8d9970` |
+| `plugin/alookhor-control-center/assets/js/modules/dashboard.js` | 173 | `94dbf039317df48e266b113248f0ea67dff4d822602afe69199df2300ec7b979` |
 | `plugin/alookhor-control-center/assets/js/modules/inventory.js` | 30 | `e1c39f880a1e7985fa8ea64b07ec72ce69c416165fb514ad9fb7d9f8e8e93723` |
 | `plugin/alookhor-control-center/assets/js/modules/orders.js` | 19 | `0ccd8376c69ba37fb50d3261f002789488042e17a0b1b37539bab86abda374eb` |
-| `plugin/alookhor-control-center/assets/js/modules/settings.js` | 640 | `3808d946555c9ef41889fc8af7757f0c824dcf38a3b05cd10d110a81aca1e88f` |
+| `plugin/alookhor-control-center/assets/js/modules/settings.js` | 613 | `a3509dfce70cf26e23286659e155e99808fddb195a0b1f0be414cdeab0cfeca8` |
 | `plugin/alookhor-control-center/assets/js/modules/users.js` | 20 | `6fb96546faf00ea831ace016d09b10f903a501db647bae20d0f570034ac36946` |
-| `plugin/alookhor-control-center/config/site.json` | 128 | `7e7954ed3b40344dc8b3f8925ea0e2228c3a19d5978af9330b9f74bf4d44e758` |
+| `plugin/alookhor-control-center/config/site.json` | 128 | `57101774d9a77695e15cac58d16ab16f8949110f7776a829fa23b57b78e5a280` |
 | `plugin/alookhor-control-center/includes/admin.php` | 227 | `a58c892be51577a8ed90e540839d99f29c1638e26433930b1d25dc02e97b68e5` |
 | `plugin/alookhor-control-center/includes/ajax.php` | 262 | `65c23804540835b0d22f24242b55f788fa7ef46eb129d45659db61d44f791306` |
 | `plugin/alookhor-control-center/includes/footer.php` | 269 | `50c7a6e7d67a8905b5d88486d42d9ad7381caf8c60fc49dd37e3db2a17a347f8` |
 | `plugin/alookhor-control-center/includes/product-categories.php` | 88 | `64d42189315d77e8bda401a945e37d18d16bcf2346159f8cabe0022920dba2cb` |
 | `plugin/alookhor-control-center/includes/rest-api.php` | 262 | `e32a3cca5278a9aa0042b999d455c40687857b02707faf954dbbb7c005c4d097` |
-| `plugin/alookhor-control-center/includes/shortcode-header.php` | 337 | `73a0d1207dec51c492006cb1ded2f6cc27ef79948f16e29d02ab1ab945bccd33` |
-| `plugin/alookhor-control-center/includes/updater.php` | 385 | `c295b6aa40135c8427928122242f2b7d2463bc89d7ad90ec61c491a5f03d21c2` |
-| `plugin/alookhor-control-center/templates/admin-control-center.php` | 382 | `453f5d1fb0a3afc2a3f32e22f2d1082b7255e8acfd1669e5b5de41c7e5c90099` |
+| `plugin/alookhor-control-center/includes/shortcode-header.php` | 337 | `38aa4b54e65016d507891132ba0702b50063ab68f1a583337dc80b8bae557dbb` |
+| `plugin/alookhor-control-center/includes/updater.php` | 385 | `9e0bc9c0e3d9f455010f856750a012e9b6a07520369f81598edc0148a6d2145c` |
+| `plugin/alookhor-control-center/templates/admin-control-center.php` | 388 | `6a509544d89cde1423df5d5cfb1c7c85baa93359e4acdecd6b6013e2b13a4df4` |
 | `plugin/alookhor-control-center/uninstall.php` | 6 | `d69282a9ab7c0865b6c60e6fca272d0859433e9c8730754fb2995295209ff84c` |
 | `scripts/build_release.py` | 101 | `f07af70658e73dd9e42f018cfa3e2ca35a7287599d7e6a4cf8e06951665126d8` |
-| `scripts/generate_code_registry.py` | 239 | `f6401f536c95205b0714c09237e62b3660cd0723ea4215efe0e87502c3e49b01` |
+| `scripts/generate_code_registry.py` | 239 | `cecea9b08e788f6671f27bddbf12658cc19d158eeba51c42be908beac7f084ac` |
 | `scripts/wordpress_access_check.py` | 283 | `ab5285eba161823d143b365d721be2c7ff87659a4e219a7d770f8f072db6cb29` |
 | `scripts/wordpress_release_test.py` | 168 | `d0187002b08ce3f5740e3c40b95cc3e36c3b3af21740e39e80e42034db5df461` |
 
@@ -270,7 +270,17 @@ jobs:
           assert '.alookhor-mc-arrow{display:none!important}' in category_css and 'flex-basis:33px!important' in category_css
           assert '.alookhor-mc.has-single-page' in category_css and 'min-width:58px!important' in category_css and 'appearance:none!important' in category_css
           assert 'ResizeObserver' in category_js and "cache:'no-store'" in category_js and 'is-clone' in category_js and 'syncDots' in category_js and "tabIndex=mobile?-1:0" in category_js and "classList.toggle('has-single-page'" in category_js
-          print('Managed footer/category contracts passed')
+          admin_template = Path('plugin/alookhor-control-center/templates/admin-control-center.php').read_text()
+          admin_app = Path('plugin/alookhor-control-center/assets/js/app.js').read_text()
+          dashboard_js = Path('plugin/alookhor-control-center/assets/js/modules/dashboard.js').read_text()
+          settings_js = Path('plugin/alookhor-control-center/assets/js/modules/settings.js').read_text()
+          assert admin_template.index('data-module="settings"') < admin_template.index('data-module="dashboard"')
+          assert 'nav-item-primary' in admin_template and 'data-group="sales"' in admin_template
+          assert "active: 'settings'" in admin_app and "allMods[hash] ? hash : 'settings'" in admin_app
+          assert 'data-dashboard-only="1"' in dashboard_js and 'dashboardAiCard' in dashboard_js and 'dashboardStatusCard' in dashboard_js
+          assert 'id="aiCard"' not in settings_js and 'id="statusCard"' not in settings_js and 'settings-workspace' in settings_js
+          assert 'width:100%; max-width:none' in admin_css and '.dashboard-monitor-grid' in admin_css
+          print('Managed footer/category/admin workspace contracts passed')
           PY
 
       - name: Build and validate release
@@ -868,7 +878,7 @@ add_action('rest_api_init', function(){
  * Plugin Name: ALOOKHOR Control Center
  * Plugin URI: https://alookhor.ir
  * Description: کنترل سنتر لوکس و ماژولار آلوخور — مدیریت کامل سایت (هدر، اسلایدر، سورت، محصولات، مشتریان VIP، مالی، آنالیتیکس) با آپدیت آنی بدون رفرش. تمام تنظیمات چت قبلی + شورت‌کد [alookhor_portal_header] اینجا مدیریت می‌شود.
- * Version: 3.10.3
+ * Version: 3.10.4
  * Author: ALOOKHOR Team — Luxury Modular
  * Author URI: https://alookhor.ir
  * Update URI: https://alookhor.ir/alookhor-control-center
@@ -881,8 +891,8 @@ add_action('rest_api_init', function(){
 
 if (!defined('ABSPATH')) exit;
 
-define('ALOOKHOR_CC_VERSION', '3.10.3');
-define('ALOOKHOR_CC_BUILD', '3.10.3');
+define('ALOOKHOR_CC_VERSION', '3.10.4');
+define('ALOOKHOR_CC_BUILD', '3.10.4');
 define('ALOOKHOR_CC_FILE', __FILE__);
 define('ALOOKHOR_CC_DIR', plugin_dir_path(__FILE__));
 define('ALOOKHOR_CC_URL', plugin_dir_url(__FILE__));
@@ -1445,7 +1455,7 @@ button{font-family:inherit}
   border-bottom:1px solid var(--gold-border);
 }
 .lux-header-inner{
-  max-width:1440px; margin:0 auto;
+  width:100%; max-width:none; margin:0;
   padding:14px 20px;
   display:flex; align-items:center; gap:16px;
 }
@@ -1542,7 +1552,7 @@ button{font-family:inherit}
 
 /* Layout */
 .shell{
-  max-width:1440px; margin:0 auto;
+  width:100%; max-width:none; margin:0;
   padding:18px 14px 40px 14px;
   display:flex; gap:18px;
 }
@@ -1593,6 +1603,15 @@ button{font-family:inherit}
   color: var(--gold-soft);
   box-shadow: 0 4px 16px rgba(201,168,106,0.10);
 }
+.nav-item-primary{margin-bottom:5px;background:linear-gradient(135deg,rgba(201,168,106,.11),rgba(201,168,106,.025));border-color:var(--gold-border);font-weight:700}
+.nav-item-primary:not(.active){color:var(--gold-soft)}
+.nav-item-primary .badge{background:linear-gradient(135deg,#E8D5B5,#C9A86A);box-shadow:0 4px 12px rgba(201,168,106,.2)}
+#proNav .nav-group[data-group="system"]{order:1}
+#proNav .nav-group[data-group="catalog"]{order:2}
+#proNav .nav-group[data-group="sales"]{order:3}
+#proNav .nav-group[data-group="customers"]{order:4}
+#proNav .nav-group[data-group="finance"]{order:5}
+#proNav .nav-group[data-group="analytics"]{order:6}
 .nav-item svg{flex:0 0 18px; opacity:0.9}
 .nav-item .badge{
   margin-left:auto;
@@ -1829,6 +1848,29 @@ tr:last-child td{border-bottom:0}
 }
 @media(max-width:560px){ .bar{width:14px} }
 
+/* Dashboard-only monitoring: AI Assistant + System Status */
+.dashboard-monitor-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:14px;margin:0 0 14px}
+@media(min-width:1280px){.dashboard-monitor-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
+.dashboard-monitor-grid .panel{min-width:0}
+.ai-list{display:grid;gap:8px;padding:12px}
+.ai-item{background:rgba(10,10,12,.55);border:1px solid rgba(201,168,106,.12);border-radius:12px;overflow:hidden}
+.ai-head{width:100%;display:flex;align-items:center;gap:10px;padding:11px 12px;background:transparent;border:0;color:var(--text-secondary);font-size:12.5px;font-weight:600;cursor:pointer;text-align:right}
+.ai-head:hover{color:var(--text-primary)}
+.ai-plus{width:22px;height:22px;border-radius:6px;background:rgba(255,255,255,.06);border:1px solid var(--gold-border);display:grid;place-items:center;font-size:13px;font-weight:800;flex:0 0 22px;transition:.2s}
+.ai-item.open .ai-plus{background:var(--gold);color:#1A1206;transform:rotate(45deg)}
+.ai-badge{margin-right:auto;font-size:10px;font-weight:700;padding:2px 7px;border-radius:999px;background:rgba(201,168,106,.14);color:var(--gold-soft);border:1px solid var(--gold-border)}
+.ai-body{display:none;padding:0 12px 12px;border-top:1px solid var(--gold-border);background:rgba(255,255,255,.02)}
+.ai-item.open .ai-body{display:block}
+.ai-body p{margin:10px 0 0;font-size:12.5px;color:var(--text-muted);line-height:1.7}
+.status-list{display:grid;gap:0;padding:6px 0}
+.status-row{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;font-size:12.8px;border-bottom:1px solid rgba(201,168,106,.07);color:var(--text-secondary)}
+.status-row b{color:var(--text-primary);font-size:12.5px}
+.dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-left:6px;vertical-align:middle;background:#6B6763}
+.dot.on{background:#3DD68C;box-shadow:0 0 0 4px rgba(61,214,140,.16)}
+.dashboard-system-metrics{padding:10px;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.dashboard-system-metrics>div{background:rgba(255,255,255,.03);border:1px solid var(--gold-border);border-radius:10px;padding:10px;text-align:center}
+@media(max-width:560px){.dashboard-system-metrics{grid-template-columns:1fr}.status-row{align-items:flex-start;gap:12px}.status-row b{text-align:left}}
+
 /* Backdrop */
 .backdrop{
   position:fixed; inset:0;
@@ -2018,15 +2060,15 @@ tr:last-child td{border-bottom:0}
 
 ````javascript
 // Release query prevents stale ES Modules after a WordPress-native update.
-import { initResponsive } from './core/responsive.js?v=3.10.3';
-import { initUpdater, Updater } from './core/updateSystem.js?v=3.10.3';
-import { Config } from './core/config.js?v=3.10.3';
-import { dashboardModule } from './modules/dashboard.js?v=3.10.3';
-import { inventoryModule } from './modules/inventory.js?v=3.10.3';
-import { ordersModule } from './modules/orders.js?v=3.10.3';
-import { usersModule } from './modules/users.js?v=3.10.3';
-import { analyticsModule } from './modules/analytics.js?v=3.10.3';
-import { settingsModule } from './modules/settings.js?v=3.10.3';
+import { initResponsive } from './core/responsive.js?v=3.10.4';
+import { initUpdater, Updater } from './core/updateSystem.js?v=3.10.4';
+import { Config } from './core/config.js?v=3.10.4';
+import { dashboardModule } from './modules/dashboard.js?v=3.10.4';
+import { inventoryModule } from './modules/inventory.js?v=3.10.4';
+import { ordersModule } from './modules/orders.js?v=3.10.4';
+import { usersModule } from './modules/users.js?v=3.10.4';
+import { analyticsModule } from './modules/analytics.js?v=3.10.4';
+import { settingsModule } from './modules/settings.js?v=3.10.4';
 
 const modules = {
   dashboard: dashboardModule,
@@ -2104,7 +2146,7 @@ const placeholderMap = {
 window.ALOOKHOR = {
   version: Updater.current,
   modules: { ...modules, ...placeholderMap, settings: settingsModule },
-  active: 'dashboard',
+  active: 'settings',
   toast(msg, type='success'){
     const stack = document.getElementById('toastStack');
     if(!stack) return;
@@ -2190,13 +2232,13 @@ function initProNav(){
     search.addEventListener('input', ()=>{
       const q = search.value.trim().toLowerCase();
       const groups = document.querySelectorAll('.nav-group');
-      const single = document.querySelector('.nav-item.single');
+      const singles = document.querySelectorAll('.nav-item.single');
 
-      // فیلتر آیتم تکی
-      if(single){
+      // فیلتر تمام آیتم‌های اصلی (مدیریت بوتیک + داشبورد)
+      singles.forEach(single=>{
         const txt = single.textContent.toLowerCase();
         single.style.display = (!q || txt.includes(q)) ? 'flex' : 'none';
-      }
+      });
 
       groups.forEach(g=>{
         const headText = g.querySelector('.nav-group-title')?.textContent.toLowerCase() || '';
@@ -2331,7 +2373,7 @@ document.addEventListener('DOMContentLoaded', async ()=>{
 
   const hash = location.hash.replace('#','');
   const allMods = window.ALOOKHOR.modules;
-  const initial = allMods[hash] ? hash : 'dashboard';
+  const initial = allMods[hash] ? hash : 'settings';
   // ست اولیه active
   document.querySelectorAll('.nav-item, .nav-sub-item').forEach(n=> n.classList.toggle('active', n.dataset.module===initial));
   // اگر initial داخل گروه بسته بود باز کن
@@ -2612,7 +2654,7 @@ export function initResponsive() {
 // UI/state remain modular; version discovery and installation are delegated to WordPress.
 
 const runtimeConfig = window.ALOOKHOR_CC || {};
-const runtimeVersion = String(runtimeConfig.version || '3.10.3');
+const runtimeVersion = String(runtimeConfig.version || '3.10.4');
 
 function normalizeResult(data = {}) {
   const current = String(data.current || runtimeVersion);
@@ -2665,6 +2707,7 @@ export const Updater = {
   latest: runtimeVersion,
   lastCheck: null,
   changelog: [
+    { tag: 'ADMIN UX', title: 'v3.10.4 — بوتیک اصلی و Workspace وسیع', desc: 'بوتیک به بالای پنل منتقل شد؛ فضای مدیریت عریض و AI/سلامت سیستم فقط مخصوص Dashboard شدند.' },
     { tag: 'ELEMENTOR', title: 'v3.10.3 — جایگاه مستقیم دسته‌بندی‌ها', desc: 'شورت‌کد مدیریت‌شده Elementor، فلش Desktop ایزوله و کنترل‌های تک‌صفحه هوشمند شدند.' },
     { tag: 'MOBILE UI', title: 'v3.10.2 — حذف Arrow و Pagination مرجع', desc: 'فلش‌های موبایل حذف و Dotها به Active pill طلایی + circle خاکستری تبدیل شدند.' },
     { tag: 'MOBILE UX', title: 'v3.10.1 — Carousel حرفه‌ای موبایل', desc: 'کارت کوتاه‌تر، Centered Peek، Infinite loop، فلش SVG و Dotهای پویا.' },
@@ -3008,7 +3051,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 
 ````javascript
 /**
- * ALOOKHOR Legacy Top Bar Manager — v3.10.3
+ * ALOOKHOR Legacy Top Bar Manager — v3.10.4
  * Preserves the legacy header/mega-menu HTML and synchronizes managed Top Bar
  * values from a fresh read-only REST endpoint, even when the page HTML is cached.
  */
@@ -3066,7 +3109,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
   const topbarSelector = '[class*="topbar" i],[class*="top-bar" i],[class*="top_bar" i]';
 
   function manage(root, force = false) {
-    if (!root || (!force && root.dataset.topbarManaged === '3.10.3')) return;
+    if (!root || (!force && root.dataset.topbarManaged === '3.10.4')) return;
 
     const contactTexts = [...root.querySelectorAll('.topbar-contact-txt,[class*="contact-txt" i]')];
     const phone = root.querySelector('a[href^="tel:"]') || contactTexts.find(element => {
@@ -3181,8 +3224,8 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
       }
     }
 
-    root.dataset.topbarManaged = '3.10.3';
-    root.dispatchEvent(new CustomEvent('alookhor:topbar-managed', {bubbles:true, detail:{version:'3.10.3'}}));
+    root.dataset.topbarManaged = '3.10.4';
+    root.dispatchEvent(new CustomEvent('alookhor:topbar-managed', {bubbles:true, detail:{version:'3.10.4'}}));
   }
 
   function init(scope = document, force = false) {
@@ -3270,9 +3313,30 @@ export const analyticsModule = {
 ## Source Snapshot — `plugin/alookhor-control-center/assets/js/modules/dashboard.js`
 
 ````javascript
+import { Config } from '../core/config.js?v=3.10.4';
+
+const escapeHTML = value => String(value ?? '').replace(/[&<>'"]/g, char => ({
+  '&':'&amp;', '<':'&lt;', '>':'&gt;', "'":'&#039;', '"':'&quot;'
+})[char]);
+
+const assistantItems = suggestions => suggestions.map((suggestion,index)=>`
+  <div class="ai-item ${index===0?'open':''}" data-ai="${escapeHTML(suggestion.id)}">
+    <button class="ai-head" type="button"><span class="ai-plus">${index===0?'×':'+'}</span>${escapeHTML(suggestion.title)}<span class="ai-badge">${suggestion.status==='new'?'جدید':suggestion.status==='done'?'انجام شد':'AI'}</span></button>
+    <div class="ai-body">
+      <p>${escapeHTML(suggestion.detail)}</p>
+      <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
+        ${suggestion.status!=='done'?`<button class="btn-gold" type="button" style="padding:6px 12px;font-size:12px" data-dashboard-ai-action="do" data-id="${escapeHTML(suggestion.id)}">اعمال پیشنهاد</button>`:`<span style="color:var(--success);font-size:12px;font-weight:700">✓ اعمال شد</span>`}
+        <button class="btn-ghost" type="button" style="padding:6px 12px;font-size:12px" data-dashboard-ai-action="dismiss" data-id="${escapeHTML(suggestion.id)}">${suggestion.status==='done'?'بازگردانی':'نادیده بگیر'}</button>
+      </div>
+    </div>
+  </div>`).join('');
+
 export const dashboardModule = {
   meta: { id: 'dashboard', title: 'داشبورد', icon: 'dashboard' },
   init(container) {
+    const cfg = Config.data || {};
+    const system = Object.assign({woocommerce:'نامشخص',woodmart_plus:'نامشخص',elementor_pro:'نامشخص',php_version:'—',memory:'—',ssl:'نامشخص',uptime:'—',cache:'—'},cfg.system || {});
+    const suggestions = Array.isArray(cfg.ai_assistant?.suggestions) ? cfg.ai_assistant.suggestions : [];
     container.innerHTML = `
       <div class="page-head">
         <div>
@@ -3282,6 +3346,25 @@ export const dashboardModule = {
         <div class="head-actions">
           <button class="btn-ghost" data-action="export">خروجی Excel</button>
           <button class="btn-gold" data-action="new-order">+ سفارش جدید</button>
+        </div>
+      </div>
+
+      <div class="dashboard-monitor-grid" data-dashboard-only="1">
+        <div class="panel ai-panel" id="dashboardAiCard">
+          <div class="panel-head"><h3>🤖 دستیار هوشمند تجاری (AI Assistant)</h3><span style="font-size:10px;background:rgba(201,168,106,.14);color:var(--gold-soft);padding:3px 8px;border-radius:999px;border:1px solid var(--gold-border)">پایش داشبورد</span></div>
+          <div class="ai-list" id="dashboardAiList">${assistantItems(suggestions)}</div>
+        </div>
+        <div class="panel status-panel" id="dashboardStatusCard">
+          <div class="panel-head"><h3>⊕ وضعیت و سلامت سیستم (System Status)</h3><button class="btn-ghost" type="button" style="padding:5px 10px;font-size:11px" id="dashboardRefreshStatus">بررسی مجدد</button></div>
+          <div class="status-list">
+            <div class="status-row"><span><span class="dot on"></span> ووکامرس</span><b>${escapeHTML(system.woocommerce)}</b></div>
+            <div class="status-row"><span><span class="dot on"></span> وودمارت پلاس</span><b>${escapeHTML(system.woodmart_plus)}</b></div>
+            <div class="status-row"><span><span class="dot on"></span> المنتور پرو</span><b>${escapeHTML(system.elementor_pro)}</b></div>
+            <div class="status-row"><span>نسخه پی‌اچ‌پی هاست (PHP)</span><b dir="ltr">${escapeHTML(system.php_version)}</b></div>
+            <div class="status-row"><span>حافظه لایو سیستم (Memory)</span><b style="color:var(--gold)" dir="ltr">${escapeHTML(system.memory)}</b></div>
+            <div class="status-row"><span>گواهینامه امنیتی (SSL)</span><b style="color:var(--success)"><span class="dot on"></span>${escapeHTML(system.ssl)}</b></div>
+          </div>
+          <div class="dashboard-system-metrics"><div><span style="font-size:11px;color:var(--text-faint)">آپتایم</span><br><b style="color:var(--success)">${escapeHTML(system.uptime)}</b></div><div><span style="font-size:11px;color:var(--text-faint)">کش طلایی</span><br><b style="color:var(--gold-soft)">${escapeHTML(system.cache)}</b></div></div>
         </div>
       </div>
 
@@ -3378,6 +3461,28 @@ export const dashboardModule = {
     container.querySelectorAll('[data-action]').forEach(btn=>{
       btn.addEventListener('click', ()=> window.ALOOKHOR.toast('این اکشن در نسخه بعدی به API وصل می‌شود','info'));
     });
+    container.addEventListener('click', async event=>{
+      const aiHead=event.target.closest('.ai-head');
+      if(aiHead){
+        const item=aiHead.closest('.ai-item');const wasOpen=item?.classList.contains('open');
+        container.querySelectorAll('.ai-item').forEach(node=>node.classList.remove('open'));
+        container.querySelectorAll('.ai-plus').forEach(node=>node.textContent='+');
+        if(item&&!wasOpen){item.classList.add('open');aiHead.querySelector('.ai-plus').textContent='×'}
+        return;
+      }
+      const aiAction=event.target.closest('[data-dashboard-ai-action]');
+      if(aiAction){
+        const suggestion=suggestions.find(item=>String(item.id)===String(aiAction.dataset.id));
+        if(!suggestion)return;
+        suggestion.status=aiAction.dataset.dashboardAiAction==='do'?'done':suggestion.status==='done'?'pending':'done';
+        await Config.save({notify:false});
+        const list=container.querySelector('#dashboardAiList');if(list)list.innerHTML=assistantItems(suggestions);
+        window.ALOOKHOR.toast(aiAction.dataset.dashboardAiAction==='do'?`پیشنهاد «${suggestion.title}» اعمال شد`:'وضعیت پیشنهاد بروزرسانی شد',aiAction.dataset.dashboardAiAction==='do'?'success':'info');
+        return;
+      }
+      const refresh=event.target.closest('#dashboardRefreshStatus');
+      if(refresh){refresh.disabled=true;refresh.textContent='بررسی شد ✓';window.ALOOKHOR.toast('سلامت سیستم بررسی شد','success');setTimeout(()=>{refresh.disabled=false;refresh.textContent='بررسی مجدد'},1600)}
+    });
   },
   destroy(){}
 };
@@ -3445,7 +3550,7 @@ export const ordersModule = {
 ## Source Snapshot — `plugin/alookhor-control-center/assets/js/modules/settings.js`
 
 ````javascript
-import { Config } from '../core/config.js?v=3.10.3';
+import { Config } from '../core/config.js?v=3.10.4';
 
 const escapeAttr = value => String(value ?? '').replace(/[&<>'"]/g, char => ({
   '&':'&amp;', '<':'&lt;', '>':'&gt;', "'":'&#039;', '"':'&quot;'
@@ -3459,7 +3564,7 @@ const parseFooterLinks = value => String(value || '').split(/\r?\n/).map(line =>
 const footerMenuOptions = selected => `<option value="0">لینک‌های سفارشی زیر</option>${(window.ALOOKHOR_CC?.footer_menus || []).map(menu => `<option value="${Number(menu.id)}" ${Number(selected)===Number(menu.id)?'selected':''}>${escapeAttr(menu.name)}</option>`).join('')}`;
 
 export const settingsModule = {
-  meta: { id: 'settings', title: 'تنظیمات پیشرفته' },
+  meta: { id: 'settings', title: 'مدیریت بوتیک' },
   async init(container){
     // لود حافظه واقعی قبلی — تمام سایت با همین تنظیمات ویرایش می‌شد
     if(!Config.data) await Config.load();
@@ -3515,7 +3620,7 @@ export const settingsModule = {
     container.innerHTML = `
       <div class="page-head">
         <div>
-          <h2>تنظیمات پیشرفته ALOOKHOR</h2>
+          <h2>مدیریت اصلی بوتیک ALOOKHOR</h2>
           <p>تنظیمات ALOOKHOR بدون حذف مقادیر قبلی بارگذاری می‌شود <span style="background:${memory.bg}; color:${memory.color}; padding:2px 8px; border-radius:999px; font-size:11px; border:1px solid ${memory.border}">● ${memory.label}</span></p>
         </div>
         <div class="head-actions">
@@ -3528,11 +3633,7 @@ export const settingsModule = {
       <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:14px; align-items:center">
         <span style="font-size:11px; color:var(--text-faint); background:rgba(255,255,255,0.04); border:1px solid var(--gold-border); padding:4px 10px; border-radius:999px">آخرین ذخیره: <b id="lastSave" style="color:var(--text-secondary)">${cfg.updated_at ? new Date(cfg.updated_at).toLocaleString('fa-IR') : 'همین حالا'}</b></span>
         <span style="font-size:11px; color:var(--gold-soft); background:rgba(201,168,106,0.10); border:1px solid var(--gold-border-strong); padding:4px 10px; border-radius:999px">نسخه: ${cfg.version}</span>
-        <span style="margin-right:auto; display:flex; gap:6px">
-          <button class="btn-ghost" style="padding:6px 10px; font-size:11px" onclick="document.getElementById('aiCard')?.scrollIntoView({behavior:'smooth', block:'center'})">دستیار هوشمند</button>
-          <button class="btn-ghost" style="padding:6px 10px; font-size:11px" onclick="document.getElementById('statusCard')?.scrollIntoView({behavior:'smooth', block:'center'})">سلامت سیستم</button>
-          <button class="btn-ghost" style="padding:6px 10px; font-size:11px" onclick="document.getElementById('modulesCard')?.scrollIntoView({behavior:'smooth', block:'center'})">ماژول‌ها</button>
-        </span>
+        <span class="boutique-workspace-hint">ماژول را از ستون مدیریت انتخاب کنید؛ فرم کامل آن در فضای وسیع روبه‌رو باز می‌شود.</span>
       </div>
 
       <div class="settings-hub">
@@ -3563,51 +3664,26 @@ export const settingsModule = {
           </div>
         </div>
 
-        <!-- ستون وسط و چپ -->
+        <!-- فضای وسیع مدیریت بوتیک؛ AI و System Status فقط در Dashboard هستند -->
         <div class="settings-main">
-          <div class="settings-two-col">
-            <!-- دستیار هوشمند -->
-            <div class="panel ai-panel" id="aiCard">
-              <div class="panel-head"><h3>🤖 دستیار هوشمند تجاری (AI Assistant)</h3><span style="font-size:10px; background:rgba(201,168,106,0.14); color:var(--gold-soft); padding:3px 8px; border-radius:999px; border:1px solid var(--gold-border)">از چت قبلی</span></div>
-              <div class="ai-list" id="aiList">
-                <!-- JS render -->
-              </div>
-            </div>
-
-            <!-- وضعیت سیستم -->
-            <div class="panel status-panel" id="statusCard">
-              <div class="panel-head"><h3>⊕ وضعیت و سلامت سیستم (System Status)</h3><button class="btn-ghost" style="padding:5px 10px; font-size:11px" id="btnRefreshStatus">بررسی مجدد</button></div>
-              <div class="status-list" id="statusList">
-                <!-- JS render -->
-              </div>
-              <div style="padding:10px; display:grid; grid-template-columns:1fr 1fr; gap:8px">
-                <div style="background:rgba(255,255,255,0.03); border:1px solid var(--gold-border); border-radius:10px; padding:10px; text-align:center"><div style="font-size:11px; color:var(--text-faint)">آپتایم</div><b style="color:var(--success)">${cfg.system.uptime}</b></div>
-                <div style="background:rgba(255,255,255,0.03); border:1px solid var(--gold-border); border-radius:10px; padding:10px; text-align:center"><div style="font-size:11px; color:var(--text-faint)">کش طلایی</div><b style="color:var(--gold-soft)">${cfg.system.cache}</b></div>
-              </div>
-              <div style="padding:0 10px 10px 10px">
-                <label style="display:flex; justify-content:space-between; align-items:center; background:rgba(255,255,255,0.03); border:1px solid var(--gold-border); border-radius:10px; padding:8px 10px; font-size:12px">
-                  <span>نمایش نسخه PHP در داشبورد</span><input type="checkbox" checked style="accent-color:var(--gold)">
-                </label>
-              </div>
-            </div>
-          </div>
-
-          <!-- تنظیمات سریع -->
-          <div class="panel" style="margin-top:14px">
-            <div class="panel-head"><h3>⚙️ تنظیمات سریع هر ماژول</h3><span style="font-size:11px; color:var(--text-faint)" id="quickTitle">یک ماژول از سمت راست انتخاب کن</span></div>
-            <div id="quickSettings" style="padding:16px">
-              <div style="text-align:center; padding:18px; color:var(--text-muted); font-size:13px; background:rgba(255,255,255,0.02); border:1px dashed var(--gold-border); border-radius:12px">یک ماژول از ستون سمت راست انتخاب کن تا تنظیمات واقعی‌اش اینجا باز شود.<br><span style="color:var(--gold-soft)">تغییرات ذخیره و بلافاصله روی سایت اعمال می‌شود</span></div>
+          <div class="panel settings-workspace">
+            <div class="panel-head"><h3>⚙️ تنظیمات کامل ماژول انتخاب‌شده</h3><span style="font-size:11px;color:var(--text-faint)" id="quickTitle">یک ماژول از ستون مدیریت انتخاب کنید</span></div>
+            <div id="quickSettings" style="padding:18px">
+              <div style="text-align:center;padding:28px;color:var(--text-muted);font-size:13px;background:rgba(255,255,255,.02);border:1px dashed var(--gold-border);border-radius:12px">یک ماژول را انتخاب کنید تا تنظیمات واقعی آن در این فضای وسیع باز شود.<br><span style="color:var(--gold-soft)">تغییرات در WordPress ذخیره و بلافاصله روی سایت اعمال می‌شوند.</span></div>
             </div>
           </div>
         </div>
       </div>
 
+
       <style>
-        .settings-hub{ display:flex; gap:14px; align-items:start }
-        .settings-main{ flex:1; min-width:0 }
-        .settings-two-col{ display:grid; gap:14px; grid-template-columns: 1fr 1fr }
-        .modules-side{ width:310px; flex:0 0 310px; position:sticky; top:84px }
-        @media(max-width:1100px){ .settings-hub{flex-direction:column} .modules-side{width:100%; position:static} .settings-two-col{grid-template-columns:1fr} }
+        .settings-hub{display:grid;grid-template-columns:minmax(270px,310px) minmax(0,1fr);gap:16px;align-items:start}
+        .settings-main{min-width:0;width:100%}
+        .settings-workspace{min-height:560px}
+        .modules-side{width:auto;min-width:0;position:sticky;top:84px}
+        .boutique-workspace-hint{margin-right:auto;color:var(--text-muted);font-size:11px;line-height:1.7}
+        @media(min-width:1600px){.settings-hub{grid-template-columns:320px minmax(0,1fr);gap:20px}#quickSettings{padding:22px!important}}
+        @media(max-width:1180px){.settings-hub{grid-template-columns:1fr}.modules-side{width:100%;position:static}.settings-workspace{min-height:0}.boutique-workspace-hint{width:100%;margin:4px 0 0}}
         .modules-list{ display:grid; gap:0 }
         .mod-item{ display:flex; align-items:center; gap:10px; padding:11px 12px; font-size:12.8px; font-weight:500; color:var(--text-secondary); border-bottom:1px solid rgba(201,168,106,0.08); cursor:pointer; transition: all 0.18s ease; position:relative }
         .mod-item:hover{ background:rgba(255,255,255,0.03); color:var(--text-primary)}
@@ -3670,6 +3746,7 @@ export const settingsModule = {
     // رندر AI
     const aiList = container.querySelector('#aiList');
     function renderAI(){
+      if(!aiList)return;
       aiList.innerHTML = cfg.ai_assistant.suggestions.map((s,idx)=>`
         <div class="ai-item ${idx===0?'open':''}" data-ai="${s.id}">
           <button class="ai-head"><span class="ai-plus">${idx===0?'×':'+'}</span> ${s.title} <span class="ai-badge">${s.status==='new'?'جدید': s.status==='done'?'انجام شد':'AI'}</span></button>
@@ -3688,6 +3765,7 @@ export const settingsModule = {
     // رندر Status
     const statusList = container.querySelector('#statusList');
     function renderStatus(){
+      if(!statusList)return;
       statusList.innerHTML = `
         <div class="status-row"><span><span class="dot on"></span> ووکامرس</span><b>${cfg.system.woocommerce}</b></div>
         <div class="status-row"><span><span class="dot on"></span> وودمارت پلاس</span><b>${cfg.system.woodmart_plus}</b></div>
@@ -4241,7 +4319,7 @@ export const usersModule = {
   },
   "updated_at": "2026-08-10T16:20:00Z",
   "updated_by": "AI Assistant — recovered from previous chat",
-  "version": "3.10.3"
+  "version": "3.10.4"
 }
 ````
 
@@ -5696,7 +5774,7 @@ function alookhor_cc_render_managed_legacy_header($atts = [], $content = null, $
 
     $html = call_user_func($provider, $atts, $content, $tag ?: 'alookhor_portal_header');
     if (!is_string($html)) $html = '';
-    return '<div class="alookhor-managed-legacy-header" data-alookhor-managed="3.10.3" style="display:contents">' . $html . '</div>';
+    return '<div class="alookhor-managed-legacy-header" data-alookhor-managed="3.10.4" style="display:contents">' . $html . '</div>';
 }
 
 /**
@@ -5732,8 +5810,8 @@ add_action('init', 'alookhor_cc_register_portal_header_shortcode', 100);
  *
  * Expected manifest (JSON):
  * {
- *   "version": "3.10.3",
- *   "download_url": "https://updates.alookhor.ir/releases/alookhor-control-center-3.10.3.zip",
+ *   "version": "3.10.4",
+ *   "download_url": "https://updates.alookhor.ir/releases/alookhor-control-center-3.10.4.zip",
  *   "details_url": "https://example.com/changelog",
  *   "requires": "6.0",
  *   "tested": "7.0",
@@ -6122,7 +6200,7 @@ add_action('upgrader_process_complete', function($upgrader, $options){
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h16"/><path d="M4 12h16"/><path d="M4 17h16"/></svg>
       </button>
 
-      <a class="brand" href="#dashboard">
+      <a class="brand" href="#settings" data-module="settings">
         <div class="brand-mark"><span>A</span></div>
         <div class="brand-text">
           <h1>ALOOKHOR</h1>
@@ -6141,7 +6219,7 @@ add_action('upgrader_process_complete', function($upgrader, $options){
       <div class="header-actions">
         <div class="version-badge" title="نسخه فعلی">
           <span style="width:6px; height:6px; border-radius:50%; background:#3DD68C; box-shadow:0 0 0 4px rgba(61,214,140,0.15); display:inline-block"></span>
-          <span id="headerVersion">v3.10.3</span>
+          <span id="headerVersion">v3.10.4</span>
           <span style="opacity:0.5">•</span>
           <span id="bpIndicator" style="font-family:monospace; font-size:11px">—</span>
         </div>
@@ -6177,7 +6255,14 @@ add_action('upgrader_process_complete', function($upgrader, $options){
         <kbd>/</kbd>
       </label>
 
-      <!-- داشبورد — تکی و همیشه در بالا -->
+      <!-- مدیریت بوتیک — فضای اصلی و اولویت اول -->
+      <div class="nav-item single nav-item-primary" data-module="settings">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 10h16v10H4z"/><path d="M3 10l2-6h14l2 6"/><path d="M8 20v-6h4v6"/><path d="M3 10c0 1.7 2.2 2.6 3.5 1.4C7.7 12.6 10 11.7 10 10c0 1.7 2.3 2.6 3.5 1.4C14.8 12.6 17 11.7 17 10c0 1.7 2.2 2.6 3.5 1.4"/></svg>
+        مدیریت بوتیک
+        <span class="badge">اصلی</span>
+      </div>
+
+      <!-- داشبورد — پایش و سلامت سیستم -->
       <div class="nav-item single active" data-module="dashboard">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/></svg>
         داشبورد
@@ -6186,8 +6271,8 @@ add_action('upgrader_process_complete', function($upgrader, $options){
 
       <nav id="proNav" style="display:grid; gap:4px; margin-top:4px">
 
-        <!-- گروه: فروش -->
-        <div class="nav-group open" data-group="sales">
+        <!-- گروه: فروش — بخش کم‌اولویت/آزمایشی -->
+        <div class="nav-group" data-group="sales">
           <div class="nav-group-head">
             <div class="nav-group-icon">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 2h9l5 5v15H6z"/><path d="M15 2v6h6"/><path d="M9 13h6"/><path d="M9 17h6"/></svg>
@@ -6207,7 +6292,7 @@ add_action('upgrader_process_complete', function($upgrader, $options){
         </div>
 
         <!-- گروه: ویترین و انبار -->
-        <div class="nav-group open" data-group="catalog">
+        <div class="nav-group" data-group="catalog">
           <div class="nav-group-head">
             <div class="nav-group-icon">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 2l9 4.5v9L12 20 3 15.5v-9L12 2z"/><path d="M12 12l9-4.5"/><path d="M12 12v8"/><path d="M3 7.5l9 4.5"/></svg>
@@ -6291,13 +6376,12 @@ add_action('upgrader_process_complete', function($upgrader, $options){
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 20a8 8 0 1 0 0-16 8 8 0 0 0 0 16Z"/><path d="M12 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"/></svg>
             </div>
             <span class="nav-group-title">سیستم</span>
-            <span class="nav-group-count">4</span>
+            <span class="nav-group-count">3</span>
             <span class="nav-chevron"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 9l6 6 6-6"/></svg></span>
           </div>
           <div class="nav-group-body"><div class="nav-group-inner">
             <div class="nav-sub-list">
               <div class="nav-sub-item" data-module="roles"><span class="sub-dot"></span> کاربران و دسترسی</div>
-              <div class="nav-sub-item" data-module="settings"><span class="sub-dot"></span> تنظیمات بوتیک</div>
               <div class="nav-sub-item" data-module="update"><span class="sub-dot"></span> Update Center <span style="width:7px; height:7px; border-radius:50%; background:#3DD68C; box-shadow:0 0 0 4px rgba(61,214,140,0.18); margin-right:auto"></span></div>
               <div class="nav-sub-item" data-module="logs"><span class="sub-dot"></span> لاگ‌ها</div>
             </div>
@@ -6315,7 +6399,7 @@ add_action('upgrader_process_complete', function($upgrader, $options){
           <span style="margin-right:auto; font-size:10px; background:var(--gold); color:#1A1206; font-weight:800; padding:2px 7px; border-radius:999px">PRO</span>
         </div>
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:10px">
-          <div style="background:rgba(255,255,255,0.04); border:1px solid var(--gold-border); border-radius:10px; padding:8px; text-align:center"><div style="font-size:11px; color:var(--text-faint)">نسخه</div><b id="versionBadgeText" style="font-family:monospace; font-size:12px; color:var(--text-primary)">v3.10.3</b></div>
+          <div style="background:rgba(255,255,255,0.04); border:1px solid var(--gold-border); border-radius:10px; padding:8px; text-align:center"><div style="font-size:11px; color:var(--text-faint)">نسخه</div><b id="versionBadgeText" style="font-family:monospace; font-size:12px; color:var(--text-primary)">v3.10.4</b></div>
           <div style="background:rgba(255,255,255,0.04); border:1px solid var(--gold-border); border-radius:10px; padding:8px; text-align:center"><div style="font-size:11px; color:var(--text-faint)">ماژول</div><b style="font-size:12px; color:var(--gold-soft)">۱۹ فعال</b></div>
         </div>
         <div style="height:6px; background:rgba(255,255,255,0.06); border-radius:999px; overflow:hidden; margin-top:10px"><div style="width:100%; height:100%; background:linear-gradient(90deg,#C9A86A,#E8D5B5)"></div></div>
@@ -6371,7 +6455,7 @@ add_action('upgrader_process_complete', function($upgrader, $options){
           </div>
         </div>
         <div style="margin-top:14px; background:rgba(201,168,106,0.08); border:1px solid rgba(201,168,106,0.14); border-radius:12px; padding:12px; font-size:12.5px; color:#E8D5B5; line-height:1.7">
-          <b>✓ افزونه نصب شد</b> — اگر این داشبورد را می‌بینی، یعنی هسته لود شده. حالا سایدبار سمت راست → <b>سیستم → تنظیمات بوتیک</b> بزن تا همون ۳ پنل طلایی (دستیار هوشمند + سلامت سیستم + ماژول‌ها) رو ببینی. اگر باز هم خالی بود، کش مرورگر را با <b>Ctrl+Shift+R</b> پاک کن.
+          <b>✓ افزونه نصب شد</b> — اگر این داشبورد را می‌بینی، یعنی هسته لود شده. از بالای سایدبار روی <b>مدیریت بوتیک</b> بزن تا فضای وسیع تنظیمات ماژول‌ها باز شود؛ دستیار هوشمند و سلامت سیستم فقط در داشبورد نمایش داده می‌شوند. اگر باز هم خالی بود، کش مرورگر را با <b>Ctrl+Shift+R</b> پاک کن.
         </div>
         <div class="two-col">
           <div class="panel">
@@ -6390,7 +6474,7 @@ add_action('upgrader_process_complete', function($upgrader, $options){
 
       <!-- Footer luxury -->
       <div style="margin-top:18px; padding:14px 16px; display:flex; flex-wrap:wrap; gap:10px; justify-content:space-between; align-items:center; background:rgba(255,255,255,0.02); border:1px solid var(--gold-border); border-radius:14px; font-size:12px; color:var(--text-muted)">
-        <span>© 2026 ALOOKHOR — Control Center v3.10.3 • <span id="pageTitle" style="color:var(--gold-soft); font-weight:700">داشبورد</span> • معماری ماژولار حفظ شد</span>
+        <span>© 2026 ALOOKHOR — Control Center v3.10.4 • <span id="pageTitle" style="color:var(--gold-soft); font-weight:700">داشبورد</span> • معماری ماژولار حفظ شد</span>
         <span style="display:flex; gap:8px; align-items:center">
           <span style="width:7px; height:7px; border-radius:50%; background:#3DD68C; display:inline-block"></span> سیستم پایدار
           <span style="opacity:0.4">|</span> <a href="<?php echo esc_url(ALOOKHOR_CC_URL . 'docs/PROJECT_MEMORY.md'); ?>" target="_blank" rel="noopener" style="color:var(--gold-soft); text-decoration:underline; text-underline-offset:3px">حافظه پروژه</a>
@@ -6409,7 +6493,7 @@ add_action('upgrader_process_complete', function($upgrader, $options){
           </div>
           <div>
             <h3>Update Center</h3>
-            <div style="font-size:12px; color:var(--text-muted); margin-top:2px" id="modalVersion">v3.10.3 — به‌روز</div>
+            <div style="font-size:12px; color:var(--text-muted); margin-top:2px" id="modalVersion">v3.10.4 — به‌روز</div>
           </div>
         </div>
         <button class="icon-btn" id="btnCloseModal" style="width:34px; height:34px">✕</button>
@@ -6670,7 +6754,7 @@ def render() -> str:
     add('> این سند از روی فایل‌های واقعی Repository تولید می‌شود. Source اصلی همچنان فایل‌های اجرایی است؛ Snapshotهای کامل زیر برای بازیابی، ممیزی و انتقال دانش نگهداری می‌شوند.')
     add('')
     add(f'- **Registry version:** `{REGISTRY_VERSION}`')
-    add(f'- **Plugin/runtime version:** `{version}`')
+    add(f'- **Plugin/source version:** `{version}`')
     add(f'- **Generated:** `{GENERATED_DATE}`')
     add('- **Repository:** `alookhor-update-publisher`')
     add('- **Production:** `https://alookhor.ir`')
@@ -6681,7 +6765,7 @@ def render() -> str:
     add('## Current Project State')
     add('')
     add(f'- CURRENT VERSION: `{version}`')
-    add('- LAST FUNCTIONAL CHANGE: Elementor placement shortcode, Desktop arrow isolation, and smart single-page controls.')
+    add(f'- LAST FUNCTIONAL CHANGE: {release.get("description", "Not recorded")}')
     add('- ACTIVE DESIGN: Luxury Black/Gold; actual component colors remain controlled by saved WordPress settings and existing module defaults.')
     add('- ACTIVE SHORTCODES: `[alookhor_portal_header]`, `[alookhor_managed_categories]`.')
     add('- ACTIVE PANELS: Main ALOOKHOR Control Center and Header/Top Bar submenu.')
@@ -6692,13 +6776,13 @@ def render() -> str:
     add('## Change Record')
     add('')
     add('```text')
-    add('PROJECT: ALOOKHOR')
-    add('AREA: Documentation Governance / Master Code Registry')
+    add(f'PROJECT: {release.get("project", "ALOOKHOR")}')
+    add(f'AREA: {release.get("area", "Not recorded")}')
     add(f'CURRENT VERSION: {version}')
-    add('CHANGE: Added generated registry, complete source snapshots, usage records, and CI drift enforcement.')
-    add('REASON: Prevent loss, guessing, or divergence of shortcode/panel/CSS/JS/PHP documentation.')
-    add('FILES: docs/MASTER_CODE_REGISTRY.md; scripts/generate_code_registry.py; .github/workflows/publish.yml')
-    add('STATUS: ACTIVE — documentation-only; no Production runtime behavior changed.')
+    add(f'CHANGE: {release.get("description", "Not recorded")}')
+    add(f'REASON: {release.get("reason", "Not recorded")}')
+    add('FILES: ' + '; '.join(str(item) for item in release.get('files', [])))
+    add(f'STATUS: SOURCE {str(release.get("state", "draft")).upper()} — deployment status must be verified separately.')
     add('```')
     add('')
     add('# MASTER CODE REGISTRY')

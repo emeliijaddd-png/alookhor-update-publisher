@@ -79,7 +79,17 @@ jobs:
           assert '.alookhor-mc-arrow{display:none!important}' in category_css and 'flex-basis:33px!important' in category_css
           assert '.alookhor-mc.has-single-page' in category_css and 'min-width:58px!important' in category_css and 'appearance:none!important' in category_css
           assert 'ResizeObserver' in category_js and "cache:'no-store'" in category_js and 'is-clone' in category_js and 'syncDots' in category_js and "tabIndex=mobile?-1:0" in category_js and "classList.toggle('has-single-page'" in category_js
-          print('Managed footer/category contracts passed')
+          admin_template = Path('plugin/alookhor-control-center/templates/admin-control-center.php').read_text()
+          admin_app = Path('plugin/alookhor-control-center/assets/js/app.js').read_text()
+          dashboard_js = Path('plugin/alookhor-control-center/assets/js/modules/dashboard.js').read_text()
+          settings_js = Path('plugin/alookhor-control-center/assets/js/modules/settings.js').read_text()
+          assert admin_template.index('data-module="settings"') < admin_template.index('data-module="dashboard"')
+          assert 'nav-item-primary' in admin_template and 'data-group="sales"' in admin_template
+          assert "active: 'settings'" in admin_app and "allMods[hash] ? hash : 'settings'" in admin_app
+          assert 'data-dashboard-only="1"' in dashboard_js and 'dashboardAiCard' in dashboard_js and 'dashboardStatusCard' in dashboard_js
+          assert 'id="aiCard"' not in settings_js and 'id="statusCard"' not in settings_js and 'settings-workspace' in settings_js
+          assert 'width:100%; max-width:none' in admin_css and '.dashboard-monitor-grid' in admin_css
+          print('Managed footer/category/admin workspace contracts passed')
           PY
 
       - name: Build and validate release

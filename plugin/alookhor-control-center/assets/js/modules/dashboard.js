@@ -1,6 +1,27 @@
+import { Config } from '../core/config.js?v=3.10.4';
+
+const escapeHTML = value => String(value ?? '').replace(/[&<>'"]/g, char => ({
+  '&':'&amp;', '<':'&lt;', '>':'&gt;', "'":'&#039;', '"':'&quot;'
+})[char]);
+
+const assistantItems = suggestions => suggestions.map((suggestion,index)=>`
+  <div class="ai-item ${index===0?'open':''}" data-ai="${escapeHTML(suggestion.id)}">
+    <button class="ai-head" type="button"><span class="ai-plus">${index===0?'×':'+'}</span>${escapeHTML(suggestion.title)}<span class="ai-badge">${suggestion.status==='new'?'جدید':suggestion.status==='done'?'انجام شد':'AI'}</span></button>
+    <div class="ai-body">
+      <p>${escapeHTML(suggestion.detail)}</p>
+      <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
+        ${suggestion.status!=='done'?`<button class="btn-gold" type="button" style="padding:6px 12px;font-size:12px" data-dashboard-ai-action="do" data-id="${escapeHTML(suggestion.id)}">اعمال پیشنهاد</button>`:`<span style="color:var(--success);font-size:12px;font-weight:700">✓ اعمال شد</span>`}
+        <button class="btn-ghost" type="button" style="padding:6px 12px;font-size:12px" data-dashboard-ai-action="dismiss" data-id="${escapeHTML(suggestion.id)}">${suggestion.status==='done'?'بازگردانی':'نادیده بگیر'}</button>
+      </div>
+    </div>
+  </div>`).join('');
+
 export const dashboardModule = {
   meta: { id: 'dashboard', title: 'داشبورد', icon: 'dashboard' },
   init(container) {
+    const cfg = Config.data || {};
+    const system = Object.assign({woocommerce:'نامشخص',woodmart_plus:'نامشخص',elementor_pro:'نامشخص',php_version:'—',memory:'—',ssl:'نامشخص',uptime:'—',cache:'—'},cfg.system || {});
+    const suggestions = Array.isArray(cfg.ai_assistant?.suggestions) ? cfg.ai_assistant.suggestions : [];
     container.innerHTML = `
       <div class="page-head">
         <div>
@@ -10,6 +31,25 @@ export const dashboardModule = {
         <div class="head-actions">
           <button class="btn-ghost" data-action="export">خروجی Excel</button>
           <button class="btn-gold" data-action="new-order">+ سفارش جدید</button>
+        </div>
+      </div>
+
+      <div class="dashboard-monitor-grid" data-dashboard-only="1">
+        <div class="panel ai-panel" id="dashboardAiCard">
+          <div class="panel-head"><h3>🤖 دستیار هوشمند تجاری (AI Assistant)</h3><span style="font-size:10px;background:rgba(201,168,106,.14);color:var(--gold-soft);padding:3px 8px;border-radius:999px;border:1px solid var(--gold-border)">پایش داشبورد</span></div>
+          <div class="ai-list" id="dashboardAiList">${assistantItems(suggestions)}</div>
+        </div>
+        <div class="panel status-panel" id="dashboardStatusCard">
+          <div class="panel-head"><h3>⊕ وضعیت و سلامت سیستم (System Status)</h3><button class="btn-ghost" type="button" style="padding:5px 10px;font-size:11px" id="dashboardRefreshStatus">بررسی مجدد</button></div>
+          <div class="status-list">
+            <div class="status-row"><span><span class="dot on"></span> ووکامرس</span><b>${escapeHTML(system.woocommerce)}</b></div>
+            <div class="status-row"><span><span class="dot on"></span> وودمارت پلاس</span><b>${escapeHTML(system.woodmart_plus)}</b></div>
+            <div class="status-row"><span><span class="dot on"></span> المنتور پرو</span><b>${escapeHTML(system.elementor_pro)}</b></div>
+            <div class="status-row"><span>نسخه پی‌اچ‌پی هاست (PHP)</span><b dir="ltr">${escapeHTML(system.php_version)}</b></div>
+            <div class="status-row"><span>حافظه لایو سیستم (Memory)</span><b style="color:var(--gold)" dir="ltr">${escapeHTML(system.memory)}</b></div>
+            <div class="status-row"><span>گواهینامه امنیتی (SSL)</span><b style="color:var(--success)"><span class="dot on"></span>${escapeHTML(system.ssl)}</b></div>
+          </div>
+          <div class="dashboard-system-metrics"><div><span style="font-size:11px;color:var(--text-faint)">آپتایم</span><br><b style="color:var(--success)">${escapeHTML(system.uptime)}</b></div><div><span style="font-size:11px;color:var(--text-faint)">کش طلایی</span><br><b style="color:var(--gold-soft)">${escapeHTML(system.cache)}</b></div></div>
         </div>
       </div>
 
@@ -105,6 +145,28 @@ export const dashboardModule = {
     }
     container.querySelectorAll('[data-action]').forEach(btn=>{
       btn.addEventListener('click', ()=> window.ALOOKHOR.toast('این اکشن در نسخه بعدی به API وصل می‌شود','info'));
+    });
+    container.addEventListener('click', async event=>{
+      const aiHead=event.target.closest('.ai-head');
+      if(aiHead){
+        const item=aiHead.closest('.ai-item');const wasOpen=item?.classList.contains('open');
+        container.querySelectorAll('.ai-item').forEach(node=>node.classList.remove('open'));
+        container.querySelectorAll('.ai-plus').forEach(node=>node.textContent='+');
+        if(item&&!wasOpen){item.classList.add('open');aiHead.querySelector('.ai-plus').textContent='×'}
+        return;
+      }
+      const aiAction=event.target.closest('[data-dashboard-ai-action]');
+      if(aiAction){
+        const suggestion=suggestions.find(item=>String(item.id)===String(aiAction.dataset.id));
+        if(!suggestion)return;
+        suggestion.status=aiAction.dataset.dashboardAiAction==='do'?'done':suggestion.status==='done'?'pending':'done';
+        await Config.save({notify:false});
+        const list=container.querySelector('#dashboardAiList');if(list)list.innerHTML=assistantItems(suggestions);
+        window.ALOOKHOR.toast(aiAction.dataset.dashboardAiAction==='do'?`پیشنهاد «${suggestion.title}» اعمال شد`:'وضعیت پیشنهاد بروزرسانی شد',aiAction.dataset.dashboardAiAction==='do'?'success':'info');
+        return;
+      }
+      const refresh=event.target.closest('#dashboardRefreshStatus');
+      if(refresh){refresh.disabled=true;refresh.textContent='بررسی شد ✓';window.ALOOKHOR.toast('سلامت سیستم بررسی شد','success');setTimeout(()=>{refresh.disabled=false;refresh.textContent='بررسی مجدد'},1600)}
     });
   },
   destroy(){}

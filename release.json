@@ -1,26 +1,36 @@
 {
-  "version": "3.10.3",
-  "previous": "3.10.2",
+  "version": "3.10.4",
+  "previous": "3.10.3",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "جایگاه مستقیم Elementor با شورت‌کد مدیریت‌شده و اصلاح کامل کنترل‌های Desktop.",
+  "description": "بازآرایی پنل مدیریت: بوتیک در اولویت، فضای کاری وسیع و پایش سیستم فقط در Dashboard.",
   "changelog": [
     {
-      "tag": "ELEMENTOR",
-      "title": "شورت‌کد اختصاصی جایگاه دسته‌بندی‌ها",
-      "desc": "شورت‌کد [alookhor_managed_categories] بخش مدیریت‌شده را مستقیماً در Widget نوع Shortcode رندر می‌کند و از خروجی تکراری جلوگیری می‌کند."
+      "tag": "BOUTIQUE FIRST",
+      "title": "مدیریت بوتیک به‌عنوان فضای اصلی",
+      "desc": "مدیریت بوتیک به بالای Navigation منتقل و صفحه پیش‌فرض شد؛ بخش‌های فروش و آزمایشی پایین‌تر و بسته قرار گرفتند."
     },
     {
-      "tag": "DESKTOP CONTROLS",
-      "title": "ایزوله‌سازی فلش‌های Desktop در برابر Woodmart",
-      "desc": "ابعاد، Appearance، Background، Position، Padding و SVG فلش‌ها به‌صورت Scoped تثبیت شدند تا قالب آن‌ها را به مربع خاکستری تبدیل نکند."
+      "tag": "WIDE WORKSPACE",
+      "title": "استفاده کامل از عرض خالی پنل",
+      "desc": "محدودیت 1440px حذف و فرم ماژول انتخاب‌شده در Workspace وسیع و Responsive روبه‌روی ستون مدیریت باز می‌شود."
     },
     {
-      "tag": "SMART PAGING",
-      "title": "حذف کنترل‌های بلااستفاده تک‌صفحه",
-      "desc": "وقتی همه دسته‌ها در یک صفحه Desktop جا می‌شوند، فلش و Pagination تک‌صفحه مخفی می‌شوند؛ در چندصفحه و Mobile رفتار Carousel حفظ می‌شود."
+      "tag": "DASHBOARD ONLY",
+      "title": "AI و سلامت سیستم فقط در Dashboard",
+      "desc": "دستیار هوشمند و وضعیت WooCommerce، Woodmart، Elementor، PHP، Memory و SSL از بوتیک حذف و فقط در Dashboard رندر می‌شوند."
     }
+  ],
+  "project": "ALOOKHOR",
+  "area": "WordPress Admin / Boutique Workspace / Dashboard Monitoring",
+  "reason": "استفاده از عرض خالی پنل، اولویت‌دادن به مدیریت واقعی بوتیک و جداسازی پایش سیستم از فرم‌های مدیریتی.",
+  "files": [
+    "plugin/alookhor-control-center/templates/admin-control-center.php",
+    "plugin/alookhor-control-center/assets/css/luxury.css",
+    "plugin/alookhor-control-center/assets/js/app.js",
+    "plugin/alookhor-control-center/assets/js/modules/dashboard.js",
+    "plugin/alookhor-control-center/assets/js/modules/settings.js"
   ]
 }

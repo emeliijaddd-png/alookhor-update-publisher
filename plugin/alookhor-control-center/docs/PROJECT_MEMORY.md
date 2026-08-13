@@ -6,8 +6,8 @@
 
 - **نام افزونه:** ALOOKHOR Control Center
 - **نسخه پایه بازیابی‌شده:** `3.8.4`
-- **Production پیش از این Release:** `3.10.2` (Arrow موبایل حذف و Pagination مرجع فعال)
-- **Release آماده انتشار اتمی:** `3.10.3` (شورت‌کد Elementor و کنترل‌های Desktop ایزوله/هوشمند)
+- **Production پیش از این Release:** `3.10.3` (جایگاه مستقیم Elementor و کنترل‌های Desktop اصلاح‌شده)
+- **Release آماده انتشار اتمی:** `3.10.4` (بوتیک در اولویت، Workspace وسیع و پایش فقط در Dashboard)
 - **تاریخ بازیابی:** 2026-08-11
 - **منبع بازیابی:** ZIP واقعی افزونه `alookhor-control-center (5).zip`
 - **حداقل WordPress:** 6.0
@@ -220,8 +220,8 @@ Schema حداقلی Manifest:
 
 ```json
 {
-  "version": "3.10.3",
-  "download_url": "https://updates.alookhor.ir/releases/alookhor-control-center-3.10.3.zip",
+  "version": "3.10.4",
+  "download_url": "https://updates.alookhor.ir/releases/alookhor-control-center-3.10.4.zip",
   "details_url": "https://alookhor.ir/changelog",
   "requires": "6.0",
   "tested": "7.0",

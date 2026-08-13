@@ -4,7 +4,7 @@ Tags: control center, luxury, alookhor, admin, dashboard
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 3.10.3
+Stable tag: 3.10.4
 License: Private
 License URI: https://alookhor.ir
 
@@ -44,6 +44,14 @@ License URI: https://alookhor.ir
 در `config/site.json` و `wp_options: alookhor_cc_settings` — همان حافظه واقعی که در چت قبلی ویرایش می‌شد.
 
 == Changelog ==
+
+= 3.10.4 =
+* مدیریت بوتیک به‌عنوان آیتم اصلی و صفحه پیش‌فرض پنل
+* انتقال بخش‌های فروش و آزمایشی به پایین Navigation
+* Workspace عریض برای فرم کامل ماژول انتخاب‌شده
+* استفاده از کل عرض امن صفحه مدیریت WordPress
+* نمایش AI Assistant و System Status فقط در Dashboard
+* حفظ Sidebar و فرم‌های Responsive در Tablet و Mobile
 
 = 3.10.3 =
 * شورت‌کد اختصاصی Elementor: `[alookhor_managed_categories]`

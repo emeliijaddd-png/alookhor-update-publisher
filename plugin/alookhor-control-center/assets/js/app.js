@@ -1,13 +1,13 @@
 // Release query prevents stale ES Modules after a WordPress-native update.
-import { initResponsive } from './core/responsive.js?v=3.10.3';
-import { initUpdater, Updater } from './core/updateSystem.js?v=3.10.3';
-import { Config } from './core/config.js?v=3.10.3';
-import { dashboardModule } from './modules/dashboard.js?v=3.10.3';
-import { inventoryModule } from './modules/inventory.js?v=3.10.3';
-import { ordersModule } from './modules/orders.js?v=3.10.3';
-import { usersModule } from './modules/users.js?v=3.10.3';
-import { analyticsModule } from './modules/analytics.js?v=3.10.3';
-import { settingsModule } from './modules/settings.js?v=3.10.3';
+import { initResponsive } from './core/responsive.js?v=3.10.4';
+import { initUpdater, Updater } from './core/updateSystem.js?v=3.10.4';
+import { Config } from './core/config.js?v=3.10.4';
+import { dashboardModule } from './modules/dashboard.js?v=3.10.4';
+import { inventoryModule } from './modules/inventory.js?v=3.10.4';
+import { ordersModule } from './modules/orders.js?v=3.10.4';
+import { usersModule } from './modules/users.js?v=3.10.4';
+import { analyticsModule } from './modules/analytics.js?v=3.10.4';
+import { settingsModule } from './modules/settings.js?v=3.10.4';
 
 const modules = {
   dashboard: dashboardModule,
@@ -85,7 +85,7 @@ const placeholderMap = {
 window.ALOOKHOR = {
   version: Updater.current,
   modules: { ...modules, ...placeholderMap, settings: settingsModule },
-  active: 'dashboard',
+  active: 'settings',
   toast(msg, type='success'){
     const stack = document.getElementById('toastStack');
     if(!stack) return;
@@ -171,13 +171,13 @@ function initProNav(){
     search.addEventListener('input', ()=>{
       const q = search.value.trim().toLowerCase();
       const groups = document.querySelectorAll('.nav-group');
-      const single = document.querySelector('.nav-item.single');
+      const singles = document.querySelectorAll('.nav-item.single');
 
-      // فیلتر آیتم تکی
-      if(single){
+      // فیلتر تمام آیتم‌های اصلی (مدیریت بوتیک + داشبورد)
+      singles.forEach(single=>{
         const txt = single.textContent.toLowerCase();
         single.style.display = (!q || txt.includes(q)) ? 'flex' : 'none';
-      }
+      });
 
       groups.forEach(g=>{
         const headText = g.querySelector('.nav-group-title')?.textContent.toLowerCase() || '';
@@ -312,7 +312,7 @@ document.addEventListener('DOMContentLoaded', async ()=>{
 
   const hash = location.hash.replace('#','');
   const allMods = window.ALOOKHOR.modules;
-  const initial = allMods[hash] ? hash : 'dashboard';
+  const initial = allMods[hash] ? hash : 'settings';
   // ست اولیه active
   document.querySelectorAll('.nav-item, .nav-sub-item').forEach(n=> n.classList.toggle('active', n.dataset.module===initial));
   // اگر initial داخل گروه بسته بود باز کن

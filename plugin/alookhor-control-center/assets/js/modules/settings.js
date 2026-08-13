@@ -1,4 +1,4 @@
-import { Config } from '../core/config.js?v=3.10.3';
+import { Config } from '../core/config.js?v=3.10.4';
 
 const escapeAttr = value => String(value ?? '').replace(/[&<>'"]/g, char => ({
   '&':'&amp;', '<':'&lt;', '>':'&gt;', "'":'&#039;', '"':'&quot;'
@@ -12,7 +12,7 @@ const parseFooterLinks = value => String(value || '').split(/\r?\n/).map(line =>
 const footerMenuOptions = selected => `<option value="0">لینک‌های سفارشی زیر</option>${(window.ALOOKHOR_CC?.footer_menus || []).map(menu => `<option value="${Number(menu.id)}" ${Number(selected)===Number(menu.id)?'selected':''}>${escapeAttr(menu.name)}</option>`).join('')}`;
 
 export const settingsModule = {
-  meta: { id: 'settings', title: 'تنظیمات پیشرفته' },
+  meta: { id: 'settings', title: 'مدیریت بوتیک' },
   async init(container){
     // لود حافظه واقعی قبلی — تمام سایت با همین تنظیمات ویرایش می‌شد
     if(!Config.data) await Config.load();
@@ -68,7 +68,7 @@ export const settingsModule = {
     container.innerHTML = `
       <div class="page-head">
         <div>
-          <h2>تنظیمات پیشرفته ALOOKHOR</h2>
+          <h2>مدیریت اصلی بوتیک ALOOKHOR</h2>
           <p>تنظیمات ALOOKHOR بدون حذف مقادیر قبلی بارگذاری می‌شود <span style="background:${memory.bg}; color:${memory.color}; padding:2px 8px; border-radius:999px; font-size:11px; border:1px solid ${memory.border}">● ${memory.label}</span></p>
         </div>
         <div class="head-actions">
@@ -81,11 +81,7 @@ export const settingsModule = {
       <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:14px; align-items:center">
         <span style="font-size:11px; color:var(--text-faint); background:rgba(255,255,255,0.04); border:1px solid var(--gold-border); padding:4px 10px; border-radius:999px">آخرین ذخیره: <b id="lastSave" style="color:var(--text-secondary)">${cfg.updated_at ? new Date(cfg.updated_at).toLocaleString('fa-IR') : 'همین حالا'}</b></span>
         <span style="font-size:11px; color:var(--gold-soft); background:rgba(201,168,106,0.10); border:1px solid var(--gold-border-strong); padding:4px 10px; border-radius:999px">نسخه: ${cfg.version}</span>
-        <span style="margin-right:auto; display:flex; gap:6px">
-          <button class="btn-ghost" style="padding:6px 10px; font-size:11px" onclick="document.getElementById('aiCard')?.scrollIntoView({behavior:'smooth', block:'center'})">دستیار هوشمند</button>
-          <button class="btn-ghost" style="padding:6px 10px; font-size:11px" onclick="document.getElementById('statusCard')?.scrollIntoView({behavior:'smooth', block:'center'})">سلامت سیستم</button>
-          <button class="btn-ghost" style="padding:6px 10px; font-size:11px" onclick="document.getElementById('modulesCard')?.scrollIntoView({behavior:'smooth', block:'center'})">ماژول‌ها</button>
-        </span>
+        <span class="boutique-workspace-hint">ماژول را از ستون مدیریت انتخاب کنید؛ فرم کامل آن در فضای وسیع روبه‌رو باز می‌شود.</span>
       </div>
 
       <div class="settings-hub">
@@ -116,51 +112,26 @@ export const settingsModule = {
           </div>
         </div>
 
-        <!-- ستون وسط و چپ -->
+        <!-- فضای وسیع مدیریت بوتیک؛ AI و System Status فقط در Dashboard هستند -->
         <div class="settings-main">
-          <div class="settings-two-col">
-            <!-- دستیار هوشمند -->
-            <div class="panel ai-panel" id="aiCard">
-              <div class="panel-head"><h3>🤖 دستیار هوشمند تجاری (AI Assistant)</h3><span style="font-size:10px; background:rgba(201,168,106,0.14); color:var(--gold-soft); padding:3px 8px; border-radius:999px; border:1px solid var(--gold-border)">از چت قبلی</span></div>
-              <div class="ai-list" id="aiList">
-                <!-- JS render -->
-              </div>
-            </div>
-
-            <!-- وضعیت سیستم -->
-            <div class="panel status-panel" id="statusCard">
-              <div class="panel-head"><h3>⊕ وضعیت و سلامت سیستم (System Status)</h3><button class="btn-ghost" style="padding:5px 10px; font-size:11px" id="btnRefreshStatus">بررسی مجدد</button></div>
-              <div class="status-list" id="statusList">
-                <!-- JS render -->
-              </div>
-              <div style="padding:10px; display:grid; grid-template-columns:1fr 1fr; gap:8px">
-                <div style="background:rgba(255,255,255,0.03); border:1px solid var(--gold-border); border-radius:10px; padding:10px; text-align:center"><div style="font-size:11px; color:var(--text-faint)">آپتایم</div><b style="color:var(--success)">${cfg.system.uptime}</b></div>
-                <div style="background:rgba(255,255,255,0.03); border:1px solid var(--gold-border); border-radius:10px; padding:10px; text-align:center"><div style="font-size:11px; color:var(--text-faint)">کش طلایی</div><b style="color:var(--gold-soft)">${cfg.system.cache}</b></div>
-              </div>
-              <div style="padding:0 10px 10px 10px">
-                <label style="display:flex; justify-content:space-between; align-items:center; background:rgba(255,255,255,0.03); border:1px solid var(--gold-border); border-radius:10px; padding:8px 10px; font-size:12px">
-                  <span>نمایش نسخه PHP در داشبورد</span><input type="checkbox" checked style="accent-color:var(--gold)">
-                </label>
-              </div>
-            </div>
-          </div>
-
-          <!-- تنظیمات سریع -->
-          <div class="panel" style="margin-top:14px">
-            <div class="panel-head"><h3>⚙️ تنظیمات سریع هر ماژول</h3><span style="font-size:11px; color:var(--text-faint)" id="quickTitle">یک ماژول از سمت راست انتخاب کن</span></div>
-            <div id="quickSettings" style="padding:16px">
-              <div style="text-align:center; padding:18px; color:var(--text-muted); font-size:13px; background:rgba(255,255,255,0.02); border:1px dashed var(--gold-border); border-radius:12px">یک ماژول از ستون سمت راست انتخاب کن تا تنظیمات واقعی‌اش اینجا باز شود.<br><span style="color:var(--gold-soft)">تغییرات ذخیره و بلافاصله روی سایت اعمال می‌شود</span></div>
+          <div class="panel settings-workspace">
+            <div class="panel-head"><h3>⚙️ تنظیمات کامل ماژول انتخاب‌شده</h3><span style="font-size:11px;color:var(--text-faint)" id="quickTitle">یک ماژول از ستون مدیریت انتخاب کنید</span></div>
+            <div id="quickSettings" style="padding:18px">
+              <div style="text-align:center;padding:28px;color:var(--text-muted);font-size:13px;background:rgba(255,255,255,.02);border:1px dashed var(--gold-border);border-radius:12px">یک ماژول را انتخاب کنید تا تنظیمات واقعی آن در این فضای وسیع باز شود.<br><span style="color:var(--gold-soft)">تغییرات در WordPress ذخیره و بلافاصله روی سایت اعمال می‌شوند.</span></div>
             </div>
           </div>
         </div>
       </div>
 
+
       <style>
-        .settings-hub{ display:flex; gap:14px; align-items:start }
-        .settings-main{ flex:1; min-width:0 }
-        .settings-two-col{ display:grid; gap:14px; grid-template-columns: 1fr 1fr }
-        .modules-side{ width:310px; flex:0 0 310px; position:sticky; top:84px }
-        @media(max-width:1100px){ .settings-hub{flex-direction:column} .modules-side{width:100%; position:static} .settings-two-col{grid-template-columns:1fr} }
+        .settings-hub{display:grid;grid-template-columns:minmax(270px,310px) minmax(0,1fr);gap:16px;align-items:start}
+        .settings-main{min-width:0;width:100%}
+        .settings-workspace{min-height:560px}
+        .modules-side{width:auto;min-width:0;position:sticky;top:84px}
+        .boutique-workspace-hint{margin-right:auto;color:var(--text-muted);font-size:11px;line-height:1.7}
+        @media(min-width:1600px){.settings-hub{grid-template-columns:320px minmax(0,1fr);gap:20px}#quickSettings{padding:22px!important}}
+        @media(max-width:1180px){.settings-hub{grid-template-columns:1fr}.modules-side{width:100%;position:static}.settings-workspace{min-height:0}.boutique-workspace-hint{width:100%;margin:4px 0 0}}
         .modules-list{ display:grid; gap:0 }
         .mod-item{ display:flex; align-items:center; gap:10px; padding:11px 12px; font-size:12.8px; font-weight:500; color:var(--text-secondary); border-bottom:1px solid rgba(201,168,106,0.08); cursor:pointer; transition: all 0.18s ease; position:relative }
         .mod-item:hover{ background:rgba(255,255,255,0.03); color:var(--text-primary)}
@@ -223,6 +194,7 @@ export const settingsModule = {
     // رندر AI
     const aiList = container.querySelector('#aiList');
     function renderAI(){
+      if(!aiList)return;
       aiList.innerHTML = cfg.ai_assistant.suggestions.map((s,idx)=>`
         <div class="ai-item ${idx===0?'open':''}" data-ai="${s.id}">
           <button class="ai-head"><span class="ai-plus">${idx===0?'×':'+'}</span> ${s.title} <span class="ai-badge">${s.status==='new'?'جدید': s.status==='done'?'انجام شد':'AI'}</span></button>
@@ -241,6 +213,7 @@ export const settingsModule = {
     // رندر Status
     const statusList = container.querySelector('#statusList');
     function renderStatus(){
+      if(!statusList)return;
       statusList.innerHTML = `
         <div class="status-row"><span><span class="dot on"></span> ووکامرس</span><b>${cfg.system.woocommerce}</b></div>
         <div class="status-row"><span><span class="dot on"></span> وودمارت پلاس</span><b>${cfg.system.woodmart_plus}</b></div>

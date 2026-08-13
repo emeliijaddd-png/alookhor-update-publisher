@@ -7,7 +7,7 @@
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h16"/><path d="M4 12h16"/><path d="M4 17h16"/></svg>
       </button>
 
-      <a class="brand" href="#dashboard">
+      <a class="brand" href="#settings" data-module="settings">
         <div class="brand-mark"><span>A</span></div>
         <div class="brand-text">
           <h1>ALOOKHOR</h1>
@@ -26,7 +26,7 @@
       <div class="header-actions">
         <div class="version-badge" title="نسخه فعلی">
           <span style="width:6px; height:6px; border-radius:50%; background:#3DD68C; box-shadow:0 0 0 4px rgba(61,214,140,0.15); display:inline-block"></span>
-          <span id="headerVersion">v3.10.3</span>
+          <span id="headerVersion">v3.10.4</span>
           <span style="opacity:0.5">•</span>
           <span id="bpIndicator" style="font-family:monospace; font-size:11px">—</span>
         </div>
@@ -62,7 +62,14 @@
         <kbd>/</kbd>
       </label>
 
-      <!-- داشبورد — تکی و همیشه در بالا -->
+      <!-- مدیریت بوتیک — فضای اصلی و اولویت اول -->
+      <div class="nav-item single nav-item-primary" data-module="settings">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 10h16v10H4z"/><path d="M3 10l2-6h14l2 6"/><path d="M8 20v-6h4v6"/><path d="M3 10c0 1.7 2.2 2.6 3.5 1.4C7.7 12.6 10 11.7 10 10c0 1.7 2.3 2.6 3.5 1.4C14.8 12.6 17 11.7 17 10c0 1.7 2.2 2.6 3.5 1.4"/></svg>
+        مدیریت بوتیک
+        <span class="badge">اصلی</span>
+      </div>
+
+      <!-- داشبورد — پایش و سلامت سیستم -->
       <div class="nav-item single active" data-module="dashboard">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/></svg>
         داشبورد
@@ -71,8 +78,8 @@
 
       <nav id="proNav" style="display:grid; gap:4px; margin-top:4px">
 
-        <!-- گروه: فروش -->
-        <div class="nav-group open" data-group="sales">
+        <!-- گروه: فروش — بخش کم‌اولویت/آزمایشی -->
+        <div class="nav-group" data-group="sales">
           <div class="nav-group-head">
             <div class="nav-group-icon">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 2h9l5 5v15H6z"/><path d="M15 2v6h6"/><path d="M9 13h6"/><path d="M9 17h6"/></svg>
@@ -92,7 +99,7 @@
         </div>
 
         <!-- گروه: ویترین و انبار -->
-        <div class="nav-group open" data-group="catalog">
+        <div class="nav-group" data-group="catalog">
           <div class="nav-group-head">
             <div class="nav-group-icon">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 2l9 4.5v9L12 20 3 15.5v-9L12 2z"/><path d="M12 12l9-4.5"/><path d="M12 12v8"/><path d="M3 7.5l9 4.5"/></svg>
@@ -176,13 +183,12 @@
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 20a8 8 0 1 0 0-16 8 8 0 0 0 0 16Z"/><path d="M12 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"/></svg>
             </div>
             <span class="nav-group-title">سیستم</span>
-            <span class="nav-group-count">4</span>
+            <span class="nav-group-count">3</span>
             <span class="nav-chevron"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 9l6 6 6-6"/></svg></span>
           </div>
           <div class="nav-group-body"><div class="nav-group-inner">
             <div class="nav-sub-list">
               <div class="nav-sub-item" data-module="roles"><span class="sub-dot"></span> کاربران و دسترسی</div>
-              <div class="nav-sub-item" data-module="settings"><span class="sub-dot"></span> تنظیمات بوتیک</div>
               <div class="nav-sub-item" data-module="update"><span class="sub-dot"></span> Update Center <span style="width:7px; height:7px; border-radius:50%; background:#3DD68C; box-shadow:0 0 0 4px rgba(61,214,140,0.18); margin-right:auto"></span></div>
               <div class="nav-sub-item" data-module="logs"><span class="sub-dot"></span> لاگ‌ها</div>
             </div>
@@ -200,7 +206,7 @@
           <span style="margin-right:auto; font-size:10px; background:var(--gold); color:#1A1206; font-weight:800; padding:2px 7px; border-radius:999px">PRO</span>
         </div>
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:10px">
-          <div style="background:rgba(255,255,255,0.04); border:1px solid var(--gold-border); border-radius:10px; padding:8px; text-align:center"><div style="font-size:11px; color:var(--text-faint)">نسخه</div><b id="versionBadgeText" style="font-family:monospace; font-size:12px; color:var(--text-primary)">v3.10.3</b></div>
+          <div style="background:rgba(255,255,255,0.04); border:1px solid var(--gold-border); border-radius:10px; padding:8px; text-align:center"><div style="font-size:11px; color:var(--text-faint)">نسخه</div><b id="versionBadgeText" style="font-family:monospace; font-size:12px; color:var(--text-primary)">v3.10.4</b></div>
           <div style="background:rgba(255,255,255,0.04); border:1px solid var(--gold-border); border-radius:10px; padding:8px; text-align:center"><div style="font-size:11px; color:var(--text-faint)">ماژول</div><b style="font-size:12px; color:var(--gold-soft)">۱۹ فعال</b></div>
         </div>
         <div style="height:6px; background:rgba(255,255,255,0.06); border-radius:999px; overflow:hidden; margin-top:10px"><div style="width:100%; height:100%; background:linear-gradient(90deg,#C9A86A,#E8D5B5)"></div></div>
@@ -256,7 +262,7 @@
           </div>
         </div>
         <div style="margin-top:14px; background:rgba(201,168,106,0.08); border:1px solid rgba(201,168,106,0.14); border-radius:12px; padding:12px; font-size:12.5px; color:#E8D5B5; line-height:1.7">
-          <b>✓ افزونه نصب شد</b> — اگر این داشبورد را می‌بینی، یعنی هسته لود شده. حالا سایدبار سمت راست → <b>سیستم → تنظیمات بوتیک</b> بزن تا همون ۳ پنل طلایی (دستیار هوشمند + سلامت سیستم + ماژول‌ها) رو ببینی. اگر باز هم خالی بود، کش مرورگر را با <b>Ctrl+Shift+R</b> پاک کن.
+          <b>✓ افزونه نصب شد</b> — اگر این داشبورد را می‌بینی، یعنی هسته لود شده. از بالای سایدبار روی <b>مدیریت بوتیک</b> بزن تا فضای وسیع تنظیمات ماژول‌ها باز شود؛ دستیار هوشمند و سلامت سیستم فقط در داشبورد نمایش داده می‌شوند. اگر باز هم خالی بود، کش مرورگر را با <b>Ctrl+Shift+R</b> پاک کن.
         </div>
         <div class="two-col">
           <div class="panel">
@@ -275,7 +281,7 @@
 
       <!-- Footer luxury -->
       <div style="margin-top:18px; padding:14px 16px; display:flex; flex-wrap:wrap; gap:10px; justify-content:space-between; align-items:center; background:rgba(255,255,255,0.02); border:1px solid var(--gold-border); border-radius:14px; font-size:12px; color:var(--text-muted)">
-        <span>© 2026 ALOOKHOR — Control Center v3.10.3 • <span id="pageTitle" style="color:var(--gold-soft); font-weight:700">داشبورد</span> • معماری ماژولار حفظ شد</span>
+        <span>© 2026 ALOOKHOR — Control Center v3.10.4 • <span id="pageTitle" style="color:var(--gold-soft); font-weight:700">داشبورد</span> • معماری ماژولار حفظ شد</span>
         <span style="display:flex; gap:8px; align-items:center">
           <span style="width:7px; height:7px; border-radius:50%; background:#3DD68C; display:inline-block"></span> سیستم پایدار
           <span style="opacity:0.4">|</span> <a href="<?php echo esc_url(ALOOKHOR_CC_URL . 'docs/PROJECT_MEMORY.md'); ?>" target="_blank" rel="noopener" style="color:var(--gold-soft); text-decoration:underline; text-underline-offset:3px">حافظه پروژه</a>
@@ -294,7 +300,7 @@
           </div>
           <div>
             <h3>Update Center</h3>
-            <div style="font-size:12px; color:var(--text-muted); margin-top:2px" id="modalVersion">v3.10.3 — به‌روز</div>
+            <div style="font-size:12px; color:var(--text-muted); margin-top:2px" id="modalVersion">v3.10.4 — به‌روز</div>
           </div>
         </div>
         <button class="icon-btn" id="btnCloseModal" style="width:34px; height:34px">✕</button>
