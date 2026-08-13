@@ -108,8 +108,8 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 - **Function:** `alookhor_cc_hero_shortcode()`; markup callback `alookhor_cc_hero_markup()`.
 - **Registration:** `add_shortcode('alookhor_managed_hero', 'alookhor_cc_hero_shortcode')`.
 - **PHP file:** `plugin/alookhor-control-center/includes/hero.php`.
-- **Current WordPress use:** Home front page → Elementor Shortcode widget that renders the external Legacy root `.alookhor-hero-slider-wrapper` / `#alookhorHeroSlider`; the managed runtime replaces that exact root in place. Optional direct shortcode mode is available without duplicate template output.
-- **Elementor/container contract:** existing widget/container position is preserved; runtime adds `.alookhor-managed-hero-slot` only to normalize the exact host. Internal Elementor ID is reported from Production discovery when available and is never guessed.
+- **Current WordPress use:** Home front page → Elementor Shortcode widget `data-id="3c367e2"`, `data-widget_type="shortcode.default"`, verified from Production audit `31741626734`; it renders the external Legacy root `.alookhor-hero-slider-wrapper` / `#alookhorHeroSlider`, which the managed runtime replaces exactly in place. Optional direct shortcode mode is available without duplicate template output.
+- **Elementor/container contract:** existing widget/container position is preserved; runtime adds `.alookhor-managed-hero-slot` only to normalize the exact host. The ID above is source-backed; unavailable Elementor template exports are still never guessed.
 - **Output ID/classes:** `#alookhor-managed-hero`, `.alookhor-mh`, `.alookhor-mh-slide`, `.alookhor-mh-content`, `.alookhor-mh-features`, `.alookhor-mh-actions`, `.alookhor-mh-dots`, `.alookhor-mh-arrow`.
 - **Inputs:** no shortcode attributes; exactly four slide records from the main ALOOKHOR Control Center.
 - **Storage:** `alookhor_cc_settings.hero_settings`; `modules.hero` remains module metadata and is synchronized to four slides/autoplay.
@@ -207,7 +207,7 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 | `plugin/alookhor-control-center/templates/admin-control-center.php` | 388 | `2152f046bba5d742e8bffc76189a8a51d96e080cc550937434d8bc54f97f59a7` |
 | `plugin/alookhor-control-center/uninstall.php` | 6 | `d69282a9ab7c0865b6c60e6fca272d0859433e9c8730754fb2995295209ff84c` |
 | `scripts/build_release.py` | 101 | `f07af70658e73dd9e42f018cfa3e2ca35a7287599d7e6a4cf8e06951665126d8` |
-| `scripts/generate_code_registry.py` | 265 | `d44c86301291938310d7ec20a664b0159a39e582cf39072c7e5ab4a90b42041e` |
+| `scripts/generate_code_registry.py` | 265 | `54f64716f0abd0ef399e0ed64f6f5517bcae8c8bf18b40d1df8e5e5daf76f602` |
 | `scripts/header_visual_audit.py` | 122 | `dd31aaca5645f51b4f4feae97d782a9e55859c34778c300c3b7528e02952adda` |
 | `scripts/wordpress_access_check.py` | 442 | `2abd73fb09fb6322192067bf1764b3cb9709cfedd941f36c73a2ddc773f387af` |
 | `scripts/wordpress_release_test.py` | 234 | `e6b02d41f06d7b7f1c69eb55d692009a226879aac7721f8b4b819c97db782443` |
@@ -8025,8 +8025,8 @@ def render() -> str:
     add('- **Function:** `alookhor_cc_hero_shortcode()`; markup callback `alookhor_cc_hero_markup()`.')
     add('- **Registration:** `add_shortcode(\'alookhor_managed_hero\', \'alookhor_cc_hero_shortcode\')`.')
     add('- **PHP file:** `plugin/alookhor-control-center/includes/hero.php`.')
-    add('- **Current WordPress use:** Home front page → Elementor Shortcode widget that renders the external Legacy root `.alookhor-hero-slider-wrapper` / `#alookhorHeroSlider`; the managed runtime replaces that exact root in place. Optional direct shortcode mode is available without duplicate template output.')
-    add('- **Elementor/container contract:** existing widget/container position is preserved; runtime adds `.alookhor-managed-hero-slot` only to normalize the exact host. Internal Elementor ID is reported from Production discovery when available and is never guessed.')
+    add('- **Current WordPress use:** Home front page → Elementor Shortcode widget `data-id="3c367e2"`, `data-widget_type="shortcode.default"`, verified from Production audit `31741626734`; it renders the external Legacy root `.alookhor-hero-slider-wrapper` / `#alookhorHeroSlider`, which the managed runtime replaces exactly in place. Optional direct shortcode mode is available without duplicate template output.')
+    add('- **Elementor/container contract:** existing widget/container position is preserved; runtime adds `.alookhor-managed-hero-slot` only to normalize the exact host. The ID above is source-backed; unavailable Elementor template exports are still never guessed.')
     add('- **Output ID/classes:** `#alookhor-managed-hero`, `.alookhor-mh`, `.alookhor-mh-slide`, `.alookhor-mh-content`, `.alookhor-mh-features`, `.alookhor-mh-actions`, `.alookhor-mh-dots`, `.alookhor-mh-arrow`.')
     add('- **Inputs:** no shortcode attributes; exactly four slide records from the main ALOOKHOR Control Center.')
     add('- **Storage:** `alookhor_cc_settings.hero_settings`; `modules.hero` remains module metadata and is synchronized to four slides/autoplay.')

@@ -79,7 +79,7 @@ This rule supersedes every earlier interpretation of full-header Sticky behavior
 
 ## Managed Hero contract
 
-1. The source-backed Legacy root is `.alookhor-hero-slider-wrapper` / `#alookhorHeroSlider`, rendered inside the Home page Elementor Shortcode widget by external `alookhor-categories-manager` assets.
+1. The source-backed Legacy root is `.alookhor-hero-slider-wrapper` / `#alookhorHeroSlider`, rendered by external `alookhor-categories-manager` inside Elementor Shortcode widget `data-id="3c367e2"` (`shortcode.default`), verified in Production audit `31741626734`.
 2. Managed runtime replaces that exact root in place with `#alookhor-managed-hero`; it must never append a second Slider beside or below it.
 3. Exactly four records are enforced under `alookhor_cc_settings.hero_settings.slides` and in REST/rendered output.
 4. Every record supports WordPress Media Library attachment ID/URL, Alt, Kicker, white Title, Gold Highlight, Description, four Feature labels, and two CTA label/URL pairs.
@@ -143,6 +143,7 @@ Current Legacy/managed Hero placement:
 WordPress → Pages → Home (front page) → Elementor Shortcode widget
 Legacy root: .alookhor-hero-slider-wrapper
 Legacy ID: #alookhorHeroSlider
+Elementor widget: Shortcode (`data-id="3c367e2"`, `data-widget_type="shortcode.default"`) — verified from Production audit run 31741626734
 Managed replacement: #alookhor-managed-hero
 Optional managed shortcode: [alookhor_managed_hero]
 Movement: retain the existing widget/container; automatic replacement preserves its position
