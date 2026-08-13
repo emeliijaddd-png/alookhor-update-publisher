@@ -1,35 +1,37 @@
 {
-  "version": "3.10.6",
-  "previous": "3.10.5",
+  "version": "3.10.7",
+  "previous": "3.10.6",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "تثبیت هویت Black/Gold واقعی ALOOKHOR برای هدر جدید و بازیابی شماره تماس تأییدشده 3173.",
+  "description": "اصلاح فوری Header: حذف کامل Search و ردیف اضافه Mobile؛ کپسول واحد مطابق مرجع با Hamburger، لوگو، حساب و سبد واقعی.",
   "changelog": [
     {
-      "tag": "BRAND PALETTE",
-      "title": "حذف رنگ‌های Orange/Green مرجع",
-      "desc": "Top Bar و Navigation به پالت واقعی ذخیره‌شده ALOOKHOR شامل مشکی/بنفش تیره، طلایی و متن روشن بازگردانده شدند."
+      "tag": "MOBILE LAYOUT FIX",
+      "title": "حذف ردیف اضافه و فضای خالی Mobile",
+      "desc": "Stage جداگانه Navigation در عرض Mobile کاملاً مخفی شد؛ فقط Top Bar و کپسول اصلی مطابق مرجع باقی می‌مانند."
     },
     {
-      "tag": "TARGETED MIGRATION",
-      "title": "مهاجرت محدود بدون دست‌زدن به سایر تنظیمات",
-      "desc": "فقط فیلدهای رنگ Header، Sticky/Search، ابعاد لوگو و تلفن تأییدشده تغییر می‌کنند؛ تمام منوها، لینک‌ها و سایر Stateها حفظ می‌شوند."
+      "tag": "SEARCH REMOVED",
+      "title": "حذف کامل جستجوی محصول از Header",
+      "desc": "فرم Search، CSS و کنترل‌های مدیریتی آن حذف شدند و Migration وضعیت نمایش را به false تثبیت می‌کند."
     },
     {
-      "tag": "CONTACT AUTHORITY",
-      "title": "بازیابی شماره صحیح پایان 3173",
-      "desc": "شماره Header و Footer مشترک مطابق تصمیم قطعی پروژه به 09159513173 بازگردانده و از Regression جلوگیری شد."
+      "tag": "REFERENCE CAPSULE",
+      "title": "Hamburger راست، لوگو وسط، حساب و سبد چپ",
+      "desc": "همان Hamburger و Drawer موجود بدون کپی ID جابه‌جا شدند؛ سبد واقعی WooCommerce با Count پویا به کپسول افزوده شد."
     }
   ],
   "project": "ALOOKHOR",
-  "area": "Header Brand State / Targeted WordPress Migration",
-  "reason": "رنگ‌های ذخیره‌شده Production با رنگ نارنجی/سبز تصویر مرجع همسان شده بودند؛ کاربر صریحاً پالت واقعی سایت را خواست و شماره تماس نیز برخلاف مرجع قطعی به 3174 تغییر کرده بود.",
+  "area": "Frontend Header / Mobile Capsule / Regression Fix",
+  "reason": "نسخه قبلی در Mobile ردیف Navigation اضافه و Search ناخواسته ایجاد کرده بود و با مرجع صریح کاربر همخوان نبود.",
   "files": [
+    "plugin/alookhor-control-center/assets/css/frontend-header-scroll.css",
+    "plugin/alookhor-control-center/assets/js/frontend-topbar-manager.js",
     "plugin/alookhor-control-center/alookhor-control-center.php",
-    "plugin/alookhor-control-center/includes/rest-api.php",
-    "scripts/wordpress_release_test.py",
-    "scripts/wordpress_access_check.py"
+    "plugin/alookhor-control-center/assets/js/modules/settings.js",
+    "plugin/alookhor-control-center/includes/admin.php",
+    "plugin/alookhor-control-center/includes/rest-api.php"
   ]
 }

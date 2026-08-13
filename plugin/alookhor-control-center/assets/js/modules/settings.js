@@ -1,4 +1,4 @@
-import { Config } from '../core/config.js?v=3.10.6';
+import { Config } from '../core/config.js?v=3.10.7';
 
 const escapeAttr = value => String(value ?? '').replace(/[&<>'"]/g, char => ({
   '&':'&amp;', '<':'&lt;', '>':'&gt;', "'":'&#039;', '"':'&quot;'
@@ -28,7 +28,7 @@ export const settingsModule = {
       topbar_button_bg:'#C9A86A', topbar_button_text:'#1A1206', topbar_height:38,
       header_surface:'#0D0916', header_text_color:'#F7F2EA', header_muted_color:'#B8B0BD',
       header_logo_desktop_width:118, header_logo_mobile_width:58,
-      show_search:true, search_placeholder:'جستجوی محصول…', show_topbar:true, show_phone:true, show_email:true, show_whatsapp:true, show_export:true,
+      show_search:false, search_placeholder:'جستجوی محصول…', show_topbar:true, show_phone:true, show_email:true, show_whatsapp:true, show_export:true,
       show_wholesale:true, wholesale_new_tab:false
     }, cfg.header_settings || {});
     cfg.footer_settings = Object.assign({
@@ -271,7 +271,6 @@ export const settingsModule = {
         <div class="qh-section"><div class="qh-title"><b>هدر اصلی و Navigation چسبان</b><small>STICKY NAV</small></div><div class="qh-grid">
           <label>عرض لوگو Desktop<input id="inpHeaderLogoDesktop" type="number" min="70" max="220" value="${Number(cfg.header_settings.header_logo_desktop_width)||118}"></label>
           <label>عرض لوگو Mobile<input id="inpHeaderLogoMobile" type="number" min="42" max="110" value="${Number(cfg.header_settings.header_logo_mobile_width)||58}"></label>
-          <label class="qh-span-2">متن داخل جستجو<input id="inpHeaderSearchPlaceholder" value="${escapeAttr(cfg.header_settings.search_placeholder)}"></label>
         </div><div class="qh-colors" style="margin-top:9px">
           <label>سطح Navigation<input id="inpHeaderSurface" type="color" value="${escapeAttr(cfg.header_settings.header_surface)}"></label>
           <label>متن Navigation<input id="inpHeaderText" type="color" value="${escapeAttr(cfg.header_settings.header_text_color)}"></label>
@@ -280,7 +279,7 @@ export const settingsModule = {
 
         <div class="qh-section"><div class="qh-title"><b>نمایش یا عدم نمایش</b><small>VISIBILITY</small></div><div class="qh-flags">
           ${[
-            ['sticky','Sticky فقط Navigation'],['show_search','جستجوی محصولات'],['show_topbar','کل Top Bar'],['show_phone','تلفن'],['show_email','ایمیل'],['show_whatsapp','WhatsApp'],
+            ['sticky','Sticky فقط Navigation'],['show_topbar','کل Top Bar'],['show_phone','تلفن'],['show_email','ایمیل'],['show_whatsapp','WhatsApp'],
             ['show_export','صادرات'],['show_wholesale','خرید عمده'],['show_account','ورود/حساب'],['wholesale_new_tab','لینک عمده در تب جدید']
           ].map(([key,label])=>`<label><input type="checkbox" data-header-flag="${key}" ${isEnabled(cfg.header_settings[key])?'checked':''}>${label}</label>`).join('')}
         </div></div>
@@ -417,7 +416,6 @@ export const settingsModule = {
             top_logo_width:Math.max(50,Math.min(180,Number(value('inpTopLogoWidth'))||96)),
             header_logo_desktop_width:Math.max(70,Math.min(220,Number(value('inpHeaderLogoDesktop'))||118)),
             header_logo_mobile_width:Math.max(42,Math.min(110,Number(value('inpHeaderLogoMobile'))||58)),
-            search_placeholder:value('inpHeaderSearchPlaceholder'),
             header_surface:value('inpHeaderSurface'), header_text_color:value('inpHeaderText'), header_muted_color:value('inpHeaderMuted'),
             topbar_bg:value('inpTopbarBg'), topbar_text_color:value('inpTopbarText'), topbar_border_color:value('inpTopbarBorder'),
             topbar_button_bg:value('inpTopbarButtonBg'), topbar_button_text:value('inpTopbarButtonText'),

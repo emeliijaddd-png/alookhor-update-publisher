@@ -3,7 +3,7 @@
  * Plugin Name: ALOOKHOR Control Center
  * Plugin URI: https://alookhor.ir
  * Description: کنترل سنتر لوکس و ماژولار آلوخور — مدیریت کامل سایت (هدر، اسلایدر، سورت، محصولات، مشتریان VIP، مالی، آنالیتیکس) با آپدیت آنی بدون رفرش. تمام تنظیمات چت قبلی + شورت‌کد [alookhor_portal_header] اینجا مدیریت می‌شود.
- * Version: 3.10.6
+ * Version: 3.10.7
  * Author: ALOOKHOR Team — Luxury Modular
  * Author URI: https://alookhor.ir
  * Update URI: https://alookhor.ir/alookhor-control-center
@@ -16,8 +16,8 @@
 
 if (!defined('ABSPATH')) exit;
 
-define('ALOOKHOR_CC_VERSION', '3.10.6');
-define('ALOOKHOR_CC_BUILD', '3.10.6');
+define('ALOOKHOR_CC_VERSION', '3.10.7');
+define('ALOOKHOR_CC_BUILD', '3.10.7');
 define('ALOOKHOR_CC_FILE', __FILE__);
 define('ALOOKHOR_CC_DIR', plugin_dir_path(__FILE__));
 define('ALOOKHOR_CC_URL', plugin_dir_url(__FILE__));
@@ -72,6 +72,8 @@ add_action('wp_enqueue_scripts', function(){
             'endpoint' => rest_url('alookhor-cc/v1/topbar'),
             'version' => ALOOKHOR_CC_VERSION,
             'home_url' => home_url('/'),
+            'cart_url' => function_exists('wc_get_cart_url') ? wc_get_cart_url() : home_url('/cart/'),
+            'cart_count' => function_exists('WC') && WC()->cart ? (int) WC()->cart->get_cart_contents_count() : 0,
             'logo_text' => $h['logo_text'],
             'gold' => $h['gold'],
             'sticky' => (bool) $h['sticky'],
@@ -202,7 +204,7 @@ function alookhor_cc_get_header_settings(){
         'header_logo_desktop_width' => 118,
         'header_logo_mobile_width' => 58,
         'sticky' => true,
-        'show_search' => true,
+        'show_search' => false,
         'search_placeholder' => 'جستجوی محصول…',
         'show_topbar' => true,
         'show_account' => true,
@@ -237,7 +239,7 @@ function alookhor_cc_get_header_settings(){
 }
 
 /**
- * One-time 3.10.6 migration requested by the site owner: restore the verified
+ * One-time 3.10.7 migration requested by the site owner: restore the verified
  * ALOOKHOR Black/Gold Header palette (not the orange/green reference colors)
  * and the authoritative contact phone ending in 3173. Every unrelated Header
  * value remains untouched.
@@ -283,3 +285,26 @@ function alookhor_cc_migrate_header_brand_3106(){
     update_option(ALOOKHOR_CC_OPTION, $main);
 }
 add_action('init', 'alookhor_cc_migrate_header_brand_3106', 120);
+
+/** Remove the rejected Header search and record the Mobile layout correction. */
+function alookhor_cc_migrate_header_layout_3107(){
+    $main = get_option(ALOOKHOR_CC_OPTION, []);
+    if (!is_array($main)) $main = [];
+    if (!empty($main['_migrations']['header_layout_3107']['ok'])) return;
+    $header = get_option(ALOOKHOR_CC_HEADER_OPTION, []);
+    if (!is_array($header)) $header = [];
+    $header['show_search'] = false;
+    update_option(ALOOKHOR_CC_HEADER_OPTION, $header);
+    $main_header = is_array($main['header_settings'] ?? null) ? $main['header_settings'] : [];
+    $main_header['show_search'] = false;
+    $main['header_settings'] = $main_header;
+    $main['_migrations']['header_layout_3107'] = [
+        'ok' => true,
+        'version' => '3.10.7',
+        'search_removed' => true,
+        'mobile_extra_stage_removed' => true,
+        'checked_at' => time(),
+    ];
+    update_option(ALOOKHOR_CC_OPTION, $main);
+}
+add_action('init', 'alookhor_cc_migrate_header_layout_3107', 121);

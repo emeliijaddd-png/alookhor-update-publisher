@@ -155,7 +155,6 @@ function alookhor_cc_render_header_settings(){
                     <label>زیرعنوان <input name="logo_sub" value="<?php echo esc_attr($h['logo_sub']); ?>" class="alookhor-field"></label>
                     <label>حرف لوگو <input name="logo_letter" value="<?php echo esc_attr($h['logo_letter']); ?>" maxlength="2" class="alookhor-field"></label>
                     <label>متن ورود <input name="account_text" value="<?php echo esc_attr($h['account_text']); ?>" class="alookhor-field"></label>
-                    <label>متن جستجوی محصول <input name="search_placeholder" value="<?php echo esc_attr($h['search_placeholder']); ?>" class="alookhor-field"></label>
                     <label>فهرست اصلی
                         <select name="primary_menu" class="alookhor-field">
                             <option value="0">تشخیص خودکار از WordPress</option>
@@ -169,7 +168,6 @@ function alookhor_cc_render_header_settings(){
             <div style="display:flex;gap:10px;flex-wrap:wrap">
                 <?php foreach ([
                     'sticky' => 'Sticky فقط Navigation اصلی',
-                    'show_search' => 'نمایش جستجوی محصولات',
                     'show_topbar' => 'نمایش Top Bar',
                     'show_phone' => 'نمایش تلفن',
                     'show_email' => 'نمایش ایمیل',

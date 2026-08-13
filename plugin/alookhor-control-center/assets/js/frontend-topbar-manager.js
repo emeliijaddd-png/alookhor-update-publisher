@@ -1,5 +1,5 @@
 /**
- * ALOOKHOR Legacy Top Bar Manager — v3.10.6
+ * ALOOKHOR Legacy Top Bar Manager — v3.10.7
  * Preserves the legacy header/mega-menu HTML and synchronizes managed Top Bar
  * values from a fresh read-only REST endpoint, even when the page HTML is cached.
  */
@@ -87,20 +87,20 @@
     root.style.setProperty('--alookhor-header-muted', cfg.header_muted_color || '#B8B0BD');
     root.style.setProperty('--alookhor-mobile-logo-width', `${clamp(cfg.header_logo_mobile_width, 42, 110, 58)}px`);
 
-    let search = capsule.querySelector('.alookhor-legacy-main-search');
-    if (!search) {
-      search = document.createElement('form');
-      search.className = 'alookhor-legacy-main-search';
-      search.method = 'get';
-      search.action = cfg.home_url || '/';
-      search.setAttribute('role', 'search');
-      search.innerHTML = `<input type="search" name="s" autocomplete="off" aria-label="جستجوی محصولات" placeholder="${String(cfg.search_placeholder || 'جستجوی محصول…').replace(/[\"<>]/g, '')}"><input type="hidden" name="post_type" value="product"><button type="submit" aria-label="اجرای جستجو"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg></button>`;
-      capsule.prepend(search);
+    const mainToggle = root.querySelector('#openDrawer,.alookhor-hamburger-btn');
+    if (mainToggle) {
+      mainToggle.classList.add('alookhor-main-menu-toggle');
+      if (mainToggle.parentElement !== capsule) capsule.append(mainToggle);
     }
-    search.action = cfg.home_url || '/';
-    const searchInput = search.querySelector('input[type="search"]');
-    if (searchInput) searchInput.placeholder = cfg.search_placeholder || 'جستجوی محصول…';
-    setVisible(search, asBool(cfg.show_search));
+    const actions = capsule.querySelector('.header-capsule-left');
+    if (actions && !actions.querySelector('.alookhor-header-cart-link')) {
+      const cart = document.createElement('a');
+      cart.className = 'alookhor-header-cart-link';
+      cart.href = cfg.cart_url || '/cart/';
+      cart.setAttribute('aria-label', 'سبد خرید');
+      cart.innerHTML = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h2l2 11h10l3-8H6M9 20a1 1 0 1 0 0-2 1 1 0 0 0 0 2Zm8 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z"/></svg><span class="alookhor-cart-count">${Math.max(0,Number(cfg.cart_count)||0)}</span>`;
+      actions.prepend(cart);
+    }
 
     let stage = root.querySelector('.alookhor-legacy-nav-stage');
     if (!stage) {
@@ -112,34 +112,6 @@
       navigation.before(document.createComment('ALOOKHOR primary navigation moved intact to sticky stage'));
       shell.append(navigation);
 
-      const mobile = document.createElement('div');
-      mobile.className = 'alookhor-legacy-mobile-nav';
-      const brand = document.createElement('a');
-      brand.className = 'alookhor-legacy-mobile-brand';
-      brand.href = cfg.home_url || '/';
-      brand.setAttribute('aria-label', cfg.top_logo_alt || 'ALOOKHOR');
-      const sourceLogo = header.querySelector('.header-capsule-logo img');
-      if (sourceLogo?.src) {
-        const image = document.createElement('img');
-        image.src = sourceLogo.src;
-        image.alt = sourceLogo.alt || cfg.top_logo_alt || 'ALOOKHOR';
-        brand.append(image);
-      }
-      const brandText = document.createElement('span');
-      brandText.textContent = cfg.logo_text || 'ALOOKHOR';
-      brand.append(brandText);
-
-      const mobileToggle = document.createElement('button');
-      mobileToggle.type = 'button';
-      mobileToggle.className = 'alookhor-mobile-sticky-toggle';
-      mobileToggle.setAttribute('aria-label', 'بازکردن منوی اصلی');
-      mobileToggle.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>';
-      mobileToggle.addEventListener('click', () => {
-        const original = root.querySelector('#openDrawer,.alookhor-hamburger-btn,[class*="hamburger" i]');
-        original?.click();
-      });
-      mobile.append(brand, mobileToggle);
-      shell.append(mobile);
       stage.append(shell);
       const marker = document.createElement('span');
       marker.className = 'alookhor-legacy-nav-marker';
@@ -180,8 +152,6 @@
         headerLogo.style.setProperty('max-width', `${width}px`, 'important');
         headerLogo.style.setProperty('height', 'auto', 'important');
         headerLogo.style.setProperty('background', 'transparent', 'important');
-        const mobileLogo = stage.querySelector('.alookhor-legacy-mobile-brand img');
-        if (mobileLogo) mobileLogo.src = headerLogo.src;
       };
       setLogoSize();
       if (root.dataset.headerLogoResize !== '1') {
@@ -193,7 +163,7 @@
   }
 
   function manage(root, force = false) {
-    if (!root || (!force && root.dataset.topbarManaged === '3.10.6')) return;
+    if (!root || (!force && root.dataset.topbarManaged === '3.10.7')) return;
 
     const contactTexts = [...root.querySelectorAll('.topbar-contact-txt,[class*="contact-txt" i]')];
     const phone = root.querySelector('a[href^="tel:"]') || contactTexts.find(element => {
@@ -303,8 +273,7 @@
     if (cfg.top_logo_url) {
       const logos = [
         topbar?.querySelector('[class*="logo" i] img,img[alt*="لوگو"],img[alt*="alookhor" i]'),
-        root.querySelector('.header-capsule-logo img'),
-        root.querySelector('.alookhor-legacy-mobile-brand img')
+        root.querySelector('.header-capsule-logo img')
       ].filter(Boolean);
       logos.forEach(logo => {
         logo.src = cfg.top_logo_url;
@@ -318,8 +287,8 @@
     }
 
     setupHeaderBehavior(root);
-    root.dataset.topbarManaged = '3.10.6';
-    root.dispatchEvent(new CustomEvent('alookhor:topbar-managed', {bubbles:true, detail:{version:'3.10.6'}}));
+    root.dataset.topbarManaged = '3.10.7';
+    root.dispatchEvent(new CustomEvent('alookhor:topbar-managed', {bubbles:true, detail:{version:'3.10.7'}}));
   }
 
   function init(scope = document, force = false) {

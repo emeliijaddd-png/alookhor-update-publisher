@@ -119,6 +119,14 @@ try:
             and str(migration.get('version')) == '3.10.6'
             and bool(migration.get('before_hash')) and bool(migration.get('after_hash'))
         )
+    if production_parts >= (3, 10, 7):
+        layout_migration = settings.get('header_layout_migration')
+        report['checks']['header_layout_migration'] = (
+            isinstance(layout_migration, dict) and layout_migration.get('ok') is True
+            and str(layout_migration.get('version')) == '3.10.7'
+            and layout_migration.get('search_removed') is True
+            and layout_migration.get('mobile_extra_stage_removed') is True
+        )
 
     public_url = base + '/?alookhor_access_audit=' + production_version.replace('.', '')
     with urlopen(Request(public_url, headers={'User-Agent': 'ALOOKHOR-GitHub-Publisher/1.0'}), timeout=30) as response:
@@ -218,7 +226,13 @@ try:
                 and f"=== '{production_version}'" in manager_source
                 and (
                     version_tuple(production_version) < version_tuple('3.10.5')
-                    or all(token in manager_source for token in ['setupHeaderBehavior', 'data-alookhor-navigation', 'header.after(marker, stage)'])
+                    or (
+                        all(token in manager_source for token in ['setupHeaderBehavior', 'data-alookhor-navigation', 'header.after(marker, stage)'])
+                        and (
+                            version_tuple(production_version) < version_tuple('3.10.7')
+                            or ('alookhor-header-cart-link' in manager_source and 'alookhor-legacy-main-search' not in manager_source)
+                        )
+                    )
                 )
             )
         except Exception as error:
@@ -264,7 +278,8 @@ try:
                     and topbar_state.get('header_surface') == '#0D0916'
                     and topbar_state.get('header_text_color') == '#F7F2EA'
                     and topbar_state.get('header_muted_color') == '#B8B0BD'
-                    and topbar_state.get('sticky') is True and topbar_state.get('show_search') is True
+                    and topbar_state.get('sticky') is True
+                    and topbar_state.get('show_search') is (False if version_tuple(production_version) >= version_tuple('3.10.7') else True)
                 )
         except Exception as error:
             report['public_topbar']['fresh_endpoint_error'] = str(error)

@@ -22,8 +22,9 @@ When sources disagree, the newer provable runtime/source wins. Missing source is
 ## Authoritative current state
 
 - **Production runtime:** ALOOKHOR Control Center `3.10.6`
-- **Current Production tag/source:** `v3.10.6` / `b3c80616057f9279f8279b818e01be965f4f9714`
-- **Published package SHA-256:** `9b47e45bc4aebd5fa947149e51eb3de8ecb647af336c08a0291ee4dba8859f2e`
+- **Current source target:** `3.10.7` — urgent Mobile Header reference correction; pending tagged deployment and verification.
+- **Last Production tag/source:** `v3.10.6` / `b3c80616057f9279f8279b818e01be965f4f9714`
+- **Last published package SHA-256:** `9b47e45bc4aebd5fa947149e51eb3de8ecb647af336c08a0291ee4dba8859f2e`
 - **Deployment run:** `31719379272`
 - **Independent audit run:** `31719692503`
 - **Production:** active and verified
@@ -57,8 +58,8 @@ This rule supersedes every earlier interpretation of full-header Sticky behavior
 
 1. At page start, all three rows are visible in normal document flow: Top Bar, Main Header, and Primary Navigation.
 2. Top Bar and Main Header must never remain fixed/sticky while scrolling down; they leave the viewport with the page.
-3. The existing WordPress-driven `.header-nav-center` is moved intact—not rebuilt—into a dedicated Navigation stage immediately after the Main Header.
-4. Only that Primary Navigation stage may use `position: sticky` and remain usable at the top of the viewport.
+3. On Desktop, the existing WordPress-driven `.header-nav-center` is moved intact—not rebuilt—into a dedicated Navigation stage immediately after the Main Header.
+4. Only that Desktop Primary Navigation stage may use `position: sticky` and remain usable at the top of the viewport.
 5. The sticky stage retains its normal-flow footprint and does not change height when stuck, preventing Layout Shift.
 6. Scrolling back toward the page start naturally and smoothly returns the Main Header and Top Bar; at `scrollY=0` all rows are in their initial state.
 7. Existing shortcode, menu nodes, Mega Menu, Drawer trigger, IDs, classes, and WordPress menu data are preserved.
@@ -67,6 +68,9 @@ This rule supersedes every earlier interpretation of full-header Sticky behavior
 10. Rollback remains available through the existing `sticky` setting and versioned plugin release.
 11. The approved Header palette is the site’s own Black/Gold state—not the orange/green colors in the structural reference: `#11091D`, `#0D0916`, `#C9A86A`, `#E8D5B5`, `#F7F2EA`, and `#B8B0BD`.
 12. The authoritative shared Header/Footer contact phone is `09159513173`; any ending in 3174 or 3179 is a regression.
+13. Mobile has exactly two visible rows: Top Bar and one Main Capsule. No extra sticky Navigation row is rendered at `≤1023px`.
+14. The Main Capsule layout is: original Hamburger/Drawer trigger on the right, shared transparent logo in the center, and account plus real WooCommerce cart on the left.
+15. Product Search is explicitly rejected and must not be rendered in Desktop or Mobile Header, nor exposed as a Boutique setting.
 
 ## Current categories contract
 

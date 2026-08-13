@@ -98,17 +98,20 @@ jobs:
           assert '.alookhor-topbar-wrapper' in header_scroll_css and 'position:relative!important' in header_scroll_css
           assert 'setupHeaderBehavior' in topbar_manager and "header.after(marker, stage)" in topbar_manager
           assert "navigation.before(document.createComment" in topbar_manager and "data-alookhor-navigation" in topbar_manager
-          assert 'alookhor-legacy-main-search' in topbar_manager and 'alookhor-mobile-sticky-toggle' in topbar_manager
-          assert 'position:fixed!important' not in header_scroll_css and '.alookhor-legacy-main-search' in header_scroll_css
+          assert 'alookhor-legacy-main-search' not in topbar_manager and 'alookhor-mobile-sticky-toggle' not in topbar_manager
+          assert 'alookhor-main-menu-toggle' in topbar_manager and 'alookhor-header-cart-link' in topbar_manager
+          assert 'position:fixed!important' not in header_scroll_css and '.alookhor-legacy-nav-marker,.alookhor-legacy-nav-stage{display:none!important}' in header_scroll_css
           assert "'header_logo_desktop_width' => 118" in header_php and "'header_logo_mobile_width' => 58" in header_php
-          assert 'inpHeaderLogoDesktop' in settings_js and 'inpHeaderSearchPlaceholder' in settings_js
+          assert 'inpHeaderLogoDesktop' in settings_js and 'inpHeaderLogoMobile' in settings_js and 'inpHeaderSearchPlaceholder' not in settings_js
           assert "frontend-header-scroll.css" in bootstrap_php and "'sticky' => (bool) $h['sticky']" in bootstrap_php
           rest_php = Path('plugin/alookhor-control-center/includes/rest-api.php').read_text()
           release_test = Path('scripts/wordpress_release_test.py').read_text()
           assert 'alookhor_cc_migrate_header_brand_3106' in bootstrap_php and "'phone' => '09159513173'" in bootstrap_php
           assert "'topbar_bg' => '#11091D'" in bootstrap_php and "'topbar_button_bg' => '#C9A86A'" in bootstrap_php
           assert 'header_brand_migration' in rest_php and 'header_brand_palette' in release_test
-          print('Managed footer/category/admin/header behavior and brand migration contracts passed')
+          assert 'alookhor_cc_migrate_header_layout_3107' in bootstrap_php and "'show_search'] = false" in bootstrap_php
+          assert 'header_layout_migration' in rest_php
+          print('Managed footer/category/admin/header behavior and layout correction contracts passed')
           PY
 
       - name: Build and validate release

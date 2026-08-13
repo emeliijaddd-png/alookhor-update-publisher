@@ -26,7 +26,7 @@ function alookhor_cc_front_header_settings(){
         'header_logo_desktop_width' => 118,
         'header_logo_mobile_width' => 58,
         'sticky'          => true,
-        'show_search'     => true,
+        'show_search'     => false,
         'search_placeholder' => 'جستجوی محصول…',
         'show_topbar'     => true,
         'show_account'    => true,
@@ -320,7 +320,7 @@ function alookhor_cc_render_managed_legacy_header($atts = [], $content = null, $
 
     $html = call_user_func($provider, $atts, $content, $tag ?: 'alookhor_portal_header');
     if (!is_string($html)) $html = '';
-    return '<div class="alookhor-managed-legacy-header" data-alookhor-managed="3.10.6" style="display:contents">' . $html . '</div>';
+    return '<div class="alookhor-managed-legacy-header" data-alookhor-managed="3.10.7" style="display:contents">' . $html . '</div>';
 }
 
 /**

@@ -100,6 +100,14 @@ try:
     report['checks']['category_settings'] = after.get('settings', {}).get('category_settings') is True
     report['checks']['category_enabled'] = after.get('settings', {}).get('category_enabled') is True
     report['checks']['category_module'] = after.get('settings', {}).get('category_module') is True
+    if tuple(map(int, TARGET.split('.'))) >= (3, 10, 7):
+        layout_migration = after.get('settings', {}).get('header_layout_migration')
+        report['checks']['header_layout_migration'] = (
+            isinstance(layout_migration, dict) and layout_migration.get('ok') is True
+            and str(layout_migration.get('version')) == '3.10.7'
+            and layout_migration.get('search_removed') is True
+            and layout_migration.get('mobile_extra_stage_removed') is True
+        )
     if current != TARGET:
         restore = after.get('last_activation_restore') or after.get('transition_activation_restore')
         report['checks']['activation_restore'] = isinstance(restore, dict) and (
@@ -157,7 +165,8 @@ try:
             and topbar.get('header_surface') == '#0D0916'
             and topbar.get('header_text_color') == '#F7F2EA'
             and topbar.get('header_muted_color') == '#B8B0BD'
-            and topbar.get('sticky') is True and topbar.get('show_search') is True
+            and topbar.get('sticky') is True
+            and topbar.get('show_search') is (False if tuple(map(int, TARGET.split('.'))) >= (3, 10, 7) else True)
         )
 
     footer_url = BASE + '/wp-json/alookhor-cc/v1/footer?release_test=' + TARGET.replace('.', '')

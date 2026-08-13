@@ -1,5 +1,14 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.7 — 2026-08-13 — Header Mobile Reference Correction
+- REGRESSION: حذف کامل فرم Search ناخواسته از PHP/JS/CSS و پنل مدیریت.
+- MOBILE: حذف Stage چسبان جداگانه در ≤1023px؛ فضای خالی و ردیف سوم Mobile دیگر تولید/نمایش نمی‌شود.
+- LAYOUT: کپسول اصلی با Grid قطعی: Hamburger موجود در راست، لوگوی شفاف در مرکز، حساب و سبد خرید در چپ.
+- DRAWER: همان Node و ID اصلی `#openDrawer` جابه‌جا شد؛ Clone، ID تکراری یا Drawer دوم ساخته نشد.
+- WOO: افزودن لینک واقعی Cart و Count جاری WooCommerce به کپسول.
+- DESKTOP: Navigation مستقل و Sticky فقط در Desktop حفظ شد؛ Search در Desktop نیز حذف شد.
+- MIGRATION: `show_search=false` و Marker اصلاح Layout ثبت می‌شوند.
+
 ## v3.10.6 — 2026-08-13 — Header Brand-State Correction
 - PALETTE: حذف رنگ‌های ذخیره‌شده Orange/Green مرجع و بازیابی Black/Gold واقعی ALOOKHOR برای Top Bar و Navigation.
 - CONTACT: بازیابی شماره قطعی `09159513173` در Header Option و State اصلی؛ Footer مشترک نیز همین منبع را می‌خواند.
