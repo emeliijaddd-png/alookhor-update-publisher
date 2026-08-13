@@ -93,6 +93,7 @@ try:
     report['checks']['header_option'] = after.get('settings', {}).get('header_option') is True
     report['checks']['module_count'] = int(after.get('settings', {}).get('module_count', 0)) >= 8
     report['checks']['shortcode'] = after.get('settings', {}).get('header_shortcode') is True
+    report['checks']['category_shortcode'] = after.get('settings', {}).get('category_shortcode') is True
     report['checks']['footer_settings'] = after.get('settings', {}).get('footer_settings') is True
     report['checks']['footer_enabled'] = after.get('settings', {}).get('footer_enabled') is True
     report['checks']['footer_module'] = after.get('settings', {}).get('footer_module') is True

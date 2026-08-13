@@ -6,8 +6,8 @@
 
 - **نام افزونه:** ALOOKHOR Control Center
 - **نسخه پایه بازیابی‌شده:** `3.8.4`
-- **Production پیش از این Release:** `3.10.1` (Centered Peek و Infinite Carousel موبایل فعال)
-- **Release آماده انتشار اتمی:** `3.10.2` (حذف Arrow موبایل و Pagination دقیق مطابق نمونه)
+- **Production پیش از این Release:** `3.10.2` (Arrow موبایل حذف و Pagination مرجع فعال)
+- **Release آماده انتشار اتمی:** `3.10.3` (شورت‌کد Elementor و کنترل‌های Desktop ایزوله/هوشمند)
 - **تاریخ بازیابی:** 2026-08-11
 - **منبع بازیابی:** ZIP واقعی افزونه `alookhor-control-center (5).zip`
 - **حداقل WordPress:** 6.0
@@ -15,7 +15,8 @@
 - **Text domain:** `alookhor-cc`
 - **گزینه اصلی:** `alookhor_cc_settings`
 - **گزینه هدر:** `alookhor_header_settings`
-- **شورت‌کد فرانت:** `[alookhor_portal_header]`
+- **شورت‌کد هدر:** `[alookhor_portal_header]`
+- **شورت‌کد جایگاه دسته‌بندی‌ها:** `[alookhor_managed_categories]`
 
 ## آخرین نقطه توقف قطعی
 
@@ -219,8 +220,8 @@ Schema حداقلی Manifest:
 
 ```json
 {
-  "version": "3.10.2",
-  "download_url": "https://updates.alookhor.ir/releases/alookhor-control-center-3.10.2.zip",
+  "version": "3.10.3",
+  "download_url": "https://updates.alookhor.ir/releases/alookhor-control-center-3.10.3.zip",
   "details_url": "https://alookhor.ir/changelog",
   "requires": "6.0",
   "tested": "7.0",

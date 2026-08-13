@@ -4,7 +4,7 @@ Tags: control center, luxury, alookhor, admin, dashboard
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 3.10.2
+Stable tag: 3.10.3
 License: Private
 License URI: https://alookhor.ir
 
@@ -15,6 +15,7 @@ License URI: https://alookhor.ir
 **ALOOKHOR Control Center** پنل مدیریت لوکس بوتیک آلو بخارا است که تمام بخش‌های سایت شما (هدر، اسلایدر، سورت، محصولات، مشتریان VIP، مالی، آنالیتیکس) را در یک داشبورد Dark Glass + Gold مدیریت می‌کند.
 
 *   **هدر حرفه‌ای با شورت‌کد:** هدر دو‌ردیفه Luxury با Top Bar، منوی شیشه‌ای، حساب کاربری و CTA عمده — فقط `[alookhor_portal_header]`
+*   **جایگاه دسته‌بندی در Elementor:** بخش واقعی WooCommerce را با `[alookhor_managed_categories]` در هر محل دلخواه قرار دهید
 *   **فهرست‌های خودکار WordPress:** فهرست اصلی از جایگاه Primary/Header و تمام فهرست‌ها داخل Hamburger حرفه‌ای فراخوانی می‌شوند
 *   **آپدیت آنی (Hot-Swap):** هر تغییری بدون رفرش ذخیره و روی سایت اعمال می‌شود (AJAX + LocalStorage)
 *   **سایدبار PRO فشرده:** ۶ دسته جمع‌شونده، بدون لیست طولانی، با جستجوی زنده
@@ -43,6 +44,13 @@ License URI: https://alookhor.ir
 در `config/site.json` و `wp_options: alookhor_cc_settings` — همان حافظه واقعی که در چت قبلی ویرایش می‌شد.
 
 == Changelog ==
+
+= 3.10.3 =
+* شورت‌کد اختصاصی Elementor: `[alookhor_managed_categories]`
+* جلوگیری از خروجی تکراری هنگام استفاده از شورت‌کد مدیریت‌شده
+* ایزوله‌سازی کامل فلش‌های Desktop در برابر Woodmart
+* مخفی‌سازی هوشمند فلش و Pagination در Desktop تک‌صفحه
+* راهنمای جایگاه Elementor داخل تنظیمات اصلی دسته‌بندی‌ها
 
 = 3.10.2 =
 * حذف کامل فلش‌های Carousel در موبایل

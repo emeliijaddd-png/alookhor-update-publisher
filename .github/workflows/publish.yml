@@ -73,9 +73,11 @@ jobs:
           category_css = Path('plugin/alookhor-control-center/assets/css/frontend-categories.css').read_text()
           category_js = Path('plugin/alookhor-control-center/assets/js/frontend-categories.js').read_text()
           assert "taxonomy'=>'product_cat'" in category_php and 'id="alookhor-managed-categories"' in category_php
+          assert "add_shortcode('alookhor_managed_categories'" in category_php and 'alookhor_cc_category_shortcode_rendered' in category_php
           assert '.alookhor-mc-card' in category_css and '--mc-cards' in category_css and '--mc-mobile-width' in category_css
           assert '.alookhor-mc-arrow{display:none!important}' in category_css and 'flex-basis:33px!important' in category_css
-          assert 'ResizeObserver' in category_js and "cache:'no-store'" in category_js and 'is-clone' in category_js and 'syncDots' in category_js and "tabIndex=mobile?-1:0" in category_js
+          assert '.alookhor-mc.has-single-page' in category_css and 'min-width:58px!important' in category_css and 'appearance:none!important' in category_css
+          assert 'ResizeObserver' in category_js and "cache:'no-store'" in category_js and 'is-clone' in category_js and 'syncDots' in category_js and "tabIndex=mobile?-1:0" in category_js and "classList.toggle('has-single-page'" in category_js
           print('Managed footer/category contracts passed')
           PY
 

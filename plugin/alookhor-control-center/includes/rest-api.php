@@ -42,6 +42,7 @@ function alookhor_cc_runtime_status(){
             'header_option_hash' => hash('sha256', wp_json_encode(get_option(ALOOKHOR_CC_HEADER_OPTION, null))),
             'module_count' => is_array($settings['modules'] ?? null) ? count($settings['modules']) : 0,
             'header_shortcode' => shortcode_exists('alookhor_portal_header'),
+            'category_shortcode' => shortcode_exists('alookhor_managed_categories'),
             'footer_settings' => is_array($settings['footer_settings'] ?? null),
             'footer_enabled' => !empty($settings['footer_settings']['enabled']),
             'footer_module' => !empty($settings['modules']['footer']['enabled']),

@@ -74,7 +74,15 @@ function alookhor_cc_category_markup($settings=null){
     <?php return ob_get_clean();
 }
 
-function alookhor_cc_category_template(){static $done=false;if($done||is_admin())return;$s=alookhor_cc_get_category_settings();if(empty($s['enabled']))return;$done=true;echo '<template id="alookhor-managed-categories-template">'.alookhor_cc_category_markup($s).'</template><noscript><style>.category-carousel-section{display:block!important}</style></noscript>';}
+function alookhor_cc_category_shortcode(){
+    if(!empty($GLOBALS['alookhor_cc_category_shortcode_rendered']))return '';
+    $s=alookhor_cc_get_category_settings();if(empty($s['enabled']))return '';
+    $GLOBALS['alookhor_cc_category_shortcode_rendered']=true;
+    return alookhor_cc_category_markup($s);
+}
+add_shortcode('alookhor_managed_categories','alookhor_cc_category_shortcode');
+
+function alookhor_cc_category_template(){static $done=false;if($done||is_admin()||!empty($GLOBALS['alookhor_cc_category_shortcode_rendered']))return;$s=alookhor_cc_get_category_settings();if(empty($s['enabled']))return;$done=true;echo '<template id="alookhor-managed-categories-template">'.alookhor_cc_category_markup($s).'</template><noscript><style>.category-carousel-section{display:block!important}</style></noscript>';}
 add_action('wp_footer','alookhor_cc_category_template',2);
 add_filter('body_class',function($classes){$s=alookhor_cc_get_category_settings();if(!empty($s['enabled']))$classes[]='alookhor-mc-enabled';if(!empty($s['enabled'])&&!empty($s['hide_legacy']))$classes[]='alookhor-mc-hide-legacy';return array_values(array_unique($classes));});
 add_action('wp_enqueue_scripts',function(){ $s=alookhor_cc_get_category_settings();if(empty($s['enabled']))return;wp_enqueue_style('alookhor-cc-managed-categories',ALOOKHOR_CC_URL.'assets/css/frontend-categories.css',[],ALOOKHOR_CC_BUILD);wp_enqueue_script('alookhor-cc-managed-categories',ALOOKHOR_CC_URL.'assets/js/frontend-categories.js',[],ALOOKHOR_CC_BUILD,true);wp_localize_script('alookhor-cc-managed-categories','ALOOKHOR_CATEGORIES',['endpoint'=>rest_url('alookhor-cc/v1/product-categories'),'version'=>ALOOKHOR_CC_VERSION,'hide_legacy'=>!empty($s['hide_legacy'])]);},31);

@@ -1,26 +1,26 @@
 {
-  "version": "3.10.2",
-  "previous": "3.10.1",
+  "version": "3.10.3",
+  "previous": "3.10.2",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "حذف فلش‌های موبایل و بازسازی Pagination مطابق نمونه مرجع.",
+  "description": "جایگاه مستقیم Elementor با شورت‌کد مدیریت‌شده و اصلاح کامل کنترل‌های Desktop.",
   "changelog": [
     {
-      "tag": "MOBILE",
-      "title": "حذف کامل فلش‌ها در موبایل",
-      "desc": "کنترل‌های Arrow در عرض موبایل display:none، aria-hidden و خارج از Tab order شدند؛ Swipe و Autoplay باقی ماندند."
+      "tag": "ELEMENTOR",
+      "title": "شورت‌کد اختصاصی جایگاه دسته‌بندی‌ها",
+      "desc": "شورت‌کد [alookhor_managed_categories] بخش مدیریت‌شده را مستقیماً در Widget نوع Shortcode رندر می‌کند و از خروجی تکراری جلوگیری می‌کند."
     },
     {
-      "tag": "PAGINATION",
-      "title": "Dotهای افقی مطابق نمونه",
-      "desc": "حالت فعال Pill طلایی افقی و حالت‌های غیرفعال دایره خاکستری شدند؛ تمام استایل‌های مزاحم قالب با ابعاد صریح Override شدند."
+      "tag": "DESKTOP CONTROLS",
+      "title": "ایزوله‌سازی فلش‌های Desktop در برابر Woodmart",
+      "desc": "ابعاد، Appearance، Background، Position، Padding و SVG فلش‌ها به‌صورت Scoped تثبیت شدند تا قالب آن‌ها را به مربع خاکستری تبدیل نکند."
     },
     {
-      "tag": "CSS ISOLATION",
-      "title": "ایزوله‌سازی در برابر Woodmart",
-      "desc": "min-height، min-width، padding، appearance، flex-basis و background دکمه‌های Pagination به‌صورت Scoped و قطعی تنظیم شدند."
+      "tag": "SMART PAGING",
+      "title": "حذف کنترل‌های بلااستفاده تک‌صفحه",
+      "desc": "وقتی همه دسته‌ها در یک صفحه Desktop جا می‌شوند، فلش و Pagination تک‌صفحه مخفی می‌شوند؛ در چندصفحه و Mobile رفتار Carousel حفظ می‌شود."
     }
   ]
 }
