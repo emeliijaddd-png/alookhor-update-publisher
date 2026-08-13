@@ -182,7 +182,7 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 | `scripts/generate_code_registry.py` | 240 | `19f81c1ae220c00b6df6da4084322d3374bfbd2bb9281e25f00e88593d0b5a93` |
 | `scripts/header_visual_audit.py` | 91 | `7bc0866ff6f48250bd0a02397f68641eec3b2d05a98bc0e92707c40a2a93167c` |
 | `scripts/wordpress_access_check.py` | 355 | `665bc6ffafa33fe4ad51f5faeb6a5ec68860b565798b58e3acf246d68632511c` |
-| `scripts/wordpress_release_test.py` | 207 | `9c35106f334488cf1261475bae3491bc85df0997ab8ed6b7f534519a0e4379ab` |
+| `scripts/wordpress_release_test.py` | 210 | `f2eb396d042c4e0d0b84ef018b56867ba84e7589fddef923f287bcee4b41696f` |
 
 # COMPLETE SOURCE SNAPSHOTS
 
@@ -7938,7 +7938,10 @@ try:
             and str(migration.get('version')) == '3.10.6'
             and set(migration.get('fields', [])) == expected_fields
             and bool(migration.get('before_hash')) and bool(migration.get('after_hash'))
-            and before_header_hash != after_header_hash
+            and (
+                (before_header_hash != after_header_hash) if tuple(map(int, current.split('.'))) < (3, 10, 7)
+                else (before_header_hash == after_header_hash)
+            )
         )
     else:
         report['checks']['header_settings_preserved'] = bool(before_header_hash and after_header_hash and before_header_hash == after_header_hash)

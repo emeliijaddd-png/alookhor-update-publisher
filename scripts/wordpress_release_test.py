@@ -124,7 +124,10 @@ try:
             and str(migration.get('version')) == '3.10.6'
             and set(migration.get('fields', [])) == expected_fields
             and bool(migration.get('before_hash')) and bool(migration.get('after_hash'))
-            and before_header_hash != after_header_hash
+            and (
+                (before_header_hash != after_header_hash) if tuple(map(int, current.split('.'))) < (3, 10, 7)
+                else (before_header_hash == after_header_hash)
+            )
         )
     else:
         report['checks']['header_settings_preserved'] = bool(before_header_hash and after_header_hash and before_header_hash == after_header_hash)
