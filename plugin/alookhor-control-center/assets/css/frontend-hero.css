@@ -11,10 +11,10 @@ body.alookhor-mh-hide-legacy .alookhor-hero-slider-wrapper{display:none!importan
 /* Legacy banners place the product on the right and bake copy on the left.
    Subject-focus shifts that approved photography left without mirroring logos;
    the vacated right area is fully covered by the managed copy surface. */
-.alookhor-mh-slide.is-image-flipped .alookhor-mh-media img{transform:translateX(-21%) scale(1.12)}
+.alookhor-mh-slide.is-image-flipped .alookhor-mh-media img{transform:translateX(-36%) scale(1.12)}
 .alookhor-mh[data-ken-burns="1"] .alookhor-mh-slide.is-active .alookhor-mh-media img{transform:scale(1.075)}
-.alookhor-mh[data-ken-burns="1"] .alookhor-mh-slide.is-active.is-image-flipped .alookhor-mh-media img{transform:translateX(-21%) scale(1.18)}
-.alookhor-mh-shade{z-index:1;background:linear-gradient(90deg,rgba(5,2,7,.06) 0%,rgba(7,3,10,.14) 42%,rgba(8,4,12,.98) 62%,rgba(7,3,10,.995) 100%),linear-gradient(180deg,rgba(0,0,0,.12),rgba(0,0,0,.2))}
+.alookhor-mh[data-ken-burns="1"] .alookhor-mh-slide.is-active.is-image-flipped .alookhor-mh-media img{transform:translateX(-36%) scale(1.18)}
+.alookhor-mh-shade{z-index:1;background:linear-gradient(90deg,rgba(5,2,7,.06) 0%,rgba(7,3,10,.14) 42%,rgba(8,4,12,.98) 62%,rgba(7,3,10,.995) 100%),linear-gradient(180deg,rgba(0,0,0,.08) 0%,rgba(0,0,0,.12) 72%,rgba(7,3,10,.9) 100%)}
 .alookhor-mh-content{position:absolute;z-index:2;top:50%;right:clamp(46px,6.3vw,122px);width:min(49%,760px);transform:translateY(-48%);text-align:right;color:var(--mh-text);font-family:inherit}
 .alookhor-mh-kicker{display:inline-flex;align-items:center;gap:9px;margin-bottom:14px;color:var(--mh-gold);font-size:clamp(12px,.86vw,16px);font-weight:700;letter-spacing:.02em}
 .alookhor-mh-kicker:before{content:"";width:36px;height:1px;background:linear-gradient(90deg,transparent,var(--mh-gold))}
@@ -46,7 +46,7 @@ body.alookhor-mh-hide-legacy .alookhor-hero-slider-wrapper{display:none!importan
   .alookhor-mh-media img{object-position:30% center;filter:saturate(.95) contrast(1.04) brightness(.68)}
   .alookhor-mh-slide.is-image-flipped .alookhor-mh-media img{object-position:78% center;transform:scale(1.015)}
   .alookhor-mh[data-ken-burns="1"] .alookhor-mh-slide.is-active.is-image-flipped .alookhor-mh-media img{transform:scale(1.075)}
-  .alookhor-mh-shade{background:linear-gradient(90deg,rgba(5,2,7,.04) 0%,rgba(6,3,8,.14) 38%,rgba(8,4,12,.98) 58%,rgba(7,3,10,.997) 100%),linear-gradient(180deg,rgba(0,0,0,.05),rgba(0,0,0,.18))}
+  .alookhor-mh-shade{background:linear-gradient(90deg,rgba(5,2,7,.04) 0%,rgba(6,3,8,.14) 38%,rgba(8,4,12,.98) 58%,rgba(7,3,10,.997) 100%),linear-gradient(180deg,rgba(0,0,0,.05) 0%,rgba(0,0,0,.12) 76%,rgba(7,3,10,.82) 100%)}
   .alookhor-mh-content{top:50%;right:23px;width:58%;transform:translateY(-49%)}
   .alookhor-mh-kicker{display:none}
   .alookhor-mh-content h2{font-size:clamp(25px,7.5vw,31px);line-height:1.05;letter-spacing:-.05em}
@@ -68,5 +68,5 @@ body.alookhor-mh-hide-legacy .alookhor-hero-slider-wrapper{display:none!importan
   .alookhor-mh-dots button.is-active{width:28px!important;min-width:28px!important;max-width:28px!important}
 }
 @media(max-width:390px){.alookhor-mh-content{right:20px;width:60%}.alookhor-mh-shell{height:300px}.alookhor-mh-content h2{font-size:24px}.alookhor-mh-description{font-size:9.5px}.alookhor-mh-feature b{font-size:8px}.alookhor-mh-cta{padding:0 8px;font-size:8.8px}}
-@media(prefers-reduced-motion:reduce){.alookhor-mh-slide,.alookhor-mh-media img,.alookhor-mh-cta,.alookhor-mh-dots button{transition:none!important}.alookhor-mh[data-ken-burns="1"] .alookhor-mh-slide.is-active .alookhor-mh-media img{transform:scale(1.015)}.alookhor-mh[data-ken-burns="1"] .alookhor-mh-slide.is-active.is-image-flipped .alookhor-mh-media img{transform:translateX(-21%) scale(1.12)}}
+@media(prefers-reduced-motion:reduce){.alookhor-mh-slide,.alookhor-mh-media img,.alookhor-mh-cta,.alookhor-mh-dots button{transition:none!important}.alookhor-mh[data-ken-burns="1"] .alookhor-mh-slide.is-active .alookhor-mh-media img{transform:scale(1.015)}.alookhor-mh[data-ken-burns="1"] .alookhor-mh-slide.is-active.is-image-flipped .alookhor-mh-media img{transform:translateX(-36%) scale(1.12)}}
 @media(max-width:767px) and (prefers-reduced-motion:reduce){.alookhor-mh[data-ken-burns="1"] .alookhor-mh-slide.is-active.is-image-flipped .alookhor-mh-media img{transform:scale(1.015)}}

@@ -4,7 +4,7 @@ Tags: control center, luxury, alookhor, admin, dashboard
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 3.10.14
+Stable tag: 3.10.15
 License: Private
 License URI: https://alookhor.ir
 
@@ -45,6 +45,12 @@ License URI: https://alookhor.ir
 در `config/site.json` و `wp_options: alookhor_cc_settings` — همان حافظه واقعی که در چت قبلی ویرایش می‌شد.
 
 == Changelog ==
+
+= 3.10.15 =
+* خروج کامل ناحیه نوشته baked بنر Legacy از کادر Desktop
+* ماسک پایین برای پنهان‌کردن Badgeهای قدیمی و حفظ Dots مدیریت‌شده
+* حفظ سوژه محصول در نیمه چپ بدون Mirror شدن لوگو و متن تصویر
+* کنترل Chrome برای Transform مثبت و Focus مستقل Desktop/Mobile
 
 = 3.10.14 =
 * حذف فاصله Mobile و عبور واقعی Hero زیر کپسول شیشه‌ای Header

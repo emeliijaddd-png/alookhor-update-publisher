@@ -30,6 +30,9 @@ return {
   hero_legacy_visible:all('.alookhor-hero-slider-wrapper').filter(visible).length,hero_old_slider_id_count:all('#alookhorHeroSlider').length,
   hero_content_align:heroContent?getComputedStyle(heroContent).textAlign:null,hero_overflow:heroShell?getComputedStyle(heroShell).overflow:null,
   hero_image_loaded:!!heroImage&&heroImage.complete&&heroImage.naturalWidth>0,hero_image_natural:heroImage?{width:heroImage.naturalWidth,height:heroImage.naturalHeight}:null,
+  hero_image_focus_class:heroImage?.closest('.alookhor-mh-slide')?.classList.contains('is-image-flipped')||false,
+  hero_image_object_position:heroImage?getComputedStyle(heroImage).objectPosition:null,
+  hero_image_transform:(()=>{if(!heroImage)return null;const m=new DOMMatrix(getComputedStyle(heroImage).transform);return {a:m.a,b:m.b,c:m.c,d:m.d,e:m.e,f:m.f,det:m.a*m.d-m.b*m.c}})(),
   hero_arrows:hero?all('#alookhor-managed-hero .alookhor-mh-arrow').filter(visible).map(e=>({rect:rect(e),background:getComputedStyle(e).backgroundColor,border_radius:getComputedStyle(e).borderRadius,appearance:getComputedStyle(e).appearance})):[],
   topbar_center_display:one('.topbar-center')?getComputedStyle(one('.topbar-center')).display:null,
   stage_display:stage?getComputedStyle(stage).display:null,stage_position:stage?getComputedStyle(stage).position:null,stage_stuck:stage?.classList.contains('is-stuck')||false,
@@ -62,6 +65,7 @@ def audit(width: int, height: int, label: str) -> dict:
         runtime_parts = tuple(int(part) for part in runtime_version.split('.') if part.isdigit())
         hero_expected = runtime_parts >= (3, 10, 13)
         hero_polish_expected = runtime_parts >= (3, 10, 14)
+        hero_image_polish_expected = runtime_parts >= (3, 10, 15)
         if hero_expected:
             WebDriverWait(driver, 40).until(lambda d: d.execute_script("return document.querySelector('#alookhor-managed-hero')?.dataset.mounted==='1' && document.querySelectorAll('#alookhor-managed-hero .alookhor-mh-slide').length===4"))
         time.sleep(4)
@@ -97,6 +101,11 @@ def audit(width: int, height: int, label: str) -> dict:
             'hero_single_active_slide': before['hero_active_count'] == 1 if hero_expected else True,
             'hero_replaces_legacy': (before['hero_legacy_visible'] == 0 and before['hero_old_slider_id_count'] == 0) if hero_expected else True,
             'hero_image_loaded': before['hero_image_loaded'] is True if hero_expected else True,
+            'hero_image_subject_focus_non_mirrored': (
+                before['hero_image_focus_class'] is True
+                and before['hero_image_transform'] is not None and before['hero_image_transform']['det'] > 0
+                and ((before['hero_image_object_position'].startswith('78%') if expected_mobile else before['hero_image_transform']['e'] < -300))
+            ) if hero_image_polish_expected else True,
             'hero_layered_content': (before['hero_feature_count'] == 4 and before['hero_cta_count'] >= 1) if hero_expected else True,
             'hero_arrows_isolated': (
                 len(before['hero_arrows']) == 2

@@ -1,5 +1,11 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.15 — 2026-08-13 — Desktop Legacy-Copy Cleanup
+- DIRECT REVIEW: Chrome run `31743997644` passed every encoded Desktop/Mobile check and fixed Mobile underlap/Arrow geometry, but direct screenshot comparison still showed baked Legacy copy at Desktop far-left and an old image badge near the lower edge.
+- FOCUS: Desktop approved photography shifts 36% left (previously 21%) without horizontal Mirror, moving the entire baked copy region outside the clipped shell while keeping the product left of managed content.
+- MASK: restrained bottom gradient hides baked badge artwork underneath managed Pagination; Mobile keeps its separately cropped 78% subject focus.
+- AUDIT: Chrome records the active image transform determinant/translation and Mobile object-position; 3.10.15 requires a positive determinant (not mirrored) and the source-backed focus contract.
+
 ## v3.10.14 — 2026-08-13 — Live Hero Visual Polish
 - DIAGNOSIS: Production Chrome run `31742642133` proved four-slide/runtime/image/right-overlay/Legacy-replacement contracts, but Mobile shell began 18.4px below the glass Capsule and failed the explicit underlap check.
 - MOBILE: offset changed from -20px to -50px so the shell top enters the measured Capsule bottom without modifying Header DOM or geometry.

@@ -6,8 +6,8 @@
 
 - **نام افزونه:** ALOOKHOR Control Center
 - **نسخه پایه بازیابی‌شده:** `3.8.4`
-- **Production پیش از این Release:** `3.10.13` (Hero فعال؛ audit نخست underlap و Arrow را برای Fix هدفمند مشخص کرد)
-- **Release آماده انتشار اتمی:** `3.10.14` (Mobile underlap، Arrow isolation و image focus اصلاح‌شده)
+- **Production پیش از این Release:** `3.10.14` (تمام checkها پاس؛ بازبینی مستقیم Copy baked باقیمانده را یافت)
+- **Release آماده انتشار اتمی:** `3.10.15` (پاک‌سازی نهایی پس‌زمینه Desktop بدون Mirror)
 - **تاریخ بازیابی:** 2026-08-11
 - **منبع بازیابی:** ZIP واقعی افزونه `alookhor-control-center (5).zip`
 - **حداقل WordPress:** 6.0
@@ -233,8 +233,8 @@ Schema حداقلی Manifest:
 
 ```json
 {
-  "version": "3.10.14",
-  "download_url": "https://updates.alookhor.ir/releases/alookhor-control-center-3.10.14.zip",
+  "version": "3.10.15",
+  "download_url": "https://updates.alookhor.ir/releases/alookhor-control-center-3.10.15.zip",
   "details_url": "https://alookhor.ir/changelog",
   "requires": "6.0",
   "tested": "7.0",
