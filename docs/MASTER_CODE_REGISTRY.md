@@ -179,7 +179,7 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 | `plugin/alookhor-control-center/uninstall.php` | 6 | `d69282a9ab7c0865b6c60e6fca272d0859433e9c8730754fb2995295209ff84c` |
 | `scripts/build_release.py` | 101 | `f07af70658e73dd9e42f018cfa3e2ca35a7287599d7e6a4cf8e06951665126d8` |
 | `scripts/generate_code_registry.py` | 239 | `cecea9b08e788f6671f27bddbf12658cc19d158eeba51c42be908beac7f084ac` |
-| `scripts/wordpress_access_check.py` | 298 | `81f8458a8b876014994052e41cbfd9bb9a4391d7380182e66ec48ea8b832c54c` |
+| `scripts/wordpress_access_check.py` | 298 | `aaea4b2f739ed17cc5f88079c20a2684802b33e34edd0755e5c63f207aac3b53` |
 | `scripts/wordpress_release_test.py` | 168 | `d0187002b08ce3f5740e3c40b95cc3e36c3b3af21740e39e80e42034db5df461` |
 
 # COMPLETE SOURCE SNAPSHOTS
@@ -7103,7 +7103,7 @@ try:
     topbar_fragment = ''
     if topbar_index >= 0:
         fragment_start = homepage.rfind('<', 0, topbar_index)
-        topbar_fragment = re.sub(r'\s+', ' ', homepage[max(0, fragment_start):topbar_index + 6000]).strip()
+        topbar_fragment = re.sub(r'\s+', ' ', homepage[max(0, fragment_start):topbar_index + 20000]).strip()
     report['public_topbar'] = {
         'managed_wrapper': 'alookhor-managed-legacy-header' in homepage,
         'manager_script': 'frontend-topbar-manager.js' in homepage,
