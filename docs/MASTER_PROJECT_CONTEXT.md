@@ -21,12 +21,11 @@ When sources disagree, the newer provable runtime/source wins. Missing source is
 
 ## Authoritative current state
 
-- **Production runtime:** ALOOKHOR Control Center `3.10.3`
-- **Current source target:** `3.10.4` — Boutique-first admin workspace; pending tagged deployment and verification.
-- **Last Production tag/source:** `v3.10.3` / `a9c83f86c3bab177ca9bc29e7324efb885ad1bcd`
-- **Last published package SHA-256:** `8bbf920b818967a1c37bdd3d1ecb974b0b30489d429a0a9e8bcdb5d3a72fc2bf`
-- **Deployment run:** `31709755816`
-- **Independent audit run:** `31710030121`
+- **Production runtime:** ALOOKHOR Control Center `3.10.4`
+- **Current Production tag/source:** `v3.10.4` / `71c3f8483d56495c3ed2212498d26e835ecaa079`
+- **Published package SHA-256:** `8c8906e76e0fbed96dec51808a9b7be4cb61553e886b1ea1104465426d491dc3`
+- **Deployment run:** `31713677974`
+- **Independent audit run:** `31713982075`
 - **Production:** active and verified
 - **Repository:** `alookhor-update-publisher`
 - **Update channel:** `https://updates.alookhor.ir/manifest.json`
