@@ -21,14 +21,13 @@ When sources disagree, the newer provable runtime/source wins. Missing source is
 
 ## Authoritative current state
 
-- **Production runtime:** ALOOKHOR Control Center `3.10.14`
-- **Current Production tag/source:** `v3.10.14` / `f4619e99349b49fdd3961f56099d6d6ced4fd188`
-- **Published package SHA-256:** `71716cd46a199b785ead7463e686f9fa4590fb91a95ae4f84edb978aff277a36`
-- **Deployment run:** `31743643662` — ZIP/SHA, Manifest and native WordPress checks all passed.
-- **Latest rendered Chrome audit:** `31743997644` on 3.10.14 passed every encoded Desktop/Mobile check. Direct reference comparison confirmed Mobile underlap and circular arrows, but found remaining baked Legacy copy/badge artwork in the Desktop image.
-- **Production:** 3.10.14 active; automated checks pass, direct visual acceptance is withheld for the Desktop image cleanup.
-- **Current source target:** `3.10.15` — non-mirrored 36% Desktop subject focus plus bottom mask prepared for final test/publication.
-- **3.10.15 candidate package SHA-256:** `eccc55fae826e7d09af75651b1944d156bb46e0802254c033ae54266a1eb9cd3`
+- **Production runtime:** ALOOKHOR Control Center `3.10.15`
+- **Current Production tag/source:** `v3.10.15` / `9c44c1ef5f44b6c8c0339027b24dc62b824fb0be`
+- **Published package SHA-256:** `eccc55fae826e7d09af75651b1944d156bb46e0802254c033ae54266a1eb9cd3`
+- **Deployment run:** `31744846777` — ZIP/SHA, Manifest and native WordPress checks all passed.
+- **Latest rendered Chrome audit:** `31743997644` on 3.10.14 passed encoded checks but direct review withheld Desktop image acceptance; fresh 3.10.15 audit is pending.
+- **Production:** 3.10.15 active; final rendered/direct acceptance pending.
+- **Current source target:** `3.10.15` — deployed clean Hero image composition.
 - **Repository:** `alookhor-update-publisher`
 - **Update channel:** `https://updates.alookhor.ir/manifest.json`
 - **Release pipeline:** Git push → GitHub Actions → deterministic ZIP/SHA → Explicit FTPS → remote verification → atomic Manifest → native WordPress updater → activation restoration → Production audit
