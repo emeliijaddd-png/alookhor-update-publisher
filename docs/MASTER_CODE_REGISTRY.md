@@ -179,7 +179,7 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 | `plugin/alookhor-control-center/uninstall.php` | 6 | `d69282a9ab7c0865b6c60e6fca272d0859433e9c8730754fb2995295209ff84c` |
 | `scripts/build_release.py` | 101 | `f07af70658e73dd9e42f018cfa3e2ca35a7287599d7e6a4cf8e06951665126d8` |
 | `scripts/generate_code_registry.py` | 239 | `cecea9b08e788f6671f27bddbf12658cc19d158eeba51c42be908beac7f084ac` |
-| `scripts/wordpress_access_check.py` | 283 | `ab5285eba161823d143b365d721be2c7ff87659a4e219a7d770f8f072db6cb29` |
+| `scripts/wordpress_access_check.py` | 298 | `81f8458a8b876014994052e41cbfd9bb9a4391d7380182e66ec48ea8b832c54c` |
 | `scripts/wordpress_release_test.py` | 168 | `d0187002b08ce3f5740e3c40b95cc3e36c3b3af21740e39e80e42034db5df461` |
 
 # COMPLETE SOURCE SNAPSHOTS
@@ -7085,6 +7085,20 @@ try:
         for name in value.split()
         if any(token in name.lower() for token in ['top', 'bar', 'header', 'trade', 'contact', 'wholesale'])
     })
+    # Capture only selector/declaration pairs relevant to the recovered legacy
+    # Header. This makes sticky conflicts auditable without exporting unrelated
+    # page CSS or relying on screenshots.
+    style_blocks = re.findall(r'<style[^>]*>(.*?)</style>', homepage, re.I | re.S)
+    legacy_header_rules = []
+    selector_tokens = ('alookhor-topbar-wrapper', 'alookhor-header', 'header-capsule', 'header-nav-center', 'nav-menu')
+    for block in style_blocks:
+        for selector, declarations in re.findall(r'([^{}]+)\{([^{}]*)\}', block):
+            clean_selector = re.sub(r'\s+', ' ', selector).strip()
+            if any(token in clean_selector for token in selector_tokens):
+                legacy_header_rules.append({
+                    'selector': clean_selector[:500],
+                    'declarations': re.sub(r'\s+', ' ', declarations).strip()[:1400],
+                })
     topbar_index = homepage.find('alookhor-topbar-wrapper')
     topbar_fragment = ''
     if topbar_index >= 0:
@@ -7096,6 +7110,7 @@ try:
         'localized': localized,
         'relevant_classes': class_names[:100],
         'markup_fragment': topbar_fragment,
+        'legacy_header_rules': legacy_header_rules[:160],
     }
 
     footer_classes = sorted({

@@ -138,6 +138,20 @@ try:
         for name in value.split()
         if any(token in name.lower() for token in ['top', 'bar', 'header', 'trade', 'contact', 'wholesale'])
     })
+    # Capture only selector/declaration pairs relevant to the recovered legacy
+    # Header. This makes sticky conflicts auditable without exporting unrelated
+    # page CSS or relying on screenshots.
+    style_blocks = re.findall(r'<style[^>]*>(.*?)</style>', homepage, re.I | re.S)
+    legacy_header_rules = []
+    selector_tokens = ('alookhor-topbar-wrapper', 'alookhor-header', 'header-capsule', 'header-nav-center', 'nav-menu')
+    for block in style_blocks:
+        for selector, declarations in re.findall(r'([^{}]+)\{([^{}]*)\}', block):
+            clean_selector = re.sub(r'\s+', ' ', selector).strip()
+            if any(token in clean_selector for token in selector_tokens):
+                legacy_header_rules.append({
+                    'selector': clean_selector[:500],
+                    'declarations': re.sub(r'\s+', ' ', declarations).strip()[:1400],
+                })
     topbar_index = homepage.find('alookhor-topbar-wrapper')
     topbar_fragment = ''
     if topbar_index >= 0:
@@ -149,6 +163,7 @@ try:
         'localized': localized,
         'relevant_classes': class_names[:100],
         'markup_fragment': topbar_fragment,
+        'legacy_header_rules': legacy_header_rules[:160],
     }
 
     footer_classes = sorted({
