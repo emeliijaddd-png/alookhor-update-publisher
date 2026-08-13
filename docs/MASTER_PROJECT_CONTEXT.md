@@ -25,9 +25,11 @@ When sources disagree, the newer provable runtime/source wins. Missing source is
 - **Current Production tag/source:** `v3.10.15` / `9c44c1ef5f44b6c8c0339027b24dc62b824fb0be`
 - **Published package SHA-256:** `eccc55fae826e7d09af75651b1944d156bb46e0802254c033ae54266a1eb9cd3`
 - **Deployment run:** `31744846777` — ZIP/SHA, Manifest and native WordPress checks all passed.
-- **Latest rendered Chrome audit:** `31743997644` on 3.10.14 passed encoded checks but direct review withheld Desktop image acceptance; fresh 3.10.15 audit is pending.
-- **Production:** 3.10.15 active; final rendered/direct acceptance pending.
-- **Current source target:** `3.10.15` — deployed clean Hero image composition.
+- **Final rendered Chrome audit:** `31745179019` on 3.10.15 — WordPress, Desktop and Mobile all passed every check; no failed checks.
+- **Direct screenshot acceptance:** confirmed against the supplied Hero reference: product-left/right-copy composition, separate White/Gold text, four features, two CTAs, circular arrows, Gold-pill Pagination, 12px Mobile underlap beneath the glass Capsule, preserved two-row Mobile Header, and no horizontal overflow. Desktop baked left copy was removed by the non-mirrored focus crop.
+- **Production:** 3.10.15 active and fully verified.
+- **Current source target:** `3.10.15` — completed.
+- **Final screenshot evidence:** `automation/315-live/visual-desktop-before.png`, `automation/315-live/visual-mobile-before.png`; authoritative reference: `uploads/Screenshot_۲۰۲۶-۰۸-۱۳-۲۳-۲۹-۲۰-۳۰۷_com.miui.gallery-edit.jpg`.
 - **Repository:** `alookhor-update-publisher`
 - **Update channel:** `https://updates.alookhor.ir/manifest.json`
 - **Release pipeline:** Git push → GitHub Actions → deterministic ZIP/SHA → Explicit FTPS → remote verification → atomic Manifest → native WordPress updater → activation restoration → Production audit
