@@ -1,5 +1,14 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.13 — 2026-08-13 — Managed Four-Slide Hero
+- DISCOVERY: Production root is `.alookhor-hero-slider-wrapper` with `#alookhorHeroSlider` inside a real Elementor Shortcode widget; five images were served by external `alookhor-categories-manager`.
+- REPLACE: the exact Legacy root is replaced in place by `#alookhor-managed-hero`; no parallel Slider, Elementor move, Header rewrite, or unrelated module change.
+- ADMIN: exactly four slide records in the main ALOOKHOR Control Center; each has Media Library image/ID, Alt, Kicker, white Title, Gold Highlight, Description, four Feature labels, and two CTA label/URL pairs.
+- FRONTEND: separate overlay writing on the right, Black/Gold layered treatment, 32px reference radius, arrows, horizontal Gold-pill Pagination, swipe, keyboard, autoplay, pause, and Reduced Motion.
+- RESPONSIVE: Desktop and Mobile read the same WordPress state; Mobile Hero rises beneath the existing second glass Header capsule while Top Bar/Header controls stay untouched.
+- CACHE: public read-only `/wp-json/alookhor-cc/v1/hero` endpoint uses `no-store`; cached page templates refresh from current WordPress state.
+- VERIFY: Release/Access contracts and rendered Chrome geometry require four slides, one active slide, loaded image, right-side content, Legacy replacement, and Mobile Header underlap.
+
 ## v3.10.12 — 2026-08-13 — Final Desktop Logo Y Alignment
 - BROWSER: Geometry زنده 3.10.11 فقط 5px خروج Symbol از پایین Capsule را ثبت کرد.
 - FIX: `translateY(-6px)` فقط در `min-width:1024px`؛ هیچ تغییری در Mobile ندارد.

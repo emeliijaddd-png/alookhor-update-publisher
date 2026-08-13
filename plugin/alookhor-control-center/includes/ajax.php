@@ -134,6 +134,49 @@ function alookhor_ajax_save_settings(){
         $payload['category_settings']=$category;
     }
 
+    if (!empty($payload['hero_settings']) && is_array($payload['hero_settings'])) {
+        $hero = $payload['hero_settings'];
+        foreach (['gold'=>'#D4AF37','surface'=>'#09060D','text'=>'#FFFFFF','muted'=>'#D9D1DA'] as $key=>$fallback) {
+            if (array_key_exists($key,$hero)) $hero[$key]=sanitize_hex_color($hero[$key])?:$fallback;
+        }
+        foreach (['enabled','hide_legacy','autoplay','pause_on_hover','show_arrows','show_dots','ken_burns'] as $key) {
+            if (array_key_exists($key,$hero)) $hero[$key]=rest_sanitize_boolean($hero[$key]);
+        }
+        $hero['autoplay_interval']=max(3000,min(15000,absint($hero['autoplay_interval']??5500)));
+        $hero['radius']=max(16,min(40,absint($hero['radius']??32)));
+        $slide_defaults=function_exists('alookhor_cc_hero_slide_defaults')?alookhor_cc_hero_slide_defaults():array_fill(0,4,[]);
+        $incoming=is_array($hero['slides']??null)?array_values($hero['slides']):[];
+        $clean_slides=[];
+        for($index=0;$index<4;$index++){
+            $slide=is_array($incoming[$index]??null)?$incoming[$index]:[];
+            $default=is_array($slide_defaults[$index]??null)?$slide_defaults[$index]:[];
+            $slide=array_replace($default,$slide);
+            $features=is_array($slide['features']??null)?array_values($slide['features']):[];
+            $features=array_slice(array_pad(array_map('sanitize_text_field',$features),4,''),0,4);
+            $clean_slides[]=[
+                'image_id'=>absint($slide['image_id']??0),
+                'flip_image'=>rest_sanitize_boolean($slide['flip_image']??false),
+                'image_url'=>esc_url_raw($slide['image_url']??''),
+                'image_alt'=>sanitize_text_field($slide['image_alt']??''),
+                'kicker'=>sanitize_text_field($slide['kicker']??''),
+                'title'=>sanitize_text_field($slide['title']??''),
+                'highlight'=>sanitize_text_field($slide['highlight']??''),
+                'description'=>sanitize_textarea_field($slide['description']??''),
+                'features'=>$features,
+                'primary_text'=>sanitize_text_field($slide['primary_text']??''),
+                'primary_url'=>esc_url_raw($slide['primary_url']??''),
+                'secondary_text'=>sanitize_text_field($slide['secondary_text']??''),
+                'secondary_url'=>esc_url_raw($slide['secondary_url']??''),
+            ];
+        }
+        $hero['slides']=$clean_slides;
+        $payload['hero_settings']=$hero;
+        if(isset($payload['modules']['hero'])&&is_array($payload['modules']['hero'])){
+            $payload['modules']['hero']['slides']=4;
+            $payload['modules']['hero']['autoplay']=!empty($hero['autoplay']);
+        }
+    }
+
     // ذخیره کل تنظیمات
     $current = get_option(ALOOKHOR_CC_OPTION, []);
     $merged = array_replace_recursive(is_array($current) ? $current : [], $payload);
@@ -194,6 +237,12 @@ function alookhor_ajax_save_settings(){
             'desktop_cards'=>$merged['category_settings']['desktop_cards']??4,
             'title'=>$merged['category_settings']['title']??null,
             'gold'=>$merged['category_settings']['gold']??null,
+        ] : null,
+        'hero_settings' => is_array($merged['hero_settings'] ?? null) ? [
+            'enabled'=>!empty($merged['hero_settings']['enabled']),
+            'slide_count'=>count((array)($merged['hero_settings']['slides']??[])),
+            'autoplay'=>!empty($merged['hero_settings']['autoplay']),
+            'gold'=>$merged['hero_settings']['gold']??null,
         ] : null,
     ]);
 }

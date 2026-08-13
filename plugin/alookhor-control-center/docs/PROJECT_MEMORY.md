@@ -6,8 +6,8 @@
 
 - **نام افزونه:** ALOOKHOR Control Center
 - **نسخه پایه بازیابی‌شده:** `3.8.4`
-- **Production پیش از این Release:** `3.10.11` (Symbol لوگو 50px شد؛ Mobile کامل Pass)
-- **Release آماده انتشار اتمی:** `3.10.12` (تراز عمودی نهایی Symbol در Desktop)
+- **Production پیش از این Release:** `3.10.12` (Header نهایی Desktop/Mobile با تمام Visual checks پاس)
+- **Release آماده انتشار اتمی:** `3.10.13` (Hero چهاراسلایدی مدیریت‌شده Desktop/Mobile)
 - **تاریخ بازیابی:** 2026-08-11
 - **منبع بازیابی:** ZIP واقعی افزونه `alookhor-control-center (5).zip`
 - **حداقل WordPress:** 6.0
@@ -17,6 +17,7 @@
 - **گزینه هدر:** `alookhor_header_settings`
 - **شورت‌کد هدر:** `[alookhor_portal_header]`
 - **شورت‌کد جایگاه دسته‌بندی‌ها:** `[alookhor_managed_categories]`
+- **شورت‌کد Hero مدیریت‌شده:** `[alookhor_managed_hero]` (جایگزینی خودکار ریشه Legacy در Home نیز فعال است)
 
 ## آخرین نقطه توقف قطعی
 
@@ -51,14 +52,17 @@ alookhor-control-center/
 │   ├── admin.php                     # منوی مدیریت، enqueue و صفحات مدیریت
 │   ├── ajax.php                      # AJAX ذخیره/خواندن تنظیمات و Toggleها
 │   ├── updater.php                   # اتصال آپدیت خصوصی به هسته WordPress
-│   └── shortcode-header.php          # شورت‌کد هدر فرانت
+│   ├── shortcode-header.php          # شورت‌کد هدر فرانت
+│   └── hero.php                      # Hero چهاراسلایدی، Template و جایگزینی Legacy
 ├── templates/
 │   └── admin-control-center.php      # Shell، Sidebar، Fallback و Update Modal
 ├── assets/
 │   ├── css/luxury.css                # Design System و Responsive پنل مدیریت
 │   ├── css/frontend-header.css       # هدر دو‌ردیفه و Drawer، کاملاً Scoped
+│   ├── css/frontend-hero.css         # Hero Black/Gold و Responsive overlap
 │   └── js/
 │       ├── frontend-header.js        # Hamburger، Accordion و Focus Trap
+│       ├── frontend-hero.js          # Slider، REST refresh و جایگزینی exact root
 │       ├── app.js                    # Registry و Router ماژول‌ها
 │       ├── admin-wp.js               # Bridge محیط wp-admin
 │       ├── core/
@@ -143,6 +147,15 @@ export const exampleModule = {
 - حفظ Callback قدیمی شورت‌کد در صورت وجود؛ Wrapper خنثی + Compatibility Manager بدون بازطراحی Mega Menu.
 - دسترس‌پذیری: ARIA، Focus Trap، Escape، Backdrop و Reduced Motion.
 
+### Hero فرانت
+
+- شورت‌کد `[alookhor_managed_hero]` و جایگزینی خودکار `.alookhor-hero-slider-wrapper` در همان Widget نوع Shortcode صفحه Home.
+- دقیقاً چهار اسلاید در `alookhor_cc_settings.hero_settings.slides`؛ تصویر هر اسلاید با Attachment ID/URL کتابخانه رسانه مدیریت می‌شود.
+- Kicker، Title، Gold Highlight، Description، چهار Feature و دو CTA هر اسلاید مستقل از تصویر ذخیره و Escape می‌شوند.
+- REST عمومی فقط‌خواندنی `/wp-json/alookhor-cc/v1/hero` با `Cache-Control: no-store` برای تازه‌سازی صفحه کش‌شده.
+- متن روی سمت راست تصویر؛ Desktop/Mobile داده مشترک، Presentation responsive و Mobile underlap کنترل‌شده زیر کپسول اصلی Header.
+- Arrow، Gold-pill Dots، Swipe، Keyboard، Pause و `prefers-reduced-motion`؛ Slider قدیمی هم‌زمان نمایش داده نمی‌شود.
+
 ## قوانین Responsive — نباید شکسته شوند
 
 Breakpointهای رسمی:
@@ -220,8 +233,8 @@ Schema حداقلی Manifest:
 
 ```json
 {
-  "version": "3.10.12",
-  "download_url": "https://updates.alookhor.ir/releases/alookhor-control-center-3.10.12.zip",
+  "version": "3.10.13",
+  "download_url": "https://updates.alookhor.ir/releases/alookhor-control-center-3.10.13.zip",
   "details_url": "https://alookhor.ir/changelog",
   "requires": "6.0",
   "tested": "7.0",

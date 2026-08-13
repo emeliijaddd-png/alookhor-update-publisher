@@ -49,6 +49,11 @@ function alookhor_cc_runtime_status(){
             'category_settings' => is_array($settings['category_settings'] ?? null),
             'category_enabled' => !empty($settings['category_settings']['enabled']),
             'category_module' => !empty($settings['modules']['product_categories']['enabled']),
+            'hero_shortcode' => shortcode_exists('alookhor_managed_hero'),
+            'hero_settings' => is_array($settings['hero_settings'] ?? null),
+            'hero_enabled' => !empty($settings['hero_settings']['enabled']),
+            'hero_slide_count' => is_array($settings['hero_settings']['slides'] ?? null) ? count($settings['hero_settings']['slides']) : 0,
+            'hero_module' => !empty($settings['modules']['hero']['enabled']),
             'header_brand_migration' => is_array($settings['_migrations']['header_brand_3106'] ?? null)
                 ? $settings['_migrations']['header_brand_3106']
                 : null,
@@ -114,6 +119,23 @@ add_action('rest_api_init', function(){
                 'show_wholesale' => rest_sanitize_boolean($settings['show_wholesale'] ?? true),
             ]);
             $response->header('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0');
+            return $response;
+        },
+    ]);
+
+    register_rest_route('alookhor-cc/v1', '/hero', [
+        'methods' => WP_REST_Server::READABLE,
+        'permission_callback' => '__return_true',
+        'callback' => function(){
+            $settings=alookhor_cc_get_hero_settings();
+            $slides=array_slice(array_values((array)($settings['slides']??[])),0,4);
+            $response=rest_ensure_response([
+                'version'=>ALOOKHOR_CC_VERSION,
+                'enabled'=>!empty($settings['enabled']),
+                'slide_count'=>count($slides),
+                'html'=>alookhor_cc_hero_markup($settings),
+            ]);
+            $response->header('Cache-Control','no-store, no-cache, must-revalidate, max-age=0');
             return $response;
         },
     ]);

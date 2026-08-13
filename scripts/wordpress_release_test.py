@@ -5,6 +5,7 @@ from urllib.request import Request, urlopen
 import base64
 import json
 import os
+import re
 import sys
 import time
 
@@ -100,6 +101,12 @@ try:
     report['checks']['category_settings'] = after.get('settings', {}).get('category_settings') is True
     report['checks']['category_enabled'] = after.get('settings', {}).get('category_enabled') is True
     report['checks']['category_module'] = after.get('settings', {}).get('category_module') is True
+    if tuple(map(int, TARGET.split('.'))) >= (3, 10, 13):
+        report['checks']['hero_shortcode'] = after.get('settings', {}).get('hero_shortcode') is True
+        report['checks']['hero_settings'] = after.get('settings', {}).get('hero_settings') is True
+        report['checks']['hero_enabled'] = after.get('settings', {}).get('hero_enabled') is True
+        report['checks']['hero_slide_count'] = int(after.get('settings', {}).get('hero_slide_count', 0)) == 4
+        report['checks']['hero_module'] = after.get('settings', {}).get('hero_module') is True
     if tuple(map(int, TARGET.split('.'))) >= (3, 10, 7):
         layout_migration = after.get('settings', {}).get('header_layout_migration')
         report['checks']['header_layout_migration'] = (
@@ -193,6 +200,23 @@ try:
     category_html=str(categories.get('html',''));report['categories']={'version':categories.get('version'),'enabled':categories.get('enabled'),'count':categories.get('count'),'term_ids':categories.get('term_ids'),'html_length':len(category_html)}
     report['checks']['category_endpoint']=(str(categories.get('version'))==TARGET and categories.get('enabled') is True and int(categories.get('count',0))>=4 and 'id="alookhor-managed-categories"' in category_html and 'alookhor-mc-track' in category_html and 'alookhor-mc-card' in category_html)
     report['checks']['category_no_store']='no-store' in category_cache.lower()
+
+    if tuple(map(int, TARGET.split('.'))) >= (3, 10, 13):
+        hero_url=BASE+'/wp-json/alookhor-cc/v1/hero?release_test='+TARGET.replace('.','')
+        with urlopen(Request(hero_url,headers={'Accept':'application/json','Cache-Control':'no-cache','User-Agent':'ALOOKHOR-GitHub-Publisher/1.0'}),timeout=30) as response:
+            hero=json.load(response);hero_cache=response.headers.get('Cache-Control','')
+        hero_html=str(hero.get('html',''));report['hero']={'version':hero.get('version'),'enabled':hero.get('enabled'),'slide_count':hero.get('slide_count'),'html_length':len(hero_html)}
+        report['checks']['hero_endpoint']=(
+            str(hero.get('version'))==TARGET and hero.get('enabled') is True and int(hero.get('slide_count',0))==4
+            and 'id="alookhor-managed-hero"' in hero_html
+            and len(re.findall(r'<article class="alookhor-mh-slide(?: |")',hero_html))==4
+            and 'alookhor-mh-content' in hero_html and 'alookhor-mh-features' in hero_html
+        )
+        report['checks']['hero_no_store']='no-store' in hero_cache.lower()
+        report['checks']['hero_homepage']=(
+            'alookhor-managed-hero-template' in homepage and 'frontend-hero.js' in homepage
+            and 'alookhor-mh-hide-legacy' in homepage and '.alookhor-hero-slider-wrapper' in homepage
+        )
 
     failed = [name for name, passed in report['checks'].items() if passed is not True]
     report['ok'] = not failed

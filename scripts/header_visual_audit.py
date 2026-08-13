@@ -17,12 +17,19 @@ const one=s=>document.querySelector(s), all=s=>[...document.querySelectorAll(s)]
 const rect=e=>e?Object.fromEntries(['top','right','bottom','left','width','height'].map(k=>[k,Math.round(e.getBoundingClientRect()[k]*10)/10])):null;
 const visible=e=>!!e&&getComputedStyle(e).display!=='none'&&getComputedStyle(e).visibility!=='hidden'&&e.getBoundingClientRect().height>0;
 const root=one('.alookhor-managed-legacy-header'),topbar=one('.alookhor-topbar-wrapper'),header=one('.alookhor-header'),stage=one('.alookhor-legacy-nav-stage'),capsule=one('.header-capsule');
+const hero=one('#alookhor-managed-hero'),heroShell=hero?.querySelector('.alookhor-mh-shell'),heroContent=hero?.querySelector('.alookhor-mh-slide.is-active .alookhor-mh-content'),heroImage=hero?.querySelector('.alookhor-mh-slide.is-active img');
 const main=one('#main-content')||one('.main-page-wrapper')||one('main');
 const visibleBottom=[topbar,header,stage].filter(visible).map(e=>e.getBoundingClientRect().bottom);
 const footprintBottom=visibleBottom.length?Math.max(...visibleBottom):0;
 return {
-  viewport:{width:innerWidth,height:innerHeight,dpr:devicePixelRatio},
+  viewport:{width:innerWidth,height:innerHeight,dpr:devicePixelRatio},runtime_version:String(window.ALOOKHOR_TOPBAR?.version||''),
   root:!!root,topbar:rect(topbar),header:rect(header),stage:rect(stage),capsule:rect(capsule),main:rect(main),logo:rect(one('.header-capsule-logo img')),
+  hero:rect(hero),hero_shell:rect(heroShell),hero_content:rect(heroContent),hero_image:rect(heroImage),hero_mounted:hero?.dataset.mounted==='1',
+  hero_slide_count:hero?all('#alookhor-managed-hero .alookhor-mh-slide').length:0,hero_active_count:hero?all('#alookhor-managed-hero .alookhor-mh-slide.is-active').length:0,
+  hero_feature_count:hero?all('#alookhor-managed-hero .alookhor-mh-slide.is-active .alookhor-mh-feature').length:0,hero_cta_count:hero?all('#alookhor-managed-hero .alookhor-mh-slide.is-active .alookhor-mh-cta').length:0,
+  hero_legacy_visible:all('.alookhor-hero-slider-wrapper').filter(visible).length,hero_old_slider_id_count:all('#alookhorHeroSlider').length,
+  hero_content_align:heroContent?getComputedStyle(heroContent).textAlign:null,hero_overflow:heroShell?getComputedStyle(heroShell).overflow:null,
+  hero_image_loaded:!!heroImage&&heroImage.complete&&heroImage.naturalWidth>0,hero_image_natural:heroImage?{width:heroImage.naturalWidth,height:heroImage.naturalHeight}:null,
   topbar_center_display:one('.topbar-center')?getComputedStyle(one('.topbar-center')).display:null,
   stage_display:stage?getComputedStyle(stage).display:null,stage_position:stage?getComputedStyle(stage).position:null,stage_stuck:stage?.classList.contains('is-stuck')||false,
   search_count:all('.alookhor-legacy-main-search').length,mobile_extra_toggle_count:all('.alookhor-mobile-sticky-toggle').length,
@@ -50,6 +57,11 @@ def audit(width: int, height: int, label: str) -> dict:
         driver.set_window_size(width, height)
         driver.get(f'{BASE}/?rendered_header_audit=3107-{label}-{int(time.time())}')
         WebDriverWait(driver, 40).until(lambda d: d.execute_script("return !!document.querySelector('.alookhor-managed-legacy-header .header-capsule')"))
+        runtime_version = driver.execute_script("return String(window.ALOOKHOR_TOPBAR?.version||'0.0.0')")
+        runtime_parts = tuple(int(part) for part in runtime_version.split('.') if part.isdigit())
+        hero_expected = runtime_parts >= (3, 10, 13)
+        if hero_expected:
+            WebDriverWait(driver, 40).until(lambda d: d.execute_script("return document.querySelector('#alookhor-managed-hero')?.dataset.mounted==='1' && document.querySelectorAll('#alookhor-managed-hero .alookhor-mh-slide').length===4"))
         time.sleep(4)
         before = driver.execute_script(JS_METRICS)
         driver.save_screenshot(str(SHOT_DIR / f'{label}-before.png'))
@@ -78,6 +90,21 @@ def audit(width: int, height: int, label: str) -> dict:
             'logo_contained_in_capsule': before['logo'] is not None and before['capsule'] is not None and before['logo']['top'] >= before['capsule']['top']-1 and before['logo']['bottom'] <= before['capsule']['bottom']+1,
             'upper_rows_leave_viewport': (after['topbar']['bottom'] < 2 and after['header']['bottom'] < 2) if not expected_mobile else True,
             'no_large_header_gap': before['header_to_main_gap'] is None or before['header_to_main_gap'] <= 100,
+            'hero_mounted': before['hero_mounted'] is True if hero_expected else True,
+            'hero_exactly_four_slides': before['hero_slide_count'] == 4 if hero_expected else True,
+            'hero_single_active_slide': before['hero_active_count'] == 1 if hero_expected else True,
+            'hero_replaces_legacy': (before['hero_legacy_visible'] == 0 and before['hero_old_slider_id_count'] == 0) if hero_expected else True,
+            'hero_image_loaded': before['hero_image_loaded'] is True if hero_expected else True,
+            'hero_layered_content': (before['hero_feature_count'] == 4 and before['hero_cta_count'] >= 1) if hero_expected else True,
+            'hero_content_on_right': (
+                before['hero_content'] is not None and before['hero_shell'] is not None
+                and before['hero_content']['left'] + before['hero_content']['width'] / 2 > before['hero_shell']['left'] + before['hero_shell']['width'] / 2
+                and before['hero_content_align'] == 'right'
+            ) if hero_expected else True,
+            'mobile_hero_under_glass_capsule': (
+                before['hero_shell'] is not None and before['capsule'] is not None
+                and before['capsule']['top'] < before['hero_shell']['top'] < before['capsule']['bottom']
+            ) if hero_expected and expected_mobile else True,
         }
         return {'label':label,'before':before,'after':after,'checks':checks,'ok':all(checks.values())}
     finally:

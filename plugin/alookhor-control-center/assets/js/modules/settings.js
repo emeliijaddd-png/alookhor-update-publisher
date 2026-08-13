@@ -1,4 +1,4 @@
-import { Config } from '../core/config.js?v=3.10.12';
+import { Config } from '../core/config.js?v=3.10.13';
 
 const escapeAttr = value => String(value ?? '').replace(/[&<>'"]/g, char => ({
   '&':'&amp;', '<':'&lt;', '>':'&gt;', "'":'&#039;', '"':'&quot;'
@@ -52,6 +52,20 @@ export const settingsModule = {
       show_description:true, show_count:false, show_icons:true, show_arrows:true, show_dots:true, autoplay:true, autoplay_interval:5000,
       desktop_cards:4, desktop_gap:18, image_height:285, mobile_card_width:84, mobile_gap:14, mobile_image_height:225, mobile_radius:18, mobile_peek:8, section_background:'#090610', card_background:'#0D0916', gold:'#D4A436', text:'#F7F2EA', muted:'#B8B0BD', border:'#6F5426', button_background:'#120B1C', overrides:{}
     }, cfg.category_settings || {});
+    const heroBase=`${String(window.ALOOKHOR_CC?.home_url||'/').replace(/\/$/,'')}/wp-content/plugins/alookhor-categories-manager/images/`;
+    const heroSlideDefaults=[
+      {image_id:0,flip_image:true,image_url:`${heroBase}slide1.jpg`,image_alt:'آلو بخارا ممتاز خراسان',kicker:'محصول ممتاز خراسان',title:'آلو بخارا',highlight:'ممتاز خراسان',description:'طبیعی، سالم و بدون مواد افزودنی',features:['۱۰۰٪ طبیعی','کیفیت صادراتی','ارسال سریع','ارسال به سراسر جهان'],primary_text:'مشاهده محصولات',primary_url:'/shop/',secondary_text:'استعلام قیمت',secondary_url:'/#b2b'},
+      {image_id:0,flip_image:true,image_url:`${heroBase}slide2.jpg`,image_alt:'آلو خشک طبیعی آلوخور',kicker:'انتخابی از باغ‌های ایران',title:'آلو خشک طبیعی',highlight:'خوش‌طعم و سالم',description:'سورت یکدست، فرآوری بهداشتی و طعم اصیل',features:['بدون افزودنی','سورت ممتاز','بسته‌بندی مطمئن','تحویل سریع'],primary_text:'خرید محصولات',primary_url:'/shop/',secondary_text:'مشاوره خرید',secondary_url:'/تماس-با-ما/'},
+      {image_id:0,flip_image:true,image_url:`${heroBase}slide3.jpg`,image_alt:'بسته‌بندی صادراتی آلوخور',kicker:'استاندارد بازارهای جهانی',title:'بسته‌بندی حرفه‌ای',highlight:'آماده صادرات',description:'حفظ کیفیت محصول از باغ تا مقصد نهایی',features:['کنترل کیفیت','سورت دقیق','بسته‌بندی صادراتی','ارسال بین‌المللی'],primary_text:'خدمات صادرات',primary_url:'/#b2b',secondary_text:'تماس با ما',secondary_url:'/تماس-با-ما/'},
+      {image_id:0,flip_image:true,image_url:`${heroBase}slide4.jpg`,image_alt:'سفارش عمده محصولات آلوخور',kicker:'همکاری مطمئن و ماندگار',title:'تأمین عمده آلو',highlight:'برای کسب‌وکارها',description:'ظرفیت پایدار، قیمت رقابتی و پشتیبانی تخصصی',features:['تأمین پایدار','قیمت همکاری','کنترل سفارش','پشتیبانی مستقیم'],primary_text:'درخواست همکاری',primary_url:'/#b2b',secondary_text:'دریافت مشاوره',secondary_url:'/تماس-با-ما/'}
+    ];
+    cfg.hero_settings=Object.assign({enabled:true,hide_legacy:true,autoplay:true,autoplay_interval:5500,pause_on_hover:true,show_arrows:true,show_dots:true,ken_burns:true,gold:'#D4AF37',surface:'#09060D',text:'#FFFFFF',muted:'#D9D1DA',radius:32,slides:[]},cfg.hero_settings||{});
+    const savedHeroSlides=Array.isArray(cfg.hero_settings.slides)?cfg.hero_settings.slides:[];
+    cfg.hero_settings.slides=heroSlideDefaults.map((defaults,index)=>{
+      const saved=savedHeroSlides[index]&&typeof savedHeroSlides[index]==='object'?savedHeroSlides[index]:{};
+      return {...defaults,...saved,features:[...Array(4)].map((_,featureIndex)=>Array.isArray(saved.features)&&saved.features[featureIndex]!==undefined?saved.features[featureIndex]:defaults.features[featureIndex])};
+    });
+    if(cfg.modules.hero){cfg.modules.hero.slides=4;cfg.modules.hero.autoplay=isEnabled(cfg.hero_settings.autoplay)}
     if(!cfg.site) cfg.site = {name:'ALOOKHOR', subtitle:'Control Center • Luxury', logoLetter:'A'};
     if(!cfg.system) cfg.system = {uptime:'99.9%', cache:'فعال', woocommerce:'فعال', woodmart_plus:'فعال', elementor_pro:'فعال', php_version:'8.1.6', memory:'256MB / 512MB', ssl:'فعال (امن)'};
     if(!cfg.ai_assistant) cfg.ai_assistant = {suggestions:[]};
@@ -347,7 +361,22 @@ export const settingsModule = {
       sort: () => `<h4>① مرکز سورت و بسته‌بندی</h4><div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:10px"><div style="background:rgba(255,255,255,0.03); border:1px solid var(--gold-border); border-radius:10px; padding:10px; text-align:center"><div style="font-size:11px; color:var(--text-faint)">ظرفیت روزانه</div><b>${cfg.modules.sort.capacity}</b></div><div style="background:rgba(255,255,255,0.03); border:1px solid var(--gold-border); border-radius:10px; padding:10px; text-align:center"><div style="font-size:11px; color:var(--text-faint)">سورت امروز</div><b style="color:var(--success)">${cfg.modules.sort.today}</b></div></div><div style="margin-top:10px"><label style="font-size:12px; color:var(--text-muted)">ظرفیت (تن) <input id="inpCapacity" value="${cfg.modules.sort.capacity}" style="width:100%; margin-top:4px; background:rgba(255,255,255,0.04); border:1px solid var(--gold-border); border-radius:8px; padding:8px; color:var(--text-primary)"></label></div>`,
       collection: () => `<h4>② مجموعه منتخب آلوخور</h4><p style="color:var(--text-muted); font-size:12.5px">کالکشن‌ها: ${cfg.modules.collection.collections.join(' ، ')}</p><div style="display:flex; gap:8px; margin-top:10px; flex-wrap:wrap">${cfg.modules.collection.collections.map(c=>`<span style="padding:6px 10px; background:rgba(201,168,106,0.14); border:1px solid var(--gold-border); border-radius:999px; font-size:12px">${c}</span>`).join('')}</div>`,
       app: () => `<h4>📱 دانلود اپلیکیشن آلوخور</h4><p style="color:var(--text-muted); font-size:12.5px">لینک: <span dir="ltr" style="color:var(--gold-soft)">${cfg.modules.app.link}</span></p><div style="display:flex; gap:8px; margin-top:10px"><input id="inpAppLink" value="${cfg.modules.app.link}" style="flex:1; background:rgba(255,255,255,0.04); border:1px solid var(--gold-border); border-radius:8px; padding:8px; color:var(--text-primary)" dir="ltr"><button class="btn-gold" style="padding:8px 12px; font-size:12px" id="btnSaveApp">ذخیره</button></div>`,
-      hero: () => `<h4>🎠 اسلایدر هیروی بالای صفحه</h4><p style="color:var(--text-muted); font-size:12.5px">${cfg.modules.hero.slides} اسلاید فعال • Autoplay: ${cfg.modules.hero.autoplay?'روشن':'خاموش'}</p><label style="display:flex; justify-content:space-between; align-items:center; background:rgba(255,255,255,0.03); border:1px solid var(--gold-border); border-radius:10px; padding:10px; margin-top:10px"><span>Autoplay</span><span class="mod-toggle ${cfg.modules.hero.autoplay?'on':''}" data-quick-toggle="hero_auto"><i></i></span></label>`,
+      hero: () => {
+        const h=cfg.hero_settings;
+        return `<div class="qh-head"><div><h4>🎠 اسلایدر هیروی مدیریت‌شده</h4><p>چهار اسلاید مشترک Desktop و Mobile؛ جایگزین خودکار اسلایدر فعلی در همان جایگاه Elementor</p></div><code>4 MANAGED SLIDES</code></div>
+        <div class="qh-section"><div class="qh-title"><b>جایگاه و رفتار</b><small>LIVE REPLACEMENT</small></div><div class="qh-flags">${[['enabled','فعال'],['hide_legacy','جایگزینی اسلایدر قدیمی'],['autoplay','حرکت خودکار'],['pause_on_hover','توقف با Hover/Focus'],['show_arrows','نمایش فلش‌ها'],['show_dots','نمایش Pagination'],['ken_burns','Ken Burns آرام']].map(([key,label])=>`<label><input type="checkbox" data-hero-flag="${key}" ${isEnabled(h[key])?'checked':''}>${label}</label>`).join('')}</div><div class="qh-grid" style="margin-top:10px"><label>فاصله Autoplay (ms)<input id="heroInterval" type="number" min="3000" max="15000" step="500" value="${Number(h.autoplay_interval)||5500}"></label><label>گردی Hero (px)<input id="heroRadius" type="number" min="16" max="40" value="${Number(h.radius)||32}"></label></div><p style="margin:9px 0 0;color:var(--text-faint);font-size:10.5px;line-height:1.8">ریشه واقعی <code>.alookhor-hero-slider-wrapper</code> در همان Widget نوع Shortcode جایگزین می‌شود. در Mobile، Hero با لایه‌ای کنترل‌شده زیر کپسول شیشه‌ای Header قرار می‌گیرد.</p></div>
+        <div class="qh-section"><div class="qh-title"><b>رنگ‌بندی Black / Gold</b><small>REFERENCE STYLE</small></div><div class="qh-colors">${[['طلایی اصلی','gold'],['سطح تیره','surface'],['متن اصلی','text'],['متن فرعی','muted']].map(([label,key])=>`<label>${label}<input type="color" id="heroColor_${key}" value="${escapeAttr(h[key])}"></label>`).join('')}</div></div>
+        <div class="alookhor-hero-admin-list">${h.slides.map((slide,index)=>`<article class="alookhor-hero-admin-card" data-hero-slide="${index}">
+          <div class="alookhor-hero-admin-head"><span>${index+1}</span><div><b>اسلاید ${index+1}</b><small>تصویر و نوشته‌های مستقل</small></div><em>SLIDE ${index+1}/4</em></div>
+          <div class="alookhor-hero-admin-media"><img id="heroPreview_${index}" src="${escapeAttr(slide.image_url)}" alt=""><div><input type="hidden" id="heroImageId_${index}" value="${Number(slide.image_id)||0}"><input id="heroImage_${index}" value="${escapeAttr(slide.image_url)}" dir="ltr"><button type="button" data-hero-media="${index}">انتخاب از Media Library</button></div></div>
+          <div class="qh-flags"><label><input type="checkbox" id="heroFlip_${index}" ${isEnabled(slide.flip_image)?'checked':''}>قرینه‌کردن تصویر (برای انتقال سوژه به سمت چپ)</label></div>
+          <div class="qh-grid"><label>Alt تصویر<input id="heroAlt_${index}" value="${escapeAttr(slide.image_alt)}"></label><label>کیکر کوچک<input id="heroKicker_${index}" value="${escapeAttr(slide.kicker)}"></label><label>عنوان سفید<input id="heroTitle_${index}" value="${escapeAttr(slide.title)}"></label><label>عنوان طلایی<input id="heroHighlight_${index}" value="${escapeAttr(slide.highlight)}"></label><label class="qh-span-2">توضیح کوتاه<textarea id="heroDescription_${index}" rows="2">${escapeAttr(slide.description)}</textarea></label></div>
+          <div class="alookhor-hero-feature-fields">${[0,1,2,3].map(featureIndex=>`<label>ویژگی ${featureIndex+1}<input id="heroFeature_${index}_${featureIndex}" value="${escapeAttr(slide.features?.[featureIndex]||'')}"></label>`).join('')}</div>
+          <div class="qh-grid"><label>متن دکمه اصلی<input id="heroPrimaryText_${index}" value="${escapeAttr(slide.primary_text)}"></label><label>لینک دکمه اصلی<input id="heroPrimaryUrl_${index}" value="${escapeAttr(slide.primary_url)}" dir="ltr"></label><label>متن دکمه دوم<input id="heroSecondaryText_${index}" value="${escapeAttr(slide.secondary_text)}"></label><label>لینک دکمه دوم<input id="heroSecondaryUrl_${index}" value="${escapeAttr(slide.secondary_url)}" dir="ltr"></label></div>
+        </article>`).join('')}</div>
+        <div class="qh-actions"><button class="btn-gold" id="btnApplyHero">ذخیره چهار اسلاید و اعمال روی سایت</button><a class="btn-ghost" href="${escapeAttr(window.ALOOKHOR_CC?.home_url||'/')}" target="_blank">مشاهده سایت</a><span>همه متن‌ها جدا از تصویر و در سمت راست Hero رندر می‌شوند.</span></div>
+        <style>.alookhor-hero-admin-list{display:grid;gap:12px;margin-top:12px}.alookhor-hero-admin-card{display:grid;gap:12px;padding:14px;border:1px solid var(--gold-border);border-radius:14px;background:linear-gradient(145deg,rgba(201,168,106,.045),rgba(0,0,0,.16))}.alookhor-hero-admin-head{display:flex;align-items:center;gap:9px;padding-bottom:10px;border-bottom:1px solid var(--gold-border)}.alookhor-hero-admin-head>span{width:31px;height:31px;border-radius:50%;display:grid;place-items:center;background:var(--gold);color:#171004;font-weight:900}.alookhor-hero-admin-head div{display:grid}.alookhor-hero-admin-head b{font-size:12px}.alookhor-hero-admin-head small{color:var(--text-faint);font-size:9px}.alookhor-hero-admin-head em{margin-right:auto;color:var(--gold);font:700 9px Arial}.alookhor-hero-admin-media{display:grid;grid-template-columns:180px minmax(0,1fr);gap:10px;align-items:center}.alookhor-hero-admin-media>img{width:180px;height:82px;object-fit:cover;border:1px solid var(--gold-border);border-radius:10px;background:#080509}.alookhor-hero-admin-media>div{display:flex;gap:7px}.alookhor-hero-admin-media input{flex:1;min-width:0}.alookhor-hero-admin-media button{white-space:nowrap;border:1px solid var(--gold-border-strong);border-radius:8px;background:rgba(201,168,106,.12);color:var(--gold-soft);cursor:pointer}.alookhor-hero-feature-fields{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}@media(max-width:860px){.alookhor-hero-admin-media{grid-template-columns:1fr}.alookhor-hero-admin-media>img{width:100%;height:150px}.alookhor-hero-feature-fields{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:560px){.alookhor-hero-admin-media>div{display:grid}.alookhor-hero-feature-fields{grid-template-columns:1fr}}</style>`;
+      },
       auto: () => `<h4>🔄 بروزرسانی خودکار افزونه</h4><label style="display:flex; justify-content:space-between; align-items:center; background:rgba(255,255,255,0.03); border:1px solid var(--gold-border); border-radius:10px; padding:10px; margin-top:10px"><span>بروزرسانی هر شب ساعت ۳</span><span class="mod-toggle ${cfg.modules.auto.enabled?'on':''}" data-quick-toggle="auto"><i></i></span></label><p style="font-size:11px; color:var(--text-faint); margin-top:6px">زمان: ${cfg.modules.auto.schedule} — آخرین: امروز ۰۳:۰۰</p>`
     };
 
@@ -439,6 +468,39 @@ export const settingsModule = {
           const liveTitle=document.getElementById('liveLogoText'); if(liveTitle) liveTitle.textContent=inpLogoText?.value||'ALOOKHOR';
           const liveSub=document.getElementById('liveLogoSub'); if(liveSub) liveSub.textContent=inpLogoSub?.value||'';
           window.ALOOKHOR.toast('ذخیره WordPress تأیید شد؛ تغییرات Top Bar روی سایت آماده است','success');
+        });
+      }
+
+      if(key === 'hero'){
+        quick.querySelectorAll('[data-hero-media]').forEach(button=>button.addEventListener('click',()=>{
+          if(!window.wp?.media){window.ALOOKHOR.toast('Media Library در دسترس نیست','info');return}
+          const index=Number(button.dataset.heroMedia);
+          const frame=window.wp.media({title:`انتخاب تصویر اسلاید ${index+1}`,button:{text:'استفاده در Hero'},library:{type:'image'},multiple:false});
+          frame.on('select',()=>{
+            const item=frame.state().get('selection').first().toJSON();
+            const imageInput=quick.querySelector(`#heroImage_${index}`),idInput=quick.querySelector(`#heroImageId_${index}`),preview=quick.querySelector(`#heroPreview_${index}`);
+            if(imageInput)imageInput.value=item.url||'';
+            if(idInput)idInput.value=Number(item.id)||0;
+            if(preview)preview.src=item.url||'';
+          });
+          frame.open();
+        }));
+        commitQuickSettings=()=>{
+          const h=cfg.hero_settings,hv=id=>quick.querySelector(`#${id}`)?.value??'';
+          h.autoplay_interval=Math.max(3000,Math.min(15000,Number(hv('heroInterval'))||5500));
+          h.radius=Math.max(16,Math.min(40,Number(hv('heroRadius'))||32));
+          ['gold','surface','text','muted'].forEach(color=>h[color]=hv(`heroColor_${color}`));
+          quick.querySelectorAll('[data-hero-flag]').forEach(input=>h[input.dataset.heroFlag]=input.checked);
+          h.slides=[0,1,2,3].map(index=>({
+            image_id:Number(hv(`heroImageId_${index}`))||0,flip_image:!!quick.querySelector(`#heroFlip_${index}`)?.checked,image_url:hv(`heroImage_${index}`),image_alt:hv(`heroAlt_${index}`),kicker:hv(`heroKicker_${index}`),title:hv(`heroTitle_${index}`),highlight:hv(`heroHighlight_${index}`),description:hv(`heroDescription_${index}`),
+            features:[0,1,2,3].map(feature=>hv(`heroFeature_${index}_${feature}`)),primary_text:hv(`heroPrimaryText_${index}`),primary_url:hv(`heroPrimaryUrl_${index}`),secondary_text:hv(`heroSecondaryText_${index}`),secondary_url:hv(`heroSecondaryUrl_${index}`)
+          }));
+          cfg.modules.hero.slides=4;cfg.modules.hero.autoplay=!!h.autoplay;
+        };
+        quick.querySelector('#btnApplyHero')?.addEventListener('click',async event=>{
+          commitQuickSettings();const button=event.currentTarget;button.disabled=true;const result=await Config.save({notify:false});button.disabled=false;if(!result.ok)return;
+          if(Number(result.data?.hero_settings?.slide_count)!==4){window.ALOOKHOR.toast('WordPress چهار اسلاید را تأیید نکرد؛ ذخیره متوقف شد','error');return}
+          window.ALOOKHOR.toast('چهار اسلاید Hero در WordPress ذخیره و روی Desktop/Mobile اعمال شدند','success');
         });
       }
 

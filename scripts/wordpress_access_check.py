@@ -127,6 +127,14 @@ try:
             and layout_migration.get('search_removed') is True
             and layout_migration.get('mobile_extra_stage_removed') is True
         )
+    if production_parts >= (3, 10, 13):
+        report['checks']['hero_runtime'] = (
+            settings.get('hero_shortcode') is True
+            and settings.get('hero_settings') is True
+            and settings.get('hero_enabled') is True
+            and int(settings.get('hero_slide_count', 0)) == 4
+            and settings.get('hero_module') is True
+        )
 
     public_url = base + '/?alookhor_access_audit=' + production_version.replace('.', '')
     with urlopen(Request(public_url, headers={'User-Agent': 'ALOOKHOR-GitHub-Publisher/1.0'}), timeout=30) as response:
@@ -197,12 +205,47 @@ try:
         for name in value.split()
     })
     hero_assets = sorted(set(re.findall(r'https?://[^"\'\s>]+alookhor-categories-manager/[^"\'\s<]+', homepage, re.I)))
+    widget_tag = ''
+    if hero_index >= 0:
+        widget_type_index = homepage.rfind('data-widget_type=', 0, hero_index)
+        if widget_type_index >= 0:
+            widget_start = homepage.rfind('<div', 0, widget_type_index)
+            widget_end = homepage.find('>', widget_type_index)
+            if widget_start >= 0 and widget_end >= 0:
+                widget_tag = re.sub(r'\s+', ' ', homepage[widget_start:widget_end + 1]).strip()
     report['legacy_hero'] = {
         'found': hero_index >= 0,
+        'root_selector': '.alookhor-hero-slider-wrapper' if 'alookhor-hero-slider-wrapper' in hero_fragment else None,
+        'slider_id': 'alookhorHeroSlider' if 'id="alookhorHeroSlider"' in hero_fragment else None,
+        'elementor_widget_tag': widget_tag,
         'classes': hero_classes[:160],
         'fragment': hero_fragment,
         'assets': hero_assets[:80],
     }
+
+    # Authenticated, non-mutating lookup of the real WordPress front-page record.
+    # Elementor may keep its source in private post meta, so record only exposed
+    # page identity and shortcode tokens rather than guessing unavailable data.
+    try:
+        with urlopen(authenticated_request(base, auth, '/wp-json/wp/v2/settings?context=edit'), timeout=30) as response:
+            wp_settings = json.load(response)
+        front_id = int(wp_settings.get('page_on_front') or 0)
+        page_record = {}
+        if front_id:
+            with urlopen(authenticated_request(base, auth, f'/wp-json/wp/v2/pages/{front_id}?context=edit'), timeout=30) as response:
+                page_record = json.load(response)
+        raw_content = str((page_record.get('content') or {}).get('raw') or '')
+        shortcode_tokens = sorted(set(re.findall(r'\[[^\]]*(?:hero|slider)[^\]]*\]', raw_content, re.I)))
+        report['front_page_source'] = {
+            'id': front_id,
+            'slug': page_record.get('slug'),
+            'template': page_record.get('template'),
+            'raw_content_length': len(raw_content),
+            'hero_shortcode_tokens': shortcode_tokens[:20],
+            'exposed_meta_keys': sorted((page_record.get('meta') or {}).keys())[:80],
+        }
+    except Exception as error:
+        report['front_page_source'] = {'available': False, 'error': str(error)}
 
     footer_classes = sorted({
         name
@@ -342,6 +385,32 @@ try:
             report['checks']['category_homepage']=('alookhor-managed-categories-template' in homepage and 'frontend-categories.js' in homepage and 'alookhor-mc-hide-legacy' in homepage)
         except Exception as error:
             report['managed_categories']={'error':str(error)};report['checks']['category_endpoint']=False;report['checks']['category_no_store']=False;report['checks']['category_homepage']=False
+
+    if version_tuple(production_version) >= version_tuple('3.10.13'):
+        hero_url=base+'/wp-json/alookhor-cc/v1/hero?access_audit='+str(int(time.time()))
+        try:
+            with urlopen(Request(hero_url,headers={'Accept':'application/json','Cache-Control':'no-cache','User-Agent':'ALOOKHOR-GitHub-Publisher/1.0'}),timeout=30) as response:
+                hero_state=json.load(response);hero_cache=response.headers.get('Cache-Control','')
+            hero_html=str(hero_state.get('html',''))
+            report['managed_hero']={'version':hero_state.get('version'),'enabled':hero_state.get('enabled'),'slide_count':hero_state.get('slide_count'),'html_length':len(hero_html),'html':hero_html}
+            report['checks']['hero_endpoint']=(
+                str(hero_state.get('version'))==production_version and hero_state.get('enabled') is True
+                and int(hero_state.get('slide_count',0))==4
+                and 'id="alookhor-managed-hero"' in hero_html
+                and len(re.findall(r'<article class="alookhor-mh-slide(?: |")',hero_html))==4
+            )
+            report['checks']['hero_no_store']='no-store' in hero_cache.lower()
+            report['checks']['hero_homepage']=(
+                'alookhor-managed-hero-template' in homepage
+                and 'frontend-hero.js' in homepage
+                and 'alookhor-mh-hide-legacy' in homepage
+                and '.alookhor-hero-slider-wrapper' in homepage
+            )
+        except Exception as error:
+            report['managed_hero']={'error':str(error)}
+            report['checks']['hero_endpoint']=False
+            report['checks']['hero_no_store']=False
+            report['checks']['hero_homepage']=False
 
     # Non-mutating feasibility probe. Application Passwords are expected to be
     # REST-only on this site; never record a nonce or any authenticated HTML.

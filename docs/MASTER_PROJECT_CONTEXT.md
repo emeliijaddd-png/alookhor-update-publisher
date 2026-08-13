@@ -27,6 +27,8 @@ When sources disagree, the newer provable runtime/source wins. Missing source is
 - **Deployment run:** `31732111449` — all publication/native WordPress checks passed.
 - **Final rendered Chrome audit:** `31732438329` — Desktop and Mobile both passed every visual check.
 - **Production:** active and verified
+- **Current source target:** `3.10.13` — managed four-slide Hero prepared for test/publication; Production remains 3.10.12 until tagged deployment succeeds.
+- **3.10.13 candidate package SHA-256:** `141ff48ebe8142d99c76c8310d12fe2b59fef1c9effefdf7d79e28a5ce884729`
 - **Repository:** `alookhor-update-publisher`
 - **Update channel:** `https://updates.alookhor.ir/manifest.json`
 - **Release pipeline:** Git push → GitHub Actions → deterministic ZIP/SHA → Explicit FTPS → remote verification → atomic Manifest → native WordPress updater → activation restoration → Production audit
@@ -35,6 +37,7 @@ When sources disagree, the newer provable runtime/source wins. Missing source is
 
 - `[alookhor_portal_header]` — managed/compatibility-preserving portal header.
 - `[alookhor_managed_categories]` — real WooCommerce categories placed directly through an Elementor Shortcode widget.
+- `[alookhor_managed_hero]` — managed four-slide Hero; automatic Home migration replaces the exact Legacy root without requiring a second Elementor widget.
 - `[alookhor_categories_carousel]` — external legacy shortcode owned by `alookhor-categories-manager`; its source is not in this repository and must not be guessed. It was replaced on the Home page by the managed shortcode.
 
 Full metadata and complete source snapshots are generated in `docs/MASTER_CODE_REGISTRY.md`.
@@ -45,6 +48,7 @@ Full metadata and complete source snapshots are generated in `docs/MASTER_CODE_R
 - Header/Top Bar helper submenu using the same authoritative options
 - Preserved two-level professional header and WordPress menus
 - Real WooCommerce product categories module
+- Managed four-slide responsive Hero with Media Library images and separate right-side overlay content
 - Responsive managed footer
 - Public no-store state endpoints
 - Authenticated private updater and rollback-capable native WordPress installation
@@ -72,6 +76,19 @@ This rule supersedes every earlier interpretation of full-header Sticky behavior
 15. Product Search is explicitly rejected and must not be rendered in Desktop or Mobile Header, nor exposed as a Boutique setting.
 16. When Woodmart's native Header is hidden, its reserved Body offset and the Home main-content top padding must be collapsed only on pages containing `.alookhor-managed-legacy-header`; the live Top Bar should begin within 25px of the viewport top.
 17. Visual acceptance requires rendered Chrome audits at 1440×1050 and 430×932, unique Drawer ID, no horizontal overflow, contained logo, hidden duplicate Top Bar logo, hidden Mobile nav stage, and a pinned Desktop navigation rail.
+
+## Managed Hero contract
+
+1. The source-backed Legacy root is `.alookhor-hero-slider-wrapper` / `#alookhorHeroSlider`, rendered inside the Home page Elementor Shortcode widget by external `alookhor-categories-manager` assets.
+2. Managed runtime replaces that exact root in place with `#alookhor-managed-hero`; it must never append a second Slider beside or below it.
+3. Exactly four records are enforced under `alookhor_cc_settings.hero_settings.slides` and in REST/rendered output.
+4. Every record supports WordPress Media Library attachment ID/URL, Alt, Kicker, white Title, Gold Highlight, Description, four Feature labels, and two CTA label/URL pairs.
+5. Overlay writing remains separate from the image and is positioned on the right side.
+6. Desktop/Mobile read the same WordPress state; CSS is responsive rather than maintaining a second Mobile data set.
+7. Mobile Hero rises beneath the existing second glass Main Header capsule while the first Top Bar and all approved Header controls remain unchanged and above it.
+8. Public `GET /wp-json/alookhor-cc/v1/hero` is read-only/no-store; cached Home HTML refreshes without exposing private settings or accepting writes.
+9. Slider behavior includes Arrow/Dots, Swipe, Keyboard, Autoplay/Pause, Ken Burns, and Reduced Motion handling.
+10. Acceptance requires Chrome Desktop/Mobile screenshots plus geometry for four slides, one active slide, loaded image, right-side content, Legacy replacement, no overflow, and Mobile underlap.
 
 ## Current categories contract
 
@@ -119,6 +136,17 @@ Process: **CODE → TEST → DOCUMENT → VERSION**.
 ## Elementor rule
 
 Every user action must identify the exact surface: Page/Template, Container, Widget, CSS Class, CSS ID, Custom CSS, HTML, or Shortcode. Unknown Elementor internal IDs/template exports are reported as unavailable rather than invented.
+
+Current Legacy/managed Hero placement:
+
+```text
+WordPress → Pages → Home (front page) → Elementor Shortcode widget
+Legacy root: .alookhor-hero-slider-wrapper
+Legacy ID: #alookhorHeroSlider
+Managed replacement: #alookhor-managed-hero
+Optional managed shortcode: [alookhor_managed_hero]
+Movement: retain the existing widget/container; automatic replacement preserves its position
+```
 
 Current managed categories placement:
 

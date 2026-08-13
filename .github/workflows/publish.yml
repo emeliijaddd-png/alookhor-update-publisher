@@ -59,6 +59,9 @@ jobs:
               'plugin/alookhor-control-center/assets/images/category-fruit-sheets.jpg',
               'plugin/alookhor-control-center/assets/images/category-natural-snacks.jpg',
               'plugin/alookhor-control-center/assets/images/category-nuts.jpg',
+              'plugin/alookhor-control-center/includes/hero.php',
+              'plugin/alookhor-control-center/assets/css/frontend-hero.css',
+              'plugin/alookhor-control-center/assets/js/frontend-hero.js',
           ]
           for name in required:
               assert Path(name).is_file() and Path(name).stat().st_size > 0, name
@@ -80,6 +83,15 @@ jobs:
           assert '.alookhor-mc-arrow{display:none!important}' in category_css and 'flex-basis:33px!important' in category_css
           assert '.alookhor-mc.has-single-page' in category_css and 'min-width:58px!important' in category_css and 'appearance:none!important' in category_css
           assert 'ResizeObserver' in category_js and "cache:'no-store'" in category_js and 'is-clone' in category_js and 'syncDots' in category_js and "tabIndex=mobile?-1:0" in category_js and "classList.toggle('has-single-page'" in category_js
+          hero_php = Path('plugin/alookhor-control-center/includes/hero.php').read_text()
+          hero_css = Path('plugin/alookhor-control-center/assets/css/frontend-hero.css').read_text()
+          hero_js = Path('plugin/alookhor-control-center/assets/js/frontend-hero.js').read_text()
+          assert "add_shortcode('alookhor_managed_hero'" in hero_php and 'id="alookhor-managed-hero"' in hero_php
+          assert 'alookhor-hero-slider-wrapper' in hero_php and "data-slide-count=\"4\"" in hero_php and 'for ($index=0; $index<4; $index++)' in hero_php
+          assert 'body.alookhor-mh-hide-legacy .alookhor-hero-slider-wrapper' in hero_css and '@media(max-width:767px)' in hero_css
+          assert 'margin-top:-20px' in hero_css and '.alookhor-mh-content' in hero_css and 'right:' in hero_css
+          assert "legacy_selector" in hero_php and 'legacy.replaceWith(section)' in hero_js and "cache:'no-store'" in hero_js
+          assert "slides.length!==4" in hero_js and 'prefers-reduced-motion' in hero_js and "data-hero-media" in Path('plugin/alookhor-control-center/assets/js/modules/settings.js').read_text()
           admin_template = Path('plugin/alookhor-control-center/templates/admin-control-center.php').read_text()
           admin_app = Path('plugin/alookhor-control-center/assets/js/app.js').read_text()
           dashboard_js = Path('plugin/alookhor-control-center/assets/js/modules/dashboard.js').read_text()

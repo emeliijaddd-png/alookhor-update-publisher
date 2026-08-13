@@ -65,9 +65,9 @@ def render() -> str:
     add(f'- CURRENT VERSION: `{version}`')
     add(f'- LAST FUNCTIONAL CHANGE: {release.get("description", "Not recorded")}')
     add('- ACTIVE DESIGN: Luxury Black/Gold; actual component colors remain controlled by saved WordPress settings and existing module defaults.')
-    add('- ACTIVE SHORTCODES: `[alookhor_portal_header]`, `[alookhor_managed_categories]`.')
+    add('- ACTIVE SHORTCODES: `[alookhor_portal_header]`, `[alookhor_managed_categories]`, `[alookhor_managed_hero]`.')
     add('- ACTIVE PANELS: Main ALOOKHOR Control Center and Header/Top Bar submenu.')
-    add('- ACTIVE COMPONENTS: Header/Top Bar manager, WooCommerce categories, managed footer, private native updater.')
+    add('- ACTIVE COMPONENTS: Header/Top Bar manager, managed four-slide Hero, WooCommerce categories, managed footer, private native updater.')
     add('- KNOWN EXTERNAL LEGACY: `[alookhor_categories_carousel]` belongs to `alookhor-categories-manager`; its source is not in this repository and is not reconstructed here.')
     add('- KNOWN SOURCE GAP: Elementor template export/internal element IDs and historical Code Snippets source are not present in this repository.')
     add('')
@@ -90,11 +90,13 @@ def render() -> str:
     rows = [
         ('SC-001','Shortcode','`[alookhor_portal_header]`','`includes/shortcode-header.php`','Elementor Header Shortcode widget; exact template ID unavailable',version,'Active / compatibility-preserving'),
         ('SC-002','Shortcode','`[alookhor_managed_categories]`','`includes/product-categories.php`','Home page → Elementor Shortcode widget',version,'Active'),
+        ('SC-003','Shortcode','`[alookhor_managed_hero]`','`includes/hero.php`','Home Elementor Shortcode widget / automatic Legacy-root replacement',version,'Active'),
         ('SC-EXT-001','External shortcode','`[alookhor_categories_carousel]`','External plugin source unavailable','Former Home showcase', 'External','Replaced on Home / do not reconstruct'),
         ('PN-001','Admin panel','ALOOKHOR Control Center','`includes/admin.php`','WP Admin top-level menu',version,'Active'),
         ('PN-002','Admin panel','Header & Top Bar','`includes/admin.php`','WP Admin submenu',version,'Active mirror'),
         ('MOD-001','Managed module','WooCommerce Categories','`includes/product-categories.php`','Home / Elementor / REST',version,'Active'),
         ('MOD-002','Managed module','Responsive Footer','`includes/footer.php`','Frontend footer / REST',version,'Active'),
+        ('MOD-003','Managed module','Four-slide Hero','`includes/hero.php`','Home / Elementor / REST',version,'Active'),
         ('API-001','REST API','`alookhor-cc/v1`','`includes/rest-api.php`','Public state + authenticated updater',version,'Active'),
         ('UPD-001','Updater','Private native updater','`includes/updater.php`','Control Center + GitHub Actions',version,'Active'),
         ('CFG-001','WordPress state','Main settings','`alookhor_cc_settings`','All managed modules',version,'Active'),
@@ -108,6 +110,8 @@ def render() -> str:
         ('JS-004','JavaScript','Managed Footer','`assets/js/frontend-footer.js`','Managed Footer module',version,'Active'),
         ('CSS-004','CSS','Control Center UI','`assets/css/luxury.css`','WP Admin ALOOKHOR pages',version,'Active'),
         ('JS-005','JavaScript','Control Center app','`assets/js/app.js` + modules','WP Admin ALOOKHOR pages',version,'Active'),
+        ('CSS-005','CSS','Managed Hero','`assets/css/frontend-hero.css`','`[alookhor_managed_hero]` / automatic Home replacement',version,'Active'),
+        ('JS-006','JavaScript','Managed Hero runtime','`assets/js/frontend-hero.js`','Four-slide replacement, controls and REST refresh',version,'Active'),
     ]
     for row in rows:
         add('| ' + ' | '.join(str(cell) for cell in row) + ' |')
@@ -151,6 +155,27 @@ def render() -> str:
     add('- **Status:** Active; shortcode mode suppresses automatic duplicate template output.')
     add('- **Complete source:** see Source Snapshots for `includes/product-categories.php`, `assets/css/frontend-categories.css`, and `assets/js/frontend-categories.js`.')
     add('')
+    add('## SC-003 — Managed Four-Slide Hero')
+    add('')
+    add('- **Shortcode:** `[alookhor_managed_hero]`')
+    add('- **Function:** `alookhor_cc_hero_shortcode()`; markup callback `alookhor_cc_hero_markup()`.')
+    add('- **Registration:** `add_shortcode(\'alookhor_managed_hero\', \'alookhor_cc_hero_shortcode\')`.')
+    add('- **PHP file:** `plugin/alookhor-control-center/includes/hero.php`.')
+    add('- **Current WordPress use:** Home front page → Elementor Shortcode widget that renders the external Legacy root `.alookhor-hero-slider-wrapper` / `#alookhorHeroSlider`; the managed runtime replaces that exact root in place. Optional direct shortcode mode is available without duplicate template output.')
+    add('- **Elementor/container contract:** existing widget/container position is preserved; runtime adds `.alookhor-managed-hero-slot` only to normalize the exact host. Internal Elementor ID is reported from Production discovery when available and is never guessed.')
+    add('- **Output ID/classes:** `#alookhor-managed-hero`, `.alookhor-mh`, `.alookhor-mh-slide`, `.alookhor-mh-content`, `.alookhor-mh-features`, `.alookhor-mh-actions`, `.alookhor-mh-dots`, `.alookhor-mh-arrow`.')
+    add('- **Inputs:** no shortcode attributes; exactly four slide records from the main ALOOKHOR Control Center.')
+    add('- **Storage:** `alookhor_cc_settings.hero_settings`; `modules.hero` remains module metadata and is synchronized to four slides/autoplay.')
+    add('- **Per-slide fields:** Media Library attachment ID/URL, optional image mirror for subject placement, image Alt, Kicker, Title, Gold Highlight, Description, four Feature labels, primary CTA label/URL, secondary CTA label/URL.')
+    add('- **Global fields:** enabled, hide Legacy, autoplay/interval, pause, arrows, dots, Ken Burns, Gold/Surface/Text/Muted colors, radius.')
+    add('- **Sanitization:** Nonce + `manage_options`; exact four-record normalization; attachment IDs via `absint`, URLs via `esc_url_raw`, colors via `sanitize_hex_color`, text via `sanitize_text_field`/`sanitize_textarea_field`, bounded interval/radius.')
+    add('- **CSS:** `assets/css/frontend-hero.css`; right-side overlay, 32px reference radius, Black/Gold design, Desktop/Tablet/Mobile breakpoints and controlled Mobile Header underlap.')
+    add('- **JavaScript:** `assets/js/frontend-hero.js`; exact-node replacement, four-slide state, Arrow/Dots, Swipe, Keyboard, Autoplay/Pause, Reduced Motion and same-origin no-store refresh.')
+    add('- **REST:** `GET /wp-json/alookhor-cc/v1/hero`; public read-only state already rendered publicly, `Cache-Control: no-store`; no write route.')
+    add('- **Dependencies:** WordPress Media Library, front-page Elementor host, existing external Legacy root only as automatic placement anchor; Header/Footer/WooCommerce structures are not modified.')
+    add('- **Created:** 3.10.13; **status:** active source release, final status follows tagged Production visual verification.')
+    add('- **Complete source:** see Source Snapshots for `includes/hero.php`, `assets/css/frontend-hero.css`, `assets/js/frontend-hero.js`, `assets/js/modules/settings.js`, `includes/ajax.php`, and `includes/rest-api.php`.')
+    add('')
     add('## SC-EXT-001 — Legacy Categories Carousel')
     add('')
     add('- **Shortcode:** `[alookhor_categories_carousel]`')
@@ -170,9 +195,9 @@ def render() -> str:
     add('- **CSS:** `assets/css/luxury.css`')
     add('- **JavaScript:** `assets/js/app.js`, `assets/js/admin-wp.js`, `assets/js/core/*`, `assets/js/modules/*`')
     add('- **AJAX:** `alookhor_save_settings`, `alookhor_toggle_module`, `alookhor_save_header`, `alookhor_get_settings`, `alookhor_check_updates`.')
-    add('- **REST:** authenticated status/check/install plus public Top Bar/Footer/Categories state.')
-    add('- **Database:** `alookhor_cc_settings`, `alookhor_header_settings`, `alookhor_footer_subscribers`.')
-    add('- **Managed shortcodes:** `[alookhor_portal_header]`, `[alookhor_managed_categories]`.')
+    add('- **REST:** authenticated status/check/install plus public Top Bar/Hero/Footer/Categories state.')
+    add('- **Database:** `alookhor_cc_settings` (including `hero_settings`), `alookhor_header_settings`, `alookhor_footer_subscribers`.')
+    add('- **Managed shortcodes:** `[alookhor_portal_header]`, `[alookhor_managed_categories]`, `[alookhor_managed_hero]`.')
     add('- **Status:** Active; every managed module setting remains in this main panel.')
     add('')
     add('## PN-002 — Header and Top Bar Submenu')
@@ -189,7 +214,7 @@ def render() -> str:
     add('## API and Update Architecture')
     add('')
     add('- **REST namespace:** `alookhor-cc/v1`')
-    add('- **Public/no-store:** `/topbar`, `/footer`, `/product-categories`; newsletter POST is rate-limited.')
+    add('- **Public/no-store:** `/topbar`, `/hero`, `/footer`, `/product-categories`; newsletter POST is rate-limited.')
     add('- **Authenticated:** `/status`, `/check-update`, `/install-update` with Application Password and `update_plugins`.')
     add('- **Release flow:** source → Git push → GitHub Actions → deterministic ZIP/SHA → Explicit FTPS → remote ZIP verification → atomic Manifest → native WordPress upgrader → activation restoration → Production checks.')
     add('- **Certificate rule:** Explicit FTPS with certificate and hostname verification; verification must not be disabled.')

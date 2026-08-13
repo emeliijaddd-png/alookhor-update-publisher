@@ -4,7 +4,7 @@ Tags: control center, luxury, alookhor, admin, dashboard
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 3.10.12
+Stable tag: 3.10.13
 License: Private
 License URI: https://alookhor.ir
 
@@ -16,6 +16,7 @@ License URI: https://alookhor.ir
 
 *   **هدر حرفه‌ای با شورت‌کد:** هدر دو‌ردیفه Luxury با Top Bar، منوی شیشه‌ای، حساب کاربری و CTA عمده — فقط `[alookhor_portal_header]`
 *   **جایگاه دسته‌بندی در Elementor:** بخش واقعی WooCommerce را با `[alookhor_managed_categories]` در هر محل دلخواه قرار دهید
+*   **Hero چهاراسلایدی مدیریت‌شده:** تصویر Media Library، نوشته‌ها، ویژگی‌ها و CTAهای مستقل با `[alookhor_managed_hero]` و جایگزینی خودکار Slider قدیمی
 *   **فهرست‌های خودکار WordPress:** فهرست اصلی از جایگاه Primary/Header و تمام فهرست‌ها داخل Hamburger حرفه‌ای فراخوانی می‌شوند
 *   **آپدیت آنی (Hot-Swap):** هر تغییری بدون رفرش ذخیره و روی سایت اعمال می‌شود (AJAX + LocalStorage)
 *   **سایدبار PRO فشرده:** ۶ دسته جمع‌شونده، بدون لیست طولانی، با جستجوی زنده
@@ -44,6 +45,14 @@ License URI: https://alookhor.ir
 در `config/site.json` و `wp_options: alookhor_cc_settings` — همان حافظه واقعی که در چت قبلی ویرایش می‌شد.
 
 == Changelog ==
+
+= 3.10.13 =
+* Hero چهاراسلایدی مدیریت‌شده با تصویر Media Library و نوشته‌های مستقل
+* عنوان، Highlight، توضیح، چهار ویژگی و دو CTA برای هر اسلاید
+* جایگزینی خودکار ریشه واقعی Slider قدیمی در همان جایگاه Elementor
+* متن سمت راست، Black/Gold، Ken Burns و کنترل‌های Accessible
+* داده مشترک Desktop/Mobile و هم‌پوشانی کنترل‌شده زیر Header شیشه‌ای Mobile
+* REST no-store و ممیزی Chrome برای چهار اسلاید، تصویر، محتوا و Header
 
 = 3.10.12 =
 * تراز عمودی نهایی Logo Symbol در Desktop

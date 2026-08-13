@@ -45,6 +45,7 @@ add_action('admin_enqueue_scripts', function($hook){
         ),
         'updater_configured' => (bool) alookhor_cc_update_manifest_url(),
         'header_shortcode' => '[alookhor_portal_header]',
+        'hero_shortcode' => '[alookhor_managed_hero]',
         'home_url' => home_url('/'),
         'footer_menus' => array_map(function($menu){
             return ['id' => (int) $menu->term_id, 'name' => $menu->name];
