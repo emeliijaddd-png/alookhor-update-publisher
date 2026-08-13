@@ -21,12 +21,11 @@ When sources disagree, the newer provable runtime/source wins. Missing source is
 
 ## Authoritative current state
 
-- **Production runtime:** ALOOKHOR Control Center `3.10.5`
-- **Current source target:** `3.10.6` — Black/Gold Header state correction and phone 3173 recovery; pending tagged deployment and verification.
-- **Last Production tag/source:** `v3.10.5` / `a4da999a2e92d485ce8f675d920442f3e72b431b`
-- **Last published package SHA-256:** `838878bfbbccd964c50b20fd290b8a5e4ccde524b655c1793bd610993e23401e`
-- **Deployment run:** `31718432638`
-- **Independent audit run:** pending for 3.10.5
+- **Production runtime:** ALOOKHOR Control Center `3.10.6`
+- **Current Production tag/source:** `v3.10.6` / `b3c80616057f9279f8279b818e01be965f4f9714`
+- **Published package SHA-256:** `9b47e45bc4aebd5fa947149e51eb3de8ecb647af336c08a0291ee4dba8859f2e`
+- **Deployment run:** `31719379272`
+- **Independent audit run:** `31719692503`
 - **Production:** active and verified
 - **Repository:** `alookhor-update-publisher`
 - **Update channel:** `https://updates.alookhor.ir/manifest.json`
