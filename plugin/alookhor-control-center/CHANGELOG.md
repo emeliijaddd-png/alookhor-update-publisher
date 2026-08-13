@@ -1,12 +1,13 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
-## v3.10.0 — DRAFT — WooCommerce Category Showcase Desktop
+## v3.10.0 — 2026-08-13 — WooCommerce Category Showcase Desktop
 - ADD: بخش مدیریت‌شده دسته‌بندی واقعی WooCommerce با `get_terms(product_cat)` و URL/Count/Thumbnail واقعی.
 - DESKTOP: Carousel چهارکارته، تصویر 4:3، Icon medallion، Hover، CTA، Arrow، Dots و Autoplay مطابق تصویر مرجع.
 - ADMIN: ماژول `product_categories` در تنظیمات سریع؛ انتخاب Termها، Image/Description override، متن‌ها، رفتار، ابعاد و Theme colors.
 - ASSET: چهار تصویر بهینه‌شده و هماهنگ برای دسته‌های بدون Thumbnail در WooCommerce.
 - MIGRATION: جایگزینی خودکار `.category-carousel-section` از Template موجود بدون ویرایش Elementor.
 - REST: endpoint عمومی `product-categories` با `no-store` و گزارش term IDs واقعی.
+- RELEASE: Build، PHP/JS/CSS validation، Woo contract و Carousel DOM test موفق شدند؛ Desktop آماده انتشار اتمی است.
 - PHASE: Desktop کامل؛ Mobile baseline ایمن است و فاز Mobile پس از تأیید Desktop انجام می‌شود.
 
 ## v3.9.2 — 2026-08-11 — Managed Footer Admin Form Layout
