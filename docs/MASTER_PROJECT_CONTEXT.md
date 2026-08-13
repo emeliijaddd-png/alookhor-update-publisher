@@ -25,9 +25,10 @@ When sources disagree, the newer provable runtime/source wins. Missing source is
 - **Current Production tag/source:** `v3.10.13` / `989b88671f67ff2af86796568834bc9a5e8edd82`
 - **Published package SHA-256:** `141ff48ebe8142d99c76c8310d12fe2b59fef1c9effefdf7d79e28a5ce884729`
 - **Deployment run:** `31742279596` — ZIP/SHA, Manifest and native WordPress checks all passed.
-- **Final rendered Chrome audit:** pending fresh 3.10.13 audit; the last Header-only baseline was `31732438329` on 3.10.12.
-- **Production:** 3.10.13 active; final Hero visual audit pending
-- **Current source target:** `3.10.13` — deployed managed four-slide Hero; awaiting independent rendered acceptance.
+- **Latest rendered Chrome audit:** `31742642133` — Desktop passed; Mobile failed only `mobile_hero_under_glass_capsule` (shell started 18.4px below Capsule). Direct screenshot also exposed Woodmart's white Arrow override and mirrored baked banner copy.
+- **Production:** 3.10.13 active; Hero data/runtime works, but visual acceptance is not final.
+- **Current source target:** `3.10.14` — targeted Mobile underlap, Arrow isolation and non-mirrored subject-focus fix prepared for test/publication.
+- **3.10.14 candidate package SHA-256:** `71716cd46a199b785ead7463e686f9fa4590fb91a95ae4f84edb978aff277a36`
 - **Repository:** `alookhor-update-publisher`
 - **Update channel:** `https://updates.alookhor.ir/manifest.json`
 - **Release pipeline:** Git push → GitHub Actions → deterministic ZIP/SHA → Explicit FTPS → remote verification → atomic Manifest → native WordPress updater → activation restoration → Production audit

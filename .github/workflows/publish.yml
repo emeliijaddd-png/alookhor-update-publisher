@@ -89,7 +89,8 @@ jobs:
           assert "add_shortcode('alookhor_managed_hero'" in hero_php and 'id="alookhor-managed-hero"' in hero_php
           assert 'alookhor-hero-slider-wrapper' in hero_php and "data-slide-count=\"4\"" in hero_php and 'for ($index=0; $index<4; $index++)' in hero_php
           assert 'body.alookhor-mh-hide-legacy .alookhor-hero-slider-wrapper' in hero_css and '@media(max-width:767px)' in hero_css
-          assert 'margin-top:-20px' in hero_css and '.alookhor-mh-content' in hero_css and 'right:' in hero_css
+          assert 'margin-top:-50px' in hero_css and '.alookhor-mh-content' in hero_css and 'right:' in hero_css
+          assert 'appearance:none!important' in hero_css and '.alookhor-mh .alookhor-mh-arrow:before' in hero_css and 'background:rgba(7,4,10,.56)!important' in hero_css
           assert "legacy_selector" in hero_php and 'legacy.replaceWith(section)' in hero_js and "cache:'no-store'" in hero_js
           assert "slides.length!==4" in hero_js and 'prefers-reduced-motion' in hero_js and "data-hero-media" in Path('plugin/alookhor-control-center/assets/js/modules/settings.js').read_text()
           admin_template = Path('plugin/alookhor-control-center/templates/admin-control-center.php').read_text()

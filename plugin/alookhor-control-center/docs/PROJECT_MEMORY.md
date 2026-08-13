@@ -6,8 +6,8 @@
 
 - **نام افزونه:** ALOOKHOR Control Center
 - **نسخه پایه بازیابی‌شده:** `3.8.4`
-- **Production پیش از این Release:** `3.10.12` (Header نهایی Desktop/Mobile با تمام Visual checks پاس)
-- **Release آماده انتشار اتمی:** `3.10.13` (Hero چهاراسلایدی مدیریت‌شده Desktop/Mobile)
+- **Production پیش از این Release:** `3.10.13` (Hero فعال؛ audit نخست underlap و Arrow را برای Fix هدفمند مشخص کرد)
+- **Release آماده انتشار اتمی:** `3.10.14` (Mobile underlap، Arrow isolation و image focus اصلاح‌شده)
 - **تاریخ بازیابی:** 2026-08-11
 - **منبع بازیابی:** ZIP واقعی افزونه `alookhor-control-center (5).zip`
 - **حداقل WordPress:** 6.0
@@ -233,8 +233,8 @@ Schema حداقلی Manifest:
 
 ```json
 {
-  "version": "3.10.13",
-  "download_url": "https://updates.alookhor.ir/releases/alookhor-control-center-3.10.13.zip",
+  "version": "3.10.14",
+  "download_url": "https://updates.alookhor.ir/releases/alookhor-control-center-3.10.14.zip",
   "details_url": "https://alookhor.ir/changelog",
   "requires": "6.0",
   "tested": "7.0",

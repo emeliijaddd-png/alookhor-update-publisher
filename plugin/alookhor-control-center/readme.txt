@@ -4,7 +4,7 @@ Tags: control center, luxury, alookhor, admin, dashboard
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 3.10.13
+Stable tag: 3.10.14
 License: Private
 License URI: https://alookhor.ir
 
@@ -45,6 +45,13 @@ License URI: https://alookhor.ir
 در `config/site.json` و `wp_options: alookhor_cc_settings` — همان حافظه واقعی که در چت قبلی ویرایش می‌شد.
 
 == Changelog ==
+
+= 3.10.14 =
+* حذف فاصله Mobile و عبور واقعی Hero زیر کپسول شیشه‌ای Header
+* ایزوله‌سازی کامل Arrowها در برابر Background/Appearance سفید Woodmart
+* انتقال سوژه بنرهای قبلی به سمت چپ بدون Mirror شدن لوگو و نوشته تصویر
+* سطح تیره‌تر سمت راست برای جداسازی قطعی نوشته‌های مدیریت‌شده از تصویر
+* افزودن Geometry و Style check برای Arrowها به Chrome audit
 
 = 3.10.13 =
 * Hero چهاراسلایدی مدیریت‌شده با تصویر Media Library و نوشته‌های مستقل

@@ -166,7 +166,7 @@ def render() -> str:
     add('- **Output ID/classes:** `#alookhor-managed-hero`, `.alookhor-mh`, `.alookhor-mh-slide`, `.alookhor-mh-content`, `.alookhor-mh-features`, `.alookhor-mh-actions`, `.alookhor-mh-dots`, `.alookhor-mh-arrow`.')
     add('- **Inputs:** no shortcode attributes; exactly four slide records from the main ALOOKHOR Control Center.')
     add('- **Storage:** `alookhor_cc_settings.hero_settings`; `modules.hero` remains module metadata and is synchronized to four slides/autoplay.')
-    add('- **Per-slide fields:** Media Library attachment ID/URL, optional image mirror for subject placement, image Alt, Kicker, Title, Gold Highlight, Description, four Feature labels, primary CTA label/URL, secondary CTA label/URL.')
+    add('- **Per-slide fields:** Media Library attachment ID/URL, optional subject-left focus for compatible Legacy banners, image Alt, Kicker, Title, Gold Highlight, Description, four Feature labels, primary CTA label/URL, secondary CTA label/URL.')
     add('- **Global fields:** enabled, hide Legacy, autoplay/interval, pause, arrows, dots, Ken Burns, Gold/Surface/Text/Muted colors, radius.')
     add('- **Sanitization:** Nonce + `manage_options`; exact four-record normalization; attachment IDs via `absint`, URLs via `esc_url_raw`, colors via `sanitize_hex_color`, text via `sanitize_text_field`/`sanitize_textarea_field`, bounded interval/radius.')
     add('- **CSS:** `assets/css/frontend-hero.css`; right-side overlay, 32px reference radius, Black/Gold design, Desktop/Tablet/Mobile breakpoints and controlled Mobile Header underlap.')

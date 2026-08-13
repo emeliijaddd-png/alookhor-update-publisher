@@ -1,5 +1,5 @@
 /**
- * ALOOKHOR Legacy Top Bar Manager — v3.10.13
+ * ALOOKHOR Legacy Top Bar Manager — v3.10.14
  * Preserves the legacy header/mega-menu HTML and synchronizes managed Top Bar
  * values from a fresh read-only REST endpoint, even when the page HTML is cached.
  */
@@ -199,7 +199,7 @@
   }
 
   function manage(root, force = false) {
-    if (!root || (!force && root.dataset.topbarManaged === '3.10.13')) return;
+    if (!root || (!force && root.dataset.topbarManaged === '3.10.14')) return;
 
     const contactTexts = [...root.querySelectorAll('.topbar-contact-txt,[class*="contact-txt" i]')];
     const phone = root.querySelector('a[href^="tel:"]') || contactTexts.find(element => {
@@ -325,8 +325,8 @@
     }
 
     setupHeaderBehavior(root);
-    root.dataset.topbarManaged = '3.10.13';
-    root.dispatchEvent(new CustomEvent('alookhor:topbar-managed', {bubbles:true, detail:{version:'3.10.13'}}));
+    root.dataset.topbarManaged = '3.10.14';
+    root.dispatchEvent(new CustomEvent('alookhor:topbar-managed', {bubbles:true, detail:{version:'3.10.14'}}));
   }
 
   function init(scope = document, force = false) {

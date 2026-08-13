@@ -7,8 +7,8 @@
  *
  * Expected manifest (JSON):
  * {
- *   "version": "3.10.13",
- *   "download_url": "https://updates.alookhor.ir/releases/alookhor-control-center-3.10.13.zip",
+ *   "version": "3.10.14",
+ *   "download_url": "https://updates.alookhor.ir/releases/alookhor-control-center-3.10.14.zip",
  *   "details_url": "https://example.com/changelog",
  *   "requires": "6.0",
  *   "tested": "7.0",

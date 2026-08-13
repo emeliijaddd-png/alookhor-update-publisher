@@ -1,5 +1,12 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.14 — 2026-08-13 — Live Hero Visual Polish
+- DIAGNOSIS: Production Chrome run `31742642133` proved four-slide/runtime/image/right-overlay/Legacy-replacement contracts, but Mobile shell began 18.4px below the glass Capsule and failed the explicit underlap check.
+- MOBILE: offset changed from -20px to -50px so the shell top enters the measured Capsule bottom without modifying Header DOM or geometry.
+- ARROWS: Woodmart forced one control into a white rectangle; Appearance, dimensions, Background, Radius, Position, pseudo-elements and SVG now use exact scoped overrides.
+- IMAGE: default approved banners no longer use horizontal Mirror. Subject-focus shifts/crops the product left while a near-opaque right surface conceals baked Legacy copy beneath managed writing.
+- AUDIT: both visible Hero Arrow controls must be circular 36–50px and non-white in fresh Desktop/Mobile Chrome screenshots.
+
 ## v3.10.13 — 2026-08-13 — Managed Four-Slide Hero
 - DISCOVERY: Production root is `.alookhor-hero-slider-wrapper` with `#alookhorHeroSlider` inside a real Elementor Shortcode widget; five images were served by external `alookhor-categories-manager`.
 - REPLACE: the exact Legacy root is replaced in place by `#alookhor-managed-hero`; no parallel Slider, Elementor move, Header rewrite, or unrelated module change.
