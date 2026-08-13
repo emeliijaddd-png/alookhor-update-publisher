@@ -22,8 +22,9 @@ When sources disagree, the newer provable runtime/source wins. Missing source is
 ## Authoritative current state
 
 - **Production runtime:** ALOOKHOR Control Center `3.10.7`
-- **Current Production tag/source:** `v3.10.7` / `6b408aa52be584c95fd2fe0b97032aed4191d6d9`
-- **Published package SHA-256:** `790bff23f18a1ec5ea188f7e681bd3bd7d9ef3b7372c38336f986cd4e789dc7d`
+- **Current source target:** `3.10.8` — live-browser geometry and Sticky correction; pending tagged deployment and verification.
+- **Last Production tag/source:** `v3.10.7` / `6b408aa52be584c95fd2fe0b97032aed4191d6d9`
+- **Last published package SHA-256:** `790bff23f18a1ec5ea188f7e681bd3bd7d9ef3b7372c38336f986cd4e789dc7d`
 - **Deployment run:** `31721366338`
 - **Independent audit run:** `31721670113`
 - **Production:** active and verified
@@ -58,8 +59,8 @@ This rule supersedes every earlier interpretation of full-header Sticky behavior
 1. At page start, all three rows are visible in normal document flow: Top Bar, Main Header, and Primary Navigation.
 2. Top Bar and Main Header must never remain fixed/sticky while scrolling down; they leave the viewport with the page.
 3. On Desktop, the existing WordPress-driven `.header-nav-center` is moved intact—not rebuilt—into a dedicated Navigation stage immediately after the Main Header.
-4. Only that Desktop Primary Navigation stage may use `position: sticky` and remain usable at the top of the viewport.
-5. The sticky stage retains its normal-flow footprint and does not change height when stuck, preventing Layout Shift.
+4. Only that Desktop Primary Navigation stage remains pinned at the top. Because the live Elementor container constrains native `position:sticky`, Production uses an equivalent fixed rail only after crossing its marker.
+5. The zero-height marker expands to the exact Stage height while the rail is fixed, preserving the normal-flow footprint and preventing Layout Shift.
 6. Scrolling back toward the page start naturally and smoothly returns the Main Header and Top Bar; at `scrollY=0` all rows are in their initial state.
 7. Existing shortcode, menu nodes, Mega Menu, Drawer trigger, IDs, classes, and WordPress menu data are preserved.
 8. Visual treatment uses current ALOOKHOR Black/Gold settings with restrained glass/blur only when Navigation is stuck.
@@ -70,6 +71,8 @@ This rule supersedes every earlier interpretation of full-header Sticky behavior
 13. Mobile has exactly two visible rows: Top Bar and one Main Capsule. No extra sticky Navigation row is rendered at `≤1023px`.
 14. The Main Capsule layout is: original Hamburger/Drawer trigger on the right, shared transparent logo in the center, and account plus real WooCommerce cart on the left.
 15. Product Search is explicitly rejected and must not be rendered in Desktop or Mobile Header, nor exposed as a Boutique setting.
+16. When Woodmart's native Header is hidden, its reserved Body offset and the Home main-content top padding must be collapsed only on pages containing `.alookhor-managed-legacy-header`; the live Top Bar should begin within 25px of the viewport top.
+17. Visual acceptance requires rendered Chrome audits at 1440×1050 and 430×932, unique Drawer ID, no horizontal overflow, contained logo, hidden duplicate Top Bar logo, hidden Mobile nav stage, and a pinned Desktop navigation rail.
 
 ## Current categories contract
 

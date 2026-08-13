@@ -94,12 +94,13 @@ jobs:
           topbar_manager = Path('plugin/alookhor-control-center/assets/js/frontend-topbar-manager.js').read_text()
           header_php = Path('plugin/alookhor-control-center/includes/shortcode-header.php').read_text()
           bootstrap_php = Path('plugin/alookhor-control-center/alookhor-control-center.php').read_text()
-          assert '.alookhor-legacy-nav-stage.is-enabled{position:sticky' in header_scroll_css
+          assert '.alookhor-legacy-nav-stage.is-stuck{position:fixed!important' in header_scroll_css and '.alookhor-legacy-nav-marker' in header_scroll_css
           assert '.alookhor-topbar-wrapper' in header_scroll_css and 'position:relative!important' in header_scroll_css
           assert 'setupHeaderBehavior' in topbar_manager and "header.after(marker, stage)" in topbar_manager
           assert "navigation.before(document.createComment" in topbar_manager and "data-alookhor-navigation" in topbar_manager
           assert 'alookhor-legacy-main-search' not in topbar_manager and 'alookhor-mobile-sticky-toggle' not in topbar_manager
           assert 'alookhor-main-menu-toggle' in topbar_manager and 'alookhor-header-cart-link' in topbar_manager
+          assert "document.body.style.setProperty('padding-top', '0px'" in topbar_manager and "marker.style.setProperty('height'" in topbar_manager
           assert 'position:fixed!important' not in header_scroll_css and '.alookhor-legacy-nav-marker,.alookhor-legacy-nav-stage{display:none!important}' in header_scroll_css
           assert "'header_logo_desktop_width' => 118" in header_php and "'header_logo_mobile_width' => 58" in header_php
           assert 'inpHeaderLogoDesktop' in settings_js and 'inpHeaderLogoMobile' in settings_js and 'inpHeaderSearchPlaceholder' not in settings_js

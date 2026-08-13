@@ -1,5 +1,5 @@
 /**
- * ALOOKHOR Legacy Top Bar Manager — v3.10.7
+ * ALOOKHOR Legacy Top Bar Manager — v3.10.8
  * Preserves the legacy header/mega-menu HTML and synchronizes managed Top Bar
  * values from a fresh read-only REST endpoint, even when the page HTML is cached.
  */
@@ -64,6 +64,13 @@
     const navigation = header?.querySelector('.header-nav-center') || root.querySelector('.alookhor-legacy-nav-shell .header-nav-center');
     if (!topbar || !header || !capsule || !navigation) return;
 
+    const nativeHeader = document.querySelector('.whb-header');
+    if (nativeHeader && getComputedStyle(nativeHeader).display === 'none') {
+      document.body.style.setProperty('padding-top', '0px', 'important');
+      const mainContent = root.closest('#main-content');
+      if (mainContent) mainContent.style.setProperty('padding-top', '0px', 'important');
+    }
+
     const system = root.querySelector('.alookhor-header-system') || root.closest('.alookhor-header-system');
     if (system) {
       system.style.setProperty('height', 'auto', 'important');
@@ -125,8 +132,13 @@
       };
       const update = () => {
         ticking = false;
+        const desktop = window.innerWidth >= 1024;
         const adminOffset = document.body.classList.contains('admin-bar') ? (window.innerWidth <= 782 ? 46 : 32) : 0;
-        stage.classList.toggle('is-stuck', stage.classList.contains('is-enabled') && window.scrollY + adminOffset >= stageTop - 1);
+        const shouldStick = desktop && stage.classList.contains('is-enabled') && window.scrollY + adminOffset >= stageTop - 1;
+        if (shouldStick !== stage.classList.contains('is-stuck')) {
+          marker.style.setProperty('height', shouldStick ? `${stage.offsetHeight}px` : '0px', 'important');
+          stage.classList.toggle('is-stuck', shouldStick);
+        }
       };
       const requestUpdate = () => {
         if (ticking) return;
@@ -140,17 +152,23 @@
     }
 
     stage.classList.toggle('is-enabled', asBool(cfg.sticky));
-    if (!asBool(cfg.sticky)) stage.classList.remove('is-stuck');
+    if (!asBool(cfg.sticky) || window.innerWidth < 1024) {
+      stage.classList.remove('is-stuck');
+      root.querySelector('.alookhor-legacy-nav-marker')?.style.setProperty('height', '0px', 'important');
+    }
 
     const headerLogo = header.querySelector('.header-capsule-logo img');
     if (headerLogo) {
       const setLogoSize = () => {
-        const width = window.innerWidth <= 767
+        const mobile = window.innerWidth <= 767;
+        const maxWidth = mobile
           ? clamp(cfg.header_logo_mobile_width, 42, 110, 58)
           : clamp(cfg.header_logo_desktop_width, 70, 220, 118);
-        headerLogo.style.setProperty('width', `${width}px`, 'important');
-        headerLogo.style.setProperty('max-width', `${width}px`, 'important');
-        headerLogo.style.setProperty('height', 'auto', 'important');
+        const height = mobile ? 50 : 68;
+        headerLogo.style.setProperty('width', 'auto', 'important');
+        headerLogo.style.setProperty('max-width', `${maxWidth}px`, 'important');
+        headerLogo.style.setProperty('height', `${height}px`, 'important');
+        headerLogo.style.setProperty('max-height', `${height}px`, 'important');
         headerLogo.style.setProperty('background', 'transparent', 'important');
       };
       setLogoSize();
@@ -163,7 +181,7 @@
   }
 
   function manage(root, force = false) {
-    if (!root || (!force && root.dataset.topbarManaged === '3.10.7')) return;
+    if (!root || (!force && root.dataset.topbarManaged === '3.10.8')) return;
 
     const contactTexts = [...root.querySelectorAll('.topbar-contact-txt,[class*="contact-txt" i]')];
     const phone = root.querySelector('a[href^="tel:"]') || contactTexts.find(element => {
@@ -172,6 +190,8 @@
       return !text.includes('@') && number.length >= 7 && number.length <= 15;
     });
     const email = root.querySelector('a[href^="mailto:"]') || contactTexts.find(element => (element.textContent || '').includes('@'));
+    phone?.classList.add('alookhor-managed-phone');
+    email?.classList.add('alookhor-managed-email');
     const wholesale = smallestTextMatch(root, 'خرید عمده')?.closest('a,button') || root.querySelector('a[href*="b2b"],a[href*="wholesale"]');
     const exportNote = smallestTextMatch(root, 'صادرات به');
 
@@ -196,7 +216,7 @@
     // A cached legacy header can contain old text/colors. Reserve its layout but
     // never paint stale content while the fresh same-origin REST read is pending.
     if (topbar && freshState === 'pending') {
-      const pendingHeight = Math.max(30, Math.min(60, Number(cfg.topbar_height) || 38));
+      const pendingHeight = window.innerWidth <= 767 ? 34 : Math.max(30, Math.min(60, Number(cfg.topbar_height) || 38));
       topbar.style.setProperty('min-height', `${pendingHeight}px`, 'important');
       topbar.style.setProperty('height', `${pendingHeight}px`, 'important');
       topbar.style.setProperty('visibility', 'hidden', 'important');
@@ -246,7 +266,7 @@
       const color = cfg.topbar_text_color || '#E8D5B5';
       const background = cfg.topbar_bg || '#11091D';
       const border = cfg.topbar_border_color || '#3A2C20';
-      const height = Math.max(30, Math.min(60, Number(cfg.topbar_height) || 38));
+      const height = window.innerWidth <= 767 ? 34 : Math.max(30, Math.min(60, Number(cfg.topbar_height) || 38));
       const layers = explicitCandidates.filter(element => {
         const score = candidateScore(element);
         return element === topbar || (score >= 2 && (element.contains(topbar) || topbar.contains(element)));
@@ -287,8 +307,8 @@
     }
 
     setupHeaderBehavior(root);
-    root.dataset.topbarManaged = '3.10.7';
-    root.dispatchEvent(new CustomEvent('alookhor:topbar-managed', {bubbles:true, detail:{version:'3.10.7'}}));
+    root.dataset.topbarManaged = '3.10.8';
+    root.dispatchEvent(new CustomEvent('alookhor:topbar-managed', {bubbles:true, detail:{version:'3.10.8'}}));
   }
 
   function init(scope = document, force = false) {

@@ -2,7 +2,7 @@
 // UI/state remain modular; version discovery and installation are delegated to WordPress.
 
 const runtimeConfig = window.ALOOKHOR_CC || {};
-const runtimeVersion = String(runtimeConfig.version || '3.10.7');
+const runtimeVersion = String(runtimeConfig.version || '3.10.8');
 
 function normalizeResult(data = {}) {
   const current = String(data.current || runtimeVersion);
@@ -55,6 +55,7 @@ export const Updater = {
   latest: runtimeVersion,
   lastCheck: null,
   changelog: [
+    { tag: 'LIVE BROWSER', title: 'v3.10.8 — رفع Offset و Sticky واقعی', desc: 'فضای خالی بالای سایت حذف، Navigation Desktop واقعاً ثابت و لوگو داخل کپسول مهار شد.' },
     { tag: 'HEADER FIX', title: 'v3.10.7 — کپسول Mobile مطابق مرجع', desc: 'Search و ردیف اضافه حذف؛ Hamburger راست، لوگو وسط و حساب/سبد چپ قرار گرفتند.' },
     { tag: 'BRAND STATE', title: 'v3.10.6 — پالت واقعی Black/Gold', desc: 'رنگ‌های مرجع Orange/Green حذف و شماره تأییدشده 3173 با مهاجرت محدود بازیابی شد.' },
     { tag: 'HEADER UX', title: 'v3.10.5 — Sticky فقط برای Navigation', desc: 'Top Bar و Header اصلی در جریان صفحه‌اند؛ منوی اصلی بدون پرش محتوا به بالای viewport می‌چسبد.' },

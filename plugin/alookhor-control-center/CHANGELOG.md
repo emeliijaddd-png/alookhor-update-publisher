@@ -1,5 +1,15 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.8 — 2026-08-13 — Live Browser Header Geometry Fix
+- BROWSER: ممیزی Chrome واقعی Production در 1440×1050 و 430×932 همراه Screenshot و Geometry اجرا شد.
+- OFFSET: تشخیص Padding رزروشده 135px Desktop و 100px Mobile روی Body و Padding داخلی 40px؛ Collapse فقط هنگام وجود Header مدیریت‌شده.
+- STICKY: Elementor containing block مانع `position:sticky` بود؛ Navigation با Fixed rail و Marker هم‌اندازه در بالای viewport باقی می‌ماند.
+- CLS: Marker هنگام Fixed شدن دقیقاً ارتفاع Stage را رزرو می‌کند و با بازگشت Stage صفر می‌شود.
+- MOBILE: Fixed rail در ≤1023px غیرفعال و Stage/Marker کاملاً مخفی است.
+- TOPBAR: لوگوی تکراری وسط Top Bar حذف و چیدمان Contact/Export فشرده شد؛ ارتفاع Mobile برابر 34px.
+- LOGO: ارتفاع لوگوی اصلی Desktop/Mobile محدود و Wrapper دارای overflow امن شد تا از کپسول خارج نشود.
+- AUDIT: Selenium Chrome screenshots/metrics به publisher-status اضافه شد تا Visual regressions قبل از تأیید شناسایی شوند.
+
 ## v3.10.7 — 2026-08-13 — Header Mobile Reference Correction
 - REGRESSION: حذف کامل فرم Search ناخواسته از PHP/JS/CSS و پنل مدیریت.
 - MOBILE: حذف Stage چسبان جداگانه در ≤1023px؛ فضای خالی و ردیف سوم Mobile دیگر تولید/نمایش نمی‌شود.

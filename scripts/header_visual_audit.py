@@ -22,7 +22,8 @@ const visibleBottom=[topbar,header,stage].filter(visible).map(e=>e.getBoundingCl
 const footprintBottom=visibleBottom.length?Math.max(...visibleBottom):0;
 return {
   viewport:{width:innerWidth,height:innerHeight,dpr:devicePixelRatio},
-  root:!!root,topbar:rect(topbar),header:rect(header),stage:rect(stage),capsule:rect(capsule),main:rect(main),
+  root:!!root,topbar:rect(topbar),header:rect(header),stage:rect(stage),capsule:rect(capsule),main:rect(main),logo:rect(one('.header-capsule-logo img')),
+  topbar_center_display:one('.topbar-center')?getComputedStyle(one('.topbar-center')).display:null,
   stage_display:stage?getComputedStyle(stage).display:null,stage_position:stage?getComputedStyle(stage).position:null,stage_stuck:stage?.classList.contains('is-stuck')||false,
   search_count:all('.alookhor-legacy-main-search').length,mobile_extra_toggle_count:all('.alookhor-mobile-sticky-toggle').length,
   original_drawer_id_count:all('#openDrawer').length,cart_count:all('.alookhor-header-cart-link').length,
@@ -67,7 +68,10 @@ def audit(width: int, height: int, label: str) -> dict:
             'no_horizontal_overflow': before['horizontal_overflow'] <= 2,
             'mobile_stage_hidden': before['stage_display'] == 'none' if expected_mobile else True,
             'desktop_stage_visible': before['stage_display'] != 'none' if not expected_mobile else True,
-            'desktop_nav_sticky': (after['stage_position'] == 'sticky' and after['stage_stuck'] is True and abs(after['stage']['top']) <= 2) if not expected_mobile else True,
+            'desktop_nav_sticky': (after['stage_position'] in {'sticky','fixed'} and after['stage_stuck'] is True and abs(after['stage']['top']) <= 2) if not expected_mobile else True,
+            'header_starts_near_viewport_top': before['topbar'] is not None and before['topbar']['top'] <= 25,
+            'topbar_duplicate_logo_hidden': before['topbar_center_display'] == 'none',
+            'logo_contained_in_capsule': before['logo'] is not None and before['capsule'] is not None and before['logo']['top'] >= before['capsule']['top']-1 and before['logo']['bottom'] <= before['capsule']['bottom']+1,
             'upper_rows_leave_viewport': (after['topbar']['bottom'] < 2 and after['header']['bottom'] < 2) if not expected_mobile else True,
             'no_large_header_gap': before['header_to_main_gap'] is None or before['header_to_main_gap'] <= 100,
         }

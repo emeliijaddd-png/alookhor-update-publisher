@@ -1,37 +1,35 @@
 {
-  "version": "3.10.7",
-  "previous": "3.10.6",
+  "version": "3.10.8",
+  "previous": "3.10.7",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "اصلاح فوری Header: حذف کامل Search و ردیف اضافه Mobile؛ کپسول واحد مطابق مرجع با Hamburger، لوگو، حساب و سبد واقعی.",
+  "description": "اصلاح مبتنی بر Browser audit: حذف Offset واقعی بالای سایت، Sticky قطعی Desktop و مهار کامل لوگو/Top Bar.",
   "changelog": [
     {
-      "tag": "MOBILE LAYOUT FIX",
-      "title": "حذف ردیف اضافه و فضای خالی Mobile",
-      "desc": "Stage جداگانه Navigation در عرض Mobile کاملاً مخفی شد؛ فقط Top Bar و کپسول اصلی مطابق مرجع باقی می‌مانند."
+      "tag": "LIVE BROWSER FIX",
+      "title": "حذف فضای خالی 100–185px بالای سایت",
+      "desc": "Padding رزروشده Woodmart روی Body و فاصله 40px محتوای اصلی فقط در صفحه دارای Header مدیریت‌شده Collapse شدند."
     },
     {
-      "tag": "SEARCH REMOVED",
-      "title": "حذف کامل جستجوی محصول از Header",
-      "desc": "فرم Search، CSS و کنترل‌های مدیریتی آن حذف شدند و Migration وضعیت نمایش را به false تثبیت می‌کند."
+      "tag": "FIXED STICKY RAIL",
+      "title": "Navigation واقعاً در بالای viewport باقی می‌ماند",
+      "desc": "محدودیت Elementor containing block با Rail ثابت و Spacer هم‌اندازه رفع شد؛ بدون Layout Shift و فقط در Desktop."
     },
     {
-      "tag": "REFERENCE CAPSULE",
-      "title": "Hamburger راست، لوگو وسط، حساب و سبد چپ",
-      "desc": "همان Hamburger و Drawer موجود بدون کپی ID جابه‌جا شدند؛ سبد واقعی WooCommerce با Count پویا به کپسول افزوده شد."
+      "tag": "LOGO & TOPBAR",
+      "title": "حذف لوگوی تکراری Top Bar و مهار لوگوی کپسول",
+      "desc": "لوگوی وسط Top Bar مخفی، لوگوی اصلی داخل ارتفاع کپسول محدود و Top Bar Mobile به 34px فشرده شد."
     }
   ],
   "project": "ALOOKHOR",
-  "area": "Frontend Header / Mobile Capsule / Regression Fix",
-  "reason": "نسخه قبلی در Mobile ردیف Navigation اضافه و Search ناخواسته ایجاد کرده بود و با مرجع صریح کاربر همخوان نبود.",
+  "area": "Rendered Production Header / Browser-measured Regression Fix",
+  "reason": "Chrome audit زنده نشان داد Body دارای Offset 100/135px بود، Desktop sticky به‌علت والد Elementor از viewport خارج می‌شد و لوگو از کپسول بیرون می‌زد.",
   "files": [
     "plugin/alookhor-control-center/assets/css/frontend-header-scroll.css",
     "plugin/alookhor-control-center/assets/js/frontend-topbar-manager.js",
-    "plugin/alookhor-control-center/alookhor-control-center.php",
-    "plugin/alookhor-control-center/assets/js/modules/settings.js",
-    "plugin/alookhor-control-center/includes/admin.php",
-    "plugin/alookhor-control-center/includes/rest-api.php"
+    "scripts/header_visual_audit.py",
+    ".github/workflows/publish.yml"
   ]
 }

@@ -1,16 +1,23 @@
 /* ALOOKHOR Legacy Header bridge — three in-flow rows, sticky Navigation only. */
+body:has(.alookhor-managed-legacy-header){padding-top:0!important}
+#main-content:has(.alookhor-managed-legacy-header){padding-top:0!important}
 .alookhor-managed-legacy-header{--alookhor-header-gold:#D4A436;--alookhor-header-surface:#0d0916;--alookhor-header-text:#f7f2ea;--alookhor-header-muted:#b8b0bd;--alookhor-sticky-offset:0px}
 .alookhor-managed-legacy-header .alookhor-topbar-wrapper,
 .alookhor-managed-legacy-header .alookhor-header{left:auto!important;right:auto!important;top:auto!important;transform:none!important;width:100%!important;position:relative!important}
 .alookhor-managed-legacy-header .alookhor-topbar-wrapper{z-index:30!important;transition:opacity .28s ease,transform .28s ease!important}
+.alookhor-managed-legacy-header .alookhor-topbar-container{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;align-items:center!important}
+.alookhor-managed-legacy-header .topbar-center{display:none!important}
+.alookhor-managed-legacy-header .topbar-right{justify-self:start!important}
+.alookhor-managed-legacy-header .topbar-left{justify-self:end!important}
 .alookhor-managed-legacy-header .alookhor-header{z-index:29!important;height:auto!important;min-height:90px!important;transition:opacity .28s ease,transform .28s ease!important}
 .alookhor-managed-legacy-header .header-capsule-logo,
 .alookhor-managed-legacy-header .header-capsule-logo img{background:transparent!important}
-.alookhor-managed-legacy-header .header-capsule-logo{box-shadow:none!important;border:0!important}
+.alookhor-managed-legacy-header .header-capsule-logo{box-shadow:none!important;border:0!important;max-height:68px!important;overflow:hidden!important}
 .alookhor-managed-legacy-header .header-capsule-logo img{display:block!important;object-fit:contain!important;max-height:76px!important;filter:drop-shadow(0 8px 18px rgba(0,0,0,.35)) drop-shadow(0 0 9px color-mix(in srgb,var(--alookhor-header-gold) 16%,transparent))!important}
 .alookhor-legacy-nav-marker{display:block!important;width:100%!important;height:0!important;margin:0!important;padding:0!important;overflow:hidden!important}
 .alookhor-legacy-nav-stage{position:relative;z-index:99997;width:100%;min-height:66px;padding:5px 18px 9px;display:flex;justify-content:center;box-sizing:border-box;transition:filter .25s ease}
-.alookhor-legacy-nav-stage.is-enabled{position:sticky;top:var(--alookhor-sticky-offset)}
+.alookhor-legacy-nav-stage.is-enabled{position:relative;top:auto}
+.alookhor-legacy-nav-stage.is-stuck{position:fixed!important;top:var(--alookhor-sticky-offset)!important;left:0!important;right:0!important;width:100%!important;margin:0!important}
 .alookhor-legacy-nav-shell{position:relative;width:min(1200px,100%);min-height:58px;padding:0 24px;border:1px solid color-mix(in srgb,var(--alookhor-header-gold) 30%,transparent);border-radius:22px;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,color-mix(in srgb,var(--alookhor-header-surface) 94%,transparent),color-mix(in srgb,#070509 96%,transparent));box-shadow:0 12px 34px rgba(0,0,0,.35),inset 0 1px 0 color-mix(in srgb,var(--alookhor-header-gold) 7%,transparent);transition:background .25s ease,border-color .25s ease,box-shadow .25s ease,backdrop-filter .25s ease}
 .alookhor-legacy-nav-stage.is-stuck .alookhor-legacy-nav-shell{background:color-mix(in srgb,var(--alookhor-header-surface) 88%,transparent);border-color:color-mix(in srgb,var(--alookhor-header-gold) 44%,transparent);box-shadow:0 13px 36px rgba(0,0,0,.52),inset 0 1px 0 color-mix(in srgb,var(--alookhor-header-gold) 10%,transparent);-webkit-backdrop-filter:blur(14px) saturate(125%);backdrop-filter:blur(14px) saturate(125%)}
 .alookhor-legacy-nav-shell .header-nav-center{display:flex!important;width:100%;align-items:center!important;justify-content:center!important}
@@ -34,11 +41,23 @@
 @media(max-width:1023px){
   .alookhor-managed-legacy-header .alookhor-header{min-height:70px!important}
   .alookhor-managed-legacy-header .header-capsule{display:grid!important;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr)!important;grid-template-areas:"actions logo menu"!important;align-items:center!important;direction:ltr!important}
-  .alookhor-managed-legacy-header .header-capsule-logo{grid-area:logo!important;justify-self:center!important;direction:rtl!important}
+  .alookhor-managed-legacy-header .header-capsule-logo{grid-area:logo!important;justify-self:center!important;direction:rtl!important;max-height:52px!important}
   .alookhor-managed-legacy-header .header-capsule-left{grid-area:actions!important;justify-self:start!important;direction:rtl!important;gap:9px!important}
   .alookhor-managed-legacy-header .alookhor-main-menu-toggle{grid-area:menu!important;justify-self:end!important;direction:rtl!important;width:42px!important;min-width:42px!important;height:42px!important;min-height:42px!important}
   .alookhor-managed-legacy-header .alookhor-header-cart-link{width:39px;height:39px;flex-basis:39px}
   .alookhor-legacy-nav-marker,.alookhor-legacy-nav-stage{display:none!important}
+}
+@media(max-width:767px){
+  .alookhor-managed-legacy-header .alookhor-topbar-wrapper,
+  .alookhor-managed-legacy-header .alookhor-topbar-container{height:34px!important;min-height:34px!important}
+  .alookhor-managed-legacy-header .topbar-btn-wholesale,
+  .alookhor-managed-legacy-header .topbar-social-wa,
+  .alookhor-managed-legacy-header .alookhor-managed-email,
+  .alookhor-managed-legacy-header .topbar-v-divider{display:none!important}
+  .alookhor-managed-legacy-header .alookhor-managed-phone,
+  .alookhor-managed-legacy-header .topbar-export-badge{display:inline-flex!important;visibility:visible!important;opacity:1!important;font-size:9px!important}
+  .alookhor-managed-legacy-header .topbar-left,
+  .alookhor-managed-legacy-header .topbar-right{display:flex!important;align-items:center!important;min-width:0!important}
 }
 @media(min-width:783px){body.admin-bar .alookhor-legacy-nav-stage.is-enabled{--alookhor-sticky-offset:32px}}
 @media(max-width:782px){body.admin-bar .alookhor-legacy-nav-stage.is-enabled{--alookhor-sticky-offset:46px}}
