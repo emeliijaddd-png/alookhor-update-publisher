@@ -4,7 +4,7 @@ Tags: control center, luxury, alookhor, admin, dashboard
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 3.10.10
+Stable tag: 3.10.11
 License: Private
 License URI: https://alookhor.ir
 
@@ -44,6 +44,11 @@ License URI: https://alookhor.ir
 در `config/site.json` و `wp_options: alookhor_cc_settings` — همان حافظه واقعی که در چت قبلی ویرایش می‌شد.
 
 == Changelog ==
+
+= 3.10.11 =
+* مهار Symbol لوگوی Desktop داخل Capsule
+* اندازه یکسان 50px در Desktop/Mobile
+* الزام containment در Chrome visual audit
 
 = 3.10.10 =
 * افزودن SVG واقعی Account به Link متنی Legacy

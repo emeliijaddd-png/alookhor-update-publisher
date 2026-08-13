@@ -1,5 +1,5 @@
 /**
- * ALOOKHOR Legacy Top Bar Manager — v3.10.10
+ * ALOOKHOR Legacy Top Bar Manager — v3.10.11
  * Preserves the legacy header/mega-menu HTML and synchronizes managed Top Bar
  * values from a fresh read-only REST endpoint, even when the page HTML is cached.
  */
@@ -179,8 +179,7 @@
     const headerLogo = header.querySelector('.header-capsule-logo img');
     if (headerLogo) {
       const setLogoSize = () => {
-        const mobile = window.innerWidth <= 767;
-        const size = mobile ? 50 : 62;
+        const size = 50;
         headerLogo.style.setProperty('width', `${size}px`, 'important');
         headerLogo.style.setProperty('max-width', `${size}px`, 'important');
         headerLogo.style.setProperty('height', `${size}px`, 'important');
@@ -200,7 +199,7 @@
   }
 
   function manage(root, force = false) {
-    if (!root || (!force && root.dataset.topbarManaged === '3.10.10')) return;
+    if (!root || (!force && root.dataset.topbarManaged === '3.10.11')) return;
 
     const contactTexts = [...root.querySelectorAll('.topbar-contact-txt,[class*="contact-txt" i]')];
     const phone = root.querySelector('a[href^="tel:"]') || contactTexts.find(element => {
@@ -326,8 +325,8 @@
     }
 
     setupHeaderBehavior(root);
-    root.dataset.topbarManaged = '3.10.10';
-    root.dispatchEvent(new CustomEvent('alookhor:topbar-managed', {bubbles:true, detail:{version:'3.10.10'}}));
+    root.dataset.topbarManaged = '3.10.11';
+    root.dispatchEvent(new CustomEvent('alookhor:topbar-managed', {bubbles:true, detail:{version:'3.10.11'}}));
   }
 
   function init(scope = document, force = false) {

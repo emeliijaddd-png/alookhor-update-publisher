@@ -2,7 +2,7 @@
 // UI/state remain modular; version discovery and installation are delegated to WordPress.
 
 const runtimeConfig = window.ALOOKHOR_CC || {};
-const runtimeVersion = String(runtimeConfig.version || '3.10.10');
+const runtimeVersion = String(runtimeConfig.version || '3.10.11');
 
 function normalizeResult(data = {}) {
   const current = String(data.current || runtimeVersion);
@@ -55,6 +55,7 @@ export const Updater = {
   latest: runtimeVersion,
   lastCheck: null,
   changelog: [
+    { tag: 'LOGO GEOMETRY', title: 'v3.10.11 — مهار لوگوی Desktop', desc: 'Symbol لوگوی افقی به 50px محدود شد تا داخل Capsule باقی بماند.' },
     { tag: 'ACCOUNT ICON', title: 'v3.10.10 — تکمیل کنترل حساب', desc: 'SVG حساب به لینک متنی Legacy اضافه شد تا کنار Cart در Mobile دیده شود.' },
     { tag: 'MOBILE MATCH', title: 'v3.10.9 — تطبیق نهایی با مرجع', desc: 'لوگوی افقی، Account آیکنی، Cart چپ، Hamburger راست و Top Bar سه‌بخشی اجرا شد.' },
     { tag: 'LIVE BROWSER', title: 'v3.10.8 — رفع Offset و Sticky واقعی', desc: 'فضای خالی بالای سایت حذف، Navigation Desktop واقعاً ثابت و لوگو داخل کپسول مهار شد.' },

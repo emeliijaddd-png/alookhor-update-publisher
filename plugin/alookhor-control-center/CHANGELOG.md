@@ -1,5 +1,10 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.11 — 2026-08-13 — Desktop Logo Containment
+- BROWSER: Chrome audit 3.10.10 تمام Mobile checks را پاس کرد و تنها بیرون‌زدگی 11px Symbol در Desktop را یافت.
+- FIX: Symbol در هر دو viewport به 50px محدود شد؛ Wordmark افقی بدون تغییر باقی ماند.
+- VERIFY: شرط `logo_contained_in_capsule` باید در Desktop و Mobile هم‌زمان Pass شود.
+
 ## v3.10.10 — 2026-08-13 — Mobile Account Icon Completion
 - DETECT: Screenshot زنده نشان داد `.header-login-btn` در Source Legacy فقط Text دارد و هیچ SVG ندارد.
 - FIX: SVG دسترس‌پذیر Account داخل همان Link موجود اضافه شد؛ URL، Class و عملکرد Login حفظ شدند.

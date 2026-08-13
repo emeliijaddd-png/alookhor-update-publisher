@@ -21,11 +21,11 @@ When sources disagree, the newer provable runtime/source wins. Missing source is
 
 ## Authoritative current state
 
-- **Production runtime:** ALOOKHOR Control Center `3.10.9`
-- **Current source target:** `3.10.10` — restore the missing Account SVG detected in the rendered Mobile screenshot.
-- **Last Production tag/source:** `v3.10.9` / `57ba87455e33b4edb86c96cdec59ebd436406f03`
-- **Last published package SHA-256:** `b2dcfce9ba723f9f62dd65b1f790709003f45d5d7301fea2411c8d9314147c3f`
-- **Latest rendered Chrome audit:** `31728885141` — all geometry/reference checks except the source-missing Account SVG passed; fix pending.
+- **Production runtime:** ALOOKHOR Control Center `3.10.10`
+- **Current source target:** `3.10.11` — contain the Desktop logo symbol detected 11px outside the capsule.
+- **Last Production tag/source:** `v3.10.10` / `d9863bcfc4bee22af29b6a89233a903fd69320ee`
+- **Last published package SHA-256:** `7fcda5e8ccb9dbd7f24036d340d10abf0242ebbf0e7b1dc195ef51047b4c201d`
+- **Latest rendered Chrome audit:** `31730123781` — Mobile passed every check; only Desktop logo containment remained.
 - **Production:** active and verified
 - **Repository:** `alookhor-update-publisher`
 - **Update channel:** `https://updates.alookhor.ir/manifest.json`

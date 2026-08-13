@@ -6,8 +6,8 @@
 
 - **نام افزونه:** ALOOKHOR Control Center
 - **نسخه پایه بازیابی‌شده:** `3.8.4`
-- **Production پیش از این Release:** `3.10.9` (کپسول و Top Bar Mobile با مرجع تطبیق یافت)
-- **Release آماده انتشار اتمی:** `3.10.10` (افزودن SVG واقعی Account به لینک Legacy)
+- **Production پیش از این Release:** `3.10.10` (Account SVG در Mobile بازیابی شد)
+- **Release آماده انتشار اتمی:** `3.10.11` (مهار نهایی لوگوی Desktop داخل Capsule)
 - **تاریخ بازیابی:** 2026-08-11
 - **منبع بازیابی:** ZIP واقعی افزونه `alookhor-control-center (5).zip`
 - **حداقل WordPress:** 6.0
@@ -220,8 +220,8 @@ Schema حداقلی Manifest:
 
 ```json
 {
-  "version": "3.10.10",
-  "download_url": "https://updates.alookhor.ir/releases/alookhor-control-center-3.10.10.zip",
+  "version": "3.10.11",
+  "download_url": "https://updates.alookhor.ir/releases/alookhor-control-center-3.10.11.zip",
   "details_url": "https://alookhor.ir/changelog",
   "requires": "6.0",
   "tested": "7.0",
