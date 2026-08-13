@@ -1,41 +1,26 @@
 {
-  "version": "3.10.1",
-  "previous": "3.10.0",
+  "version": "3.10.2",
+  "previous": "3.10.1",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "تکمیل حرفه‌ای UX موبایل Carousel دسته‌بندی محصولات WooCommerce.",
+  "description": "حذف فلش‌های موبایل و بازسازی Pagination مطابق نمونه مرجع.",
   "changelog": [
     {
-      "tag": "MOBILE CARD",
-      "title": "ارتفاع و تناسب حرفه‌ای کارت موبایل",
-      "desc": "ارتفاع تصویر و Body کاهش یافت و اندازه کارت با عرض قابل تنظیم، Radius و Gap مستقل موبایل هماهنگ شد."
+      "tag": "MOBILE",
+      "title": "حذف کامل فلش‌ها در موبایل",
+      "desc": "کنترل‌های Arrow در عرض موبایل display:none، aria-hidden و خارج از Tab order شدند؛ Swipe و Autoplay باقی ماندند."
     },
     {
-      "tag": "CENTERED PEEK",
-      "title": "کارت فعال کامل و وسط",
-      "desc": "کارت فعال دیگر از چپ بریده نمی‌شود و کارت‌های قبل و بعد با Peek متقارن دیده می‌شوند."
+      "tag": "PAGINATION",
+      "title": "Dotهای افقی مطابق نمونه",
+      "desc": "حالت فعال Pill طلایی افقی و حالت‌های غیرفعال دایره خاکستری شدند؛ تمام استایل‌های مزاحم قالب با ابعاد صریح Override شدند."
     },
     {
-      "tag": "INFINITE",
-      "title": "حرکت حلقه‌ای بدون بن‌بست",
-      "desc": "Cloneهای ابتدا و انتها، Carousel موبایل را به حلقه بی‌نهایت نرم تبدیل کردند."
-    },
-    {
-      "tag": "CONTROLS",
-      "title": "فلش‌های Glass Gold حرفه‌ای",
-      "desc": "فلش متنی ساده با کنترل SVG دوحلقه، Blur، Glow، Hover و اندازه مناسب لمس جایگزین شد."
-    },
-    {
-      "tag": "DOTS",
-      "title": "Pagination پویا مطابق تعداد دسته",
-      "desc": "Dotها در هر Breakpoint بازسازی می‌شوند؛ حالت فعال Pill طلایی و حالت‌های غیرفعال Dot واقعی هستند."
-    },
-    {
-      "tag": "ADMIN",
-      "title": "کنترل کامل Mobile در پنل",
-      "desc": "عرض کارت، Peek، ارتفاع تصویر، Gap و Radius موبایل داخل ماژول دسته‌بندی قابل تنظیم‌اند."
+      "tag": "CSS ISOLATION",
+      "title": "ایزوله‌سازی در برابر Woodmart",
+      "desc": "min-height، min-width، padding، appearance، flex-basis و background دکمه‌های Pagination به‌صورت Scoped و قطعی تنظیم شدند."
     }
   ]
 }
