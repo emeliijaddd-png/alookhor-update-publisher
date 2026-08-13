@@ -102,6 +102,28 @@ function alookhor_ajax_save_settings(){
         $payload['footer_settings'] = $footer;
     }
 
+    if (!empty($payload['category_settings']) && is_array($payload['category_settings'])) {
+        $category = $payload['category_settings'];
+        foreach (['section_background'=>'#090610','card_background'=>'#0D0916','gold'=>'#D4A436','text'=>'#F7F2EA','muted'=>'#B8B0BD','border'=>'#6F5426','button_background'=>'#120B1C'] as $key=>$fallback) {
+            if (array_key_exists($key,$category)) $category[$key]=sanitize_hex_color($category[$key])?:$fallback;
+        }
+        foreach (['enabled','hide_legacy','hide_empty','parent_only','show_description','show_count','show_icons','show_arrows','show_dots','autoplay'] as $key) {
+            if (array_key_exists($key,$category)) $category[$key]=rest_sanitize_boolean($category[$key]);
+        }
+        $category['selected_ids']=array_values(array_unique(array_filter(array_map('absint',(array)($category['selected_ids']??[])))));
+        $category['limit']=max(1,min(24,absint($category['limit']??8)));
+        $category['desktop_cards']=max(2,min(6,absint($category['desktop_cards']??4)));
+        $category['desktop_gap']=max(8,min(40,absint($category['desktop_gap']??18)));
+        $category['image_height']=max(180,min(430,absint($category['image_height']??285)));
+        $category['autoplay_interval']=max(2500,min(15000,absint($category['autoplay_interval']??5000)));
+        $category['orderby']=in_array(($category['orderby']??''),['include','name','count','term_id','menu_order'],true)?$category['orderby']:'include';
+        $category['order']=strtoupper($category['order']??'ASC')==='DESC'?'DESC':'ASC';
+        if (isset($category['overrides'])&&is_array($category['overrides'])) {
+            $clean=[];foreach($category['overrides'] as $id=>$override){$id=absint($id);if(!$id||!is_array($override))continue;$clean[(string)$id]=['image_url'=>esc_url_raw($override['image_url']??''),'description'=>sanitize_text_field($override['description']??'')];}$category['overrides']=$clean;
+        }
+        $payload['category_settings']=$category;
+    }
+
     // ذخیره کل تنظیمات
     $current = get_option(ALOOKHOR_CC_OPTION, []);
     $merged = array_replace_recursive(is_array($current) ? $current : [], $payload);
@@ -149,6 +171,13 @@ function alookhor_ajax_save_settings(){
             'customer_menu_id' => $merged['footer_settings']['customer_menu_id'] ?? 0,
             'order_menu_id' => $merged['footer_settings']['order_menu_id'] ?? 0,
             'about_menu_id' => $merged['footer_settings']['about_menu_id'] ?? 0,
+        ] : null,
+        'category_settings' => is_array($merged['category_settings'] ?? null) ? [
+            'enabled'=>!empty($merged['category_settings']['enabled']),
+            'selected_ids'=>array_values((array)($merged['category_settings']['selected_ids']??[])),
+            'desktop_cards'=>$merged['category_settings']['desktop_cards']??4,
+            'title'=>$merged['category_settings']['title']??null,
+            'gold'=>$merged['category_settings']['gold']??null,
         ] : null,
     ]);
 }

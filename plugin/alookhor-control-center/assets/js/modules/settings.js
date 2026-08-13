@@ -1,4 +1,4 @@
-import { Config } from '../core/config.js?v=3.9.2';
+import { Config } from '../core/config.js?v=3.10.0';
 
 const escapeAttr = value => String(value ?? '').replace(/[&<>'"]/g, char => ({
   '&':'&amp;', '<':'&lt;', '>':'&gt;', "'":'&#039;', '"':'&quot;'
@@ -44,6 +44,12 @@ export const settingsModule = {
       background:'#070809', surface:'#0D0F10', gold:'#C89A3D', gold_soft:'#E3BD69', text:'#E9E5DF', muted:'#A7A39D', border:'#4A3820',
       container_width:1280, desktop_logo_width:210, mobile_logo_width:190, show_payments:true, show_benefits:true, show_product_image:true
     }, cfg.footer_settings || {});
+    cfg.category_settings = Object.assign({
+      enabled:true, hide_legacy:true, hide_empty:false, parent_only:true, selected_ids:[38,39,40,41], limit:8, orderby:'include', order:'ASC',
+      kicker:'دسته‌بندی محصولات', title:'محصولات طبیعی، کیفیت صادراتی', subtitle:'انتخاب مستقیم از باغ‌های خراسان، آماده ارسال به سراسر جهان', button_text:'مشاهده محصولات',
+      show_description:true, show_count:false, show_icons:true, show_arrows:true, show_dots:true, autoplay:true, autoplay_interval:5000,
+      desktop_cards:4, desktop_gap:18, image_height:285, section_background:'#090610', card_background:'#0D0916', gold:'#D4A436', text:'#F7F2EA', muted:'#B8B0BD', border:'#6F5426', button_background:'#120B1C', overrides:{}
+    }, cfg.category_settings || {});
     if(!cfg.site) cfg.site = {name:'ALOOKHOR', subtitle:'Control Center • Luxury', logoLetter:'A'};
     if(!cfg.system) cfg.system = {uptime:'99.9%', cache:'فعال', woocommerce:'فعال', woodmart_plus:'فعال', elementor_pro:'فعال', php_version:'8.1.6', memory:'256MB / 512MB', ssl:'فعال (امن)'};
     if(!cfg.ai_assistant) cfg.ai_assistant = {suggestions:[]};
@@ -187,7 +193,7 @@ export const settingsModule = {
 
     // — رندر ماژول‌ها از حافظه واقعی —
     const listEl = container.querySelector('#modulesList');
-    const iconMap = { stats:'📊', header:'◈', footer:'◫', export:'👑', sort:'①', collection:'②', app:'📱', hero:'🎠', auto:'🔄' };
+    const iconMap = { stats:'📊', header:'◈', product_categories:'◉', footer:'◫', export:'👑', sort:'①', collection:'②', app:'📱', hero:'🎠', auto:'🔄' };
     function renderModules(){
       listEl.innerHTML = Object.entries(cfg.modules||{}).sort((a,b)=> a[1].order - b[1].order).map(([key,m])=>`
         <div class="mod-item ${m.enabled?'':'disabled'}" data-mod="${key}">
@@ -307,6 +313,16 @@ export const settingsModule = {
           .qh-section{padding:12px;margin-top:9px;border:1px solid var(--gold-border);border-radius:11px;background:rgba(255,255,255,.018)}.qh-title{display:flex;justify-content:space-between;gap:8px;margin-bottom:10px}.qh-title b{font-size:11.5px}.qh-title small{color:var(--gold);font:9px Arial}.qh-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.qh-colors{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.qh-section label{display:grid;gap:4px;color:var(--text-muted);font-size:10.5px}.qh-section input{width:100%;min-width:0;background:rgba(255,255,255,.035);border:1px solid var(--gold-border);border-radius:8px;padding:8px;color:var(--text-primary)}.qh-section input[type=color]{height:37px;padding:3px}.qh-inline{display:flex;gap:6px}.qh-inline button{border:1px solid var(--gold-border-strong);border-radius:8px;background:rgba(201,168,106,.1);color:var(--gold-soft);cursor:pointer}.qh-span-2{grid-column:span 2}.qh-flags{display:flex;gap:6px;flex-wrap:wrap}.qh-flags label{display:flex;align-items:center;gap:5px;padding:6px 8px;border:1px solid var(--gold-border);border-radius:999px}.qh-flags input{width:auto;accent-color:var(--gold)}.qh-actions{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-top:11px}.qh-actions button{padding:9px 15px;font-size:11px}.qh-actions span{color:var(--text-faint);font-size:10px}@media(max-width:700px){.qh-grid,.qh-colors{grid-template-columns:1fr}.qh-span-2{grid-column:auto}.qh-contact{display:none}}
         </style>
       `,
+      product_categories: () => {
+        const c=cfg.category_settings;const selected=new Set((c.selected_ids||[]).map(Number));const terms=window.ALOOKHOR_CC?.wc_categories||[];
+        return `<div class="qh-head"><div><h4>◉ دسته‌بندی محصولات WooCommerce — فاز Desktop</h4><p>کارت‌های واقعی از taxonomy ووکامرس؛ عنوان، URL، تعداد و تصویر دسته به‌صورت پویا خوانده می‌شوند.</p></div><code>WC PRODUCT_CAT</code></div>
+        <div class="qh-section"><div class="qh-title"><b>وضعیت و امکانات</b><small>BEHAVIOR</small></div><div class="qh-flags">${[['enabled','فعال'],['hide_legacy','جایگزینی بخش قدیمی'],['hide_empty','فقط دسته دارای محصول'],['parent_only','فقط دسته مادر'],['show_description','توضیحات کارت'],['show_count','تعداد محصولات'],['show_icons','آیکون کارت'],['show_arrows','فلش‌ها'],['show_dots','نقطه‌ها'],['autoplay','حرکت خودکار']].map(([k,l])=>`<label><input type="checkbox" data-category-flag="${k}" ${isEnabled(c[k])?'checked':''}>${l}</label>`).join('')}</div></div>
+        <div class="qh-section"><div class="qh-title"><b>هویت محتوایی</b><small>CONTENT</small></div><div class="qh-grid"><label>کیکر<input id="catKicker" value="${escapeAttr(c.kicker)}"></label><label>متن دکمه<input id="catButton" value="${escapeAttr(c.button_text)}"></label><label class="qh-span-2">عنوان اصلی<input id="catTitle" value="${escapeAttr(c.title)}"></label><label class="qh-span-2">زیرعنوان<textarea id="catSubtitle" rows="2">${escapeAttr(c.subtitle)}</textarea></label></div></div>
+        <div class="qh-section"><div class="qh-title"><b>دسته‌های واقعی WooCommerce</b><small>${terms.length} CATEGORY</small></div><div class="alookhor-cat-admin-list">${terms.map(term=>{const o=c.overrides?.[String(term.id)]||{};return `<article class="alookhor-cat-admin-item"><label class="alookhor-cat-choice"><input type="checkbox" data-cat-id="${Number(term.id)}" ${selected.has(Number(term.id))?'checked':''}><b>${escapeAttr(term.name)}</b><small>#${Number(term.id)} • ${Number(term.count)} محصول</small></label><label>تصویر جایگزین<span class="qh-inline"><input id="catImage_${Number(term.id)}" value="${escapeAttr(o.image_url||'')}" dir="ltr"><button type="button" data-category-media="catImage_${Number(term.id)}">انتخاب</button></span></label><label>توضیح کارت<input id="catDesc_${Number(term.id)}" value="${escapeAttr(o.description||'')}"></label></article>`}).join('')}</div><style>.alookhor-cat-admin-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.alookhor-cat-admin-item{display:grid;gap:9px;padding:12px;border:1px solid var(--gold-border);border-radius:12px;background:rgba(0,0,0,.14)}.alookhor-cat-choice{display:grid!important;grid-template-columns:auto 1fr;align-items:center!important}.alookhor-cat-choice input{grid-row:1/3;width:17px!important;height:17px!important;margin-left:8px!important}.alookhor-cat-choice small{color:var(--text-faint)}@media(max-width:760px){.alookhor-cat-admin-list{grid-template-columns:1fr}}</style></div>
+        <div class="qh-section"><div class="qh-title"><b>Carousel دسکتاپ</b><small>DESKTOP UX</small></div><div class="qh-grid"><label>تعداد کارت هم‌زمان<input id="catDesktopCards" type="number" min="2" max="6" value="${Number(c.desktop_cards)||4}"></label><label>فاصله کارت‌ها<input id="catDesktopGap" type="number" min="8" max="40" value="${Number(c.desktop_gap)||18}"></label><label>ارتفاع تصویر<input id="catImageHeight" type="number" min="180" max="430" value="${Number(c.image_height)||285}"></label><label>Autoplay ms<input id="catInterval" type="number" min="2500" max="15000" step="500" value="${Number(c.autoplay_interval)||5000}"></label><label>حداکثر دسته<input id="catLimit" type="number" min="1" max="24" value="${Number(c.limit)||8}"></label><label>ترتیب<select id="catOrder"><option value="ASC" ${c.order==='ASC'?'selected':''}>صعودی</option><option value="DESC" ${c.order==='DESC'?'selected':''}>نزولی</option></select></label></div></div>
+        <div class="qh-section"><div class="qh-title"><b>رنگ‌بندی هماهنگ سایت</b><small>THEME</small></div><div class="qh-colors">${[['پس‌زمینه','section_background'],['کارت','card_background'],['طلایی','gold'],['متن','text'],['متن فرعی','muted'],['حاشیه','border'],['دکمه','button_background']].map(([l,k])=>`<label>${l}<input type="color" id="catColor_${k}" value="${escapeAttr(c[k])}"></label>`).join('')}</div></div>
+        <div class="qh-actions"><button class="btn-gold" id="btnApplyCategories">ذخیره و اعمال Desktop</button><a class="btn-ghost" href="${escapeAttr(window.ALOOKHOR_CC?.home_url||'/')}" target="_blank">مشاهده سایت</a><span>فاز Mobile پس از تأیید Desktop تکمیل می‌شود.</span></div>`;
+      },
       footer: () => {
         const f = cfg.footer_settings;
         return `
@@ -435,6 +451,12 @@ export const settingsModule = {
           const liveSub=document.getElementById('liveLogoSub'); if(liveSub) liveSub.textContent=inpLogoSub?.value||'';
           window.ALOOKHOR.toast('ذخیره WordPress تأیید شد؛ تغییرات Top Bar روی سایت آماده است','success');
         });
+      }
+
+      if(key === 'product_categories'){
+        quick.querySelectorAll('[data-category-media]').forEach(button=>button.addEventListener('click',()=>{if(!window.wp?.media){window.ALOOKHOR.toast('Media Library در دسترس نیست','info');return}const frame=window.wp.media({title:'انتخاب تصویر دسته',button:{text:'استفاده از تصویر'},multiple:false});frame.on('select',()=>{const item=frame.state().get('selection').first().toJSON();const input=quick.querySelector(`#${button.dataset.categoryMedia}`);if(input)input.value=item.url});frame.open()}));
+        commitQuickSettings=()=>{const c=cfg.category_settings;const cv=id=>quick.querySelector(`#${id}`)?.value??'';c.kicker=cv('catKicker');c.title=cv('catTitle');c.subtitle=cv('catSubtitle');c.button_text=cv('catButton');c.desktop_cards=Math.max(2,Math.min(6,Number(cv('catDesktopCards'))||4));c.desktop_gap=Math.max(8,Math.min(40,Number(cv('catDesktopGap'))||18));c.image_height=Math.max(180,Math.min(430,Number(cv('catImageHeight'))||285));c.autoplay_interval=Math.max(2500,Math.min(15000,Number(cv('catInterval'))||5000));c.limit=Math.max(1,Math.min(24,Number(cv('catLimit'))||8));c.order=cv('catOrder')==='DESC'?'DESC':'ASC';c.selected_ids=[...quick.querySelectorAll('[data-cat-id]:checked')].map(input=>Number(input.dataset.catId)).filter(Boolean);c.overrides={};(window.ALOOKHOR_CC?.wc_categories||[]).forEach(term=>{const image=cv(`catImage_${term.id}`),description=cv(`catDesc_${term.id}`);if(image||description)c.overrides[String(term.id)]={image_url:image,description}});['section_background','card_background','gold','text','muted','border','button_background'].forEach(k=>c[k]=cv(`catColor_${k}`));quick.querySelectorAll('[data-category-flag]').forEach(input=>c[input.dataset.categoryFlag]=input.checked)};
+        quick.querySelector('#btnApplyCategories')?.addEventListener('click',async event=>{commitQuickSettings();const button=event.currentTarget;button.disabled=true;const result=await Config.save({notify:false});button.disabled=false;if(!result.ok)return;window.ALOOKHOR.toast('دسته‌بندی‌های WooCommerce و تنظیمات Desktop ذخیره شدند','success')});
       }
 
       if(key === 'footer'){

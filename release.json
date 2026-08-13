@@ -1,26 +1,36 @@
 {
-  "version": "3.9.2",
-  "previous": "3.9.1",
-  "state": "ready",
+  "version": "3.10.0",
+  "previous": "3.9.2",
+  "state": "draft",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "سامان‌دهی کامل فرم تنظیمات فوتر در پنل اصلی ALOOKHOR.",
+  "description": "فاز Desktop بخش دسته‌بندی محصولات واقعی WooCommerce با Carousel لوکس مدیریت‌شده.",
   "changelog": [
     {
-      "tag": "ADMIN UI",
-      "title": "فرم فوتر منظم و خوانا",
-      "desc": "Grid، Section، Label، Input، Select، Textarea، Media picker و Toggleهای فوتر با سیستم طراحی مشترک پنل هماهنگ شدند."
+      "tag": "WOOCOMMERCE",
+      "title": "دسته‌های واقعی محصول",
+      "desc": "عنوان، URL، تعداد، توضیح و تصویر از taxonomy واقعی product_cat ووکامرس خوانده می‌شوند."
     },
     {
-      "tag": "RESPONSIVE",
-      "title": "چیدمان واکنش‌گرای پنل",
-      "desc": "فرم در دسکتاپ دو/چهار ستونه و در تبلت و موبایل تک‌ستونه می‌شود؛ هیچ فیلدی روی عنوان یا فیلد دیگر قرار نمی‌گیرد."
+      "tag": "DESKTOP UX",
+      "title": "Carousel چهارکارته حرفه‌ای",
+      "desc": "کارت‌های تصویرمحور، آیکون، Hover، CTA، فلش، Dot و Autoplay مطابق مرجع Desktop پیاده‌سازی شدند."
     },
     {
-      "tag": "CONSISTENCY",
-      "title": "هماهنگی تنظیمات Header و Footer",
-      "desc": "کلاس‌های Quick Settings از Template داخلی به Stylesheet اصلی Admin منتقل و برای همه ماژول‌ها پایدار شدند."
+      "tag": "CONTROL CENTER",
+      "title": "تنظیمات کامل داخل پنل اصلی",
+      "desc": "انتخاب دسته‌ها، تصویر و توضیح جایگزین، محتوا، رفتار Carousel، تعداد کارت، فاصله، ارتفاع و رنگ‌ها قابل مدیریت‌اند."
+    },
+    {
+      "tag": "MIGRATION",
+      "title": "جایگزینی خودکار بخش قدیمی",
+      "desc": "بخش category-carousel-section قدیمی بدون ویرایش Elementor مخفی و با خروجی مدیریت‌شده جایگزین می‌شود."
+    },
+    {
+      "tag": "PHASE",
+      "title": "فاز اول: Desktop",
+      "desc": "این Release فاز Desktop است؛ Mobile baseline ایمن دارد و تطبیق کامل مرجع موبایل در فاز بعد انجام می‌شود."
     }
   ]
 }

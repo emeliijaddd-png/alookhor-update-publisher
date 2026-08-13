@@ -96,6 +96,9 @@ try:
     report['checks']['footer_settings'] = after.get('settings', {}).get('footer_settings') is True
     report['checks']['footer_enabled'] = after.get('settings', {}).get('footer_enabled') is True
     report['checks']['footer_module'] = after.get('settings', {}).get('footer_module') is True
+    report['checks']['category_settings'] = after.get('settings', {}).get('category_settings') is True
+    report['checks']['category_enabled'] = after.get('settings', {}).get('category_enabled') is True
+    report['checks']['category_module'] = after.get('settings', {}).get('category_module') is True
     if current != TARGET:
         restore = after.get('last_activation_restore') or after.get('transition_activation_restore')
         report['checks']['activation_restore'] = isinstance(restore, dict) and (
@@ -140,6 +143,13 @@ try:
         and 'alookhor-mf-benefits' in footer_html
     )
     report['checks']['footer_no_store'] = 'no-store' in footer_cache.lower()
+
+    category_url = BASE + '/wp-json/alookhor-cc/v1/product-categories?release_test=' + TARGET.replace('.', '')
+    with urlopen(Request(category_url, headers={'Accept':'application/json','Cache-Control':'no-cache','User-Agent':'ALOOKHOR-GitHub-Publisher/1.0'}), timeout=30) as response:
+        categories = json.load(response); category_cache=response.headers.get('Cache-Control','')
+    category_html=str(categories.get('html',''));report['categories']={'version':categories.get('version'),'enabled':categories.get('enabled'),'count':categories.get('count'),'term_ids':categories.get('term_ids'),'html_length':len(category_html)}
+    report['checks']['category_endpoint']=(str(categories.get('version'))==TARGET and categories.get('enabled') is True and int(categories.get('count',0))>=4 and 'id="alookhor-managed-categories"' in category_html and 'alookhor-mc-track' in category_html and 'alookhor-mc-card' in category_html)
+    report['checks']['category_no_store']='no-store' in category_cache.lower()
 
     failed = [name for name, passed in report['checks'].items() if passed is not True]
     report['ok'] = not failed

@@ -239,6 +239,18 @@ try:
             report['checks']['footer_no_store'] = False
             report['checks']['footer_homepage'] = False
 
+    if version_tuple(production_version) >= version_tuple('3.10.0'):
+        category_url=base+'/wp-json/alookhor-cc/v1/product-categories?access_audit='+str(int(time.time()))
+        try:
+            with urlopen(Request(category_url,headers={'Accept':'application/json','Cache-Control':'no-cache','User-Agent':'ALOOKHOR-GitHub-Publisher/1.0'}),timeout=30) as response:
+                category_state=json.load(response);category_cache=response.headers.get('Cache-Control','')
+            category_html=str(category_state.get('html',''));report['managed_categories']={'version':category_state.get('version'),'enabled':category_state.get('enabled'),'count':category_state.get('count'),'term_ids':category_state.get('term_ids'),'html_length':len(category_html),'html':category_html}
+            report['checks']['category_endpoint']=(str(category_state.get('version'))==production_version and category_state.get('enabled') is True and int(category_state.get('count',0))>=4 and 'id="alookhor-managed-categories"' in category_html and 'alookhor-mc-card' in category_html)
+            report['checks']['category_no_store']='no-store' in category_cache.lower()
+            report['checks']['category_homepage']=('alookhor-managed-categories-template' in homepage and 'frontend-categories.js' in homepage and 'alookhor-mc-hide-legacy' in homepage)
+        except Exception as error:
+            report['managed_categories']={'error':str(error)};report['checks']['category_endpoint']=False;report['checks']['category_no_store']=False;report['checks']['category_homepage']=False
+
     # Non-mutating feasibility probe. Application Passwords are expected to be
     # REST-only on this site; never record a nonce or any authenticated HTML.
     try:

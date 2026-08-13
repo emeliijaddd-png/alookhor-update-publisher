@@ -45,6 +45,9 @@ function alookhor_cc_runtime_status(){
             'footer_settings' => is_array($settings['footer_settings'] ?? null),
             'footer_enabled' => !empty($settings['footer_settings']['enabled']),
             'footer_module' => !empty($settings['modules']['footer']['enabled']),
+            'category_settings' => is_array($settings['category_settings'] ?? null),
+            'category_enabled' => !empty($settings['category_settings']['enabled']),
+            'category_module' => !empty($settings['modules']['product_categories']['enabled']),
         ],
         'last_verified_package' => is_array($verified) ? $verified : null,
         'last_activation_restore' => get_site_transient('alookhor_cc_last_activation_restore') ?: null,
@@ -109,6 +112,16 @@ add_action('rest_api_init', function(){
             ]);
             $response->header('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0');
             return $response;
+        },
+    ]);
+
+    register_rest_route('alookhor-cc/v1', '/product-categories', [
+        'methods' => WP_REST_Server::READABLE,
+        'permission_callback' => '__return_true',
+        'callback' => function(){
+            $settings=alookhor_cc_get_category_settings();$terms=alookhor_cc_category_terms($settings);
+            $response=rest_ensure_response(['version'=>ALOOKHOR_CC_VERSION,'enabled'=>!empty($settings['enabled']),'count'=>count($terms),'term_ids'=>array_map(fn($term)=>(int)$term->term_id,$terms),'html'=>alookhor_cc_category_markup($settings)]);
+            $response->header('Cache-Control','no-store, no-cache, must-revalidate, max-age=0');return $response;
         },
     ]);
 

@@ -30,6 +30,8 @@ add_action('admin_enqueue_scripts', function($hook){
     // نصب از URL nonceدار Core Upgrader انجام می‌شود؛ مستقل از DOM صفحه Plugins.
     // admin-wp.js remains the bridge; app.js and its dependencies stay ES Modules.
     wp_enqueue_script('alookhor-cc-admin-js', ALOOKHOR_CC_URL . 'assets/js/admin-wp.js', ['jquery'], ALOOKHOR_CC_BUILD, true);
+    $category_terms = taxonomy_exists('product_cat') ? get_terms(['taxonomy'=>'product_cat','hide_empty'=>false,'orderby'=>'name']) : [];
+    if (is_wp_error($category_terms)) $category_terms=[];
     wp_localize_script('alookhor-cc-admin-js', 'ALOOKHOR_CC', [
         'ajax_url' => admin_url('admin-ajax.php'),
         'nonce' => wp_create_nonce('alookhor_cc_nonce'),
@@ -47,6 +49,9 @@ add_action('admin_enqueue_scripts', function($hook){
         'footer_menus' => array_map(function($menu){
             return ['id' => (int) $menu->term_id, 'name' => $menu->name];
         }, wp_get_nav_menus(['orderby' => 'term_order'])),
+        'wc_categories' => array_map(function($term){
+            return ['id'=>(int)$term->term_id,'name'=>$term->name,'slug'=>$term->slug,'count'=>(int)$term->count,'parent'=>(int)$term->parent];
+        }, $category_terms),
     ]);
 });
 

@@ -50,6 +50,13 @@ jobs:
               'plugin/alookhor-control-center/assets/css/frontend-footer.css',
               'plugin/alookhor-control-center/assets/js/frontend-footer.js',
               'plugin/alookhor-control-center/assets/images/footer-prunes.png',
+              'plugin/alookhor-control-center/includes/product-categories.php',
+              'plugin/alookhor-control-center/assets/css/frontend-categories.css',
+              'plugin/alookhor-control-center/assets/js/frontend-categories.js',
+              'plugin/alookhor-control-center/assets/images/category-plums.jpg',
+              'plugin/alookhor-control-center/assets/images/category-fruit-sheets.jpg',
+              'plugin/alookhor-control-center/assets/images/category-natural-snacks.jpg',
+              'plugin/alookhor-control-center/assets/images/category-nuts.jpg',
           ]
           for name in required:
               assert Path(name).is_file() and Path(name).stat().st_size > 0, name
@@ -62,7 +69,13 @@ jobs:
           assert '@media(max-width:767px)' in css and '.alookhor-mf-main-grid' in css
           assert '#quickSettings .qh-grid' in admin_css and '#quickSettings .qh-section textarea' in admin_css
           assert 'cache:\'no-store\'' in js and 'alookhor-mf-newsletter-form' in js
-          print('Managed footer contract passed')
+          category_php = Path('plugin/alookhor-control-center/includes/product-categories.php').read_text()
+          category_css = Path('plugin/alookhor-control-center/assets/css/frontend-categories.css').read_text()
+          category_js = Path('plugin/alookhor-control-center/assets/js/frontend-categories.js').read_text()
+          assert "taxonomy'=>'product_cat'" in category_php and 'id="alookhor-managed-categories"' in category_php
+          assert '.alookhor-mc-card' in category_css and '--mc-cards' in category_css
+          assert 'ResizeObserver' in category_js and "cache:'no-store'" in category_js
+          print('Managed footer/category contracts passed')
           PY
 
       - name: Build and validate release

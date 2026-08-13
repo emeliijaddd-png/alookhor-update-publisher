@@ -18,28 +18,33 @@
       "title": "تنظیمات هدر و لوگوها",
       "order": 2
     },
+    "product_categories": {
+      "enabled": true,
+      "title": "دسته‌بندی محصولات ووکامرس",
+      "order": 3
+    },
     "footer": {
       "enabled": true,
       "title": "فوتر حرفه‌ای و اعتمادساز",
-      "order": 3
+      "order": 4
     },
     "export": {
       "enabled": false,
       "title": "محصولات ممبر صادراتی",
-      "order": 4,
+      "order": 5,
       "note": "فقط برای ممبرها"
     },
     "sort": {
       "enabled": true,
       "title": "مرکز سورت و بسته‌بندی",
-      "order": 5,
+      "order": 6,
       "capacity": "2.4 تن",
       "today": "1.8 تن"
     },
     "collection": {
       "enabled": true,
       "title": "مجموعه منتخب آلوخور",
-      "order": 6,
+      "order": 7,
       "collections": [
         "سورت ۱ طلایی",
         "بسته اقتصادی",
@@ -49,20 +54,20 @@
     "app": {
       "enabled": false,
       "title": "دانلود اپلیکیشن آلوخور",
-      "order": 7,
+      "order": 8,
       "link": "https://alookhor.ir/app"
     },
     "hero": {
       "enabled": true,
       "title": "اسلایدر هیروی بالای صفحه",
-      "order": 8,
+      "order": 9,
       "slides": 4,
       "autoplay": true
     },
     "auto": {
       "enabled": true,
       "title": "بروزرسانی خودکار افزونه",
-      "order": 9,
+      "order": 10,
       "schedule": "03:00"
     }
   },
@@ -119,5 +124,5 @@
   },
   "updated_at": "2026-08-10T16:20:00Z",
   "updated_by": "AI Assistant — recovered from previous chat",
-  "version": "3.9.2"
+  "version": "3.10.0"
 }
