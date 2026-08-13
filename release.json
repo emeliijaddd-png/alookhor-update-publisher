@@ -1,39 +1,35 @@
 {
-  "version": "3.10.5",
-  "previous": "3.10.4",
+  "version": "3.10.6",
+  "previous": "3.10.5",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "هدر سه‌ردیفه در جریان عادی صفحه با Sticky فقط برای Navigation اصلی و بدون Layout Shift.",
+  "description": "تثبیت هویت Black/Gold واقعی ALOOKHOR برای هدر جدید و بازیابی شماره تماس تأییدشده 3173.",
   "changelog": [
     {
-      "tag": "NAV-ONLY STICKY",
-      "title": "فقط Navigation اصلی چسبان می‌ماند",
-      "desc": "Top Bar و Header اصلی از حالت fixed خارج شدند و همراه صفحه حرکت می‌کنند؛ منوی WordPress موجود بدون بازسازی به Stage چسبان منتقل شد."
+      "tag": "BRAND PALETTE",
+      "title": "حذف رنگ‌های Orange/Green مرجع",
+      "desc": "Top Bar و Navigation به پالت واقعی ذخیره‌شده ALOOKHOR شامل مشکی/بنفش تیره، طلایی و متن روشن بازگردانده شدند."
     },
     {
-      "tag": "ZERO LAYOUT SHIFT",
-      "title": "Sticky بدون پرش محتوا",
-      "desc": "Navigation جای خود را در جریان صفحه حفظ می‌کند، هنگام چسبان‌شدن ارتفاع تغییر نمی‌دهد و با Offset صحیح WordPress Admin Bar کار می‌کند."
+      "tag": "TARGETED MIGRATION",
+      "title": "مهاجرت محدود بدون دست‌زدن به سایر تنظیمات",
+      "desc": "فقط فیلدهای رنگ Header، Sticky/Search، ابعاد لوگو و تلفن تأییدشده تغییر می‌کنند؛ تمام منوها، لینک‌ها و سایر Stateها حفظ می‌شوند."
     },
     {
-      "tag": "BRAND & RESPONSIVE",
-      "title": "Black/Gold واقعی سایت و لوگوی شفاف مشترک",
-      "desc": "Navigation با رنگ‌های ذخیره‌شده ALOOKHOR، Glass ظریف، لوگوی مشترک Desktop/Mobile، جستجوی محصول و کنترل عرض مستقل لوگو اجرا شد."
+      "tag": "CONTACT AUTHORITY",
+      "title": "بازیابی شماره صحیح پایان 3173",
+      "desc": "شماره Header و Footer مشترک مطابق تصمیم قطعی پروژه به 09159513173 بازگردانده و از Regression جلوگیری شد."
     }
   ],
   "project": "ALOOKHOR",
-  "area": "Frontend Header / Legacy Compatibility / Sticky Primary Navigation",
-  "reason": "اجرای رفتار حرفه‌ای مورد تأیید کاربر بدون بازسازی Shortcode، منوها یا Mega Menu فعلی و رفع تعارض fixed موجود در CSS Legacy.",
+  "area": "Header Brand State / Targeted WordPress Migration",
+  "reason": "رنگ‌های ذخیره‌شده Production با رنگ نارنجی/سبز تصویر مرجع همسان شده بودند؛ کاربر صریحاً پالت واقعی سایت را خواست و شماره تماس نیز برخلاف مرجع قطعی به 3174 تغییر کرده بود.",
   "files": [
-    "plugin/alookhor-control-center/assets/css/frontend-header-scroll.css",
-    "plugin/alookhor-control-center/assets/js/frontend-topbar-manager.js",
     "plugin/alookhor-control-center/alookhor-control-center.php",
-    "plugin/alookhor-control-center/includes/shortcode-header.php",
     "plugin/alookhor-control-center/includes/rest-api.php",
-    "plugin/alookhor-control-center/includes/ajax.php",
-    "plugin/alookhor-control-center/includes/admin.php",
-    "plugin/alookhor-control-center/assets/js/modules/settings.js"
+    "scripts/wordpress_release_test.py",
+    "scripts/wordpress_access_check.py"
   ]
 }

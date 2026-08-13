@@ -108,7 +108,18 @@ try:
 
     before_header_hash = before.get('header_option_hash') or before.get('settings', {}).get('header_option_hash')
     after_header_hash = after.get('settings', {}).get('header_option_hash')
-    report['checks']['header_settings_preserved'] = bool(before_header_hash and after_header_hash and before_header_hash == after_header_hash)
+    if tuple(map(int, TARGET.split('.'))) >= (3, 10, 6):
+        migration = after.get('settings', {}).get('header_brand_migration')
+        expected_fields = {'phone','gold','topbar_bg','topbar_text_color','topbar_border_color','topbar_button_bg','topbar_button_text','header_surface','header_text_color','header_muted_color','header_logo_desktop_width','header_logo_mobile_width','sticky','show_search','search_placeholder'}
+        report['checks']['header_settings_preserved'] = (
+            isinstance(migration, dict) and migration.get('ok') is True
+            and str(migration.get('version')) == '3.10.6'
+            and set(migration.get('fields', [])) == expected_fields
+            and bool(migration.get('before_hash')) and bool(migration.get('after_hash'))
+            and before_header_hash != after_header_hash
+        )
+    else:
+        report['checks']['header_settings_preserved'] = bool(before_header_hash and after_header_hash and before_header_hash == after_header_hash)
 
     public_url = BASE + '/?alookhor_ci_verify=' + TARGET.replace('.', '')
     with urlopen(Request(public_url, headers={'User-Agent': 'ALOOKHOR-GitHub-Publisher/1.0'}), timeout=30) as response:
@@ -135,6 +146,19 @@ try:
         and 42 <= int(topbar.get('header_logo_mobile_width', 0)) <= 110
     )
     report['checks']['topbar_no_store'] = 'no-store' in cache_control.lower()
+    if tuple(map(int, TARGET.split('.'))) >= (3, 10, 6):
+        report['checks']['header_brand_palette'] = (
+            topbar.get('phone') == '09159513173'
+            and topbar.get('gold') == '#C9A86A'
+            and topbar.get('topbar_bg') == '#11091D'
+            and topbar.get('topbar_text_color') == '#E8D5B5'
+            and topbar.get('topbar_button_bg') == '#C9A86A'
+            and topbar.get('topbar_button_text') == '#1A1206'
+            and topbar.get('header_surface') == '#0D0916'
+            and topbar.get('header_text_color') == '#F7F2EA'
+            and topbar.get('header_muted_color') == '#B8B0BD'
+            and topbar.get('sticky') is True and topbar.get('show_search') is True
+        )
 
     footer_url = BASE + '/wp-json/alookhor-cc/v1/footer?release_test=' + TARGET.replace('.', '')
     with urlopen(Request(footer_url, headers={'Accept':'application/json','Cache-Control':'no-cache','User-Agent':'ALOOKHOR-GitHub-Publisher/1.0'}), timeout=30) as response:

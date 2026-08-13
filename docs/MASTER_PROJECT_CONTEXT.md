@@ -21,12 +21,12 @@ When sources disagree, the newer provable runtime/source wins. Missing source is
 
 ## Authoritative current state
 
-- **Production runtime:** ALOOKHOR Control Center `3.10.4`
-- **Current source target:** `3.10.5` — Navigation-only Sticky Header; pending tagged deployment and verification.
-- **Last Production tag/source:** `v3.10.4` / `71c3f8483d56495c3ed2212498d26e835ecaa079`
-- **Last published package SHA-256:** `8c8906e76e0fbed96dec51808a9b7be4cb61553e886b1ea1104465426d491dc3`
-- **Deployment run:** `31713677974`
-- **Independent audit run:** `31713982075`
+- **Production runtime:** ALOOKHOR Control Center `3.10.5`
+- **Current source target:** `3.10.6` — Black/Gold Header state correction and phone 3173 recovery; pending tagged deployment and verification.
+- **Last Production tag/source:** `v3.10.5` / `a4da999a2e92d485ce8f675d920442f3e72b431b`
+- **Last published package SHA-256:** `838878bfbbccd964c50b20fd290b8a5e4ccde524b655c1793bd610993e23401e`
+- **Deployment run:** `31718432638`
+- **Independent audit run:** pending for 3.10.5
 - **Production:** active and verified
 - **Repository:** `alookhor-update-publisher`
 - **Update channel:** `https://updates.alookhor.ir/manifest.json`
@@ -66,6 +66,8 @@ This rule supersedes every earlier interpretation of full-header Sticky behavior
 8. Visual treatment uses current ALOOKHOR Black/Gold settings with restrained glass/blur only when Navigation is stuck.
 9. Desktop and Mobile use the same transparent logo source; separate safe width controls are available in the main Boutique Header settings.
 10. Rollback remains available through the existing `sticky` setting and versioned plugin release.
+11. The approved Header palette is the site’s own Black/Gold state—not the orange/green colors in the structural reference: `#11091D`, `#0D0916`, `#C9A86A`, `#E8D5B5`, `#F7F2EA`, and `#B8B0BD`.
+12. The authoritative shared Header/Footer contact phone is `09159513173`; any ending in 3174 or 3179 is a regression.
 
 ## Current categories contract
 

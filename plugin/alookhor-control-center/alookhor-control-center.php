@@ -3,7 +3,7 @@
  * Plugin Name: ALOOKHOR Control Center
  * Plugin URI: https://alookhor.ir
  * Description: کنترل سنتر لوکس و ماژولار آلوخور — مدیریت کامل سایت (هدر، اسلایدر، سورت، محصولات، مشتریان VIP، مالی، آنالیتیکس) با آپدیت آنی بدون رفرش. تمام تنظیمات چت قبلی + شورت‌کد [alookhor_portal_header] اینجا مدیریت می‌شود.
- * Version: 3.10.5
+ * Version: 3.10.6
  * Author: ALOOKHOR Team — Luxury Modular
  * Author URI: https://alookhor.ir
  * Update URI: https://alookhor.ir/alookhor-control-center
@@ -16,8 +16,8 @@
 
 if (!defined('ABSPATH')) exit;
 
-define('ALOOKHOR_CC_VERSION', '3.10.5');
-define('ALOOKHOR_CC_BUILD', '3.10.5');
+define('ALOOKHOR_CC_VERSION', '3.10.6');
+define('ALOOKHOR_CC_BUILD', '3.10.6');
 define('ALOOKHOR_CC_FILE', __FILE__);
 define('ALOOKHOR_CC_DIR', plugin_dir_path(__FILE__));
 define('ALOOKHOR_CC_URL', plugin_dir_url(__FILE__));
@@ -196,7 +196,14 @@ function alookhor_cc_get_header_settings(){
         'logo_sub' => $s['header_settings']['logo_sub'] ?? $s['site']['subtitle'] ?? 'آلوخور؛ طعم اصیل خراسان',
         'logo_letter' => $s['site']['logoLetter'] ?? 'A',
         'gold' => $s['site']['goldAccent'] ?? '#C9A86A',
+        'header_surface' => '#0D0916',
+        'header_text_color' => '#F7F2EA',
+        'header_muted_color' => '#B8B0BD',
+        'header_logo_desktop_width' => 118,
+        'header_logo_mobile_width' => 58,
         'sticky' => true,
+        'show_search' => true,
+        'search_placeholder' => 'جستجوی محصول…',
         'show_topbar' => true,
         'show_account' => true,
         'show_contact' => true,
@@ -228,3 +235,51 @@ function alookhor_cc_get_header_settings(){
     ];
     return wp_parse_args($h, $defaults);
 }
+
+/**
+ * One-time 3.10.6 migration requested by the site owner: restore the verified
+ * ALOOKHOR Black/Gold Header palette (not the orange/green reference colors)
+ * and the authoritative contact phone ending in 3173. Every unrelated Header
+ * value remains untouched.
+ */
+function alookhor_cc_migrate_header_brand_3106(){
+    $main = get_option(ALOOKHOR_CC_OPTION, []);
+    if (!is_array($main)) $main = [];
+    if (!empty($main['_migrations']['header_brand_3106']['ok'])) return;
+
+    $header = get_option(ALOOKHOR_CC_HEADER_OPTION, []);
+    if (!is_array($header)) $header = [];
+    $before_hash = hash('sha256', wp_json_encode($header));
+    $target = [
+        'phone' => '09159513173',
+        'gold' => '#C9A86A',
+        'topbar_bg' => '#11091D',
+        'topbar_text_color' => '#E8D5B5',
+        'topbar_border_color' => '#3A2C20',
+        'topbar_button_bg' => '#C9A86A',
+        'topbar_button_text' => '#1A1206',
+        'header_surface' => '#0D0916',
+        'header_text_color' => '#F7F2EA',
+        'header_muted_color' => '#B8B0BD',
+        'header_logo_desktop_width' => 118,
+        'header_logo_mobile_width' => 58,
+        'sticky' => true,
+        'show_search' => true,
+        'search_placeholder' => 'جستجوی محصول…',
+    ];
+    $header = array_replace($header, $target);
+    update_option(ALOOKHOR_CC_HEADER_OPTION, $header);
+
+    $main_header = is_array($main['header_settings'] ?? null) ? $main['header_settings'] : [];
+    $main['header_settings'] = array_replace($main_header, $target);
+    $main['_migrations']['header_brand_3106'] = [
+        'ok' => true,
+        'version' => '3.10.6',
+        'fields' => array_keys($target),
+        'before_hash' => $before_hash,
+        'after_hash' => hash('sha256', wp_json_encode($header)),
+        'checked_at' => time(),
+    ];
+    update_option(ALOOKHOR_CC_OPTION, $main);
+}
+add_action('init', 'alookhor_cc_migrate_header_brand_3106', 120);

@@ -49,6 +49,9 @@ function alookhor_cc_runtime_status(){
             'category_settings' => is_array($settings['category_settings'] ?? null),
             'category_enabled' => !empty($settings['category_settings']['enabled']),
             'category_module' => !empty($settings['modules']['product_categories']['enabled']),
+            'header_brand_migration' => is_array($settings['_migrations']['header_brand_3106'] ?? null)
+                ? $settings['_migrations']['header_brand_3106']
+                : null,
         ],
         'last_verified_package' => is_array($verified) ? $verified : null,
         'last_activation_restore' => get_site_transient('alookhor_cc_last_activation_restore') ?: null,

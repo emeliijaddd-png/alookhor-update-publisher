@@ -1,5 +1,12 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.6 — 2026-08-13 — Header Brand-State Correction
+- PALETTE: حذف رنگ‌های ذخیره‌شده Orange/Green مرجع و بازیابی Black/Gold واقعی ALOOKHOR برای Top Bar و Navigation.
+- CONTACT: بازیابی شماره قطعی `09159513173` در Header Option و State اصلی؛ Footer مشترک نیز همین منبع را می‌خواند.
+- MIGRATION: تغییر فقط ۱۵ فیلد مصوب Header با Marker دائمی، Before/After hash و فهرست دقیق Fields؛ سایر تنظیمات دست‌نخورده می‌مانند.
+- VERIFY: REST Status مهاجرت را گزارش می‌کند و Release/Access audit پالت، تلفن، Sticky، Search و Marker را الزام می‌کنند.
+- ADMIN: Defaults کامل تنظیمات Header برای رنگ‌های Navigation، Search و عرض لوگوی Desktop/Mobile در Mirror نیز تکمیل شد.
+
 ## v3.10.5 — 2026-08-13 — Navigation-Only Sticky Header
 - DETECT: ممیزی CSS واقعی Production ثابت کرد Top Bar و `.alookhor-header` با `position:fixed!important` قفل شده بودند و Wrapper ارتفاع صفر داشت.
 - COMPAT: همان DOM، Shortcode، WordPress Menu، Mega Menu، Drawer ID و کلاس‌های Legacy حفظ شدند؛ `.header-nav-center` موجود بدون بازسازی به Stage مستقل منتقل شد.

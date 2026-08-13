@@ -112,6 +112,13 @@ try:
     report['checks']['shortcode'] = settings.get('header_shortcode') is True
     production_parts = tuple(int(part) for part in production_version.split('.'))
     report['checks']['category_shortcode'] = settings.get('category_shortcode') is True if production_parts >= (3, 10, 3) else True
+    if production_parts >= (3, 10, 6):
+        migration = settings.get('header_brand_migration')
+        report['checks']['header_brand_migration'] = (
+            isinstance(migration, dict) and migration.get('ok') is True
+            and str(migration.get('version')) == '3.10.6'
+            and bool(migration.get('before_hash')) and bool(migration.get('after_hash'))
+        )
 
     public_url = base + '/?alookhor_access_audit=' + production_version.replace('.', '')
     with urlopen(Request(public_url, headers={'User-Agent': 'ALOOKHOR-GitHub-Publisher/1.0'}), timeout=30) as response:
@@ -246,10 +253,25 @@ try:
                 )
             )
             report['checks']['topbar_no_store'] = 'no-store' in cache_control.lower()
+            if version_tuple(production_version) >= version_tuple('3.10.6'):
+                report['checks']['header_brand_palette'] = (
+                    topbar_state.get('phone') == '09159513173'
+                    and topbar_state.get('gold') == '#C9A86A'
+                    and topbar_state.get('topbar_bg') == '#11091D'
+                    and topbar_state.get('topbar_text_color') == '#E8D5B5'
+                    and topbar_state.get('topbar_button_bg') == '#C9A86A'
+                    and topbar_state.get('topbar_button_text') == '#1A1206'
+                    and topbar_state.get('header_surface') == '#0D0916'
+                    and topbar_state.get('header_text_color') == '#F7F2EA'
+                    and topbar_state.get('header_muted_color') == '#B8B0BD'
+                    and topbar_state.get('sticky') is True and topbar_state.get('show_search') is True
+                )
         except Exception as error:
             report['public_topbar']['fresh_endpoint_error'] = str(error)
             report['checks']['topbar_endpoint'] = False
             report['checks']['topbar_no_store'] = False
+            if version_tuple(production_version) >= version_tuple('3.10.6'):
+                report['checks']['header_brand_palette'] = False
 
     if version_tuple(production_version) >= version_tuple('3.9.0'):
         footer_url = base + '/wp-json/alookhor-cc/v1/footer?access_audit=' + str(int(time.time()))
