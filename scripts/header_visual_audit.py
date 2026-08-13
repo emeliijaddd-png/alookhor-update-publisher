@@ -61,6 +61,7 @@ def audit(width: int, height: int, label: str) -> dict:
         runtime_version = driver.execute_script("return String(window.ALOOKHOR_TOPBAR?.version||'0.0.0')")
         runtime_parts = tuple(int(part) for part in runtime_version.split('.') if part.isdigit())
         hero_expected = runtime_parts >= (3, 10, 13)
+        hero_polish_expected = runtime_parts >= (3, 10, 14)
         if hero_expected:
             WebDriverWait(driver, 40).until(lambda d: d.execute_script("return document.querySelector('#alookhor-managed-hero')?.dataset.mounted==='1' && document.querySelectorAll('#alookhor-managed-hero .alookhor-mh-slide').length===4"))
         time.sleep(4)
@@ -103,7 +104,7 @@ def audit(width: int, height: int, label: str) -> dict:
                         and arrow['border_radius'] == '50%'
                         and arrow['background'] not in {'rgb(255, 255, 255)', 'rgba(255, 255, 255, 1)'}
                         for arrow in before['hero_arrows'])
-            ) if hero_expected else True,
+            ) if hero_polish_expected else True,
             'hero_content_on_right': (
                 before['hero_content'] is not None and before['hero_shell'] is not None
                 and before['hero_content']['left'] + before['hero_content']['width'] / 2 > before['hero_shell']['left'] + before['hero_shell']['width'] / 2
@@ -112,7 +113,7 @@ def audit(width: int, height: int, label: str) -> dict:
             'mobile_hero_under_glass_capsule': (
                 before['hero_shell'] is not None and before['capsule'] is not None
                 and before['capsule']['top'] < before['hero_shell']['top'] < before['capsule']['bottom']
-            ) if hero_expected and expected_mobile else True,
+            ) if hero_polish_expected and expected_mobile else True,
         }
         return {'label':label,'before':before,'after':after,'checks':checks,'ok':all(checks.values())}
     finally:

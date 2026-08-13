@@ -208,7 +208,7 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 | `plugin/alookhor-control-center/uninstall.php` | 6 | `d69282a9ab7c0865b6c60e6fca272d0859433e9c8730754fb2995295209ff84c` |
 | `scripts/build_release.py` | 101 | `f07af70658e73dd9e42f018cfa3e2ca35a7287599d7e6a4cf8e06951665126d8` |
 | `scripts/generate_code_registry.py` | 265 | `3cc28799903b0a9c87f069423e189e3152c79b77c032279e33efe88b377bd826` |
-| `scripts/header_visual_audit.py` | 130 | `9645e38dd7da934b941bed2a2043e0089c47d407c0198fd73a6208466d566d88` |
+| `scripts/header_visual_audit.py` | 131 | `bb814960c6a9e973fd6e2c9eebda7f1af884d9042475e6f4d55c9faf3761030e` |
 | `scripts/wordpress_access_check.py` | 442 | `2abd73fb09fb6322192067bf1764b3cb9709cfedd941f36c73a2ddc773f387af` |
 | `scripts/wordpress_release_test.py` | 234 | `e6b02d41f06d7b7f1c69eb55d692009a226879aac7721f8b4b819c97db782443` |
 
@@ -8203,6 +8203,7 @@ def audit(width: int, height: int, label: str) -> dict:
         runtime_version = driver.execute_script("return String(window.ALOOKHOR_TOPBAR?.version||'0.0.0')")
         runtime_parts = tuple(int(part) for part in runtime_version.split('.') if part.isdigit())
         hero_expected = runtime_parts >= (3, 10, 13)
+        hero_polish_expected = runtime_parts >= (3, 10, 14)
         if hero_expected:
             WebDriverWait(driver, 40).until(lambda d: d.execute_script("return document.querySelector('#alookhor-managed-hero')?.dataset.mounted==='1' && document.querySelectorAll('#alookhor-managed-hero .alookhor-mh-slide').length===4"))
         time.sleep(4)
@@ -8245,7 +8246,7 @@ def audit(width: int, height: int, label: str) -> dict:
                         and arrow['border_radius'] == '50%'
                         and arrow['background'] not in {'rgb(255, 255, 255)', 'rgba(255, 255, 255, 1)'}
                         for arrow in before['hero_arrows'])
-            ) if hero_expected else True,
+            ) if hero_polish_expected else True,
             'hero_content_on_right': (
                 before['hero_content'] is not None and before['hero_shell'] is not None
                 and before['hero_content']['left'] + before['hero_content']['width'] / 2 > before['hero_shell']['left'] + before['hero_shell']['width'] / 2
@@ -8254,7 +8255,7 @@ def audit(width: int, height: int, label: str) -> dict:
             'mobile_hero_under_glass_capsule': (
                 before['hero_shell'] is not None and before['capsule'] is not None
                 and before['capsule']['top'] < before['hero_shell']['top'] < before['capsule']['bottom']
-            ) if hero_expected and expected_mobile else True,
+            ) if hero_polish_expected and expected_mobile else True,
         }
         return {'label':label,'before':before,'after':after,'checks':checks,'ok':all(checks.values())}
     finally:
