@@ -21,11 +21,11 @@ When sources disagree, the newer provable runtime/source wins. Missing source is
 
 ## Authoritative current state
 
-- **Production runtime:** ALOOKHOR Control Center `3.10.8`
-- **Current source target:** `3.10.9` — exact Mobile Header visual-reference match; pending tagged deployment and rendered verification.
-- **Last Production tag/source:** `v3.10.8` / `b92dce4ce5fcb8abb78a963297af754ae75857b4`
-- **Last published package SHA-256:** `f147e47b73e6f23d9db2feaa5b9d900c98215f6f58ef47ac3abc4c19a5b26a99`
-- **Latest rendered Chrome audit:** `31726873937` — geometry and sticky checks passed
+- **Production runtime:** ALOOKHOR Control Center `3.10.9`
+- **Current source target:** `3.10.10` — restore the missing Account SVG detected in the rendered Mobile screenshot.
+- **Last Production tag/source:** `v3.10.9` / `57ba87455e33b4edb86c96cdec59ebd436406f03`
+- **Last published package SHA-256:** `b2dcfce9ba723f9f62dd65b1f790709003f45d5d7301fea2411c8d9314147c3f`
+- **Latest rendered Chrome audit:** `31728885141` — all geometry/reference checks except the source-missing Account SVG passed; fix pending.
 - **Production:** active and verified
 - **Repository:** `alookhor-update-publisher`
 - **Update channel:** `https://updates.alookhor.ir/manifest.json`

@@ -1,18 +1,7 @@
 {
-  "version": "3.10.9",
-  "previous": "3.10.8",
-  "state": "ready",
-  "requires": "6.0",
-  "tested": "7.0",
-  "requires_php": "8.0",
-  "description": "تطبیق نهایی Mobile Header با مرجع: لوگوی افقی بزرگ، Account آیکنی، Cart چپ و Top Bar سه‌بخشی.",
-  "changelog": [
-    {"tag":"REFERENCE MATCH","title":"چیدمان دقیق کپسول Mobile","desc":"Cart در چپ، Account آیکنی کنار آن، لوگوی افقی بزرگ در مرکز و Hamburger ساده در راست تثبیت شدند."},
-    {"tag":"HORIZONTAL LOGO","title":"لوگوی افقی بدون پس‌زمینه مشکی","desc":"آیکن موجود به‌همراه Wordmark و زیرعنوان متنی در یک ترکیب افقی شفاف رندر و داخل کپسول مهار شد."},
-    {"tag":"THREE-PART TOPBAR","title":"تلفن، پیام مرکزی و پشتیبانی","desc":"Top Bar به سه ستون مرجع تبدیل، لوگوی تکراری و CTA نامربوط حذف و پشتیبانی ۲۴/۷ اضافه شد."}
-  ],
-  "project":"ALOOKHOR",
-  "area":"Mobile Header / Exact Visual Reference",
-  "reason":"Browser screenshot نسخه 3.10.8 از نظر هندسه صحیح بود اما Account، Logo و Top Bar هنوز از نظر بصری با مرجع کاربر مطابقت نداشت.",
-  "files":["plugin/alookhor-control-center/assets/css/frontend-header-scroll.css","plugin/alookhor-control-center/assets/js/frontend-topbar-manager.js","scripts/header_visual_audit.py"]
+  "version":"3.10.10","previous":"3.10.9","state":"ready","requires":"6.0","tested":"7.0","requires_php":"8.0",
+  "description":"افزودن Icon واقعی Account به لینک متنی Legacy برای تکمیل دقیق کپسول Mobile.",
+  "changelog":[{"tag":"ACCOUNT ICON","title":"بازیابی آیکن حساب کاربری","desc":"Source قدیمی Account فقط متن داشت؛ SVG دسترس‌پذیر داخل همان Link اضافه و متن فقط در Mobile مخفی شد."}],
+  "project":"ALOOKHOR","area":"Mobile Header / Account Control","reason":"Screenshot زنده 3.10.9 نشان داد Account پس از icon-only شدن ناپدید است چون Source Legacy هیچ SVG نداشت.",
+  "files":["plugin/alookhor-control-center/assets/js/frontend-topbar-manager.js","plugin/alookhor-control-center/assets/css/frontend-header-scroll.css","scripts/header_visual_audit.py"]
 }

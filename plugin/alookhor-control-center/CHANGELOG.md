@@ -1,5 +1,11 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.10 — 2026-08-13 — Mobile Account Icon Completion
+- DETECT: Screenshot زنده نشان داد `.header-login-btn` در Source Legacy فقط Text دارد و هیچ SVG ندارد.
+- FIX: SVG دسترس‌پذیر Account داخل همان Link موجود اضافه شد؛ URL، Class و عملکرد Login حفظ شدند.
+- MOBILE: Text مخفی و Icon با اندازه 27px کنار Cart نمایش داده می‌شود.
+- VISUAL CI: وجود دقیق یک `.alookhor-account-icon` در Chrome Mobile audit الزامی شد.
+
 ## v3.10.9 — 2026-08-13 — Exact Mobile Header Reference Match
 - ACCOUNT: حذف متن و Pill بزرگ ورود در Mobile؛ فقط Icon استاندارد باقی ماند.
 - CART: Cart واقعی WooCommerce در چپ‌ترین موقعیت با Badge پویا قرار گرفت.

@@ -1,5 +1,5 @@
 /**
- * ALOOKHOR Legacy Top Bar Manager — v3.10.9
+ * ALOOKHOR Legacy Top Bar Manager — v3.10.10
  * Preserves the legacy header/mega-menu HTML and synchronizes managed Top Bar
  * values from a fresh read-only REST endpoint, even when the page HTML is cached.
  */
@@ -115,6 +115,10 @@
     }
 
     const actions = capsule.querySelector('.header-capsule-left');
+    const account = actions?.querySelector('.header-login-btn');
+    if (account && !account.querySelector('.alookhor-account-icon')) {
+      account.insertAdjacentHTML('afterbegin','<svg class="alookhor-account-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="7" r="4"/><path d="M4.5 21c.7-4.7 3.2-7 7.5-7s6.8 2.3 7.5 7"/></svg>');
+    }
     if (actions && !actions.querySelector('.alookhor-header-cart-link')) {
       const cart = document.createElement('a');
       cart.className = 'alookhor-header-cart-link';
@@ -196,7 +200,7 @@
   }
 
   function manage(root, force = false) {
-    if (!root || (!force && root.dataset.topbarManaged === '3.10.9')) return;
+    if (!root || (!force && root.dataset.topbarManaged === '3.10.10')) return;
 
     const contactTexts = [...root.querySelectorAll('.topbar-contact-txt,[class*="contact-txt" i]')];
     const phone = root.querySelector('a[href^="tel:"]') || contactTexts.find(element => {
@@ -322,8 +326,8 @@
     }
 
     setupHeaderBehavior(root);
-    root.dataset.topbarManaged = '3.10.9';
-    root.dispatchEvent(new CustomEvent('alookhor:topbar-managed', {bubbles:true, detail:{version:'3.10.9'}}));
+    root.dataset.topbarManaged = '3.10.10';
+    root.dispatchEvent(new CustomEvent('alookhor:topbar-managed', {bubbles:true, detail:{version:'3.10.10'}}));
   }
 
   function init(scope = document, force = false) {
