@@ -6,8 +6,8 @@
 
 - **نام افزونه:** ALOOKHOR Control Center
 - **نسخه پایه بازیابی‌شده:** `3.8.4`
-- **Production پیش از این Release:** `3.10.14` (تمام checkها پاس؛ بازبینی مستقیم Copy baked باقیمانده را یافت)
-- **Release آماده انتشار اتمی:** `3.10.15` (پاک‌سازی نهایی پس‌زمینه Desktop بدون Mirror)
+- **Production پیش از این Release:** `3.10.15` (Hero نهایی و تمام Desktop/Mobile checks پاس)
+- **Release آماده انتشار اتمی:** `3.10.16` (ویژگی‌های چهارکارته مدیریت‌شده با پالت Burgundy/Gold)
 - **تاریخ بازیابی:** 2026-08-11
 - **منبع بازیابی:** ZIP واقعی افزونه `alookhor-control-center (5).zip`
 - **حداقل WordPress:** 6.0
@@ -18,6 +18,7 @@
 - **شورت‌کد هدر:** `[alookhor_portal_header]`
 - **شورت‌کد جایگاه دسته‌بندی‌ها:** `[alookhor_managed_categories]`
 - **شورت‌کد Hero مدیریت‌شده:** `[alookhor_managed_hero]` (جایگزینی خودکار ریشه Legacy در Home نیز فعال است)
+- **شورت‌کد ویژگی‌های سایت:** `[alookhor_managed_features]` (جایگزینی خودکار Trust Bar واقعی در Home)
 
 ## آخرین نقطه توقف قطعی
 
@@ -53,16 +54,19 @@ alookhor-control-center/
 │   ├── ajax.php                      # AJAX ذخیره/خواندن تنظیمات و Toggleها
 │   ├── updater.php                   # اتصال آپدیت خصوصی به هسته WordPress
 │   ├── shortcode-header.php          # شورت‌کد هدر فرانت
-│   └── hero.php                      # Hero چهاراسلایدی، Template و جایگزینی Legacy
+│   ├── hero.php                      # Hero چهاراسلایدی، Template و جایگزینی Legacy
+│   └── site-features.php             # ویژگی‌های چهارکارته و جایگزینی Trust Bar
 ├── templates/
 │   └── admin-control-center.php      # Shell، Sidebar، Fallback و Update Modal
 ├── assets/
 │   ├── css/luxury.css                # Design System و Responsive پنل مدیریت
 │   ├── css/frontend-header.css       # هدر دو‌ردیفه و Drawer، کاملاً Scoped
 │   ├── css/frontend-hero.css         # Hero Black/Gold و Responsive overlap
+│   ├── css/frontend-features.css     # چهار کارت Burgundy/Gold در یک ردیف
 │   └── js/
 │       ├── frontend-header.js        # Hamburger، Accordion و Focus Trap
 │       ├── frontend-hero.js          # Slider، REST refresh و جایگزینی exact root
+│       ├── frontend-features.js      # جایگزینی Trust Bar و REST refresh
 │       ├── app.js                    # Registry و Router ماژول‌ها
 │       ├── admin-wp.js               # Bridge محیط wp-admin
 │       ├── core/
@@ -156,6 +160,15 @@ export const exampleModule = {
 - متن روی سمت راست تصویر؛ Desktop/Mobile داده مشترک، Presentation responsive و Mobile underlap کنترل‌شده زیر کپسول اصلی Header.
 - Arrow، Gold-pill Dots، Swipe، Keyboard، Pause و `prefers-reduced-motion`؛ Slider قدیمی هم‌زمان نمایش داده نمی‌شود.
 
+### ویژگی‌های سایت
+
+- شورت‌کد `[alookhor_managed_features]` و جایگزینی خودکار `.alookhor-trustbar-container` در Widget HTML `5abd566` / Container `f0598d3` صفحه Home.
+- چهار رکورد قطعی در `alookhor_cc_settings.feature_settings.items`: آیکون allowlist، عنوان و توضیح.
+- Desktop و Mobile هر دو چهار کارت را در یک ردیف نمایش می‌دهند؛ Mobile فاقد Stack و Horizontal Overflow است.
+- Palette مدیریت‌شده و Scope‌شده: `#0D0510`، `#1C1024`، `rgba(33,20,38,.75)`، `#D49A2E`، `#E8B84A`، `#F5F3F0` و `#C8C2C9`.
+- REST عمومی فقط‌خواندنی `/wp-json/alookhor-cc/v1/site-features` با `Cache-Control: no-store`؛ مسیر نوشتن فقط AJAX دارای Nonce و `manage_options` است.
+- Header، Hero، Footer، WooCommerce و Elementor placement دست‌نخورده می‌مانند؛ بخش قبلی هم‌زمان نمایش داده نمی‌شود.
+
 ## قوانین Responsive — نباید شکسته شوند
 
 Breakpointهای رسمی:
@@ -233,8 +246,8 @@ Schema حداقلی Manifest:
 
 ```json
 {
-  "version": "3.10.15",
-  "download_url": "https://updates.alookhor.ir/releases/alookhor-control-center-3.10.15.zip",
+  "version": "3.10.16",
+  "download_url": "https://updates.alookhor.ir/releases/alookhor-control-center-3.10.16.zip",
   "details_url": "https://alookhor.ir/changelog",
   "requires": "6.0",
   "tested": "7.0",

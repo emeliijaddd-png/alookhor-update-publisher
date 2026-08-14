@@ -177,6 +177,28 @@ function alookhor_ajax_save_settings(){
         }
     }
 
+    if (!empty($payload['feature_settings']) && is_array($payload['feature_settings'])) {
+        $features=$payload['feature_settings'];
+        foreach (['background'=>'#0D0510','card'=>'#1C1024','gold'=>'#D49A2E','gold_light'=>'#E8B84A','text'=>'#F5F3F0','muted'=>'#C8C2C9'] as $key=>$fallback) {
+            if(array_key_exists($key,$features))$features[$key]=sanitize_hex_color($features[$key])?:$fallback;
+        }
+        foreach(['enabled','hide_legacy'] as $key)if(array_key_exists($key,$features))$features[$key]=rest_sanitize_boolean($features[$key]);
+        $glass=sanitize_text_field($features['glass']??'rgba(33,20,38,.75)');
+        $features['glass']=preg_match('/^rgba?\(\s*\d{1,3}\s*,\s*\d{1,3}\s*,\s*\d{1,3}(?:\s*,\s*(?:0|1|0?\.\d+))?\s*\)$/',$glass)?$glass:'rgba(33,20,38,.75)';
+        $features['radius']=max(10,min(30,absint($features['radius']??20)));
+        $features['gap']=max(0,min(20,absint($features['gap']??8)));
+        $defaults=function_exists('alookhor_cc_site_feature_defaults')?alookhor_cc_site_feature_defaults()['items']:array_fill(0,4,[]);
+        $incoming=is_array($features['items']??null)?array_values($features['items']):[];
+        $allowed_icons=['truck','organic','headset','shield'];$clean_items=[];
+        for($index=0;$index<4;$index++){
+            $item=is_array($incoming[$index]??null)?$incoming[$index]:[];
+            $default=is_array($defaults[$index]??null)?$defaults[$index]:[];
+            $item=array_replace($default,$item);$icon=sanitize_key($item['icon']??'shield');
+            $clean_items[]=['icon'=>in_array($icon,$allowed_icons,true)?$icon:'shield','title'=>sanitize_text_field($item['title']??''),'description'=>sanitize_text_field($item['description']??'')];
+        }
+        $features['items']=$clean_items;$payload['feature_settings']=$features;
+    }
+
     // ذخیره کل تنظیمات
     $current = get_option(ALOOKHOR_CC_OPTION, []);
     $merged = array_replace_recursive(is_array($current) ? $current : [], $payload);
@@ -243,6 +265,13 @@ function alookhor_ajax_save_settings(){
             'slide_count'=>count((array)($merged['hero_settings']['slides']??[])),
             'autoplay'=>!empty($merged['hero_settings']['autoplay']),
             'gold'=>$merged['hero_settings']['gold']??null,
+        ] : null,
+        'feature_settings' => is_array($merged['feature_settings'] ?? null) ? [
+            'enabled'=>!empty($merged['feature_settings']['enabled']),
+            'item_count'=>count((array)($merged['feature_settings']['items']??[])),
+            'background'=>$merged['feature_settings']['background']??null,
+            'card'=>$merged['feature_settings']['card']??null,
+            'gold'=>$merged['feature_settings']['gold']??null,
         ] : null,
     ]);
 }

@@ -2,7 +2,7 @@
 // UI/state remain modular; version discovery and installation are delegated to WordPress.
 
 const runtimeConfig = window.ALOOKHOR_CC || {};
-const runtimeVersion = String(runtimeConfig.version || '3.10.15');
+const runtimeVersion = String(runtimeConfig.version || '3.10.16');
 
 function normalizeResult(data = {}) {
   const current = String(data.current || runtimeVersion);
@@ -55,6 +55,7 @@ export const Updater = {
   latest: runtimeVersion,
   lastCheck: null,
   changelog: [
+    { tag: 'SITE FEATURES', title: 'v3.10.16 — ویژگی‌های چهارکارته مرجع', desc: 'بخش Trust قدیمی با چهار کارت یک‌ردیفه Responsive و پالت Burgundy/Gold مدیریت‌شده جایگزین شد.' },
     { tag: 'IMAGE CLEANUP', title: 'v3.10.15 — حذف کامل نوشته قدیمی بنر', desc: 'فوکوس Desktop عمیق‌تر و ماسک پایین، Copy و Badgeهای baked تصویر قبلی را از ترکیب جدید خارج می‌کند.' },
     { tag: 'HERO POLISH', title: 'v3.10.14 — اتصال Mobile و کنترل‌های ایزوله', desc: 'Hero زیر کپسول شیشه‌ای قرار گرفت، Arrow سفید قالب مهار شد و فوکوس عکس بدون Mirror اصلاح شد.' },
     { tag: 'MANAGED HERO', title: 'v3.10.13 — اسلایدر چهاراسلایدی مدیریت‌شده', desc: 'چهار تصویر Media Library، متن‌های مستقل، CTA و جایگزینی خودکار Hero قدیمی در Desktop/Mobile.' },

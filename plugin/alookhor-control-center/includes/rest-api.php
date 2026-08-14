@@ -54,6 +54,11 @@ function alookhor_cc_runtime_status(){
             'hero_enabled' => !empty($settings['hero_settings']['enabled']),
             'hero_slide_count' => is_array($settings['hero_settings']['slides'] ?? null) ? count($settings['hero_settings']['slides']) : 0,
             'hero_module' => !empty($settings['modules']['hero']['enabled']),
+            'feature_shortcode' => shortcode_exists('alookhor_managed_features'),
+            'feature_settings' => is_array($settings['feature_settings'] ?? null),
+            'feature_enabled' => !empty($settings['feature_settings']['enabled']),
+            'feature_item_count' => is_array($settings['feature_settings']['items'] ?? null) ? count($settings['feature_settings']['items']) : 0,
+            'feature_module' => !empty($settings['modules']['site_features']['enabled']),
             'header_brand_migration' => is_array($settings['_migrations']['header_brand_3106'] ?? null)
                 ? $settings['_migrations']['header_brand_3106']
                 : null,
@@ -134,6 +139,23 @@ add_action('rest_api_init', function(){
                 'enabled'=>!empty($settings['enabled']),
                 'slide_count'=>count($slides),
                 'html'=>alookhor_cc_hero_markup($settings),
+            ]);
+            $response->header('Cache-Control','no-store, no-cache, must-revalidate, max-age=0');
+            return $response;
+        },
+    ]);
+
+    register_rest_route('alookhor-cc/v1', '/site-features', [
+        'methods' => WP_REST_Server::READABLE,
+        'permission_callback' => '__return_true',
+        'callback' => function(){
+            $settings=alookhor_cc_get_site_feature_settings();
+            $items=array_slice(array_values((array)($settings['items']??[])),0,4);
+            $response=rest_ensure_response([
+                'version'=>ALOOKHOR_CC_VERSION,
+                'enabled'=>!empty($settings['enabled']),
+                'item_count'=>count($items),
+                'html'=>alookhor_cc_site_feature_markup($settings),
             ]);
             $response->header('Cache-Control','no-store, no-cache, must-revalidate, max-age=0');
             return $response;

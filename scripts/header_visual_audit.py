@@ -18,6 +18,7 @@ const rect=e=>e?Object.fromEntries(['top','right','bottom','left','width','heigh
 const visible=e=>!!e&&getComputedStyle(e).display!=='none'&&getComputedStyle(e).visibility!=='hidden'&&e.getBoundingClientRect().height>0;
 const root=one('.alookhor-managed-legacy-header'),topbar=one('.alookhor-topbar-wrapper'),header=one('.alookhor-header'),stage=one('.alookhor-legacy-nav-stage'),capsule=one('.header-capsule');
 const hero=one('#alookhor-managed-hero'),heroShell=hero?.querySelector('.alookhor-mh-shell'),heroContent=hero?.querySelector('.alookhor-mh-slide.is-active .alookhor-mh-content'),heroImage=hero?.querySelector('.alookhor-mh-slide.is-active img');
+const features=one('#alookhor-managed-features'),featureGrid=features?.querySelector('.alookhor-sf-grid'),featureCards=features?all('#alookhor-managed-features .alookhor-sf-card'):[];
 const main=one('#main-content')||one('.main-page-wrapper')||one('main');
 const visibleBottom=[topbar,header,stage].filter(visible).map(e=>e.getBoundingClientRect().bottom);
 const footprintBottom=visibleBottom.length?Math.max(...visibleBottom):0;
@@ -34,6 +35,11 @@ return {
   hero_image_object_position:heroImage?getComputedStyle(heroImage).objectPosition:null,
   hero_image_transform:(()=>{if(!heroImage)return null;const m=new DOMMatrix(getComputedStyle(heroImage).transform);return {a:m.a,b:m.b,c:m.c,d:m.d,e:m.e,f:m.f,det:m.a*m.d-m.b*m.c}})(),
   hero_arrows:hero?all('#alookhor-managed-hero .alookhor-mh-arrow').filter(visible).map(e=>({rect:rect(e),background:getComputedStyle(e).backgroundColor,border_radius:getComputedStyle(e).borderRadius,appearance:getComputedStyle(e).appearance})):[],
+  features:rect(features),feature_grid:rect(featureGrid),feature_mounted:features?.dataset.mounted==='1',feature_count:featureCards.length,
+  feature_cards:featureCards.map(e=>({rect:rect(e),title:e.querySelector('h3')?.textContent.trim()||'',description:e.querySelector('p')?.textContent.trim()||'',background:getComputedStyle(e).backgroundColor,border_radius:getComputedStyle(e).borderRadius})),
+  feature_legacy_visible:all('.alookhor-trustbar-container').filter(visible).length,
+  feature_palette:features?Object.fromEntries(['--sf-bg','--sf-card','--sf-glass','--sf-gold','--sf-gold-light','--sf-text','--sf-muted'].map(k=>[k,getComputedStyle(features).getPropertyValue(k).trim()])):{},
+  feature_to_hero_gap:(features&&hero)?Math.round((features.getBoundingClientRect().top-hero.getBoundingClientRect().bottom)*10)/10:null,
   topbar_center_display:one('.topbar-center')?getComputedStyle(one('.topbar-center')).display:null,
   stage_display:stage?getComputedStyle(stage).display:null,stage_position:stage?getComputedStyle(stage).position:null,stage_stuck:stage?.classList.contains('is-stuck')||false,
   search_count:all('.alookhor-legacy-main-search').length,mobile_extra_toggle_count:all('.alookhor-mobile-sticky-toggle').length,
@@ -66,11 +72,19 @@ def audit(width: int, height: int, label: str) -> dict:
         hero_expected = runtime_parts >= (3, 10, 13)
         hero_polish_expected = runtime_parts >= (3, 10, 14)
         hero_image_polish_expected = runtime_parts >= (3, 10, 15)
+        feature_expected = runtime_parts >= (3, 10, 16)
         if hero_expected:
             WebDriverWait(driver, 40).until(lambda d: d.execute_script("return document.querySelector('#alookhor-managed-hero')?.dataset.mounted==='1' && document.querySelectorAll('#alookhor-managed-hero .alookhor-mh-slide').length===4"))
+        if feature_expected:
+            WebDriverWait(driver,40).until(lambda d:d.execute_script("return document.querySelector('#alookhor-managed-features')?.dataset.mounted==='1' && document.querySelectorAll('#alookhor-managed-features .alookhor-sf-card').length===4"))
         time.sleep(4)
         before = driver.execute_script(JS_METRICS)
         driver.save_screenshot(str(SHOT_DIR / f'{label}-before.png'))
+        if feature_expected:
+            driver.execute_script("const e=document.querySelector('#alookhor-managed-features');if(e)window.scrollTo(0,Math.max(0,e.getBoundingClientRect().top+scrollY-innerHeight*.35));")
+            time.sleep(.7)
+            driver.save_screenshot(str(SHOT_DIR / f'{label}-features.png'))
+            driver.execute_script('window.scrollTo(0,0)');time.sleep(.4)
         driver.execute_script('window.scrollTo(0, Math.min(900, document.documentElement.scrollHeight-innerHeight));')
         time.sleep(1.2)
         after = driver.execute_script(JS_METRICS)
@@ -123,6 +137,15 @@ def audit(width: int, height: int, label: str) -> dict:
                 before['hero_shell'] is not None and before['capsule'] is not None
                 and before['capsule']['top'] < before['hero_shell']['top'] < before['capsule']['bottom']
             ) if hero_polish_expected and expected_mobile else True,
+            'features_mounted': before['feature_mounted'] is True if feature_expected else True,
+            'features_exactly_four': before['feature_count'] == 4 if feature_expected else True,
+            'features_replace_legacy': before['feature_legacy_visible'] == 0 if feature_expected else True,
+            'features_reference_order': ([card['title'] for card in before['feature_cards']]==['ارسال سریع','محصولات ارگانیک','پشتیبانی ۲۴/۷','ضمانت کیفیت']) if feature_expected else True,
+            'features_single_row': (len(before['feature_cards'])==4 and max(card['rect']['top'] for card in before['feature_cards'])-min(card['rect']['top'] for card in before['feature_cards'])<=2) if feature_expected else True,
+            'features_rtl_reference_order': (len(before['feature_cards'])==4 and all(before['feature_cards'][i]['rect']['left']>before['feature_cards'][i+1]['rect']['left'] for i in range(3))) if feature_expected else True,
+            'features_close_to_hero': (before['feature_to_hero_gap'] is not None and -3<=before['feature_to_hero_gap']<=20) if feature_expected else True,
+            'features_mobile_four_across': (all(70<=card['rect']['width']<=110 and card['rect']['height']<=135 for card in before['feature_cards'])) if feature_expected and expected_mobile else True,
+            'features_palette_exact': (before['feature_palette']=={'--sf-bg':'#0D0510','--sf-card':'#1C1024','--sf-glass':'rgba(33,20,38,.75)','--sf-gold':'#D49A2E','--sf-gold-light':'#E8B84A','--sf-text':'#F5F3F0','--sf-muted':'#C8C2C9'}) if feature_expected else True,
         }
         return {'label':label,'before':before,'after':after,'checks':checks,'ok':all(checks.values())}
     finally:

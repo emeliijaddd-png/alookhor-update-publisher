@@ -28,7 +28,9 @@ When sources disagree, the newer provable runtime/source wins. Missing source is
 - **Final rendered Chrome audit:** `31745179019` on 3.10.15 — WordPress, Desktop and Mobile all passed every check; no failed checks.
 - **Direct screenshot acceptance:** confirmed against the supplied Hero reference: product-left/right-copy composition, separate White/Gold text, four features, two CTAs, circular arrows, Gold-pill Pagination, 12px Mobile underlap beneath the glass Capsule, preserved two-row Mobile Header, and no horizontal overflow. Desktop baked left copy was removed by the non-mirrored focus crop.
 - **Production:** 3.10.15 active and fully verified.
-- **Current source target:** `3.10.15` — completed.
+- **Current source target:** `3.10.16` — managed four-card Site Features prepared for test/publication; Production remains 3.10.15 until tagged deployment succeeds.
+- **3.10.16 candidate package SHA-256:** `e75c551080fdf82c53148aa4abb9c0daf89413c184a90e2fbc9d933d73bcbe29`
+- **New feature references:** `uploads/Screenshot_۲۰۲۶-۰۸-۱۴-۰۵-۳۸-۵۰-۵۳۲_com.android.chrome-edit.jpg` (current stacked cards) and `uploads/Screenshot_۲۰۲۶-۰۸-۱۴-۰۵-۴۰-۳۶-۰۵۰_com.miui.gallery-edit.jpg` (target four-across composition).
 - **Final screenshot evidence:** `automation/315-live/visual-desktop-before.png`, `automation/315-live/visual-mobile-before.png`; authoritative reference: `uploads/Screenshot_۲۰۲۶-۰۸-۱۳-۲۳-۲۹-۲۰-۳۰۷_com.miui.gallery-edit.jpg`.
 - **Repository:** `alookhor-update-publisher`
 - **Update channel:** `https://updates.alookhor.ir/manifest.json`
@@ -39,6 +41,7 @@ When sources disagree, the newer provable runtime/source wins. Missing source is
 - `[alookhor_portal_header]` — managed/compatibility-preserving portal header.
 - `[alookhor_managed_categories]` — real WooCommerce categories placed directly through an Elementor Shortcode widget.
 - `[alookhor_managed_hero]` — managed four-slide Hero; automatic Home migration replaces the exact Legacy root without requiring a second Elementor widget.
+- `[alookhor_managed_features]` — managed four-card Site Features; automatic Home migration replaces the real Legacy Trust Bar in the same Elementor HTML widget.
 - `[alookhor_categories_carousel]` — external legacy shortcode owned by `alookhor-categories-manager`; its source is not in this repository and must not be guessed. It was replaced on the Home page by the managed shortcode.
 
 Full metadata and complete source snapshots are generated in `docs/MASTER_CODE_REGISTRY.md`.
@@ -50,6 +53,7 @@ Full metadata and complete source snapshots are generated in `docs/MASTER_CODE_R
 - Preserved two-level professional header and WordPress menus
 - Real WooCommerce product categories module
 - Managed four-slide responsive Hero with Media Library images and separate right-side overlay content
+- Managed four-card Site Features with owner-approved Burgundy/Gold palette
 - Responsive managed footer
 - Public no-store state endpoints
 - Authenticated private updater and rollback-capable native WordPress installation
@@ -90,6 +94,18 @@ This rule supersedes every earlier interpretation of full-header Sticky behavior
 8. Public `GET /wp-json/alookhor-cc/v1/hero` is read-only/no-store; cached Home HTML refreshes without exposing private settings or accepting writes.
 9. Slider behavior includes Arrow/Dots, Swipe, Keyboard, Autoplay/Pause, Ken Burns, and Reduced Motion handling.
 10. Acceptance requires Chrome Desktop/Mobile screenshots plus geometry for four slides, one active slide, loaded image, right-side content, Legacy replacement, no overflow, and Mobile underlap.
+
+## Managed Site Features contract
+
+1. The source-backed Legacy root is `.alookhor-trustbar-container` inside Elementor HTML widget `data-id="5abd566"`, parent container `data-id="f0598d3"`; current classes include `.trustbar-grid`, `.trust-card`, `.trust-card-icon`, `.trust-card-title`, and `.trust-card-desc`.
+2. Managed runtime replaces that exact root in place with `#alookhor-managed-features`; it must never append a second trust/feature block.
+3. Exactly four records are enforced under `alookhor_cc_settings.feature_settings.items`: ارسال سریع، محصولات ارگانیک، پشتیبانی ۲۴/۷، ضمانت کیفیت.
+4. Desktop and Mobile must both show all four cards in one horizontal row; Mobile stacking and horizontal overflow are rejected.
+5. The approved scoped palette is: Main `#0D0510`, Card `#1C1024`, Glass `rgba(33,20,38,.75)`, Gold `#D49A2E`, Light Gold `#E8B84A`, Text `#F5F3F0`, Muted `#C8C2C9`. This does not silently recolor Header, Hero, Footer or unrelated modules.
+6. Icon enum, title, description, colors, Radius, Gap and enabled/replacement state remain inside the main ALOOKHOR Control Center.
+7. Public `GET /wp-json/alookhor-cc/v1/site-features` is read-only/no-store; writes remain Nonce/capability-protected AJAX.
+8. The strip attaches closely below Hero while preserving Header underlap, WooCommerce content, Footer and Woodmart Mobile toolbar.
+9. Acceptance requires fresh 1440×1050 and 430×932 Chrome screenshots plus checks for four items, reference order, exact palette, Legacy removal, one-row geometry and no overflow.
 
 ## Current categories contract
 
@@ -147,6 +163,18 @@ Legacy ID: #alookhorHeroSlider
 Elementor widget: Shortcode (`data-id="3c367e2"`, `data-widget_type="shortcode.default"`) — verified from Production audit run 31741626734
 Managed replacement: #alookhor-managed-hero
 Optional managed shortcode: [alookhor_managed_hero]
+Movement: retain the existing widget/container; automatic replacement preserves its position
+```
+
+Current Legacy/managed Site Features placement:
+
+```text
+WordPress → Pages → Home (front page) → Elementor HTML widget
+Legacy root: .alookhor-trustbar-container
+Elementor widget: HTML (`data-id="5abd566"`, `data-widget_type="html.default"`)
+Parent container: `data-id="f0598d3"`
+Managed replacement: #alookhor-managed-features
+Optional managed shortcode: [alookhor_managed_features]
 Movement: retain the existing widget/container; automatic replacement preserves its position
 ```
 

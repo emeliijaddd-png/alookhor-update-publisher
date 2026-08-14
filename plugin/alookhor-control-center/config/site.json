@@ -67,8 +67,13 @@
     "auto": {
       "enabled": true,
       "title": "بروزرسانی خودکار افزونه",
-      "order": 10,
+      "order": 11,
       "schedule": "03:00"
+    },
+    "site_features": {
+      "enabled": true,
+      "title": "ویژگی‌های سایت",
+      "order": 10
     }
   },
   "system": {
@@ -131,7 +136,7 @@
   },
   "updated_at": "2026-08-10T16:20:00Z",
   "updated_by": "AI Assistant — recovered from previous chat",
-  "version": "3.10.15",
+  "version": "3.10.16",
   "hero_settings": {
     "enabled": true,
     "hide_legacy": true,
@@ -226,6 +231,41 @@
         "secondary_text": "دریافت مشاوره",
         "secondary_url": "https://alookhor.ir/تماس-با-ما/",
         "flip_image": true
+      }
+    ]
+  },
+  "feature_settings": {
+    "enabled": true,
+    "hide_legacy": true,
+    "background": "#0D0510",
+    "card": "#1C1024",
+    "glass": "rgba(33,20,38,.75)",
+    "gold": "#D49A2E",
+    "gold_light": "#E8B84A",
+    "text": "#F5F3F0",
+    "muted": "#C8C2C9",
+    "radius": 20,
+    "gap": 8,
+    "items": [
+      {
+        "icon": "truck",
+        "title": "ارسال سریع",
+        "description": "در سریع‌ترین زمان ممکن"
+      },
+      {
+        "icon": "organic",
+        "title": "محصولات ارگانیک",
+        "description": "100% طبیعی و سالم"
+      },
+      {
+        "icon": "headset",
+        "title": "پشتیبانی ۲۴/۷",
+        "description": "همیشه در کنار شما هستیم"
+      },
+      {
+        "icon": "shield",
+        "title": "ضمانت کیفیت",
+        "description": "تضمین اصالت و کیفیت کالا"
       }
     ]
   }

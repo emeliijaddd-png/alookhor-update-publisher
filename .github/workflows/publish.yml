@@ -62,6 +62,9 @@ jobs:
               'plugin/alookhor-control-center/includes/hero.php',
               'plugin/alookhor-control-center/assets/css/frontend-hero.css',
               'plugin/alookhor-control-center/assets/js/frontend-hero.js',
+              'plugin/alookhor-control-center/includes/site-features.php',
+              'plugin/alookhor-control-center/assets/css/frontend-features.css',
+              'plugin/alookhor-control-center/assets/js/frontend-features.js',
           ]
           for name in required:
               assert Path(name).is_file() and Path(name).stat().st_size > 0, name
@@ -94,6 +97,15 @@ jobs:
           assert 'translateX(-36%)' in hero_css and 'scaleX(-1)' not in hero_css and 'rgba(7,3,10,.9) 100%' in hero_css
           assert "legacy_selector" in hero_php and 'legacy.replaceWith(section)' in hero_js and "cache:'no-store'" in hero_js
           assert "slides.length!==4" in hero_js and 'prefers-reduced-motion' in hero_js and "data-hero-media" in Path('plugin/alookhor-control-center/assets/js/modules/settings.js').read_text()
+          feature_php=Path('plugin/alookhor-control-center/includes/site-features.php').read_text()
+          feature_css=Path('plugin/alookhor-control-center/assets/css/frontend-features.css').read_text()
+          feature_js=Path('plugin/alookhor-control-center/assets/js/frontend-features.js').read_text()
+          assert "add_shortcode('alookhor_managed_features'" in feature_php and 'id="alookhor-managed-features"' in feature_php
+          assert 'alookhor-trustbar-container' in feature_php and 'for($index=0;$index<4;$index++)' in feature_php
+          assert 'grid-template-columns:repeat(4,minmax(0,1fr))' in feature_css and '@media(max-width:767px)' in feature_css
+          assert all(token in feature_php for token in ['#0D0510','#1C1024','rgba(33,20,38,.75)','#D49A2E','#E8B84A','#F5F3F0','#C8C2C9'])
+          assert 'legacy.replaceWith(section)' in feature_js and "cache:'no-store'" in feature_js and "data.item_count!==4" in feature_js
+          assert 'data-site-feature-flag' in Path('plugin/alookhor-control-center/assets/js/modules/settings.js').read_text()
           admin_template = Path('plugin/alookhor-control-center/templates/admin-control-center.php').read_text()
           admin_app = Path('plugin/alookhor-control-center/assets/js/app.js').read_text()
           dashboard_js = Path('plugin/alookhor-control-center/assets/js/modules/dashboard.js').read_text()

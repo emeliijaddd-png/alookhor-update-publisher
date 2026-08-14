@@ -1,5 +1,14 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.16 — 2026-08-14 — Managed Four-Card Site Features
+- DISCOVERY: Production root is `.alookhor-trustbar-container` inside Elementor HTML widget `data-id="5abd566"` and parent container `data-id="f0598d3"`; the external block currently stacks four cards on Mobile.
+- REPLACE: `#alookhor-managed-features` replaces that exact root in place; no parallel feature/trust section and no Header/Hero/Footer restructuring.
+- RESPONSIVE: exactly four cards remain in one row on Desktop and Mobile, with compact centered SVG icon, title and two-line description; no horizontal scrolling or stacking.
+- PALETTE: scoped feature-section defaults use the owner-approved non-black colors: `#0D0510`, `#1C1024`, `rgba(33,20,38,.75)`, `#D49A2E`, `#E8B84A`, `#F5F3F0`, `#C8C2C9`.
+- ADMIN: the existing main ALOOKHOR Control Center now manages enabled/replacement state, four icon/title/description records, all palette values, Radius and Gap.
+- REST: public read-only `/wp-json/alookhor-cc/v1/site-features` uses `no-store`; cached Home HTML refreshes from current WordPress state.
+- VERIFY: Release/Access and Chrome checks require four items, source order, exact palette, Legacy removal, proximity to Hero, one-row geometry and compact four-across Mobile cards.
+
 ## v3.10.15 — 2026-08-13 — Desktop Legacy-Copy Cleanup
 - DIRECT REVIEW: Chrome run `31743997644` passed every encoded Desktop/Mobile check and fixed Mobile underlap/Arrow geometry, but direct screenshot comparison still showed baked Legacy copy at Desktop far-left and an old image badge near the lower edge.
 - FOCUS: Desktop approved photography shifts 36% left (previously 21%) without horizontal Mirror, moving the entire baked copy region outside the clipped shell while keeping the product left of managed content.

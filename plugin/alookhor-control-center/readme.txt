@@ -4,7 +4,7 @@ Tags: control center, luxury, alookhor, admin, dashboard
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 3.10.15
+Stable tag: 3.10.16
 License: Private
 License URI: https://alookhor.ir
 
@@ -17,6 +17,7 @@ License URI: https://alookhor.ir
 *   **هدر حرفه‌ای با شورت‌کد:** هدر دو‌ردیفه Luxury با Top Bar، منوی شیشه‌ای، حساب کاربری و CTA عمده — فقط `[alookhor_portal_header]`
 *   **جایگاه دسته‌بندی در Elementor:** بخش واقعی WooCommerce را با `[alookhor_managed_categories]` در هر محل دلخواه قرار دهید
 *   **Hero چهاراسلایدی مدیریت‌شده:** تصویر Media Library، نوشته‌ها، ویژگی‌ها و CTAهای مستقل با `[alookhor_managed_hero]` و جایگزینی خودکار Slider قدیمی
+*   **ویژگی‌های چهارکارته سایت:** `[alookhor_managed_features]` با جایگزینی خودکار Trust Bar، چهار کارت یک‌ردیفه و پالت Burgundy/Gold قابل مدیریت
 *   **فهرست‌های خودکار WordPress:** فهرست اصلی از جایگاه Primary/Header و تمام فهرست‌ها داخل Hamburger حرفه‌ای فراخوانی می‌شوند
 *   **آپدیت آنی (Hot-Swap):** هر تغییری بدون رفرش ذخیره و روی سایت اعمال می‌شود (AJAX + LocalStorage)
 *   **سایدبار PRO فشرده:** ۶ دسته جمع‌شونده، بدون لیست طولانی، با جستجوی زنده
@@ -45,6 +46,13 @@ License URI: https://alookhor.ir
 در `config/site.json` و `wp_options: alookhor_cc_settings` — همان حافظه واقعی که در چت قبلی ویرایش می‌شد.
 
 == Changelog ==
+
+= 3.10.16 =
+* جایگزینی دقیق `.alookhor-trustbar-container` در همان Widget HTML المنتور
+* چهار کارت ویژگی در یک ردیف Desktop و Mobile بدون Stack یا Overflow
+* آیکون، عنوان و توضیح مستقل برای هر کارت در پنل اصلی ALOOKHOR
+* پالت تأییدشده `#0D0510`، `#1C1024`، `rgba(33,20,38,.75)`، `#D49A2E`، `#E8B84A`، `#F5F3F0` و `#C8C2C9`
+* REST no-store و Chrome audit برای تعداد، ترتیب، Palette، فاصله Hero و Geometry موبایل
 
 = 3.10.15 =
 * خروج کامل ناحیه نوشته baked بنر Legacy از کادر Desktop

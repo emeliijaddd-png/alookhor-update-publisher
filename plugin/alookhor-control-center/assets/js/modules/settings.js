@@ -1,4 +1,4 @@
-import { Config } from '../core/config.js?v=3.10.15';
+import { Config } from '../core/config.js?v=3.10.16';
 
 const escapeAttr = value => String(value ?? '').replace(/[&<>'"]/g, char => ({
   '&':'&amp;', '<':'&lt;', '>':'&gt;', "'":'&#039;', '"':'&quot;'
@@ -66,6 +66,15 @@ export const settingsModule = {
       return {...defaults,...saved,features:[...Array(4)].map((_,featureIndex)=>Array.isArray(saved.features)&&saved.features[featureIndex]!==undefined?saved.features[featureIndex]:defaults.features[featureIndex])};
     });
     if(cfg.modules.hero){cfg.modules.hero.slides=4;cfg.modules.hero.autoplay=isEnabled(cfg.hero_settings.autoplay)}
+    const featureDefaults=[
+      {icon:'truck',title:'ارسال سریع',description:'در سریع‌ترین زمان ممکن'},
+      {icon:'organic',title:'محصولات ارگانیک',description:'100% طبیعی و سالم'},
+      {icon:'headset',title:'پشتیبانی ۲۴/۷',description:'همیشه در کنار شما هستیم'},
+      {icon:'shield',title:'ضمانت کیفیت',description:'تضمین اصالت و کیفیت کالا'}
+    ];
+    cfg.feature_settings=Object.assign({enabled:true,hide_legacy:true,background:'#0D0510',card:'#1C1024',glass:'rgba(33,20,38,.75)',gold:'#D49A2E',gold_light:'#E8B84A',text:'#F5F3F0',muted:'#C8C2C9',radius:20,gap:8,items:[]},cfg.feature_settings||{});
+    const savedFeatureItems=Array.isArray(cfg.feature_settings.items)?cfg.feature_settings.items:[];
+    cfg.feature_settings.items=featureDefaults.map((defaults,index)=>({...defaults,...(savedFeatureItems[index]&&typeof savedFeatureItems[index]==='object'?savedFeatureItems[index]:{})}));
     if(!cfg.site) cfg.site = {name:'ALOOKHOR', subtitle:'Control Center • Luxury', logoLetter:'A'};
     if(!cfg.system) cfg.system = {uptime:'99.9%', cache:'فعال', woocommerce:'فعال', woodmart_plus:'فعال', elementor_pro:'فعال', php_version:'8.1.6', memory:'256MB / 512MB', ssl:'فعال (امن)'};
     if(!cfg.ai_assistant) cfg.ai_assistant = {suggestions:[]};
@@ -180,7 +189,7 @@ export const settingsModule = {
 
     // — رندر ماژول‌ها از حافظه واقعی —
     const listEl = container.querySelector('#modulesList');
-    const iconMap = { stats:'📊', header:'◈', product_categories:'◉', footer:'◫', export:'👑', sort:'①', collection:'②', app:'📱', hero:'🎠', auto:'🔄' };
+    const iconMap = { stats:'📊', header:'◈', product_categories:'◉', footer:'◫', export:'👑', sort:'①', collection:'②', app:'📱', hero:'🎠', site_features:'✦', auto:'🔄' };
     function renderModules(){
       listEl.innerHTML = Object.entries(cfg.modules||{}).sort((a,b)=> a[1].order - b[1].order).map(([key,m])=>`
         <div class="mod-item ${m.enabled?'':'disabled'}" data-mod="${key}">
@@ -377,6 +386,17 @@ export const settingsModule = {
         <div class="qh-actions"><button class="btn-gold" id="btnApplyHero">ذخیره چهار اسلاید و اعمال روی سایت</button><a class="btn-ghost" href="${escapeAttr(window.ALOOKHOR_CC?.home_url||'/')}" target="_blank">مشاهده سایت</a><span>همه متن‌ها جدا از تصویر و در سمت راست Hero رندر می‌شوند.</span></div>
         <style>.alookhor-hero-admin-list{display:grid;gap:12px;margin-top:12px}.alookhor-hero-admin-card{display:grid;gap:12px;padding:14px;border:1px solid var(--gold-border);border-radius:14px;background:linear-gradient(145deg,rgba(201,168,106,.045),rgba(0,0,0,.16))}.alookhor-hero-admin-head{display:flex;align-items:center;gap:9px;padding-bottom:10px;border-bottom:1px solid var(--gold-border)}.alookhor-hero-admin-head>span{width:31px;height:31px;border-radius:50%;display:grid;place-items:center;background:var(--gold);color:#171004;font-weight:900}.alookhor-hero-admin-head div{display:grid}.alookhor-hero-admin-head b{font-size:12px}.alookhor-hero-admin-head small{color:var(--text-faint);font-size:9px}.alookhor-hero-admin-head em{margin-right:auto;color:var(--gold);font:700 9px Arial}.alookhor-hero-admin-media{display:grid;grid-template-columns:180px minmax(0,1fr);gap:10px;align-items:center}.alookhor-hero-admin-media>img{width:180px;height:82px;object-fit:cover;border:1px solid var(--gold-border);border-radius:10px;background:#080509}.alookhor-hero-admin-media>div{display:flex;gap:7px}.alookhor-hero-admin-media input{flex:1;min-width:0}.alookhor-hero-admin-media button{white-space:nowrap;border:1px solid var(--gold-border-strong);border-radius:8px;background:rgba(201,168,106,.12);color:var(--gold-soft);cursor:pointer}.alookhor-hero-feature-fields{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}@media(max-width:860px){.alookhor-hero-admin-media{grid-template-columns:1fr}.alookhor-hero-admin-media>img{width:100%;height:150px}.alookhor-hero-feature-fields{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:560px){.alookhor-hero-admin-media>div{display:grid}.alookhor-hero-feature-fields{grid-template-columns:1fr}}</style>`;
       },
+      site_features: () => {
+        const f=cfg.feature_settings;
+        const iconOptions=(selected)=>[['truck','ارسال/کامیون'],['organic','ارگانیک/تأیید'],['headset','پشتیبانی/هدست'],['shield','ضمانت/سپر']].map(([value,label])=>`<option value="${value}" ${selected===value?'selected':''}>${label}</option>`).join('');
+        return `<div class="qh-head"><div><h4>✦ ویژگی‌های سایت</h4><p>چهار کارت اعتماد یک‌ردیفه زیر Hero؛ جایگزین دقیق بخش فعلی در همان Widget المنتور</p></div><code>4 FEATURE CARDS</code></div>
+        <div class="qh-section"><div class="qh-title"><b>جایگاه و وضعیت</b><small>EXACT REPLACEMENT</small></div><div class="qh-flags">${[['enabled','فعال'],['hide_legacy','جایگزینی بخش ویژگی قبلی']].map(([key,label])=>`<label><input type="checkbox" data-site-feature-flag="${key}" ${isEnabled(f[key])?'checked':''}>${label}</label>`).join('')}</div><div class="qh-grid" style="margin-top:10px"><label class="qh-span-2">شورت‌کد اختیاری<input value="[alookhor_managed_features]" readonly dir="ltr" onclick="this.select()"></label><label>گردی کارت<input id="sfRadius" type="number" min="10" max="30" value="${Number(f.radius)||20}"></label><label>فاصله کارت‌ها<input id="sfGap" type="number" min="0" max="20" value="${Number(f.gap)||8}"></label></div><p style="margin:9px 0 0;color:var(--text-faint);font-size:10.5px;line-height:1.8">ریشه واقعی <code>.alookhor-trustbar-container</code> در Widget HTML با شناسه <code>5abd566</code> جایگزین می‌شود؛ بخش موازی ساخته نمی‌شود.</p></div>
+        <div class="qh-section"><div class="qh-title"><b>رنگ‌بندی تأییدشده سایت</b><small>BURGUNDY / GOLD</small></div><div class="qh-colors">${[['پس‌زمینه اصلی','background'],['کارت‌ها','card'],['طلایی اصلی','gold'],['طلایی روشن','gold_light'],['سفید متن','text'],['متن فرعی','muted']].map(([label,key])=>`<label>${label}<input type="color" id="sfColor_${key}" value="${escapeAttr(f[key])}"></label>`).join('')}</div><div class="qh-grid" style="margin-top:9px"><label class="qh-span-2">سطح شیشه‌ای RGBA<input id="sfGlass" value="${escapeAttr(f.glass)}" dir="ltr"></label></div></div>
+        <div class="alookhor-sf-admin-preview" style="--sf-admin-bg:${escapeAttr(f.background)};--sf-admin-card:${escapeAttr(f.card)};--sf-admin-gold:${escapeAttr(f.gold_light)};--sf-admin-text:${escapeAttr(f.text)};--sf-admin-muted:${escapeAttr(f.muted)}">${f.items.map(item=>`<span><i>◇</i><b>${escapeAttr(item.title)}</b><small>${escapeAttr(item.description)}</small></span>`).join('')}</div>
+        <div class="alookhor-sf-admin-list">${f.items.map((item,index)=>`<article><header><span>${index+1}</span><b>ویژگی ${index+1}</b></header><div class="qh-grid"><label>آیکون<select id="sfIcon_${index}">${iconOptions(item.icon)}</select></label><label>عنوان<input id="sfTitle_${index}" value="${escapeAttr(item.title)}"></label><label class="qh-span-2">توضیح<input id="sfDescription_${index}" value="${escapeAttr(item.description)}"></label></div></article>`).join('')}</div>
+        <div class="qh-actions"><button class="btn-gold" id="btnApplySiteFeatures">ذخیره و اعمال ویژگی‌ها</button><a class="btn-ghost" href="${escapeAttr(window.ALOOKHOR_CC?.home_url||'/')}" target="_blank">مشاهده سایت</a><span>Desktop و Mobile دقیقاً همین چهار آیتم را با چیدمان Responsive مشترک می‌خوانند.</span></div>
+        <style>.alookhor-sf-admin-preview{margin:12px 0;padding:8px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:5px;border-radius:14px;background:var(--sf-admin-bg)}.alookhor-sf-admin-preview>span{min-width:0;padding:12px 5px;border:1px solid color-mix(in srgb,var(--sf-admin-gold) 28%,transparent);border-radius:10px;display:grid;justify-items:center;gap:4px;background:var(--sf-admin-card);text-align:center}.alookhor-sf-admin-preview i{color:var(--sf-admin-gold);font-size:22px}.alookhor-sf-admin-preview b{color:var(--sf-admin-text);font-size:10px}.alookhor-sf-admin-preview small{color:var(--sf-admin-muted);font-size:8px}.alookhor-sf-admin-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.alookhor-sf-admin-list article{padding:12px;border:1px solid var(--gold-border);border-radius:12px;background:rgba(0,0,0,.14)}.alookhor-sf-admin-list header{display:flex;align-items:center;gap:7px;margin-bottom:10px}.alookhor-sf-admin-list header span{width:25px;height:25px;border-radius:50%;display:grid;place-items:center;background:var(--gold);color:#171004;font-weight:900}.alookhor-sf-admin-list select{width:100%;background:#171419;color:var(--text-primary);border:1px solid var(--gold-border);border-radius:8px;padding:8px}@media(max-width:760px){.alookhor-sf-admin-list{grid-template-columns:1fr}.alookhor-sf-admin-preview{gap:3px}.alookhor-sf-admin-preview>span{padding-inline:2px}.alookhor-sf-admin-preview b{font-size:8px}.alookhor-sf-admin-preview small{font-size:6px}}</style>`;
+      },
       auto: () => `<h4>🔄 بروزرسانی خودکار افزونه</h4><label style="display:flex; justify-content:space-between; align-items:center; background:rgba(255,255,255,0.03); border:1px solid var(--gold-border); border-radius:10px; padding:10px; margin-top:10px"><span>بروزرسانی هر شب ساعت ۳</span><span class="mod-toggle ${cfg.modules.auto.enabled?'on':''}" data-quick-toggle="auto"><i></i></span></label><p style="font-size:11px; color:var(--text-faint); margin-top:6px">زمان: ${cfg.modules.auto.schedule} — آخرین: امروز ۰۳:۰۰</p>`
     };
 
@@ -501,6 +521,21 @@ export const settingsModule = {
           commitQuickSettings();const button=event.currentTarget;button.disabled=true;const result=await Config.save({notify:false});button.disabled=false;if(!result.ok)return;
           if(Number(result.data?.hero_settings?.slide_count)!==4){window.ALOOKHOR.toast('WordPress چهار اسلاید را تأیید نکرد؛ ذخیره متوقف شد','error');return}
           window.ALOOKHOR.toast('چهار اسلاید Hero در WordPress ذخیره و روی Desktop/Mobile اعمال شدند','success');
+        });
+      }
+
+      if(key === 'site_features'){
+        commitQuickSettings=()=>{
+          const f=cfg.feature_settings,fv=id=>quick.querySelector(`#${id}`)?.value??'';
+          f.radius=Math.max(10,Math.min(30,Number(fv('sfRadius'))||20));f.gap=Math.max(0,Math.min(20,Number(fv('sfGap'))||8));f.glass=fv('sfGlass');
+          ['background','card','gold','gold_light','text','muted'].forEach(color=>f[color]=fv(`sfColor_${color}`));
+          quick.querySelectorAll('[data-site-feature-flag]').forEach(input=>f[input.dataset.siteFeatureFlag]=input.checked);
+          f.items=[0,1,2,3].map(index=>({icon:fv(`sfIcon_${index}`),title:fv(`sfTitle_${index}`),description:fv(`sfDescription_${index}`)}));
+        };
+        quick.querySelector('#btnApplySiteFeatures')?.addEventListener('click',async event=>{
+          commitQuickSettings();const button=event.currentTarget;button.disabled=true;const result=await Config.save({notify:false});button.disabled=false;if(!result.ok)return;
+          if(Number(result.data?.feature_settings?.item_count)!==4){window.ALOOKHOR.toast('WordPress چهار ویژگی را تأیید نکرد؛ ذخیره متوقف شد','error');return}
+          window.ALOOKHOR.toast('چهار ویژگی سایت با رنگ‌بندی جدید ذخیره و اعمال شدند','success');
         });
       }
 

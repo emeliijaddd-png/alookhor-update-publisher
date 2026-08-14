@@ -107,6 +107,12 @@ try:
         report['checks']['hero_enabled'] = after.get('settings', {}).get('hero_enabled') is True
         report['checks']['hero_slide_count'] = int(after.get('settings', {}).get('hero_slide_count', 0)) == 4
         report['checks']['hero_module'] = after.get('settings', {}).get('hero_module') is True
+    if tuple(map(int, TARGET.split('.'))) >= (3, 10, 16):
+        report['checks']['feature_shortcode']=after.get('settings',{}).get('feature_shortcode') is True
+        report['checks']['feature_settings']=after.get('settings',{}).get('feature_settings') is True
+        report['checks']['feature_enabled']=after.get('settings',{}).get('feature_enabled') is True
+        report['checks']['feature_item_count']=int(after.get('settings',{}).get('feature_item_count',0))==4
+        report['checks']['feature_module']=after.get('settings',{}).get('feature_module') is True
     if tuple(map(int, TARGET.split('.'))) >= (3, 10, 7):
         layout_migration = after.get('settings', {}).get('header_layout_migration')
         report['checks']['header_layout_migration'] = (
@@ -217,6 +223,16 @@ try:
             'alookhor-managed-hero-template' in homepage and 'frontend-hero.js' in homepage
             and 'alookhor-mh-hide-legacy' in homepage and '.alookhor-hero-slider-wrapper' in homepage
         )
+
+    if tuple(map(int,TARGET.split('.'))) >= (3,10,16):
+        feature_url=BASE+'/wp-json/alookhor-cc/v1/site-features?release_test='+TARGET.replace('.','')
+        with urlopen(Request(feature_url,headers={'Accept':'application/json','Cache-Control':'no-cache','User-Agent':'ALOOKHOR-GitHub-Publisher/1.0'}),timeout=30) as response:
+            features=json.load(response);feature_cache=response.headers.get('Cache-Control','')
+        feature_html=str(features.get('html',''));report['features']={'version':features.get('version'),'enabled':features.get('enabled'),'item_count':features.get('item_count'),'html_length':len(feature_html)}
+        report['checks']['feature_endpoint']=(str(features.get('version'))==TARGET and features.get('enabled') is True and int(features.get('item_count',0))==4 and 'id="alookhor-managed-features"' in feature_html and len(re.findall(r'<article class="alookhor-sf-card"',feature_html))==4)
+        report['checks']['feature_no_store']='no-store' in feature_cache.lower()
+        report['checks']['feature_palette']=all(token in feature_html for token in ['--sf-bg:#0D0510','--sf-card:#1C1024','--sf-glass:rgba(33,20,38,.75)','--sf-gold:#D49A2E','--sf-gold-light:#E8B84A','--sf-text:#F5F3F0','--sf-muted:#C8C2C9'])
+        report['checks']['feature_homepage']=('alookhor-managed-features-template' in homepage and 'frontend-features.js' in homepage and 'alookhor-sf-hide-legacy' in homepage)
 
     failed = [name for name, passed in report['checks'].items() if passed is not True]
     report['ok'] = not failed

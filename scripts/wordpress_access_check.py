@@ -135,6 +135,14 @@ try:
             and int(settings.get('hero_slide_count', 0)) == 4
             and settings.get('hero_module') is True
         )
+    if production_parts >= (3, 10, 16):
+        report['checks']['feature_runtime']=(
+            settings.get('feature_shortcode') is True
+            and settings.get('feature_settings') is True
+            and settings.get('feature_enabled') is True
+            and int(settings.get('feature_item_count',0))==4
+            and settings.get('feature_module') is True
+        )
 
     public_url = base + '/?alookhor_access_audit=' + production_version.replace('.', '')
     with urlopen(Request(public_url, headers={'User-Agent': 'ALOOKHOR-GitHub-Publisher/1.0'}), timeout=30) as response:
@@ -221,6 +229,24 @@ try:
         'classes': hero_classes[:160],
         'fragment': hero_fragment,
         'assets': hero_assets[:80],
+    }
+
+    feature_index=homepage.find('alookhor-trustbar-container')
+    feature_fragment='';feature_widget_tag=''
+    if feature_index>=0:
+        feature_start=homepage.rfind('<div class="elementor-element',0,feature_index)
+        feature_fragment=re.sub(r'\s+',' ',homepage[max(0,feature_start):feature_index+9000]).strip()
+        widget_type_index=homepage.rfind('data-widget_type=',0,feature_index)
+        if widget_type_index>=0:
+            widget_start=homepage.rfind('<div',0,widget_type_index);widget_end=homepage.find('>',widget_type_index)
+            if widget_start>=0 and widget_end>=0:feature_widget_tag=re.sub(r'\s+',' ',homepage[widget_start:widget_end+1]).strip()
+    feature_classes=sorted({name for value in re.findall(r'class=["\']([^"\']+)["\']',feature_fragment,re.I) for name in value.split()})
+    report['legacy_features']={
+        'found':feature_index>=0,
+        'root_selector':'.alookhor-trustbar-container' if feature_index>=0 else None,
+        'elementor_widget_tag':feature_widget_tag,
+        'classes':feature_classes[:80],
+        'fragment':feature_fragment,
     }
 
     # Authenticated, non-mutating lookup of the real WordPress front-page record.
@@ -411,6 +437,20 @@ try:
             report['checks']['hero_endpoint']=False
             report['checks']['hero_no_store']=False
             report['checks']['hero_homepage']=False
+
+    if version_tuple(production_version)>=version_tuple('3.10.16'):
+        feature_url=base+'/wp-json/alookhor-cc/v1/site-features?access_audit='+str(int(time.time()))
+        try:
+            with urlopen(Request(feature_url,headers={'Accept':'application/json','Cache-Control':'no-cache','User-Agent':'ALOOKHOR-GitHub-Publisher/1.0'}),timeout=30) as response:
+                feature_state=json.load(response);feature_cache=response.headers.get('Cache-Control','')
+            feature_html=str(feature_state.get('html',''))
+            report['managed_features']={'version':feature_state.get('version'),'enabled':feature_state.get('enabled'),'item_count':feature_state.get('item_count'),'html_length':len(feature_html),'html':feature_html}
+            report['checks']['feature_endpoint']=(str(feature_state.get('version'))==production_version and feature_state.get('enabled') is True and int(feature_state.get('item_count',0))==4 and 'id="alookhor-managed-features"' in feature_html and len(re.findall(r'<article class="alookhor-sf-card"',feature_html))==4)
+            report['checks']['feature_no_store']='no-store' in feature_cache.lower()
+            report['checks']['feature_homepage']=('alookhor-managed-features-template' in homepage and 'frontend-features.js' in homepage and 'alookhor-sf-hide-legacy' in homepage and '.alookhor-trustbar-container' in homepage)
+            report['checks']['feature_palette']=all(token in feature_html for token in ['--sf-bg:#0D0510','--sf-card:#1C1024','--sf-glass:rgba(33,20,38,.75)','--sf-gold:#D49A2E','--sf-gold-light:#E8B84A','--sf-text:#F5F3F0','--sf-muted:#C8C2C9'])
+        except Exception as error:
+            report['managed_features']={'error':str(error)};report['checks']['feature_endpoint']=False;report['checks']['feature_no_store']=False;report['checks']['feature_homepage']=False;report['checks']['feature_palette']=False
 
     # Non-mutating feasibility probe. Application Passwords are expected to be
     # REST-only on this site; never record a nonce or any authenticated HTML.
