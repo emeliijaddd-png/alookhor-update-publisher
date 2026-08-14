@@ -21,15 +21,13 @@ When sources disagree, the newer provable runtime/source wins. Missing source is
 
 ## Authoritative current state
 
-- **Production runtime:** ALOOKHOR Control Center `3.10.17`
-- **Current Production tag/source:** `v3.10.17` / `b3c0a4bada389d51ba4a2022766f3706f4fc6618`
-- **Published package SHA-256:** `9ca5249b5e38a642a98df5290c2825e82f21883fd619fdea3c341084f15d243b`
-- **Deployment run:** `31765978243` — ZIP/SHA, Manifest, native WordPress and feature endpoint checks all passed.
-- **Final rendered Chrome audit:** `31766220459` on 3.10.17 — WordPress, Desktop and Mobile passed every Header/Hero/Site-Features check; no failed checks.
-- **Direct feature screenshot acceptance:** confirmed against the supplied reference: four RTL cards in one row, matching content/order/icons, scoped Burgundy/Gold palette, approximately 7.4px Hero gap, compact Mobile typography, preserved Hero/Header and zero horizontal overflow.
-- **Production:** 3.10.17 active and fully verified.
-- **Current source target:** `3.10.18` — dedicated Burgundy/Gold glass palette for the existing second Header capsule prepared for test/publication; Production remains 3.10.17 until tagged deployment succeeds.
-- **3.10.18 candidate package SHA-256:** `28fe044652db8ec0d359c6521fd555599dd70d53eac2b0503f9b476f771f4021`
+- **Production runtime:** ALOOKHOR Control Center `3.10.18`
+- **Current Production tag/source:** `v3.10.18` / `5e7d33a4a90f33f0e79a63a9a0f3a6e26dcdee7f`
+- **Published package SHA-256:** `28fe044652db8ec0d359c6521fd555599dd70d53eac2b0503f9b476f771f4021`
+- **Deployment run:** `31820525729` — ZIP/SHA, Manifest, native WordPress and exact capsule palette endpoint checks all passed.
+- **Latest rendered Chrome baseline:** `31766220459` on 3.10.17 passed all prior Header/Hero/Site-Features checks; fresh 3.10.18 glass-capsule acceptance is pending.
+- **Production:** 3.10.18 active; final rendered/direct glass acceptance pending.
+- **Current source target:** `3.10.18` — deployed.
 - **New Header reference:** `uploads/Screenshot_۲۰۲۶-۰۸-۱۴-۰۶-۵۶-۵۲-۵۸۲_com.android.chrome-edit.jpg`.
 - **Final feature evidence:** `automation/317-live/visual-desktop-features.png`, `automation/317-live/visual-mobile-before.png`, `automation/317-live/visual-mobile-features.png`.
 - **New feature references:** `uploads/Screenshot_۲۰۲۶-۰۸-۱۴-۰۵-۳۸-۵۰-۵۳۲_com.android.chrome-edit.jpg` (current stacked cards) and `uploads/Screenshot_۲۰۲۶-۰۸-۱۴-۰۵-۴۰-۳۶-۰۵۰_com.miui.gallery-edit.jpg` (target four-across composition).
