@@ -25,9 +25,11 @@ When sources disagree, the newer provable runtime/source wins. Missing source is
 - **Current Production tag/source:** `v3.10.17` / `b3c0a4bada389d51ba4a2022766f3706f4fc6618`
 - **Published package SHA-256:** `9ca5249b5e38a642a98df5290c2825e82f21883fd619fdea3c341084f15d243b`
 - **Deployment run:** `31765978243` — ZIP/SHA, Manifest, native WordPress and feature endpoint checks all passed.
-- **Latest rendered Chrome audit:** `31765422790` on 3.10.16 diagnosed only the 21.4px Hero gap; fresh 3.10.17 acceptance is pending.
-- **Production:** 3.10.17 active; final rendered/direct acceptance pending.
-- **Current source target:** `3.10.17` — deployed.
+- **Final rendered Chrome audit:** `31766220459` on 3.10.17 — WordPress, Desktop and Mobile passed every Header/Hero/Site-Features check; no failed checks.
+- **Direct feature screenshot acceptance:** confirmed against the supplied reference: four RTL cards in one row, matching content/order/icons, scoped Burgundy/Gold palette, approximately 7.4px Hero gap, compact Mobile typography, preserved Hero/Header and zero horizontal overflow.
+- **Production:** 3.10.17 active and fully verified.
+- **Current source target:** `3.10.17` — completed.
+- **Final feature evidence:** `automation/317-live/visual-desktop-features.png`, `automation/317-live/visual-mobile-before.png`, `automation/317-live/visual-mobile-features.png`.
 - **New feature references:** `uploads/Screenshot_۲۰۲۶-۰۸-۱۴-۰۵-۳۸-۵۰-۵۳۲_com.android.chrome-edit.jpg` (current stacked cards) and `uploads/Screenshot_۲۰۲۶-۰۸-۱۴-۰۵-۴۰-۳۶-۰۵۰_com.miui.gallery-edit.jpg` (target four-across composition).
 - **Final screenshot evidence:** `automation/315-live/visual-desktop-before.png`, `automation/315-live/visual-mobile-before.png`; authoritative reference: `uploads/Screenshot_۲۰۲۶-۰۸-۱۳-۲۳-۲۹-۲۰-۳۰۷_com.miui.gallery-edit.jpg`.
 - **Repository:** `alookhor-update-publisher`
