@@ -21,15 +21,13 @@ When sources disagree, the newer provable runtime/source wins. Missing source is
 
 ## Authoritative current state
 
-- **Production runtime:** ALOOKHOR Control Center `3.10.15`
-- **Current Production tag/source:** `v3.10.15` / `9c44c1ef5f44b6c8c0339027b24dc62b824fb0be`
-- **Published package SHA-256:** `eccc55fae826e7d09af75651b1944d156bb46e0802254c033ae54266a1eb9cd3`
-- **Deployment run:** `31744846777` — ZIP/SHA, Manifest and native WordPress checks all passed.
-- **Final rendered Chrome audit:** `31745179019` on 3.10.15 — WordPress, Desktop and Mobile all passed every check; no failed checks.
-- **Direct screenshot acceptance:** confirmed against the supplied Hero reference: product-left/right-copy composition, separate White/Gold text, four features, two CTAs, circular arrows, Gold-pill Pagination, 12px Mobile underlap beneath the glass Capsule, preserved two-row Mobile Header, and no horizontal overflow. Desktop baked left copy was removed by the non-mirrored focus crop.
-- **Production:** 3.10.15 active and fully verified.
-- **Current source target:** `3.10.16` — managed four-card Site Features prepared for test/publication; Production remains 3.10.15 until tagged deployment succeeds.
-- **3.10.16 candidate package SHA-256:** `e75c551080fdf82c53148aa4abb9c0daf89413c184a90e2fbc9d933d73bcbe29`
+- **Production runtime:** ALOOKHOR Control Center `3.10.16`
+- **Current Production tag/source:** `v3.10.16` / `61d73f886e33aed6d06a5512ef652a6b71f4aea8`
+- **Published package SHA-256:** `e75c551080fdf82c53148aa4abb9c0daf89413c184a90e2fbc9d933d73bcbe29`
+- **Deployment run:** `31765200854` — ZIP/SHA, Manifest, native WordPress and four-item feature endpoint checks all passed.
+- **Latest rendered Chrome baseline:** `31745179019` on 3.10.15 passed Header/Hero; fresh 3.10.16 Site Features acceptance is pending.
+- **Production:** 3.10.16 active; final feature screenshots/geometry pending.
+- **Current source target:** `3.10.16` — deployed managed Site Features.
 - **New feature references:** `uploads/Screenshot_۲۰۲۶-۰۸-۱۴-۰۵-۳۸-۵۰-۵۳۲_com.android.chrome-edit.jpg` (current stacked cards) and `uploads/Screenshot_۲۰۲۶-۰۸-۱۴-۰۵-۴۰-۳۶-۰۵۰_com.miui.gallery-edit.jpg` (target four-across composition).
 - **Final screenshot evidence:** `automation/315-live/visual-desktop-before.png`, `automation/315-live/visual-mobile-before.png`; authoritative reference: `uploads/Screenshot_۲۰۲۶-۰۸-۱۳-۲۳-۲۹-۲۰-۳۰۷_com.miui.gallery-edit.jpg`.
 - **Repository:** `alookhor-update-publisher`
