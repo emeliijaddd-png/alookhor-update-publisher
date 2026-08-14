@@ -4,7 +4,7 @@ Tags: control center, luxury, alookhor, admin, dashboard
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 3.10.17
+Stable tag: 3.10.18
 License: Private
 License URI: https://alookhor.ir
 
@@ -46,6 +46,13 @@ License URI: https://alookhor.ir
 در `config/site.json` و `wp_options: alookhor_cc_settings` — همان حافظه واقعی که در چت قبلی ویرایش می‌شد.
 
 == Changelog ==
+
+= 3.10.18 =
+* اعمال Glass واقعی روی همان `.header-capsule` ردیف دوم
+* حفظ Cart، Account، Logo، Hamburger، IDها و ترتیب فعلی
+* پالت مستقل `#0D0510`، `#1C1024`، `rgba(33,20,38,.75)`، `#D49A2E`، `#E8B84A`، `#F5F3F0` و `#C8C2C9`
+* کنترل Glass RGBA، Blur و رنگ‌ها از ماژول Header پنل اصلی
+* حفظ Palette مستقل Top Bar و Navigation و تمام Geometry قبلی
 
 = 3.10.17 =
 * کاهش فاصله زنده Hero و ویژگی‌ها از 21.4px به حدود 7px

@@ -25,6 +25,9 @@ const footprintBottom=visibleBottom.length?Math.max(...visibleBottom):0;
 return {
   viewport:{width:innerWidth,height:innerHeight,dpr:devicePixelRatio},runtime_version:String(window.ALOOKHOR_TOPBAR?.version||''),
   root:!!root,topbar:rect(topbar),header:rect(header),stage:rect(stage),capsule:rect(capsule),main:rect(main),logo:rect(one('.header-capsule-logo img')),
+  capsule_style:capsule?{background_color:getComputedStyle(capsule).backgroundColor,background_image:getComputedStyle(capsule).backgroundImage,backdrop_filter:getComputedStyle(capsule).backdropFilter||getComputedStyle(capsule).webkitBackdropFilter,border_color:getComputedStyle(capsule).borderColor,box_shadow:getComputedStyle(capsule).boxShadow}:null,
+  capsule_palette:root?Object.fromEntries(['--alookhor-capsule-background','--alookhor-capsule-card','--alookhor-capsule-glass','--alookhor-capsule-gold','--alookhor-capsule-gold-light','--alookhor-capsule-text','--alookhor-capsule-muted','--alookhor-capsule-blur'].map(k=>[k,getComputedStyle(root).getPropertyValue(k).trim()])):{},
+  capsule_control_colors:{menu:one('.header-capsule .alookhor-main-menu-toggle')?getComputedStyle(one('.header-capsule .alookhor-main-menu-toggle')).color:null,account:one('.header-capsule .header-login-btn svg')?getComputedStyle(one('.header-capsule .header-login-btn svg')).color:null,cart:one('.header-capsule .alookhor-header-cart-link')?getComputedStyle(one('.header-capsule .alookhor-header-cart-link')).color:null},
   hero:rect(hero),hero_shell:rect(heroShell),hero_content:rect(heroContent),hero_image:rect(heroImage),hero_mounted:hero?.dataset.mounted==='1',
   hero_slide_count:hero?all('#alookhor-managed-hero .alookhor-mh-slide').length:0,hero_active_count:hero?all('#alookhor-managed-hero .alookhor-mh-slide.is-active').length:0,
   hero_feature_count:hero?all('#alookhor-managed-hero .alookhor-mh-slide.is-active .alookhor-mh-feature').length:0,hero_cta_count:hero?all('#alookhor-managed-hero .alookhor-mh-slide.is-active .alookhor-mh-cta').length:0,
@@ -74,6 +77,7 @@ def audit(width: int, height: int, label: str) -> dict:
         hero_image_polish_expected = runtime_parts >= (3, 10, 15)
         feature_expected = runtime_parts >= (3, 10, 16)
         feature_proximity_expected = runtime_parts >= (3, 10, 17)
+        capsule_glass_expected = runtime_parts >= (3, 10, 18)
         if hero_expected:
             WebDriverWait(driver, 40).until(lambda d: d.execute_script("return document.querySelector('#alookhor-managed-hero')?.dataset.mounted==='1' && document.querySelectorAll('#alookhor-managed-hero .alookhor-mh-slide').length===4"))
         if feature_expected:
@@ -109,6 +113,9 @@ def audit(width: int, height: int, label: str) -> dict:
             'header_starts_near_viewport_top': before['topbar'] is not None and before['topbar']['top'] <= 25,
             'topbar_duplicate_logo_hidden': before['topbar_center_display'] == 'none',
             'logo_contained_in_capsule': before['logo'] is not None and before['capsule'] is not None and before['logo']['top'] >= before['capsule']['top']-1 and before['logo']['bottom'] <= before['capsule']['bottom']+1,
+            'capsule_glass_palette_exact': (before['capsule_palette']=={'--alookhor-capsule-background':'#0D0510','--alookhor-capsule-card':'#1C1024','--alookhor-capsule-glass':'rgba(33,20,38,.75)','--alookhor-capsule-gold':'#D49A2E','--alookhor-capsule-gold-light':'#E8B84A','--alookhor-capsule-text':'#F5F3F0','--alookhor-capsule-muted':'#C8C2C9','--alookhor-capsule-blur':'24px'}) if capsule_glass_expected else True,
+            'capsule_glass_rendered': (before['capsule_style'] is not None and before['capsule_style']['background_color']=='rgba(33, 20, 38, 0.75)' and before['capsule_style']['background_image']!='none' and 'blur(24px)' in before['capsule_style']['backdrop_filter']) if capsule_glass_expected else True,
+            'capsule_control_palette': (before['capsule_control_colors']=={'menu':'rgb(212, 154, 46)','account':'rgb(245, 243, 240)','cart':'rgb(245, 243, 240)'}) if capsule_glass_expected else True,
             'upper_rows_leave_viewport': (after['topbar']['bottom'] < 2 and after['header']['bottom'] < 2) if not expected_mobile else True,
             'no_large_header_gap': before['header_to_main_gap'] is None or before['header_to_main_gap'] <= 100,
             'hero_mounted': before['hero_mounted'] is True if hero_expected else True,

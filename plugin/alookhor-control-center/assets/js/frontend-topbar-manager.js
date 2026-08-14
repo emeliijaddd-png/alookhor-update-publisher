@@ -1,5 +1,5 @@
 /**
- * ALOOKHOR Legacy Top Bar Manager — v3.10.17
+ * ALOOKHOR Legacy Top Bar Manager — v3.10.18
  * Preserves the legacy header/mega-menu HTML and synchronizes managed Top Bar
  * values from a fresh read-only REST endpoint, even when the page HTML is cached.
  */
@@ -92,6 +92,14 @@
     root.style.setProperty('--alookhor-header-surface', cfg.header_surface || '#0D0916');
     root.style.setProperty('--alookhor-header-text', cfg.header_text_color || '#F7F2EA');
     root.style.setProperty('--alookhor-header-muted', cfg.header_muted_color || '#B8B0BD');
+    root.style.setProperty('--alookhor-capsule-background', cfg.capsule_background || '#0D0510');
+    root.style.setProperty('--alookhor-capsule-card', cfg.capsule_card || '#1C1024');
+    root.style.setProperty('--alookhor-capsule-glass', cfg.capsule_glass || 'rgba(33,20,38,.75)');
+    root.style.setProperty('--alookhor-capsule-gold', cfg.capsule_gold || '#D49A2E');
+    root.style.setProperty('--alookhor-capsule-gold-light', cfg.capsule_gold_light || '#E8B84A');
+    root.style.setProperty('--alookhor-capsule-text', cfg.capsule_text || '#F5F3F0');
+    root.style.setProperty('--alookhor-capsule-muted', cfg.capsule_muted || '#C8C2C9');
+    root.style.setProperty('--alookhor-capsule-blur', `${clamp(cfg.capsule_blur, 10, 36, 24)}px`);
     root.style.setProperty('--alookhor-mobile-logo-width', `${clamp(cfg.header_logo_mobile_width, 42, 110, 58)}px`);
 
     const mainToggle = root.querySelector('#openDrawer,.alookhor-hamburger-btn');
@@ -199,7 +207,7 @@
   }
 
   function manage(root, force = false) {
-    if (!root || (!force && root.dataset.topbarManaged === '3.10.17')) return;
+    if (!root || (!force && root.dataset.topbarManaged === '3.10.18')) return;
 
     const contactTexts = [...root.querySelectorAll('.topbar-contact-txt,[class*="contact-txt" i]')];
     const phone = root.querySelector('a[href^="tel:"]') || contactTexts.find(element => {
@@ -325,8 +333,8 @@
     }
 
     setupHeaderBehavior(root);
-    root.dataset.topbarManaged = '3.10.17';
-    root.dispatchEvent(new CustomEvent('alookhor:topbar-managed', {bubbles:true, detail:{version:'3.10.17'}}));
+    root.dataset.topbarManaged = '3.10.18';
+    root.dispatchEvent(new CustomEvent('alookhor:topbar-managed', {bubbles:true, detail:{version:'3.10.18'}}));
   }
 
   function init(scope = document, force = false) {

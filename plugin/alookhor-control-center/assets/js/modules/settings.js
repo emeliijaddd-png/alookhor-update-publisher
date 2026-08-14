@@ -1,4 +1,4 @@
-import { Config } from '../core/config.js?v=3.10.17';
+import { Config } from '../core/config.js?v=3.10.18';
 
 const escapeAttr = value => String(value ?? '').replace(/[&<>'"]/g, char => ({
   '&':'&amp;', '<':'&lt;', '>':'&gt;', "'":'&#039;', '"':'&quot;'
@@ -27,6 +27,7 @@ export const settingsModule = {
       topbar_bg:'#11091D', topbar_text_color:'#E8D5B5', topbar_border_color:'#3A2C20',
       topbar_button_bg:'#C9A86A', topbar_button_text:'#1A1206', topbar_height:38,
       header_surface:'#0D0916', header_text_color:'#F7F2EA', header_muted_color:'#B8B0BD',
+      capsule_background:'#0D0510', capsule_card:'#1C1024', capsule_glass:'rgba(33,20,38,.75)', capsule_gold:'#D49A2E', capsule_gold_light:'#E8B84A', capsule_text:'#F5F3F0', capsule_muted:'#C8C2C9', capsule_blur:24,
       header_logo_desktop_width:118, header_logo_mobile_width:58,
       show_search:false, search_placeholder:'جستجوی محصول…', show_topbar:true, show_phone:true, show_email:true, show_whatsapp:true, show_export:true,
       show_wholesale:true, wholesale_new_tab:false
@@ -300,6 +301,10 @@ export const settingsModule = {
           <label>متن فرعی<input id="inpHeaderMuted" type="color" value="${escapeAttr(cfg.header_settings.header_muted_color)}"></label>
         </div><p style="margin:9px 0 0;color:var(--text-faint);font-size:10.5px;line-height:1.8">Top Bar و Header اصلی در جریان عادی صفحه می‌مانند؛ فقط Navigation بدون Layout Shift به بالای viewport می‌چسبد.</p></div>
 
+        <div class="qh-section"><div class="qh-title"><b>کپسول شیشه‌ای ردیف دوم</b><small>GLASS CAPSULE</small></div><div class="qh-colors">
+          ${[['پس‌زمینه اصلی','capsule_background'],['سطح کارت','capsule_card'],['طلایی اصلی','capsule_gold'],['طلایی روشن','capsule_gold_light'],['سفید متن','capsule_text'],['متن فرعی','capsule_muted']].map(([label,key])=>`<label>${label}<input id="inpCapsule_${key}" type="color" value="${escapeAttr(cfg.header_settings[key])}"></label>`).join('')}
+        </div><div class="qh-grid" style="margin-top:9px"><label>Glass RGBA<input id="inpCapsuleGlass" value="${escapeAttr(cfg.header_settings.capsule_glass)}" dir="ltr"></label><label>Blur px<input id="inpCapsuleBlur" type="number" min="10" max="36" value="${Number(cfg.header_settings.capsule_blur)||24}"></label></div><div class="qh-capsule-preview" id="quickCapsulePreview" style="--cp-bg:${escapeAttr(cfg.header_settings.capsule_glass)};--cp-gold:${escapeAttr(cfg.header_settings.capsule_gold)};--cp-gold-light:${escapeAttr(cfg.header_settings.capsule_gold_light)};--cp-text:${escapeAttr(cfg.header_settings.capsule_text)};--cp-muted:${escapeAttr(cfg.header_settings.capsule_muted)}"><span>سبد / حساب</span><b>آلوخور</b><i>☰</i></div><p style="margin:9px 0 0;color:var(--text-faint);font-size:10.5px;line-height:1.8">فقط کپسول اصلی ردیف دوم تغییر می‌کند؛ Top Bar، Navigation چسبان و ساختار کنترل‌ها دست‌نخورده می‌مانند.</p></div>
+
         <div class="qh-section"><div class="qh-title"><b>نمایش یا عدم نمایش</b><small>VISIBILITY</small></div><div class="qh-flags">
           ${[
             ['sticky','Sticky فقط Navigation'],['show_topbar','کل Top Bar'],['show_phone','تلفن'],['show_email','ایمیل'],['show_whatsapp','WhatsApp'],
@@ -317,7 +322,7 @@ export const settingsModule = {
         <style>
           .qh-head{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:12px}.qh-head h4{margin:0;font-size:14px}.qh-head p{margin:4px 0 0;color:var(--text-muted);font-size:11px}.qh-head code{direction:ltr;padding:7px 9px;border:1px solid var(--gold-border);border-radius:8px;color:var(--gold-soft);font-size:10px}
           .qh-live{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:9px;padding:0 12px;border-bottom:1px solid var(--qh-border);border-radius:10px;background:var(--qh-bg);color:var(--qh-text);overflow:hidden;margin-bottom:12px}.qh-trade,.qh-contact{display:flex;align-items:center;gap:8px;min-width:0;font-size:9px}.qh-trade{justify-self:start}.qh-contact{justify-self:end}.qh-trade span:first-child{padding:5px 8px;border-radius:999px;background:var(--qh-btn);color:var(--qh-btn-text);font-weight:800}.qh-logo{font:700 10px Georgia;color:var(--gold-soft)}.qh-logo img{display:block;max-width:76px;max-height:30px}
-          .qh-section{padding:12px;margin-top:9px;border:1px solid var(--gold-border);border-radius:11px;background:rgba(255,255,255,.018)}.qh-title{display:flex;justify-content:space-between;gap:8px;margin-bottom:10px}.qh-title b{font-size:11.5px}.qh-title small{color:var(--gold);font:9px Arial}.qh-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.qh-colors{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.qh-section label{display:grid;gap:4px;color:var(--text-muted);font-size:10.5px}.qh-section input{width:100%;min-width:0;background:rgba(255,255,255,.035);border:1px solid var(--gold-border);border-radius:8px;padding:8px;color:var(--text-primary)}.qh-section input[type=color]{height:37px;padding:3px}.qh-inline{display:flex;gap:6px}.qh-inline button{border:1px solid var(--gold-border-strong);border-radius:8px;background:rgba(201,168,106,.1);color:var(--gold-soft);cursor:pointer}.qh-span-2{grid-column:span 2}.qh-flags{display:flex;gap:6px;flex-wrap:wrap}.qh-flags label{display:flex;align-items:center;gap:5px;padding:6px 8px;border:1px solid var(--gold-border);border-radius:999px}.qh-flags input{width:auto;accent-color:var(--gold)}.qh-actions{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-top:11px}.qh-actions button{padding:9px 15px;font-size:11px}.qh-actions span{color:var(--text-faint);font-size:10px}@media(max-width:700px){.qh-grid,.qh-colors{grid-template-columns:1fr}.qh-span-2{grid-column:auto}.qh-contact{display:none}}
+          .qh-section{padding:12px;margin-top:9px;border:1px solid var(--gold-border);border-radius:11px;background:rgba(255,255,255,.018)}.qh-title{display:flex;justify-content:space-between;gap:8px;margin-bottom:10px}.qh-title b{font-size:11.5px}.qh-title small{color:var(--gold);font:9px Arial}.qh-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.qh-colors{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.qh-section label{display:grid;gap:4px;color:var(--text-muted);font-size:10.5px}.qh-section input{width:100%;min-width:0;background:rgba(255,255,255,.035);border:1px solid var(--gold-border);border-radius:8px;padding:8px;color:var(--text-primary)}.qh-section input[type=color]{height:37px;padding:3px}.qh-inline{display:flex;gap:6px}.qh-inline button{border:1px solid var(--gold-border-strong);border-radius:8px;background:rgba(201,168,106,.1);color:var(--gold-soft);cursor:pointer}.qh-span-2{grid-column:span 2}.qh-flags{display:flex;gap:6px;flex-wrap:wrap}.qh-flags label{display:flex;align-items:center;gap:5px;padding:6px 8px;border:1px solid var(--gold-border);border-radius:999px}.qh-flags input{width:auto;accent-color:var(--gold)}.qh-actions{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-top:11px}.qh-actions button{padding:9px 15px;font-size:11px}.qh-actions span{color:var(--text-faint);font-size:10px}.qh-capsule-preview{height:62px;margin-top:10px;padding:0 18px;border:1px solid color-mix(in srgb,var(--cp-gold) 42%,transparent);border-radius:999px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;background:var(--cp-bg);color:var(--cp-text);box-shadow:0 12px 28px rgba(13,5,16,.35),inset 0 1px 0 color-mix(in srgb,var(--cp-gold-light) 18%,transparent);backdrop-filter:blur(18px)}.qh-capsule-preview span{color:var(--cp-muted);font-size:9px}.qh-capsule-preview b{color:var(--cp-gold-light);font-size:17px}.qh-capsule-preview i{justify-self:end;color:var(--cp-gold);font-style:normal;font-size:20px}@media(max-width:700px){.qh-grid,.qh-colors{grid-template-columns:1fr}.qh-span-2{grid-column:auto}.qh-contact{display:none}}
         </style>
       `,
       product_categories: () => {
@@ -438,6 +443,15 @@ export const settingsModule = {
           const img=logo.querySelector('img');
           if(img) img.style.maxWidth=`${Math.max(50,Math.min(180,Number(value('inpTopLogoWidth'))||96))}px`;
         }
+        const capsulePreview=quick.querySelector('#quickCapsulePreview');
+        if(capsulePreview){
+          capsulePreview.style.setProperty('--cp-bg',value('inpCapsuleGlass')||'rgba(33,20,38,.75)');
+          capsulePreview.style.setProperty('--cp-gold',value('inpCapsule_capsule_gold')||'#D49A2E');
+          capsulePreview.style.setProperty('--cp-gold-light',value('inpCapsule_capsule_gold_light')||'#E8B84A');
+          capsulePreview.style.setProperty('--cp-text',value('inpCapsule_capsule_text')||'#F5F3F0');
+          capsulePreview.style.setProperty('--cp-muted',value('inpCapsule_capsule_muted')||'#C8C2C9');
+          capsulePreview.style.backdropFilter=`blur(${Math.max(10,Math.min(36,Number(value('inpCapsuleBlur'))||24))}px)`;
+        }
       }
 
       quick.querySelectorAll('.qh-section input').forEach(input=>input.addEventListener('input',updateQuickHeaderPreview));
@@ -466,6 +480,7 @@ export const settingsModule = {
             header_logo_desktop_width:Math.max(70,Math.min(220,Number(value('inpHeaderLogoDesktop'))||118)),
             header_logo_mobile_width:Math.max(42,Math.min(110,Number(value('inpHeaderLogoMobile'))||58)),
             header_surface:value('inpHeaderSurface'), header_text_color:value('inpHeaderText'), header_muted_color:value('inpHeaderMuted'),
+            capsule_background:value('inpCapsule_capsule_background'), capsule_card:value('inpCapsule_capsule_card'), capsule_glass:value('inpCapsuleGlass'), capsule_gold:value('inpCapsule_capsule_gold'), capsule_gold_light:value('inpCapsule_capsule_gold_light'), capsule_text:value('inpCapsule_capsule_text'), capsule_muted:value('inpCapsule_capsule_muted'), capsule_blur:Math.max(10,Math.min(36,Number(value('inpCapsuleBlur'))||24)),
             topbar_bg:value('inpTopbarBg'), topbar_text_color:value('inpTopbarText'), topbar_border_color:value('inpTopbarBorder'),
             topbar_button_bg:value('inpTopbarButtonBg'), topbar_button_text:value('inpTopbarButtonText'),
             topbar_height:Math.max(30,Math.min(60,Number(value('inpTopbarHeight'))||38))
@@ -484,6 +499,7 @@ export const settingsModule = {
             window.ALOOKHOR.toast('شماره تلفن در WordPress تأیید نشد؛ ذخیره متوقف شد','error');
             return;
           }
+          if(result.data?.header_settings?.capsule_glass!==undefined&&String(result.data.header_settings.capsule_glass)!==String(cfg.header_settings.capsule_glass)){window.ALOOKHOR.toast('رنگ شیشه‌ای کپسول در WordPress تأیید نشد','error');return}
           Config.apply();
           const liveTitle=document.getElementById('liveLogoText'); if(liveTitle) liveTitle.textContent=inpLogoText?.value||'ALOOKHOR';
           const liveSub=document.getElementById('liveLogoSub'); if(liveSub) liveSub.textContent=inpLogoSub?.value||'';

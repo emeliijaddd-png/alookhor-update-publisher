@@ -132,11 +132,19 @@
     "header_logo_mobile_width": 58,
     "show_search": false,
     "search_placeholder": "جستجوی محصول…",
-    "show_version": true
+    "show_version": true,
+    "capsule_background": "#0D0510",
+    "capsule_card": "#1C1024",
+    "capsule_glass": "rgba(33,20,38,.75)",
+    "capsule_gold": "#D49A2E",
+    "capsule_gold_light": "#E8B84A",
+    "capsule_text": "#F5F3F0",
+    "capsule_muted": "#C8C2C9",
+    "capsule_blur": 24
   },
   "updated_at": "2026-08-10T16:20:00Z",
   "updated_by": "AI Assistant — recovered from previous chat",
-  "version": "3.10.17",
+  "version": "3.10.18",
   "hero_settings": {
     "enabled": true,
     "hide_legacy": true,

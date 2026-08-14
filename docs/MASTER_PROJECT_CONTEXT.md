@@ -28,7 +28,9 @@ When sources disagree, the newer provable runtime/source wins. Missing source is
 - **Final rendered Chrome audit:** `31766220459` on 3.10.17 — WordPress, Desktop and Mobile passed every Header/Hero/Site-Features check; no failed checks.
 - **Direct feature screenshot acceptance:** confirmed against the supplied reference: four RTL cards in one row, matching content/order/icons, scoped Burgundy/Gold palette, approximately 7.4px Hero gap, compact Mobile typography, preserved Hero/Header and zero horizontal overflow.
 - **Production:** 3.10.17 active and fully verified.
-- **Current source target:** `3.10.17` — completed.
+- **Current source target:** `3.10.18` — dedicated Burgundy/Gold glass palette for the existing second Header capsule prepared for test/publication; Production remains 3.10.17 until tagged deployment succeeds.
+- **3.10.18 candidate package SHA-256:** `28fe044652db8ec0d359c6521fd555599dd70d53eac2b0503f9b476f771f4021`
+- **New Header reference:** `uploads/Screenshot_۲۰۲۶-۰۸-۱۴-۰۶-۵۶-۵۲-۵۸۲_com.android.chrome-edit.jpg`.
 - **Final feature evidence:** `automation/317-live/visual-desktop-features.png`, `automation/317-live/visual-mobile-before.png`, `automation/317-live/visual-mobile-features.png`.
 - **New feature references:** `uploads/Screenshot_۲۰۲۶-۰۸-۱۴-۰۵-۳۸-۵۰-۵۳۲_com.android.chrome-edit.jpg` (current stacked cards) and `uploads/Screenshot_۲۰۲۶-۰۸-۱۴-۰۵-۴۰-۳۶-۰۵۰_com.miui.gallery-edit.jpg` (target four-across composition).
 - **Final screenshot evidence:** `automation/315-live/visual-desktop-before.png`, `automation/315-live/visual-mobile-before.png`; authoritative reference: `uploads/Screenshot_۲۰۲۶-۰۸-۱۳-۲۳-۲۹-۲۰-۳۰۷_com.miui.gallery-edit.jpg`.
@@ -74,13 +76,14 @@ This rule supersedes every earlier interpretation of full-header Sticky behavior
 8. Visual treatment uses current ALOOKHOR Black/Gold settings with restrained glass/blur only when Navigation is stuck.
 9. Desktop and Mobile use the same transparent logo source; separate safe width controls are available in the main Boutique Header settings.
 10. Rollback remains available through the existing `sticky` setting and versioned plugin release.
-11. The approved Header palette is the site’s own Black/Gold state—not the orange/green colors in the structural reference: `#11091D`, `#0D0916`, `#C9A86A`, `#E8D5B5`, `#F7F2EA`, and `#B8B0BD`.
+11. Top Bar and Desktop sticky Navigation preserve their approved existing palette: `#11091D`, `#0D0916`, `#C9A86A`, `#E8D5B5`, `#F7F2EA`, and `#B8B0BD`; they are not silently recolored by capsule changes.
 12. The authoritative shared Header/Footer contact phone is `09159513173`; any ending in 3174 or 3179 is a regression.
 13. Mobile has exactly two visible rows: Top Bar and one Main Capsule. No extra sticky Navigation row is rendered at `≤1023px`.
 14. The Main Capsule layout is: original simple Hamburger/Drawer trigger on the right, a large horizontal transparent logo composition (symbol + «آلوخور» wordmark) in the center, and icon-only Account plus real WooCommerce Cart/Badge on the left.
 15. Product Search is explicitly rejected and must not be rendered in Desktop or Mobile Header, nor exposed as a Boutique setting.
 16. When Woodmart's native Header is hidden, its reserved Body offset and the Home main-content top padding must be collapsed only on pages containing `.alookhor-managed-legacy-header`; the live Top Bar should begin within 25px of the viewport top.
 17. Visual acceptance requires rendered Chrome audits at 1440×1050 and 430×932, unique Drawer ID, no horizontal overflow, contained logo, hidden duplicate Top Bar logo, hidden Mobile nav stage, and a pinned Desktop navigation rail.
+18. The existing second `.header-capsule` has its own scoped glass palette: Main `#0D0510`, Card `#1C1024`, Glass `rgba(33,20,38,.75)`, Gold `#D49A2E`, Light Gold `#E8B84A`, Text `#F5F3F0`, Muted `#C8C2C9`, Blur 24px. Cart/Account/Logo/Hamburger structure and geometry remain unchanged.
 
 ## Managed Hero contract
 

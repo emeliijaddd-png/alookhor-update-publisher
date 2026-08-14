@@ -151,6 +151,23 @@ function alookhor_cc_render_header_settings(){
             </section>
 
             <section class="alookhor-settings-section">
+                <div class="alookhor-section-head"><div><b>کپسول شیشه‌ای ردیف دوم</b><span>پالت اختصاصی فقط برای Main Header Capsule</span></div><em>GLASS</em></div>
+                <div class="alookhor-color-grid">
+                    <?php foreach ([
+                        'capsule_background'=>'پس‌زمینه اصلی',
+                        'capsule_card'=>'سطح کارت',
+                        'capsule_gold'=>'طلایی اصلی',
+                        'capsule_gold_light'=>'طلایی روشن',
+                        'capsule_text'=>'سفید متن',
+                        'capsule_muted'=>'متن فرعی'
+                    ] as $color_key=>$color_label): ?>
+                        <label><?php echo esc_html($color_label); ?><input type="color" name="<?php echo esc_attr($color_key); ?>" value="<?php echo esc_attr($h[$color_key]); ?>" class="alookhor-field alookhor-color-field"></label>
+                    <?php endforeach; ?>
+                </div>
+                <div class="alookhor-fields-grid"><label>Glass RGBA<input name="capsule_glass" value="<?php echo esc_attr($h['capsule_glass']); ?>" class="alookhor-field" dir="ltr"></label><label>Blur (10–36px)<input type="number" min="10" max="36" name="capsule_blur" value="<?php echo esc_attr($h['capsule_blur']); ?>" class="alookhor-field"></label></div>
+            </section>
+
+            <section class="alookhor-settings-section">
                 <div class="alookhor-section-head"><div><b>هویت و منوی اصلی</b><span>لوگوی اصلی، حساب کاربری و اتصال فهرست‌ها</span></div><em>HEADER</em></div>
                 <div class="alookhor-fields-grid">
                     <label>متن لوگو <input name="logo_text" value="<?php echo esc_attr($h['logo_text']); ?>" class="alookhor-field"></label>

@@ -6,8 +6,8 @@
 
 - **نام افزونه:** ALOOKHOR Control Center
 - **نسخه پایه بازیابی‌شده:** `3.8.4`
-- **Production پیش از این Release:** `3.10.16` (چهار کارت و Palette پاس؛ Gap زنده 21.4px نیازمند اصلاح محدود)
-- **Release آماده انتشار اتمی:** `3.10.17` (اتصال حدود 7px ویژگی‌ها به Hero)
+- **Production پیش از این Release:** `3.10.17` (Header/Hero/Features نهایی و تمام checks پاس)
+- **Release آماده انتشار اتمی:** `3.10.18` (کپسول شیشه‌ای Burgundy/Gold ردیف دوم Header)
 - **تاریخ بازیابی:** 2026-08-11
 - **منبع بازیابی:** ZIP واقعی افزونه `alookhor-control-center (5).zip`
 - **حداقل WordPress:** 6.0
@@ -150,6 +150,8 @@ export const exampleModule = {
 - نمایش مستقل هر آیتم، انتخاب لوگو از Media Library، Alt/Link/Width و کنترل رنگ‌ها و ارتفاع.
 - حفظ Callback قدیمی شورت‌کد در صورت وجود؛ Wrapper خنثی + Compatibility Manager بدون بازطراحی Mega Menu.
 - دسترس‌پذیری: ARIA، Focus Trap، Escape، Backdrop و Reduced Motion.
+- کپسول اصلی ردیف دوم `.header-capsule` دارای Palette مستقل و مدیریت‌شده است: `#0D0510`، `#1C1024`، `rgba(33,20,38,.75)`، `#D49A2E`، `#E8B84A`، `#F5F3F0` و `#C8C2C9` با Blur پیش‌فرض 24px.
+- تنظیمات کپسول در `header_settings` و همان Option مشترک Header ذخیره می‌شوند؛ Top Bar و Desktop Navigation پالت مستقل قبلی را حفظ می‌کنند.
 
 ### Hero فرانت
 
@@ -246,8 +248,8 @@ Schema حداقلی Manifest:
 
 ```json
 {
-  "version": "3.10.17",
-  "download_url": "https://updates.alookhor.ir/releases/alookhor-control-center-3.10.17.zip",
+  "version": "3.10.18",
+  "download_url": "https://updates.alookhor.ir/releases/alookhor-control-center-3.10.18.zip",
   "details_url": "https://alookhor.ir/changelog",
   "requires": "6.0",
   "tested": "7.0",

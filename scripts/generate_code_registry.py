@@ -132,6 +132,8 @@ def render() -> str:
     add('- **CSS:** `assets/css/frontend-header.css`')
     add('- **JavaScript:** `assets/js/frontend-header.js`; when a legacy provider is detected, `assets/js/frontend-topbar-manager.js` manages public Top Bar state instead.')
     add('- **Database:** `alookhor_header_settings`, merged into `alookhor_cc_settings`.')
+    add('- **Second-capsule settings:** `capsule_background`, `capsule_card`, `capsule_glass`, `capsule_gold`, `capsule_gold_light`, `capsule_text`, `capsule_muted`, `capsule_blur`; managed independently from Top Bar/Navigation colors.')
+    add('- **Second-capsule palette:** `#0D0510`, `#1C1024`, `rgba(33,20,38,.75)`, `#D49A2E`, `#E8B84A`, `#F5F3F0`, `#C8C2C9`; 24px Blur.')
     add('- **Dependencies:** WordPress menu locations/menus, logo/media settings, Elementor Shortcode widget, WordPress REST Top Bar endpoint.')
     add('- **Created/recovered:** 3.8.5; **last source revision:** current runtime version.')
     add('- **Status:** Active. Existing external provider is not overwritten.')

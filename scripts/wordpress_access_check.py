@@ -368,12 +368,25 @@ try:
                     and topbar_state.get('sticky') is True
                     and topbar_state.get('show_search') is (False if version_tuple(production_version) >= version_tuple('3.10.7') else True)
                 )
+            if version_tuple(production_version)>=version_tuple('3.10.18'):
+                report['checks']['header_capsule_palette']=(
+                    topbar_state.get('capsule_background')=='#0D0510'
+                    and topbar_state.get('capsule_card')=='#1C1024'
+                    and topbar_state.get('capsule_glass')=='rgba(33,20,38,.75)'
+                    and topbar_state.get('capsule_gold')=='#D49A2E'
+                    and topbar_state.get('capsule_gold_light')=='#E8B84A'
+                    and topbar_state.get('capsule_text')=='#F5F3F0'
+                    and topbar_state.get('capsule_muted')=='#C8C2C9'
+                    and int(topbar_state.get('capsule_blur',0))==24
+                )
         except Exception as error:
             report['public_topbar']['fresh_endpoint_error'] = str(error)
             report['checks']['topbar_endpoint'] = False
             report['checks']['topbar_no_store'] = False
             if version_tuple(production_version) >= version_tuple('3.10.6'):
                 report['checks']['header_brand_palette'] = False
+            if version_tuple(production_version)>=version_tuple('3.10.18'):
+                report['checks']['header_capsule_palette']=False
 
     if version_tuple(production_version) >= version_tuple('3.9.0'):
         footer_url = base + '/wp-json/alookhor-cc/v1/footer?access_audit=' + str(int(time.time()))

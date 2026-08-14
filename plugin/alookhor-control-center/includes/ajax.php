@@ -58,11 +58,22 @@ function alookhor_ajax_save_settings(){
             'header_surface' => '#0D0916',
             'header_text_color' => '#F7F2EA',
             'header_muted_color' => '#B8B0BD',
+            'capsule_background' => '#0D0510',
+            'capsule_card' => '#1C1024',
+            'capsule_gold' => '#D49A2E',
+            'capsule_gold_light' => '#E8B84A',
+            'capsule_text' => '#F5F3F0',
+            'capsule_muted' => '#C8C2C9',
         ] as $key => $fallback) {
             if (array_key_exists($key, $header)) {
                 $header[$key] = sanitize_hex_color($header[$key]) ?: ($header_current[$key] ?? $fallback);
             }
         }
+        if(array_key_exists('capsule_glass',$header)){
+            $capsule_glass=sanitize_text_field($header['capsule_glass']);
+            $header['capsule_glass']=preg_match('/^rgba?\(\s*\d{1,3}\s*,\s*\d{1,3}\s*,\s*\d{1,3}(?:\s*,\s*(?:0|1|0?\.\d+))?\s*\)$/',$capsule_glass)?$capsule_glass:($header_current['capsule_glass']??'rgba(33,20,38,.75)');
+        }
+        if(array_key_exists('capsule_blur',$header))$header['capsule_blur']=max(10,min(36,absint($header['capsule_blur'])));
         foreach (['export_url', 'wholesale_url', 'top_logo_url', 'top_logo_link'] as $key) {
             if (array_key_exists($key, $header)) $header[$key] = esc_url_raw($header[$key]);
         }
@@ -238,6 +249,14 @@ function alookhor_ajax_save_settings(){
             'header_surface' => $persisted_header['header_surface'] ?? null,
             'header_text_color' => $persisted_header['header_text_color'] ?? null,
             'header_muted_color' => $persisted_header['header_muted_color'] ?? null,
+            'capsule_background' => $persisted_header['capsule_background'] ?? null,
+            'capsule_card' => $persisted_header['capsule_card'] ?? null,
+            'capsule_glass' => $persisted_header['capsule_glass'] ?? null,
+            'capsule_gold' => $persisted_header['capsule_gold'] ?? null,
+            'capsule_gold_light' => $persisted_header['capsule_gold_light'] ?? null,
+            'capsule_text' => $persisted_header['capsule_text'] ?? null,
+            'capsule_muted' => $persisted_header['capsule_muted'] ?? null,
+            'capsule_blur' => $persisted_header['capsule_blur'] ?? null,
             'header_logo_desktop_width' => $persisted_header['header_logo_desktop_width'] ?? null,
             'header_logo_mobile_width' => $persisted_header['header_logo_mobile_width'] ?? null,
             'sticky' => $persisted_header['sticky'] ?? null,
@@ -329,9 +348,18 @@ function alookhor_ajax_save_header_wp(){
         'header_surface' => '#0D0916',
         'header_text_color' => '#F7F2EA',
         'header_muted_color' => '#B8B0BD',
+        'capsule_background' => '#0D0510',
+        'capsule_card' => '#1C1024',
+        'capsule_gold' => '#D49A2E',
+        'capsule_gold_light' => '#E8B84A',
+        'capsule_text' => '#F5F3F0',
+        'capsule_muted' => '#C8C2C9',
     ] as $color_key => $color_default) {
         $data[$color_key] = sanitize_hex_color(wp_unslash($_POST[$color_key] ?? ($current[$color_key] ?? $color_default))) ?: $color_default;
     }
+    $capsule_glass=sanitize_text_field(wp_unslash($_POST['capsule_glass']??($current['capsule_glass']??'rgba(33,20,38,.75)')));
+    $data['capsule_glass']=preg_match('/^rgba?\(\s*\d{1,3}\s*,\s*\d{1,3}\s*,\s*\d{1,3}(?:\s*,\s*(?:0|1|0?\.\d+))?\s*\)$/',$capsule_glass)?$capsule_glass:'rgba(33,20,38,.75)';
+    $data['capsule_blur']=max(10,min(36,absint($_POST['capsule_blur']??($current['capsule_blur']??24))));
     $data['topbar_height'] = max(30, min(60, absint($_POST['topbar_height'] ?? ($current['topbar_height'] ?? 38))));
     $data['top_logo_width'] = max(50, min(180, absint($_POST['top_logo_width'] ?? ($current['top_logo_width'] ?? 96))));
     $data['header_logo_desktop_width'] = max(70, min(220, absint($_POST['header_logo_desktop_width'] ?? ($current['header_logo_desktop_width'] ?? 118))));

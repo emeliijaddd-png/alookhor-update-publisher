@@ -134,6 +134,9 @@ jobs:
           assert "'header_logo_desktop_width' => 118" in header_php and "'header_logo_mobile_width' => 58" in header_php
           assert 'inpHeaderLogoDesktop' in settings_js and 'inpHeaderLogoMobile' in settings_js and 'inpHeaderSearchPlaceholder' not in settings_js
           assert "frontend-header-scroll.css" in bootstrap_php and "'sticky' => (bool) $h['sticky']" in bootstrap_php
+          assert all(token in header_scroll_css for token in ['--alookhor-capsule-glass:rgba(33,20,38,.75)','--alookhor-capsule-card:#1C1024','--alookhor-capsule-gold:#D49A2E','--alookhor-capsule-gold-light:#E8B84A','backdrop-filter:blur(var(--alookhor-capsule-blur))'])
+          assert all(token in topbar_manager for token in ['--alookhor-capsule-background','--alookhor-capsule-glass','--alookhor-capsule-gold-light','capsule_blur'])
+          assert 'inpCapsuleGlass' in settings_js and 'inpCapsuleBlur' in settings_js and 'capsule_gold_light' in settings_js
           rest_php = Path('plugin/alookhor-control-center/includes/rest-api.php').read_text()
           release_test = Path('scripts/wordpress_release_test.py').read_text()
           assert 'alookhor_cc_migrate_header_brand_3106' in bootstrap_php and "'phone' => '09159513173'" in bootstrap_php

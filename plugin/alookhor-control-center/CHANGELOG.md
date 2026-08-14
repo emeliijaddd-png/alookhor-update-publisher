@@ -1,5 +1,14 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.18 — 2026-08-14 — Managed Burgundy Glass Header Capsule
+- DISCOVERY: Production `.header-capsule` already uses Legacy glass rules (`rgba(15,10,25,.45/.75)` with 25px/15px Blur), while the bridge previously controlled its geometry but not its dedicated palette.
+- SCOPE: only the existing second Main Header capsule is restyled; Top Bar, Desktop sticky Navigation, Cart/Account/Logo/Hamburger nodes, IDs, order and Header geometry remain unchanged.
+- GLASS: exact managed base `rgba(33,20,38,.75)` with 24px Blur, 145% saturation, subtle `#1C1024` gradient, `#0D0510` shadow and controlled Gold highlight/border.
+- PALETTE: dedicated capsule values are `#D49A2E`, `#E8B84A`, `#F5F3F0`, `#C8C2C9`; existing Header/Nav palette values remain separate.
+- ADMIN: all capsule colors, RGBA and Blur are available in the main Boutique Header module and the shared Header helper form.
+- CACHE: localized state and public no-store `/topbar` endpoint carry the dedicated capsule palette so cached pages refresh before acceptance.
+- VERIFY: Chrome checks computed glass background, 24px Blur, exact CSS variables, control colors and all existing Header/Hero/Features geometry.
+
 ## v3.10.17 — 2026-08-14 — Feature-to-Hero Proximity Correction
 - BROWSER: Production run `31765422790` passed item count, RTL order, exact palette, Legacy removal, one-row Desktop/Mobile geometry and overflow checks; only `features_close_to_hero` failed at 21.4px versus the 20px limit.
 - FIX: section offset changed from -1px to -15px in both base and Mobile rules, targeting an approximately 7px visual gap like the supplied reference.

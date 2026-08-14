@@ -3,7 +3,7 @@
  * Plugin Name: ALOOKHOR Control Center
  * Plugin URI: https://alookhor.ir
  * Description: کنترل سنتر لوکس و ماژولار آلوخور — مدیریت کامل سایت (هدر، اسلایدر، سورت، محصولات، مشتریان VIP، مالی، آنالیتیکس) با آپدیت آنی بدون رفرش. تمام تنظیمات چت قبلی + شورت‌کد [alookhor_portal_header] اینجا مدیریت می‌شود.
- * Version: 3.10.17
+ * Version: 3.10.18
  * Author: ALOOKHOR Team — Luxury Modular
  * Author URI: https://alookhor.ir
  * Update URI: https://alookhor.ir/alookhor-control-center
@@ -16,8 +16,8 @@
 
 if (!defined('ABSPATH')) exit;
 
-define('ALOOKHOR_CC_VERSION', '3.10.17');
-define('ALOOKHOR_CC_BUILD', '3.10.17');
+define('ALOOKHOR_CC_VERSION', '3.10.18');
+define('ALOOKHOR_CC_BUILD', '3.10.18');
 define('ALOOKHOR_CC_FILE', __FILE__);
 define('ALOOKHOR_CC_DIR', plugin_dir_path(__FILE__));
 define('ALOOKHOR_CC_URL', plugin_dir_url(__FILE__));
@@ -84,6 +84,14 @@ add_action('wp_enqueue_scripts', function(){
             'header_surface' => $h['header_surface'],
             'header_text_color' => $h['header_text_color'],
             'header_muted_color' => $h['header_muted_color'],
+            'capsule_background' => $h['capsule_background'],
+            'capsule_card' => $h['capsule_card'],
+            'capsule_glass' => $h['capsule_glass'],
+            'capsule_gold' => $h['capsule_gold'],
+            'capsule_gold_light' => $h['capsule_gold_light'],
+            'capsule_text' => $h['capsule_text'],
+            'capsule_muted' => $h['capsule_muted'],
+            'capsule_blur' => (int) $h['capsule_blur'],
             'header_logo_desktop_width' => (int) $h['header_logo_desktop_width'],
             'header_logo_mobile_width' => (int) $h['header_logo_mobile_width'],
             'phone' => $h['phone'],
@@ -203,6 +211,14 @@ function alookhor_cc_get_header_settings(){
         'header_surface' => '#0D0916',
         'header_text_color' => '#F7F2EA',
         'header_muted_color' => '#B8B0BD',
+        'capsule_background' => '#0D0510',
+        'capsule_card' => '#1C1024',
+        'capsule_glass' => 'rgba(33,20,38,.75)',
+        'capsule_gold' => '#D49A2E',
+        'capsule_gold_light' => '#E8B84A',
+        'capsule_text' => '#F5F3F0',
+        'capsule_muted' => '#C8C2C9',
+        'capsule_blur' => 24,
         'header_logo_desktop_width' => 118,
         'header_logo_mobile_width' => 58,
         'sticky' => true,

@@ -170,6 +170,13 @@ try:
         and 42 <= int(topbar.get('header_logo_mobile_width', 0)) <= 110
     )
     report['checks']['topbar_no_store'] = 'no-store' in cache_control.lower()
+    if tuple(map(int, TARGET.split('.'))) >= (3, 10, 18):
+        report['checks']['header_capsule_palette']=(
+            topbar.get('capsule_background')=='#0D0510' and topbar.get('capsule_card')=='#1C1024'
+            and topbar.get('capsule_glass')=='rgba(33,20,38,.75)' and topbar.get('capsule_gold')=='#D49A2E'
+            and topbar.get('capsule_gold_light')=='#E8B84A' and topbar.get('capsule_text')=='#F5F3F0'
+            and topbar.get('capsule_muted')=='#C8C2C9' and int(topbar.get('capsule_blur',0))==24
+        )
     if tuple(map(int, TARGET.split('.'))) >= (3, 10, 6):
         report['checks']['header_brand_palette'] = (
             topbar.get('phone') == '09159513173'

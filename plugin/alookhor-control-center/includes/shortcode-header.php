@@ -23,6 +23,14 @@ function alookhor_cc_front_header_settings(){
         'header_surface'  => '#0D0916',
         'header_text_color' => '#F7F2EA',
         'header_muted_color' => '#B8B0BD',
+        'capsule_background' => '#0D0510',
+        'capsule_card' => '#1C1024',
+        'capsule_glass' => 'rgba(33,20,38,.75)',
+        'capsule_gold' => '#D49A2E',
+        'capsule_gold_light' => '#E8B84A',
+        'capsule_text' => '#F5F3F0',
+        'capsule_muted' => '#C8C2C9',
+        'capsule_blur' => 24,
         'header_logo_desktop_width' => 118,
         'header_logo_mobile_width' => 58,
         'sticky'          => true,
@@ -320,7 +328,7 @@ function alookhor_cc_render_managed_legacy_header($atts = [], $content = null, $
 
     $html = call_user_func($provider, $atts, $content, $tag ?: 'alookhor_portal_header');
     if (!is_string($html)) $html = '';
-    return '<div class="alookhor-managed-legacy-header" data-alookhor-managed="3.10.17" style="display:contents">' . $html . '</div>';
+    return '<div class="alookhor-managed-legacy-header" data-alookhor-managed="3.10.18" style="display:contents">' . $html . '</div>';
 }
 
 /**

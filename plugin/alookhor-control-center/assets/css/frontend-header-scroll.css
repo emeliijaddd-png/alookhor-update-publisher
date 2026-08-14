@@ -1,7 +1,7 @@
 /* ALOOKHOR Legacy Header bridge — three in-flow rows, sticky Navigation only. */
 body:has(.alookhor-managed-legacy-header){padding-top:0!important}
 #main-content:has(.alookhor-managed-legacy-header){padding-top:0!important}
-.alookhor-managed-legacy-header{--alookhor-header-gold:#D4A436;--alookhor-header-surface:#0d0916;--alookhor-header-text:#f7f2ea;--alookhor-header-muted:#b8b0bd;--alookhor-sticky-offset:0px}
+.alookhor-managed-legacy-header{--alookhor-header-gold:#D4A436;--alookhor-header-surface:#0d0916;--alookhor-header-text:#f7f2ea;--alookhor-header-muted:#b8b0bd;--alookhor-capsule-background:#0D0510;--alookhor-capsule-card:#1C1024;--alookhor-capsule-glass:rgba(33,20,38,.75);--alookhor-capsule-gold:#D49A2E;--alookhor-capsule-gold-light:#E8B84A;--alookhor-capsule-text:#F5F3F0;--alookhor-capsule-muted:#C8C2C9;--alookhor-capsule-blur:24px;--alookhor-sticky-offset:0px}
 .alookhor-managed-legacy-header .alookhor-topbar-wrapper,
 .alookhor-managed-legacy-header .alookhor-header{left:auto!important;right:auto!important;top:auto!important;transform:none!important;width:100%!important;position:relative!important}
 .alookhor-managed-legacy-header .alookhor-topbar-wrapper{z-index:30!important;transition:opacity .28s ease,transform .28s ease!important}
@@ -12,6 +12,15 @@ body:has(.alookhor-managed-legacy-header){padding-top:0!important}
 .alookhor-managed-legacy-header .alookhor-topbar-support{grid-area:support!important;justify-self:end!important;display:inline-flex;align-items:center;gap:7px;color:var(--alookhor-header-gold);direction:rtl;font-size:10px}
 .alookhor-managed-legacy-header .topbar-btn-wholesale{display:none!important}
 .alookhor-managed-legacy-header .alookhor-header{z-index:29!important;height:auto!important;min-height:90px!important;transition:opacity .28s ease,transform .28s ease!important}
+/* The existing second Header capsule, recolored in place with the owner-approved
+   Burgundy/Gold palette. Geometry and all original controls remain untouched. */
+.alookhor-managed-legacy-header .header-capsule{background-color:var(--alookhor-capsule-glass)!important;background-image:linear-gradient(135deg,color-mix(in srgb,var(--alookhor-capsule-card) 34%,transparent),transparent 62%)!important;-webkit-backdrop-filter:blur(var(--alookhor-capsule-blur)) saturate(145%)!important;backdrop-filter:blur(var(--alookhor-capsule-blur)) saturate(145%)!important;border:1px solid color-mix(in srgb,var(--alookhor-capsule-gold) 42%,transparent)!important;box-shadow:0 14px 38px color-mix(in srgb,var(--alookhor-capsule-background) 68%,transparent),inset 0 1px 0 color-mix(in srgb,var(--alookhor-capsule-gold-light) 18%,transparent),inset 0 -1px 0 color-mix(in srgb,var(--alookhor-capsule-gold) 10%,transparent)!important}
+.alookhor-managed-legacy-header .header-capsule:before,.alookhor-managed-legacy-header .header-capsule:after{pointer-events:none!important;background:linear-gradient(90deg,transparent,color-mix(in srgb,var(--alookhor-capsule-gold-light) 42%,transparent),transparent)!important}
+.alookhor-managed-legacy-header .header-capsule .alookhor-logo-copy b{color:var(--alookhor-capsule-gold-light)!important}
+.alookhor-managed-legacy-header .header-capsule .alookhor-logo-copy small{color:var(--alookhor-capsule-muted)!important}
+.alookhor-managed-legacy-header .header-capsule .header-login-btn,.alookhor-managed-legacy-header .header-capsule .header-login-btn svg,.alookhor-managed-legacy-header .header-capsule .alookhor-header-cart-link{color:var(--alookhor-capsule-text)!important}
+.alookhor-managed-legacy-header .header-capsule .alookhor-main-menu-toggle{color:var(--alookhor-capsule-gold)!important}
+.alookhor-managed-legacy-header .header-capsule .alookhor-cart-count{background:var(--alookhor-capsule-gold-light)!important;color:var(--alookhor-capsule-background)!important}
 .alookhor-managed-legacy-header .header-capsule-logo,
 .alookhor-managed-legacy-header .header-capsule-logo img{background:transparent!important}
 .alookhor-managed-legacy-header .header-capsule-logo{box-shadow:none!important;border:0!important;max-height:68px!important;overflow:visible!important;display:flex!important;align-items:center!important;justify-content:center!important;gap:10px!important;white-space:nowrap!important}
