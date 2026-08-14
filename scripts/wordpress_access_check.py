@@ -249,6 +249,26 @@ try:
         'fragment':feature_fragment,
     }
 
+    collection_index=homepage.find('ALOOKHOR PREMIUM COLLECTION')
+    collection_fragment='';collection_widget_tag='';collection_openings=[]
+    if collection_index>=0:
+        collection_start=max(0,collection_index-14000)
+        collection_fragment=re.sub(r'\s+',' ',homepage[collection_start:collection_index+36000]).strip()
+        widget_type_index=homepage.rfind('data-widget_type=',0,collection_index)
+        if widget_type_index>=0:
+            widget_start=homepage.rfind('<div',0,widget_type_index);widget_end=homepage.find('>',widget_type_index)
+            if widget_start>=0 and widget_end>=0:collection_widget_tag=re.sub(r'\s+',' ',homepage[widget_start:widget_end+1]).strip()
+        opening_source=homepage[max(0,collection_index-18000):collection_index]
+        collection_openings=[re.sub(r'\s+',' ',tag).strip() for tag in re.findall(r'<(?:section|div)[^>]+>',opening_source,re.I)[-30:]]
+    collection_classes=sorted({name for value in re.findall(r'class=["\']([^"\']+)["\']',collection_fragment,re.I) for name in value.split() if any(token in name.lower() for token in ['collection','premium','product','featured','best','slider','carousel'])})
+    report['legacy_collection']={
+        'found':collection_index>=0,
+        'elementor_widget_tag':collection_widget_tag,
+        'nearby_opening_tags':collection_openings,
+        'relevant_classes':collection_classes[:160],
+        'fragment':collection_fragment,
+    }
+
     # Authenticated, non-mutating lookup of the real WordPress front-page record.
     # Elementor may keep its source in private post meta, so record only exposed
     # page identity and shortcode tokens rather than guessing unavailable data.
