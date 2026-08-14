@@ -25,9 +25,11 @@ When sources disagree, the newer provable runtime/source wins. Missing source is
 - **Current Production tag/source:** `v3.10.18` / `5e7d33a4a90f33f0e79a63a9a0f3a6e26dcdee7f`
 - **Published package SHA-256:** `28fe044652db8ec0d359c6521fd555599dd70d53eac2b0503f9b476f771f4021`
 - **Deployment run:** `31820525729` — ZIP/SHA, Manifest, native WordPress and exact capsule palette endpoint checks all passed.
-- **Latest rendered Chrome baseline:** `31766220459` on 3.10.17 passed all prior Header/Hero/Site-Features checks; fresh 3.10.18 glass-capsule acceptance is pending.
-- **Production:** 3.10.18 active; final rendered/direct glass acceptance pending.
-- **Current source target:** `3.10.18` — deployed.
+- **Final rendered Chrome audit:** `31820882559` on 3.10.18 — WordPress, Desktop and Mobile passed every Header/Hero/Site-Features check; no failed checks.
+- **Direct glass-capsule acceptance:** the same `.header-capsule` now renders `rgba(33,20,38,.75)` with 24px Blur, Burgundy/Card gradient, Gold border/highlights and approved control colors; Cart/Account/Logo/Hamburger geometry/order, Top Bar, Desktop Navigation, Hero underlap and zero overflow are preserved.
+- **Production:** 3.10.18 active and fully verified.
+- **Current source target:** `3.10.18` — completed.
+- **Final glass evidence:** `automation/318-live2/visual-desktop-before.png`, `automation/318-live2/visual-mobile-before.png`.
 - **New Header reference:** `uploads/Screenshot_۲۰۲۶-۰۸-۱۴-۰۶-۵۶-۵۲-۵۸۲_com.android.chrome-edit.jpg`.
 - **Final feature evidence:** `automation/317-live/visual-desktop-features.png`, `automation/317-live/visual-mobile-before.png`, `automation/317-live/visual-mobile-features.png`.
 - **New feature references:** `uploads/Screenshot_۲۰۲۶-۰۸-۱۴-۰۵-۳۸-۵۰-۵۳۲_com.android.chrome-edit.jpg` (current stacked cards) and `uploads/Screenshot_۲۰۲۶-۰۸-۱۴-۰۵-۴۰-۳۶-۰۵۰_com.miui.gallery-edit.jpg` (target four-across composition).
