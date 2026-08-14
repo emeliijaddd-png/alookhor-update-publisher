@@ -133,7 +133,7 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 - **Function:** `alookhor_cc_site_feature_shortcode()`; markup callback `alookhor_cc_site_feature_markup()`.
 - **Registration:** `add_shortcode('alookhor_managed_features', 'alookhor_cc_site_feature_shortcode')`.
 - **PHP file:** `plugin/alookhor-control-center/includes/site-features.php`.
-- **Current WordPress use:** Home front page → Elementor HTML widget `data-id="5abd566"`, parent container `data-id="f0598d3"`, verified from Production-rendered source; external root `.alookhor-trustbar-container` is replaced exactly in place.
+- **Current WordPress use:** Home front page → Elementor HTML widget `data-id="5abd566"`, parent container `data-id="f0598d3"`, independently verified by Production audit `31764796144`; external root `.alookhor-trustbar-container` is replaced exactly in place.
 - **Elementor/container contract:** widget/container position is preserved; runtime adds only `.alookhor-managed-features-slot` / `.alookhor-managed-features-host` for scoped spacing normalization. No second feature row is appended.
 - **Output ID/classes:** `#alookhor-managed-features`, `.alookhor-sf`, `.alookhor-sf-grid`, `.alookhor-sf-card`, `.alookhor-sf-icon`, `.alookhor-sf-copy`.
 - **Inputs:** no shortcode attributes; exactly four records from the main ALOOKHOR Control Center.
@@ -236,7 +236,7 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 | `plugin/alookhor-control-center/templates/admin-control-center.php` | 388 | `f6e8a27fd87fb05f3805aef116aaf3311f2117c863fcf192d7578ace2ab1bea9` |
 | `plugin/alookhor-control-center/uninstall.php` | 6 | `d69282a9ab7c0865b6c60e6fca272d0859433e9c8730754fb2995295209ff84c` |
 | `scripts/build_release.py` | 101 | `f07af70658e73dd9e42f018cfa3e2ca35a7287599d7e6a4cf8e06951665126d8` |
-| `scripts/generate_code_registry.py` | 291 | `a5dd157cdace744d762f038a70d1db109ea531716bdee0cc62d6f55979af5a76` |
+| `scripts/generate_code_registry.py` | 291 | `dcff3379b16fe4624031ac416f87d18c438d69a49c2ee26c3eff56976c488d8d` |
 | `scripts/header_visual_audit.py` | 163 | `cbc93890736aaa112dd79f7f0cce3e65ee40441336114478bebef702e3eaf561` |
 | `scripts/wordpress_access_check.py` | 482 | `6a27ede483ae469b5936959bec51cc1f85a34b967f8c593c3b515d5066ad19e0` |
 | `scripts/wordpress_release_test.py` | 250 | `8bab9ee45b8602eae06fe6d303604024dc10dd3d75a542e3883ba93d108e530d` |
@@ -8469,7 +8469,7 @@ def render() -> str:
     add('- **Function:** `alookhor_cc_site_feature_shortcode()`; markup callback `alookhor_cc_site_feature_markup()`.')
     add('- **Registration:** `add_shortcode(\'alookhor_managed_features\', \'alookhor_cc_site_feature_shortcode\')`.')
     add('- **PHP file:** `plugin/alookhor-control-center/includes/site-features.php`.')
-    add('- **Current WordPress use:** Home front page → Elementor HTML widget `data-id="5abd566"`, parent container `data-id="f0598d3"`, verified from Production-rendered source; external root `.alookhor-trustbar-container` is replaced exactly in place.')
+    add('- **Current WordPress use:** Home front page → Elementor HTML widget `data-id="5abd566"`, parent container `data-id="f0598d3"`, independently verified by Production audit `31764796144`; external root `.alookhor-trustbar-container` is replaced exactly in place.')
     add('- **Elementor/container contract:** widget/container position is preserved; runtime adds only `.alookhor-managed-features-slot` / `.alookhor-managed-features-host` for scoped spacing normalization. No second feature row is appended.')
     add('- **Output ID/classes:** `#alookhor-managed-features`, `.alookhor-sf`, `.alookhor-sf-grid`, `.alookhor-sf-card`, `.alookhor-sf-icon`, `.alookhor-sf-copy`.')
     add('- **Inputs:** no shortcode attributes; exactly four records from the main ALOOKHOR Control Center.')

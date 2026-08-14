@@ -186,7 +186,7 @@ def render() -> str:
     add('- **Function:** `alookhor_cc_site_feature_shortcode()`; markup callback `alookhor_cc_site_feature_markup()`.')
     add('- **Registration:** `add_shortcode(\'alookhor_managed_features\', \'alookhor_cc_site_feature_shortcode\')`.')
     add('- **PHP file:** `plugin/alookhor-control-center/includes/site-features.php`.')
-    add('- **Current WordPress use:** Home front page → Elementor HTML widget `data-id="5abd566"`, parent container `data-id="f0598d3"`, verified from Production-rendered source; external root `.alookhor-trustbar-container` is replaced exactly in place.')
+    add('- **Current WordPress use:** Home front page → Elementor HTML widget `data-id="5abd566"`, parent container `data-id="f0598d3"`, independently verified by Production audit `31764796144`; external root `.alookhor-trustbar-container` is replaced exactly in place.')
     add('- **Elementor/container contract:** widget/container position is preserved; runtime adds only `.alookhor-managed-features-slot` / `.alookhor-managed-features-host` for scoped spacing normalization. No second feature row is appended.')
     add('- **Output ID/classes:** `#alookhor-managed-features`, `.alookhor-sf`, `.alookhor-sf-grid`, `.alookhor-sf-card`, `.alookhor-sf-icon`, `.alookhor-sf-copy`.')
     add('- **Inputs:** no shortcode attributes; exactly four records from the main ALOOKHOR Control Center.')

@@ -97,7 +97,7 @@ This rule supersedes every earlier interpretation of full-header Sticky behavior
 
 ## Managed Site Features contract
 
-1. The source-backed Legacy root is `.alookhor-trustbar-container` inside Elementor HTML widget `data-id="5abd566"`, parent container `data-id="f0598d3"`; current classes include `.trustbar-grid`, `.trust-card`, `.trust-card-icon`, `.trust-card-title`, and `.trust-card-desc`.
+1. The source-backed Legacy root is `.alookhor-trustbar-container` inside Elementor HTML widget `data-id="5abd566"`, parent container `data-id="f0598d3"`; independently reconfirmed in Production audit `31764796144`; current classes include `.trustbar-grid`, `.trust-card`, `.trust-card-icon`, `.trust-card-title`, and `.trust-card-desc`.
 2. Managed runtime replaces that exact root in place with `#alookhor-managed-features`; it must never append a second trust/feature block.
 3. Exactly four records are enforced under `alookhor_cc_settings.feature_settings.items`: ارسال سریع، محصولات ارگانیک، پشتیبانی ۲۴/۷، ضمانت کیفیت.
 4. Desktop and Mobile must both show all four cards in one horizontal row; Mobile stacking and horizontal overflow are rejected.
