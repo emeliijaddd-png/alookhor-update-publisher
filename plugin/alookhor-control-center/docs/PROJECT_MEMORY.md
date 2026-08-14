@@ -6,8 +6,8 @@
 
 - **نام افزونه:** ALOOKHOR Control Center
 - **نسخه پایه بازیابی‌شده:** `3.8.4`
-- **Production پیش از این Release:** `3.10.15` (Hero نهایی و تمام Desktop/Mobile checks پاس)
-- **Release آماده انتشار اتمی:** `3.10.16` (ویژگی‌های چهارکارته مدیریت‌شده با پالت Burgundy/Gold)
+- **Production پیش از این Release:** `3.10.16` (چهار کارت و Palette پاس؛ Gap زنده 21.4px نیازمند اصلاح محدود)
+- **Release آماده انتشار اتمی:** `3.10.17` (اتصال حدود 7px ویژگی‌ها به Hero)
 - **تاریخ بازیابی:** 2026-08-11
 - **منبع بازیابی:** ZIP واقعی افزونه `alookhor-control-center (5).zip`
 - **حداقل WordPress:** 6.0
@@ -246,8 +246,8 @@ Schema حداقلی Manifest:
 
 ```json
 {
-  "version": "3.10.16",
-  "download_url": "https://updates.alookhor.ir/releases/alookhor-control-center-3.10.16.zip",
+  "version": "3.10.17",
+  "download_url": "https://updates.alookhor.ir/releases/alookhor-control-center-3.10.17.zip",
   "details_url": "https://alookhor.ir/changelog",
   "requires": "6.0",
   "tested": "7.0",

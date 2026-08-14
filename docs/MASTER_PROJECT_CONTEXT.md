@@ -25,9 +25,10 @@ When sources disagree, the newer provable runtime/source wins. Missing source is
 - **Current Production tag/source:** `v3.10.16` / `61d73f886e33aed6d06a5512ef652a6b71f4aea8`
 - **Published package SHA-256:** `e75c551080fdf82c53148aa4abb9c0daf89413c184a90e2fbc9d933d73bcbe29`
 - **Deployment run:** `31765200854` — ZIP/SHA, Manifest, native WordPress and four-item feature endpoint checks all passed.
-- **Latest rendered Chrome baseline:** `31745179019` on 3.10.15 passed Header/Hero; fresh 3.10.16 Site Features acceptance is pending.
-- **Production:** 3.10.16 active; final feature screenshots/geometry pending.
-- **Current source target:** `3.10.16` — deployed managed Site Features.
+- **Latest rendered Chrome audit:** `31765422790` — four items, RTL order, exact palette, Legacy removal, Desktop/Mobile one-row layout and overflow all passed; only Hero gap failed at 21.4px versus 20px.
+- **Production:** 3.10.16 active; visual acceptance withheld only for feature-to-Hero spacing.
+- **Current source target:** `3.10.17` — targeted offset correction from -1px to -15px prepared for test/publication.
+- **3.10.17 candidate package SHA-256:** `9ca5249b5e38a642a98df5290c2825e82f21883fd619fdea3c341084f15d243b`
 - **New feature references:** `uploads/Screenshot_۲۰۲۶-۰۸-۱۴-۰۵-۳۸-۵۰-۵۳۲_com.android.chrome-edit.jpg` (current stacked cards) and `uploads/Screenshot_۲۰۲۶-۰۸-۱۴-۰۵-۴۰-۳۶-۰۵۰_com.miui.gallery-edit.jpg` (target four-across composition).
 - **Final screenshot evidence:** `automation/315-live/visual-desktop-before.png`, `automation/315-live/visual-mobile-before.png`; authoritative reference: `uploads/Screenshot_۲۰۲۶-۰۸-۱۳-۲۳-۲۹-۲۰-۳۰۷_com.miui.gallery-edit.jpg`.
 - **Repository:** `alookhor-update-publisher`

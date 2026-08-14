@@ -103,6 +103,7 @@ jobs:
           assert "add_shortcode('alookhor_managed_features'" in feature_php and 'id="alookhor-managed-features"' in feature_php
           assert 'alookhor-trustbar-container' in feature_php and 'for($index=0;$index<4;$index++)' in feature_php
           assert 'grid-template-columns:repeat(4,minmax(0,1fr))' in feature_css and '@media(max-width:767px)' in feature_css
+          assert 'margin:-15px calc(50% - 50vw) 0' in feature_css and 'margin-top:-15px' in feature_css
           assert all(token in feature_php for token in ['#0D0510','#1C1024','rgba(33,20,38,.75)','#D49A2E','#E8B84A','#F5F3F0','#C8C2C9'])
           assert 'legacy.replaceWith(section)' in feature_js and "cache:'no-store'" in feature_js and "data.item_count!==4" in feature_js
           assert 'data-site-feature-flag' in Path('plugin/alookhor-control-center/assets/js/modules/settings.js').read_text()

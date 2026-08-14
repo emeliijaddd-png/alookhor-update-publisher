@@ -1,5 +1,10 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.17 — 2026-08-14 — Feature-to-Hero Proximity Correction
+- BROWSER: Production run `31765422790` passed item count, RTL order, exact palette, Legacy removal, one-row Desktop/Mobile geometry and overflow checks; only `features_close_to_hero` failed at 21.4px versus the 20px limit.
+- FIX: section offset changed from -1px to -15px in both base and Mobile rules, targeting an approximately 7px visual gap like the supplied reference.
+- SCOPE: feature data, card sizes, Header, Hero, Categories, Footer, WooCommerce and Mobile toolbar remain unchanged.
+
 ## v3.10.16 — 2026-08-14 — Managed Four-Card Site Features
 - DISCOVERY: Production root is `.alookhor-trustbar-container` inside Elementor HTML widget `data-id="5abd566"` and parent container `data-id="f0598d3"`; the external block currently stacks four cards on Mobile.
 - REPLACE: `#alookhor-managed-features` replaces that exact root in place; no parallel feature/trust section and no Header/Hero/Footer restructuring.

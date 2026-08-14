@@ -4,7 +4,7 @@ Tags: control center, luxury, alookhor, admin, dashboard
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 3.10.16
+Stable tag: 3.10.17
 License: Private
 License URI: https://alookhor.ir
 
@@ -46,6 +46,11 @@ License URI: https://alookhor.ir
 در `config/site.json` و `wp_options: alookhor_cc_settings` — همان حافظه واقعی که در چت قبلی ویرایش می‌شد.
 
 == Changelog ==
+
+= 3.10.17 =
+* کاهش فاصله زنده Hero و ویژگی‌ها از 21.4px به حدود 7px
+* اتصال نزدیک چهار کارت به Hero مطابق تصویر مرجع
+* تغییر فقط Offset بخش؛ محتوا، Palette و Responsive چهارستونه بدون تغییر
 
 = 3.10.16 =
 * جایگزینی دقیق `.alookhor-trustbar-container` در همان Widget HTML المنتور
