@@ -250,22 +250,23 @@ try:
     }
 
     collection_index=homepage.find('ALOOKHOR PREMIUM COLLECTION')
-    collection_fragment='';collection_widget_tag='';collection_openings=[]
+    collection_fragment='';collection_widget_tag=''
     if collection_index>=0:
-        collection_start=max(0,collection_index-14000)
-        collection_fragment=re.sub(r'\s+',' ',homepage[collection_start:collection_index+36000]).strip()
+        collection_start=homepage.rfind('<div class="elementor-element',0,collection_index)
+        collection_fragment=re.sub(r'\s+',' ',homepage[max(0,collection_start):collection_index+30000]).strip()
         widget_type_index=homepage.rfind('data-widget_type=',0,collection_index)
         if widget_type_index>=0:
             widget_start=homepage.rfind('<div',0,widget_type_index);widget_end=homepage.find('>',widget_type_index)
             if widget_start>=0 and widget_end>=0:collection_widget_tag=re.sub(r'\s+',' ',homepage[widget_start:widget_end+1]).strip()
-        opening_source=homepage[max(0,collection_index-18000):collection_index]
-        collection_openings=[re.sub(r'\s+',' ',tag).strip() for tag in re.findall(r'<(?:section|div)[^>]+>',opening_source,re.I)[-30:]]
-    collection_classes=sorted({name for value in re.findall(r'class=["\']([^"\']+)["\']',collection_fragment,re.I) for name in value.split() if any(token in name.lower() for token in ['collection','premium','product','featured','best','slider','carousel'])})
+    collection_classes=sorted({name for value in re.findall(r'class=["\']([^"\']+)["\']',collection_fragment,re.I) for name in value.split()})
+    collection_products=[]
+    for href,image,title in re.findall(r'<a[^>]+href=["\']([^"\']*/product/[^"\']*)["\'][^>]*>.*?<img[^>]+src=["\']([^"\']+)["\'][^>]*alt=["\']([^"\']*)["\']',collection_fragment,re.I|re.S):
+        collection_products.append({'url':unescape(href),'image':unescape(image),'image_alt':unescape(title)})
     report['legacy_collection']={
         'found':collection_index>=0,
         'elementor_widget_tag':collection_widget_tag,
-        'nearby_opening_tags':collection_openings,
-        'relevant_classes':collection_classes[:160],
+        'classes':collection_classes[:140],
+        'product_links':collection_products[:12],
         'fragment':collection_fragment,
     }
 
