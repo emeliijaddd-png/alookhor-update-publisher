@@ -1,0 +1,44 @@
+name: Header 3.10.19 sync
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync-header-css:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Align desktop capsule width
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('plugin/alookhor-control-center/assets/css/frontend-header.css')
+          s = p.read_text(encoding='utf-8')
+          old = 'width:min(1120px,100%);'
+          new = 'width:min(1360px,calc(100% - 48px));'
+          if old not in s:
+              raise SystemExit('Expected capsule width declaration was not found; no change made.')
+          s = s.replace(old, new, 1)
+          p.write_text(s, encoding='utf-8')
+          PY
+
+      - name: Commit change
+        run: |
+          git config user.name 'ChatGPT Codex'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add plugin/alookhor-control-center/assets/css/frontend-header.css
+          git diff --cached --quiet && exit 0
+          git commit -m "fix: align header 3.10.19 desktop capsule width"
+          git push
+
+      - name: Remove temporary workflow
+        if: always()
+        run: |
+          git rm -f .github/workflows/header-3-10-19-sync.yml || true
+          git commit -m "chore: remove temporary header sync workflow" || true
+          git push || true
