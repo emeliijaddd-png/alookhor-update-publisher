@@ -4,7 +4,7 @@ Tags: control center, luxury, alookhor, admin, dashboard
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 3.10.19
+Stable tag: 3.10.20
 License: Private
 License URI: https://alookhor.ir
 
@@ -46,6 +46,12 @@ License URI: https://alookhor.ir
 در `config/site.json` و `wp_options: alookhor_cc_settings` — همان حافظه واقعی که در چت قبلی ویرایش می‌شد.
 
 == Changelog ==
+
+= 3.10.20 =
+* حذف Offset واقعی Elementor بالای Header داخلی
+* شروع Top Bar از ابتدای viewport
+* Sticky fixed rail برای Navigation داخلی Desktop با Marker ضد Layout Shift
+* حفظ کامل Reference Header و Mobile دو‌ردیفه
 
 = 3.10.19 =
 * Top Bar شیشه‌ای Burgundy/Gold با ترتیب پشتیبانی، پیام و تلفن مطابق مرجع

@@ -21,6 +21,17 @@
 
     let previousFocus = null;
 
+    const navStage=root.querySelector('.alookhor-nav-stage');
+    if(navStage&&root.classList.contains('is-sticky')){
+      const marker=document.createElement('span');marker.className='alookhor-internal-nav-marker';marker.setAttribute('aria-hidden','true');navStage.before(marker);
+      let stageTop=0,ticking=false;
+      const measure=()=>{stageTop=marker.getBoundingClientRect().top+window.scrollY};
+      const update=()=>{ticking=false;const desktop=window.innerWidth>=1024;const adminOffset=document.body.classList.contains('admin-bar')?(window.innerWidth<=782?46:32):0;const stuck=desktop&&window.scrollY+adminOffset>=stageTop-1;navStage.classList.toggle('is-stuck',stuck);marker.style.setProperty('height',stuck?`${navStage.offsetHeight}px`:'0px','important')};
+      const requestUpdate=()=>{if(ticking)return;ticking=true;requestAnimationFrame(update)};
+      window.addEventListener('scroll',requestUpdate,{passive:true});window.addEventListener('resize',()=>{if(navStage.classList.contains('is-stuck'))navStage.classList.remove('is-stuck');measure();requestUpdate()},{passive:true});
+      requestAnimationFrame(()=>{measure();update()});
+    }
+
     function setOpen(open) {
       root.classList.toggle('menu-open', open);
       toggle.setAttribute('aria-expanded', open ? 'true' : 'false');

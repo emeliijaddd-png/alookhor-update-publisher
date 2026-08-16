@@ -1,6 +1,10 @@
 /* ALOOKHOR Luxury Portal Header — recovered two-level design.
  * Every rule is scoped to the shortcode so Woodmart/Elementor remain untouched.
  */
+body:has(.alookhor-portal-header){padding-top:0!important}
+#main-content:has(.alookhor-portal-header),.elementor:has(.alookhor-portal-header){padding-top:0!important;margin-top:0!important}
+.elementor-element.e-con:has(.alookhor-portal-header){--padding-top:0px!important;--padding-bottom:0px!important;min-height:0!important;margin-top:0!important;margin-bottom:0!important;padding-top:0!important;padding-bottom:0!important;top:auto!important;transform:none!important;gap:0!important}
+.elementor-widget-shortcode:has(.alookhor-portal-header),.elementor-widget-shortcode:has(.alookhor-portal-header)>.elementor-widget-container,.elementor-widget-shortcode:has(.alookhor-portal-header) .elementor-shortcode{margin:0!important;padding:0!important;min-height:0!important}
 .alookhor-portal-header{
   --alookhor-gold:#c9a86a;
   --alookhor-gold-soft:#e6cf9a;
@@ -20,7 +24,7 @@
   isolation:isolate;
   font-family:Tahoma,"Segoe UI",Arial,sans-serif;
 }
-.alookhor-portal-header.is-sticky{position:relative;top:auto}.alookhor-portal-header.is-sticky .alookhor-nav-stage{position:sticky;top:0;z-index:9996}body.admin-bar .alookhor-portal-header.is-sticky .alookhor-nav-stage{top:32px}@media(max-width:782px){body.admin-bar .alookhor-portal-header.is-sticky .alookhor-nav-stage{top:46px}}
+.alookhor-portal-header.is-sticky{position:relative;top:auto}.alookhor-portal-header .alookhor-internal-nav-marker{display:block;width:100%;height:0;margin:0;padding:0;overflow:hidden}.alookhor-portal-header.is-sticky .alookhor-nav-stage{position:relative;top:auto;z-index:9996}.alookhor-portal-header.is-sticky .alookhor-nav-stage.is-stuck{position:fixed!important;top:0!important;left:0!important;right:0!important;width:100%!important;margin:0!important}body.admin-bar .alookhor-portal-header.is-sticky .alookhor-nav-stage.is-stuck{top:32px!important}@media(max-width:782px){body.admin-bar .alookhor-portal-header.is-sticky .alookhor-nav-stage.is-stuck{top:46px!important}}@media(max-width:1023px){.alookhor-portal-header .alookhor-internal-nav-marker{display:none!important}.alookhor-portal-header.is-sticky .alookhor-nav-stage{position:relative!important;top:auto!important}}
 .alookhor-portal-header,
 .alookhor-portal-header *{box-sizing:border-box}
 .alookhor-portal-header a{color:inherit;text-decoration:none}

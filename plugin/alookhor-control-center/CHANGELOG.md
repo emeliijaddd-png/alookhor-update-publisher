@@ -1,5 +1,11 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.20 — 2026-08-16 — Internal Header Offset and Sticky Fix
+- BROWSER: 3.10.19 داخلی با Offset 291px Desktop / 362.6px Mobile و Sticky محدودشده توسط Elementor رندر شد.
+- HOST: فقط Elementor host حاوی `.alookhor-portal-header` از Padding/Margin/Min-height رزروشده پاک شد.
+- STICKY: Marker و fixed rail داخلی جایگزین native sticky محدودشده شدند؛ Desktop پیوسته و بدون Layout Shift، Mobile بدون ردیف اضافه.
+- PRESERVE: Top Bar، Capsule، WordPress menus، Cart، Account، Logo، Hamburger، Drawer، Hero و Features بدون بازسازی حفظ شدند.
+
 ## v3.10.19 — 2026-08-16 — Two-Row Header Reference Match
 - TOP BAR: Burgundy glass surface, 18px Blur, subtle Gold separators and physical order Support (left), shipping/export message (center), Phone (right).
 - ICON: support dot replaced by a scoped headset SVG while existing Phone/Globe content remains dynamic.

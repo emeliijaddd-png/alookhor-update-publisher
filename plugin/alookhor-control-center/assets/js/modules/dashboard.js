@@ -1,4 +1,4 @@
-import { Config } from '../core/config.js?v=3.10.19';
+import { Config } from '../core/config.js?v=3.10.20';
 
 const escapeHTML = value => String(value ?? '').replace(/[&<>'"]/g, char => ({
   '&':'&amp;', '<':'&lt;', '>':'&gt;', "'":'&#039;', '"':'&quot;'
