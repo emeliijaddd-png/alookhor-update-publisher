@@ -21,16 +21,16 @@ When sources disagree, the newer provable runtime/source wins. Missing source is
 
 ## Authoritative current state
 
-- **Production runtime:** ALOOKHOR Control Center `3.10.19`
-- **Current Production tag/source:** `v3.10.19` / `bcda6ed2c40b433c5d2d7e2e610e510662fc24ce`
-- **Published package SHA-256:** `22d2c15dac32a69774051a9df6a6968801c3e56c20518bf7c2c88a57971a7541`
-- **Deployment run:** `31960744041` — publication, Manifest, native WordPress update and runtime checks passed.
+- **Production runtime:** ALOOKHOR Control Center `3.10.20`
+- **Current Production tag/source:** `v3.10.19` / `68afe12bf644ed1af0598e5ef59ff9b5f0fe47cc`
+- **Published package SHA-256:** `36fed15806ab80c6e001836376550eae5b645add2aaf627c8832019e83ec917e`
+- **Deployment run:** `31961514518` — publication, Manifest and native WordPress checks passed.
 - **Final rendered Chrome audit:** `31820882559` on 3.10.18 — WordPress, Desktop and Mobile passed every Header/Hero/Site-Features check; no failed checks.
 - **Direct glass-capsule acceptance:** the same `.header-capsule` now renders `rgba(33,20,38,.75)` with 24px Blur, Burgundy/Card gradient, Gold border/highlights and approved control colors; Cart/Account/Logo/Hamburger geometry/order, Top Bar, Desktop Navigation, Hero underlap and zero overflow are preserved.
-- **Production:** 3.10.19 active; Chrome diagnosed internal Elementor offset/sticky failure.
-- **Current source target:** `3.10.20` — targeted internal Header host/sticky correction prepared for test/publication.
+- **Production:** 3.10.20 active; final rendered verification pending.
+- **Current source target:** `3.10.20` — deployed; final rendered verification pending.
 - **3.10.20 candidate package SHA-256:** `36fed15806ab80c6e001836376550eae5b645add2aaf627c8832019e83ec917e`
-- **3.10.19 candidate package SHA-256:** `22d2c15dac32a69774051a9df6a6968801c3e56c20518bf7c2c88a57971a7541`
+- **3.10.19 candidate package SHA-256:** `36fed15806ab80c6e001836376550eae5b645add2aaf627c8832019e83ec917e`
 - **New active Header reference:** `uploads/image.png`.
 - **Final glass evidence:** `automation/318-live2/visual-desktop-before.png`, `automation/318-live2/visual-mobile-before.png`.
 - **New Header reference:** `uploads/Screenshot_۲۰۲۶-۰۸-۱۴-۰۶-۵۶-۵۲-۵۸۲_com.android.chrome-edit.jpg`.
