@@ -153,7 +153,8 @@ try:
         report['checks']['homepage_http'] = response.status == 200
     report['checks']['header_content'] = 'خرید عمده' in homepage and ('ALOOKHOR' in homepage or 'آلوخور' in homepage)
     report['checks']['header_scroll_asset'] = (
-        'frontend-header-scroll.css' in homepage
+        ('frontend-header-scroll.css' in homepage and 'alookhor-managed-legacy-header' in homepage)
+        or ('frontend-header.css' in homepage and 'alookhor-portal-header' in homepage)
         if version_tuple(production_version) >= version_tuple('3.10.5')
         else True
     )
@@ -350,7 +351,9 @@ try:
             report['public_topbar']['manager_asset_error'] = str(error)
             report['checks']['manager_contact_span'] = False
     elif version_tuple(production_version) >= version_tuple('3.8.9'):
-        report['checks']['manager_contact_span'] = False
+        # Internal shortcode renderer owns its contact markup directly and does
+        # not enqueue the Legacy compatibility manager.
+        report['checks']['manager_contact_span'] = 'alookhor-portal-header' in homepage and 'frontend-header.js' in homepage
 
     if version_tuple(production_version) >= version_tuple('3.8.7'):
         topbar_url = base + '/wp-json/alookhor-cc/v1/topbar?access_audit=' + str(int(time.time()))

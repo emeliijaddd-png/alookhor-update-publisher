@@ -205,7 +205,7 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 | `plugin/alookhor-control-center/assets/css/frontend-features.css` | 29 | `8431fcf85b5903bbe2335aa017e8a0a79d0038a7ce055189fa8ebe41e49b89ed` |
 | `plugin/alookhor-control-center/assets/css/frontend-footer.css` | 26 | `f0dd733870b626c5581fc84ad2d5311bcf37374ab351cfc74ade1808ae5b1089` |
 | `plugin/alookhor-control-center/assets/css/frontend-header-scroll.css` | 96 | `16d5ac8abcfda76b8f394a5c3b5e6ee80295c3482e2d2fb0fd1792392ac2ce71` |
-| `plugin/alookhor-control-center/assets/css/frontend-header.css` | 255 | `198b37350473dd22b453c38b1b9bc1c253c62d30bbd047e8da5e0759536a83fa` |
+| `plugin/alookhor-control-center/assets/css/frontend-header.css` | 276 | `b5e2341d2c5bb6b927f7f81253b26b671c40c2a62a9a13de643798d9dcbc0f06` |
 | `plugin/alookhor-control-center/assets/css/frontend-hero.css` | 72 | `bde6426b31d10f1d389999f0c8ec25185d08d595dd20e06a92fcd666052dc3c9` |
 | `plugin/alookhor-control-center/assets/css/luxury.css` | 564 | `eef0550c9d8b090dbe799d9a969518207519fdb585c9701e2d897a507e669f8f` |
 | `plugin/alookhor-control-center/assets/js/admin-wp.js` | 84 | `b8ff32723f2f46dc44add19fdc441eec1c611f5229ce7e13ac8b773457be6afc` |
@@ -232,16 +232,16 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 | `plugin/alookhor-control-center/includes/hero.php` | 229 | `edaba49c0057e137f0d6e0b16cc516fc98b73a70d24c09cc62cbe7302c2b6342` |
 | `plugin/alookhor-control-center/includes/product-categories.php` | 88 | `64d42189315d77e8bda401a945e37d18d16bcf2346159f8cabe0022920dba2cb` |
 | `plugin/alookhor-control-center/includes/rest-api.php` | 334 | `771be7cb71efdcb57ae5c2459bcb10dffb7c88f6fc53428af371c5d9e81734e4` |
-| `plugin/alookhor-control-center/includes/shortcode-header.php` | 352 | `be54d4a98b1fa758cc7b9e1d122ac4a4629589b00238b9768646994153f71bac` |
+| `plugin/alookhor-control-center/includes/shortcode-header.php` | 361 | `08ead590352d5d9539d2075ca4d06a6aa5f0f34adce45a1e4f80a2bd50567fce` |
 | `plugin/alookhor-control-center/includes/site-features.php` | 133 | `8c0f550195121550d1085b5415fd63291fcf1e8d17bfaf0bca491e2df7468c72` |
 | `plugin/alookhor-control-center/includes/updater.php` | 385 | `15521824f3c64db2b516150ffd05773799c6a3a0cfb9f6f55c1ed68974cbd5e6` |
 | `plugin/alookhor-control-center/templates/admin-control-center.php` | 388 | `c4450ab6e703b3845327118522efc2e650b2bab9d6e188c3b4e0e320de75f0aa` |
 | `plugin/alookhor-control-center/uninstall.php` | 6 | `d69282a9ab7c0865b6c60e6fca272d0859433e9c8730754fb2995295209ff84c` |
 | `scripts/build_release.py` | 101 | `f07af70658e73dd9e42f018cfa3e2ca35a7287599d7e6a4cf8e06951665126d8` |
 | `scripts/generate_code_registry.py` | 293 | `cc820adb6cd74358acfe6eea9bcc5206a2262b91a53e053cc0794c47fec3026a` |
-| `scripts/header_visual_audit.py` | 183 | `948817ab52db48cbd4b1d24b83c6bb9cde056eee8ea2e688cf644b89ad1ce1b9` |
-| `scripts/wordpress_access_check.py` | 521 | `23d2d92d72584cd4a3496380ff644a855f895710bcf860f6939553969ad84048` |
-| `scripts/wordpress_release_test.py` | 266 | `6dbbe8c4c5a1134489f389e18b9f4a77977fb390e23c6dd1974712aa1a8731dc` |
+| `scripts/header_visual_audit.py` | 191 | `bcec9fbeff9b90ed51aab240cd93820c7436343ebea7bec5e3c5fc4c1e533883` |
+| `scripts/wordpress_access_check.py` | 524 | `2de33fb912b3dda7a0a08f8de56047d0419f9cb3cee83edd4b5bf2622ae19685` |
+| `scripts/wordpress_release_test.py` | 266 | `3e7a2c1f21cffefbebb6bfd9e236fd71f3249b9c4171e4d242c2fc5b70331ac0` |
 
 # COMPLETE SOURCE SNAPSHOTS
 
@@ -1805,6 +1805,27 @@ body.alookhor-menu-open{overflow:hidden!important}
 @media(prefers-reduced-motion:reduce){
   .alookhor-portal-header *{scroll-behavior:auto!important;transition-duration:.01ms!important;animation-duration:.01ms!important;animation-iteration-count:1!important}
 }
+
+/* v3.10.19 — Reference two-row Header for the internal shortcode renderer. */
+.alookhor-portal-header{--alookhor-gold:#D49A2E;--alookhor-gold-soft:#E8B84A;--alookhor-gold-line:color-mix(in srgb,var(--alookhor-capsule-gold,#D49A2E) 38%,transparent);--alookhor-text:var(--alookhor-capsule-text,#F5F3F0);--alookhor-muted:var(--alookhor-capsule-muted,#C8C2C9);--alookhor-ink:var(--alookhor-capsule-background,#0D0510);--alookhor-plum:var(--alookhor-capsule-card,#1C1024)}
+.alookhor-portal-header .alookhor-topbar{background-color:color-mix(in srgb,var(--alookhor-topbar-bg,#1C1024) 78%,transparent);background-image:linear-gradient(90deg,color-mix(in srgb,var(--alookhor-capsule-card,#1C1024) 86%,transparent),color-mix(in srgb,var(--alookhor-capsule-glass,rgba(33,20,38,.75)) 82%,transparent),color-mix(in srgb,var(--alookhor-capsule-card,#1C1024) 86%,transparent));-webkit-backdrop-filter:blur(18px) saturate(135%);backdrop-filter:blur(18px) saturate(135%);border-bottom-color:color-mix(in srgb,var(--alookhor-capsule-gold,#D49A2E) 28%,transparent)}
+.alookhor-portal-header .alookhor-topbar-inner{width:min(1360px,calc(100% - 72px));grid-template-columns:minmax(0,1fr) minmax(0,1.7fr) minmax(0,1fr);grid-template-areas:"support message phone";direction:ltr}
+.alookhor-fallback-support{grid-area:support;justify-self:start;display:inline-flex;align-items:center;gap:7px;direction:rtl;color:var(--alookhor-capsule-gold-light,#E8B84A);font-size:10px;white-space:nowrap}.alookhor-fallback-support svg{width:15px;height:15px}
+.alookhor-portal-header .alookhor-trade-meta{grid-area:message;justify-self:center;direction:rtl;padding-inline:clamp(18px,4vw,58px);border-inline:1px solid color-mix(in srgb,var(--alookhor-capsule-gold,#D49A2E) 12%,transparent)}
+.alookhor-portal-header .alookhor-wholesale,.alookhor-portal-header .alookhor-top-logo{display:none!important}
+.alookhor-portal-header .alookhor-export-note{display:inline-flex!important;color:var(--alookhor-capsule-text,#F5F3F0)!important}
+.alookhor-portal-header .alookhor-contact-meta{grid-area:phone;justify-self:end;color:var(--alookhor-capsule-gold-light,#E8B84A);direction:ltr}
+.alookhor-portal-header .alookhor-contact-link[href^="mailto:"],.alookhor-portal-header .alookhor-contact-separator,.alookhor-portal-header .alookhor-whatsapp{display:none!important}
+.alookhor-portal-header .alookhor-contact-link[href^="tel:"]{display:block!important;color:var(--alookhor-capsule-gold-light,#E8B84A)!important;font-weight:700}
+.alookhor-portal-header .alookhor-nav-stage{min-height:90px;padding:6px 18px;background:transparent}
+.alookhor-portal-header .alookhor-nav-shell{width:calc(100% - 36px);max-width:1360px;min-height:78px;padding:6px 24px;gap:18px;border-color:color-mix(in srgb,var(--alookhor-capsule-gold,#D49A2E) 42%,transparent);background-color:var(--alookhor-capsule-glass,rgba(33,20,38,.75));background-image:linear-gradient(135deg,color-mix(in srgb,var(--alookhor-capsule-card,#1C1024) 40%,transparent),transparent 64%);-webkit-backdrop-filter:blur(var(--alookhor-capsule-blur,24px)) saturate(145%);backdrop-filter:blur(var(--alookhor-capsule-blur,24px)) saturate(145%);box-shadow:0 14px 38px color-mix(in srgb,var(--alookhor-capsule-background,#0D0510) 68%,transparent),inset 0 1px 0 color-mix(in srgb,var(--alookhor-capsule-gold-light,#E8B84A) 18%,transparent)}
+.alookhor-portal-header .alookhor-nav-logo-copy{display:block}.alookhor-portal-header .alookhor-nav-logo-copy b{color:var(--alookhor-capsule-gold-light,#E8B84A)}.alookhor-portal-header .alookhor-nav-logo-copy small{color:var(--alookhor-capsule-muted,#C8C2C9)}
+.alookhor-fallback-cart{position:relative;width:42px;height:42px;display:grid;place-items:center;color:var(--alookhor-capsule-text,#F5F3F0)!important}.alookhor-fallback-cart svg{width:25px;height:25px}.alookhor-fallback-cart>span{position:absolute;top:-5px;right:-4px;min-width:18px;height:18px;padding:0 4px;border-radius:999px;background:var(--alookhor-capsule-gold-light,#E8B84A);color:var(--alookhor-capsule-background,#0D0510);font:800 9px/18px Tahoma;text-align:center}
+.alookhor-portal-header .alookhor-account-link{width:42px;height:42px;min-height:42px;padding:0;display:grid;place-items:center;border:0;background:transparent;color:var(--alookhor-capsule-text,#F5F3F0)!important}.alookhor-portal-header .alookhor-account-link span{display:none}.alookhor-portal-header .alookhor-account-link svg{width:25px;height:25px}
+.alookhor-portal-header .alookhor-nav-divider{display:none}.alookhor-portal-header .alookhor-menu-toggle{color:var(--alookhor-capsule-gold,#D49A2E);border:0;background:transparent}.alookhor-portal-header .alookhor-menu-toggle span{width:23px;height:2px;background:currentColor}
+@media(min-width:1024px){.alookhor-portal-header .alookhor-nav-shell{display:grid;grid-template-columns:190px 270px minmax(0,1fr) 48px;grid-template-areas:"actions logo navigation menu";direction:ltr}.alookhor-portal-header .alookhor-nav-actions{grid-area:actions;justify-self:start;direction:ltr}.alookhor-portal-header .alookhor-nav-logo{grid-area:logo;justify-self:start;max-width:270px;direction:rtl}.alookhor-portal-header .alookhor-desktop-nav{grid-area:navigation;justify-self:end;direction:rtl}.alookhor-portal-header .alookhor-nav-spacer{display:none}.alookhor-portal-header .alookhor-menu-toggle{grid-area:menu;justify-self:end}.alookhor-portal-header .alookhor-primary-menu{justify-content:flex-end}}
+@media(max-width:1023px){.alookhor-portal-header .alookhor-topbar-inner{width:calc(100% - 28px);grid-template-columns:minmax(0,1fr) minmax(0,1.6fr) minmax(0,1fr);grid-template-areas:"support message phone";gap:8px}.alookhor-portal-header .alookhor-nav-shell{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);grid-template-areas:"actions logo menu";direction:ltr}.alookhor-portal-header .alookhor-nav-actions{grid-area:actions;justify-self:start;direction:ltr;gap:8px}.alookhor-portal-header .alookhor-nav-logo{grid-area:logo;justify-self:center;direction:rtl}.alookhor-portal-header .alookhor-menu-toggle{grid-area:menu;justify-self:end}.alookhor-portal-header .alookhor-nav-spacer{display:none}}
+@media(max-width:767px){.alookhor-fallback-support{font-size:8px;gap:4px}.alookhor-fallback-support svg{width:12px;height:12px}.alookhor-portal-header .alookhor-trade-meta{padding-inline:5px;border-inline:0}.alookhor-portal-header .alookhor-export-note{font-size:8px}.alookhor-portal-header .alookhor-contact-meta{font-size:8px}.alookhor-portal-header .alookhor-nav-stage{min-height:70px;padding:0 8px}.alookhor-portal-header .alookhor-nav-shell{width:100%;min-height:60px;padding:6px 10px;border-radius:28px}.alookhor-fallback-cart,.alookhor-portal-header .alookhor-account-link{width:38px;height:38px}.alookhor-fallback-cart svg,.alookhor-portal-header .alookhor-account-link svg{width:24px;height:24px}}
 ````
 
 ## Source Snapshot — `plugin/alookhor-control-center/assets/css/frontend-hero.css`
@@ -7267,13 +7288,22 @@ function alookhor_cc_render_portal_header($atts = []){
     $topbar_border = sanitize_hex_color($settings['topbar_border_color']) ?: '#D49A2E';
     $topbar_button_bg = sanitize_hex_color($settings['topbar_button_bg']) ?: '#D49A2E';
     $topbar_button_text = sanitize_hex_color($settings['topbar_button_text']) ?: '#0D0510';
+    $capsule_background=sanitize_hex_color($settings['capsule_background']??'')?:'#0D0510';
+    $capsule_card=sanitize_hex_color($settings['capsule_card']??'')?:'#1C1024';
+    $capsule_glass=preg_match('/^rgba?\([^)]*\)$/',(string)($settings['capsule_glass']??''))?(string)$settings['capsule_glass']:'rgba(33,20,38,.75)';
+    $capsule_gold=sanitize_hex_color($settings['capsule_gold']??'')?:'#D49A2E';
+    $capsule_gold_light=sanitize_hex_color($settings['capsule_gold_light']??'')?:'#E8B84A';
+    $capsule_text=sanitize_hex_color($settings['capsule_text']??'')?:'#F5F3F0';
+    $capsule_muted=sanitize_hex_color($settings['capsule_muted']??'')?:'#C8C2C9';
+    $capsule_blur=max(10,min(36,absint($settings['capsule_blur']??24)));
 
     ob_start();
     ?>
-    <div id="<?php echo esc_attr($instance); ?>" class="alookhor-portal-header<?php echo $is_sticky ? ' is-sticky' : ''; ?>" dir="rtl" style="--alookhor-gold:<?php echo esc_attr($settings['gold']); ?>;--alookhor-topbar-bg:<?php echo esc_attr($topbar_bg); ?>;--alookhor-topbar-text:<?php echo esc_attr($topbar_text); ?>;--alookhor-topbar-border:<?php echo esc_attr($topbar_border); ?>;--alookhor-topbar-button-bg:<?php echo esc_attr($topbar_button_bg); ?>;--alookhor-topbar-button-text:<?php echo esc_attr($topbar_button_text); ?>;--alookhor-topbar-height:<?php echo esc_attr($topbar_height); ?>px;--alookhor-top-logo-width:<?php echo esc_attr($top_logo_width); ?>px">
+    <div id="<?php echo esc_attr($instance); ?>" class="alookhor-portal-header<?php echo $is_sticky ? ' is-sticky' : ''; ?>" dir="rtl" style="--alookhor-gold:<?php echo esc_attr($settings['gold']); ?>;--alookhor-topbar-bg:<?php echo esc_attr($topbar_bg); ?>;--alookhor-topbar-text:<?php echo esc_attr($topbar_text); ?>;--alookhor-topbar-border:<?php echo esc_attr($topbar_border); ?>;--alookhor-topbar-button-bg:<?php echo esc_attr($topbar_button_bg); ?>;--alookhor-topbar-button-text:<?php echo esc_attr($topbar_button_text); ?>;--alookhor-topbar-height:<?php echo esc_attr($topbar_height); ?>px;--alookhor-top-logo-width:<?php echo esc_attr($top_logo_width); ?>px;--alookhor-capsule-background:<?php echo esc_attr($capsule_background); ?>;--alookhor-capsule-card:<?php echo esc_attr($capsule_card); ?>;--alookhor-capsule-glass:<?php echo esc_attr($capsule_glass); ?>;--alookhor-capsule-gold:<?php echo esc_attr($capsule_gold); ?>;--alookhor-capsule-gold-light:<?php echo esc_attr($capsule_gold_light); ?>;--alookhor-capsule-text:<?php echo esc_attr($capsule_text); ?>;--alookhor-capsule-muted:<?php echo esc_attr($capsule_muted); ?>;--alookhor-capsule-blur:<?php echo esc_attr($capsule_blur); ?>px">
         <?php if ($show_topbar): ?>
         <div class="alookhor-topbar">
             <div class="alookhor-topbar-inner">
+                <div class="alookhor-fallback-support"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 14v-2a8 8 0 0 1 16 0v2M4 14h3v6H4zM17 14h3v6h-3zM17 20c-1 2-3 3-6 3"/></svg><b>پشتیبانی ۲۴/۷</b></div>
                 <div class="alookhor-trade-meta">
                     <?php if ($show_wholesale): ?>
                     <a class="alookhor-wholesale" href="<?php echo esc_url($settings['wholesale_url']); ?>" target="<?php echo esc_attr($wholesale_target); ?>"<?php echo $wholesale_target === '_blank' ? ' rel="noopener"' : ''; ?>>
@@ -7340,17 +7370,17 @@ function alookhor_cc_render_portal_header($atts = []){
                 <div class="alookhor-nav-spacer"></div>
 
                 <div class="alookhor-nav-actions">
+                    <a class="alookhor-fallback-cart" href="<?php echo esc_url($cart_url); ?>" aria-label="سبد خرید"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h2l2 11h10l3-8H6M9 20a1 1 0 1 0 0-2 1 1 0 0 0 0 2Zm8 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z"/></svg><span><?php echo esc_html($cart_count); ?></span></a>
                     <?php if ($show_account): ?>
                     <a class="alookhor-account-link" href="<?php echo esc_url($account_url); ?>">
                         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm7 8a7 7 0 0 0-14 0"/></svg>
                         <span><?php echo is_user_logged_in() ? esc_html__('حساب کاربری', 'alookhor-cc') : esc_html($settings['account_text']); ?></span>
                     </a>
                     <?php endif; ?>
-                    <span class="alookhor-nav-divider" aria-hidden="true"></span>
-                    <button class="alookhor-menu-toggle" type="button" aria-controls="<?php echo esc_attr($drawer_id); ?>" aria-expanded="false" aria-label="بازکردن منوی کامل">
-                        <span></span><span></span><span></span>
-                    </button>
                 </div>
+                <button class="alookhor-menu-toggle" type="button" aria-controls="<?php echo esc_attr($drawer_id); ?>" aria-expanded="false" aria-label="بازکردن منوی کامل">
+                    <span></span><span></span><span></span>
+                </button>
             </div>
         </div>
 
@@ -8796,9 +8826,17 @@ JS_METRICS = r"""
 const one=s=>document.querySelector(s), all=s=>[...document.querySelectorAll(s)];
 const rect=e=>e?Object.fromEntries(['top','right','bottom','left','width','height'].map(k=>[k,Math.round(e.getBoundingClientRect()[k]*10)/10])):null;
 const visible=e=>!!e&&getComputedStyle(e).display!=='none'&&getComputedStyle(e).visibility!=='hidden'&&e.getBoundingClientRect().height>0;
-const root=one('.alookhor-managed-legacy-header'),topbar=one('.alookhor-topbar-wrapper'),header=one('.alookhor-header'),stage=one('.alookhor-legacy-nav-stage'),capsule=one('.header-capsule');
-const navigation=one('.alookhor-legacy-nav-stage .header-nav-center'),navShell=one('.alookhor-legacy-nav-shell'),logoBox=one('.header-capsule-logo');
-const topbarPhone=one('.alookhor-managed-phone'),topbarSupport=one('.alookhor-topbar-support'),topbarMessage=one('.topbar-export-badge');
+const legacyRoot=one('.alookhor-managed-legacy-header'),portalRoot=one('.alookhor-portal-header'),root=legacyRoot||portalRoot;
+const topbar=legacyRoot?.querySelector('.alookhor-topbar-wrapper')||portalRoot?.querySelector('.alookhor-topbar');
+const header=legacyRoot?.querySelector('.alookhor-header')||portalRoot?.querySelector('.alookhor-nav-stage');
+const stage=legacyRoot?.querySelector('.alookhor-legacy-nav-stage')||portalRoot?.querySelector('.alookhor-nav-stage');
+const capsule=legacyRoot?.querySelector('.header-capsule')||portalRoot?.querySelector('.alookhor-nav-shell');
+const navigation=legacyRoot?.querySelector('.alookhor-legacy-nav-stage .header-nav-center')||portalRoot?.querySelector('.alookhor-desktop-nav');
+const navShell=legacyRoot?.querySelector('.alookhor-legacy-nav-shell')||portalRoot?.querySelector('.alookhor-nav-shell');
+const logoBox=legacyRoot?.querySelector('.header-capsule-logo')||portalRoot?.querySelector('.alookhor-nav-logo');
+const topbarPhone=legacyRoot?.querySelector('.alookhor-managed-phone')||portalRoot?.querySelector('.alookhor-contact-link[href^="tel:"]');
+const topbarSupport=legacyRoot?.querySelector('.alookhor-topbar-support')||portalRoot?.querySelector('.alookhor-fallback-support');
+const topbarMessage=legacyRoot?.querySelector('.topbar-export-badge')||portalRoot?.querySelector('.alookhor-export-note');
 const hero=one('#alookhor-managed-hero'),heroShell=hero?.querySelector('.alookhor-mh-shell'),heroContent=hero?.querySelector('.alookhor-mh-slide.is-active .alookhor-mh-content'),heroImage=hero?.querySelector('.alookhor-mh-slide.is-active img');
 const features=one('#alookhor-managed-features'),featureGrid=features?.querySelector('.alookhor-sf-grid'),featureCards=features?all('#alookhor-managed-features .alookhor-sf-card'):[];
 const main=one('#main-content')||one('.main-page-wrapper')||one('main');
@@ -8806,14 +8844,14 @@ const visibleBottom=[topbar,header,stage].filter(visible).map(e=>e.getBoundingCl
 const footprintBottom=visibleBottom.length?Math.max(...visibleBottom):0;
 return {
   viewport:{width:innerWidth,height:innerHeight,dpr:devicePixelRatio},runtime_version:String(window.ALOOKHOR_TOPBAR?.version||''),
-  root:!!root,topbar:rect(topbar),header:rect(header),stage:rect(stage),capsule:rect(capsule),main:rect(main),logo:rect(one('.header-capsule-logo img')),logo_box:rect(logoBox),
-  navigation:rect(navigation),nav_shell:rect(navShell),stage_integrated:stage?.classList.contains('is-capsule-integrated')||false,
+  root:!!root,header_mode:legacyRoot?'legacy':(portalRoot?'portal':'none'),topbar:rect(topbar),header:rect(header),stage:rect(stage),capsule:rect(capsule),main:rect(main),logo:rect(root?.querySelector('.header-capsule-logo img,.alookhor-nav-logo img')),logo_box:rect(logoBox),
+  navigation:rect(navigation),navigation_display:navigation?getComputedStyle(navigation).display:null,nav_shell:rect(navShell),stage_integrated:legacyRoot?(stage?.classList.contains('is-capsule-integrated')||false):!!portalRoot,
   topbar_phone:rect(topbarPhone),topbar_support:rect(topbarSupport),topbar_message:rect(topbarMessage),
   topbar_style:topbar?{background_color:getComputedStyle(topbar).backgroundColor,background_image:getComputedStyle(topbar).backgroundImage,backdrop_filter:getComputedStyle(topbar).backdropFilter||getComputedStyle(topbar).webkitBackdropFilter,border_color:getComputedStyle(topbar).borderBottomColor}:null,
   topbar_role_colors:{phone:topbarPhone?getComputedStyle(topbarPhone).color:null,support:topbarSupport?getComputedStyle(topbarSupport).color:null,message:topbarMessage?getComputedStyle(topbarMessage).color:null},
   capsule_style:capsule?{background_color:getComputedStyle(capsule).backgroundColor,background_image:getComputedStyle(capsule).backgroundImage,backdrop_filter:getComputedStyle(capsule).backdropFilter||getComputedStyle(capsule).webkitBackdropFilter,border_color:getComputedStyle(capsule).borderColor,box_shadow:getComputedStyle(capsule).boxShadow}:null,
   capsule_palette:root?Object.fromEntries(['--alookhor-capsule-background','--alookhor-capsule-card','--alookhor-capsule-glass','--alookhor-capsule-gold','--alookhor-capsule-gold-light','--alookhor-capsule-text','--alookhor-capsule-muted','--alookhor-capsule-blur'].map(k=>[k,getComputedStyle(root).getPropertyValue(k).trim()])):{},
-  capsule_control_colors:{menu:one('.header-capsule .alookhor-main-menu-toggle')?getComputedStyle(one('.header-capsule .alookhor-main-menu-toggle')).color:null,account:one('.header-capsule .header-login-btn svg')?getComputedStyle(one('.header-capsule .header-login-btn svg')).color:null,cart:one('.header-capsule .alookhor-header-cart-link')?getComputedStyle(one('.header-capsule .alookhor-header-cart-link')).color:null},
+  capsule_control_colors:(()=>{const menu=root?.querySelector('.header-capsule .alookhor-main-menu-toggle,.alookhor-nav-shell .alookhor-menu-toggle'),account=root?.querySelector('.header-capsule .header-login-btn svg,.alookhor-nav-shell .alookhor-account-link svg'),cart=root?.querySelector('.header-capsule .alookhor-header-cart-link,.alookhor-nav-shell .alookhor-fallback-cart');return {menu:menu?getComputedStyle(menu).color:null,account:account?getComputedStyle(account).color:null,cart:cart?getComputedStyle(cart).color:null}})(),
   hero:rect(hero),hero_shell:rect(heroShell),hero_content:rect(heroContent),hero_image:rect(heroImage),hero_mounted:hero?.dataset.mounted==='1',
   hero_slide_count:hero?all('#alookhor-managed-hero .alookhor-mh-slide').length:0,hero_active_count:hero?all('#alookhor-managed-hero .alookhor-mh-slide.is-active').length:0,
   hero_feature_count:hero?all('#alookhor-managed-hero .alookhor-mh-slide.is-active .alookhor-mh-feature').length:0,hero_cta_count:hero?all('#alookhor-managed-hero .alookhor-mh-slide.is-active .alookhor-mh-cta').length:0,
@@ -8829,12 +8867,12 @@ return {
   feature_legacy_visible:all('.alookhor-trustbar-container').filter(visible).length,
   feature_palette:features?Object.fromEntries(['--sf-bg','--sf-card','--sf-glass','--sf-gold','--sf-gold-light','--sf-text','--sf-muted'].map(k=>[k,getComputedStyle(features).getPropertyValue(k).trim()])):{},
   feature_to_hero_gap:(features&&hero)?Math.round((features.getBoundingClientRect().top-hero.getBoundingClientRect().bottom)*10)/10:null,
-  topbar_center_display:one('.topbar-center')?getComputedStyle(one('.topbar-center')).display:null,
-  stage_display:stage?getComputedStyle(stage).display:null,stage_position:stage?getComputedStyle(stage).position:null,stage_stuck:stage?.classList.contains('is-stuck')||false,
+  topbar_center_display:(()=>{const e=legacyRoot?.querySelector('.topbar-center')||portalRoot?.querySelector('.alookhor-top-logo');return e?getComputedStyle(e).display:null})(),
+  stage_display:stage?getComputedStyle(stage).display:null,stage_position:stage?getComputedStyle(stage).position:null,stage_stuck:legacyRoot?(stage?.classList.contains('is-stuck')||false):(!!portalRoot&&['sticky','fixed'].includes(getComputedStyle(stage).position)&&Math.abs(stage.getBoundingClientRect().top)<=50),
   search_count:all('.alookhor-legacy-main-search').length,mobile_extra_toggle_count:all('.alookhor-mobile-sticky-toggle').length,
-  original_drawer_id_count:all('#openDrawer').length,cart_count:all('.alookhor-header-cart-link').length,
-  main_toggle_count:all('.alookhor-main-menu-toggle').length,logo_count:all('.header-capsule-logo img').length,logo_copy_count:all('.alookhor-logo-copy').length,topbar_support_count:all('.alookhor-topbar-support').length,
-  account_font_size:one('.header-login-btn')?getComputedStyle(one('.header-login-btn')).fontSize:null,account_icon_count:all('.header-login-btn .alookhor-account-icon').length,
+  original_drawer_id_count:all('#openDrawer').length,generated_drawer_count:portalRoot?portalRoot.querySelectorAll('.alookhor-menu-drawer').length:0,cart_count:all('.alookhor-header-cart-link,.alookhor-fallback-cart').length,
+  main_toggle_count:all('.alookhor-main-menu-toggle,.alookhor-menu-toggle').length,logo_count:all('.header-capsule-logo img,.alookhor-nav-logo img').length,logo_copy_count:all('.alookhor-logo-copy,.alookhor-nav-logo-copy').length,topbar_support_count:all('.alookhor-topbar-support,.alookhor-fallback-support').length,
+  account_font_size:one('.header-login-btn')?getComputedStyle(one('.header-login-btn')).fontSize:null,account_icon_count:all('.header-login-btn .alookhor-account-icon,.alookhor-account-link svg').length,account_text_display:one('.alookhor-account-link span')?getComputedStyle(one('.alookhor-account-link span')).display:null,
   body_scroll_width:document.documentElement.scrollWidth,body_client_width:document.documentElement.clientWidth,
   horizontal_overflow:Math.max(0,document.documentElement.scrollWidth-document.documentElement.clientWidth),
   header_to_main_gap:main?Math.round((main.getBoundingClientRect().top-footprintBottom)*10)/10:null,
@@ -8855,7 +8893,7 @@ def audit(width: int, height: int, label: str) -> dict:
     try:
         driver.set_window_size(width, height)
         driver.get(f'{BASE}/?rendered_header_audit=3107-{label}-{int(time.time())}')
-        WebDriverWait(driver, 40).until(lambda d: d.execute_script("return !!document.querySelector('.alookhor-managed-legacy-header .header-capsule')"))
+        WebDriverWait(driver, 40).until(lambda d: d.execute_script("return !!document.querySelector('.alookhor-managed-legacy-header .header-capsule,.alookhor-portal-header .alookhor-nav-shell')"))
         runtime_version = driver.execute_script("return String(window.ALOOKHOR_TOPBAR?.version||'0.0.0')")
         runtime_parts = tuple(int(part) for part in runtime_version.split('.') if part.isdigit())
         hero_expected = runtime_parts >= (3, 10, 13)
@@ -8886,15 +8924,15 @@ def audit(width: int, height: int, label: str) -> dict:
             'root': before['root'] is True,
             'search_removed': before['search_count'] == 0,
             'no_rejected_mobile_toggle': before['mobile_extra_toggle_count'] == 0,
-            'drawer_id_unique': before['original_drawer_id_count'] == 1,
+            'drawer_id_unique': (before['original_drawer_id_count'] == 1 if before['header_mode']=='legacy' else before['generated_drawer_count']==1),
             'cart_present': before['cart_count'] == 1,
             'main_toggle_present': before['main_toggle_count'] == 1,
             'logo_present': before['logo_count'] == 1,
             'horizontal_wordmark_present': before['logo_copy_count'] == 1,
             'topbar_support_present': before['topbar_support_count'] == 1,
-            'mobile_account_icon_only': (before['account_font_size'] == '0px' and before['account_icon_count'] == 1) if expected_mobile else True,
+            'mobile_account_icon_only': ((before['account_font_size'] == '0px' and before['account_icon_count'] == 1) if before['header_mode']=='legacy' else (before['account_text_display']=='none' and before['account_icon_count']==1)) if expected_mobile else True,
             'no_horizontal_overflow': before['horizontal_overflow'] <= 2,
-            'mobile_stage_hidden': before['stage_display'] == 'none' if expected_mobile else True,
+            'mobile_stage_hidden': ((before['stage_display']=='none') if before['header_mode']=='legacy' else before['navigation_display']=='none') if expected_mobile else True,
             'desktop_stage_visible': before['stage_display'] != 'none' if not expected_mobile else True,
             'desktop_nav_sticky': (after['stage_position'] in {'sticky','fixed'} and after['stage_stuck'] is True and abs(after['stage']['top']) <= 2) if not expected_mobile else True,
             'header_starts_near_viewport_top': before['topbar'] is not None and before['topbar']['top'] <= 25,
@@ -8907,8 +8945,8 @@ def audit(width: int, height: int, label: str) -> dict:
             'topbar_reference_order': (before['topbar_support'] is not None and before['topbar_message'] is not None and before['topbar_phone'] is not None and before['topbar_support']['left'] < before['topbar_message']['left'] < before['topbar_phone']['left']) if header_reference_expected else True,
             'topbar_reference_colors': (before['topbar_role_colors']=={'phone':'rgb(232, 184, 74)','support':'rgb(232, 184, 74)','message':'rgb(245, 243, 240)'}) if header_reference_expected else True,
             'desktop_navigation_integrated_in_capsule': (before['stage_integrated'] is True and before['stage'] is not None and before['capsule'] is not None and before['navigation'] is not None and before['stage']['top'] <= before['capsule']['top']+2 and before['stage']['bottom'] >= before['capsule']['bottom']-2 and before['navigation']['left'] > before['logo_box']['right']-20) if header_reference_expected and not expected_mobile else True,
-            'mobile_navigation_not_duplicated': (before['stage_integrated'] is False and before['stage_display']=='none') if header_reference_expected and expected_mobile else True,
-            'upper_rows_leave_viewport': (after['topbar']['bottom'] < 2 and after['header']['bottom'] < 2) if not expected_mobile else True,
+            'mobile_navigation_not_duplicated': ((before['stage_integrated'] is False and before['stage_display']=='none') if before['header_mode']=='legacy' else before['navigation_display']=='none') if header_reference_expected and expected_mobile else True,
+            'upper_rows_leave_viewport': ((after['topbar']['bottom'] < 2 and after['header']['bottom'] < 2) if before['header_mode']=='legacy' else after['topbar']['bottom']<2) if not expected_mobile else True,
             'no_large_header_gap': before['header_to_main_gap'] is None or before['header_to_main_gap'] <= 100,
             'hero_mounted': before['hero_mounted'] is True if hero_expected else True,
             'hero_exactly_four_slides': before['hero_slide_count'] == 4 if hero_expected else True,
@@ -9121,7 +9159,8 @@ try:
         report['checks']['homepage_http'] = response.status == 200
     report['checks']['header_content'] = 'خرید عمده' in homepage and ('ALOOKHOR' in homepage or 'آلوخور' in homepage)
     report['checks']['header_scroll_asset'] = (
-        'frontend-header-scroll.css' in homepage
+        ('frontend-header-scroll.css' in homepage and 'alookhor-managed-legacy-header' in homepage)
+        or ('frontend-header.css' in homepage and 'alookhor-portal-header' in homepage)
         if version_tuple(production_version) >= version_tuple('3.10.5')
         else True
     )
@@ -9318,7 +9357,9 @@ try:
             report['public_topbar']['manager_asset_error'] = str(error)
             report['checks']['manager_contact_span'] = False
     elif version_tuple(production_version) >= version_tuple('3.8.9'):
-        report['checks']['manager_contact_span'] = False
+        # Internal shortcode renderer owns its contact markup directly and does
+        # not enqueue the Legacy compatibility manager.
+        report['checks']['manager_contact_span'] = 'alookhor-portal-header' in homepage and 'frontend-header.js' in homepage
 
     if version_tuple(production_version) >= version_tuple('3.8.7'):
         topbar_url = base + '/wp-json/alookhor-cc/v1/topbar?access_audit=' + str(int(time.time()))
@@ -9651,7 +9692,7 @@ try:
         homepage = response.read().decode(errors='replace')
     report['checks']['homepage_http'] = response.status == 200
     report['checks']['header_content'] = 'خرید عمده' in homepage and ('ALOOKHOR' in homepage or 'آلوخور' in homepage)
-    report['checks']['header_scroll_asset'] = 'frontend-header-scroll.css' in homepage
+    report['checks']['header_scroll_asset'] = (('frontend-header-scroll.css' in homepage and 'alookhor-managed-legacy-header' in homepage) or ('frontend-header.css' in homepage and 'alookhor-portal-header' in homepage))
 
     topbar_url = BASE + '/wp-json/alookhor-cc/v1/topbar?release_test=' + TARGET.replace('.', '')
     with urlopen(Request(topbar_url, headers={'Accept': 'application/json', 'Cache-Control': 'no-cache', 'User-Agent': 'ALOOKHOR-GitHub-Publisher/1.0'}), timeout=30) as response:

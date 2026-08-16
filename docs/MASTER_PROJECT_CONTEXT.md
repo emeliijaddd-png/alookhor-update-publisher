@@ -29,7 +29,7 @@ When sources disagree, the newer provable runtime/source wins. Missing source is
 - **Direct glass-capsule acceptance:** the same `.header-capsule` now renders `rgba(33,20,38,.75)` with 24px Blur, Burgundy/Card gradient, Gold border/highlights and approved control colors; Cart/Account/Logo/Hamburger geometry/order, Top Bar, Desktop Navigation, Hero underlap and zero overflow are preserved.
 - **Production:** 3.10.18 active and fully verified.
 - **Current source target:** `3.10.19` — two-row Top Bar/Main Menu reference integration prepared for test/publication; Production remains 3.10.18 until tagged deployment succeeds.
-- **3.10.19 candidate package SHA-256:** `74b7e6f45dd98143aa3897562ed412f520cfd47a7173276be1e869c87c8c0057`
+- **3.10.19 candidate package SHA-256:** `351e78e79fccf666d6f10abb659559d0c75d2c8a454ebf6ef112e65cc0c9069d`
 - **New active Header reference:** `uploads/image.png`.
 - **Final glass evidence:** `automation/318-live2/visual-desktop-before.png`, `automation/318-live2/visual-mobile-before.png`.
 - **New Header reference:** `uploads/Screenshot_۲۰۲۶-۰۸-۱۴-۰۶-۵۶-۵۲-۵۸۲_com.android.chrome-edit.jpg`.
