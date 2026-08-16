@@ -89,7 +89,7 @@
   background:linear-gradient(180deg,rgba(10,5,17,.96),rgba(10,5,17,.84) 66%,rgba(10,5,17,0));
 }
 .alookhor-nav-shell{
-  width:min(1120px,100%);
+  width:min(1360px,calc(100% - 48px));
   min-height:68px;
   margin:0 auto;
   padding:7px 17px 7px 12px;
