@@ -205,7 +205,7 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 | `plugin/alookhor-control-center/assets/css/frontend-features.css` | 29 | `8431fcf85b5903bbe2335aa017e8a0a79d0038a7ce055189fa8ebe41e49b89ed` |
 | `plugin/alookhor-control-center/assets/css/frontend-footer.css` | 26 | `f0dd733870b626c5581fc84ad2d5311bcf37374ab351cfc74ade1808ae5b1089` |
 | `plugin/alookhor-control-center/assets/css/frontend-header-scroll.css` | 96 | `16d5ac8abcfda76b8f394a5c3b5e6ee80295c3482e2d2fb0fd1792392ac2ce71` |
-| `plugin/alookhor-control-center/assets/css/frontend-header.css` | 276 | `b5e2341d2c5bb6b927f7f81253b26b671c40c2a62a9a13de643798d9dcbc0f06` |
+| `plugin/alookhor-control-center/assets/css/frontend-header.css` | 276 | `88b263401e07b34ed8a6ba0c0bf7bdd7aa79d94970c771aaadda6190335983ed` |
 | `plugin/alookhor-control-center/assets/css/frontend-hero.css` | 72 | `bde6426b31d10f1d389999f0c8ec25185d08d595dd20e06a92fcd666052dc3c9` |
 | `plugin/alookhor-control-center/assets/css/luxury.css` | 564 | `eef0550c9d8b090dbe799d9a969518207519fdb585c9701e2d897a507e669f8f` |
 | `plugin/alookhor-control-center/assets/js/admin-wp.js` | 84 | `b8ff32723f2f46dc44add19fdc441eec1c611f5229ce7e13ac8b773457be6afc` |
@@ -1641,7 +1641,7 @@ body:has(.alookhor-managed-legacy-header){padding-top:0!important}
   background:linear-gradient(180deg,rgba(10,5,17,.96),rgba(10,5,17,.84) 66%,rgba(10,5,17,0));
 }
 .alookhor-nav-shell{
-  width:min(1120px,100%);
+  width:min(1360px,calc(100% - 48px));
   min-height:68px;
   margin:0 auto;
   padding:7px 17px 7px 12px;
