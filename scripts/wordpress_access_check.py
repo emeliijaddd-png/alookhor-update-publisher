@@ -151,10 +151,11 @@ try:
     with urlopen(Request(public_url, headers={'User-Agent': 'ALOOKHOR-GitHub-Publisher/1.0'}), timeout=30) as response:
         homepage = response.read().decode(errors='replace')
         report['checks']['homepage_http'] = response.status == 200
-    report['checks']['header_content'] = 'خرید عمده' in homepage and ('ALOOKHOR' in homepage or 'آلوخور' in homepage)
+    report['checks']['header_content'] = (('خرید عمده' in homepage and ('ALOOKHOR' in homepage or 'آلوخور' in homepage)) or ('ak-topbar' in homepage and 'ak-navbar' in homepage and ('0915' in homepage or '09159513173' in homepage)))
     report['checks']['header_scroll_asset'] = (
         ('frontend-header-scroll.css' in homepage and 'alookhor-managed-legacy-header' in homepage)
         or ('frontend-header.css' in homepage and 'alookhor-portal-header' in homepage)
+        or ('ak-topbar' in homepage and 'ak-navbar' in homepage)
         if version_tuple(production_version) >= version_tuple('3.10.5')
         else True
     )
@@ -183,7 +184,7 @@ try:
     # page CSS or relying on screenshots.
     style_blocks = re.findall(r'<style[^>]*>(.*?)</style>', homepage, re.I | re.S)
     legacy_header_rules = []
-    selector_tokens = ('alookhor-topbar-wrapper', 'alookhor-header', 'header-capsule', 'header-nav-center', 'nav-menu')
+    selector_tokens = ('alookhor-topbar-wrapper', 'alookhor-header', 'header-capsule', 'header-nav-center', 'nav-menu', 'ak-topbar', 'ak-navbar')
     for block in style_blocks:
         for selector, declarations in re.findall(r'([^{}]+)\{([^{}]*)\}', block):
             clean_selector = re.sub(r'\s+', ' ', selector).strip()
@@ -192,13 +193,18 @@ try:
                     'selector': clean_selector[:500],
                     'declarations': re.sub(r'\s+', ' ', declarations).strip()[:1400],
                 })
-    topbar_index = homepage.find('alookhor-topbar-wrapper')
+    topbar_markers=['alookhor-topbar-wrapper','alookhor-portal-header','ak-topbar-wrapper','ak-topbar']
+    topbar_positions=[(homepage.find(marker),marker) for marker in topbar_markers if homepage.find(marker)>=0]
+    topbar_index,topbar_provider=min(topbar_positions,key=lambda item:item[0]) if topbar_positions else (-1,None)
     topbar_fragment = ''
     if topbar_index >= 0:
-        fragment_start = homepage.rfind('<', 0, topbar_index)
-        topbar_fragment = re.sub(r'\s+', ' ', homepage[max(0, fragment_start):topbar_index + 20000]).strip()
+        fragment_start = homepage.rfind('<div', 0, topbar_index)
+        topbar_fragment = re.sub(r'\s+', ' ', homepage[max(0, fragment_start):topbar_index + 26000]).strip()
     report['public_topbar'] = {
+        'provider':topbar_provider,
         'managed_wrapper': 'alookhor-managed-legacy-header' in homepage,
+        'portal_wrapper':'alookhor-portal-header' in homepage,
+        'ak_wrapper':'ak-topbar' in homepage and 'ak-navbar' in homepage,
         'manager_script': 'frontend-topbar-manager.js' in homepage,
         'localized': localized,
         'relevant_classes': class_names[:100],
@@ -353,7 +359,7 @@ try:
     elif version_tuple(production_version) >= version_tuple('3.8.9'):
         # Internal shortcode renderer owns its contact markup directly and does
         # not enqueue the Legacy compatibility manager.
-        report['checks']['manager_contact_span'] = 'alookhor-portal-header' in homepage and 'frontend-header.js' in homepage
+        report['checks']['manager_contact_span'] = (('alookhor-portal-header' in homepage and 'frontend-header.js' in homepage) or ('ak-topbar' in homepage and 'ak-navbar' in homepage))
 
     if version_tuple(production_version) >= version_tuple('3.8.7'):
         topbar_url = base + '/wp-json/alookhor-cc/v1/topbar?access_audit=' + str(int(time.time()))
