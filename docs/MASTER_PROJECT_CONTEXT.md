@@ -21,14 +21,14 @@ When sources disagree, the newer provable runtime/source wins. Missing source is
 
 ## Authoritative current state
 
-- **Production runtime:** ALOOKHOR Control Center `3.10.18`
-- **Current Production tag/source:** `v3.10.18` / `5e7d33a4a90f33f0e79a63a9a0f3a6e26dcdee7f`
-- **Published package SHA-256:** `28fe044652db8ec0d359c6521fd555599dd70d53eac2b0503f9b476f771f4021`
-- **Deployment run:** `31820525729` — ZIP/SHA, Manifest, native WordPress and exact capsule palette endpoint checks all passed.
+- **Production runtime:** ALOOKHOR Control Center `3.10.19`
+- **Current Production tag/source:** `v3.10.19` / `bcda6ed2c40b433c5d2d7e2e610e510662fc24ce`
+- **Published package SHA-256:** `22d2c15dac32a69774051a9df6a6968801c3e56c20518bf7c2c88a57971a7541`
+- **Deployment run:** `31960744041` — publication, Manifest, native WordPress update and runtime checks passed.
 - **Final rendered Chrome audit:** `31820882559` on 3.10.18 — WordPress, Desktop and Mobile passed every Header/Hero/Site-Features check; no failed checks.
 - **Direct glass-capsule acceptance:** the same `.header-capsule` now renders `rgba(33,20,38,.75)` with 24px Blur, Burgundy/Card gradient, Gold border/highlights and approved control colors; Cart/Account/Logo/Hamburger geometry/order, Top Bar, Desktop Navigation, Hero underlap and zero overflow are preserved.
-- **Production:** 3.10.18 active and fully verified.
-- **Current source target:** `3.10.19` — two-row Top Bar/Main Menu reference integration prepared for test/publication; Production remains 3.10.18 until tagged deployment succeeds.
+- **Production:** 3.10.19 active; final rendered verification pending.
+- **Current source target:** `3.10.19` — deployed; final rendered verification pending.
 - **3.10.19 candidate package SHA-256:** `22d2c15dac32a69774051a9df6a6968801c3e56c20518bf7c2c88a57971a7541`
 - **New active Header reference:** `uploads/image.png`.
 - **Final glass evidence:** `automation/318-live2/visual-desktop-before.png`, `automation/318-live2/visual-mobile-before.png`.
