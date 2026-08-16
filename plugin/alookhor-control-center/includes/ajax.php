@@ -50,14 +50,14 @@ function alookhor_ajax_save_settings(){
         if (!is_array($header_current)) $header_current = [];
         $header = $payload['header_settings'];
         foreach ([
-            'topbar_bg' => '#11091D',
-            'topbar_text_color' => '#E8D5B5',
-            'topbar_border_color' => '#3A2C20',
-            'topbar_button_bg' => '#C9A86A',
-            'topbar_button_text' => '#1A1206',
-            'header_surface' => '#0D0916',
-            'header_text_color' => '#F7F2EA',
-            'header_muted_color' => '#B8B0BD',
+            'topbar_bg' => '#1C1024',
+            'topbar_text_color' => '#F5F3F0',
+            'topbar_border_color' => '#D49A2E',
+            'topbar_button_bg' => '#D49A2E',
+            'topbar_button_text' => '#0D0510',
+            'header_surface' => '#0D0510',
+            'header_text_color' => '#F5F3F0',
+            'header_muted_color' => '#C8C2C9',
             'capsule_background' => '#0D0510',
             'capsule_card' => '#1C1024',
             'capsule_gold' => '#D49A2E',
@@ -324,9 +324,9 @@ function alookhor_ajax_save_header_wp(){
     $data['logo_letter'] = sanitize_text_field(wp_unslash($_POST['logo_letter'] ?? ($current['logo_letter'] ?? 'A')));
     $data['search_placeholder'] = sanitize_text_field(wp_unslash($_POST['search_placeholder'] ?? ($current['search_placeholder'] ?? 'جستجوی محصول…')));
     if (isset($_POST['gold'])) {
-        $data['gold'] = sanitize_hex_color(wp_unslash($_POST['gold'])) ?: ($current['gold'] ?? '#C9A86A');
+        $data['gold'] = sanitize_hex_color(wp_unslash($_POST['gold'])) ?: ($current['gold'] ?? '#D49A2E');
     } elseif (empty($data['gold'])) {
-        $data['gold'] = '#C9A86A';
+        $data['gold'] = '#D49A2E';
     }
 
     $data['phone'] = sanitize_text_field(wp_unslash($_POST['phone'] ?? ($current['phone'] ?? '')));
@@ -340,14 +340,14 @@ function alookhor_ajax_save_header_wp(){
     $data['top_logo_alt'] = sanitize_text_field(wp_unslash($_POST['top_logo_alt'] ?? ($current['top_logo_alt'] ?? get_bloginfo('name'))));
     $data['top_logo_link'] = esc_url_raw(wp_unslash($_POST['top_logo_link'] ?? ($current['top_logo_link'] ?? home_url('/'))));
     foreach ([
-        'topbar_bg' => '#11091D',
-        'topbar_text_color' => '#E8D5B5',
-        'topbar_border_color' => '#3A2C20',
-        'topbar_button_bg' => '#C9A86A',
-        'topbar_button_text' => '#1A1206',
-        'header_surface' => '#0D0916',
-        'header_text_color' => '#F7F2EA',
-        'header_muted_color' => '#B8B0BD',
+        'topbar_bg' => '#1C1024',
+        'topbar_text_color' => '#F5F3F0',
+        'topbar_border_color' => '#D49A2E',
+        'topbar_button_bg' => '#D49A2E',
+        'topbar_button_text' => '#0D0510',
+        'header_surface' => '#0D0510',
+        'header_text_color' => '#F5F3F0',
+        'header_muted_color' => '#C8C2C9',
         'capsule_background' => '#0D0510',
         'capsule_card' => '#1C1024',
         'capsule_gold' => '#D49A2E',

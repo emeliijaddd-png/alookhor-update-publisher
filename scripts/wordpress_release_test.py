@@ -121,6 +121,9 @@ try:
             and layout_migration.get('search_removed') is True
             and layout_migration.get('mobile_extra_stage_removed') is True
         )
+    if tuple(map(int,TARGET.split('.'))) >= (3,10,19):
+        reference_migration=after.get('settings',{}).get('header_reference_migration')
+        report['checks']['header_reference_migration']=(isinstance(reference_migration,dict) and reference_migration.get('ok') is True and str(reference_migration.get('version'))=='3.10.19' and bool(reference_migration.get('before_hash')) and bool(reference_migration.get('after_hash')))
     if current != TARGET:
         restore = after.get('last_activation_restore') or after.get('transition_activation_restore')
         report['checks']['activation_restore'] = isinstance(restore, dict) and (
@@ -129,7 +132,11 @@ try:
 
     before_header_hash = before.get('header_option_hash') or before.get('settings', {}).get('header_option_hash')
     after_header_hash = after.get('settings', {}).get('header_option_hash')
-    if tuple(map(int, TARGET.split('.'))) >= (3, 10, 6):
+    if tuple(map(int,TARGET.split('.'))) >= (3,10,19):
+        migration=after.get('settings',{}).get('header_reference_migration')
+        expected_fields={'gold','topbar_bg','topbar_text_color','topbar_border_color','topbar_button_bg','topbar_button_text','header_surface','header_text_color','header_muted_color','capsule_background','capsule_card','capsule_glass','capsule_gold','capsule_gold_light','capsule_text','capsule_muted','capsule_blur'}
+        report['checks']['header_settings_preserved']=(isinstance(migration,dict) and migration.get('ok') is True and str(migration.get('version'))=='3.10.19' and set(migration.get('fields',[]))==expected_fields and bool(migration.get('before_hash')) and bool(migration.get('after_hash')) and ((before_header_hash!=after_header_hash) if tuple(map(int,current.split('.'))) < (3,10,19) else (before_header_hash==after_header_hash)))
+    elif tuple(map(int, TARGET.split('.'))) >= (3, 10, 6):
         migration = after.get('settings', {}).get('header_brand_migration')
         expected_fields = {'phone','gold','topbar_bg','topbar_text_color','topbar_border_color','topbar_button_bg','topbar_button_text','header_surface','header_text_color','header_muted_color','header_logo_desktop_width','header_logo_mobile_width','sticky','show_search','search_placeholder'}
         report['checks']['header_settings_preserved'] = (
@@ -177,7 +184,9 @@ try:
             and topbar.get('capsule_gold_light')=='#E8B84A' and topbar.get('capsule_text')=='#F5F3F0'
             and topbar.get('capsule_muted')=='#C8C2C9' and int(topbar.get('capsule_blur',0))==24
         )
-    if tuple(map(int, TARGET.split('.'))) >= (3, 10, 6):
+    if tuple(map(int,TARGET.split('.'))) >= (3,10,19):
+        report['checks']['header_brand_palette']=(topbar.get('phone')=='09159513173' and topbar.get('gold')=='#D49A2E' and topbar.get('topbar_bg')=='#1C1024' and topbar.get('topbar_text_color')=='#F5F3F0' and topbar.get('topbar_border_color')=='#D49A2E' and topbar.get('topbar_button_bg')=='#D49A2E' and topbar.get('topbar_button_text')=='#0D0510' and topbar.get('header_surface')=='#0D0510' and topbar.get('header_text_color')=='#F5F3F0' and topbar.get('header_muted_color')=='#C8C2C9' and topbar.get('sticky') is True and topbar.get('show_search') is False)
+    elif tuple(map(int, TARGET.split('.'))) >= (3, 10, 6):
         report['checks']['header_brand_palette'] = (
             topbar.get('phone') == '09159513173'
             and topbar.get('gold') == '#C9A86A'

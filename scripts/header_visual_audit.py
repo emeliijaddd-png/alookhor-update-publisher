@@ -17,6 +17,8 @@ const one=s=>document.querySelector(s), all=s=>[...document.querySelectorAll(s)]
 const rect=e=>e?Object.fromEntries(['top','right','bottom','left','width','height'].map(k=>[k,Math.round(e.getBoundingClientRect()[k]*10)/10])):null;
 const visible=e=>!!e&&getComputedStyle(e).display!=='none'&&getComputedStyle(e).visibility!=='hidden'&&e.getBoundingClientRect().height>0;
 const root=one('.alookhor-managed-legacy-header'),topbar=one('.alookhor-topbar-wrapper'),header=one('.alookhor-header'),stage=one('.alookhor-legacy-nav-stage'),capsule=one('.header-capsule');
+const navigation=one('.alookhor-legacy-nav-stage .header-nav-center'),navShell=one('.alookhor-legacy-nav-shell'),logoBox=one('.header-capsule-logo');
+const topbarPhone=one('.alookhor-managed-phone'),topbarSupport=one('.alookhor-topbar-support'),topbarMessage=one('.topbar-export-badge');
 const hero=one('#alookhor-managed-hero'),heroShell=hero?.querySelector('.alookhor-mh-shell'),heroContent=hero?.querySelector('.alookhor-mh-slide.is-active .alookhor-mh-content'),heroImage=hero?.querySelector('.alookhor-mh-slide.is-active img');
 const features=one('#alookhor-managed-features'),featureGrid=features?.querySelector('.alookhor-sf-grid'),featureCards=features?all('#alookhor-managed-features .alookhor-sf-card'):[];
 const main=one('#main-content')||one('.main-page-wrapper')||one('main');
@@ -24,7 +26,11 @@ const visibleBottom=[topbar,header,stage].filter(visible).map(e=>e.getBoundingCl
 const footprintBottom=visibleBottom.length?Math.max(...visibleBottom):0;
 return {
   viewport:{width:innerWidth,height:innerHeight,dpr:devicePixelRatio},runtime_version:String(window.ALOOKHOR_TOPBAR?.version||''),
-  root:!!root,topbar:rect(topbar),header:rect(header),stage:rect(stage),capsule:rect(capsule),main:rect(main),logo:rect(one('.header-capsule-logo img')),
+  root:!!root,topbar:rect(topbar),header:rect(header),stage:rect(stage),capsule:rect(capsule),main:rect(main),logo:rect(one('.header-capsule-logo img')),logo_box:rect(logoBox),
+  navigation:rect(navigation),nav_shell:rect(navShell),stage_integrated:stage?.classList.contains('is-capsule-integrated')||false,
+  topbar_phone:rect(topbarPhone),topbar_support:rect(topbarSupport),topbar_message:rect(topbarMessage),
+  topbar_style:topbar?{background_color:getComputedStyle(topbar).backgroundColor,background_image:getComputedStyle(topbar).backgroundImage,backdrop_filter:getComputedStyle(topbar).backdropFilter||getComputedStyle(topbar).webkitBackdropFilter,border_color:getComputedStyle(topbar).borderBottomColor}:null,
+  topbar_role_colors:{phone:topbarPhone?getComputedStyle(topbarPhone).color:null,support:topbarSupport?getComputedStyle(topbarSupport).color:null,message:topbarMessage?getComputedStyle(topbarMessage).color:null},
   capsule_style:capsule?{background_color:getComputedStyle(capsule).backgroundColor,background_image:getComputedStyle(capsule).backgroundImage,backdrop_filter:getComputedStyle(capsule).backdropFilter||getComputedStyle(capsule).webkitBackdropFilter,border_color:getComputedStyle(capsule).borderColor,box_shadow:getComputedStyle(capsule).boxShadow}:null,
   capsule_palette:root?Object.fromEntries(['--alookhor-capsule-background','--alookhor-capsule-card','--alookhor-capsule-glass','--alookhor-capsule-gold','--alookhor-capsule-gold-light','--alookhor-capsule-text','--alookhor-capsule-muted','--alookhor-capsule-blur'].map(k=>[k,getComputedStyle(root).getPropertyValue(k).trim()])):{},
   capsule_control_colors:{menu:one('.header-capsule .alookhor-main-menu-toggle')?getComputedStyle(one('.header-capsule .alookhor-main-menu-toggle')).color:null,account:one('.header-capsule .header-login-btn svg')?getComputedStyle(one('.header-capsule .header-login-btn svg')).color:null,cart:one('.header-capsule .alookhor-header-cart-link')?getComputedStyle(one('.header-capsule .alookhor-header-cart-link')).color:null},
@@ -78,6 +84,7 @@ def audit(width: int, height: int, label: str) -> dict:
         feature_expected = runtime_parts >= (3, 10, 16)
         feature_proximity_expected = runtime_parts >= (3, 10, 17)
         capsule_glass_expected = runtime_parts >= (3, 10, 18)
+        header_reference_expected = runtime_parts >= (3, 10, 19)
         if hero_expected:
             WebDriverWait(driver, 40).until(lambda d: d.execute_script("return document.querySelector('#alookhor-managed-hero')?.dataset.mounted==='1' && document.querySelectorAll('#alookhor-managed-hero .alookhor-mh-slide').length===4"))
         if feature_expected:
@@ -116,6 +123,11 @@ def audit(width: int, height: int, label: str) -> dict:
             'capsule_glass_palette_exact': (before['capsule_palette']=={'--alookhor-capsule-background':'#0D0510','--alookhor-capsule-card':'#1C1024','--alookhor-capsule-glass':'rgba(33,20,38,.75)','--alookhor-capsule-gold':'#D49A2E','--alookhor-capsule-gold-light':'#E8B84A','--alookhor-capsule-text':'#F5F3F0','--alookhor-capsule-muted':'#C8C2C9','--alookhor-capsule-blur':'24px'}) if capsule_glass_expected else True,
             'capsule_glass_rendered': (before['capsule_style'] is not None and before['capsule_style']['background_color']=='rgba(33, 20, 38, 0.75)' and before['capsule_style']['background_image']!='none' and 'blur(24px)' in before['capsule_style']['backdrop_filter']) if capsule_glass_expected else True,
             'capsule_control_palette': (before['capsule_control_colors']=={'menu':'rgb(212, 154, 46)','account':'rgb(245, 243, 240)','cart':'rgb(245, 243, 240)'}) if capsule_glass_expected else True,
+            'topbar_reference_glass': (before['topbar_style'] is not None and before['topbar_style']['background_image']!='none' and 'blur(18px)' in before['topbar_style']['backdrop_filter']) if header_reference_expected else True,
+            'topbar_reference_order': (before['topbar_support'] is not None and before['topbar_message'] is not None and before['topbar_phone'] is not None and before['topbar_support']['left'] < before['topbar_message']['left'] < before['topbar_phone']['left']) if header_reference_expected else True,
+            'topbar_reference_colors': (before['topbar_role_colors']=={'phone':'rgb(232, 184, 74)','support':'rgb(232, 184, 74)','message':'rgb(245, 243, 240)'}) if header_reference_expected else True,
+            'desktop_navigation_integrated_in_capsule': (before['stage_integrated'] is True and before['stage'] is not None and before['capsule'] is not None and before['navigation'] is not None and before['stage']['top'] <= before['capsule']['top']+2 and before['stage']['bottom'] >= before['capsule']['bottom']-2 and before['navigation']['left'] > before['logo_box']['right']-20) if header_reference_expected and not expected_mobile else True,
+            'mobile_navigation_not_duplicated': (before['stage_integrated'] is False and before['stage_display']=='none') if header_reference_expected and expected_mobile else True,
             'upper_rows_leave_viewport': (after['topbar']['bottom'] < 2 and after['header']['bottom'] < 2) if not expected_mobile else True,
             'no_large_header_gap': before['header_to_main_gap'] is None or before['header_to_main_gap'] <= 100,
             'hero_mounted': before['hero_mounted'] is True if hero_expected else True,

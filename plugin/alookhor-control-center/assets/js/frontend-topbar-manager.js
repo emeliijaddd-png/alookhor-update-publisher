@@ -1,5 +1,5 @@
 /**
- * ALOOKHOR Legacy Top Bar Manager — v3.10.18
+ * ALOOKHOR Legacy Top Bar Manager — v3.10.19
  * Preserves the legacy header/mega-menu HTML and synchronizes managed Top Bar
  * values from a fresh read-only REST endpoint, even when the page HTML is cached.
  */
@@ -118,7 +118,7 @@
     if (topbarContainer && !topbarContainer.querySelector('.alookhor-topbar-support')) {
       const support = document.createElement('span');
       support.className = 'alookhor-topbar-support';
-      support.innerHTML = '<span aria-hidden="true">◉</span><b>پشتیبانی ۲۴/۷</b>';
+      support.innerHTML = '<svg class="alookhor-topbar-support-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 14v-2a8 8 0 0 1 16 0v2M4 14h3v6H4zM17 14h3v6h-3zM17 20c-1 2-3 3-6 3"/></svg><b>پشتیبانی ۲۴/۷</b>';
       topbarContainer.append(support);
     }
 
@@ -154,8 +154,13 @@
 
       let stageTop = 0;
       let ticking = false;
+      const syncIntegrated = () => stage.classList.toggle('is-capsule-integrated', window.innerWidth >= 1024);
       const measure = () => {
-        stageTop = marker.getBoundingClientRect().top + window.scrollY;
+        syncIntegrated();
+        const integratedOffset = stage.classList.contains('is-capsule-integrated')
+          ? (parseFloat(getComputedStyle(stage).getPropertyValue('--alookhor-integrated-nav-offset')) || 90)
+          : 0;
+        stageTop = marker.getBoundingClientRect().top + window.scrollY - integratedOffset;
       };
       const update = () => {
         ticking = false;
@@ -163,7 +168,10 @@
         const adminOffset = document.body.classList.contains('admin-bar') ? (window.innerWidth <= 782 ? 46 : 32) : 0;
         const shouldStick = desktop && stage.classList.contains('is-enabled') && window.scrollY + adminOffset >= stageTop - 1;
         if (shouldStick !== stage.classList.contains('is-stuck')) {
-          marker.style.setProperty('height', shouldStick ? `${stage.offsetHeight}px` : '0px', 'important');
+          // The integrated stage has zero net normal-flow footprint (90px stage
+          // plus -90px margin), so its sticky marker must remain zero as well.
+          const markerHeight = shouldStick && !stage.classList.contains('is-capsule-integrated') ? `${stage.offsetHeight}px` : '0px';
+          marker.style.setProperty('height', markerHeight, 'important');
           stage.classList.toggle('is-stuck', shouldStick);
         }
       };
@@ -178,6 +186,7 @@
       window.requestAnimationFrame(() => { measure(); update(); });
     }
 
+    stage.classList.toggle('is-capsule-integrated', window.innerWidth >= 1024);
     stage.classList.toggle('is-enabled', asBool(cfg.sticky));
     if (!asBool(cfg.sticky) || window.innerWidth < 1024) {
       stage.classList.remove('is-stuck');
@@ -207,7 +216,7 @@
   }
 
   function manage(root, force = false) {
-    if (!root || (!force && root.dataset.topbarManaged === '3.10.18')) return;
+    if (!root || (!force && root.dataset.topbarManaged === '3.10.19')) return;
 
     const contactTexts = [...root.querySelectorAll('.topbar-contact-txt,[class*="contact-txt" i]')];
     const phone = root.querySelector('a[href^="tel:"]') || contactTexts.find(element => {
@@ -289,9 +298,10 @@
 
     if (topbar) {
       setVisible(topbar, asBool(cfg.show_topbar));
-      const color = cfg.topbar_text_color || '#E8D5B5';
-      const background = cfg.topbar_bg || '#11091D';
-      const border = cfg.topbar_border_color || '#3A2C20';
+      const color = cfg.topbar_text_color || '#F5F3F0';
+      const background = cfg.topbar_bg || '#1C1024';
+      const border = cfg.topbar_border_color || '#D49A2E';
+      const glassBackground = `color-mix(in srgb, ${background} 78%, transparent)`;
       const height = window.innerWidth <= 767 ? 34 : Math.max(30, Math.min(60, Number(cfg.topbar_height) || 38));
       const layers = explicitCandidates.filter(element => {
         const score = candidateScore(element);
@@ -302,7 +312,9 @@
         element.style.setProperty('--alookhor-topbar-bg', background);
         element.style.setProperty('--alookhor-topbar-text', color);
         element.style.setProperty('--alookhor-topbar-border', border);
-        element.style.setProperty('background', background, 'important');
+        const innerLayer = element !== topbar && topbar.contains(element);
+        element.style.setProperty('background-color', innerLayer ? 'transparent' : glassBackground, 'important');
+        element.style.setProperty('background-image', innerLayer ? 'none' : `linear-gradient(90deg, color-mix(in srgb, ${cfg.capsule_card || '#1C1024'} 86%, transparent), color-mix(in srgb, ${cfg.capsule_glass || 'rgba(33,20,38,.75)'} 82%, transparent), color-mix(in srgb, ${cfg.capsule_card || '#1C1024'} 86%, transparent))`, 'important');
         element.style.setProperty('color', color, 'important');
         element.style.setProperty('border-bottom-color', border, 'important');
         element.style.setProperty('min-height', `${height}px`, 'important');
@@ -312,6 +324,16 @@
         if (wholesale && (element === wholesale || wholesale.contains(element))) return;
         element.style.setProperty('color', color, 'important');
       });
+      [phone, topbar.querySelector('.alookhor-topbar-support')].filter(Boolean).forEach(item => {
+        const accent = cfg.capsule_gold_light || '#E8B84A';
+        item.style.setProperty('color', accent, 'important');
+        item.querySelectorAll?.('a,span,b,strong,i').forEach(node => node.style.setProperty('color', accent, 'important'));
+      });
+      if (exportNote) {
+        const messageColor = cfg.capsule_text || '#F5F3F0';
+        exportNote.style.setProperty('color', messageColor, 'important');
+        exportNote.querySelectorAll?.('a,span,b,strong,i').forEach(node => node.style.setProperty('color', messageColor, 'important'));
+      }
       topbar.style.setProperty('visibility', 'visible', 'important');
       topbar.style.setProperty('opacity', '1', 'important');
     }
@@ -333,8 +355,8 @@
     }
 
     setupHeaderBehavior(root);
-    root.dataset.topbarManaged = '3.10.18';
-    root.dispatchEvent(new CustomEvent('alookhor:topbar-managed', {bubbles:true, detail:{version:'3.10.18'}}));
+    root.dataset.topbarManaged = '3.10.19';
+    root.dispatchEvent(new CustomEvent('alookhor:topbar-managed', {bubbles:true, detail:{version:'3.10.19'}}));
   }
 
   function init(scope = document, force = false) {

@@ -127,6 +127,9 @@ try:
             and layout_migration.get('search_removed') is True
             and layout_migration.get('mobile_extra_stage_removed') is True
         )
+    if production_parts >= (3, 10, 19):
+        reference_migration=settings.get('header_reference_migration')
+        report['checks']['header_reference_migration']=(isinstance(reference_migration,dict) and reference_migration.get('ok') is True and str(reference_migration.get('version'))=='3.10.19' and bool(reference_migration.get('before_hash')) and bool(reference_migration.get('after_hash')))
     if production_parts >= (3, 10, 13):
         report['checks']['hero_runtime'] = (
             settings.get('hero_shortcode') is True
@@ -375,7 +378,9 @@ try:
                 )
             )
             report['checks']['topbar_no_store'] = 'no-store' in cache_control.lower()
-            if version_tuple(production_version) >= version_tuple('3.10.6'):
+            if version_tuple(production_version)>=version_tuple('3.10.19'):
+                report['checks']['header_brand_palette']=(topbar_state.get('phone')=='09159513173' and topbar_state.get('gold')=='#D49A2E' and topbar_state.get('topbar_bg')=='#1C1024' and topbar_state.get('topbar_text_color')=='#F5F3F0' and topbar_state.get('topbar_border_color')=='#D49A2E' and topbar_state.get('topbar_button_bg')=='#D49A2E' and topbar_state.get('topbar_button_text')=='#0D0510' and topbar_state.get('header_surface')=='#0D0510' and topbar_state.get('header_text_color')=='#F5F3F0' and topbar_state.get('header_muted_color')=='#C8C2C9' and topbar_state.get('sticky') is True and topbar_state.get('show_search') is False)
+            elif version_tuple(production_version) >= version_tuple('3.10.6'):
                 report['checks']['header_brand_palette'] = (
                     topbar_state.get('phone') == '09159513173'
                     and topbar_state.get('gold') == '#C9A86A'

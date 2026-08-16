@@ -1,5 +1,15 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.19 — 2026-08-16 — Two-Row Header Reference Match
+- TOP BAR: Burgundy glass surface, 18px Blur, subtle Gold separators and physical order Support (left), shipping/export message (center), Phone (right).
+- ICON: support dot replaced by a scoped headset SVG while existing Phone/Globe content remains dynamic.
+- NAVIGATION: the single real WordPress `.header-nav-center` remains inside its existing Stage; at page start the Stage overlays the second capsule without a clone, and at its measured threshold becomes the existing fixed Sticky rail.
+- CAPSULE: Desktop width expands to 1360px, Logo shifts left, WordPress menu occupies the right section, and original Cart/Account/Hamburger nodes remain clickable.
+- FLOW: integrated Stage uses a 90px relative offset plus -90px margin and a zero sticky marker, preventing duplicate footprint/Layout Shift.
+- MOBILE: Stage remains hidden; only Top Bar and Main Capsule render, preserving Cart/Account/Logo/Hamburger order and Hero underlap.
+- PALETTE: one-time recorded migration updates only Header palette fields to `#0D0510`, `#1C1024`, `rgba(33,20,38,.75)`, `#D49A2E`, `#E8B84A`, `#F5F3F0`, `#C8C2C9`.
+- VERIFY: Access/Release/Chrome audits enforce migration, exact REST state, Top Bar glass/order/colors, integrated Desktop Navigation, Sticky behavior, Mobile no-duplicate law and zero overflow.
+
 ## v3.10.18 — 2026-08-14 — Managed Burgundy Glass Header Capsule
 - DISCOVERY: Production `.header-capsule` already uses Legacy glass rules (`rgba(15,10,25,.45/.75)` with 25px/15px Blur), while the bridge previously controlled its geometry but not its dedicated palette.
 - SCOPE: only the existing second Main Header capsule is restyled; Top Bar, Desktop sticky Navigation, Cart/Account/Logo/Hamburger nodes, IDs, order and Header geometry remain unchanged.

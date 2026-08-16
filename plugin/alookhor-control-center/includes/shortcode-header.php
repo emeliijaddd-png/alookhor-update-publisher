@@ -19,10 +19,10 @@ function alookhor_cc_front_header_settings(){
         'logo_text'       => $site['header_settings']['logo_text'] ?? $site['site']['name'] ?? 'ALOOKHOR',
         'logo_sub'        => $site['header_settings']['logo_sub'] ?? $site['site']['subtitle'] ?? 'آلوخور؛ طعم اصیل خراسان',
         'logo_letter'     => $site['site']['logoLetter'] ?? 'A',
-        'gold'            => $site['site']['goldAccent'] ?? '#C9A86A',
-        'header_surface'  => '#0D0916',
-        'header_text_color' => '#F7F2EA',
-        'header_muted_color' => '#B8B0BD',
+        'gold'            => $site['site']['goldAccent'] ?? '#D49A2E',
+        'header_surface'  => '#0D0510',
+        'header_text_color' => '#F5F3F0',
+        'header_muted_color' => '#C8C2C9',
         'capsule_background' => '#0D0510',
         'capsule_card' => '#1C1024',
         'capsule_glass' => 'rgba(33,20,38,.75)',
@@ -55,11 +55,11 @@ function alookhor_cc_front_header_settings(){
         'top_logo_url'    => '',
         'top_logo_alt'    => get_bloginfo('name'),
         'top_logo_link'   => home_url('/'),
-        'topbar_bg'       => '#11091D',
-        'topbar_text_color' => '#E8D5B5',
-        'topbar_border_color' => '#3A2C20',
-        'topbar_button_bg' => '#C9A86A',
-        'topbar_button_text' => '#1A1206',
+        'topbar_bg'       => '#1C1024',
+        'topbar_text_color' => '#F5F3F0',
+        'topbar_border_color' => '#D49A2E',
+        'topbar_button_bg' => '#D49A2E',
+        'topbar_button_text' => '#0D0510',
         'topbar_height'   => 38,
         'top_logo_width'  => 96,
         'account_text'    => 'ورود / ثبت‌نام',
@@ -175,11 +175,11 @@ function alookhor_cc_render_portal_header($atts = []){
     $wholesale_target = rest_sanitize_boolean($settings['wholesale_new_tab']) ? '_blank' : '_self';
     $topbar_height = max(30, min(60, absint($settings['topbar_height'])));
     $top_logo_width = max(50, min(180, absint($settings['top_logo_width'])));
-    $topbar_bg = sanitize_hex_color($settings['topbar_bg']) ?: '#11091D';
-    $topbar_text = sanitize_hex_color($settings['topbar_text_color']) ?: '#E8D5B5';
-    $topbar_border = sanitize_hex_color($settings['topbar_border_color']) ?: '#3A2C20';
-    $topbar_button_bg = sanitize_hex_color($settings['topbar_button_bg']) ?: '#C9A86A';
-    $topbar_button_text = sanitize_hex_color($settings['topbar_button_text']) ?: '#1A1206';
+    $topbar_bg = sanitize_hex_color($settings['topbar_bg']) ?: '#1C1024';
+    $topbar_text = sanitize_hex_color($settings['topbar_text_color']) ?: '#F5F3F0';
+    $topbar_border = sanitize_hex_color($settings['topbar_border_color']) ?: '#D49A2E';
+    $topbar_button_bg = sanitize_hex_color($settings['topbar_button_bg']) ?: '#D49A2E';
+    $topbar_button_text = sanitize_hex_color($settings['topbar_button_text']) ?: '#0D0510';
 
     ob_start();
     ?>
@@ -328,7 +328,7 @@ function alookhor_cc_render_managed_legacy_header($atts = [], $content = null, $
 
     $html = call_user_func($provider, $atts, $content, $tag ?: 'alookhor_portal_header');
     if (!is_string($html)) $html = '';
-    return '<div class="alookhor-managed-legacy-header" data-alookhor-managed="3.10.18" style="display:contents">' . $html . '</div>';
+    return '<div class="alookhor-managed-legacy-header" data-alookhor-managed="3.10.19" style="display:contents">' . $html . '</div>';
 }
 
 /**

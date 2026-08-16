@@ -3,7 +3,7 @@
  * Plugin Name: ALOOKHOR Control Center
  * Plugin URI: https://alookhor.ir
  * Description: کنترل سنتر لوکس و ماژولار آلوخور — مدیریت کامل سایت (هدر، اسلایدر، سورت، محصولات، مشتریان VIP، مالی، آنالیتیکس) با آپدیت آنی بدون رفرش. تمام تنظیمات چت قبلی + شورت‌کد [alookhor_portal_header] اینجا مدیریت می‌شود.
- * Version: 3.10.18
+ * Version: 3.10.19
  * Author: ALOOKHOR Team — Luxury Modular
  * Author URI: https://alookhor.ir
  * Update URI: https://alookhor.ir/alookhor-control-center
@@ -16,8 +16,8 @@
 
 if (!defined('ABSPATH')) exit;
 
-define('ALOOKHOR_CC_VERSION', '3.10.18');
-define('ALOOKHOR_CC_BUILD', '3.10.18');
+define('ALOOKHOR_CC_VERSION', '3.10.19');
+define('ALOOKHOR_CC_BUILD', '3.10.19');
 define('ALOOKHOR_CC_FILE', __FILE__);
 define('ALOOKHOR_CC_DIR', plugin_dir_path(__FILE__));
 define('ALOOKHOR_CC_URL', plugin_dir_url(__FILE__));
@@ -207,10 +207,10 @@ function alookhor_cc_get_header_settings(){
         'logo_text' => $s['header_settings']['logo_text'] ?? $s['site']['name'] ?? 'ALOOKHOR',
         'logo_sub' => $s['header_settings']['logo_sub'] ?? $s['site']['subtitle'] ?? 'آلوخور؛ طعم اصیل خراسان',
         'logo_letter' => $s['site']['logoLetter'] ?? 'A',
-        'gold' => $s['site']['goldAccent'] ?? '#C9A86A',
-        'header_surface' => '#0D0916',
-        'header_text_color' => '#F7F2EA',
-        'header_muted_color' => '#B8B0BD',
+        'gold' => $s['site']['goldAccent'] ?? '#D49A2E',
+        'header_surface' => '#0D0510',
+        'header_text_color' => '#F5F3F0',
+        'header_muted_color' => '#C8C2C9',
         'capsule_background' => '#0D0510',
         'capsule_card' => '#1C1024',
         'capsule_glass' => 'rgba(33,20,38,.75)',
@@ -243,11 +243,11 @@ function alookhor_cc_get_header_settings(){
         'top_logo_url' => '',
         'top_logo_alt' => get_bloginfo('name'),
         'top_logo_link' => home_url('/'),
-        'topbar_bg' => '#11091D',
-        'topbar_text_color' => '#E8D5B5',
-        'topbar_border_color' => '#3A2C20',
-        'topbar_button_bg' => '#C9A86A',
-        'topbar_button_text' => '#1A1206',
+        'topbar_bg' => '#1C1024',
+        'topbar_text_color' => '#F5F3F0',
+        'topbar_border_color' => '#D49A2E',
+        'topbar_button_bg' => '#D49A2E',
+        'topbar_button_text' => '#0D0510',
         'topbar_height' => 38,
         'top_logo_width' => 96,
         'account_text' => 'ورود / ثبت‌نام',
@@ -326,3 +326,30 @@ function alookhor_cc_migrate_header_layout_3107(){
     update_option(ALOOKHOR_CC_OPTION, $main);
 }
 add_action('init', 'alookhor_cc_migrate_header_layout_3107', 121);
+
+/**
+ * One-time 3.10.19 owner-approved Header reference migration. Only palette
+ * fields belonging to Top Bar, the second capsule and sticky Navigation are
+ * updated; phone, logo, menu IDs, visibility and every unrelated option remain.
+ */
+function alookhor_cc_migrate_header_reference_31019(){
+    $main=get_option(ALOOKHOR_CC_OPTION,[]);if(!is_array($main))$main=[];
+    if(!empty($main['_migrations']['header_reference_31019']['ok']))return;
+    $header=get_option(ALOOKHOR_CC_HEADER_OPTION,[]);if(!is_array($header))$header=[];
+    $before_hash=hash('sha256',wp_json_encode($header));
+    $target=[
+        'gold'=>'#D49A2E','topbar_bg'=>'#1C1024','topbar_text_color'=>'#F5F3F0','topbar_border_color'=>'#D49A2E',
+        'topbar_button_bg'=>'#D49A2E','topbar_button_text'=>'#0D0510','header_surface'=>'#0D0510',
+        'header_text_color'=>'#F5F3F0','header_muted_color'=>'#C8C2C9','capsule_background'=>'#0D0510',
+        'capsule_card'=>'#1C1024','capsule_glass'=>'rgba(33,20,38,.75)','capsule_gold'=>'#D49A2E',
+        'capsule_gold_light'=>'#E8B84A','capsule_text'=>'#F5F3F0','capsule_muted'=>'#C8C2C9','capsule_blur'=>24,
+    ];
+    $header=array_replace($header,$target);update_option(ALOOKHOR_CC_HEADER_OPTION,$header);
+    $main_header=is_array($main['header_settings']??null)?$main['header_settings']:[];
+    $main['header_settings']=array_replace($main_header,$target);
+    if(!is_array($main['site']??null))$main['site']=[];
+    $main['site']['goldAccent']='#D49A2E';
+    $main['_migrations']['header_reference_31019']=['ok'=>true,'version'=>'3.10.19','fields'=>array_keys($target),'before_hash'=>$before_hash,'after_hash'=>hash('sha256',wp_json_encode($header)),'checked_at'=>time()];
+    update_option(ALOOKHOR_CC_OPTION,$main);
+}
+add_action('init','alookhor_cc_migrate_header_reference_31019',122);

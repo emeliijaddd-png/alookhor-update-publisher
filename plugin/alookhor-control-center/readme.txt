@@ -4,7 +4,7 @@ Tags: control center, luxury, alookhor, admin, dashboard
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 3.10.18
+Stable tag: 3.10.19
 License: Private
 License URI: https://alookhor.ir
 
@@ -46,6 +46,14 @@ License URI: https://alookhor.ir
 در `config/site.json` و `wp_options: alookhor_cc_settings` — همان حافظه واقعی که در چت قبلی ویرایش می‌شد.
 
 == Changelog ==
+
+= 3.10.19 =
+* Top Bar شیشه‌ای Burgundy/Gold با ترتیب پشتیبانی، پیام و تلفن مطابق مرجع
+* ادغام بصری Node واقعی منوی WordPress داخل کپسول Desktop بدون Clone
+* بازگشت همان Navigation به Sticky rail هنگام Scroll
+* کپسول عریض‌تر، لوگوی جابه‌جاشده به چپ و حفظ Cart/Account/Hamburger
+* Mobile دو‌ردیفه، بدون Navigation اضافه و با Hero underlap قبلی
+* Migration محدود Palette و Chrome audit برای Glass، ترتیب، Geometry و Sticky
 
 = 3.10.18 =
 * اعمال Glass واقعی روی همان `.header-capsule` ردیف دوم

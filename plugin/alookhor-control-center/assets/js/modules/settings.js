@@ -1,4 +1,4 @@
-import { Config } from '../core/config.js?v=3.10.18';
+import { Config } from '../core/config.js?v=3.10.19';
 
 const escapeAttr = value => String(value ?? '').replace(/[&<>'"]/g, char => ({
   '&':'&amp;', '<':'&lt;', '>':'&gt;', "'":'&#039;', '"':'&quot;'
@@ -24,9 +24,9 @@ export const settingsModule = {
       logo_text:'ALOOKHOR', logo_sub:'Control Center • Luxury', phone:'', email:'', whatsapp:'',
       export_text:'صادرات به ۵ کشور جهان', export_url:'', wholesale_text:'خرید عمده آلو بخارا', wholesale_url:'',
       top_logo_url:'', top_logo_alt:'ALOOKHOR', top_logo_link:'', top_logo_width:96,
-      topbar_bg:'#11091D', topbar_text_color:'#E8D5B5', topbar_border_color:'#3A2C20',
-      topbar_button_bg:'#C9A86A', topbar_button_text:'#1A1206', topbar_height:38,
-      header_surface:'#0D0916', header_text_color:'#F7F2EA', header_muted_color:'#B8B0BD',
+      topbar_bg:'#1C1024', topbar_text_color:'#F5F3F0', topbar_border_color:'#D49A2E',
+      topbar_button_bg:'#D49A2E', topbar_button_text:'#0D0510', topbar_height:38,
+      header_surface:'#0D0510', header_text_color:'#F5F3F0', header_muted_color:'#C8C2C9',
       capsule_background:'#0D0510', capsule_card:'#1C1024', capsule_glass:'rgba(33,20,38,.75)', capsule_gold:'#D49A2E', capsule_gold_light:'#E8B84A', capsule_text:'#F5F3F0', capsule_muted:'#C8C2C9', capsule_blur:24,
       header_logo_desktop_width:118, header_logo_mobile_width:58,
       show_search:false, search_placeholder:'جستجوی محصول…', show_topbar:true, show_phone:true, show_email:true, show_whatsapp:true, show_export:true,
@@ -420,11 +420,11 @@ export const settingsModule = {
       function updateQuickHeaderPreview(){
         const bar = quick.querySelector('#quickTopbar');
         if(!bar) return;
-        bar.style.setProperty('--qh-bg', value('inpTopbarBg') || '#11091D');
-        bar.style.setProperty('--qh-text', value('inpTopbarText') || '#E8D5B5');
-        bar.style.setProperty('--qh-border', value('inpTopbarBorder') || '#3A2C20');
-        bar.style.setProperty('--qh-btn', value('inpTopbarButtonBg') || '#C9A86A');
-        bar.style.setProperty('--qh-btn-text', value('inpTopbarButtonText') || '#1A1206');
+        bar.style.setProperty('--qh-bg', value('inpTopbarBg') || '#1C1024');
+        bar.style.setProperty('--qh-text', value('inpTopbarText') || '#F5F3F0');
+        bar.style.setProperty('--qh-border', value('inpTopbarBorder') || '#D49A2E');
+        bar.style.setProperty('--qh-btn', value('inpTopbarButtonBg') || '#D49A2E');
+        bar.style.setProperty('--qh-btn-text', value('inpTopbarButtonText') || '#0D0510');
         bar.style.height = `${Math.max(30,Math.min(60,Number(value('inpTopbarHeight'))||38))}px`;
         const setText = (id,text)=>{ const el=quick.querySelector(`#${id}`); if(el) el.textContent=text; };
         setText('quickPhone',value('inpHeaderPhone'));

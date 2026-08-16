@@ -5,7 +5,7 @@
     "logoLetter": "A",
     "description": "بوتیک تخصصی آلو بخارا — سورت، بسته‌بندی و صادرات",
     "headerSticky": true,
-    "goldAccent": "#C9A86A"
+    "goldAccent": "#D49A2E"
   },
   "modules": {
     "stats": {
@@ -125,9 +125,9 @@
     "logo_text": "ALOOKHOR",
     "logo_sub": "Control Center • Luxury",
     "sticky": true,
-    "header_surface": "#0D0916",
-    "header_text_color": "#F7F2EA",
-    "header_muted_color": "#B8B0BD",
+    "header_surface": "#0D0510",
+    "header_text_color": "#F5F3F0",
+    "header_muted_color": "#C8C2C9",
     "header_logo_desktop_width": 118,
     "header_logo_mobile_width": 58,
     "show_search": false,
@@ -140,11 +140,16 @@
     "capsule_gold_light": "#E8B84A",
     "capsule_text": "#F5F3F0",
     "capsule_muted": "#C8C2C9",
-    "capsule_blur": 24
+    "capsule_blur": 24,
+    "topbar_bg": "#1C1024",
+    "topbar_text_color": "#F5F3F0",
+    "topbar_border_color": "#D49A2E",
+    "topbar_button_bg": "#D49A2E",
+    "topbar_button_text": "#0D0510"
   },
   "updated_at": "2026-08-10T16:20:00Z",
   "updated_by": "AI Assistant — recovered from previous chat",
-  "version": "3.10.18",
+  "version": "3.10.19",
   "hero_settings": {
     "enabled": true,
     "hide_legacy": true,

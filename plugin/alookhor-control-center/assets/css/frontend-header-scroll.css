@@ -4,12 +4,13 @@ body:has(.alookhor-managed-legacy-header){padding-top:0!important}
 .alookhor-managed-legacy-header{--alookhor-header-gold:#D4A436;--alookhor-header-surface:#0d0916;--alookhor-header-text:#f7f2ea;--alookhor-header-muted:#b8b0bd;--alookhor-capsule-background:#0D0510;--alookhor-capsule-card:#1C1024;--alookhor-capsule-glass:rgba(33,20,38,.75);--alookhor-capsule-gold:#D49A2E;--alookhor-capsule-gold-light:#E8B84A;--alookhor-capsule-text:#F5F3F0;--alookhor-capsule-muted:#C8C2C9;--alookhor-capsule-blur:24px;--alookhor-sticky-offset:0px}
 .alookhor-managed-legacy-header .alookhor-topbar-wrapper,
 .alookhor-managed-legacy-header .alookhor-header{left:auto!important;right:auto!important;top:auto!important;transform:none!important;width:100%!important;position:relative!important}
-.alookhor-managed-legacy-header .alookhor-topbar-wrapper{z-index:30!important;transition:opacity .28s ease,transform .28s ease!important}
-.alookhor-managed-legacy-header .alookhor-topbar-container{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1.7fr) minmax(0,1fr)!important;grid-template-areas:"phone message support"!important;align-items:center!important;direction:ltr!important}
+.alookhor-managed-legacy-header .alookhor-topbar-wrapper{z-index:30!important;transition:opacity .28s ease,transform .28s ease!important;background-color:color-mix(in srgb,var(--alookhor-topbar-bg,var(--alookhor-capsule-card)) 78%,transparent)!important;background-image:linear-gradient(90deg,color-mix(in srgb,var(--alookhor-capsule-card) 86%,transparent),color-mix(in srgb,var(--alookhor-capsule-glass) 82%,transparent),color-mix(in srgb,var(--alookhor-capsule-card) 86%,transparent))!important;-webkit-backdrop-filter:blur(18px) saturate(135%)!important;backdrop-filter:blur(18px) saturate(135%)!important;border-bottom:1px solid color-mix(in srgb,var(--alookhor-capsule-gold) 28%,transparent)!important;box-shadow:inset 0 -1px 0 color-mix(in srgb,var(--alookhor-capsule-gold-light) 8%,transparent)!important}
+.alookhor-managed-legacy-header .alookhor-topbar-container{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1.7fr) minmax(0,1fr)!important;grid-template-areas:"support message phone"!important;align-items:center!important;direction:ltr!important;background:transparent!important}
 .alookhor-managed-legacy-header .topbar-center{display:none!important}
-.alookhor-managed-legacy-header .topbar-left{grid-area:phone!important;justify-self:start!important;direction:ltr!important}
-.alookhor-managed-legacy-header .topbar-right{grid-area:message!important;justify-self:center!important;direction:rtl!important}
-.alookhor-managed-legacy-header .alookhor-topbar-support{grid-area:support!important;justify-self:end!important;display:inline-flex;align-items:center;gap:7px;color:var(--alookhor-header-gold);direction:rtl;font-size:10px}
+.alookhor-managed-legacy-header .topbar-left{grid-area:phone!important;justify-self:end!important;direction:ltr!important;color:var(--alookhor-capsule-gold-light)!important}
+.alookhor-managed-legacy-header .topbar-right{grid-area:message!important;justify-self:center!important;direction:rtl!important;color:var(--alookhor-capsule-text)!important;padding-inline:clamp(18px,4vw,58px)!important;border-inline:1px solid color-mix(in srgb,var(--alookhor-capsule-gold) 12%,transparent)!important}
+.alookhor-managed-legacy-header .alookhor-topbar-support{grid-area:support!important;justify-self:start!important;display:inline-flex;align-items:center;gap:7px;color:var(--alookhor-capsule-gold-light)!important;direction:rtl;font-size:10px}
+.alookhor-managed-legacy-header .alookhor-topbar-support-icon{display:block;width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
 .alookhor-managed-legacy-header .topbar-btn-wholesale{display:none!important}
 .alookhor-managed-legacy-header .alookhor-header{z-index:29!important;height:auto!important;min-height:90px!important;transition:opacity .28s ease,transform .28s ease!important}
 /* The existing second Header capsule, recolored in place with the owner-approved
@@ -47,11 +48,21 @@ body:has(.alookhor-managed-legacy-header){padding-top:0!important}
 .alookhor-cart-count{position:absolute;top:-5px;right:-4px;min-width:18px;height:18px;padding:0 4px;border-radius:999px;background:var(--alookhor-header-gold);color:#1A1206;font:800 9px/18px Tahoma,sans-serif;text-align:center;box-shadow:0 3px 9px rgba(0,0,0,.35)}
 .alookhor-managed-legacy-header .header-capsule-left .alookhor-gold-divider-v{display:none!important}
 @media(min-width:1024px){
-  .alookhor-managed-legacy-header .header-capsule{display:grid!important;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr)!important;grid-template-areas:"actions logo menu"!important;align-items:center!important;justify-content:stretch!important;direction:ltr!important}
-  .alookhor-managed-legacy-header .header-capsule-logo{grid-area:logo!important;justify-self:center!important;direction:rtl!important}
+  .alookhor-managed-legacy-header .alookhor-topbar-container{width:calc(100% - 72px)!important;max-width:1360px!important;margin-inline:auto!important}
+  .alookhor-managed-legacy-header .header-capsule{width:calc(100% - 36px)!important;max-width:1360px!important;display:grid!important;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr)!important;grid-template-areas:"actions logo menu"!important;align-items:center!important;justify-content:stretch!important;direction:ltr!important}
+  .alookhor-managed-legacy-header .header-capsule-logo{grid-area:logo!important;justify-self:center!important;direction:rtl!important;transform:translateX(-130px)!important}
   .alookhor-managed-legacy-header .header-capsule-logo img{transform:translateY(-6px)!important}
   .alookhor-managed-legacy-header .header-capsule-left{grid-area:actions!important;justify-self:start!important;direction:rtl!important}
   .alookhor-managed-legacy-header .alookhor-main-menu-toggle{grid-area:menu!important;justify-self:end!important;direction:rtl!important}
+  /* The real WordPress navigation node remains singular. At page start its
+     existing stage is visually integrated into the second capsule; once its
+     marker reaches the viewport it returns to the verified sticky rail. */
+  .alookhor-managed-legacy-header .alookhor-legacy-nav-stage.is-capsule-integrated:not(.is-stuck){--alookhor-integrated-nav-offset:90px;position:relative!important;top:-90px!important;margin:0 0 -90px!important;min-height:90px!important;padding:6px 18px!important;z-index:31!important;pointer-events:none!important}
+  .alookhor-managed-legacy-header .alookhor-legacy-nav-stage.is-capsule-integrated:not(.is-stuck) .alookhor-legacy-nav-shell{width:calc(100% - 36px)!important;max-width:1360px!important;min-height:78px!important;padding:0 96px 0 560px!important;justify-content:flex-end!important;background:transparent!important;border-color:transparent!important;box-shadow:none!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;pointer-events:none!important}
+  .alookhor-managed-legacy-header .alookhor-legacy-nav-stage.is-capsule-integrated:not(.is-stuck) .header-nav-center{width:100%!important;justify-content:flex-end!important;pointer-events:auto!important}
+  .alookhor-managed-legacy-header .alookhor-legacy-nav-stage.is-capsule-integrated:not(.is-stuck) .nav-menu{width:auto!important;justify-content:flex-end!important;gap:clamp(18px,2.15vw,32px)!important}
+  .alookhor-managed-legacy-header .alookhor-legacy-nav-stage.is-stuck{margin:0!important;min-height:66px!important;padding:5px 18px 9px!important}
+  .alookhor-managed-legacy-header .alookhor-legacy-nav-stage.is-stuck .alookhor-legacy-nav-shell{width:min(1200px,100%)!important;max-width:1200px!important;min-height:58px!important;padding:0 24px!important;justify-content:center!important;background:color-mix(in srgb,var(--alookhor-header-surface) 88%,transparent)!important;border-color:color-mix(in srgb,var(--alookhor-header-gold) 44%,transparent)!important;box-shadow:0 13px 36px rgba(0,0,0,.52),inset 0 1px 0 color-mix(in srgb,var(--alookhor-header-gold) 10%,transparent)!important;-webkit-backdrop-filter:blur(14px) saturate(125%)!important;backdrop-filter:blur(14px) saturate(125%)!important}
 }
 @media(max-width:1023px){
   .alookhor-managed-legacy-header .alookhor-header{min-height:70px!important}

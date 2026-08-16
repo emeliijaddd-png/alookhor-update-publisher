@@ -144,6 +144,10 @@ jobs:
           assert 'header_brand_migration' in rest_php and 'header_brand_palette' in release_test
           assert 'alookhor_cc_migrate_header_layout_3107' in bootstrap_php and "'show_search'] = false" in bootstrap_php
           assert 'header_layout_migration' in rest_php
+          assert 'alookhor_cc_migrate_header_reference_31019' in bootstrap_php and 'header_reference_migration' in rest_php
+          assert all(token in header_scroll_css for token in ['grid-template-areas:"support message phone"','is-capsule-integrated:not(.is-stuck)','top:-90px!important','padding:0 96px 0 560px','max-width:1360px'])
+          assert all(token in topbar_manager for token in ['is-capsule-integrated','--alookhor-integrated-nav-offset','glassBackground','alookhor-topbar-support-icon'])
+          assert "'topbar_bg' => '#1C1024'" in bootstrap_php and "'header_surface'=>'#0D0510'" in bootstrap_php
           print('Managed footer/category/admin/header behavior and layout correction contracts passed')
           PY
 

@@ -28,7 +28,9 @@ When sources disagree, the newer provable runtime/source wins. Missing source is
 - **Final rendered Chrome audit:** `31820882559` on 3.10.18 — WordPress, Desktop and Mobile passed every Header/Hero/Site-Features check; no failed checks.
 - **Direct glass-capsule acceptance:** the same `.header-capsule` now renders `rgba(33,20,38,.75)` with 24px Blur, Burgundy/Card gradient, Gold border/highlights and approved control colors; Cart/Account/Logo/Hamburger geometry/order, Top Bar, Desktop Navigation, Hero underlap and zero overflow are preserved.
 - **Production:** 3.10.18 active and fully verified.
-- **Current source target:** `3.10.18` — completed.
+- **Current source target:** `3.10.19` — two-row Top Bar/Main Menu reference integration prepared for test/publication; Production remains 3.10.18 until tagged deployment succeeds.
+- **3.10.19 candidate package SHA-256:** `74b7e6f45dd98143aa3897562ed412f520cfd47a7173276be1e869c87c8c0057`
+- **New active Header reference:** `uploads/image.png`.
 - **Final glass evidence:** `automation/318-live2/visual-desktop-before.png`, `automation/318-live2/visual-mobile-before.png`.
 - **New Header reference:** `uploads/Screenshot_۲۰۲۶-۰۸-۱۴-۰۶-۵۶-۵۲-۵۸۲_com.android.chrome-edit.jpg`.
 - **Final feature evidence:** `automation/317-live/visual-desktop-features.png`, `automation/317-live/visual-mobile-before.png`, `automation/317-live/visual-mobile-features.png`.
@@ -66,24 +68,25 @@ Full metadata and complete source snapshots are generated in `docs/MASTER_CODE_R
 
 This rule supersedes every earlier interpretation of full-header Sticky behavior:
 
-1. At page start, all three rows are visible in normal document flow: Top Bar, Main Header, and Primary Navigation.
+1. At page start, Desktop shows two visual rows matching `uploads/image.png`: Glass Top Bar and one wide Main Capsule containing Cart/Account, horizontal Logo, the real WordPress Primary Navigation and the original Hamburger.
 2. Top Bar and Main Header must never remain fixed/sticky while scrolling down; they leave the viewport with the page.
-3. On Desktop, the existing WordPress-driven `.header-nav-center` is moved intact—not rebuilt—into a dedicated Navigation stage immediately after the Main Header.
-4. Only that Desktop Primary Navigation stage remains pinned at the top. Because the live Elementor container constrains native `position:sticky`, Production uses an equivalent fixed rail only after crossing its marker.
-5. The zero-height marker expands to the exact Stage height while the rail is fixed, preserving the normal-flow footprint and preventing Layout Shift.
+3. On Desktop, the existing WordPress-driven `.header-nav-center` remains a single Node inside its dedicated Stage; the non-stuck Stage is visually integrated over the Main Capsule without cloning or static links.
+4. When the integrated Navigation reaches the viewport top, only that same Stage becomes the verified fixed Sticky rail. Top Bar/Main Capsule continue leaving normally.
+5. The integrated Stage has zero net normal-flow footprint (90px relative offset plus -90px margin) and keeps its Marker at zero when fixed, preventing Layout Shift or an empty third row.
 6. Scrolling back toward the page start naturally and smoothly returns the Main Header and Top Bar; at `scrollY=0` all rows are in their initial state.
 7. Existing shortcode, menu nodes, Mega Menu, Drawer trigger, IDs, classes, and WordPress menu data are preserved.
-8. Visual treatment uses current ALOOKHOR Black/Gold settings with restrained glass/blur only when Navigation is stuck.
+8. Top Bar and Main Capsule use the owner-approved Burgundy/Gold glass treatment; the Sticky rail uses the same managed Header palette with restrained Blur.
 9. Desktop and Mobile use the same transparent logo source; separate safe width controls are available in the main Boutique Header settings.
 10. Rollback remains available through the existing `sticky` setting and versioned plugin release.
-11. Top Bar and Desktop sticky Navigation preserve their approved existing palette: `#11091D`, `#0D0916`, `#C9A86A`, `#E8D5B5`, `#F7F2EA`, and `#B8B0BD`; they are not silently recolored by capsule changes.
+11. The owner-approved Header reference palette is now explicit for Top Bar, Capsule and Sticky Navigation: `#0D0510`, `#1C1024`, `rgba(33,20,38,.75)`, `#D49A2E`, `#E8B84A`, `#F5F3F0`, `#C8C2C9`; migration `header_reference_31019` records this scoped change.
 12. The authoritative shared Header/Footer contact phone is `09159513173`; any ending in 3174 or 3179 is a regression.
 13. Mobile has exactly two visible rows: Top Bar and one Main Capsule. No extra sticky Navigation row is rendered at `≤1023px`.
 14. The Main Capsule layout is: original simple Hamburger/Drawer trigger on the right, a large horizontal transparent logo composition (symbol + «آلوخور» wordmark) in the center, and icon-only Account plus real WooCommerce Cart/Badge on the left.
 15. Product Search is explicitly rejected and must not be rendered in Desktop or Mobile Header, nor exposed as a Boutique setting.
 16. When Woodmart's native Header is hidden, its reserved Body offset and the Home main-content top padding must be collapsed only on pages containing `.alookhor-managed-legacy-header`; the live Top Bar should begin within 25px of the viewport top.
 17. Visual acceptance requires rendered Chrome audits at 1440×1050 and 430×932, unique Drawer ID, no horizontal overflow, contained logo, hidden duplicate Top Bar logo, hidden Mobile nav stage, and a pinned Desktop navigation rail.
-18. The existing second `.header-capsule` has its own scoped glass palette: Main `#0D0510`, Card `#1C1024`, Glass `rgba(33,20,38,.75)`, Gold `#D49A2E`, Light Gold `#E8B84A`, Text `#F5F3F0`, Muted `#C8C2C9`, Blur 24px. Cart/Account/Logo/Hamburger structure and geometry remain unchanged.
+18. The existing second `.header-capsule` has its own scoped glass palette: Main `#0D0510`, Card `#1C1024`, Glass `rgba(33,20,38,.75)`, Gold `#D49A2E`, Light Gold `#E8B84A`, Text `#F5F3F0`, Muted `#C8C2C9`, Blur 24px. Cart/Account/Logo/Hamburger Nodes remain unchanged.
+19. Top Bar physical order follows the new reference: Support at left, shipping/export Message at center, Phone at right. Desktop capsule expands to 1360px, Logo shifts left and the real menu occupies the right section; Mobile remains two rows with no separate Navigation.
 
 ## Managed Hero contract
 
