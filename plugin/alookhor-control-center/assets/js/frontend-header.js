@@ -14,6 +14,13 @@
     if (root.dataset.alookhorReady === '1') return;
     root.dataset.alookhorReady = '1';
 
+    // Elementor's page-level Header host carries a provider-specific 120px
+    // logical margin and 170px flex distribution. Inline-important normalization
+    // is intentionally limited to the closest host of this managed Header.
+    const host=root.closest('.e-con');
+    if(host){['margin','margin-top','margin-bottom','margin-block','padding','padding-top','padding-bottom','padding-block','min-height','height','gap'].forEach(property=>host.style.setProperty(property,(property==='height'?'auto':property==='min-height'?'0':'0px'),'important'));host.style.setProperty('justify-content','flex-start','important');host.style.setProperty('align-content','flex-start','important');host.style.setProperty('--justify-content','flex-start','important');host.style.setProperty('--padding-top','0px','important');host.style.setProperty('--padding-bottom','0px','important');host.style.setProperty('--margin-top','0px','important');host.style.setProperty('--margin-bottom','0px','important')}
+    const elementorRoot=root.closest('.elementor');if(elementorRoot){elementorRoot.style.setProperty('margin-top','0px','important');elementorRoot.style.setProperty('padding-top','0px','important')}
+
     const toggle = root.querySelector('.alookhor-menu-toggle');
     const drawer = root.querySelector('.alookhor-menu-drawer');
     const closeButtons = root.querySelectorAll('[data-alookhor-close]');

@@ -27,8 +27,9 @@ When sources disagree, the newer provable runtime/source wins. Missing source is
 - **Deployment run:** `31962035770` — publication, Manifest and native WordPress checks passed.
 - **Final rendered Chrome audit:** `31820882559` on 3.10.18 — WordPress, Desktop and Mobile passed every Header/Hero/Site-Features check; no failed checks.
 - **Direct glass-capsule acceptance:** the same `.header-capsule` now renders `rgba(33,20,38,.75)` with 24px Blur, Burgundy/Card gradient, Gold border/highlights and approved control colors; Cart/Account/Logo/Hamburger geometry/order, Top Bar, Desktop Navigation, Hero underlap and zero overflow are preserved.
-- **Production:** 3.10.21 active; final rendered verification pending.
-- **Current source target:** `3.10.21` — deployed; final rendered verification pending.
+- **Production:** 3.10.21 active; final host runtime override pending.
+- **Current source target:** `3.10.22` — scoped inline host normalization prepared.
+- **3.10.22 candidate package SHA-256:** `0b32b3a29267c751d72466c61547587ed6250b65c6b69d28fe2d1725d16997c8`
 - **3.10.21 candidate package SHA-256:** `a29ec080380a2175ea29f12ff9f4b31564241d60ab434cdc114005585e39cfcf`
 - **3.10.20 candidate package SHA-256:** `36fed15806ab80c6e001836376550eae5b645add2aaf627c8832019e83ec917e`
 - **3.10.19 candidate package SHA-256:** `36fed15806ab80c6e001836376550eae5b645add2aaf627c8832019e83ec917e`
