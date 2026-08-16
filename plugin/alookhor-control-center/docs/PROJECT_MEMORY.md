@@ -248,8 +248,8 @@ Schema حداقلی Manifest:
 
 ```json
 {
-  "version": "3.10.20",
-  "download_url": "https://updates.alookhor.ir/releases/alookhor-control-center-3.10.20.zip",
+  "version": "3.10.21",
+  "download_url": "https://updates.alookhor.ir/releases/alookhor-control-center-3.10.21.zip",
   "details_url": "https://alookhor.ir/changelog",
   "requires": "6.0",
   "tested": "7.0",

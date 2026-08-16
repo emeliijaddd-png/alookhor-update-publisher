@@ -3,7 +3,7 @@
  */
 body:has(.alookhor-portal-header){padding-top:0!important}
 #main-content:has(.alookhor-portal-header),.elementor:has(.alookhor-portal-header){padding-top:0!important;margin-top:0!important}
-.elementor-element.e-con:has(.alookhor-portal-header){--padding-top:0px!important;--padding-bottom:0px!important;min-height:0!important;margin-top:0!important;margin-bottom:0!important;padding-top:0!important;padding-bottom:0!important;top:auto!important;transform:none!important;gap:0!important}
+.elementor-element.e-con:has(.alookhor-portal-header){--padding-top:0px!important;--padding-bottom:0px!important;--margin-top:0px!important;--margin-bottom:0px!important;--justify-content:flex-start!important;min-height:0!important;height:auto!important;margin:0!important;margin-block:0!important;padding:0!important;padding-block:0!important;top:auto!important;transform:none!important;gap:0!important;justify-content:flex-start!important;align-content:flex-start!important}
 .elementor-widget-shortcode:has(.alookhor-portal-header),.elementor-widget-shortcode:has(.alookhor-portal-header)>.elementor-widget-container,.elementor-widget-shortcode:has(.alookhor-portal-header) .elementor-shortcode{margin:0!important;padding:0!important;min-height:0!important}
 .alookhor-portal-header{
   --alookhor-gold:#c9a86a;
