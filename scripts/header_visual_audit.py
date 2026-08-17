@@ -59,6 +59,7 @@ return {
   feature_to_hero_gap:(features&&hero)?Math.round((features.getBoundingClientRect().top-hero.getBoundingClientRect().bottom)*10)/10:null,
   topbar_center_display:(()=>{const e=legacyRoot?.querySelector('.topbar-center')||portalRoot?.querySelector('.alookhor-top-logo');return e?getComputedStyle(e).display:null})(),
   stage_display:stage?getComputedStyle(stage).display:null,stage_position:stage?getComputedStyle(stage).position:null,stage_stuck:legacyRoot?(stage?.classList.contains('is-stuck')||false):(!!portalRoot&&['sticky','fixed'].includes(getComputedStyle(stage).position)&&Math.abs(stage.getBoundingClientRect().top)<=50),
+  duplicate_header_visible:all('.ak-topbar-wrapper,.alu-header').filter(visible).length,
   search_count:all('.alookhor-legacy-main-search').length,mobile_extra_toggle_count:all('.alookhor-mobile-sticky-toggle').length,
   original_drawer_id_count:all('#openDrawer').length,generated_drawer_count:portalRoot?portalRoot.querySelectorAll('.alookhor-menu-drawer').length:0,cart_count:all('.alookhor-header-cart-link,.alookhor-fallback-cart').length,
   main_toggle_count:all('.alookhor-main-menu-toggle,.alookhor-menu-toggle').length,logo_count:all('.header-capsule-logo img,.alookhor-nav-logo img').length,logo_copy_count:all('.alookhor-logo-copy,.alookhor-nav-logo-copy').length,topbar_support_count:all('.alookhor-topbar-support,.alookhor-fallback-support').length,
@@ -93,6 +94,7 @@ def audit(width: int, height: int, label: str) -> dict:
         feature_proximity_expected = runtime_parts >= (3, 10, 17)
         capsule_glass_expected = runtime_parts >= (3, 10, 18)
         header_reference_expected = runtime_parts >= (3, 10, 19)
+        duplicate_header_fix_expected = runtime_parts >= (3, 10, 23)
         if hero_expected:
             WebDriverWait(driver, 40).until(lambda d: d.execute_script("return document.querySelector('#alookhor-managed-hero')?.dataset.mounted==='1' && document.querySelectorAll('#alookhor-managed-hero .alookhor-mh-slide').length===4"))
         if feature_expected:
@@ -112,6 +114,7 @@ def audit(width: int, height: int, label: str) -> dict:
         expected_mobile = width <= 1023
         checks = {
             'root': before['root'] is True,
+            'duplicate_elementor_headers_removed': before['duplicate_header_visible'] == 0 if duplicate_header_fix_expected else True,
             'search_removed': before['search_count'] == 0,
             'no_rejected_mobile_toggle': before['mobile_extra_toggle_count'] == 0,
             'drawer_id_unique': (before['original_drawer_id_count'] == 1 if before['header_mode']=='legacy' else before['generated_drawer_count']==1),

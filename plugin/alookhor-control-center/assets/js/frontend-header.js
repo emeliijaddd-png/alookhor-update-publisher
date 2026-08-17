@@ -14,12 +14,27 @@
     if (root.dataset.alookhorReady === '1') return;
     root.dataset.alookhorReady = '1';
 
-    // Elementor's page-level Header host carries a provider-specific 120px
-    // logical margin and 170px flex distribution. Inline-important normalization
-    // is intentionally limited to the closest host of this managed Header.
-    const host=root.closest('.e-con');
+    // Remove only the two source-backed Elementor header drafts that precede
+    // the managed shortcode (`.ak-topbar-wrapper` and `.alu-header`). Their
+    // dedicated widgets/containers otherwise reserve 221px Desktop / 292px
+    // Mobile and paint two duplicate headers above the real WordPress Header.
+    const managedWidget=root.closest('.elementor-widget-shortcode');
+    const managedHost=managedWidget?.closest('.e-con')||root.closest('.e-con');
+    const elementorRoot=root.closest('.elementor');
+    elementorRoot?.querySelectorAll('.ak-topbar-wrapper,.alu-header').forEach(draft=>{
+      if(draft.contains(root)||root.contains(draft))return;
+      const draftWidget=draft.closest('.elementor-widget');
+      if(draftWidget){draftWidget.dataset.alookhorDuplicateHeader='1';draftWidget.style.setProperty('display','none','important');draftWidget.style.setProperty('height','0px','important');draftWidget.style.setProperty('min-height','0px','important');draftWidget.style.setProperty('margin','0px','important');draftWidget.style.setProperty('padding','0px','important')}
+      const draftHost=draftWidget?.closest('.e-con');
+      if(draftHost&&draftHost!==managedHost){draftHost.dataset.alookhorDuplicateHeaderHost='1';draftHost.style.setProperty('display','none','important');draftHost.style.setProperty('height','0px','important');draftHost.style.setProperty('min-height','0px','important');draftHost.style.setProperty('margin','0px','important');draftHost.style.setProperty('padding','0px','important')}
+    });
+
+    // Elementor's page-level Header host carries provider-specific flex
+    // distribution. Inline-important normalization is limited to the exact
+    // container that owns the managed Header shortcode.
+    const host=managedHost;
     if(host){['margin','margin-top','margin-bottom','margin-block','padding','padding-top','padding-bottom','padding-block','min-height','height','gap'].forEach(property=>host.style.setProperty(property,(property==='height'?'auto':property==='min-height'?'0':'0px'),'important'));host.style.setProperty('justify-content','flex-start','important');host.style.setProperty('align-content','flex-start','important');host.style.setProperty('--justify-content','flex-start','important');host.style.setProperty('--padding-top','0px','important');host.style.setProperty('--padding-bottom','0px','important');host.style.setProperty('--margin-top','0px','important');host.style.setProperty('--margin-bottom','0px','important')}
-    const elementorRoot=root.closest('.elementor');if(elementorRoot){elementorRoot.style.setProperty('margin-top','0px','important');elementorRoot.style.setProperty('padding-top','0px','important')}
+    if(elementorRoot){elementorRoot.style.setProperty('margin-top','0px','important');elementorRoot.style.setProperty('padding-top','0px','important')}
 
     const toggle = root.querySelector('.alookhor-menu-toggle');
     const drawer = root.querySelector('.alookhor-menu-drawer');
