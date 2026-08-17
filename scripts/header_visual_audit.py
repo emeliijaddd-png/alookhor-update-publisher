@@ -62,7 +62,8 @@ return {
   duplicate_header_visible:all('.ak-topbar-wrapper,.alu-header').filter(visible).length,
   search_count:all('.alookhor-legacy-main-search').length,mobile_extra_toggle_count:all('.alookhor-mobile-sticky-toggle').length,
   original_drawer_id_count:all('#openDrawer').length,generated_drawer_count:portalRoot?portalRoot.querySelectorAll('.alookhor-menu-drawer').length:0,cart_count:all('.alookhor-header-cart-link,.alookhor-fallback-cart').length,
-  main_toggle_count:all('.alookhor-main-menu-toggle,.alookhor-menu-toggle').length,logo_count:all('.header-capsule-logo img,.alookhor-nav-logo img').length,logo_copy_count:all('.alookhor-logo-copy,.alookhor-nav-logo-copy').length,topbar_support_count:all('.alookhor-topbar-support,.alookhor-fallback-support').length,
+  main_toggle_count:all('.alookhor-main-menu-toggle,.alookhor-menu-toggle').length,main_toggle:rect(one('.alookhor-main-menu-toggle,.alookhor-menu-toggle')),main_toggle_visible:visible(one('.alookhor-main-menu-toggle,.alookhor-menu-toggle')),
+  logo_count:all('.header-capsule-logo img,.alookhor-nav-logo img').length,logo_src:one('.header-capsule-logo img,.alookhor-nav-logo img')?.currentSrc||'',logo_source:one('.alookhor-nav-logo')?.dataset.logoSource||'',logo_count_copy:all('.alookhor-logo-copy,.alookhor-nav-logo-copy').length,logo_copy_count:all('.alookhor-logo-copy,.alookhor-nav-logo-copy').length,topbar_support_count:all('.alookhor-topbar-support,.alookhor-fallback-support').length,
   account_font_size:one('.header-login-btn')?getComputedStyle(one('.header-login-btn')).fontSize:null,account_icon_count:all('.header-login-btn .alookhor-account-icon,.alookhor-account-link svg').length,account_text_display:one('.alookhor-account-link span')?getComputedStyle(one('.alookhor-account-link span')).display:null,
   body_scroll_width:document.documentElement.scrollWidth,body_client_width:document.documentElement.clientWidth,
   horizontal_overflow:Math.max(0,document.documentElement.scrollWidth-document.documentElement.clientWidth),
@@ -95,6 +96,7 @@ def audit(width: int, height: int, label: str) -> dict:
         capsule_glass_expected = runtime_parts >= (3, 10, 18)
         header_reference_expected = runtime_parts >= (3, 10, 19)
         duplicate_header_fix_expected = runtime_parts >= (3, 10, 23)
+        approved_header_logo_expected = runtime_parts >= (3, 10, 24)
         if hero_expected:
             WebDriverWait(driver, 40).until(lambda d: d.execute_script("return document.querySelector('#alookhor-managed-hero')?.dataset.mounted==='1' && document.querySelectorAll('#alookhor-managed-hero .alookhor-mh-slide').length===4"))
         if feature_expected:
@@ -120,7 +122,9 @@ def audit(width: int, height: int, label: str) -> dict:
             'drawer_id_unique': (before['original_drawer_id_count'] == 1 if before['header_mode']=='legacy' else before['generated_drawer_count']==1),
             'cart_present': before['cart_count'] == 1,
             'main_toggle_present': before['main_toggle_count'] == 1,
+            'main_toggle_visible': (before['main_toggle_visible'] is True and before['main_toggle'] is not None and before['main_toggle']['width']>=36 and before['main_toggle']['height']>=36) if approved_header_logo_expected else True,
             'logo_present': before['logo_count'] == 1,
+            'approved_header_logo_source': before['logo_source']=='managed-media' if approved_header_logo_expected else True,
             'horizontal_wordmark_present': before['logo_copy_count'] == 1,
             'topbar_support_present': before['topbar_support_count'] == 1,
             'mobile_account_icon_only': ((before['account_font_size'] == '0px' and before['account_icon_count'] == 1) if before['header_mode']=='legacy' else (before['account_text_display']=='none' and before['account_icon_count']==1)) if expected_mobile else True,

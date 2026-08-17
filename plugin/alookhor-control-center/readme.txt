@@ -4,7 +4,7 @@ Tags: control center, luxury, alookhor, admin, dashboard
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 3.10.23
+Stable tag: 3.10.24
 License: Private
 License URI: https://alookhor.ir
 
@@ -46,6 +46,10 @@ License URI: https://alookhor.ir
 در `config/site.json` و `wp_options: alookhor_cc_settings` — همان حافظه واقعی که در چت قبلی ویرایش می‌شد.
 
 == Changelog ==
+
+= 3.10.24 =
+* استفاده از لوگوی مدیریت‌شده Header به‌جای Site Icon نامرتبط
+* Wordmark فارسی آلوخور و الزام Visibility Hamburger
 
 = 3.10.23 =
 * حذف دو Header Draft المنتور و فضای 221/292px

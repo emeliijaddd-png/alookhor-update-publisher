@@ -154,6 +154,13 @@ function alookhor_cc_render_portal_header($atts = []){
     }
     $site_icon = get_site_icon_url(96);
     if (!$site_icon && $custom_logo_id) $site_icon = wp_get_attachment_image_url($custom_logo_id, 'thumbnail');
+    // Main capsule must use the approved Header logo source, not the generic
+    // WordPress Site Icon (which can be an unrelated shop/app glyph).
+    $nav_logo_url = !empty($settings['top_logo_url']) ? esc_url_raw($settings['top_logo_url']) : '';
+    if (!$nav_logo_url && $custom_logo_id) $nav_logo_url = wp_get_attachment_image_url($custom_logo_id, 'full');
+    if (!$nav_logo_url) $nav_logo_url = $site_icon;
+    $nav_brand_text = apply_filters('alookhor_cc_header_brand_text', 'آلوخور');
+    $nav_brand_sub = apply_filters('alookhor_cc_header_brand_subtitle', 'پایتخت آلوی ایران');
 
     $account_url = function_exists('wc_get_page_permalink')
         ? wc_get_page_permalink('myaccount')
@@ -239,13 +246,13 @@ function alookhor_cc_render_portal_header($atts = []){
 
         <div class="alookhor-nav-stage">
             <div class="alookhor-nav-shell">
-                <a class="alookhor-nav-logo" href="<?php echo esc_url(home_url('/')); ?>">
-                    <?php if ($site_icon): ?>
-                        <img src="<?php echo esc_url($site_icon); ?>" alt="<?php echo esc_attr(get_bloginfo('name')); ?>" width="62" height="62" loading="eager">
+                <a class="alookhor-nav-logo" href="<?php echo esc_url(home_url('/')); ?>" data-logo-source="<?php echo !empty($settings['top_logo_url']) ? 'managed-media' : ($custom_logo_id ? 'custom-logo' : 'site-icon'); ?>">
+                    <?php if ($nav_logo_url): ?>
+                        <img src="<?php echo esc_url($nav_logo_url); ?>" alt="<?php echo esc_attr($settings['top_logo_alt'] ?: get_bloginfo('name')); ?>" width="62" height="62" loading="eager">
                     <?php else: ?>
                         <span class="alookhor-nav-logo-mark"><?php echo esc_html($settings['logo_letter']); ?></span>
                     <?php endif; ?>
-                    <span class="alookhor-nav-logo-copy"><b><?php echo esc_html($settings['logo_text']); ?></b><small><?php echo esc_html($settings['logo_sub']); ?></small></span>
+                    <span class="alookhor-nav-logo-copy"><b><?php echo esc_html($nav_brand_text); ?></b><small><?php echo esc_html($nav_brand_sub); ?></small></span>
                 </a>
 
                 <nav class="alookhor-desktop-nav" aria-label="<?php esc_attr_e('فهرست اصلی', 'alookhor-cc'); ?>">
@@ -280,8 +287,8 @@ function alookhor_cc_render_portal_header($atts = []){
         <aside id="<?php echo esc_attr($drawer_id); ?>" class="alookhor-menu-drawer" aria-hidden="true" aria-label="منوی کامل آلوخور">
             <div class="alookhor-drawer-head">
                 <div class="alookhor-drawer-brand">
-                    <?php if ($site_icon): ?><img src="<?php echo esc_url($site_icon); ?>" alt="" width="48" height="48"><?php else: ?><span><?php echo esc_html($settings['logo_letter']); ?></span><?php endif; ?>
-                    <div><b><?php echo esc_html($settings['logo_text']); ?></b><small><?php echo esc_html($settings['logo_sub']); ?></small></div>
+                    <?php if ($nav_logo_url): ?><img src="<?php echo esc_url($nav_logo_url); ?>" alt="" width="48" height="48"><?php else: ?><span><?php echo esc_html($settings['logo_letter']); ?></span><?php endif; ?>
+                    <div><b><?php echo esc_html($nav_brand_text); ?></b><small><?php echo esc_html($nav_brand_sub); ?></small></div>
                 </div>
                 <button class="alookhor-drawer-close" type="button" data-alookhor-close aria-label="بستن منو">×</button>
             </div>
@@ -337,7 +344,7 @@ function alookhor_cc_render_managed_legacy_header($atts = [], $content = null, $
 
     $html = call_user_func($provider, $atts, $content, $tag ?: 'alookhor_portal_header');
     if (!is_string($html)) $html = '';
-    return '<div class="alookhor-managed-legacy-header" data-alookhor-managed="3.10.23" style="display:contents">' . $html . '</div>';
+    return '<div class="alookhor-managed-legacy-header" data-alookhor-managed="3.10.24" style="display:contents">' . $html . '</div>';
 }
 
 /**
