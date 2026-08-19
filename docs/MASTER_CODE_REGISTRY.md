@@ -198,7 +198,7 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 
 | File | Lines | SHA-256 |
 |---|---:|---|
-| `.github/workflows/publish.yml` | 535 | `ea2a747b9787cb39313702fd50fd8940891a2ed64de3acac6c4e5d69912dec3d` |
+| `.github/workflows/publish.yml` | 569 | `a9556898f6bc0e120017222a9cca216859b490ac395fad58582596273171263f` |
 | `ops/wordpress-ci-bootstrap.php` | 215 | `409c23f2be99c6651b0e75dc877c91c884534e6b16f9985c177cf65d14fd4c95` |
 | `plugin/alookhor-control-center/alookhor-control-center.php` | 374 | `24d107ea33d0433601c0d51d263da48b7870fecfd7234d6b01ec591a7827d6d0` |
 | `plugin/alookhor-control-center/assets/css/frontend-categories.css` | 9 | `b811fb4f96023711a593cd593eb9ae3846ebfd9c912c57e3e623d0965f7d494a` |
@@ -272,6 +272,7 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
       - name: Checkout private publisher repository
         uses: actions/checkout@v5
@@ -439,18 +440,14 @@ jobs:
     needs: build
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     permissions:
       contents: write
     steps:
-      - name: Checkout private publisher repository
-        uses: actions/checkout@v5
-
-      - name: Install FTPS client for safe probe
-        run: sudo apt-get update -qq && sudo apt-get install -y -qq lftp
-
       - name: Probe restricted FTPS write, HTTPS read, and delete
         id: ftps_probe
         continue-on-error: true
+        timeout-minutes: 6
         env:
           FTP_SERVER: ${{ secrets.FTP_SERVER }}
           FTP_PORT: ${{ secrets.FTP_PORT }}
@@ -464,20 +461,35 @@ jobs:
           from urllib.parse import quote
           server=os.environ['FTP_SERVER'].strip(); port=os.environ['FTP_PORT'].strip()
           user=os.environ['FTP_USERNAME'].strip(); password=os.environ['FTP_PASSWORD']; name=os.environ['PROBE_NAME']
+          user=os.environ['FTP_USERNAME'].strip(); password=os.environ['FTP_PASSWORD']
           if '\n' in password or '\r' in password: raise SystemExit('FTP secret contains a newline')
           auth_url=f"ftp://{quote(user,safe='')}:{quote(password,safe='')}@{server}"
           if not re.fullmatch(r'[A-Za-z0-9.-]+',server) or not port.isdigit(): raise SystemExit('Invalid FTP endpoint')
-          content='ALOOKHOR_PUBLISHER_PROBE_' + os.environ['GITHUB_RUN_ID']
-          Path('/tmp/publisher-probe.txt').write_text(content)
-          common=['set cmd:fail-exit true','set net:max-retries 2','set ftp:passive-mode true','set ftp:ssl-auth TLS','set ftp:ssl-force true','set ftp:ssl-protect-data true','set ssl:verify-certificate true',f'open -p {port} "{auth_url}"']
-          for path,commands in {
-              '/tmp/probe-upload.lftp':common+[f'put /tmp/publisher-probe.txt -o {name}','bye'],
               '/tmp/probe-delete.lftp':common+[f'rm -f {name}','bye'],
           }.items():
               p=Path(path);p.write_text(';\n'.join(commands)+';\n');p.chmod(0o600)
+          esc=lambda value: value.replace('\\','\\\\').replace('"','\\"')
+          config='\n'.join([
+              f'user = "{esc(user)}:{esc(password)}"',
+              'ssl-reqd',
+              'ftp-create-dirs',
+              'ftp-pasv',
+              'connect-timeout = 20',
+              'max-time = 120',
+              'retry = 2',
+              'retry-all-errors',
+              'silent',
+              'show-error',
+          ]) + '\n'
+          probe_path=Path('/tmp/publisher-probe.txt')
+          probe_path.write_text('ALOOKHOR_PUBLISHER_PROBE_' + os.environ['GITHUB_RUN_ID'])
+          config_path=Path('/tmp/alookhor-ftps.curlconf')
+          config_path.write_text(config)
+          config_path.chmod(0o600)
           PY
           set +e
           lftp -f /tmp/probe-upload.lftp > /tmp/ftps-probe.log 2>&1
+          curl -K /tmp/alookhor-ftps.curlconf -T /tmp/publisher-probe.txt "ftp://${FTP_SERVER}:${FTP_PORT}/${PROBE_NAME}" > /tmp/ftps-probe.log 2>&1
           code=$?
           if [ "$code" -eq 0 ]; then
             python3 - <<'PY' >> /tmp/ftps-probe.log 2>&1
@@ -492,11 +504,14 @@ jobs:
           fi
           lftp -f /tmp/probe-delete.lftp >> /tmp/ftps-probe.log 2>&1 || true
           rm -f /tmp/probe-upload.lftp /tmp/probe-delete.lftp /tmp/publisher-probe.txt
+          curl -K /tmp/alookhor-ftps.curlconf -Q "DELE ${PROBE_NAME}" "ftp://${FTP_SERVER}:${FTP_PORT}/" -o /dev/null >> /tmp/ftps-probe.log 2>&1 || true
+          rm -f /tmp/alookhor-ftps.curlconf /tmp/publisher-probe.txt
           exit "$code"
 
       - name: Check authenticated WordPress access without updating
         id: wp_access
         continue-on-error: true
+        timeout-minutes: 12
         env:
           WP_BASE_URL: ${{ secrets.WP_BASE_URL }}
           WP_USERNAME: ${{ secrets.WP_USERNAME }}
@@ -507,6 +522,7 @@ jobs:
       - name: Audit rendered Production Header in Desktop and Mobile Chrome
         id: header_visual
         continue-on-error: true
+        timeout-minutes: 12
         env:
           WP_BASE_URL: ${{ secrets.WP_BASE_URL }}
           HEADER_VISUAL_REPORT: /tmp/header-visual.json
@@ -584,6 +600,7 @@ jobs:
     needs: build
     if: startsWith(github.ref, 'refs/tags/v')
     runs-on: ubuntu-latest
+    timeout-minutes: 25
     permissions:
       contents: write
     environment: production
@@ -593,9 +610,6 @@ jobs:
 
       - name: Rebuild verified release
         run: python3 scripts/build_release.py
-
-      - name: Install FTPS client
-        run: sudo apt-get update -qq && sudo apt-get install -y -qq lftp
 
       - name: Validate deployment secrets
         env:
@@ -610,6 +624,7 @@ jobs:
           test -n "$FTP_PASSWORD"
 
       - name: Prepare protected FTPS command files
+      - name: Prepare protected FTPS curl configuration
         env:
           FTP_SERVER: ${{ secrets.FTP_SERVER }}
           FTP_PORT: ${{ secrets.FTP_PORT }}
@@ -619,42 +634,43 @@ jobs:
           python3 - <<'PY'
           import json, os, re
           from pathlib import Path
-          from urllib.parse import quote
-          server = os.environ['FTP_SERVER'].strip()
-          port = os.environ['FTP_PORT'].strip()
-          user = os.environ['FTP_USERNAME'].strip()
-          password = os.environ['FTP_PASSWORD']
-          if '\n' in password or '\r' in password: raise SystemExit('FTP secret contains a newline')
-          auth_url = f"ftp://{quote(user,safe='')}:{quote(password,safe='')}@{server}"
-          manifest = json.loads(Path('public/manifest.json').read_text())
-          package = Path(manifest['download_url']).name
-          if not re.fullmatch(r'[A-Za-z0-9.-]+', server): raise SystemExit('Invalid FTP_SERVER')
-          if not port.isdigit(): raise SystemExit('Invalid FTP_PORT')
-          if not re.fullmatch(r'[A-Za-z0-9._-]+\.zip', package): raise SystemExit('Invalid package name')
-          common = [
-              'set cmd:fail-exit true', 'set net:max-retries 2', 'set net:timeout 20',
-              'set ftp:passive-mode true', 'set ftp:ssl-auth TLS', 'set ftp:ssl-force true',
-              'set ftp:ssl-protect-data true', 'set ssl:verify-certificate true',
-              f'open -p {port} "{auth_url}"',
-          ]
-          scripts = {
-              '/tmp/alookhor-upload-package.lftp': common + [f'put public/releases/{package} -o releases/{package}', 'bye'],
-              '/tmp/alookhor-upload-metadata.lftp': common + ['put public/releases/SHA256SUMS.txt -o releases/SHA256SUMS.txt', 'put public/index.html -o index.html', 'put public/changelog.html -o changelog.html', 'put public/.htaccess -o .htaccess', 'bye'],
-              '/tmp/alookhor-publish-manifest.lftp': common + ['put public/manifest.json -o manifest.json.next', 'mv manifest.json.next manifest.json', 'bye'],
           }
           for filename, commands in scripts.items():
               path = Path(filename); path.write_text(';\n'.join(commands) + ';\n'); path.chmod(0o600)
+          esc = lambda value: value.replace('\\', '\\\\').replace('"', '\\"')
+          config = '\n'.join([
+              f'user = "{esc(user)}:{esc(password)}"',
+              'ssl-reqd',
+              'ftp-create-dirs',
+              'ftp-pasv',
+              'connect-timeout = 20',
+              'max-time = 300',
+              'retry = 2',
+              'retry-all-errors',
+              'silent',
+              'show-error',
+          ]) + '\n'
+          config_path = Path('/tmp/alookhor-ftps.curlconf')
+          config_path.write_text(config)
+          config_path.chmod(0o600)
+          with open(os.environ['GITHUB_ENV'], 'a') as env_file:
+              env_file.write('RELEASE_PACKAGE=' + package + '\n')
+              env_file.write(f'FTPS_BASE=ftp://{server}:{port}\n')
+          print('Protected FTPS curl configuration prepared for', server)
           PY
 
       - name: Upload release ZIP
         id: upload_zip
         continue-on-error: true
         run: lftp -f /tmp/alookhor-upload-package.lftp > /tmp/upload-zip.log 2>&1
+        timeout-minutes: 8
+        run: curl -K /tmp/alookhor-ftps.curlconf -T "public/releases/${RELEASE_PACKAGE}" "${FTPS_BASE}/releases/${RELEASE_PACKAGE}" > /tmp/upload-zip.log 2>&1
 
       - name: Verify remote ZIP and SHA-256
         id: verify_zip
         if: steps.upload_zip.outcome == 'success'
         continue-on-error: true
+        timeout-minutes: 8
         env:
           GITHUB_RUN_ID: ${{ github.run_id }}
         run: |
@@ -686,17 +702,34 @@ jobs:
         if: steps.verify_zip.outcome == 'success'
         continue-on-error: true
         run: lftp -f /tmp/alookhor-upload-metadata.lftp > /tmp/upload-metadata.log 2>&1
+        timeout-minutes: 8
+        run: |
+          set -e
+          {
+            curl -K /tmp/alookhor-ftps.curlconf -T public/releases/SHA256SUMS.txt "${FTPS_BASE}/releases/SHA256SUMS.txt"
+            curl -K /tmp/alookhor-ftps.curlconf -T public/index.html "${FTPS_BASE}/index.html"
+            curl -K /tmp/alookhor-ftps.curlconf -T public/changelog.html "${FTPS_BASE}/changelog.html"
+            curl -K /tmp/alookhor-ftps.curlconf -T public/.htaccess "${FTPS_BASE}/.htaccess"
+          } > /tmp/upload-metadata.log 2>&1
 
       - name: Publish manifest atomically
         id: publish_manifest
         if: steps.upload_metadata.outcome == 'success'
         continue-on-error: true
         run: lftp -f /tmp/alookhor-publish-manifest.lftp > /tmp/publish-manifest.log 2>&1
+        timeout-minutes: 6
+        run: |
+          set -e
+          {
+            curl -K /tmp/alookhor-ftps.curlconf -T public/manifest.json "${FTPS_BASE}/manifest.json.next"
+            curl -K /tmp/alookhor-ftps.curlconf -Q "RNFR manifest.json.next" -Q "RNTO manifest.json" "${FTPS_BASE}/" -o /dev/null
+          } > /tmp/publish-manifest.log 2>&1
 
       - name: Verify production manifest
         id: verify_production
         if: steps.publish_manifest.outcome == 'success'
         continue-on-error: true
+        timeout-minutes: 6
         env:
           GITHUB_RUN_ID: ${{ github.run_id }}
         run: |
@@ -717,6 +750,7 @@ jobs:
         id: wordpress_verify
         if: steps.verify_production.outcome == 'success'
         continue-on-error: true
+        timeout-minutes: 12
         env:
           WP_BASE_URL: ${{ secrets.WP_BASE_URL }}
           WP_USERNAME: ${{ secrets.WP_USERNAME }}
