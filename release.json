@@ -1,27 +1,28 @@
 {
-  "version": "3.10.36",
-  "previous": "3.10.35",
+  "version": "3.10.37",
+  "previous": "3.10.36",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "تله‌متری فشرده‌ی رندر هدر موبایل با کانال امن گزارش — بدون تغییر رفتاری محصول؛ حاوی اصلاحات 3.10.34.",
+  "description": "رفع قطعی جابه‌جایی هدر به سمت راست در موبایل — ترمیم فروپاشی عرض زنجیره‌ی ویجت المنتور در RTL.",
   "changelog": [
     {
-      "tag": "DIAG",
-      "title": "تله‌متری فشرده‌ی هدر موبایل",
-      "desc": "متریک‌های کلیدی رندر موبایل (<2KB) در گزارش + کپی متنی در لاگ استپ؛ رفع کراش رایتر status."
+      "tag": "FIX",
+      "title": "هدر موبایل برگشت به جای خود",
+      "desc": "زنجیره‌ی ویجت المنتورِ نگه‌دارنده‌ی شورت‌کد هدر که داخل کانتینرهای flex سطری به نقطه‌ی صفرعرض فرو می‌پاشید، کشیده و تمام‌عرض می‌شود تا محاسبه‌ی تمام‌صفحه‌ی هدر در RTL دقیق شود."
     }
   ],
   "project": "ALOOKHOR",
   "area": "Deep Purple Glass Header + Gold Mega Menu / Desktop + Mobile",
-  "reason": "رفع شکست استپ «Write sanitized publisher status branch»: تله‌متری به قالب فشرده (<2KB) + کانال لاگ منتقل شد تا ترانکیت 12KB رایتر همیشه معتبر بماند.",
+  "reason": "تله‌متری 3.10.36 نشان داد هدر موبایل 207.5px بیرون از ویوپورت است چون زنجیره‌ی ویجت عرض صفر دارد؛ فیکس با تله‌متری همان نسخه سنجه و اثبات می‌شود.",
   "files": [
     "release.json",
     "plugin/alookhor-control-center/alookhor-control-center.php",
     "plugin/alookhor-control-center/readme.txt",
     "plugin/alookhor-control-center/config/site.json",
     "plugin/alookhor-control-center/CHANGELOG.md",
+    "plugin/alookhor-control-center/assets/js/frontend-header.js",
     "scripts/wordpress_release_test.py",
     "docs/MASTER_CODE_REGISTRY.md"
   ]

@@ -1,5 +1,8 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.37 — 2026-08-19 — Mobile Header Right-Shift Fix
+- FIX: repair the Elementor widget-chain width collapse (zero-width shortcode point inside row-flex hosts) that anchored the RTL full-bleed header to the container's right edge and pushed it 207.5px off-canvas on mobile. Verified via live render telemetry.
+
 ## v3.10.36 — 2026-08-19 — Slim Telemetry Channel
 - FIX: telemetry now embeds only a compact metric selection (<2KB) and mirrors it as a plain-text line into the step log; the classic-size report keeps the publisher status writer's 12KB tail truncation valid.
 

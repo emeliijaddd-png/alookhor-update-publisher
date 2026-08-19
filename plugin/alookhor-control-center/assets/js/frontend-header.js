@@ -36,6 +36,26 @@
     if(host){['margin','margin-top','margin-bottom','margin-block','padding','padding-top','padding-bottom','padding-block','min-height','height','gap'].forEach(property=>host.style.setProperty(property,(property==='height'?'auto':property==='min-height'?'0':'0px'),'important'));host.style.setProperty('justify-content','flex-start','important');host.style.setProperty('align-content','flex-start','important');host.style.setProperty('--justify-content','flex-start','important');host.style.setProperty('--padding-top','0px','important');host.style.setProperty('--padding-bottom','0px','important');host.style.setProperty('--margin-top','0px','important');host.style.setProperty('--margin-bottom','0px','important')}
     if(elementorRoot){elementorRoot.style.setProperty('margin-top','0px','important');elementorRoot.style.setProperty('padding-top','0px','important')}
 
+    // v3.10.37 — Mobile RTL geometry repair. The Elementor widget chain that
+    // owns the managed shortcode can collapse to a zero-width point inside
+    // row-flex containers; the header full-bleed margins then anchor to the
+    // container's right edge in RTL and push the whole header outside the
+    // viewport (measured on live: left=207.5/right=637.5 in a 430px viewport).
+    // Stretch every link between the shortcode node and its host container so
+    // the full-bleed math is computed against a real, centred width.
+    (function repairWidthChain(){
+      let node = root.parentElement;
+      for (let depth = 0; node && node !== host && !node.classList.contains('elementor') && node.tagName !== 'BODY' && depth < 6; depth++) {
+        const parentDisplay = node.parentElement ? getComputedStyle(node.parentElement).display : '';
+        if (parentDisplay.includes('flex')) node.style.setProperty('flex', '1 1 100%', 'important');
+        node.style.setProperty('width', '100%', 'important');
+        node.style.setProperty('max-width', '100%', 'important');
+        node.style.setProperty('margin-left', '0px', 'important');
+        node.style.setProperty('margin-right', '0px', 'important');
+        node = node.parentElement;
+      }
+    })();
+
     const toggle = root.querySelector('.alookhor-menu-toggle');
     const drawer = root.querySelector('.alookhor-menu-drawer');
     const closeButtons = root.querySelectorAll('[data-alookhor-close]');
