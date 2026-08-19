@@ -1,5 +1,8 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.36 — 2026-08-19 — Slim Telemetry Channel
+- FIX: telemetry now embeds only a compact metric selection (<2KB) and mirrors it as a plain-text line into the step log; the classic-size report keeps the publisher status writer's 12KB tail truncation valid.
+
 ## v3.10.35 — 2026-08-19 — Mobile Header Render Telemetry
 - DIAG: post-update test appends a guarded live render audit (desktop+mobile metrics + embedded downscaled mobile screenshot) to the publisher status report; additive only, never affects the verdict.
 

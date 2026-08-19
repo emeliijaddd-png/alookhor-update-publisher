@@ -1,21 +1,21 @@
 {
-  "version": "3.10.35",
-  "previous": "3.10.34",
+  "version": "3.10.36",
+  "previous": "3.10.35",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "تله‌متری تشخیص رندر هدر موبایل در تست پسا‌آپدیت — بدون تغییر رفتاری؛ حاوی تمام اصلاحات 3.10.34.",
+  "description": "تله‌متری فشرده‌ی رندر هدر موبایل با کانال امن گزارش — بدون تغییر رفتاری محصول؛ حاوی اصلاحات 3.10.34.",
   "changelog": [
     {
       "tag": "DIAG",
-      "title": "تله‌متری هدر موبایل",
-      "desc": "گزارش پسا‌آپدیت حالا ممیزی رندر زنده‌ی هدر (مختصات، overflow افقی) و اسکرین‌شات موبایل کوچک‌شده را در publisher-status ثبت می‌کند؛ افزایشی و بدون اثر روی نتیجه."
+      "title": "تله‌متری فشرده‌ی هدر موبایل",
+      "desc": "متریک‌های کلیدی رندر موبایل (<2KB) در گزارش + کپی متنی در لاگ استپ؛ رفع کراش رایتر status."
     }
   ],
   "project": "ALOOKHOR",
   "area": "Deep Purple Glass Header + Gold Mega Menu / Desktop + Mobile",
-  "reason": "همگرایی با ریلیز موازی 3.10.34 (اصلاحات هدر) + افزودن تله‌متری رندر موبایل برای رفع قطعی مشکل «هدر رفته سمت راست».",
+  "reason": "رفع شکست استپ «Write sanitized publisher status branch»: تله‌متری به قالب فشرده (<2KB) + کانال لاگ منتقل شد تا ترانکیت 12KB رایتر همیشه معتبر بماند.",
   "files": [
     "release.json",
     "plugin/alookhor-control-center/alookhor-control-center.php",
