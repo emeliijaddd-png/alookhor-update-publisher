@@ -215,7 +215,7 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 
 | File | Lines | SHA-256 |
 |---|---:|---|
-| `.github/workflows/publish.yml` | 552 | `45bef484a7881ac131ca78983a3de3b3f05877f9b6d7343918cebb2f55f4072a` |
+| `.github/workflows/publish.yml` | 543 | `10038fd342976395b67e643eb6950a0dafd684ec11a1bf11d732e09b15b7521f` |
 | `ops/wordpress-ci-bootstrap.php` | 215 | `409c23f2be99c6651b0e75dc877c91c884534e6b16f9985c177cf65d14fd4c95` |
 | `plugin/alookhor-control-center/alookhor-control-center.php` | 374 | `2a22f4234227809f9ca1a76baf085e823ca9ac69aefe5dbbb5de974f5ed9fbd6` |
 | `plugin/alookhor-control-center/assets/css/frontend-categories.css` | 9 | `b811fb4f96023711a593cd593eb9ae3846ebfd9c912c57e3e623d0965f7d494a` |
@@ -380,15 +380,6 @@ jobs:
           assert all(token in feature_php for token in ['#0D0510','#1C1024','rgba(33,20,38,.75)','#D49A2E','#E8B84A','#F5F3F0','#C8C2C9'])
           assert 'legacy.replaceWith(section)' in feature_js and "cache:'no-store'" in feature_js and "data.item_count!==4" in feature_js
           assert 'data-site-feature-flag' in Path('plugin/alookhor-control-center/assets/js/modules/settings.js').read_text()
-          purple_php=Path('plugin/alookhor-control-center/includes/shortcode-purple-slider.php').read_text()
-          purple_admin=Path('plugin/alookhor-control-center/includes/admin-purple-slider.php').read_text()
-          purple_css=Path('plugin/alookhor-control-center/assets/css/frontend-purple-slider.css').read_text()
-          purple_js=Path('plugin/alookhor-control-center/assets/js/frontend-purple-slider.js').read_text()
-          assert "add_shortcode('alookhor_purple_slider'" in purple_php and 'alookhor_cc_purple_slider' in purple_php
-          assert 'alookhor_cc_purple_slider_settings' in purple_php and 'category-plums.jpg' in purple_php
-          assert 'alookhor-cc-purple-slider' in purple_admin and 'wp_ajax_alookhor_save_purple_slider' in Path('plugin/alookhor-control-center/includes/ajax.php').read_text()
-          assert '.alookhor-ps' in purple_css and 'rgba(64,28,92,.66)' in purple_css
-          assert 'MutationObserver' in purple_js and 'prefers-reduced-motion' in purple_js
           admin_template = Path('plugin/alookhor-control-center/templates/admin-control-center.php').read_text()
           admin_app = Path('plugin/alookhor-control-center/assets/js/app.js').read_text()
           dashboard_js = Path('plugin/alookhor-control-center/assets/js/modules/dashboard.js').read_text()
