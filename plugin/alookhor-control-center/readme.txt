@@ -4,7 +4,7 @@ Tags: control center, luxury, alookhor, admin, dashboard
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 3.10.29
+Stable tag: 3.10.34
 License: Private
 License URI: https://alookhor.ir
 
@@ -46,6 +46,13 @@ License URI: https://alookhor.ir
 در `config/site.json` و `wp_options: alookhor_cc_settings` — همان حافظه واقعی که در چت قبلی ویرایش می‌شد.
 
 == Changelog ==
+
+= 3.10.34 =
+* پالت بنفش تیره شیشه‌ای با blur 24–26 و هایلایت طلایی #D4AD55
+* سرستون طلایی مگا منو + CTA طلایی پایین ستون آخر
+* نمایش Description آیتم‌های منوی WordPress زیر لینک ستون‌ها
+* رندر شرطی `.alookhor-mh-features` فقط با برچسب غیرخالی
+* حفظ اسلایدر بنفش، داشبورد مدیریت و سوییچ mega_menu
 
 = 3.10.29 =
 * صفحه مدیریت اسلایدر بنفش شیشه‌ای زیر ALOOKHOR Control Center

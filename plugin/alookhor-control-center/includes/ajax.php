@@ -75,8 +75,11 @@ function alookhor_ajax_save_settings(){
             $header['capsule_glass']=preg_match('/^rgba?\(\s*\d{1,3}\s*,\s*\d{1,3}\s*,\s*\d{1,3}(?:\s*,\s*(?:0|1|0?\.\d+))?\s*\)$/',$capsule_glass)?$capsule_glass:($header_current['capsule_glass']??'rgba(33,20,38,.75)');
         }
         if(array_key_exists('capsule_blur',$header))$header['capsule_blur']=max(10,min(36,absint($header['capsule_blur'])));
-        foreach (['export_url', 'wholesale_url', 'top_logo_url', 'top_logo_link'] as $key) {
+        foreach (['export_url', 'wholesale_url', 'top_logo_url', 'top_logo_link', 'mega_cta_url'] as $key) {
             if (array_key_exists($key, $header)) $header[$key] = esc_url_raw($header[$key]);
+        }
+        if (array_key_exists('mega_cta_label', $header)) {
+            $header['mega_cta_label'] = sanitize_text_field($header['mega_cta_label']);
         }
         if (array_key_exists('email', $header)) $header['email'] = sanitize_email($header['email']);
         if (array_key_exists('whatsapp', $header)) $header['whatsapp'] = preg_replace('/\D+/', '', (string) $header['whatsapp']);
@@ -367,6 +370,8 @@ function alookhor_ajax_save_header_wp(){
     $data['header_logo_mobile_width'] = max(42, min(110, absint($_POST['header_logo_mobile_width'] ?? ($current['header_logo_mobile_width'] ?? 58))));
     $data['account_text'] = sanitize_text_field(wp_unslash($_POST['account_text'] ?? ($current['account_text'] ?? 'ورود / ثبت‌نام')));
     $data['primary_menu'] = absint($_POST['primary_menu'] ?? ($current['primary_menu'] ?? 0));
+    $data['mega_cta_label'] = sanitize_text_field(wp_unslash($_POST['mega_cta_label'] ?? ($current['mega_cta_label'] ?? 'مشاهده همه محصولات')));
+    $data['mega_cta_url'] = esc_url_raw(wp_unslash($_POST['mega_cta_url'] ?? ($current['mega_cta_url'] ?? home_url('/shop/'))));
     foreach (['sticky', 'show_search', 'show_topbar', 'show_contact', 'show_account', 'show_phone', 'show_email', 'show_whatsapp', 'show_export', 'show_wholesale', 'wholesale_new_tab', 'mega_menu'] as $flag) {
         $data[$flag] = isset($_POST[$flag]) ? rest_sanitize_boolean(wp_unslash($_POST[$flag])) : !empty($current[$flag]);
     }
