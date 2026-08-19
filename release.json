@@ -1,51 +1,54 @@
 {
-  "version": "3.10.26",
-  "previous": "3.10.25",
+  "version": "3.10.29",
+  "previous": "3.10.26",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "مگا منوی دسکتاپ برای فهرست اصلی هدر: پنل شیشه‌ای عریض هم‌عرض کپسول با ستون‌های طلایی، با حفظ کامل ساختار مرجع v3.10.25.",
+  "description": "بازگشت مگا منو به‌همراه هدر بنفش شیشه‌ای و اسلایدر مدیریت‌شده [alookhor_purple_slider] با صفحه داشبورد اختصاصی.",
   "changelog": [
     {
+      "tag": "PURPLE GLASS",
+      "title": "هدر بنفش شیشه‌ای",
+      "desc": "پالت #A855F7 / #C79BFF / #EDE9FE، شیشه کپسول rgba(64,28,92,.66) با blur 24px، Top Bar بنفش و مگا پنل با سرستون‌های #D8B4FE."
+    },
+    {
+      "tag": "PURPLE SLIDER",
+      "title": "شورت‌کد اسلایدر",
+      "desc": "[alookhor_purple_slider] با ۴ اسلاید پیش‌فرض، Autoplay، پیکان شیشه‌ای، نقطه‌های قرصی بنفش، سوایپ و MutationObserver المنتور."
+    },
+    {
+      "tag": "DASHBOARD",
+      "title": "مدیریت از پیشخوان",
+      "desc": "زیرمنوی اسلایدر بنفش شیشه‌ای با افزودن/حذف اسلاید، Media Picker و ذخیره AJAX سانیتیزشده در alookhor_cc_purple_slider."
+    },
+    {
       "tag": "MEGA MENU",
-      "title": "پنل عریض دسکتاپ",
-      "desc": "آیتم‌های سطح یکِ دارای زیرمنو پنل شیشه‌ای هم‌عرض کپسول را باز می‌کنند؛ سطح دو سرستون طلایی و سطح سه لینک‌های انباشته است."
-    },
-    {
-      "tag": "REFERENCE PALETTE",
-      "title": "هم‌خانواده v3.10.25",
-      "desc": "پنل همان رادیال ارغوانی، شیشه برگندی، لبه طلایی و خط صورتی لبه بالای کپسول را تکرار می‌کند."
-    },
-    {
-      "tag": "TOUCH + KEYS",
-      "title": "دسترسی‌پذیری",
-      "desc": "تپ اول پنل را باز می‌کند و تپ دوم می‌رود؛ Escape می‌بندد و aria-expanded روی همه تریگرها فعال است."
-    },
-    {
-      "tag": "ADMIN TOGGLE",
-      "title": "کلید مگا منو",
-      "desc": "mega_menu به فرم هدر، مسیر ذخیره AJAX و اندپوینت no-store هدر اضافه شد؛ پیش‌فرض روشن."
+      "title": "بازگشت مگا منو",
+      "desc": "کلاس alookhor-mega-menu دوباره اعمال می‌شود؛ تپ اول پنل را باز می‌کند و Escape می‌بندد."
     },
     {
       "tag": "PRESERVED",
       "title": "بدون تغییر ساختار",
-      "desc": "Top Bar، کپسول، نودهای واقعی WordPress، Cart، Account، Logo، Hamburger، Drawer و کل چیدمان موبایل دست‌نخورده ماندند."
+      "desc": "Top Bar، کپسول، نودهای WordPress، Cart، Account، Logo، Hamburger و Drawer دست‌نخورده ماندند."
     }
   ],
   "project": "ALOOKHOR",
-  "area": "Desktop Primary Navigation / Mega Menu",
-  "reason": "مالک سایت پنل مگا منوی دسکتاپ را برای فهرست اصلی خواست؛ اجرا با حفظ کامل ساختار مرجع v3.10.25 و پالت تأییدشده.",
+  "area": "Purple Glass Header + Purple Slider / Desktop + Mobile",
+  "reason": "سایت زنده به 3.10.25 برگشته بود؛ نسخه 3.10.29 مگا منو را برمی‌گرداند و هدر بنفش شیشه‌ای به‌همراه اسلایدر مدیریت‌شده را اضافه می‌کند.",
   "files": [
     "plugin/alookhor-control-center/alookhor-control-center.php",
     "plugin/alookhor-control-center/readme.txt",
     "plugin/alookhor-control-center/config/site.json",
     "plugin/alookhor-control-center/CHANGELOG.md",
     "plugin/alookhor-control-center/includes/shortcode-header.php",
+    "plugin/alookhor-control-center/includes/shortcode-purple-slider.php",
+    "plugin/alookhor-control-center/includes/admin-purple-slider.php",
     "plugin/alookhor-control-center/includes/ajax.php",
     "plugin/alookhor-control-center/includes/admin.php",
-    "plugin/alookhor-control-center/includes/rest-api.php",
     "plugin/alookhor-control-center/assets/css/frontend-header.css",
-    "plugin/alookhor-control-center/assets/js/frontend-header.js"
+    "plugin/alookhor-control-center/assets/css/frontend-purple-slider.css",
+    "plugin/alookhor-control-center/assets/js/frontend-header.js",
+    "plugin/alookhor-control-center/assets/js/frontend-purple-slider.js"
   ]
 }

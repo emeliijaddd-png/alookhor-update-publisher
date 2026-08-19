@@ -43,6 +43,52 @@
 
     let previousFocus = null;
 
+    function closeMega(except) {
+      root.querySelectorAll('.alookhor-primary-menu > .menu-item-has-children').forEach((item) => {
+        if (item === except) return;
+        item.classList.remove('is-mega-open');
+        item.querySelector(':scope > a')?.setAttribute('aria-expanded', 'false');
+      });
+    }
+
+    if (root.classList.contains('alookhor-mega-menu')) {
+      const triggers = [...root.querySelectorAll('.alookhor-primary-menu > .menu-item-has-children')];
+      const canHover = () => window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+      triggers.forEach((item) => {
+        const link = item.querySelector(':scope > a');
+        if (!link) return;
+        link.setAttribute('aria-haspopup', 'true');
+        if (!link.hasAttribute('aria-expanded')) link.setAttribute('aria-expanded', 'false');
+        link.addEventListener('click', (event) => {
+          if (window.innerWidth < 1024 || canHover()) return;
+          if (!item.classList.contains('is-mega-open')) {
+            event.preventDefault();
+            closeMega(item);
+            item.classList.add('is-mega-open');
+            link.setAttribute('aria-expanded', 'true');
+          }
+        });
+        item.addEventListener('mouseenter', () => {
+          if (window.innerWidth < 1024) return;
+          closeMega(item);
+          item.classList.add('is-mega-open');
+          link.setAttribute('aria-expanded', 'true');
+        });
+        item.addEventListener('mouseleave', () => {
+          item.classList.remove('is-mega-open');
+          link.setAttribute('aria-expanded', 'false');
+        });
+      });
+      root.addEventListener('keydown', (event) => {
+        if (event.key !== 'Escape') return;
+        const open = triggers.find((item) => item.classList.contains('is-mega-open'));
+        if (!open) return;
+        event.preventDefault();
+        closeMega();
+        open.querySelector(':scope > a')?.focus({ preventScroll: true });
+      });
+    }
+
     const navStage=root.querySelector('.alookhor-nav-stage');
     if(navStage&&root.classList.contains('is-sticky')){
       const marker=document.createElement('span');marker.className='alookhor-internal-nav-marker';marker.setAttribute('aria-hidden','true');navStage.before(marker);
