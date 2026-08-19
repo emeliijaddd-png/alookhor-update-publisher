@@ -1,5 +1,13 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.26 — 2026-08-19 — Desktop Mega Menu for the Primary Header
+- MEGA: top-level WordPress menu items with children open a full-capsule-width glass mega panel under the capsule; mouse hover keeps working.
+- COLUMNS: second level becomes Gold column headers and third level becomes stacked muted links; flyout submenus are disabled inside the panel.
+- PALETTE: the panel reuses the approved v3.10.25 capsule treatment — purple radial highlight, burgundy glass, Gold border with Pink top edge and soft inner glows.
+- INPUT: first tap opens the panel on hover-less pointers and the second navigates; Escape closes and refocuses; aria-haspopup/aria-expanded wired on triggers.
+- SETTING: new `mega_menu` toggle (default on) in the Boutique Header admin form, the AJAX save path and the no-store header state endpoint.
+- PRESERVE: Top Bar, capsule geometry, real WordPress menu nodes, Cart, Account, Logo, Hamburger, Drawer and the whole Mobile layout remain untouched.
+
 ## v3.10.20 — 2026-08-16 — Internal Header Offset and Sticky Fix
 - BROWSER: 3.10.19 داخلی با Offset 291px Desktop / 362.6px Mobile و Sticky محدودشده توسط Elementor رندر شد.
 - HOST: فقط Elementor host حاوی `.alookhor-portal-header` از Padding/Margin/Min-height رزروشده پاک شد.

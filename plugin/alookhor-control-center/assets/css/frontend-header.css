@@ -287,3 +287,82 @@ body.alookhor-menu-open{overflow:hidden!important}
 .alookhor-portal-header .alookhor-menu-toggle span{display:block!important;width:24px!important;height:2px!important;opacity:1!important;background:currentColor!important}
 .alookhor-portal-header .alookhor-nav-logo img{background:transparent!important;border-radius:0!important;object-fit:contain!important}
 @media(max-width:1023px){.alookhor-portal-header .alookhor-nav-stage{width:100vw!important;padding-inline:8px!important}.alookhor-portal-header .alookhor-nav-shell{width:100%!important;max-width:none!important}.alookhor-portal-header .alookhor-menu-toggle{width:40px!important;min-width:40px!important;max-width:40px!important;height:40px!important;min-height:40px!important;max-height:40px!important}}
+
+/* v3.10.26 — Desktop Mega Menu panels for the primary WordPress menu.
+ * Scope: only top-level .menu-item-has-children items inside the capsule.
+ * Second level becomes column headers; third level becomes stacked links.
+ * Mobile (<=1023px) keeps the unchanged Hamburger/Drawer experience.
+ */
+@media(min-width:1024px){
+.alookhor-portal-header.alookhor-mega-menu .alookhor-nav-shell{position:relative}
+.alookhor-portal-header.alookhor-mega-menu .alookhor-primary-menu>.menu-item-has-children{position:static}
+.alookhor-portal-header.alookhor-mega-menu .alookhor-primary-menu>.menu-item-has-children>.sub-menu{
+  top:calc(100% + 9px);
+  right:12px;
+  left:12px;
+  width:auto;
+  min-width:0;
+  padding:18px 22px 16px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(178px,1fr));
+  gap:6px 22px;
+  border-color:rgba(232,184,74,.46)!important;
+  border-top-color:rgba(240,153,224,.42)!important;
+  border-radius:22px;
+  background-color:rgba(24,13,31,.97)!important;
+  background-image:radial-gradient(680px 130px at 50% 0,rgba(115,43,139,.30),transparent 72%),linear-gradient(135deg,rgba(73,25,89,.48),rgba(28,16,36,.94) 65%)!important;
+  box-shadow:0 26px 60px rgba(13,5,16,.78),inset 0 1px 0 rgba(246,176,231,.22),inset 0 -1px 0 rgba(212,154,46,.14)!important;
+  transform:translateY(10px);
+}
+/* Bridge the hover gap between capsule row and panel. */
+.alookhor-portal-header.alookhor-mega-menu .alookhor-primary-menu>.menu-item-has-children>.sub-menu::before{content:"";position:absolute;top:-11px;right:0;left:0;height:11px;background:transparent}
+.alookhor-portal-header.alookhor-mega-menu .alookhor-primary-menu>.menu-item-has-children:hover>.sub-menu,
+.alookhor-portal-header.alookhor-mega-menu .alookhor-primary-menu>.menu-item-has-children:focus-within>.sub-menu,
+.alookhor-portal-header.alookhor-mega-menu .alookhor-primary-menu>.menu-item-has-children.is-mega-open>.sub-menu{opacity:1;visibility:visible;transform:none}
+/* Column headers — second level inside the panel. */
+.alookhor-portal-header.alookhor-mega-menu .alookhor-primary-menu>.menu-item-has-children>.sub-menu>li{display:flex;flex-direction:column;gap:1px;min-width:0}
+.alookhor-portal-header.alookhor-mega-menu .alookhor-primary-menu>.menu-item-has-children>.sub-menu>li>a{
+  padding:8px 9px 9px;
+  border:0;
+  border-bottom:1px solid rgba(232,184,74,.22);
+  border-radius:0;
+  color:var(--alookhor-capsule-gold-light,#E8B84A)!important;
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:.02em;
+}
+.alookhor-portal-header.alookhor-mega-menu .alookhor-primary-menu>.menu-item-has-children>.sub-menu>li>a:hover{background:transparent;color:#F5F3F0!important}
+/* Third level becomes a stacked list; flyout behavior is disabled inside the panel. */
+.alookhor-portal-header.alookhor-mega-menu .alookhor-primary-menu>.menu-item-has-children>.sub-menu .sub-menu{
+  position:static!important;
+  top:auto!important;
+  right:auto!important;
+  width:auto!important;
+  padding:3px 2px 4px!important;
+  margin:0!important;
+  border:0!important;
+  border-radius:0;
+  background:transparent!important;
+  box-shadow:none!important;
+  opacity:1!important;
+  visibility:visible!important;
+  transform:none!important;
+  display:block;
+}
+.alookhor-portal-header.alookhor-mega-menu .alookhor-primary-menu>.menu-item-has-children>.sub-menu .sub-menu li{display:block}
+.alookhor-portal-header.alookhor-mega-menu .alookhor-primary-menu>.menu-item-has-children>.sub-menu .sub-menu a{
+  min-height:32px;
+  padding:6px 9px!important;
+  border-radius:9px;
+  color:#C8C2C9!important;
+  font-size:11.5px;
+  font-weight:500;
+}
+.alookhor-portal-header.alookhor-mega-menu .alookhor-primary-menu>.menu-item-has-children>.sub-menu .sub-menu a:hover{background:rgba(212,154,46,.12);color:#F5F3F0!important;padding-right:13px!important}
+/* No flyout chevrons inside the panel; only the top-level trigger rotates. */
+.alookhor-portal-header.alookhor-mega-menu .alookhor-primary-menu>.menu-item-has-children>.sub-menu .menu-item-has-children>a{padding-left:9px!important}
+.alookhor-portal-header.alookhor-mega-menu .alookhor-primary-menu>.menu-item-has-children>.sub-menu .menu-item-has-children>a::before{display:none}
+.alookhor-portal-header.alookhor-mega-menu .alookhor-primary-menu>.menu-item-has-children>a::before{transition:transform .22s ease}
+.alookhor-portal-header.alookhor-mega-menu .alookhor-primary-menu>.menu-item-has-children:hover>a::before,
+.alookhor-portal-header.alookhor-mega-menu .alookhor-primary-menu>.menu-item-has-children.is-mega-open>a::before{transform:translateY(-65%) rotate(-135deg)}
+}

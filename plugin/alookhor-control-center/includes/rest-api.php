@@ -133,6 +133,7 @@ add_action('rest_api_init', function(){
                 'show_whatsapp' => rest_sanitize_boolean($settings['show_whatsapp'] ?? true),
                 'show_export' => rest_sanitize_boolean($settings['show_export'] ?? true),
                 'show_wholesale' => rest_sanitize_boolean($settings['show_wholesale'] ?? true),
+                'mega_menu' => rest_sanitize_boolean($settings['mega_menu'] ?? true),
             ]);
             $response->header('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0');
             return $response;
