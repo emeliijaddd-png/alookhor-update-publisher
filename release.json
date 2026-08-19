@@ -1,55 +1,28 @@
 {
-  "version": "3.10.34",
-  "previous": "3.10.29",
+  "version": "3.10.35",
+  "previous": "3.10.34",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "پالیش نهایی هدر بنفش تیره شیشه‌ای با سرستون و CTA طلایی مگا منو، نمایش توضیحات آیتم‌های WordPress، و رندر شرطی ویژگی‌های Hero — همراه حفظ اسلایدر بنفش مدیریت‌شده.",
+  "description": "تله‌متری تشخیص رندر هدر موبایل در تست پسا‌آپدیت — بدون تغییر رفتاری؛ حاوی تمام اصلاحات 3.10.34.",
   "changelog": [
     {
-      "tag": "DEEP PURPLE",
-      "title": "پالت بنفش تیره شیشه‌ای",
-      "desc": "Top Bar و کپسول با پالت #0B0214 / #160027 / rgba(33,0,56,.72)، blur 24px و هایلایت طلایی #D4AD55."
-    },
-    {
-      "tag": "GOLD MEGA",
-      "title": "سرستون و CTA طلایی",
-      "desc": "سرستون‌های سطح دوم مگا منو با #D4AD55، پنل با blur 26px، و CTA طلایی پین‌شده در پایین ستون آخر."
-    },
-    {
-      "tag": "WP DESCRIPTIONS",
-      "title": "توضیحات آیتم منو",
-      "desc": "Walker اختصاصی فیلد Description وردپرس را زیر لینک ستون‌ها نمایش می‌دهد."
-    },
-    {
-      "tag": "HERO FEATURES",
-      "title": "رندر شرطی ویژگی‌ها",
-      "desc": "بلوک .alookhor-mh-features فقط وقتی حداقل یک برچسب ویژگی غیرخالی باشد رندر می‌شود."
-    },
-    {
-      "tag": "PRESERVED",
-      "title": "اسلایدر و مگا منو",
-      "desc": "[alookhor_purple_slider]، داشبورد مدیریت اسلایدها، alookhor_save_purple_slider و سوییچ mega_menu بدون تغییر باقی ماندند."
+      "tag": "DIAG",
+      "title": "تله‌متری هدر موبایل",
+      "desc": "گزارش پسا‌آپدیت حالا ممیزی رندر زنده‌ی هدر (مختصات، overflow افقی) و اسکرین‌شات موبایل کوچک‌شده را در publisher-status ثبت می‌کند؛ افزایشی و بدون اثر روی نتیجه."
     }
   ],
   "project": "ALOOKHOR",
   "area": "Deep Purple Glass Header + Gold Mega Menu / Desktop + Mobile",
-  "reason": "ZIP 3.10.34 از سندباکس قبلی در دسترس نبود؛ نسخه از main 3.10.29 با پالیش پالت بنفش تیره، سرستون/CTA طلایی، توضیحات WP و features شرطی به 3.10.34 ارتقا یافت.",
+  "reason": "همگرایی با ریلیز موازی 3.10.34 (اصلاحات هدر) + افزودن تله‌متری رندر موبایل برای رفع قطعی مشکل «هدر رفته سمت راست».",
   "files": [
+    "release.json",
     "plugin/alookhor-control-center/alookhor-control-center.php",
     "plugin/alookhor-control-center/readme.txt",
     "plugin/alookhor-control-center/config/site.json",
     "plugin/alookhor-control-center/CHANGELOG.md",
-    "plugin/alookhor-control-center/includes/shortcode-header.php",
-    "plugin/alookhor-control-center/includes/shortcode-purple-slider.php",
-    "plugin/alookhor-control-center/includes/admin-purple-slider.php",
-    "plugin/alookhor-control-center/includes/ajax.php",
-    "plugin/alookhor-control-center/includes/admin.php",
-    "plugin/alookhor-control-center/includes/hero.php",
-    "plugin/alookhor-control-center/assets/css/frontend-header.css",
-    "plugin/alookhor-control-center/assets/css/frontend-purple-slider.css",
-    "plugin/alookhor-control-center/assets/js/frontend-header.js",
-    "plugin/alookhor-control-center/assets/js/frontend-purple-slider.js"
+    "scripts/wordpress_release_test.py",
+    "docs/MASTER_CODE_REGISTRY.md"
   ]
 }

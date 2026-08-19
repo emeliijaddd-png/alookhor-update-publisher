@@ -18,6 +18,35 @@ REPORT_PATH = Path(os.environ.get('WP_REPORT_PATH', '/tmp/wordpress-report.json'
 AUTH = base64.b64encode(f'{USERNAME}:{APP_PASSWORD}'.encode()).decode()
 
 
+def _finalize_report(report_obj):
+    """Additive live-rendering telemetry (never affects release verdict)."""
+    try:
+        import subprocess, sys
+        env = dict(os.environ)
+        visual_path = '/tmp/header-visual-deploy.json'
+        env['HEADER_VISUAL_REPORT'] = visual_path
+        env['HEADER_VISUAL_SHOTS'] = '/tmp/header-shots-deploy'
+        subprocess.run([sys.executable, '-m', 'pip', 'install', '--quiet', 'selenium'], timeout=240, capture_output=True)
+        subprocess.run([sys.executable, str(ROOT / 'scripts' / 'header_visual_audit.py')], env=env, timeout=420, capture_output=True)
+        report_obj['header_visual'] = json.loads(Path(visual_path).read_text())
+    except Exception as capture_error:
+        report_obj['header_visual'] = {'error': f'{type(capture_error).__name__}: {capture_error}'}
+    try:
+        shot = Path('/tmp/header-shots-deploy/mobile-before.png')
+        if shot.is_file():
+            from PIL import Image
+            image = Image.open(shot)
+            image.thumbnail((430, 460))
+            small = Path('/tmp/header-shots-deploy/mobile-before-small.png')
+            image.save(small, optimize=True)
+            import base64 as _b64
+            report_obj['mobile_shot_b64'] = _b64.b64encode(small.read_bytes()).decode()
+    except Exception:
+        pass
+    REPORT_PATH.write_text(json.dumps(report_obj, ensure_ascii=False, indent=2) + '\n')
+    print(json.dumps(report_obj, ensure_ascii=False, indent=2))
+
+
 def request_json(path, method='GET', payload=None, allow=(200,)):
     body = json.dumps(payload).encode() if payload is not None else None
     request = Request(
@@ -258,9 +287,7 @@ try:
 except Exception as error:
     report['ok'] = False
     report['error'] = str(error)
-    REPORT_PATH.write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n')
-    print(json.dumps(report, ensure_ascii=False, indent=2))
+    _finalize_report(report)
     raise
 else:
-    REPORT_PATH.write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n')
-    print(json.dumps(report, ensure_ascii=False, indent=2))
+    _finalize_report(report)

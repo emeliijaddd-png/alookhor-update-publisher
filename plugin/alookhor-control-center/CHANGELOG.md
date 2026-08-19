@@ -1,5 +1,8 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.35 — 2026-08-19 — Mobile Header Render Telemetry
+- DIAG: post-update test appends a guarded live render audit (desktop+mobile metrics + embedded downscaled mobile screenshot) to the publisher status report; additive only, never affects the verdict.
+
 ## v3.10.34 — 2026-08-19 — Deep Purple Glass + Gold Mega Polish
 - PALETTE: deep purple glass for Top Bar/Capsule — `#0B0214`, `#160027`, `rgba(33,0,56,.72)`, gold accent `#D4AD55` / `#E8C878`, text `#F5F3FF`.
 - GLASS: capsule blur 24px and mega panel blur 26px with saturated deep-plum gradients; structure of Top Bar, Capsule, Cart/Account/Logo/Hamburger and Drawer unchanged.
