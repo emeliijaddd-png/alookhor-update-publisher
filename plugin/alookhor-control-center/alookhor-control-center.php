@@ -3,7 +3,7 @@
  * Plugin Name: ALOOKHOR Control Center
  * Plugin URI: https://alookhor.ir
  * Description: کنترل سنتر لوکس و ماژولار آلوخور — مدیریت کامل سایت (هدر، اسلایدر، سورت، محصولات، مشتریان VIP، مالی، آنالیتیکس) با آپدیت آنی بدون رفرش. تمام تنظیمات چت قبلی + شورت‌کد [alookhor_portal_header] اینجا مدیریت می‌شود.
- * Version: 3.10.19
+ * Version: 3.10.34
  * Author: ALOOKHOR Team — Luxury Modular
  * Author URI: https://alookhor.ir
  * Update URI: https://alookhor.ir/alookhor-control-center
@@ -16,8 +16,8 @@
 
 if (!defined('ABSPATH')) exit;
 
-define('ALOOKHOR_CC_VERSION', '3.10.19');
-define('ALOOKHOR_CC_BUILD', '3.10.19');
+define('ALOOKHOR_CC_VERSION', '3.10.34');
+define('ALOOKHOR_CC_BUILD', '3.10.34');
 define('ALOOKHOR_CC_FILE', __FILE__);
 define('ALOOKHOR_CC_DIR', plugin_dir_path(__FILE__));
 define('ALOOKHOR_CC_URL', plugin_dir_url(__FILE__));
@@ -59,10 +59,14 @@ require_once ALOOKHOR_CC_DIR . 'includes/footer.php';
 require_once ALOOKHOR_CC_DIR . 'includes/product-categories.php';
 require_once ALOOKHOR_CC_DIR . 'includes/hero.php';
 require_once ALOOKHOR_CC_DIR . 'includes/site-features.php';
+require_once ALOOKHOR_CC_DIR . 'includes/shortcode-purple-slider.php';
+require_once ALOOKHOR_CC_DIR . 'includes/admin-purple-slider.php';
 
 // ——— Enqueue برای فرانت (هدر لوکس، کاملاً Scoped) ———
 // فایل کامل luxury.css مخصوص کنترل سنتر است و نباید body/theme فرانت را override کند.
 add_action('wp_enqueue_scripts', function(){
+    wp_enqueue_style('alookhor-cc-purple-slider', ALOOKHOR_CC_URL . 'assets/css/frontend-purple-slider.css', [], ALOOKHOR_CC_BUILD);
+    wp_enqueue_script('alookhor-cc-purple-slider', ALOOKHOR_CC_URL . 'assets/js/frontend-purple-slider.js', [], ALOOKHOR_CC_BUILD, true);
     if (!empty($GLOBALS['alookhor_cc_legacy_header_provider'])) {
         // خروجی و CSS هدر قدیمی دست‌نخورده می‌ماند؛ فقط مقادیر Top Bar مدیریت می‌شوند.
         $h = alookhor_cc_front_header_settings();
@@ -252,6 +256,7 @@ function alookhor_cc_get_header_settings(){
         'top_logo_width' => 96,
         'account_text' => 'ورود / ثبت‌نام',
         'primary_menu' => 0,
+        'mega_menu' => true,
     ];
     return wp_parse_args($h, $defaults);
 }
@@ -353,3 +358,17 @@ function alookhor_cc_migrate_header_reference_31019(){
     update_option(ALOOKHOR_CC_OPTION,$main);
 }
 add_action('init','alookhor_cc_migrate_header_reference_31019',122);
+
+/** One-time 3.10.25 restoration of the source-backed approved Header logo. */
+function alookhor_cc_migrate_approved_header_logo_31025(){
+    $main=get_option(ALOOKHOR_CC_OPTION,[]);if(!is_array($main))$main=[];
+    if(!empty($main['_migrations']['approved_header_logo_31025']['ok']))return;
+    $header=get_option(ALOOKHOR_CC_HEADER_OPTION,[]);if(!is_array($header))$header=[];
+    $before=hash('sha256',wp_json_encode($header));
+    $target=['top_logo_url'=>'https://alookhor.ir/wp-content/uploads/2026/08/LOGO2.png','top_logo_alt'=>'لوگوی رسمی بازرگانی آلوخور','top_logo_link'=>home_url('/'),'top_logo_width'=>118];
+    $header=array_replace($header,$target);update_option(ALOOKHOR_CC_HEADER_OPTION,$header);
+    $main_header=is_array($main['header_settings']??null)?$main['header_settings']:[];$main['header_settings']=array_replace($main_header,$target);
+    $main['_migrations']['approved_header_logo_31025']=['ok'=>true,'version'=>'3.10.25','fields'=>array_keys($target),'before_hash'=>$before,'after_hash'=>hash('sha256',wp_json_encode($header)),'checked_at'=>time()];
+    update_option(ALOOKHOR_CC_OPTION,$main);
+}
+add_action('init','alookhor_cc_migrate_approved_header_logo_31025',125);

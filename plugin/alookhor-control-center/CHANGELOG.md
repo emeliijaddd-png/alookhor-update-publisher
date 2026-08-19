@@ -1,5 +1,45 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.34 — 2026-08-19 — Deep Purple Glass + Gold Mega Polish
+- PALETTE: deep purple glass for Top Bar/Capsule — `#0B0214`, `#160027`, `rgba(33,0,56,.72)`, gold accent `#D4AD55` / `#E8C878`, text `#F5F3FF`.
+- GLASS: capsule blur 24px and mega panel blur 26px with saturated deep-plum gradients; structure of Top Bar, Capsule, Cart/Account/Logo/Hamburger and Drawer unchanged.
+- MEGA: second-level column headers render in gold `#D4AD55`; third-level links stay lilac/white on hover gold.
+- CTA: gold pill CTA pinned to the bottom of the last mega column (`mega_cta_label` / `mega_cta_url`, defaults to shop).
+- WP DESCRIPTIONS: native WordPress menu item Description fields surface under column links via `Alookhor_CC_Menu_Walker`.
+- HERO: `.alookhor-mh-features` only renders when at least one non-empty feature label exists.
+- PRESERVE: `[alookhor_purple_slider]`, admin purple-slider dashboard, `alookhor_save_purple_slider`, and `mega_menu` toggle remain active.
+
+## v3.10.29 — 2026-08-19 — Purple Slider Dashboard
+- ADMIN: new submenu «اسلایدر بنفش شیشه‌ای» under ALOOKHOR Control Center, matching the Header page pattern (nonce + `manage_options` + Media Library picker with preview).
+- SLIDES: add up to 6 slides, delete down to 1, and edit image/alt/kicker/title/highlight/description plus two CTAs, autoplay and arrows/dots.
+- AJAX: `wp_ajax_alookhor_save_purple_slider` sanitizes every field and stores state in `alookhor_cc_purple_slider`.
+
+## v3.10.28 — 2026-08-19 — Purple Glass Slider Shortcode
+- SHORTCODE: `[alookhor_purple_slider]` renders a 4-slide default carousel using `assets/images/category-*.jpg`.
+- SETTINGS: option `alookhor_cc_purple_slider` plus filter `alookhor_cc_purple_slider_settings`; atts `autoplay` (3000–15000, default 5500), `arrows`, `dots`.
+- UX: autoplay with hover-pause, circular glass arrows, purple pill dots, swipe, arrow keys, Reduced Motion and a MutationObserver for Elementor.
+- SCOPE: CSS/JS prefixed with `.alookhor-ps` and enqueued beside the frontend header assets.
+
+## v3.10.27 — 2026-08-19 — Purple Glass Header
+- PALETTE: purple `#A855F7`, lilac `#C79BFF`, text `#EDE9FE`.
+- GLASS: capsule `rgba(64,28,92,.66)` with 24px blur; Top Bar `rgba(42,18,64,.74)` with 20px blur and line `rgba(199,155,255,.32)`.
+- STAGE: gradient `#1A0B28 → #2E1250 → #1A0B28`; link hover `#C79BFF`; active underline purple gradient.
+- MEGA: purple panel with 26px blur and column headers `#D8B4FE`. Structure of the current header is unchanged.
+
+## v3.10.26 — 2026-08-19 — Desktop Mega Menu for the Primary Header
+- MEGA: top-level WordPress menu items with children open a full-capsule-width glass mega panel under the capsule; mouse hover keeps working.
+- COLUMNS: second level becomes Gold column headers and third level becomes stacked muted links; flyout submenus are disabled inside the panel.
+- PALETTE: the panel reuses the approved v3.10.25 capsule treatment — purple radial highlight, burgundy glass, Gold border with Pink top edge and soft inner glows.
+- INPUT: first tap opens the panel on hover-less pointers and the second navigates; Escape closes and refocuses; aria-haspopup/aria-expanded wired on triggers.
+- SETTING: new `mega_menu` toggle (default on) in the Boutique Header admin form, the AJAX save path and the no-store header state endpoint.
+- PRESERVE: Top Bar, capsule geometry, real WordPress menu nodes, Cart, Account, Logo, Hamburger, Drawer and the whole Mobile layout remain untouched.
+
+## v3.10.20 — 2026-08-16 — Internal Header Offset and Sticky Fix
+- BROWSER: 3.10.19 داخلی با Offset 291px Desktop / 362.6px Mobile و Sticky محدودشده توسط Elementor رندر شد.
+- HOST: فقط Elementor host حاوی `.alookhor-portal-header` از Padding/Margin/Min-height رزروشده پاک شد.
+- STICKY: Marker و fixed rail داخلی جایگزین native sticky محدودشده شدند؛ Desktop پیوسته و بدون Layout Shift، Mobile بدون ردیف اضافه.
+- PRESERVE: Top Bar، Capsule، WordPress menus، Cart، Account، Logo، Hamburger، Drawer، Hero و Features بدون بازسازی حفظ شدند.
+
 ## v3.10.19 — 2026-08-16 — Two-Row Header Reference Match
 - TOP BAR: Burgundy glass surface, 18px Blur, subtle Gold separators and physical order Support (left), shipping/export message (center), Phone (right).
 - ICON: support dot replaced by a scoped headset SVG while existing Phone/Globe content remains dynamic.
