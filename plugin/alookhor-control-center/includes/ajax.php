@@ -83,7 +83,7 @@ function alookhor_ajax_save_settings(){
         if (array_key_exists('top_logo_width', $header)) $header['top_logo_width'] = max(50, min(180, absint($header['top_logo_width'])));
         if (array_key_exists('header_logo_desktop_width', $header)) $header['header_logo_desktop_width'] = max(70, min(220, absint($header['header_logo_desktop_width'])));
         if (array_key_exists('header_logo_mobile_width', $header)) $header['header_logo_mobile_width'] = max(42, min(110, absint($header['header_logo_mobile_width'])));
-        foreach (['sticky', 'show_search', 'show_topbar', 'show_contact', 'show_account', 'show_phone', 'show_email', 'show_whatsapp', 'show_export', 'show_wholesale', 'wholesale_new_tab'] as $key) {
+        foreach (['sticky', 'show_search', 'show_topbar', 'show_contact', 'show_account', 'show_phone', 'show_email', 'show_whatsapp', 'show_export', 'show_wholesale', 'wholesale_new_tab', 'mega_menu'] as $key) {
             if (array_key_exists($key, $header)) $header[$key] = rest_sanitize_boolean($header[$key]);
         }
         $payload['header_settings'] = $header;
@@ -366,7 +366,7 @@ function alookhor_ajax_save_header_wp(){
     $data['header_logo_mobile_width'] = max(42, min(110, absint($_POST['header_logo_mobile_width'] ?? ($current['header_logo_mobile_width'] ?? 58))));
     $data['account_text'] = sanitize_text_field(wp_unslash($_POST['account_text'] ?? ($current['account_text'] ?? 'ورود / ثبت‌نام')));
     $data['primary_menu'] = absint($_POST['primary_menu'] ?? ($current['primary_menu'] ?? 0));
-    foreach (['sticky', 'show_search', 'show_topbar', 'show_contact', 'show_account', 'show_phone', 'show_email', 'show_whatsapp', 'show_export', 'show_wholesale', 'wholesale_new_tab'] as $flag) {
+    foreach (['sticky', 'show_search', 'show_topbar', 'show_contact', 'show_account', 'show_phone', 'show_email', 'show_whatsapp', 'show_export', 'show_wholesale', 'wholesale_new_tab', 'mega_menu'] as $flag) {
         $data[$flag] = isset($_POST[$flag]) ? rest_sanitize_boolean(wp_unslash($_POST[$flag])) : !empty($current[$flag]);
     }
 

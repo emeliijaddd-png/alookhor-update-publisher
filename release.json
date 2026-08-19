@@ -1,1 +1,51 @@
-{"version":"3.10.25","previous":"3.10.24","state":"ready","requires":"6.0","tested":"7.0","requires_php":"8.0","description":"تطبیق نهایی بالای سایت با image.png: Burgundy کامل، لوگوی رسمی و Hamburger واقعی.","changelog":[{"tag":"BURGUNDY HEADER","title":"حذف زمینه سفید/خاکستری","desc":"Nav Stage و Capsule اکنون روی زمینه عمیق #0D0510/#1C1024 با Glow بنفش و حاشیه طلایی نمایش داده می‌شوند."},{"tag":"APPROVED LOGO","title":"بازیابی LOGO2 رسمی","desc":"Migration محدود، لوگوی رسمی source-backed Header را به Media setting مشترک برمی‌گرداند."},{"tag":"VISIBLE HAMBURGER","title":"Hamburger واقعی در هر دو Viewport","desc":"Touch target و سه خط منوی Drawer با CSS ایزوله و قابل مشاهده شده‌اند."}],"project":"ALOOKHOR","area":"Reference Header Final Visual","reason":"Screenshot زنده 3.10.24 ساختار مرجع را داشت اما زمینه سفید/خاکستری، لوگوی نامرتبط و Hamburger نامشهود با image.png تطبیق نداشت.","files":["plugin/alookhor-control-center/assets/css/frontend-header.css","plugin/alookhor-control-center/alookhor-control-center.php","scripts/header_visual_audit.py"]}
+{
+  "version": "3.10.26",
+  "previous": "3.10.25",
+  "state": "ready",
+  "requires": "6.0",
+  "tested": "7.0",
+  "requires_php": "8.0",
+  "description": "مگا منوی دسکتاپ برای فهرست اصلی هدر: پنل شیشه‌ای عریض هم‌عرض کپسول با ستون‌های طلایی، با حفظ کامل ساختار مرجع v3.10.25.",
+  "changelog": [
+    {
+      "tag": "MEGA MENU",
+      "title": "پنل عریض دسکتاپ",
+      "desc": "آیتم‌های سطح یکِ دارای زیرمنو پنل شیشه‌ای هم‌عرض کپسول را باز می‌کنند؛ سطح دو سرستون طلایی و سطح سه لینک‌های انباشته است."
+    },
+    {
+      "tag": "REFERENCE PALETTE",
+      "title": "هم‌خانواده v3.10.25",
+      "desc": "پنل همان رادیال ارغوانی، شیشه برگندی، لبه طلایی و خط صورتی لبه بالای کپسول را تکرار می‌کند."
+    },
+    {
+      "tag": "TOUCH + KEYS",
+      "title": "دسترسی‌پذیری",
+      "desc": "تپ اول پنل را باز می‌کند و تپ دوم می‌رود؛ Escape می‌بندد و aria-expanded روی همه تریگرها فعال است."
+    },
+    {
+      "tag": "ADMIN TOGGLE",
+      "title": "کلید مگا منو",
+      "desc": "mega_menu به فرم هدر، مسیر ذخیره AJAX و اندپوینت no-store هدر اضافه شد؛ پیش‌فرض روشن."
+    },
+    {
+      "tag": "PRESERVED",
+      "title": "بدون تغییر ساختار",
+      "desc": "Top Bar، کپسول، نودهای واقعی WordPress، Cart، Account، Logo، Hamburger، Drawer و کل چیدمان موبایل دست‌نخورده ماندند."
+    }
+  ],
+  "project": "ALOOKHOR",
+  "area": "Desktop Primary Navigation / Mega Menu",
+  "reason": "مالک سایت پنل مگا منوی دسکتاپ را برای فهرست اصلی خواست؛ اجرا با حفظ کامل ساختار مرجع v3.10.25 و پالت تأییدشده.",
+  "files": [
+    "plugin/alookhor-control-center/alookhor-control-center.php",
+    "plugin/alookhor-control-center/readme.txt",
+    "plugin/alookhor-control-center/config/site.json",
+    "plugin/alookhor-control-center/CHANGELOG.md",
+    "plugin/alookhor-control-center/includes/shortcode-header.php",
+    "plugin/alookhor-control-center/includes/ajax.php",
+    "plugin/alookhor-control-center/includes/admin.php",
+    "plugin/alookhor-control-center/includes/rest-api.php",
+    "plugin/alookhor-control-center/assets/css/frontend-header.css",
+    "plugin/alookhor-control-center/assets/js/frontend-header.js"
+  ]
+}

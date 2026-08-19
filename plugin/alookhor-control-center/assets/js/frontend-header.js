@@ -59,6 +59,7 @@
       toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
       drawer.setAttribute('aria-hidden', open ? 'false' : 'true');
       document.body.classList.toggle('alookhor-menu-open', open);
+      if (open) closeMega();
 
       if (open) {
         previousFocus = document.activeElement;

@@ -195,7 +195,8 @@ function alookhor_cc_render_header_settings(){
                     'show_wholesale' => 'نمایش دکمه عمده',
                     'wholesale_new_tab' => 'بازشدن عمده در تب جدید',
                     'show_contact' => 'نمایش گروه تماس',
-                    'show_account' => 'نمایش ورود/حساب'
+                    'show_account' => 'نمایش ورود/حساب',
+                    'mega_menu' => 'مگا منو دسکتاپ'
                 ] as $key => $label): ?>
                     <label style="display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.035);border:1px solid rgba(201,168,106,.14);border-radius:999px;padding:8px 12px">
                         <input type="hidden" name="<?php echo esc_attr($key); ?>" value="0">
