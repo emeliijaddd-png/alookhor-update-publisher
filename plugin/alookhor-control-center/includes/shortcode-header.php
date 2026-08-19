@@ -64,6 +64,7 @@ function alookhor_cc_front_header_settings(){
         'top_logo_width'  => 96,
         'account_text'    => 'ورود / ثبت‌نام',
         'primary_menu'    => 0,
+        'mega_menu'       => true,
     ];
 
     $settings = wp_parse_args($saved, $defaults);
@@ -195,6 +196,7 @@ function alookhor_cc_render_portal_header($atts = []){
     $capsule_text=sanitize_hex_color($settings['capsule_text']??'')?:'#F5F3F0';
     $capsule_muted=sanitize_hex_color($settings['capsule_muted']??'')?:'#C8C2C9';
     $capsule_blur=max(10,min(36,absint($settings['capsule_blur']??24)));
+    $mega_menu = rest_sanitize_boolean($settings['mega_menu'] ?? true);
 
     ob_start();
     ?>

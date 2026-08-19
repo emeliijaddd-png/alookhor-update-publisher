@@ -3,7 +3,7 @@
  * Plugin Name: ALOOKHOR Control Center
  * Plugin URI: https://alookhor.ir
  * Description: کنترل سنتر لوکس و ماژولار آلوخور — مدیریت کامل سایت (هدر، اسلایدر، سورت، محصولات، مشتریان VIP، مالی، آنالیتیکس) با آپدیت آنی بدون رفرش. تمام تنظیمات چت قبلی + شورت‌کد [alookhor_portal_header] اینجا مدیریت می‌شود.
- * Version: 3.10.26
+ * Version: 3.10.29
  * Author: ALOOKHOR Team — Luxury Modular
  * Author URI: https://alookhor.ir
  * Update URI: https://alookhor.ir/alookhor-control-center
@@ -16,8 +16,8 @@
 
 if (!defined('ABSPATH')) exit;
 
-define('ALOOKHOR_CC_VERSION', '3.10.26');
-define('ALOOKHOR_CC_BUILD', '3.10.26');
+define('ALOOKHOR_CC_VERSION', '3.10.29');
+define('ALOOKHOR_CC_BUILD', '3.10.29');
 define('ALOOKHOR_CC_FILE', __FILE__);
 define('ALOOKHOR_CC_DIR', plugin_dir_path(__FILE__));
 define('ALOOKHOR_CC_URL', plugin_dir_url(__FILE__));
@@ -59,10 +59,14 @@ require_once ALOOKHOR_CC_DIR . 'includes/footer.php';
 require_once ALOOKHOR_CC_DIR . 'includes/product-categories.php';
 require_once ALOOKHOR_CC_DIR . 'includes/hero.php';
 require_once ALOOKHOR_CC_DIR . 'includes/site-features.php';
+require_once ALOOKHOR_CC_DIR . 'includes/shortcode-purple-slider.php';
+require_once ALOOKHOR_CC_DIR . 'includes/admin-purple-slider.php';
 
 // ——— Enqueue برای فرانت (هدر لوکس، کاملاً Scoped) ———
 // فایل کامل luxury.css مخصوص کنترل سنتر است و نباید body/theme فرانت را override کند.
 add_action('wp_enqueue_scripts', function(){
+    wp_enqueue_style('alookhor-cc-purple-slider', ALOOKHOR_CC_URL . 'assets/css/frontend-purple-slider.css', [], ALOOKHOR_CC_BUILD);
+    wp_enqueue_script('alookhor-cc-purple-slider', ALOOKHOR_CC_URL . 'assets/js/frontend-purple-slider.js', [], ALOOKHOR_CC_BUILD, true);
     if (!empty($GLOBALS['alookhor_cc_legacy_header_provider'])) {
         // خروجی و CSS هدر قدیمی دست‌نخورده می‌ماند؛ فقط مقادیر Top Bar مدیریت می‌شوند.
         $h = alookhor_cc_front_header_settings();
@@ -252,6 +256,7 @@ function alookhor_cc_get_header_settings(){
         'top_logo_width' => 96,
         'account_text' => 'ورود / ثبت‌نام',
         'primary_menu' => 0,
+        'mega_menu' => true,
     ];
     return wp_parse_args($h, $defaults);
 }

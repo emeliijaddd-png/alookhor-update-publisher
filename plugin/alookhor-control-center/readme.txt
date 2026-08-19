@@ -4,7 +4,7 @@ Tags: control center, luxury, alookhor, admin, dashboard
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 3.10.26
+Stable tag: 3.10.29
 License: Private
 License URI: https://alookhor.ir
 
@@ -46,6 +46,26 @@ License URI: https://alookhor.ir
 در `config/site.json` و `wp_options: alookhor_cc_settings` — همان حافظه واقعی که در چت قبلی ویرایش می‌شد.
 
 == Changelog ==
+
+= 3.10.29 =
+* صفحه مدیریت اسلایدر بنفش شیشه‌ای زیر ALOOKHOR Control Center
+* افزودن حداکثر ۶ اسلاید، حذف تا حداقل ۱ اسلاید و Media Picker با پیش‌نمایش
+* ذخیره AJAX با nonce، manage_options و سانیتیز کامل در `alookhor_cc_purple_slider`
+
+= 3.10.28 =
+* شورت‌کد `[alookhor_purple_slider]` با ۴ اسلاید پیش‌فرض و تصاویر category
+* Autoplay با hover-pause، پیکان شیشه‌ای، نقطه‌های قرصی بنفش، سوایپ و Reduced Motion
+* MutationObserver برای درج پویای المنتور
+
+= 3.10.27 =
+* پالت Purple Glass برای هدر: `#A855F7`، `#C79BFF`، `#EDE9FE`
+* شیشه کپسول `rgba(64,28,92,.66)` با blur 24px و Top Bar بنفش شیشه‌ای
+* مگا پنل بنفش با blur 26px و سرستون‌های `#D8B4FE`
+
+= 3.10.26 =
+* مگا منوی دسکتاپ برای فهرست اصلی هدر
+* پنل شیشه‌ای عریض هم‌عرض کپسول با ستون‌های سطح دو و لینک‌های سطح سه
+* کلید mega_menu در فرم هدر؛ پیش‌فرض روشن
 
 = 3.10.25 =
 * تطبیق نهایی Header با image.png

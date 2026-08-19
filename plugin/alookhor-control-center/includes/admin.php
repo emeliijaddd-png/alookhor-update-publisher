@@ -47,6 +47,7 @@ add_action('admin_enqueue_scripts', function($hook){
         'header_shortcode' => '[alookhor_portal_header]',
         'hero_shortcode' => '[alookhor_managed_hero]',
         'feature_shortcode' => '[alookhor_managed_features]',
+        'purple_slider_shortcode' => '[alookhor_purple_slider]',
         'home_url' => home_url('/'),
         'footer_menus' => array_map(function($menu){
             return ['id' => (int) $menu->term_id, 'name' => $menu->name];
