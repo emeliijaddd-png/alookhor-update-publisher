@@ -64,6 +64,33 @@ def _finalize_report(report_obj):
     print(serialized)
 
 
+def request_json(path, method='GET', payload=None, allow=(200,)):
+    body = json.dumps(payload).encode() if payload is not None else None
+    request = Request(
+        BASE + path,
+        data=body,
+        method=method,
+        headers={
+            'Authorization': f'Basic {AUTH}',
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'User-Agent': 'ALOOKHOR-GitHub-Publisher/1.0',
+        },
+    )
+    try:
+        with urlopen(request, timeout=90) as response:
+            data = response.read().decode()
+            if response.status not in allow:
+                raise RuntimeError(f'Unexpected HTTP {response.status}: {data[:500]}')
+            return response.status, json.loads(data)
+    except HTTPError as error:
+        data = error.read().decode(errors='replace')
+        if error.code in allow:
+            return error.code, json.loads(data)
+        raise RuntimeError(f'HTTP {error.code} for {path}: {data[:800]}') from error
+
+
+
 def get_pre_update_status():
     try:
         _, data = request_json('/wp-json/alookhor-cc/v1/status')

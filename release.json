@@ -1,28 +1,27 @@
 {
-  "version": "3.10.37",
-  "previous": "3.10.36",
+  "version": "3.10.38",
+  "previous": "3.10.37",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "رفع قطعی جابه‌جایی هدر به سمت راست در موبایل — ترمیم فروپاشی عرض زنجیره‌ی ویجت المنتور در RTL.",
+  "description": "ترمیم اسکریپت تست پسا‌آپدیت (بازگرداندن request_json) — حاوی فیکس هدر موبایل 3.10.37 و آماده‌ی سنجش اثر واقعی.",
   "changelog": [
     {
       "tag": "FIX",
-      "title": "هدر موبایل برگشت به جای خود",
-      "desc": "زنجیره‌ی ویجت المنتورِ نگه‌دارنده‌ی شورت‌کد هدر که داخل کانتینرهای flex سطری به نقطه‌ی صفرعرض فرو می‌پاشید، کشیده و تمام‌عرض می‌شود تا محاسبه‌ی تمام‌صفحه‌ی هدر در RTL دقیق شود."
+      "title": "زنجیره‌ی آپدیت زنده برگشت",
+      "desc": "تابع request_json حذف‌شده به تست پسا‌آپدیت بازگشت؛ حالا نصب 3.10.38 و چک‌ها و تله‌متری کامل اجرا می‌شوند."
     }
   ],
   "project": "ALOOKHOR",
   "area": "Deep Purple Glass Header + Gold Mega Menu / Desktop + Mobile",
-  "reason": "تله‌متری 3.10.36 نشان داد هدر موبایل 207.5px بیرون از ویوپورت است چون زنجیره‌ی ویجت عرض صفر دارد؛ فیکس با تله‌متری همان نسخه سنجه و اثبات می‌شود.",
+  "reason": "در .36/.37 اسکریپت تست قبل از نصب می‌مُرد، پس سایت به نسخه‌ی جدید نرسید؛ با این ترمیم، فیکس هدر موبایل بالاخره روی سایت می‌نشیند و تله‌متری اثرش را گزارش می‌کند.",
   "files": [
     "release.json",
     "plugin/alookhor-control-center/alookhor-control-center.php",
     "plugin/alookhor-control-center/readme.txt",
     "plugin/alookhor-control-center/config/site.json",
     "plugin/alookhor-control-center/CHANGELOG.md",
-    "plugin/alookhor-control-center/assets/js/frontend-header.js",
     "scripts/wordpress_release_test.py",
     "docs/MASTER_CODE_REGISTRY.md"
   ]

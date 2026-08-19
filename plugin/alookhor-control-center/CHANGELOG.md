@@ -1,5 +1,8 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.38 — 2026-08-19 — Post-Update Test Repair
+- FIX: restored the accidentally excised `request_json` helper in `wordpress_release_test.py` so the authenticated site update + checks + telemetry chain runs again end-to-end.
+
 ## v3.10.37 — 2026-08-19 — Mobile Header Right-Shift Fix
 - FIX: repair the Elementor widget-chain width collapse (zero-width shortcode point inside row-flex hosts) that anchored the RTL full-bleed header to the container's right edge and pushed it 207.5px off-canvas on mobile. Verified via live render telemetry.
 
