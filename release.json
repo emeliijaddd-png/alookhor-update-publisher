@@ -1,54 +1,28 @@
 {
-  "version": "3.10.29",
-  "previous": "3.10.26",
+  "version": "3.10.30",
+  "previous": "3.10.29",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "بازگشت مگا منو به‌همراه هدر بنفش شیشه‌ای و اسلایدر مدیریت‌شده [alookhor_purple_slider] با صفحه داشبورد اختصاصی.",
+  "description": "تله‌متری تشخیص رندر هدر موبایل در تست پسا‌آپدیت — بدون هیچ تغییر رفتاری در محصول.",
   "changelog": [
     {
-      "tag": "PURPLE GLASS",
-      "title": "هدر بنفش شیشه‌ای",
-      "desc": "پالت #A855F7 / #C79BFF / #EDE9FE، شیشه کپسول rgba(64,28,92,.66) با blur 24px، Top Bar بنفش و مگا پنل با سرستون‌های #D8B4FE."
-    },
-    {
-      "tag": "PURPLE SLIDER",
-      "title": "شورت‌کد اسلایدر",
-      "desc": "[alookhor_purple_slider] با ۴ اسلاید پیش‌فرض، Autoplay، پیکان شیشه‌ای، نقطه‌های قرصی بنفش، سوایپ و MutationObserver المنتور."
-    },
-    {
-      "tag": "DASHBOARD",
-      "title": "مدیریت از پیشخوان",
-      "desc": "زیرمنوی اسلایدر بنفش شیشه‌ای با افزودن/حذف اسلاید، Media Picker و ذخیره AJAX سانیتیزشده در alookhor_cc_purple_slider."
-    },
-    {
-      "tag": "MEGA MENU",
-      "title": "بازگشت مگا منو",
-      "desc": "کلاس alookhor-mega-menu دوباره اعمال می‌شود؛ تپ اول پنل را باز می‌کند و Escape می‌بندد."
-    },
-    {
-      "tag": "PRESERVED",
-      "title": "بدون تغییر ساختار",
-      "desc": "Top Bar، کپسول، نودهای WordPress، Cart، Account، Logo، Hamburger و Drawer دست‌نخورده ماندند."
+      "tag": "DIAG",
+      "title": "تله‌متری هدر موبایل",
+      "desc": "گزارش پسا‌آپدیت حالا ممیزی رندر زنده‌ی هدر (دسکتاپ+موبایل، مختصات المان‌ها و overflow افقی) و اسکرین‌شات موبایل کوچک‌شده را در برنچ publisher-status ثبت می‌کند؛ کاملاً افزایشی و بدون اثر روی نتیجه‌ی ریلیز."
     }
   ],
   "project": "ALOOKHOR",
   "area": "Purple Glass Header + Purple Slider / Desktop + Mobile",
-  "reason": "سایت زنده به 3.10.25 برگشته بود؛ نسخه 3.10.29 مگا منو را برمی‌گرداند و هدر بنفش شیشه‌ای به‌همراه اسلایدر مدیریت‌شده را اضافه می‌کند.",
+  "reason": "گزارش کاربر: «هدر در حالت موبایل رفته سمت راست». برای فیکس دقیق و امن، ابتدا اندازه‌گیری رندرشده‌ی زنده‌ی هدر موبایل لازم است — این نسخه فقط تله‌متری اضافه می‌کند تا فیکس بعدی مبتنی بر شواهد باشد.",
   "files": [
+    "release.json",
     "plugin/alookhor-control-center/alookhor-control-center.php",
     "plugin/alookhor-control-center/readme.txt",
     "plugin/alookhor-control-center/config/site.json",
     "plugin/alookhor-control-center/CHANGELOG.md",
-    "plugin/alookhor-control-center/includes/shortcode-header.php",
-    "plugin/alookhor-control-center/includes/shortcode-purple-slider.php",
-    "plugin/alookhor-control-center/includes/admin-purple-slider.php",
-    "plugin/alookhor-control-center/includes/ajax.php",
-    "plugin/alookhor-control-center/includes/admin.php",
-    "plugin/alookhor-control-center/assets/css/frontend-header.css",
-    "plugin/alookhor-control-center/assets/css/frontend-purple-slider.css",
-    "plugin/alookhor-control-center/assets/js/frontend-header.js",
-    "plugin/alookhor-control-center/assets/js/frontend-purple-slider.js"
+    "scripts/wordpress_release_test.py",
+    "docs/MASTER_CODE_REGISTRY.md"
   ]
 }

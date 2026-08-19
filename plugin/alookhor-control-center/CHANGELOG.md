@@ -1,5 +1,9 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.30 — 2026-08-19 — Mobile Header Render Telemetry
+- DIAG: `wordpress_release_test.py` now appends a guarded live header rendering audit (desktop+mobile rect metrics from `header_visual_audit.py`, plus an embedded downscaled mobile screenshot when Pillow is available) to the publisher status report.
+- SAFE: purely additive telemetry after all release checks; capture failures never affect the release verdict. No product behaviour changes.
+
 ## v3.10.29 — 2026-08-19 — Purple Slider Dashboard
 - ADMIN: new submenu «اسلایدر بنفش شیشه‌ای» under ALOOKHOR Control Center, matching the Header page pattern (nonce + `manage_options` + Media Library picker with preview).
 - SLIDES: add up to 6 slides, delete down to 1, and edit image/alt/kicker/title/highlight/description plus two CTAs, autoplay and arrows/dots.

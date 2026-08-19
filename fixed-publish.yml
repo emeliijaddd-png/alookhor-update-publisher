@@ -1,0 +1,566 @@
+name: Build and Publish ALOOKHOR Release
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*.*.*']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: alookhor-production-publisher
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout private publisher repository
+        uses: actions/checkout@v5
+
+      - name: Inspect and enforce Explicit FTPS certificate
+        env:
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+          FTP_PORT: ${{ secrets.FTP_PORT }}
+        run: |
+          set -euo pipefail
+          test -n "$FTP_SERVER"
+          test -n "$FTP_PORT"
+          timeout 30 openssl s_client \
+            -starttls ftp \
+            -connect "${FTP_SERVER}:${FTP_PORT}" \
+            -servername "${FTP_SERVER}" \
+            -showcerts </dev/null > /tmp/ftps-chain.txt 2>/tmp/ftps-connect.txt
+          awk '/-----BEGIN CERTIFICATE-----/{capture=1} capture{print} /-----END CERTIFICATE-----/{exit}' /tmp/ftps-chain.txt > /tmp/ftps-leaf.pem
+          test -s /tmp/ftps-leaf.pem
+          openssl x509 -in /tmp/ftps-leaf.pem -noout -subject -issuer -dates -fingerprint -sha256 -ext subjectAltName
+          openssl x509 -in /tmp/ftps-leaf.pem -noout -checkhost "$FTP_SERVER"
+
+      - name: Validate source syntax and managed-footer contract
+        run: |
+          python3 -m py_compile scripts/*.py
+          python3 scripts/generate_code_registry.py --check
+          find plugin/alookhor-control-center -name '*.php' -type f -print0 | xargs -0 -n1 php -l
+          while IFS= read -r file; do node --check "$file"; done < <(find plugin/alookhor-control-center/assets/js -name '*.js' -type f | sort)
+          python3 - <<'PY'
+          from pathlib import Path
+          required = [
+              'plugin/alookhor-control-center/includes/footer.php',
+              'plugin/alookhor-control-center/assets/css/frontend-footer.css',
+              'plugin/alookhor-control-center/assets/js/frontend-footer.js',
+              'plugin/alookhor-control-center/assets/images/footer-prunes.png',
+              'plugin/alookhor-control-center/includes/product-categories.php',
+              'plugin/alookhor-control-center/assets/css/frontend-categories.css',
+              'plugin/alookhor-control-center/assets/js/frontend-categories.js',
+              'plugin/alookhor-control-center/assets/css/frontend-header-scroll.css',
+              'plugin/alookhor-control-center/assets/images/category-plums.jpg',
+              'plugin/alookhor-control-center/assets/images/category-fruit-sheets.jpg',
+              'plugin/alookhor-control-center/assets/images/category-natural-snacks.jpg',
+              'plugin/alookhor-control-center/assets/images/category-nuts.jpg',
+              'plugin/alookhor-control-center/includes/hero.php',
+              'plugin/alookhor-control-center/assets/css/frontend-hero.css',
+              'plugin/alookhor-control-center/assets/js/frontend-hero.js',
+              'plugin/alookhor-control-center/includes/site-features.php',
+              'plugin/alookhor-control-center/assets/css/frontend-features.css',
+              'plugin/alookhor-control-center/assets/js/frontend-features.js',
+          ]
+          for name in required:
+              assert Path(name).is_file() and Path(name).stat().st_size > 0, name
+          php = Path(required[0]).read_text()
+          css = Path(required[1]).read_text()
+          admin_css = Path('plugin/alookhor-control-center/assets/css/luxury.css').read_text()
+          js = Path(required[2]).read_text()
+          assert 'id="alookhor-managed-footer"' in php
+          assert "register_rest_route('alookhor-cc/v1', '/footer'" in Path('plugin/alookhor-control-center/includes/rest-api.php').read_text()
+          assert '@media(max-width:767px)' in css and '.alookhor-mf-main-grid' in css
+          assert '#quickSettings .qh-grid' in admin_css and '#quickSettings .qh-section textarea' in admin_css
+          assert 'cache:\'no-store\'' in js and 'alookhor-mf-newsletter-form' in js
+          category_php = Path('plugin/alookhor-control-center/includes/product-categories.php').read_text()
+          category_css = Path('plugin/alookhor-control-center/assets/css/frontend-categories.css').read_text()
+          category_js = Path('plugin/alookhor-control-center/assets/js/frontend-categories.js').read_text()
+          assert "taxonomy'=>'product_cat'" in category_php and 'id="alookhor-managed-categories"' in category_php
+          assert "add_shortcode('alookhor_managed_categories'" in category_php and 'alookhor_cc_category_shortcode_rendered' in category_php
+          assert '.alookhor-mc-card' in category_css and '--mc-cards' in category_css and '--mc-mobile-width' in category_css
+          assert '.alookhor-mc-arrow{display:none!important}' in category_css and 'flex-basis:33px!important' in category_css
+          assert '.alookhor-mc.has-single-page' in category_css and 'min-width:58px!important' in category_css and 'appearance:none!important' in category_css
+          assert 'ResizeObserver' in category_js and "cache:'no-store'" in category_js and 'is-clone' in category_js and 'syncDots' in category_js and "tabIndex=mobile?-1:0" in category_js and "classList.toggle('has-single-page'" in category_js
+          hero_php = Path('plugin/alookhor-control-center/includes/hero.php').read_text()
+          hero_css = Path('plugin/alookhor-control-center/assets/css/frontend-hero.css').read_text()
+          hero_js = Path('plugin/alookhor-control-center/assets/js/frontend-hero.js').read_text()
+          assert "add_shortcode('alookhor_managed_hero'" in hero_php and 'id="alookhor-managed-hero"' in hero_php
+          assert 'alookhor-hero-slider-wrapper' in hero_php and "data-slide-count=\"4\"" in hero_php and 'for ($index=0; $index<4; $index++)' in hero_php
+          assert 'body.alookhor-mh-hide-legacy .alookhor-hero-slider-wrapper' in hero_css and '@media(max-width:767px)' in hero_css
+          assert 'margin-top:-50px' in hero_css and '.alookhor-mh-content' in hero_css and 'right:' in hero_css
+          assert 'appearance:none!important' in hero_css and '.alookhor-mh .alookhor-mh-arrow:before' in hero_css and 'background:rgba(7,4,10,.56)!important' in hero_css
+          assert 'translateX(-36%)' in hero_css and 'scaleX(-1)' not in hero_css and 'rgba(7,3,10,.9) 100%' in hero_css
+          assert "legacy_selector" in hero_php and 'legacy.replaceWith(section)' in hero_js and "cache:'no-store'" in hero_js
+          assert "slides.length!==4" in hero_js and 'prefers-reduced-motion' in hero_js and "data-hero-media" in Path('plugin/alookhor-control-center/assets/js/modules/settings.js').read_text()
+          feature_php=Path('plugin/alookhor-control-center/includes/site-features.php').read_text()
+          feature_css=Path('plugin/alookhor-control-center/assets/css/frontend-features.css').read_text()
+          feature_js=Path('plugin/alookhor-control-center/assets/js/frontend-features.js').read_text()
+          assert "add_shortcode('alookhor_managed_features'" in feature_php and 'id="alookhor-managed-features"' in feature_php
+          assert 'alookhor-trustbar-container' in feature_php and 'for($index=0;$index<4;$index++)' in feature_php
+          assert 'grid-template-columns:repeat(4,minmax(0,1fr))' in feature_css and '@media(max-width:767px)' in feature_css
+          assert 'margin:-15px calc(50% - 50vw) 0' in feature_css and 'margin-top:-15px' in feature_css
+          assert all(token in feature_php for token in ['#0D0510','#1C1024','rgba(33,20,38,.75)','#D49A2E','#E8B84A','#F5F3F0','#C8C2C9'])
+          assert 'legacy.replaceWith(section)' in feature_js and "cache:'no-store'" in feature_js and "data.item_count!==4" in feature_js
+          assert 'data-site-feature-flag' in Path('plugin/alookhor-control-center/assets/js/modules/settings.js').read_text()
+          admin_template = Path('plugin/alookhor-control-center/templates/admin-control-center.php').read_text()
+          admin_app = Path('plugin/alookhor-control-center/assets/js/app.js').read_text()
+          dashboard_js = Path('plugin/alookhor-control-center/assets/js/modules/dashboard.js').read_text()
+          settings_js = Path('plugin/alookhor-control-center/assets/js/modules/settings.js').read_text()
+          assert admin_template.index('data-module="settings"') < admin_template.index('data-module="dashboard"')
+          assert 'nav-item-primary' in admin_template and 'data-group="sales"' in admin_template
+          assert "active: 'settings'" in admin_app and "allMods[hash] ? hash : 'settings'" in admin_app
+          assert 'data-dashboard-only="1"' in dashboard_js and 'dashboardAiCard' in dashboard_js and 'dashboardStatusCard' in dashboard_js
+          assert 'id="aiCard"' not in settings_js and 'id="statusCard"' not in settings_js and 'settings-workspace' in settings_js
+          assert 'width:100%; max-width:none' in admin_css and '.dashboard-monitor-grid' in admin_css
+          header_scroll_css = Path('plugin/alookhor-control-center/assets/css/frontend-header-scroll.css').read_text()
+          topbar_manager = Path('plugin/alookhor-control-center/assets/js/frontend-topbar-manager.js').read_text()
+          header_php = Path('plugin/alookhor-control-center/includes/shortcode-header.php').read_text()
+          bootstrap_php = Path('plugin/alookhor-control-center/alookhor-control-center.php').read_text()
+          assert '.alookhor-legacy-nav-stage.is-stuck{position:fixed!important' in header_scroll_css and '.alookhor-legacy-nav-marker' in header_scroll_css
+          assert '.alookhor-topbar-wrapper' in header_scroll_css and 'position:relative!important' in header_scroll_css
+          assert 'setupHeaderBehavior' in topbar_manager and "header.after(marker, stage)" in topbar_manager
+          assert "navigation.before(document.createComment" in topbar_manager and "data-alookhor-navigation" in topbar_manager
+          assert 'alookhor-legacy-main-search' not in topbar_manager and 'alookhor-mobile-sticky-toggle' not in topbar_manager
+          assert 'alookhor-main-menu-toggle' in topbar_manager and 'alookhor-header-cart-link' in topbar_manager
+          assert 'alookhor-logo-copy' in topbar_manager and 'alookhor-topbar-support' in topbar_manager and 'alookhor-account-icon' in topbar_manager
+          assert "document.body.style.setProperty('padding-top', '0px'" in topbar_manager and "marker.style.setProperty('height'" in topbar_manager
+          assert '.alookhor-legacy-nav-marker,.alookhor-legacy-nav-stage{display:none!important}' in header_scroll_css
+          assert '.alookhor-managed-legacy-header .alookhor-topbar-wrapper,' in header_scroll_css and 'position:relative!important' in header_scroll_css
+          assert "'header_logo_desktop_width' => 118" in header_php and "'header_logo_mobile_width' => 58" in header_php
+          assert 'inpHeaderLogoDesktop' in settings_js and 'inpHeaderLogoMobile' in settings_js and 'inpHeaderSearchPlaceholder' not in settings_js
+          assert "frontend-header-scroll.css" in bootstrap_php and "'sticky' => (bool) $h['sticky']" in bootstrap_php
+          assert all(token in header_scroll_css for token in ['--alookhor-capsule-glass:rgba(33,20,38,.75)','--alookhor-capsule-card:#1C1024','--alookhor-capsule-gold:#D49A2E','--alookhor-capsule-gold-light:#E8B84A','backdrop-filter:blur(var(--alookhor-capsule-blur))'])
+          assert all(token in topbar_manager for token in ['--alookhor-capsule-background','--alookhor-capsule-glass','--alookhor-capsule-gold-light','capsule_blur'])
+          assert 'inpCapsuleGlass' in settings_js and 'inpCapsuleBlur' in settings_js and 'capsule_gold_light' in settings_js
+          rest_php = Path('plugin/alookhor-control-center/includes/rest-api.php').read_text()
+          release_test = Path('scripts/wordpress_release_test.py').read_text()
+          assert 'alookhor_cc_migrate_header_brand_3106' in bootstrap_php and "'phone' => '09159513173'" in bootstrap_php
+          assert "'topbar_bg' => '#11091D'" in bootstrap_php and "'topbar_button_bg' => '#C9A86A'" in bootstrap_php
+          assert 'header_brand_migration' in rest_php and 'header_brand_palette' in release_test
+          assert 'alookhor_cc_migrate_header_layout_3107' in bootstrap_php and "'show_search'] = false" in bootstrap_php
+          assert 'header_layout_migration' in rest_php
+          assert 'alookhor_cc_migrate_header_reference_31019' in bootstrap_php and 'header_reference_migration' in rest_php
+          assert all(token in header_scroll_css for token in ['grid-template-areas:"support message phone"','is-capsule-integrated:not(.is-stuck)','top:-90px!important','padding:0 96px 0 560px','max-width:1360px'])
+          assert all(token in topbar_manager for token in ['is-capsule-integrated','--alookhor-integrated-nav-offset','glassBackground','alookhor-topbar-support-icon'])
+          assert "'topbar_bg' => '#1C1024'" in bootstrap_php and "'header_surface'=>'#0D0510'" in bootstrap_php
+          print('Managed footer/category/admin/header behavior and layout correction contracts passed')
+          PY
+
+      - name: Build and validate release
+        id: release
+        run: python3 scripts/build_release.py
+
+      - name: Verify generated manifest and package
+        run: |
+          python3 - <<'PY'
+          import hashlib, json
+          from pathlib import Path
+          from zipfile import ZipFile
+          manifest = json.loads(Path('public/manifest.json').read_text())
+          package = Path('public/releases') / Path(manifest['download_url']).name
+          assert package.is_file()
+          assert hashlib.sha256(package.read_bytes()).hexdigest() == manifest['sha256']
+          with ZipFile(package) as archive:
+              assert archive.testzip() is None
+              assert 'alookhor-control-center/alookhor-control-center.php' in archive.namelist()
+          print('Release verification passed:', manifest['version'], manifest['sha256'])
+          PY
+
+      - name: Store dry-run artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: alookhor-release-${{ steps.release.outputs.version }}
+          path: public/
+          if-no-files-found: error
+          retention-days: 7
+
+  access_audit:
+    needs: build
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout private publisher repository
+        uses: actions/checkout@v5
+
+      - name: Probe restricted FTPS write, HTTPS read, and delete
+        id: ftps_probe
+        continue-on-error: true
+        timeout-minutes: 6
+        env:
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+          FTP_PORT: ${{ secrets.FTP_PORT }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          PROBE_NAME: releases/publisher-probe-${{ github.run_id }}.txt
+        run: |
+          python3 - <<'PY'
+          import os, re
+          from pathlib import Path
+          server=os.environ['FTP_SERVER'].strip(); port=os.environ['FTP_PORT'].strip()
+          user=os.environ['FTP_USERNAME'].strip(); password=os.environ['FTP_PASSWORD']
+          if '\n' in password or '\r' in password: raise SystemExit('FTP secret contains a newline')
+          if not re.fullmatch(r'[A-Za-z0-9.-]+',server) or not port.isdigit(): raise SystemExit('Invalid FTP endpoint')
+          esc=lambda value: value.replace('\\','\\\\').replace('"','\\"')
+          config='\n'.join([
+              f'user = "{esc(user)}:{esc(password)}"',
+              'ssl-reqd',
+              'ftp-create-dirs',
+              'ftp-pasv',
+              'connect-timeout = 20',
+              'max-time = 120',
+              'retry = 2',
+              'retry-all-errors',
+              'silent',
+              'show-error',
+          ]) + '\n'
+          probe_path=Path('/tmp/publisher-probe.txt')
+          probe_path.write_text('ALOOKHOR_PUBLISHER_PROBE_' + os.environ['GITHUB_RUN_ID'])
+          config_path=Path('/tmp/alookhor-ftps.curlconf')
+          config_path.write_text(config)
+          config_path.chmod(0o600)
+          PY
+          set +e
+          curl -K /tmp/alookhor-ftps.curlconf -T /tmp/publisher-probe.txt "ftp://${FTP_SERVER}:${FTP_PORT}/${PROBE_NAME}" > /tmp/ftps-probe.log 2>&1
+          code=$?
+          if [ "$code" -eq 0 ]; then
+            python3 - <<'PY' >> /tmp/ftps-probe.log 2>&1
+          import os, urllib.request
+          expected='ALOOKHOR_PUBLISHER_PROBE_' + os.environ['GITHUB_RUN_ID']
+          url='https://updates.alookhor.ir/' + os.environ['PROBE_NAME'] + '?run=' + os.environ['GITHUB_RUN_ID']
+          with urllib.request.urlopen(url,timeout=30) as response: actual=response.read().decode()
+          if actual != expected: raise SystemExit('HTTPS probe content mismatch')
+          print('FTPS root mapping and HTTPS read verified')
+          PY
+            code=$?
+          fi
+          curl -K /tmp/alookhor-ftps.curlconf -Q "DELE ${PROBE_NAME}" "ftp://${FTP_SERVER}:${FTP_PORT}/" -o /dev/null >> /tmp/ftps-probe.log 2>&1 || true
+          rm -f /tmp/alookhor-ftps.curlconf /tmp/publisher-probe.txt
+          exit "$code"
+
+      - name: Check authenticated WordPress access without updating
+        id: wp_access
+        continue-on-error: true
+        timeout-minutes: 12
+        env:
+          WP_BASE_URL: ${{ secrets.WP_BASE_URL }}
+          WP_USERNAME: ${{ secrets.WP_USERNAME }}
+          WP_APP_PASSWORD: ${{ secrets.WP_APP_PASSWORD }}
+          WP_REPORT_PATH: /tmp/wordpress-access.json
+        run: python3 scripts/wordpress_access_check.py > /tmp/wordpress-access.log 2>&1
+
+      - name: Audit rendered Production Header in Desktop and Mobile Chrome
+        id: header_visual
+        continue-on-error: true
+        timeout-minutes: 12
+        env:
+          WP_BASE_URL: ${{ secrets.WP_BASE_URL }}
+          HEADER_VISUAL_REPORT: /tmp/header-visual.json
+          HEADER_VISUAL_SHOTS: /tmp/header-shots
+        run: |
+          python3 -m pip install --quiet selenium
+          python3 scripts/header_visual_audit.py > /tmp/header-visual.log 2>&1
+
+      - name: Write machine-readable access status
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          FTPS_OUTCOME: ${{ steps.ftps_probe.outcome }}
+          ACCESS_OUTCOME: ${{ steps.wp_access.outcome }}
+          HEADER_VISUAL_OUTCOME: ${{ steps.header_visual.outcome }}
+        run: |
+          python3 - <<'PY'
+          import json, os
+          from datetime import datetime, timezone
+          from pathlib import Path
+          from urllib.parse import quote
+          report_path = Path('/tmp/wordpress-access.json')
+          wordpress = json.loads(report_path.read_text()) if report_path.exists() else None
+          visual_path = Path('/tmp/header-visual.json')
+          visual = json.loads(visual_path.read_text()) if visual_path.exists() else None
+          ftps_log_path = Path('/tmp/ftps-probe.log')
+          ftps_log = ftps_log_path.read_text(errors='replace') if ftps_log_path.exists() else ''
+          for secret_name in ['FTP_PASSWORD','FTP_USERNAME','FTP_SERVER']:
+              value = os.environ.get(secret_name,'')
+              if value:
+                  ftps_log = ftps_log.replace(value,'[REDACTED]').replace(quote(value,safe=''),'[REDACTED]')
+          report = {
+              'type': 'access_audit',
+              'run_id': os.environ['GITHUB_RUN_ID'],
+              'ref': os.environ['GITHUB_REF'],
+              'sha': os.environ['GITHUB_SHA'],
+              'created_at': datetime.now(timezone.utc).isoformat(),
+              'outcomes': {
+                  'ftps_probe': os.environ.get('FTPS_OUTCOME',''),
+                  'wordpress_access': os.environ.get('ACCESS_OUTCOME',''),
+                  'header_visual': os.environ.get('HEADER_VISUAL_OUTCOME',''),
+              },
+              'ftps_log': ftps_log[-8000:],
+              'wordpress': wordpress,
+              'header_visual': visual,
+          }
+          Path('/tmp/latest.json').write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n')
+          PY
+          rm -rf /tmp/status-repo
+          mkdir /tmp/status-repo
+          cd /tmp/status-repo
+          git init -b publisher-status
+          git config user.name 'ALOOKHOR Publisher Bot'
+          git config user.email 'publisher@alookhor.ir'
+          cp /tmp/latest.json .
+          if [ -d /tmp/header-shots ]; then mkdir -p visual; cp /tmp/header-shots/*.png visual/ 2>/dev/null || true; fi
+          git add latest.json visual 2>/dev/null || git add latest.json
+          git commit -m "Access audit for run ${GITHUB_RUN_ID}"
+          git remote add origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          git push --force origin HEAD:publisher-status
+
+      - name: Enforce FTPS and authenticated WordPress access
+        if: always()
+        env:
+          FTPS_OUTCOME: ${{ steps.ftps_probe.outcome }}
+          ACCESS_OUTCOME: ${{ steps.wp_access.outcome }}
+        run: |
+          test "$FTPS_OUTCOME" = success
+          test "$ACCESS_OUTCOME" = success
+
+  deploy:
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    permissions:
+      contents: write
+    environment: production
+    steps:
+      - name: Checkout private publisher repository
+        uses: actions/checkout@v5
+
+      - name: Rebuild verified release
+        run: python3 scripts/build_release.py
+
+      - name: Validate deployment secrets
+        env:
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+          FTP_PORT: ${{ secrets.FTP_PORT }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+        run: |
+          test -n "$FTP_SERVER"
+          test -n "$FTP_PORT"
+          test -n "$FTP_USERNAME"
+          test -n "$FTP_PASSWORD"
+
+      - name: Prepare protected FTPS curl configuration
+        env:
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+          FTP_PORT: ${{ secrets.FTP_PORT }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+        run: |
+          python3 - <<'PY'
+          import json, os, re
+          from pathlib import Path
+          server = os.environ['FTP_SERVER'].strip()
+          port = os.environ['FTP_PORT'].strip()
+          user = os.environ['FTP_USERNAME'].strip()
+          password = os.environ['FTP_PASSWORD']
+          if '\n' in password or '\r' in password: raise SystemExit('FTP secret contains a newline')
+          manifest = json.loads(Path('public/manifest.json').read_text())
+          package = Path(manifest['download_url']).name
+          if not re.fullmatch(r'[A-Za-z0-9.-]+', server): raise SystemExit('Invalid FTP_SERVER')
+          if not port.isdigit(): raise SystemExit('Invalid FTP_PORT')
+          if not re.fullmatch(r'[A-Za-z0-9._-]+\.zip', package): raise SystemExit('Invalid package name')
+          esc = lambda value: value.replace('\\', '\\\\').replace('"', '\\"')
+          config = '\n'.join([
+              f'user = "{esc(user)}:{esc(password)}"',
+              'ssl-reqd',
+              'ftp-create-dirs',
+              'ftp-pasv',
+              'connect-timeout = 20',
+              'max-time = 300',
+              'retry = 2',
+              'retry-all-errors',
+              'silent',
+              'show-error',
+          ]) + '\n'
+          config_path = Path('/tmp/alookhor-ftps.curlconf')
+          config_path.write_text(config)
+          config_path.chmod(0o600)
+          with open(os.environ['GITHUB_ENV'], 'a') as env_file:
+              env_file.write('RELEASE_PACKAGE=' + package + '\n')
+              env_file.write(f'FTPS_BASE=ftp://{server}:{port}\n')
+          print('Protected FTPS curl configuration prepared for', server)
+          PY
+
+      - name: Upload release ZIP
+        id: upload_zip
+        continue-on-error: true
+        timeout-minutes: 8
+        run: curl -K /tmp/alookhor-ftps.curlconf -T "public/releases/${RELEASE_PACKAGE}" "${FTPS_BASE}/releases/${RELEASE_PACKAGE}" > /tmp/upload-zip.log 2>&1
+
+      - name: Verify remote ZIP and SHA-256
+        id: verify_zip
+        if: steps.upload_zip.outcome == 'success'
+        continue-on-error: true
+        timeout-minutes: 8
+        env:
+          GITHUB_RUN_ID: ${{ github.run_id }}
+        run: |
+          python3 - <<'PY' > /tmp/verify-zip.log 2>&1
+          import hashlib, json, os, time, urllib.request
+          from pathlib import Path
+          from zipfile import ZipFile
+          expected = json.loads(Path('public/manifest.json').read_text())
+          url = expected['download_url'] + '?prepublish=' + os.environ['GITHUB_RUN_ID']
+          target = Path('/tmp/remote-release.zip')
+          for attempt in range(6):
+              try:
+                  with urllib.request.urlopen(url, timeout=30) as response: target.write_bytes(response.read())
+                  actual = hashlib.sha256(target.read_bytes()).hexdigest()
+                  if actual != expected['sha256']: raise ValueError(f"SHA mismatch: {actual} != {expected['sha256']}")
+                  with ZipFile(target) as archive:
+                      assert archive.testzip() is None
+                      bootstrap = archive.read('alookhor-control-center/alookhor-control-center.php').decode('utf-8')
+                      assert f"Version: {expected['version']}" in bootstrap
+                  print('Remote package verified:', expected['version'], actual); break
+              except Exception as error:
+                  print(f'Attempt {attempt + 1} failed:', error)
+                  if attempt == 5: raise
+                  time.sleep(10)
+          PY
+
+      - name: Upload release metadata
+        id: upload_metadata
+        if: steps.verify_zip.outcome == 'success'
+        continue-on-error: true
+        timeout-minutes: 8
+        run: |
+          set -e
+          {
+            curl -K /tmp/alookhor-ftps.curlconf -T public/releases/SHA256SUMS.txt "${FTPS_BASE}/releases/SHA256SUMS.txt"
+            curl -K /tmp/alookhor-ftps.curlconf -T public/index.html "${FTPS_BASE}/index.html"
+            curl -K /tmp/alookhor-ftps.curlconf -T public/changelog.html "${FTPS_BASE}/changelog.html"
+            curl -K /tmp/alookhor-ftps.curlconf -T public/.htaccess "${FTPS_BASE}/.htaccess"
+          } > /tmp/upload-metadata.log 2>&1
+
+      - name: Publish manifest atomically
+        id: publish_manifest
+        if: steps.upload_metadata.outcome == 'success'
+        continue-on-error: true
+        timeout-minutes: 6
+        run: |
+          set -e
+          {
+            curl -K /tmp/alookhor-ftps.curlconf -T public/manifest.json "${FTPS_BASE}/manifest.json.next"
+            curl -K /tmp/alookhor-ftps.curlconf -Q "RNFR manifest.json.next" -Q "RNTO manifest.json" "${FTPS_BASE}/" -o /dev/null
+          } > /tmp/publish-manifest.log 2>&1
+
+      - name: Verify production manifest
+        id: verify_production
+        if: steps.publish_manifest.outcome == 'success'
+        continue-on-error: true
+        timeout-minutes: 6
+        env:
+          GITHUB_RUN_ID: ${{ github.run_id }}
+        run: |
+          python3 - <<'PY' > /tmp/verify-production.log 2>&1
+          import json, os, time, urllib.request
+          from pathlib import Path
+          expected = json.loads(Path('public/manifest.json').read_text())
+          url = f"https://updates.alookhor.ir/manifest.json?github_run={os.environ['GITHUB_RUN_ID']}"
+          for attempt in range(6):
+              with urllib.request.urlopen(url, timeout=20) as response: production = json.load(response)
+              if production.get('version') == expected['version'] and production.get('sha256') == expected['sha256']:
+                  print('Production verified:', production['version'], production['sha256']); break
+              if attempt == 5: raise SystemExit(f'Production manifest did not update: {production}')
+              time.sleep(10)
+          PY
+
+      - name: Run authenticated WordPress update and post-update tests
+        id: wordpress_verify
+        if: steps.verify_production.outcome == 'success'
+        continue-on-error: true
+        timeout-minutes: 12
+        env:
+          WP_BASE_URL: ${{ secrets.WP_BASE_URL }}
+          WP_USERNAME: ${{ secrets.WP_USERNAME }}
+          WP_APP_PASSWORD: ${{ secrets.WP_APP_PASSWORD }}
+          WP_REPORT_PATH: /tmp/wordpress-report.json
+        run: |
+          test -n "$WP_BASE_URL"; test -n "$WP_USERNAME"; test -n "$WP_APP_PASSWORD"
+          python3 scripts/wordpress_release_test.py > /tmp/wordpress-update.log 2>&1
+
+      - name: Write sanitized publisher status branch
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          WP_USERNAME: ${{ secrets.WP_USERNAME }}
+          WP_APP_PASSWORD: ${{ secrets.WP_APP_PASSWORD }}
+          UPLOAD_ZIP: ${{ steps.upload_zip.outcome }}
+          VERIFY_ZIP: ${{ steps.verify_zip.outcome }}
+          UPLOAD_METADATA: ${{ steps.upload_metadata.outcome }}
+          PUBLISH_MANIFEST: ${{ steps.publish_manifest.outcome }}
+          VERIFY_PRODUCTION: ${{ steps.verify_production.outcome }}
+          WORDPRESS_VERIFY: ${{ steps.wordpress_verify.outcome }}
+        run: |
+          python3 - <<'PY'
+          import json, os
+          from datetime import datetime, timezone
+          from pathlib import Path
+          from urllib.parse import quote
+          secrets = [os.environ.get('FTP_PASSWORD',''), os.environ.get('FTP_USERNAME',''), os.environ.get('FTP_SERVER',''), os.environ.get('WP_APP_PASSWORD',''), os.environ.get('WP_USERNAME','')]
+          def clean(text):
+              for value in sorted((v for v in secrets if v), key=len, reverse=True): text = text.replace(value, '[REDACTED]').replace(quote(value,safe=''), '[REDACTED]')
+              return text[-12000:]
+          logs = {}
+          for name in ['upload-zip','verify-zip','upload-metadata','publish-manifest','verify-production','wordpress-update']:
+              path = Path('/tmp') / f'{name}.log'; logs[name] = clean(path.read_text(errors='replace')) if path.exists() else ''
+          wp_report = Path('/tmp/wordpress-report.json')
+          wordpress = json.loads(clean(wp_report.read_text(errors='replace'))) if wp_report.exists() else None
+          report = {
+              'run_id': os.environ['GITHUB_RUN_ID'], 'ref': os.environ['GITHUB_REF'], 'sha': os.environ['GITHUB_SHA'],
+              'created_at': datetime.now(timezone.utc).isoformat(),
+              'outcomes': {
+                  'upload_zip': os.environ.get('UPLOAD_ZIP',''), 'verify_zip': os.environ.get('VERIFY_ZIP',''),
+                  'upload_metadata': os.environ.get('UPLOAD_METADATA',''), 'publish_manifest': os.environ.get('PUBLISH_MANIFEST',''),
+                  'verify_production': os.environ.get('VERIFY_PRODUCTION',''), 'wordpress_verify': os.environ.get('WORDPRESS_VERIFY',''),
+              }, 'logs': logs, 'wordpress': wordpress,
+          }
+          out = Path('/tmp/publisher-status'); out.mkdir(exist_ok=True); (out / 'latest.json').write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n')
+          PY
+          rm -rf /tmp/status-repo; mkdir /tmp/status-repo; cd /tmp/status-repo
+          git init -b publisher-status; git config user.name 'ALOOKHOR Publisher Bot'; git config user.email 'publisher@alookhor.ir'
+          cp /tmp/publisher-status/latest.json .; git add latest.json; git commit -m "Publisher status for run ${GITHUB_RUN_ID}"
+          git remote add origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          git push --force origin HEAD:publisher-status
+
+      - name: Enforce successful atomic deployment
+        if: always()
+        env:
+          UPLOAD_ZIP: ${{ steps.upload_zip.outcome }}
+          VERIFY_ZIP: ${{ steps.verify_zip.outcome }}
+          UPLOAD_METADATA: ${{ steps.upload_metadata.outcome }}
+          PUBLISH_MANIFEST: ${{ steps.publish_manifest.outcome }}
+          VERIFY_PRODUCTION: ${{ steps.verify_production.outcome }}
+          WORDPRESS_VERIFY: ${{ steps.wordpress_verify.outcome }}
+        run: |
+          test "$UPLOAD_ZIP" = success
+          test "$VERIFY_ZIP" = success
+          test "$UPLOAD_METADATA" = success
+          test "$PUBLISH_MANIFEST" = success
+          test "$VERIFY_PRODUCTION" = success
+          test "$WORDPRESS_VERIFY" = success
