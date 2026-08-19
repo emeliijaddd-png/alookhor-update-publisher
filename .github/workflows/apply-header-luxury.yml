@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - 'scripts/apply_header_luxury.py'
+      - '.github/workflows/apply-header-luxury.yml'
   workflow_dispatch:
 
 permissions:
