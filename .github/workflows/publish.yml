@@ -154,7 +154,9 @@ jobs:
           assert 'body:has(.alookhor-portal-header){padding-top:0!important}' in internal_header_css and 'alookhor-internal-nav-marker' in internal_header_css
           assert '.alookhor-nav-stage.is-stuck{position:fixed!important' in internal_header_css and 'alookhor-internal-nav-marker' in internal_header_js
           assert "navStage.classList.toggle('is-stuck'" in internal_header_js and 'marker.style.setProperty' in internal_header_js
-          print('Managed footer/category/admin/header behavior and layout correction contracts passed')
+          assert 'v3.10.25 — final visual correction' in internal_header_css and 'LOGO2.png' in bootstrap_php
+          assert 'alookhor_cc_migrate_approved_header_logo_31025' in bootstrap_php and 'final_reference_logo_exact' in Path('scripts/header_visual_audit.py').read_text()
+          print('Managed footer/category/admin/header behavior and final reference contracts passed')
           PY
 
       - name: Build and validate release
