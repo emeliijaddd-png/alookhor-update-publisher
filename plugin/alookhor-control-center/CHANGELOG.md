@@ -1,5 +1,8 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.40 — 2026-08-19 — Telemetry Marker Last
+- TUNE: the compact telemetry marker is now the final line of the step log (tail-safe by construction) and metrics slimmed to core rect set.
+
 ## v3.10.39 — 2026-08-19 — Telemetry Channels Aligned
 - TUNE: report cap raised to keep compact telemetry inside the JSON; log print switched to compact form so the telemetry marker stays within the publisher log tail.
 

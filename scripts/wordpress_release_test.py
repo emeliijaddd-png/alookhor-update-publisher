@@ -35,9 +35,8 @@ def _finalize_report(report_obj):
         views = full.get('views') or {}
         mobile = views.get('mobile') or {}
         before = mobile.get('before') or {}
-        keep = ['viewport', 'header_mode', 'horizontal_overflow', 'body_scroll_width', 'body_client_width',
-                'topbar', 'header', 'stage', 'capsule', 'nav_shell', 'logo_box', 'logo', 'main_toggle',
-                'navigation_display', 'stage_display', 'body_classes', 'ancestors']
+        keep = ['viewport', 'horizontal_overflow', 'topbar', 'header', 'capsule', 'nav_shell',
+                'logo_box', 'logo', 'main_toggle']
         metrics = {
             'mobile': {k: before.get(k) for k in keep},
             'mobile_failed_checks': {k: v for k, v in (mobile.get('checks') or {}).items() if v is not True},
@@ -49,10 +48,6 @@ def _finalize_report(report_obj):
         metrics = {'error': f'{type(capture_error).__name__}: {capture_error}'}
     report_obj['header_visual'] = metrics
     try:
-        print('HEADER_VISUAL_TELEMETRY=' + json.dumps(metrics, ensure_ascii=False))
-    except Exception:
-        pass
-    try:
         serialized = json.dumps(report_obj, ensure_ascii=False, indent=2)
         if len(serialized) > 11600:
             dropped = report_obj.pop('header_visual', None)
@@ -62,6 +57,7 @@ def _finalize_report(report_obj):
         serialized = json.dumps({'ok': report_obj.get('ok'), 'error': str(report_obj.get('error'))})
     REPORT_PATH.write_text(serialized + '\n')
     print(json.dumps(report_obj, ensure_ascii=False))
+    print('HEADER_VISUAL_TELEMETRY=' + json.dumps(metrics, ensure_ascii=False))
 
 
 def request_json(path, method='GET', payload=None, allow=(200,)):
