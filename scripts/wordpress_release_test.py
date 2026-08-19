@@ -54,14 +54,14 @@ def _finalize_report(report_obj):
         pass
     try:
         serialized = json.dumps(report_obj, ensure_ascii=False, indent=2)
-        if len(serialized) > 11000:
+        if len(serialized) > 11600:
             dropped = report_obj.pop('header_visual', None)
             report_obj['header_visual_dropped_to_fit'] = bool(dropped)
             serialized = json.dumps(report_obj, ensure_ascii=False, indent=2)
     except Exception:
         serialized = json.dumps({'ok': report_obj.get('ok'), 'error': str(report_obj.get('error'))})
     REPORT_PATH.write_text(serialized + '\n')
-    print(serialized)
+    print(json.dumps(report_obj, ensure_ascii=False))
 
 
 def request_json(path, method='GET', payload=None, allow=(200,)):

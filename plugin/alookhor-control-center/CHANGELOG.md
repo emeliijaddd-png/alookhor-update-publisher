@@ -1,5 +1,8 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.39 — 2026-08-19 — Telemetry Channels Aligned
+- TUNE: report cap raised to keep compact telemetry inside the JSON; log print switched to compact form so the telemetry marker stays within the publisher log tail.
+
 ## v3.10.38 — 2026-08-19 — Post-Update Test Repair
 - FIX: restored the accidentally excised `request_json` helper in `wordpress_release_test.py` so the authenticated site update + checks + telemetry chain runs again end-to-end.
 
