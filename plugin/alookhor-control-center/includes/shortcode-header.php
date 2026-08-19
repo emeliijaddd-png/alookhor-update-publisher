@@ -65,6 +65,8 @@ function alookhor_cc_front_header_settings(){
         'account_text'    => 'ورود / ثبت‌نام',
         'primary_menu'    => 0,
         'mega_menu'       => true,
+        'mega_cta_label'  => 'مشاهده همه محصولات',
+        'mega_cta_url'    => function_exists('wc_get_page_permalink') ? (wc_get_page_permalink('shop') ?: home_url('/shop/')) : home_url('/shop/'),
     ];
 
     $settings = wp_parse_args($saved, $defaults);
@@ -103,16 +105,115 @@ function alookhor_cc_resolve_primary_menu($preferred = 0){
     return !empty($menus) ? $menus[0] : null;
 }
 
-function alookhor_cc_menu_markup($menu, $class, $depth = 3){
+/**
+ * Walker that surfaces WordPress menu item descriptions and pins a gold CTA
+ * on the last second-level column of a mega panel (depth 1 children of a
+ * top-level item). Descriptions come from the native WP menu item field.
+ */
+class Alookhor_CC_Menu_Walker extends Walker_Nav_Menu {
+    public function start_el(&$output, $item, $depth = 0, $args = null, $id = 0){
+        $classes = empty($item->classes) ? [] : (array) $item->classes;
+        $classes[] = 'menu-item-' . $item->ID;
+        $class_names = implode(' ', array_map('sanitize_html_class', array_filter($classes)));
+        $output .= '<li class="' . esc_attr($class_names) . '">';
+
+        $atts = [
+            'title'  => !empty($item->attr_title) ? $item->attr_title : '',
+            'target' => !empty($item->target) ? $item->target : '',
+            'rel'    => !empty($item->xfn) ? $item->xfn : '',
+            'href'   => !empty($item->url) ? $item->url : '',
+        ];
+        if ($item->target === '_blank' && empty($item->xfn)) {
+            $atts['rel'] = 'noopener';
+        }
+        $attributes = '';
+        foreach ($atts as $attr => $value) {
+            if ($value === '') continue;
+            $value = ($attr === 'href') ? esc_url($value) : esc_attr($value);
+            $attributes .= ' ' . $attr . '="' . $value . '"';
+        }
+
+        $title = apply_filters('the_title', $item->title, $item->ID);
+        $title = apply_filters('nav_menu_item_title', $title, $item, $args, $depth);
+        $item_output  = isset($args->before) ? $args->before : '';
+        $item_output .= '<a' . $attributes . '>';
+        $item_output .= (isset($args->link_before) ? $args->link_before : '') . $title . (isset($args->link_after) ? $args->link_after : '');
+        $item_output .= '</a>';
+
+        $description = trim((string) ($item->description ?? ''));
+        if ($description !== '' && $depth >= 1) {
+            $item_output .= '<span class="alookhor-menu-desc">' . esc_html($description) . '</span>';
+        }
+
+        // Gold CTA at the bottom of the last second-level column.
+        if ($depth === 1 && !empty($args->alookhor_mega_cta) && is_array($args->alookhor_mega_cta)) {
+            $parent_id = (int) $item->menu_item_parent;
+            $siblings = isset($args->alookhor_column_map[$parent_id]) ? (array) $args->alookhor_column_map[$parent_id] : [];
+            $last_id = $siblings ? (int) $siblings[array_key_last($siblings)] : 0;
+            $is_last = $last_id && $last_id === (int) $item->ID;
+            if ($is_last) {
+                $cta = $args->alookhor_mega_cta;
+                $cta_label = sanitize_text_field($cta['label'] ?? '');
+                $cta_url = esc_url($cta['url'] ?? '');
+                if ($cta_label && $cta_url) {
+                    $item_output .= '<a class="alookhor-mega-cta" href="' . $cta_url . '">' . esc_html($cta_label) . '</a>';
+                }
+            }
+        }
+
+        $item_output .= isset($args->after) ? $args->after : '';
+        $output .= apply_filters('walker_nav_menu_start_el', $item_output, $item, $depth, $args);
+    }
+}
+
+function alookhor_cc_menu_column_map($menu){
+    $map = [];
+    if (!$menu || is_wp_error($menu)) return $map;
+    $items = wp_get_nav_menu_items($menu->term_id);
+    if (!$items) return $map;
+    foreach ($items as $item) {
+        $parent = (int) $item->menu_item_parent;
+        // Collect second-level items (children of top-level) per top-level parent.
+        // Top-level have parent 0; their direct children become mega columns.
+        if ($parent > 0) {
+            // Only record items whose parent is a top-level item (grandparent 0).
+            // We'll resolve that after the first pass.
+            $map['_all'][$parent][] = (int) $item->ID;
+            $map['_parent_of'][(int) $item->ID] = $parent;
+        } else {
+            $map['_top'][] = (int) $item->ID;
+        }
+    }
+    $top = $map['_top'] ?? [];
+    $all = $map['_all'] ?? [];
+    $columns = [];
+    foreach ($top as $top_id) {
+        if (!empty($all[$top_id])) {
+            $columns[$top_id] = $all[$top_id];
+        }
+    }
+    return $columns;
+}
+
+function alookhor_cc_menu_markup($menu, $class, $depth = 3, $mega = false){
     if (!$menu || is_wp_error($menu)) return '';
-    return wp_nav_menu([
+    $args = [
         'menu'        => $menu->term_id,
         'container'   => false,
         'menu_class'  => $class,
         'depth'       => $depth,
         'fallback_cb' => false,
         'echo'        => false,
-    ]);
+    ];
+    if ($mega && class_exists('Alookhor_CC_Menu_Walker')) {
+        $settings = function_exists('alookhor_cc_front_header_settings') ? alookhor_cc_front_header_settings() : [];
+        $cta_label = sanitize_text_field($settings['mega_cta_label'] ?? 'مشاهده همه محصولات');
+        $cta_url = esc_url_raw($settings['mega_cta_url'] ?? (function_exists('wc_get_page_permalink') ? wc_get_page_permalink('shop') : home_url('/shop/')));
+        $args['walker'] = new Alookhor_CC_Menu_Walker();
+        $args['alookhor_mega_cta'] = ['label' => $cta_label, 'url' => $cta_url];
+        $args['alookhor_column_map'] = alookhor_cc_menu_column_map($menu);
+    }
+    return wp_nav_menu($args);
 }
 
 function alookhor_cc_phone_href($phone){
@@ -135,7 +236,8 @@ function alookhor_cc_render_portal_header($atts = []){
     $drawer_id = $instance . '-drawer';
     $primary_menu = alookhor_cc_resolve_primary_menu($settings['primary_menu']);
     $all_menus = wp_get_nav_menus(['orderby' => 'term_order']);
-    $primary_markup = alookhor_cc_menu_markup($primary_menu, 'alookhor-primary-menu', 3);
+    $mega_menu_enabled = rest_sanitize_boolean($settings['mega_menu'] ?? true);
+    $primary_markup = alookhor_cc_menu_markup($primary_menu, 'alookhor-primary-menu', 3, $mega_menu_enabled);
 
     $custom_logo_id = (int) get_theme_mod('custom_logo');
     if (!empty($settings['top_logo_url'])) {
@@ -196,7 +298,7 @@ function alookhor_cc_render_portal_header($atts = []){
     $capsule_text=sanitize_hex_color($settings['capsule_text']??'')?:'#F5F3F0';
     $capsule_muted=sanitize_hex_color($settings['capsule_muted']??'')?:'#C8C2C9';
     $capsule_blur=max(10,min(36,absint($settings['capsule_blur']??24)));
-    $mega_menu = rest_sanitize_boolean($settings['mega_menu'] ?? true);
+    $mega_menu = $mega_menu_enabled;
 
     ob_start();
     ?>
@@ -346,7 +448,7 @@ function alookhor_cc_render_managed_legacy_header($atts = [], $content = null, $
 
     $html = call_user_func($provider, $atts, $content, $tag ?: 'alookhor_portal_header');
     if (!is_string($html)) $html = '';
-    return '<div class="alookhor-managed-legacy-header" data-alookhor-managed="3.10.25" style="display:contents">' . $html . '</div>';
+    return '<div class="alookhor-managed-legacy-header" data-alookhor-managed="3.10.34" style="display:contents">' . $html . '</div>';
 }
 
 /**

@@ -1,5 +1,14 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.34 — 2026-08-19 — Deep Purple Glass + Gold Mega Polish
+- PALETTE: deep purple glass for Top Bar/Capsule — `#0B0214`, `#160027`, `rgba(33,0,56,.72)`, gold accent `#D4AD55` / `#E8C878`, text `#F5F3FF`.
+- GLASS: capsule blur 24px and mega panel blur 26px with saturated deep-plum gradients; structure of Top Bar, Capsule, Cart/Account/Logo/Hamburger and Drawer unchanged.
+- MEGA: second-level column headers render in gold `#D4AD55`; third-level links stay lilac/white on hover gold.
+- CTA: gold pill CTA pinned to the bottom of the last mega column (`mega_cta_label` / `mega_cta_url`, defaults to shop).
+- WP DESCRIPTIONS: native WordPress menu item Description fields surface under column links via `Alookhor_CC_Menu_Walker`.
+- HERO: `.alookhor-mh-features` only renders when at least one non-empty feature label exists.
+- PRESERVE: `[alookhor_purple_slider]`, admin purple-slider dashboard, `alookhor_save_purple_slider`, and `mega_menu` toggle remain active.
+
 ## v3.10.29 — 2026-08-19 — Purple Slider Dashboard
 - ADMIN: new submenu «اسلایدر بنفش شیشه‌ای» under ALOOKHOR Control Center, matching the Header page pattern (nonce + `manage_options` + Media Library picker with preview).
 - SLIDES: add up to 6 slides, delete down to 1, and edit image/alt/kicker/title/highlight/description plus two CTAs, autoplay and arrows/dots.

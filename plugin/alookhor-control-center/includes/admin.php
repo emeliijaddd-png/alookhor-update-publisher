@@ -206,8 +206,16 @@ function alookhor_cc_render_header_settings(){
                     </label>
                 <?php endforeach; ?>
             </div>
+            <div class="alookhor-fields-grid">
+                <label>متن CTA طلایی مگا منو
+                    <input type="text" name="mega_cta_label" value="<?php echo esc_attr($h['mega_cta_label'] ?? 'مشاهده همه محصولات'); ?>" class="alookhor-field">
+                </label>
+                <label>لینک CTA طلایی مگا منو
+                    <input type="url" name="mega_cta_url" value="<?php echo esc_attr($h['mega_cta_url'] ?? home_url('/shop/')); ?>" class="alookhor-field" dir="ltr">
+                </label>
+            </div>
             <div style="padding:12px;border:1px dashed rgba(201,168,106,.2);border-radius:12px;color:#B9B0A6;font-size:12px;line-height:1.8">
-                فهرست اصلی به‌صورت خودکار از جایگاه Primary/Header وردپرس خوانده می‌شود. منوی Hamburger تمام فهرست‌های ساخته‌شده در «نمایش ← فهرست‌ها» را گروه‌بندی می‌کند.
+                فهرست اصلی به‌صورت خودکار از جایگاه Primary/Header وردپرس خوانده می‌شود. منوی Hamburger تمام فهرست‌های ساخته‌شده در «نمایش ← فهرست‌ها» را گروه‌بندی می‌کند. توضیحات آیتم‌های منو (فیلد Description در ویرایش فهرست) زیر لینک ستون‌ها نمایش داده می‌شود و CTA طلایی در پایین ستون آخر پنل مگا قرار می‌گیرد.
             </div>
             <button type="submit" style="background:linear-gradient(135deg,#C9A86A,#B8935A); color:#1A1206; border:0; padding:12px; border-radius:999px; font-weight:700; cursor:pointer">ذخیره تنظیمات هدر حرفه‌ای</button>
             <div id="alookhorHeaderMsg" style="font-size:12px; color:#3DD68C; display:none">ذخیره شد ✓</div>

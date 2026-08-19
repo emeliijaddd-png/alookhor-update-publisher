@@ -163,11 +163,17 @@ function alookhor_cc_hero_markup($settings=null){
               <?php if(!empty($slide['kicker'])): ?><span class="alookhor-mh-kicker"><?php echo esc_html($slide['kicker']); ?></span><?php endif; ?>
               <h2><?php echo esc_html($slide['title'] ?? ''); ?><?php if(!empty($slide['highlight'])): ?><strong><?php echo esc_html($slide['highlight']); ?></strong><?php endif; ?></h2>
               <?php if(!empty($slide['description'])): ?><p class="alookhor-mh-description"><?php echo esc_html($slide['description']); ?></p><?php endif; ?>
+              <?php
+                $feature_labels = array_values(array_filter(array_map('strval', array_slice(array_pad((array)($slide['features'] ?? []), 4, ''), 0, 4)), static function($label){
+                    return trim($label) !== '';
+                }));
+              if ($feature_labels): ?>
               <div class="alookhor-mh-features">
-                <?php foreach(array_slice(array_pad((array)($slide['features'] ?? []),4,''),0,4) as $feature_index=>$feature): if($feature==='')continue; ?>
+                <?php foreach($feature_labels as $feature_index=>$feature): ?>
                 <span class="alookhor-mh-feature"><?php echo alookhor_cc_hero_icon($feature_index); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?><b><?php echo esc_html($feature); ?></b></span>
                 <?php endforeach; ?>
               </div>
+              <?php endif; ?>
               <div class="alookhor-mh-actions">
                 <?php if(!empty($slide['primary_text'])): ?><a class="alookhor-mh-cta is-primary" href="<?php echo esc_url($slide['primary_url'] ?? '#'); ?>"><span><?php echo esc_html($slide['primary_text']); ?></span><i aria-hidden="true">←</i></a><?php endif; ?>
                 <?php if(!empty($slide['secondary_text'])): ?><a class="alookhor-mh-cta is-secondary" href="<?php echo esc_url($slide['secondary_url'] ?? '#'); ?>"><span><?php echo esc_html($slide['secondary_text']); ?></span></a><?php endif; ?>
