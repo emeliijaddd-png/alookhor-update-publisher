@@ -4,7 +4,7 @@ Tags: control center, luxury, alookhor, admin, dashboard
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 3.10.41
+Stable tag: 3.10.42
 License: Private
 License URI: https://alookhor.ir
 
@@ -46,6 +46,11 @@ License URI: https://alookhor.ir
 در `config/site.json` و `wp_options: alookhor_cc_settings` — همان حافظه واقعی که در چت قبلی ویرایش می‌شد.
 
 == Changelog ==
+
+= 3.10.42 =
+* انتشار قطعی هدر کپسولی ارغوانی مطابق تصویر مرجع
+* Top Bar سه‌بخشی، لوگوی مرکزی، Cart/Account و Navigation واقعی WordPress
+* Cache-bust کامل CSS/JS و حفظ Mobile/Drawer/Mega Menu
 
 = 3.10.34 =
 * پالت بنفش تیره شیشه‌ای با blur 24–26 و هایلایت طلایی #D4AD55

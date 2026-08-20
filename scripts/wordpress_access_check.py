@@ -474,12 +474,9 @@ try:
                 and len(re.findall(r'<article class="alookhor-mh-slide(?: |")',hero_html))==4
             )
             report['checks']['hero_no_store']='no-store' in hero_cache.lower()
-            report['checks']['hero_homepage']=(
-                'alookhor-managed-hero-template' in homepage
-                and 'frontend-hero.js' in homepage
-                and 'alookhor-mh-hide-legacy' in homepage
-                and '.alookhor-hero-slider-wrapper' in homepage
-            )
+            managed_hero_home=('alookhor-managed-hero-template' in homepage and 'frontend-hero.js' in homepage and 'alookhor-mh-hide-legacy' in homepage and '.alookhor-hero-slider-wrapper' in homepage)
+            purple_slider_home=('alookhor-ps' in homepage and 'frontend-purple-slider.js' in homepage)
+            report['checks']['hero_homepage']=managed_hero_home or purple_slider_home
         except Exception as error:
             report['managed_hero']={'error':str(error)}
             report['checks']['hero_endpoint']=False

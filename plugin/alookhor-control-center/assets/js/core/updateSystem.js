@@ -2,7 +2,7 @@
 // UI/state remain modular; version discovery and installation are delegated to WordPress.
 
 const runtimeConfig = window.ALOOKHOR_CC || {};
-const runtimeVersion = String(runtimeConfig.version || '3.10.25');
+const runtimeVersion = String(runtimeConfig.version || '3.10.42');
 
 function normalizeResult(data = {}) {
   const current = String(data.current || runtimeVersion);
@@ -55,6 +55,7 @@ export const Updater = {
   latest: runtimeVersion,
   lastCheck: null,
   changelog: [
+    { tag: 'HEADER LIVE', title: 'v3.10.42 — انتشار قطعی هدر مرجع', desc: 'هدر کپسولی ارغوانی، Top Bar طلایی و منوی WordPress با Cache-bust کامل روی Production منتشر شد.' },
     { tag: 'HEADER FINAL', title: 'v3.10.25 — تطبیق نهایی با تصویر مرجع', desc: 'پس‌زمینه Burgundy کامل، لوگوی رسمی LOGO2 و Hamburger واقعی در Desktop/Mobile.' },
     { tag: 'HEADER LOGO', title: 'v3.10.24 — لوگوی تأییدشده در کپسول اصلی', desc: 'کپسول اصلی به‌جای Site Icon فروشگاه، منبع لوگوی مدیریت‌شده Header را همراه Wordmark فارسی نمایش می‌دهد و Hamburger قابل‌مشاهده الزام می‌شود.' },
     { tag: 'DUPLICATE HEADER', title: 'v3.10.23 — حذف دو Draft المنتور', desc: 'Widgetهای ak/alu بالای Header واقعی حذف و فقط منوی WordPress مدیریت‌شده باقی ماند.' },

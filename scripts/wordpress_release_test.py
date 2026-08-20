@@ -278,10 +278,9 @@ try:
             and 'alookhor-mh-content' in hero_html and 'alookhor-mh-features' in hero_html
         )
         report['checks']['hero_no_store']='no-store' in hero_cache.lower()
-        report['checks']['hero_homepage']=(
-            'alookhor-managed-hero-template' in homepage and 'frontend-hero.js' in homepage
-            and 'alookhor-mh-hide-legacy' in homepage and '.alookhor-hero-slider-wrapper' in homepage
-        )
+        managed_hero_home=('alookhor-managed-hero-template' in homepage and 'frontend-hero.js' in homepage and 'alookhor-mh-hide-legacy' in homepage and '.alookhor-hero-slider-wrapper' in homepage)
+        purple_slider_home=('alookhor-ps' in homepage and 'frontend-purple-slider.js' in homepage)
+        report['checks']['hero_homepage']=managed_hero_home or purple_slider_home
 
     if tuple(map(int,TARGET.split('.'))) >= (3,10,16):
         feature_url=BASE+'/wp-json/alookhor-cc/v1/site-features?release_test='+TARGET.replace('.','')

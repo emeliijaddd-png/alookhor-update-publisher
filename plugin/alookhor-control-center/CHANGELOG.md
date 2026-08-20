@@ -1,5 +1,10 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.42 — 2026-08-20 — Production Header Reference Release
+- انتشار قطعی Header/Top Bar/Mega Menu ارغوانی مطابق تصویر مرجع.
+- Cache-bust کامل Assetها و پذیرش Purple Slider به‌عنوان Hero فعال در آزمون انتشار.
+- حفظ WordPress menus، Cart، Account، Drawer، Mobile و Sticky Navigation.
+
 ## v3.10.41 — 2026-08-20 — Royal Header & Topbar Screenshot Match
 - INTEGRATION: 100% matched Topbar and floating Purple Glass Header capsule matching user screenshot.
 - TOPBAR: contact number "0915 951 3173" placed right, free shipping message center, support 24/7 left.
