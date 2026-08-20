@@ -42,11 +42,9 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 | SC-002 | Shortcode | `[alookhor_managed_categories]` | `includes/product-categories.php` | Home page → Elementor Shortcode widget | 3.10.40 | Active |
 | SC-003 | Shortcode | `[alookhor_managed_hero]` | `includes/hero.php` | Home Elementor Shortcode widget / automatic Legacy-root replacement | 3.10.40 | Active |
 | SC-004 | Shortcode | `[alookhor_managed_features]` | `includes/site-features.php` | Home Elementor HTML widget / automatic Legacy-root replacement | 3.10.40 | Active |
-| SC-005 | Shortcode | `[alookhor_purple_slider]` | `includes/shortcode-purple-slider.php` | Elementor Shortcode widget / any page | 3.10.40 | Active |
 | SC-EXT-001 | External shortcode | `[alookhor_categories_carousel]` | External plugin source unavailable | Former Home showcase | External | Replaced on Home / do not reconstruct |
 | PN-001 | Admin panel | ALOOKHOR Control Center | `includes/admin.php` | WP Admin top-level menu | 3.10.40 | Active |
 | PN-002 | Admin panel | Header & Top Bar | `includes/admin.php` | WP Admin submenu | 3.10.40 | Active mirror |
-| PN-003 | Admin panel | Purple Glass Slider | `includes/admin-purple-slider.php` | WP Admin submenu | 3.10.40 | Active |
 | MOD-001 | Managed module | WooCommerce Categories | `includes/product-categories.php` | Home / Elementor / REST | 3.10.40 | Active |
 | MOD-002 | Managed module | Responsive Footer | `includes/footer.php` | Frontend footer / REST | 3.10.40 | Active |
 | MOD-003 | Managed module | Four-slide Hero | `includes/hero.php` | Home / Elementor / REST | 3.10.40 | Active |
@@ -55,7 +53,6 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 | UPD-001 | Updater | Private native updater | `includes/updater.php` | Control Center + GitHub Actions | 3.10.40 | Active |
 | CFG-001 | WordPress state | Main settings | `alookhor_cc_settings` | All managed modules | 3.10.40 | Active |
 | CFG-002 | WordPress state | Header settings | `alookhor_header_settings` | Header and Top Bar | 3.10.40 | Active |
-| CFG-003 | WordPress state | Purple slider | `alookhor_cc_purple_slider` | `[alookhor_purple_slider]` | 3.10.40 | Active |
 | CSS-001 | CSS | Managed Header | `assets/css/frontend-header.css` | `[alookhor_portal_header]` fallback renderer | 3.10.40 | Active |
 | JS-001 | JavaScript | Managed Header runtime | `assets/js/frontend-header.js` | `[alookhor_portal_header]` fallback renderer | 3.10.40 | Active |
 | JS-002 | JavaScript | Legacy Top Bar manager | `assets/js/frontend-topbar-manager.js` | Preserved legacy header provider | 3.10.40 | Active when legacy provider exists |
