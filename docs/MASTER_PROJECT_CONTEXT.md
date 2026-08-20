@@ -21,18 +21,15 @@ When sources disagree, the newer provable runtime/source wins. Missing source is
 
 ## Authoritative current state
 
-- **Production runtime:** ALOOKHOR Control Center `3.10.21`
-- **Current Production tag/source:** `v3.10.19` / `68afe12bf644ed1af0598e5ef59ff9b5f0fe47cc`
-- **Published package SHA-256:** `a29ec080380a2175ea29f12ff9f4b31564241d60ab434cdc114005585e39cfcf`
-- **Deployment run:** `31962035770` — publication, Manifest and native WordPress checks passed.
+- **Production runtime:** ALOOKHOR Control Center `3.10.18`
+- **Current Production tag/source:** `v3.10.18` / `5e7d33a4a90f33f0e79a63a9a0f3a6e26dcdee7f`
+- **Published package SHA-256:** `28fe044652db8ec0d359c6521fd555599dd70d53eac2b0503f9b476f771f4021`
+- **Deployment run:** `31820525729` — ZIP/SHA, Manifest, native WordPress and exact capsule palette endpoint checks all passed.
 - **Final rendered Chrome audit:** `31820882559` on 3.10.18 — WordPress, Desktop and Mobile passed every Header/Hero/Site-Features check; no failed checks.
 - **Direct glass-capsule acceptance:** the same `.header-capsule` now renders `rgba(33,20,38,.75)` with 24px Blur, Burgundy/Card gradient, Gold border/highlights and approved control colors; Cart/Account/Logo/Hamburger geometry/order, Top Bar, Desktop Navigation, Hero underlap and zero overflow are preserved.
-- **Production:** 3.10.21 active; final host runtime override pending.
-- **Current source target:** `3.10.22` — scoped inline host normalization prepared.
-- **3.10.22 candidate package SHA-256:** `0b32b3a29267c751d72466c61547587ed6250b65c6b69d28fe2d1725d16997c8`
-- **3.10.21 candidate package SHA-256:** `a29ec080380a2175ea29f12ff9f4b31564241d60ab434cdc114005585e39cfcf`
-- **3.10.20 candidate package SHA-256:** `36fed15806ab80c6e001836376550eae5b645add2aaf627c8832019e83ec917e`
-- **3.10.19 candidate package SHA-256:** `36fed15806ab80c6e001836376550eae5b645add2aaf627c8832019e83ec917e`
+- **Production:** 3.10.18 active and fully verified.
+- **Current source target:** `3.10.19` — two-row Top Bar/Main Menu reference integration prepared for test/publication; Production remains 3.10.18 until tagged deployment succeeds.
+- **3.10.19 candidate package SHA-256:** `351e78e79fccf666d6f10abb659559d0c75d2c8a454ebf6ef112e65cc0c9069d`
 - **New active Header reference:** `uploads/image.png`.
 - **Final glass evidence:** `automation/318-live2/visual-desktop-before.png`, `automation/318-live2/visual-mobile-before.png`.
 - **New Header reference:** `uploads/Screenshot_۲۰۲۶-۰۸-۱۴-۰۶-۵۶-۵۲-۵۸۲_com.android.chrome-edit.jpg`.
