@@ -1,1 +1,30 @@
-{"version":"3.10.43","previous":"3.10.42","state":"ready","requires":"6.0","tested":"7.0","requires_php":"8.0","description":"انتشار مجدد اتمی هدر مرجع پس از اختلال موقت Pipeline نسخه 3.10.42.","changelog":[{"tag":"RETRY","title":"انتشار قطعی Header مرجع","desc":"همان کد تأییدشده هدر ارغوانی با Package جدید و WordPress native updater منتشر می‌شود."}],"project":"ALOOKHOR","area":"Reference Header / Production Retry","reason":"Tag 3.10.42 به Manifest نرسید؛ بسته 3.10.43 برای اجرای مجدد Pipeline رسمی ساخته شد.","files":["plugin/alookhor-control-center/alookhor-control-center.php","plugin/alookhor-control-center/config/site.json","plugin/alookhor-control-center/readme.txt","release.json"]}
+{
+  "version": "3.10.44",
+  "previous": "3.10.43",
+  "state": "ready",
+  "requires": "6.0",
+  "tested": "7.0",
+  "requires_php": "8.0",
+  "description": "اضافه شدن رسمی شورت‌کد محصولات پرفروش به صورت اسلایدر بومی ووکامرس [alookhor_bestsellers_slider] جهت نمایش متقارن و اتوپلی با سرعت ۵ ثانیه.",
+  "changelog": [
+    {
+      "tag": "BESTSELLERS SLIDER",
+      "title": "ثبت شورت‌کد اسلایدر محصولات پرفروش",
+      "desc": "کد [alookhor_bestsellers_slider] محصولات واقعی دسته‌بندی‌های مختلف ووکامرس شما را با اتوپلی ۵ ثانیه‌ای و ناوبری متقارن دسکتاپ و موبایل رندر می‌کند."
+    },
+    {
+      "tag": "RETRY",
+      "title": "انتشار قطعی Header مرجع",
+      "desc": "همان کد تأییدشده هدر ارغوانی با Package جدید و WordPress native updater منتشر می‌شود."
+    }
+  ],
+  "project": "ALOOKHOR",
+  "area": "Reference Header / Production Retry",
+  "reason": "Tag 3.10.42 به Manifest نرسید؛ بسته 3.10.43 برای اجرای مجدد Pipeline رسمی ساخته شد.",
+  "files": [
+    "plugin/alookhor-control-center/alookhor-control-center.php",
+    "plugin/alookhor-control-center/config/site.json",
+    "plugin/alookhor-control-center/readme.txt",
+    "release.json"
+  ]
+}

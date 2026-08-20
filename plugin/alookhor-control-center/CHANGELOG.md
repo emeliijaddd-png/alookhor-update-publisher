@@ -1,5 +1,10 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.44 — 2026-08-20 — [alookhor_bestsellers_slider] Release
+- FEATURE: Added dedicated [alookhor_bestsellers_slider] shortcode rendering the beautiful purple glass bestselling products carousel dynamically from WooCommerce.
+- TABS: Category-specific product loading (no consolidated list leaks), responsive 2x2 grid on mobile devices.
+- AUTOPLAY: 5s interval with hover pause and page-by-page (4-across) sliding.
+
 ## v3.10.42 — 2026-08-20 — Production Header Reference Release
 - انتشار قطعی Header/Top Bar/Mega Menu ارغوانی مطابق تصویر مرجع.
 - Cache-bust کامل Assetها و پذیرش Purple Slider به‌عنوان Hero فعال در آزمون انتشار.
