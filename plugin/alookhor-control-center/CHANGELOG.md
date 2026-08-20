@@ -1,5 +1,9 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.46 — 2026-08-20 — Header Revert to Original Burgundy Glass Only
+- REVERT: Main Menu (Header) and Topbar reverted to their original elegant Burgundy glass and gold overlapping logo design from v3.10.24.
+- PRESERVE: All other files and includes are fully restored to their clean v3.10.40 state without any other modifications.
+
 ## v3.10.40 — 2026-08-19 — Telemetry Marker Last
 - TUNE: the compact telemetry marker is now the final line of the step log (tail-safe by construction) and metrics slimmed to core rect set.
 

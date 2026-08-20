@@ -36,78 +36,12 @@
     if(host){['margin','margin-top','margin-bottom','margin-block','padding','padding-top','padding-bottom','padding-block','min-height','height','gap'].forEach(property=>host.style.setProperty(property,(property==='height'?'auto':property==='min-height'?'0':'0px'),'important'));host.style.setProperty('justify-content','flex-start','important');host.style.setProperty('align-content','flex-start','important');host.style.setProperty('--justify-content','flex-start','important');host.style.setProperty('--padding-top','0px','important');host.style.setProperty('--padding-bottom','0px','important');host.style.setProperty('--margin-top','0px','important');host.style.setProperty('--margin-bottom','0px','important')}
     if(elementorRoot){elementorRoot.style.setProperty('margin-top','0px','important');elementorRoot.style.setProperty('padding-top','0px','important')}
 
-    // v3.10.37 — Mobile RTL geometry repair. The Elementor widget chain that
-    // owns the managed shortcode can collapse to a zero-width point inside
-    // row-flex containers; the header full-bleed margins then anchor to the
-    // container's right edge in RTL and push the whole header outside the
-    // viewport (measured on live: left=207.5/right=637.5 in a 430px viewport).
-    // Stretch every link between the shortcode node and its host container so
-    // the full-bleed math is computed against a real, centred width.
-    (function repairWidthChain(){
-      let node = root.parentElement;
-      for (let depth = 0; node && node !== host && !node.classList.contains('elementor') && node.tagName !== 'BODY' && depth < 6; depth++) {
-        const parentDisplay = node.parentElement ? getComputedStyle(node.parentElement).display : '';
-        if (parentDisplay.includes('flex')) node.style.setProperty('flex', '1 1 100%', 'important');
-        node.style.setProperty('width', '100%', 'important');
-        node.style.setProperty('max-width', '100%', 'important');
-        node.style.setProperty('margin-left', '0px', 'important');
-        node.style.setProperty('margin-right', '0px', 'important');
-        node = node.parentElement;
-      }
-    })();
-
     const toggle = root.querySelector('.alookhor-menu-toggle');
     const drawer = root.querySelector('.alookhor-menu-drawer');
     const closeButtons = root.querySelectorAll('[data-alookhor-close]');
     if (!toggle || !drawer) return;
 
     let previousFocus = null;
-
-    function closeMega(except) {
-      root.querySelectorAll('.alookhor-primary-menu > .menu-item-has-children').forEach((item) => {
-        if (item === except) return;
-        item.classList.remove('is-mega-open');
-        item.querySelector(':scope > a')?.setAttribute('aria-expanded', 'false');
-      });
-    }
-
-    if (root.classList.contains('alookhor-mega-menu')) {
-      const triggers = [...root.querySelectorAll('.alookhor-primary-menu > .menu-item-has-children')];
-      const canHover = () => window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-      triggers.forEach((item) => {
-        const link = item.querySelector(':scope > a');
-        if (!link) return;
-        link.setAttribute('aria-haspopup', 'true');
-        if (!link.hasAttribute('aria-expanded')) link.setAttribute('aria-expanded', 'false');
-        link.addEventListener('click', (event) => {
-          if (window.innerWidth < 1024 || canHover()) return;
-          if (!item.classList.contains('is-mega-open')) {
-            event.preventDefault();
-            closeMega(item);
-            item.classList.add('is-mega-open');
-            link.setAttribute('aria-expanded', 'true');
-          }
-        });
-        item.addEventListener('mouseenter', () => {
-          if (window.innerWidth < 1024) return;
-          closeMega(item);
-          item.classList.add('is-mega-open');
-          link.setAttribute('aria-expanded', 'true');
-        });
-        item.addEventListener('mouseleave', () => {
-          item.classList.remove('is-mega-open');
-          link.setAttribute('aria-expanded', 'false');
-        });
-      });
-      root.addEventListener('keydown', (event) => {
-        if (event.key !== 'Escape') return;
-        const open = triggers.find((item) => item.classList.contains('is-mega-open'));
-        if (!open) return;
-        event.preventDefault();
-        closeMega();
-        open.querySelector(':scope > a')?.focus({ preventScroll: true });
-      });
-    }
 
     const navStage=root.querySelector('.alookhor-nav-stage');
     if(navStage&&root.classList.contains('is-sticky')){
@@ -125,7 +59,6 @@
       toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
       drawer.setAttribute('aria-hidden', open ? 'false' : 'true');
       document.body.classList.toggle('alookhor-menu-open', open);
-      if (open) closeMega();
 
       if (open) {
         previousFocus = document.activeElement;
