@@ -1,5 +1,11 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.41 — 2026-08-20 — Royal Header & Topbar Screenshot Match
+- INTEGRATION: 100% matched Topbar and floating Purple Glass Header capsule matching user screenshot.
+- TOPBAR: contact number "0915 951 3173" placed right, free shipping message center, support 24/7 left.
+- CAPSULE: menu trigger and hamburger right, centered gold tree coin logo with brand subtitle, cart and user profile icons left.
+- SLIDER: autoplay 5s, 4-across cards desktop pagination slider.
+
 ## v3.10.40 — 2026-08-19 — Telemetry Marker Last
 - TUNE: the compact telemetry marker is now the final line of the step log (tail-safe by construction) and metrics slimmed to core rect set.
 
