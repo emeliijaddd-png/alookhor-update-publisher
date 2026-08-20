@@ -18,6 +18,48 @@ REPORT_PATH = Path(os.environ.get('WP_REPORT_PATH', '/tmp/wordpress-report.json'
 AUTH = base64.b64encode(f'{USERNAME}:{APP_PASSWORD}'.encode()).decode()
 
 
+def _finalize_report(report_obj):
+    """Slim guarded live-rendering telemetry — report must stay small:
+    the publisher status writer truncates it to the last 12000 chars, so the
+    JSON tail must remain valid and the whole file keep its classic size."""
+    metrics = None
+    try:
+        import subprocess, sys
+        env = dict(os.environ)
+        visual_path = '/tmp/header-visual-deploy.json'
+        env['HEADER_VISUAL_REPORT'] = visual_path
+        env['HEADER_VISUAL_SHOTS'] = '/tmp/header-shots-deploy'
+        subprocess.run([sys.executable, '-m', 'pip', 'install', '--quiet', 'selenium'], timeout=240, capture_output=True)
+        subprocess.run([sys.executable, str(ROOT / 'scripts' / 'header_visual_audit.py')], env=env, timeout=420, capture_output=True)
+        full = json.loads(Path(visual_path).read_text())
+        views = full.get('views') or {}
+        mobile = views.get('mobile') or {}
+        before = mobile.get('before') or {}
+        keep = ['viewport', 'horizontal_overflow', 'topbar', 'header', 'capsule', 'nav_shell',
+                'logo_box', 'logo', 'main_toggle']
+        metrics = {
+            'mobile': {k: before.get(k) for k in keep},
+            'mobile_failed_checks': {k: v for k, v in (mobile.get('checks') or {}).items() if v is not True},
+            'mobile_ok': mobile.get('ok'),
+            'desktop_overflow': ((views.get('desktop') or {}).get('before') or {}).get('horizontal_overflow'),
+            'audit_ok': full.get('ok'),
+        }
+    except Exception as capture_error:
+        metrics = {'error': f'{type(capture_error).__name__}: {capture_error}'}
+    report_obj['header_visual'] = metrics
+    try:
+        serialized = json.dumps(report_obj, ensure_ascii=False, indent=2)
+        if len(serialized) > 11600:
+            dropped = report_obj.pop('header_visual', None)
+            report_obj['header_visual_dropped_to_fit'] = bool(dropped)
+            serialized = json.dumps(report_obj, ensure_ascii=False, indent=2)
+    except Exception:
+        serialized = json.dumps({'ok': report_obj.get('ok'), 'error': str(report_obj.get('error'))})
+    REPORT_PATH.write_text(serialized + '\n')
+    print(json.dumps(report_obj, ensure_ascii=False))
+    print('HEADER_VISUAL_TELEMETRY=' + json.dumps(metrics, ensure_ascii=False))
+
+
 def request_json(path, method='GET', payload=None, allow=(200,)):
     body = json.dumps(payload).encode() if payload is not None else None
     request = Request(
@@ -42,6 +84,7 @@ def request_json(path, method='GET', payload=None, allow=(200,)):
         if error.code in allow:
             return error.code, json.loads(data)
         raise RuntimeError(f'HTTP {error.code} for {path}: {data[:800]}') from error
+
 
 
 def get_pre_update_status():
@@ -258,9 +301,7 @@ try:
 except Exception as error:
     report['ok'] = False
     report['error'] = str(error)
-    REPORT_PATH.write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n')
-    print(json.dumps(report, ensure_ascii=False, indent=2))
+    _finalize_report(report)
     raise
 else:
-    REPORT_PATH.write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n')
-    print(json.dumps(report, ensure_ascii=False, indent=2))
+    _finalize_report(report)

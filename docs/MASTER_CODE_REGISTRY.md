@@ -3,7 +3,7 @@
 > این سند از روی فایل‌های واقعی Repository تولید می‌شود. Source اصلی همچنان فایل‌های اجرایی است؛ Snapshotهای کامل زیر برای بازیابی، ممیزی و انتقال دانش نگهداری می‌شوند.
 
 - **Registry version:** `1.0.0`
-- **Plugin/source version:** `3.10.34`
+- **Plugin/source version:** `3.10.40`
 - **Generated:** `2026-08-14`
 - **Repository:** `alookhor-update-publisher`
 - **Production:** `https://alookhor.ir`
@@ -13,8 +13,8 @@
 
 ## Current Project State
 
-- CURRENT VERSION: `3.10.34`
-- LAST FUNCTIONAL CHANGE: پالیش نهایی هدر بنفش تیره شیشه‌ای با سرستون و CTA طلایی مگا منو، نمایش توضیحات آیتم‌های WordPress، و رندر شرطی ویژگی‌های Hero — همراه حفظ اسلایدر بنفش مدیریت‌شده.
+- CURRENT VERSION: `3.10.40`
+- LAST FUNCTIONAL CHANGE: مارکر تله‌متری به انتهای لاگ منتقل شد — کانال پایدار قطعی برای سنجش هدر موبایل.
 - ACTIVE DESIGN: Luxury Black/Gold; actual component colors remain controlled by saved WordPress settings and existing module defaults.
 - ACTIVE SHORTCODES: `[alookhor_portal_header]`, `[alookhor_managed_categories]`, `[alookhor_managed_hero]`, `[alookhor_managed_features]`.
 - ACTIVE PANELS: Main ALOOKHOR Control Center and Header/Top Bar submenu.
@@ -27,10 +27,10 @@
 ```text
 PROJECT: ALOOKHOR
 AREA: Deep Purple Glass Header + Gold Mega Menu / Desktop + Mobile
-CURRENT VERSION: 3.10.34
-CHANGE: پالیش نهایی هدر بنفش تیره شیشه‌ای با سرستون و CTA طلایی مگا منو، نمایش توضیحات آیتم‌های WordPress، و رندر شرطی ویژگی‌های Hero — همراه حفظ اسلایدر بنفش مدیریت‌شده.
-REASON: ZIP 3.10.34 از سندباکس قبلی در دسترس نبود؛ نسخه از main 3.10.29 با پالیش پالت بنفش تیره، سرستون/CTA طلایی، توضیحات WP و features شرطی به 3.10.34 ارتقا یافت.
-FILES: plugin/alookhor-control-center/alookhor-control-center.php; plugin/alookhor-control-center/readme.txt; plugin/alookhor-control-center/config/site.json; plugin/alookhor-control-center/CHANGELOG.md; plugin/alookhor-control-center/includes/shortcode-header.php; plugin/alookhor-control-center/includes/shortcode-purple-slider.php; plugin/alookhor-control-center/includes/admin-purple-slider.php; plugin/alookhor-control-center/includes/ajax.php; plugin/alookhor-control-center/includes/admin.php; plugin/alookhor-control-center/includes/hero.php; plugin/alookhor-control-center/assets/css/frontend-header.css; plugin/alookhor-control-center/assets/css/frontend-purple-slider.css; plugin/alookhor-control-center/assets/js/frontend-header.js; plugin/alookhor-control-center/assets/js/frontend-purple-slider.js
+CURRENT VERSION: 3.10.40
+CHANGE: مارکر تله‌متری به انتهای لاگ منتقل شد — کانال پایدار قطعی برای سنجش هدر موبایل.
+REASON: هر دو کانال تله‌متری در .39 ته به‌شلق رفتند؛ با انتقال مارکر به انتهای لاگ، کانال از جهتِ طراحی پایدار می‌شود.
+FILES: release.json; plugin/alookhor-control-center/alookhor-control-center.php; plugin/alookhor-control-center/readme.txt; plugin/alookhor-control-center/config/site.json; plugin/alookhor-control-center/CHANGELOG.md; scripts/wordpress_release_test.py; docs/MASTER_CODE_REGISTRY.md
 STATUS: SOURCE READY — deployment status must be verified separately.
 ```
 
@@ -38,34 +38,37 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 
 | ID | Type | Name | File | Used In | Version | Status |
 |---|---|---|---|---|---:|---|
-| SC-001 | Shortcode | `[alookhor_portal_header]` | `includes/shortcode-header.php` | Elementor Header Shortcode widget; exact template ID unavailable | 3.10.34 | Active / compatibility-preserving |
-| SC-002 | Shortcode | `[alookhor_managed_categories]` | `includes/product-categories.php` | Home page → Elementor Shortcode widget | 3.10.34 | Active |
-| SC-003 | Shortcode | `[alookhor_managed_hero]` | `includes/hero.php` | Home Elementor Shortcode widget / automatic Legacy-root replacement | 3.10.34 | Active |
-| SC-004 | Shortcode | `[alookhor_managed_features]` | `includes/site-features.php` | Home Elementor HTML widget / automatic Legacy-root replacement | 3.10.34 | Active |
+| SC-001 | Shortcode | `[alookhor_portal_header]` | `includes/shortcode-header.php` | Elementor Header Shortcode widget; exact template ID unavailable | 3.10.40 | Active / compatibility-preserving |
+| SC-002 | Shortcode | `[alookhor_managed_categories]` | `includes/product-categories.php` | Home page → Elementor Shortcode widget | 3.10.40 | Active |
+| SC-003 | Shortcode | `[alookhor_managed_hero]` | `includes/hero.php` | Home Elementor Shortcode widget / automatic Legacy-root replacement | 3.10.40 | Active |
+| SC-004 | Shortcode | `[alookhor_managed_features]` | `includes/site-features.php` | Home Elementor HTML widget / automatic Legacy-root replacement | 3.10.40 | Active |
+| SC-005 | Shortcode | `[alookhor_purple_slider]` | `includes/shortcode-purple-slider.php` | Elementor Shortcode widget / any page | 3.10.40 | Active |
 | SC-EXT-001 | External shortcode | `[alookhor_categories_carousel]` | External plugin source unavailable | Former Home showcase | External | Replaced on Home / do not reconstruct |
-| PN-001 | Admin panel | ALOOKHOR Control Center | `includes/admin.php` | WP Admin top-level menu | 3.10.34 | Active |
-| PN-002 | Admin panel | Header & Top Bar | `includes/admin.php` | WP Admin submenu | 3.10.34 | Active mirror |
-| MOD-001 | Managed module | WooCommerce Categories | `includes/product-categories.php` | Home / Elementor / REST | 3.10.34 | Active |
-| MOD-002 | Managed module | Responsive Footer | `includes/footer.php` | Frontend footer / REST | 3.10.34 | Active |
-| MOD-003 | Managed module | Four-slide Hero | `includes/hero.php` | Home / Elementor / REST | 3.10.34 | Active |
-| MOD-004 | Managed module | Four-card Site Features | `includes/site-features.php` | Home / Elementor / REST | 3.10.34 | Active |
-| API-001 | REST API | `alookhor-cc/v1` | `includes/rest-api.php` | Public state + authenticated updater | 3.10.34 | Active |
-| UPD-001 | Updater | Private native updater | `includes/updater.php` | Control Center + GitHub Actions | 3.10.34 | Active |
-| CFG-001 | WordPress state | Main settings | `alookhor_cc_settings` | All managed modules | 3.10.34 | Active |
-| CFG-002 | WordPress state | Header settings | `alookhor_header_settings` | Header and Top Bar | 3.10.34 | Active |
-| CSS-001 | CSS | Managed Header | `assets/css/frontend-header.css` | `[alookhor_portal_header]` fallback renderer | 3.10.34 | Active |
-| JS-001 | JavaScript | Managed Header runtime | `assets/js/frontend-header.js` | `[alookhor_portal_header]` fallback renderer | 3.10.34 | Active |
-| JS-002 | JavaScript | Legacy Top Bar manager | `assets/js/frontend-topbar-manager.js` | Preserved legacy header provider | 3.10.34 | Active when legacy provider exists |
-| CSS-002 | CSS | WooCommerce Categories | `assets/css/frontend-categories.css` | `[alookhor_managed_categories]` | 3.10.34 | Active |
-| JS-003 | JavaScript | Categories carousel | `assets/js/frontend-categories.js` | `[alookhor_managed_categories]` | 3.10.34 | Active |
-| CSS-003 | CSS | Managed Footer | `assets/css/frontend-footer.css` | Managed Footer module | 3.10.34 | Active |
-| JS-004 | JavaScript | Managed Footer | `assets/js/frontend-footer.js` | Managed Footer module | 3.10.34 | Active |
-| CSS-004 | CSS | Control Center UI | `assets/css/luxury.css` | WP Admin ALOOKHOR pages | 3.10.34 | Active |
-| JS-005 | JavaScript | Control Center app | `assets/js/app.js` + modules | WP Admin ALOOKHOR pages | 3.10.34 | Active |
-| CSS-005 | CSS | Managed Hero | `assets/css/frontend-hero.css` | `[alookhor_managed_hero]` / automatic Home replacement | 3.10.34 | Active |
-| JS-006 | JavaScript | Managed Hero runtime | `assets/js/frontend-hero.js` | Four-slide replacement, controls and REST refresh | 3.10.34 | Active |
-| CSS-006 | CSS | Managed Site Features | `assets/css/frontend-features.css` | `[alookhor_managed_features]` / automatic Home replacement | 3.10.34 | Active |
-| JS-007 | JavaScript | Managed Site Features runtime | `assets/js/frontend-features.js` | Four-card replacement and REST refresh | 3.10.34 | Active |
+| PN-001 | Admin panel | ALOOKHOR Control Center | `includes/admin.php` | WP Admin top-level menu | 3.10.40 | Active |
+| PN-002 | Admin panel | Header & Top Bar | `includes/admin.php` | WP Admin submenu | 3.10.40 | Active mirror |
+| PN-003 | Admin panel | Purple Glass Slider | `includes/admin-purple-slider.php` | WP Admin submenu | 3.10.40 | Active |
+| MOD-001 | Managed module | WooCommerce Categories | `includes/product-categories.php` | Home / Elementor / REST | 3.10.40 | Active |
+| MOD-002 | Managed module | Responsive Footer | `includes/footer.php` | Frontend footer / REST | 3.10.40 | Active |
+| MOD-003 | Managed module | Four-slide Hero | `includes/hero.php` | Home / Elementor / REST | 3.10.40 | Active |
+| MOD-004 | Managed module | Four-card Site Features | `includes/site-features.php` | Home / Elementor / REST | 3.10.40 | Active |
+| API-001 | REST API | `alookhor-cc/v1` | `includes/rest-api.php` | Public state + authenticated updater | 3.10.40 | Active |
+| UPD-001 | Updater | Private native updater | `includes/updater.php` | Control Center + GitHub Actions | 3.10.40 | Active |
+| CFG-001 | WordPress state | Main settings | `alookhor_cc_settings` | All managed modules | 3.10.40 | Active |
+| CFG-002 | WordPress state | Header settings | `alookhor_header_settings` | Header and Top Bar | 3.10.40 | Active |
+| CFG-003 | WordPress state | Purple slider | `alookhor_cc_purple_slider` | `[alookhor_purple_slider]` | 3.10.40 | Active |
+| CSS-001 | CSS | Managed Header | `assets/css/frontend-header.css` | `[alookhor_portal_header]` fallback renderer | 3.10.40 | Active |
+| JS-001 | JavaScript | Managed Header runtime | `assets/js/frontend-header.js` | `[alookhor_portal_header]` fallback renderer | 3.10.40 | Active |
+| JS-002 | JavaScript | Legacy Top Bar manager | `assets/js/frontend-topbar-manager.js` | Preserved legacy header provider | 3.10.40 | Active when legacy provider exists |
+| CSS-002 | CSS | WooCommerce Categories | `assets/css/frontend-categories.css` | `[alookhor_managed_categories]` | 3.10.40 | Active |
+| JS-003 | JavaScript | Categories carousel | `assets/js/frontend-categories.js` | `[alookhor_managed_categories]` | 3.10.40 | Active |
+| CSS-003 | CSS | Managed Footer | `assets/css/frontend-footer.css` | Managed Footer module | 3.10.40 | Active |
+| JS-004 | JavaScript | Managed Footer | `assets/js/frontend-footer.js` | Managed Footer module | 3.10.40 | Active |
+| CSS-004 | CSS | Control Center UI | `assets/css/luxury.css` | WP Admin ALOOKHOR pages | 3.10.40 | Active |
+| JS-005 | JavaScript | Control Center app | `assets/js/app.js` + modules | WP Admin ALOOKHOR pages | 3.10.40 | Active |
+| CSS-005 | CSS | Managed Hero | `assets/css/frontend-hero.css` | `[alookhor_managed_hero]` / automatic Home replacement | 3.10.40 | Active |
+| JS-006 | JavaScript | Managed Hero runtime | `assets/js/frontend-hero.js` | Four-slide replacement, controls and REST refresh | 3.10.40 | Active |
+| CSS-006 | CSS | Managed Site Features | `assets/css/frontend-features.css` | `[alookhor_managed_features]` / automatic Home replacement | 3.10.40 | Active |
+| JS-007 | JavaScript | Managed Site Features runtime | `assets/js/frontend-features.js` | Four-card replacement and REST refresh | 3.10.40 | Active |
 
 ## SC-001 — Portal Header
 
@@ -200,7 +203,7 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 |---|---:|---|
 | `.github/workflows/publish.yml` | 569 | `a9556898f6bc0e120017222a9cca216859b490ac395fad58582596273171263f` |
 | `ops/wordpress-ci-bootstrap.php` | 215 | `409c23f2be99c6651b0e75dc877c91c884534e6b16f9985c177cf65d14fd4c95` |
-| `plugin/alookhor-control-center/alookhor-control-center.php` | 374 | `24d107ea33d0433601c0d51d263da48b7870fecfd7234d6b01ec591a7827d6d0` |
+| `plugin/alookhor-control-center/alookhor-control-center.php` | 374 | `68a70c8b4cff6d046327dcac3bbc2e4644ceaf43875e6aae45c1070bbba88894` |
 | `plugin/alookhor-control-center/assets/css/frontend-categories.css` | 9 | `b811fb4f96023711a593cd593eb9ae3846ebfd9c912c57e3e623d0965f7d494a` |
 | `plugin/alookhor-control-center/assets/css/frontend-features.css` | 29 | `8431fcf85b5903bbe2335aa017e8a0a79d0038a7ce055189fa8ebe41e49b89ed` |
 | `plugin/alookhor-control-center/assets/css/frontend-footer.css` | 26 | `f0dd733870b626c5581fc84ad2d5311bcf37374ab351cfc74ade1808ae5b1089` |
@@ -217,7 +220,7 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 | `plugin/alookhor-control-center/assets/js/frontend-categories.js` | 27 | `7ae122e4427522d6004a97f43cc22d271476a3a8dee4980bd2c05ca398e75bb0` |
 | `plugin/alookhor-control-center/assets/js/frontend-features.js` | 62 | `e611fe59f35f43e061a98cff77685eba514564c98b2ea6b44bd31fe8c4d0f746` |
 | `plugin/alookhor-control-center/assets/js/frontend-footer.js` | 75 | `70b41991fca96014f6951a81012d6163222839cf6914cd7efbed186088168542` |
-| `plugin/alookhor-control-center/assets/js/frontend-header.js` | 186 | `88a6972acae17216f9bb9507b77dac737d4ea894bad147cd9131dab8a61e2fa9` |
+| `plugin/alookhor-control-center/assets/js/frontend-header.js` | 206 | `8bc8ad5fe1ec932f62388b3ac828af17e53675682aa355c50404e1893f33fcaa` |
 | `plugin/alookhor-control-center/assets/js/frontend-hero.js` | 133 | `4238be2204142f59552efe695d5cb619d40c1f1c2ca1404eed9590a275934091` |
 | `plugin/alookhor-control-center/assets/js/frontend-purple-slider.js` | 132 | `66d8667a7af4660e9fb706d56a68112dff337ccb2fec300f0ffc806af760e776` |
 | `plugin/alookhor-control-center/assets/js/frontend-topbar-manager.js` | 415 | `ee6455e0fc85825ca86a6113960f7f324ab71c4abd7826d31da9842ec8e99b92` |
@@ -227,7 +230,7 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 | `plugin/alookhor-control-center/assets/js/modules/orders.js` | 19 | `0ccd8376c69ba37fb50d3261f002789488042e17a0b1b37539bab86abda374eb` |
 | `plugin/alookhor-control-center/assets/js/modules/settings.js` | 740 | `691798b7785b447a7441777eb9bd88d353eae179d1f47d973bc31948adf5bda3` |
 | `plugin/alookhor-control-center/assets/js/modules/users.js` | 20 | `6fb96546faf00ea831ace016d09b10f903a501db647bae20d0f570034ac36946` |
-| `plugin/alookhor-control-center/config/site.json` | 285 | `b6fc8a6061f9993690d43134765a5b8a64ed4accbab202805af0c7af61bc5863` |
+| `plugin/alookhor-control-center/config/site.json` | 285 | `a2ebd689ca52e803eee205cc2fcaaf132388994a57d33e1e39a28604b02d13f0` |
 | `plugin/alookhor-control-center/includes/admin-purple-slider.php` | 179 | `11e9d8e4efaddc02956d2cfe9ae5ca1d3208c33fca8a776d24426279d0eec19e` |
 | `plugin/alookhor-control-center/includes/admin.php` | 261 | `8f7670a66c14486699946deabcbce355b094f59352a6c58a8b2eac9cc4fa5485` |
 | `plugin/alookhor-control-center/includes/ajax.php` | 432 | `f93f5b5b5ca14192fe9c55a79a620cf406afc758176c4082a846bd742d771e62` |
@@ -245,7 +248,7 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 | `scripts/generate_code_registry.py` | 293 | `cc820adb6cd74358acfe6eea9bcc5206a2262b91a53e053cc0794c47fec3026a` |
 | `scripts/header_visual_audit.py` | 191 | `bcec9fbeff9b90ed51aab240cd93820c7436343ebea7bec5e3c5fc4c1e533883` |
 | `scripts/wordpress_access_check.py` | 530 | `bcb8e3c38456dd6161683792fc306e737a38e1be349d9f7e8a66347652b3393f` |
-| `scripts/wordpress_release_test.py` | 266 | `3e7a2c1f21cffefbebb6bfd9e236fd71f3249b9c4171e4d242c2fc5b70331ac0` |
+| `scripts/wordpress_release_test.py` | 307 | `5853a0a7ddb893e0075fccf2ade7be96e368746f60005ac8657f3b562acf60fe` |
 
 # COMPLETE SOURCE SNAPSHOTS
 
@@ -1053,7 +1056,7 @@ add_action('rest_api_init', function(){
  * Plugin Name: ALOOKHOR Control Center
  * Plugin URI: https://alookhor.ir
  * Description: کنترل سنتر لوکس و ماژولار آلوخور — مدیریت کامل سایت (هدر، اسلایدر، سورت، محصولات، مشتریان VIP، مالی، آنالیتیکس) با آپدیت آنی بدون رفرش. تمام تنظیمات چت قبلی + شورت‌کد [alookhor_portal_header] اینجا مدیریت می‌شود.
- * Version: 3.10.34
+ * Version: 3.10.40
  * Author: ALOOKHOR Team — Luxury Modular
  * Author URI: https://alookhor.ir
  * Update URI: https://alookhor.ir/alookhor-control-center
@@ -1066,8 +1069,8 @@ add_action('rest_api_init', function(){
 
 if (!defined('ABSPATH')) exit;
 
-define('ALOOKHOR_CC_VERSION', '3.10.34');
-define('ALOOKHOR_CC_BUILD', '3.10.34');
+define('ALOOKHOR_CC_VERSION', '3.10.40');
+define('ALOOKHOR_CC_BUILD', '3.10.40');
 define('ALOOKHOR_CC_FILE', __FILE__);
 define('ALOOKHOR_CC_DIR', plugin_dir_path(__FILE__));
 define('ALOOKHOR_CC_URL', plugin_dir_url(__FILE__));
@@ -4142,6 +4145,26 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
     if(host){['margin','margin-top','margin-bottom','margin-block','padding','padding-top','padding-bottom','padding-block','min-height','height','gap'].forEach(property=>host.style.setProperty(property,(property==='height'?'auto':property==='min-height'?'0':'0px'),'important'));host.style.setProperty('justify-content','flex-start','important');host.style.setProperty('align-content','flex-start','important');host.style.setProperty('--justify-content','flex-start','important');host.style.setProperty('--padding-top','0px','important');host.style.setProperty('--padding-bottom','0px','important');host.style.setProperty('--margin-top','0px','important');host.style.setProperty('--margin-bottom','0px','important')}
     if(elementorRoot){elementorRoot.style.setProperty('margin-top','0px','important');elementorRoot.style.setProperty('padding-top','0px','important')}
 
+    // v3.10.37 — Mobile RTL geometry repair. The Elementor widget chain that
+    // owns the managed shortcode can collapse to a zero-width point inside
+    // row-flex containers; the header full-bleed margins then anchor to the
+    // container's right edge in RTL and push the whole header outside the
+    // viewport (measured on live: left=207.5/right=637.5 in a 430px viewport).
+    // Stretch every link between the shortcode node and its host container so
+    // the full-bleed math is computed against a real, centred width.
+    (function repairWidthChain(){
+      let node = root.parentElement;
+      for (let depth = 0; node && node !== host && !node.classList.contains('elementor') && node.tagName !== 'BODY' && depth < 6; depth++) {
+        const parentDisplay = node.parentElement ? getComputedStyle(node.parentElement).display : '';
+        if (parentDisplay.includes('flex')) node.style.setProperty('flex', '1 1 100%', 'important');
+        node.style.setProperty('width', '100%', 'important');
+        node.style.setProperty('max-width', '100%', 'important');
+        node.style.setProperty('margin-left', '0px', 'important');
+        node.style.setProperty('margin-right', '0px', 'important');
+        node = node.parentElement;
+      }
+    })();
+
     const toggle = root.querySelector('.alookhor-menu-toggle');
     const drawer = root.querySelector('.alookhor-menu-drawer');
     const closeButtons = root.querySelectorAll('[data-alookhor-close]');
@@ -6174,7 +6197,7 @@ export const usersModule = {
   },
   "updated_at": "2026-08-10T16:20:00Z",
   "updated_by": "AI Assistant — recovered from previous chat",
-  "version": "3.10.34",
+  "version": "3.10.40",
   "hero_settings": {
     "enabled": true,
     "hide_legacy": true,
@@ -10929,6 +10952,48 @@ REPORT_PATH = Path(os.environ.get('WP_REPORT_PATH', '/tmp/wordpress-report.json'
 AUTH = base64.b64encode(f'{USERNAME}:{APP_PASSWORD}'.encode()).decode()
 
 
+def _finalize_report(report_obj):
+    """Slim guarded live-rendering telemetry — report must stay small:
+    the publisher status writer truncates it to the last 12000 chars, so the
+    JSON tail must remain valid and the whole file keep its classic size."""
+    metrics = None
+    try:
+        import subprocess, sys
+        env = dict(os.environ)
+        visual_path = '/tmp/header-visual-deploy.json'
+        env['HEADER_VISUAL_REPORT'] = visual_path
+        env['HEADER_VISUAL_SHOTS'] = '/tmp/header-shots-deploy'
+        subprocess.run([sys.executable, '-m', 'pip', 'install', '--quiet', 'selenium'], timeout=240, capture_output=True)
+        subprocess.run([sys.executable, str(ROOT / 'scripts' / 'header_visual_audit.py')], env=env, timeout=420, capture_output=True)
+        full = json.loads(Path(visual_path).read_text())
+        views = full.get('views') or {}
+        mobile = views.get('mobile') or {}
+        before = mobile.get('before') or {}
+        keep = ['viewport', 'horizontal_overflow', 'topbar', 'header', 'capsule', 'nav_shell',
+                'logo_box', 'logo', 'main_toggle']
+        metrics = {
+            'mobile': {k: before.get(k) for k in keep},
+            'mobile_failed_checks': {k: v for k, v in (mobile.get('checks') or {}).items() if v is not True},
+            'mobile_ok': mobile.get('ok'),
+            'desktop_overflow': ((views.get('desktop') or {}).get('before') or {}).get('horizontal_overflow'),
+            'audit_ok': full.get('ok'),
+        }
+    except Exception as capture_error:
+        metrics = {'error': f'{type(capture_error).__name__}: {capture_error}'}
+    report_obj['header_visual'] = metrics
+    try:
+        serialized = json.dumps(report_obj, ensure_ascii=False, indent=2)
+        if len(serialized) > 11600:
+            dropped = report_obj.pop('header_visual', None)
+            report_obj['header_visual_dropped_to_fit'] = bool(dropped)
+            serialized = json.dumps(report_obj, ensure_ascii=False, indent=2)
+    except Exception:
+        serialized = json.dumps({'ok': report_obj.get('ok'), 'error': str(report_obj.get('error'))})
+    REPORT_PATH.write_text(serialized + '\n')
+    print(json.dumps(report_obj, ensure_ascii=False))
+    print('HEADER_VISUAL_TELEMETRY=' + json.dumps(metrics, ensure_ascii=False))
+
+
 def request_json(path, method='GET', payload=None, allow=(200,)):
     body = json.dumps(payload).encode() if payload is not None else None
     request = Request(
@@ -10953,6 +11018,7 @@ def request_json(path, method='GET', payload=None, allow=(200,)):
         if error.code in allow:
             return error.code, json.loads(data)
         raise RuntimeError(f'HTTP {error.code} for {path}: {data[:800]}') from error
+
 
 
 def get_pre_update_status():
@@ -11169,10 +11235,8 @@ try:
 except Exception as error:
     report['ok'] = False
     report['error'] = str(error)
-    REPORT_PATH.write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n')
-    print(json.dumps(report, ensure_ascii=False, indent=2))
+    _finalize_report(report)
     raise
 else:
-    REPORT_PATH.write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n')
-    print(json.dumps(report, ensure_ascii=False, indent=2))
+    _finalize_report(report)
 ````

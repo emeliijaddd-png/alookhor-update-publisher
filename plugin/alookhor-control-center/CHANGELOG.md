@@ -1,5 +1,23 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.40 — 2026-08-19 — Telemetry Marker Last
+- TUNE: the compact telemetry marker is now the final line of the step log (tail-safe by construction) and metrics slimmed to core rect set.
+
+## v3.10.39 — 2026-08-19 — Telemetry Channels Aligned
+- TUNE: report cap raised to keep compact telemetry inside the JSON; log print switched to compact form so the telemetry marker stays within the publisher log tail.
+
+## v3.10.38 — 2026-08-19 — Post-Update Test Repair
+- FIX: restored the accidentally excised `request_json` helper in `wordpress_release_test.py` so the authenticated site update + checks + telemetry chain runs again end-to-end.
+
+## v3.10.37 — 2026-08-19 — Mobile Header Right-Shift Fix
+- FIX: repair the Elementor widget-chain width collapse (zero-width shortcode point inside row-flex hosts) that anchored the RTL full-bleed header to the container's right edge and pushed it 207.5px off-canvas on mobile. Verified via live render telemetry.
+
+## v3.10.36 — 2026-08-19 — Slim Telemetry Channel
+- FIX: telemetry now embeds only a compact metric selection (<2KB) and mirrors it as a plain-text line into the step log; the classic-size report keeps the publisher status writer's 12KB tail truncation valid.
+
+## v3.10.35 — 2026-08-19 — Mobile Header Render Telemetry
+- DIAG: post-update test appends a guarded live render audit (desktop+mobile metrics + embedded downscaled mobile screenshot) to the publisher status report; additive only, never affects the verdict.
+
 ## v3.10.34 — 2026-08-19 — Deep Purple Glass + Gold Mega Polish
 - PALETTE: deep purple glass for Top Bar/Capsule — `#0B0214`, `#160027`, `rgba(33,0,56,.72)`, gold accent `#D4AD55` / `#E8C878`, text `#F5F3FF`.
 - GLASS: capsule blur 24px and mega panel blur 26px with saturated deep-plum gradients; structure of Top Bar, Capsule, Cart/Account/Logo/Hamburger and Drawer unchanged.
