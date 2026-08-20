@@ -1,5 +1,9 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.45 — 2026-08-20 — Header Revert to Original Burgundy Glass
+- REVERT: Main Menu (Header) and Topbar reverted to their original elegant Burgundy glass and gold overlapping logo design from v3.10.24.
+- PRESERVE: Auto-scrolling Bestsellers Products Slider, modular Footer, Trust Bar grid, and categories carousel remain active and untouched.
+
 ## v3.10.44 — 2026-08-20 — [alookhor_bestsellers_slider] Release
 - FEATURE: Added dedicated [alookhor_bestsellers_slider] shortcode rendering the beautiful purple glass bestselling products carousel dynamically from WooCommerce.
 - TABS: Category-specific product loading (no consolidated list leaks), responsive 2x2 grid on mobile devices.
