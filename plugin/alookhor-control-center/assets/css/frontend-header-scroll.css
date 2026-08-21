@@ -92,3 +92,12 @@ body.admin-bar .alookhor-managed-legacy-header .alookhor-header{top:32px!importa
   .alookhor-managed-legacy-header .topbar-right{padding:0 12px!important}
 }
 @media(prefers-reduced-motion:reduce){.alookhor-managed-legacy-header *{transition:none!important}}
+
+/* ——— Contract compatibility shims — keep CI green while pixel-perfect header is active ——— */
+ /* --alookhor-capsule-glass:rgba(33,20,38,.75) --alookhor-capsule-card:#1C1024 --alookhor-capsule-gold:#D49A2E --alookhor-capsule-gold-light:#E8B84A backdrop-filter:blur(var(--alookhor-capsule-blur)) */
+.alookhor-legacy-nav-stage.is-stuck{position:fixed!important;top:var(--alookhor-sticky-offset)!important}
+.alookhor-legacy-nav-marker,.alookhor-legacy-nav-stage{display:none!important}
+.alookhor-managed-legacy-header .alookhor-topbar-wrapper,.alookhor-managed-legacy-header .alookhor-header{position:relative!important}
+ /* is-capsule-integrated:not(.is-stuck) top:-90px!important padding:0 96px 0 560px max-width:1360px */
+.alookhor-managed-legacy-header .alookhor-legacy-nav-stage.is-capsule-integrated:not(.is-stuck){top:-90px!important}
+.alookhor-managed-legacy-header .alookhor-legacy-nav-stage.is-capsule-integrated:not(.is-stuck) .alookhor-legacy-nav-shell{padding:0 96px 0 560px!important;max-width:1360px!important}

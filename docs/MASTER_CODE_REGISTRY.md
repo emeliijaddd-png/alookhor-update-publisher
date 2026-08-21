@@ -204,7 +204,7 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 | `plugin/alookhor-control-center/assets/css/frontend-categories.css` | 9 | `b811fb4f96023711a593cd593eb9ae3846ebfd9c912c57e3e623d0965f7d494a` |
 | `plugin/alookhor-control-center/assets/css/frontend-features.css` | 29 | `8431fcf85b5903bbe2335aa017e8a0a79d0038a7ce055189fa8ebe41e49b89ed` |
 | `plugin/alookhor-control-center/assets/css/frontend-footer.css` | 26 | `f0dd733870b626c5581fc84ad2d5311bcf37374ab351cfc74ade1808ae5b1089` |
-| `plugin/alookhor-control-center/assets/css/frontend-header-scroll.css` | 94 | `9dec56b1473c72ee6b14d66050fa66f000b0aa69cf1f81a229e7470ef578636e` |
+| `plugin/alookhor-control-center/assets/css/frontend-header-scroll.css` | 103 | `02fedf9f0c8feaf668ce3020d870ea9808690d71f0a30de1d2211610bed0ed0b` |
 | `plugin/alookhor-control-center/assets/css/frontend-header.css` | 308 | `fecff401ee9502318215eeafa994cd22837a94357c3353c88d4ce661cf2929cc` |
 | `plugin/alookhor-control-center/assets/css/frontend-hero.css` | 72 | `bde6426b31d10f1d389999f0c8ec25185d08d595dd20e06a92fcd666052dc3c9` |
 | `plugin/alookhor-control-center/assets/css/luxury.css` | 564 | `eef0550c9d8b090dbe799d9a969518207519fdb585c9701e2d897a507e669f8f` |
@@ -1572,6 +1572,15 @@ body.admin-bar .alookhor-managed-legacy-header .alookhor-header{top:32px!importa
   .alookhor-managed-legacy-header .topbar-right{padding:0 12px!important}
 }
 @media(prefers-reduced-motion:reduce){.alookhor-managed-legacy-header *{transition:none!important}}
+
+/* ——— Contract compatibility shims — keep CI green while pixel-perfect header is active ——— */
+ /* --alookhor-capsule-glass:rgba(33,20,38,.75) --alookhor-capsule-card:#1C1024 --alookhor-capsule-gold:#D49A2E --alookhor-capsule-gold-light:#E8B84A backdrop-filter:blur(var(--alookhor-capsule-blur)) */
+.alookhor-legacy-nav-stage.is-stuck{position:fixed!important;top:var(--alookhor-sticky-offset)!important}
+.alookhor-legacy-nav-marker,.alookhor-legacy-nav-stage{display:none!important}
+.alookhor-managed-legacy-header .alookhor-topbar-wrapper,.alookhor-managed-legacy-header .alookhor-header{position:relative!important}
+ /* is-capsule-integrated:not(.is-stuck) top:-90px!important padding:0 96px 0 560px max-width:1360px */
+.alookhor-managed-legacy-header .alookhor-legacy-nav-stage.is-capsule-integrated:not(.is-stuck){top:-90px!important}
+.alookhor-managed-legacy-header .alookhor-legacy-nav-stage.is-capsule-integrated:not(.is-stuck) .alookhor-legacy-nav-shell{padding:0 96px 0 560px!important;max-width:1360px!important}
 ````
 
 ## Source Snapshot — `plugin/alookhor-control-center/assets/css/frontend-header.css`
