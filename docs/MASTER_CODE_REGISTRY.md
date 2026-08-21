@@ -198,7 +198,7 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 
 | File | Lines | SHA-256 |
 |---|---:|---|
-| `.github/workflows/publish.yml` | 541 | `b18490644e8dfcffdb1bcc8ec3aaab12e43ca36bf6998e0a00dc93d22ede172f` |
+| `.github/workflows/publish.yml` | 535 | `ea2a747b9787cb39313702fd50fd8940891a2ed64de3acac6c4e5d69912dec3d` |
 | `ops/wordpress-ci-bootstrap.php` | 215 | `409c23f2be99c6651b0e75dc877c91c884534e6b16f9985c177cf65d14fd4c95` |
 | `plugin/alookhor-control-center/alookhor-control-center.php` | 355 | `15d803a6330ba26750f4688d0fda1d01143cf01105510c22cd0e0959c4150c7d` |
 | `plugin/alookhor-control-center/assets/css/frontend-categories.css` | 9 | `b811fb4f96023711a593cd593eb9ae3846ebfd9c912c57e3e623d0965f7d494a` |
@@ -237,7 +237,7 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 | `plugin/alookhor-control-center/includes/updater.php` | 385 | `15521824f3c64db2b516150ffd05773799c6a3a0cfb9f6f55c1ed68974cbd5e6` |
 | `plugin/alookhor-control-center/templates/admin-control-center.php` | 388 | `c4450ab6e703b3845327118522efc2e650b2bab9d6e188c3b4e0e320de75f0aa` |
 | `plugin/alookhor-control-center/uninstall.php` | 6 | `d69282a9ab7c0865b6c60e6fca272d0859433e9c8730754fb2995295209ff84c` |
-| `scripts/build_release.py` | 101 | `f07af70658e73dd9e42f018cfa3e2ca35a7287599d7e6a4cf8e06951665126d8` |
+| `scripts/build_release.py` | 113 | `7d54cb088e271f83a724467786b6c72377157df57b73699d12d64f1d3ddcb82a` |
 | `scripts/generate_code_registry.py` | 293 | `cc820adb6cd74358acfe6eea9bcc5206a2262b91a53e053cc0794c47fec3026a` |
 | `scripts/header_visual_audit.py` | 191 | `bcec9fbeff9b90ed51aab240cd93820c7436343ebea7bec5e3c5fc4c1e533883` |
 | `scripts/wordpress_access_check.py` | 530 | `bcb8e3c38456dd6161683792fc306e737a38e1be349d9f7e8a66347652b3393f` |
@@ -373,7 +373,6 @@ jobs:
           topbar_manager = Path('plugin/alookhor-control-center/assets/js/frontend-topbar-manager.js').read_text()
           header_php = Path('plugin/alookhor-control-center/includes/shortcode-header.php').read_text()
           bootstrap_php = Path('plugin/alookhor-control-center/alookhor-control-center.php').read_text()
-          header_css = Path('plugin/alookhor-control-center/assets/css/frontend-header.css').read_text()
           assert '.alookhor-legacy-nav-stage.is-stuck{position:fixed!important' in header_scroll_css and '.alookhor-legacy-nav-marker' in header_scroll_css
           assert '.alookhor-topbar-wrapper' in header_scroll_css and 'position:relative!important' in header_scroll_css
           assert 'setupHeaderBehavior' in topbar_manager and "header.after(marker, stage)" in topbar_manager
@@ -387,11 +386,6 @@ jobs:
           assert "'header_logo_desktop_width' => 118" in header_php and "'header_logo_mobile_width' => 58" in header_php
           assert 'inpHeaderLogoDesktop' in settings_js and 'inpHeaderLogoMobile' in settings_js and 'inpHeaderSearchPlaceholder' not in settings_js
           assert "frontend-header-scroll.css" in bootstrap_php and "'sticky' => (bool) $h['sticky']" in bootstrap_php
-          assert all(token in header_css for token in ['rgba(33,20,38,.75)', '#D49A2E', '#E8B84A', '#0D0510', '#1C1024'])
-          # Owner-approved Header palette is Burgundy/Gold only. The deep purple
-          # glass override was removed in 3.10.19 and must not return.
-          assert 'DEEP PURPLE' not in header_css
-          assert not any(token in header_css for token in ['#160027', '#210038', '#FBF7FF', '#C9B7D6', '#F2D675', '#09020F'])
           assert all(token in header_scroll_css for token in ['--alookhor-capsule-glass:rgba(33,20,38,.75)','--alookhor-capsule-card:#1C1024','--alookhor-capsule-gold:#D49A2E','--alookhor-capsule-gold-light:#E8B84A','backdrop-filter:blur(var(--alookhor-capsule-blur))'])
           assert all(token in topbar_manager for token in ['--alookhor-capsule-background','--alookhor-capsule-glass','--alookhor-capsule-gold-light','capsule_blur'])
           assert 'inpCapsuleGlass' in settings_js and 'inpCapsuleBlur' in settings_js and 'capsule_gold_light' in settings_js
@@ -8531,6 +8525,18 @@ checks = {
 }
 if set(checks.values()) != {VERSION}:
     raise SystemExit(f'Version mismatch: {checks}')
+
+# ——— Header palette guard (owner-approved Burgundy/Gold only) ———
+# The experimental deep purple glass override was removed in 3.10.19. The
+# approved palette must stay present in the fallback renderer stylesheet and
+# the purple tokens must never return.
+header_css = (PLUGIN / 'assets' / 'css' / 'frontend-header.css').read_text(encoding='utf-8')
+for token in ('rgba(33,20,38,.75)', '#D49A2E', '#E8B84A', '#0D0510', '#1C1024'):
+    if token not in header_css:
+        raise SystemExit(f'Header palette guard: missing approved token {token!r} in frontend-header.css')
+for token in ('DEEP PURPLE', '#160027', '#210038', '#FBF7FF', '#C9B7D6', '#F2D675', '#09020F'):
+    if token in header_css:
+        raise SystemExit(f'Header palette guard: forbidden token {token!r} found in frontend-header.css')
 
 tag = os.environ.get('GITHUB_REF_NAME', '')
 if tag.startswith('v') and tag[1:] != VERSION:
