@@ -1,5 +1,10 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.53 — 2026-08-21 — Fix White Margins Left/Right/Bottom (No-Gap Site)
+- FIX: white margins on left/right/bottom removed — `html:has(.alookhor-mf), body:has(.alookhor-mf)` now `background:var(--mf-bg)`, `margin:0`, `padding:0`, `overflow-x:hidden`; `.website-wrapper/.main-page-wrapper/.container` forced transparent/no-max-width; footer uses `100vw` breakout `margin-left:calc(50% - 50vw)` with `position:relative` (no transform) for true edge-to-edge.
+- FOOTER BOTTOM: `margin-bottom:0`, `padding-bottom:0` on html/body/wrapper, `body:has(.alookhor-mf)` bottom 0, mobile `padding-bottom:0` (was 60px white), `background:var(--mf-bg)` ensures no white gap below footer.
+- HEADER: also ensure `html,body{background:var(--mf-bg)}` so any outer container white is hidden.
+
 ## v3.10.52 — 2026-08-21 — True Full-Width Footer Edge-to-Edge (Fix)
 - FIX: desktop footer now truly full-width edge-to-edge — outer `.alookhor-mf` padding `0`, inner shell `width:100% max-width:none margin:0 border-radius:0 border:0` with `28px 24px` inner padding — content has 24px breathing room but background spans 100vw, no longer centered boxed 1360px.
 - Keep mobile pro as is (100% max 500px centered with 12px outer, 2-col pills).
