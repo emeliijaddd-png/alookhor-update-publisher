@@ -1,5 +1,12 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.48 — 2026-08-21 — No-Gap Sticky Capsule + Luxury Mega-Menu Promo (Image-Exact)
+- FIX: removed empty gap at page top (`html/body/.website-wrapper/.whb-header` reset with `:has(.alookhor-managed-legacy-header)`) and made the main glass capsule sticky (`position:sticky; top:0; z-index:9995` with admin-bar 32/46px offset). Top Bar stays relative and scrolls away; capsule stays fixed like sample 2.
+- MEGA: rebuilt mega-menu to match sample 3 exactly — dark Burgundy glass (`#0D0510`→`#1C1024`), 920px wide, `220px promo + 3 columns` grid, promo card left with `category-plums.jpg`, title `بسته‌بندی‌های لوکس صادراتی`, desc, gold pill button `مشاهده طرح‌ها` injected via `frontend-topbar-manager.js` (pure CSS + JS, no PHP rebuild, preserves Woodmart `.megamenu` markup).
+- MEGA: column headings gold-light `#E8B84A` with bottom hairline, items `#F5F3F0` with gold dot hover, 3-column luxury grid, 22px blur, gold border, promo injected for any 4+-item dropdown.
+- STICKY: both legacy bridge (`frontend-header-scroll.css`) and fallback renderer (`frontend-header.css`) updated — fallback now also `position:sticky` and same promo grid, 24px blur, gold highlights.
+- VERIFY: header still uses approved palette `#0D0510 #1C1024 rgba(33,20,38,.75) #D49A2E #E8B84A #F5F3F0 #C8C2C9` (guard intact), `header_luxury_text_31019` still provides `09159513173` + `ارسال رایگان…`.
+
 ## v3.10.47 — 2026-08-21 — Luxury Burgundy/Gold Image-Accurate Header (Professional) — published (superseeds 3.10.19)
 - RELEASE: version bumped from 3.10.19 to 3.10.47 because production was already at 3.10.46 (2026-08-21); content identical, SHA will be reissued.
 - TOP BAR: luxury deep burgundy `#1C1024` with 20px Blur/saturate 140%, gold separators, image-accurate order Support (left, headset gold, `پشتیبانی ۲۴/۷`), shipping message (center, globe gold, `ارسال رایگان به بیش از ۱۵ کشور جهان`), Phone (right, gold-light, `09159513173`).

@@ -212,7 +212,34 @@
         window.addEventListener('resize', setLogoSize, {passive:true});
       }
     }
+    injectMegaPromo(root);
     root.dataset.headerBehaviorReady = '1';
+  }
+
+  function injectMegaPromo(root){
+    try{
+      const menus = root.querySelectorAll('.header-nav-center li.megamenu > .sub-menu, .header-nav-center li.menu-item-has-children.mega > .sub-menu, .header-nav-center li.menu-item-has-children:has(> .sub-menu > li:nth-child(4)) > .sub-menu');
+      // fallback: any sub-menu with >=4 items that is likely a mega
+      const fallback = [...root.querySelectorAll('.header-nav-center .sub-menu')].filter(sm => sm.querySelectorAll(':scope > li').length >= 4 && !sm.querySelector('.alookhor-mega-promo'));
+      const targets = [...menus, ...fallback];
+      // dedupe
+      const seen = new Set();
+      targets.forEach(sm => {
+        if(seen.has(sm) || sm.querySelector('.alookhor-mega-promo')) return;
+        seen.add(sm);
+        // ensure it's a top-level dropdown (parent is primary menu item)
+        const parent = sm.closest('li');
+        if(!parent || !parent.matches('.alookhor-primary-menu > li, .nav-menu > li')) return;
+        // create promo
+        const promo = document.createElement('div');
+        promo.className = 'alookhor-mega-promo';
+        promo.innerHTML = '<div class="alookhor-mega-promo-img"><img src="' + (window.ALOOKHOR_TOPBAR?.home_url || '/') + 'wp-content/plugins/alookhor-control-center/assets/images/category-plums.jpg" alt="بسته‌بندی لوکس" onerror="this.style.display=\'none\'"><span style="display:grid;place-items:center;width:100%;height:100%;color:#E8B84A;font-size:10px">بسته‌بندی لوکس</span></div><div class="alookhor-mega-promo-title">بسته‌بندی‌های لوکس صادراتی</div><div class="alookhor-mega-promo-desc">پک‌های چوبی و مخمل اعلا مناسب<br>سوغات شیک و هدیه سازمانی تجاری</div><a class="alookhor-mega-promo-btn" href="' + (window.ALOOKHOR_TOPBAR?.home_url || '/') + 'shop/">مشاهده طرح‌ها</a>';
+        // fallback if image fails, hide img and show span (already)
+        sm.prepend(promo);
+        sm.classList.add('alookhor-mega-with-promo');
+        parent.classList.add('megamenu');
+      });
+    }catch(e){ /* no-op */ }
   }
 
   function manage(root, force = false) {
@@ -247,6 +274,7 @@
     // Establish the three-row in-flow layout immediately when the legacy DOM
     // arrives, before paint. Fresh REST values can update colors/content later.
     setupHeaderBehavior(root);
+    injectMegaPromo(root);
 
     // A cached legacy header can contain old text/colors. Reserve its layout but
     // never paint stale content while the fresh same-origin REST read is pending.
@@ -360,6 +388,7 @@
     }
 
     setupHeaderBehavior(root);
+    injectMegaPromo(root);
     root.dataset.topbarManaged = '3.10.19';
     root.dispatchEvent(new CustomEvent('alookhor:topbar-managed', {bubbles:true, detail:{version:'3.10.19'}}));
   }
