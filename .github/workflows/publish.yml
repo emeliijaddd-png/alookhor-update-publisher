@@ -121,6 +121,7 @@ jobs:
           topbar_manager = Path('plugin/alookhor-control-center/assets/js/frontend-topbar-manager.js').read_text()
           header_php = Path('plugin/alookhor-control-center/includes/shortcode-header.php').read_text()
           bootstrap_php = Path('plugin/alookhor-control-center/alookhor-control-center.php').read_text()
+          header_css = Path('plugin/alookhor-control-center/assets/css/frontend-header.css').read_text()
           assert '.alookhor-legacy-nav-stage.is-stuck{position:fixed!important' in header_scroll_css and '.alookhor-legacy-nav-marker' in header_scroll_css
           assert '.alookhor-topbar-wrapper' in header_scroll_css and 'position:relative!important' in header_scroll_css
           assert 'setupHeaderBehavior' in topbar_manager and "header.after(marker, stage)" in topbar_manager
@@ -134,6 +135,11 @@ jobs:
           assert "'header_logo_desktop_width' => 118" in header_php and "'header_logo_mobile_width' => 58" in header_php
           assert 'inpHeaderLogoDesktop' in settings_js and 'inpHeaderLogoMobile' in settings_js and 'inpHeaderSearchPlaceholder' not in settings_js
           assert "frontend-header-scroll.css" in bootstrap_php and "'sticky' => (bool) $h['sticky']" in bootstrap_php
+          assert all(token in header_css for token in ['rgba(33,20,38,.75)', '#D49A2E', '#E8B84A', '#0D0510', '#1C1024'])
+          # Owner-approved Header palette is Burgundy/Gold only. The deep purple
+          # glass override was removed in 3.10.19 and must not return.
+          assert 'DEEP PURPLE' not in header_css
+          assert not any(token in header_css for token in ['#160027', '#210038', '#FBF7FF', '#C9B7D6', '#F2D675', '#09020F'])
           assert all(token in header_scroll_css for token in ['--alookhor-capsule-glass:rgba(33,20,38,.75)','--alookhor-capsule-card:#1C1024','--alookhor-capsule-gold:#D49A2E','--alookhor-capsule-gold-light:#E8B84A','backdrop-filter:blur(var(--alookhor-capsule-blur))'])
           assert all(token in topbar_manager for token in ['--alookhor-capsule-background','--alookhor-capsule-glass','--alookhor-capsule-gold-light','capsule_blur'])
           assert 'inpCapsuleGlass' in settings_js and 'inpCapsuleBlur' in settings_js and 'capsule_gold_light' in settings_js

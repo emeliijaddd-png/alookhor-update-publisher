@@ -8,6 +8,7 @@
 - FLOW: integrated Stage uses a 90px relative offset plus -90px margin and a zero sticky marker, preventing duplicate footprint/Layout Shift.
 - MOBILE: Stage remains hidden; only Top Bar and Main Capsule render, preserving Cart/Account/Logo/Hamburger order and Hero underlap.
 - PALETTE: one-time recorded migration updates only Header palette fields to `#0D0510`, `#1C1024`, `rgba(33,20,38,.75)`, `#D49A2E`, `#E8B84A`, `#F5F3F0`, `#C8C2C9`.
+- CLEANUP: removed the leftover deep purple glass override block from `frontend-header.css` (fallback renderer only) that contradicted the owner-approved Burgundy/Gold palette; publisher CI now asserts the approved tokens are present and the purple tokens are absent.
 - VERIFY: Access/Release/Chrome audits enforce migration, exact REST state, Top Bar glass/order/colors, integrated Desktop Navigation, Sticky behavior, Mobile no-duplicate law and zero overflow.
 
 ## v3.10.18 — 2026-08-14 — Managed Burgundy Glass Header Capsule

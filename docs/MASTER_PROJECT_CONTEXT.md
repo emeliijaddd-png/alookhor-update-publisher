@@ -87,6 +87,8 @@ This rule supersedes every earlier interpretation of full-header Sticky behavior
 17. Visual acceptance requires rendered Chrome audits at 1440×1050 and 430×932, unique Drawer ID, no horizontal overflow, contained logo, hidden duplicate Top Bar logo, hidden Mobile nav stage, and a pinned Desktop navigation rail.
 18. The existing second `.header-capsule` has its own scoped glass palette: Main `#0D0510`, Card `#1C1024`, Glass `rgba(33,20,38,.75)`, Gold `#D49A2E`, Light Gold `#E8B84A`, Text `#F5F3F0`, Muted `#C8C2C9`, Blur 24px. Cart/Account/Logo/Hamburger Nodes remain unchanged.
 19. Top Bar physical order follows the new reference: Support at left, shipping/export Message at center, Phone at right. Desktop capsule expands to 1360px, Logo shifts left and the real menu occupies the right section; Mobile remains two rows with no separate Navigation.
+20. The deep purple glass override block was removed from `frontend-header.css` during 3.10.19 preparation (owner decision, 2026-08-21). The approved Burgundy/Gold palette is the single Header palette for both the legacy bridge and the fallback renderer, and publisher CI enforces the approved tokens present and purple tokens absent.
+21. Mega menu scope (owner-approved, 2026-08-21): legacy dropdown/mega-menu markup is never rebuilt or re-registered; it receives the approved glass palette through plugin-scoped CSS only, and its palette stays managed in the Boutique Header panel.
 
 ## Managed Hero contract
 
