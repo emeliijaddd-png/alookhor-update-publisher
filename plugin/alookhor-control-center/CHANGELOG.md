@@ -1,5 +1,10 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.54 — 2026-08-21 — Fix Right White Margin (Breakout) — No-Gap
+- FIX: right white margin remained due to `calc(50% - 50vw)` with `left:auto` not handling scrollbar — now uses robust `left:50% right:50% margin-left:-50vw margin-right:-50vw width:100vw` with `box-sizing:border-box` and `html{overflow-x:hidden}` + `body{padding-right:0}`.
+- Also forces `.website-wrapper/.main-page-wrapper/.container` to `max-width:none width:100%` when footer present, so no centered boxed parent leaves white gutters.
+- Keeps left/bottom fixes (3.10.53) — now both sides edge-to-edge, no white borders.
+
 ## v3.10.53 — 2026-08-21 — Fix White Margins Left/Right/Bottom (No-Gap Site)
 - FIX: white margins on left/right/bottom removed — `html:has(.alookhor-mf), body:has(.alookhor-mf)` now `background:var(--mf-bg)`, `margin:0`, `padding:0`, `overflow-x:hidden`; `.website-wrapper/.main-page-wrapper/.container` forced transparent/no-max-width; footer uses `100vw` breakout `margin-left:calc(50% - 50vw)` with `position:relative` (no transform) for true edge-to-edge.
 - FOOTER BOTTOM: `margin-bottom:0`, `padding-bottom:0` on html/body/wrapper, `body:has(.alookhor-mf)` bottom 0, mobile `padding-bottom:0` (was 60px white), `background:var(--mf-bg)` ensures no white gap below footer.
