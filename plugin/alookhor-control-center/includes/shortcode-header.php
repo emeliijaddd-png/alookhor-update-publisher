@@ -45,9 +45,9 @@ function alookhor_cc_front_header_settings(){
         'show_export'     => true,
         'show_wholesale'  => true,
         'email'           => sanitize_email(get_option('admin_email')),
-        'phone'           => '09222942808',
+        'phone'           => '09159513173',
         'whatsapp'        => '989222942808',
-        'export_text'     => 'صادرات به ۵ کشور جهان',
+        'export_text'     => 'ارسال رایگان به بیش از ۵ کشور جهان',
         'export_url'      => '',
         'wholesale_text'  => 'خرید عمده آلو بخارا',
         'wholesale_url'   => home_url('/#b2b'),
@@ -345,17 +345,10 @@ function alookhor_cc_render_managed_legacy_header($atts = [], $content = null, $
  * only its Top Bar receives the optional management compatibility layer.
  */
 function alookhor_cc_register_portal_header_shortcode(){
-    global $shortcode_tags;
-    $existing = $shortcode_tags['alookhor_portal_header'] ?? null;
-    $our_callbacks = ['alookhor_cc_render_portal_header', 'alookhor_cc_render_managed_legacy_header'];
-    if ($existing && !in_array($existing, $our_callbacks, true)) {
-        $GLOBALS['alookhor_cc_legacy_header_provider'] = $existing;
-        remove_shortcode('alookhor_portal_header');
-        add_shortcode('alookhor_portal_header', 'alookhor_cc_render_managed_legacy_header');
-        do_action('alookhor_cc_legacy_header_preserved', $existing);
-        return;
-    }
+    /* The managed reference header is authoritative. Replace any older
+     * Code Snippets/theme callback so production renders the current design. */
     $GLOBALS['alookhor_cc_legacy_header_provider'] = false;
+    remove_shortcode('alookhor_portal_header');
     add_shortcode('alookhor_portal_header', 'alookhor_cc_render_portal_header');
 }
 add_action('init', 'alookhor_cc_register_portal_header_shortcode', 100);
