@@ -3,7 +3,7 @@
 > این سند از روی فایل‌های واقعی Repository تولید می‌شود. Source اصلی همچنان فایل‌های اجرایی است؛ Snapshotهای کامل زیر برای بازیابی، ممیزی و انتقال دانش نگهداری می‌شوند.
 
 - **Registry version:** `1.0.0`
-- **Plugin/source version:** `3.10.50`
+- **Plugin/source version:** `3.10.51`
 - **Generated:** `2026-08-14`
 - **Repository:** `alookhor-update-publisher`
 - **Production:** `https://alookhor.ir`
@@ -13,7 +13,7 @@
 
 ## Current Project State
 
-- CURRENT VERSION: `3.10.50`
+- CURRENT VERSION: `3.10.51`
 - LAST FUNCTIONAL CHANGE: تطبیق Top Bar و منوی اصلی Desktop با مرجع دو‌ردیفه Burgundy/Gold، با حفظ Node واقعی WordPress و Sticky Navigation.
 - ACTIVE DESIGN: Luxury Black/Gold; actual component colors remain controlled by saved WordPress settings and existing module defaults.
 - ACTIVE SHORTCODES: `[alookhor_portal_header]`, `[alookhor_managed_categories]`, `[alookhor_managed_hero]`, `[alookhor_managed_features]`.
@@ -27,7 +27,7 @@
 ```text
 PROJECT: ALOOKHOR
 AREA: Top Bar + Main Header Navigation / Desktop + Mobile
-CURRENT VERSION: 3.10.50
+CURRENT VERSION: 3.10.51
 CHANGE: تطبیق Top Bar و منوی اصلی Desktop با مرجع دو‌ردیفه Burgundy/Gold، با حفظ Node واقعی WordPress و Sticky Navigation.
 REASON: مالک سایت تصویر مرجع دو‌ردیفه را ارائه و تطبیق سریع Top Bar و نوار منوی اصلی با همان ساختار و پالت را درخواست کرد.
 FILES: plugin/alookhor-control-center/assets/css/frontend-header-scroll.css; plugin/alookhor-control-center/assets/css/frontend-header.css; plugin/alookhor-control-center/assets/js/frontend-topbar-manager.js; plugin/alookhor-control-center/alookhor-control-center.php; plugin/alookhor-control-center/assets/js/modules/settings.js; plugin/alookhor-control-center/includes/ajax.php; plugin/alookhor-control-center/includes/rest-api.php; plugin/alookhor-control-center/includes/shortcode-header.php; plugin/alookhor-control-center/config/site.json; scripts/header_visual_audit.py; scripts/wordpress_access_check.py; scripts/wordpress_release_test.py
@@ -38,34 +38,34 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 
 | ID | Type | Name | File | Used In | Version | Status |
 |---|---|---|---|---|---:|---|
-| SC-001 | Shortcode | `[alookhor_portal_header]` | `includes/shortcode-header.php` | Elementor Header Shortcode widget; exact template ID unavailable | 3.10.50 | Active / compatibility-preserving |
-| SC-002 | Shortcode | `[alookhor_managed_categories]` | `includes/product-categories.php` | Home page → Elementor Shortcode widget | 3.10.50 | Active |
-| SC-003 | Shortcode | `[alookhor_managed_hero]` | `includes/hero.php` | Home Elementor Shortcode widget / automatic Legacy-root replacement | 3.10.50 | Active |
-| SC-004 | Shortcode | `[alookhor_managed_features]` | `includes/site-features.php` | Home Elementor HTML widget / automatic Legacy-root replacement | 3.10.50 | Active |
+| SC-001 | Shortcode | `[alookhor_portal_header]` | `includes/shortcode-header.php` | Elementor Header Shortcode widget; exact template ID unavailable | 3.10.51 | Active / compatibility-preserving |
+| SC-002 | Shortcode | `[alookhor_managed_categories]` | `includes/product-categories.php` | Home page → Elementor Shortcode widget | 3.10.51 | Active |
+| SC-003 | Shortcode | `[alookhor_managed_hero]` | `includes/hero.php` | Home Elementor Shortcode widget / automatic Legacy-root replacement | 3.10.51 | Active |
+| SC-004 | Shortcode | `[alookhor_managed_features]` | `includes/site-features.php` | Home Elementor HTML widget / automatic Legacy-root replacement | 3.10.51 | Active |
 | SC-EXT-001 | External shortcode | `[alookhor_categories_carousel]` | External plugin source unavailable | Former Home showcase | External | Replaced on Home / do not reconstruct |
-| PN-001 | Admin panel | ALOOKHOR Control Center | `includes/admin.php` | WP Admin top-level menu | 3.10.50 | Active |
-| PN-002 | Admin panel | Header & Top Bar | `includes/admin.php` | WP Admin submenu | 3.10.50 | Active mirror |
-| MOD-001 | Managed module | WooCommerce Categories | `includes/product-categories.php` | Home / Elementor / REST | 3.10.50 | Active |
-| MOD-002 | Managed module | Responsive Footer | `includes/footer.php` | Frontend footer / REST | 3.10.50 | Active |
-| MOD-003 | Managed module | Four-slide Hero | `includes/hero.php` | Home / Elementor / REST | 3.10.50 | Active |
-| MOD-004 | Managed module | Four-card Site Features | `includes/site-features.php` | Home / Elementor / REST | 3.10.50 | Active |
-| API-001 | REST API | `alookhor-cc/v1` | `includes/rest-api.php` | Public state + authenticated updater | 3.10.50 | Active |
-| UPD-001 | Updater | Private native updater | `includes/updater.php` | Control Center + GitHub Actions | 3.10.50 | Active |
-| CFG-001 | WordPress state | Main settings | `alookhor_cc_settings` | All managed modules | 3.10.50 | Active |
-| CFG-002 | WordPress state | Header settings | `alookhor_header_settings` | Header and Top Bar | 3.10.50 | Active |
-| CSS-001 | CSS | Managed Header | `assets/css/frontend-header.css` | `[alookhor_portal_header]` fallback renderer | 3.10.50 | Active |
-| JS-001 | JavaScript | Managed Header runtime | `assets/js/frontend-header.js` | `[alookhor_portal_header]` fallback renderer | 3.10.50 | Active |
-| JS-002 | JavaScript | Legacy Top Bar manager | `assets/js/frontend-topbar-manager.js` | Preserved legacy header provider | 3.10.50 | Active when legacy provider exists |
-| CSS-002 | CSS | WooCommerce Categories | `assets/css/frontend-categories.css` | `[alookhor_managed_categories]` | 3.10.50 | Active |
-| JS-003 | JavaScript | Categories carousel | `assets/js/frontend-categories.js` | `[alookhor_managed_categories]` | 3.10.50 | Active |
-| CSS-003 | CSS | Managed Footer | `assets/css/frontend-footer.css` | Managed Footer module | 3.10.50 | Active |
-| JS-004 | JavaScript | Managed Footer | `assets/js/frontend-footer.js` | Managed Footer module | 3.10.50 | Active |
-| CSS-004 | CSS | Control Center UI | `assets/css/luxury.css` | WP Admin ALOOKHOR pages | 3.10.50 | Active |
-| JS-005 | JavaScript | Control Center app | `assets/js/app.js` + modules | WP Admin ALOOKHOR pages | 3.10.50 | Active |
-| CSS-005 | CSS | Managed Hero | `assets/css/frontend-hero.css` | `[alookhor_managed_hero]` / automatic Home replacement | 3.10.50 | Active |
-| JS-006 | JavaScript | Managed Hero runtime | `assets/js/frontend-hero.js` | Four-slide replacement, controls and REST refresh | 3.10.50 | Active |
-| CSS-006 | CSS | Managed Site Features | `assets/css/frontend-features.css` | `[alookhor_managed_features]` / automatic Home replacement | 3.10.50 | Active |
-| JS-007 | JavaScript | Managed Site Features runtime | `assets/js/frontend-features.js` | Four-card replacement and REST refresh | 3.10.50 | Active |
+| PN-001 | Admin panel | ALOOKHOR Control Center | `includes/admin.php` | WP Admin top-level menu | 3.10.51 | Active |
+| PN-002 | Admin panel | Header & Top Bar | `includes/admin.php` | WP Admin submenu | 3.10.51 | Active mirror |
+| MOD-001 | Managed module | WooCommerce Categories | `includes/product-categories.php` | Home / Elementor / REST | 3.10.51 | Active |
+| MOD-002 | Managed module | Responsive Footer | `includes/footer.php` | Frontend footer / REST | 3.10.51 | Active |
+| MOD-003 | Managed module | Four-slide Hero | `includes/hero.php` | Home / Elementor / REST | 3.10.51 | Active |
+| MOD-004 | Managed module | Four-card Site Features | `includes/site-features.php` | Home / Elementor / REST | 3.10.51 | Active |
+| API-001 | REST API | `alookhor-cc/v1` | `includes/rest-api.php` | Public state + authenticated updater | 3.10.51 | Active |
+| UPD-001 | Updater | Private native updater | `includes/updater.php` | Control Center + GitHub Actions | 3.10.51 | Active |
+| CFG-001 | WordPress state | Main settings | `alookhor_cc_settings` | All managed modules | 3.10.51 | Active |
+| CFG-002 | WordPress state | Header settings | `alookhor_header_settings` | Header and Top Bar | 3.10.51 | Active |
+| CSS-001 | CSS | Managed Header | `assets/css/frontend-header.css` | `[alookhor_portal_header]` fallback renderer | 3.10.51 | Active |
+| JS-001 | JavaScript | Managed Header runtime | `assets/js/frontend-header.js` | `[alookhor_portal_header]` fallback renderer | 3.10.51 | Active |
+| JS-002 | JavaScript | Legacy Top Bar manager | `assets/js/frontend-topbar-manager.js` | Preserved legacy header provider | 3.10.51 | Active when legacy provider exists |
+| CSS-002 | CSS | WooCommerce Categories | `assets/css/frontend-categories.css` | `[alookhor_managed_categories]` | 3.10.51 | Active |
+| JS-003 | JavaScript | Categories carousel | `assets/js/frontend-categories.js` | `[alookhor_managed_categories]` | 3.10.51 | Active |
+| CSS-003 | CSS | Managed Footer | `assets/css/frontend-footer.css` | Managed Footer module | 3.10.51 | Active |
+| JS-004 | JavaScript | Managed Footer | `assets/js/frontend-footer.js` | Managed Footer module | 3.10.51 | Active |
+| CSS-004 | CSS | Control Center UI | `assets/css/luxury.css` | WP Admin ALOOKHOR pages | 3.10.51 | Active |
+| JS-005 | JavaScript | Control Center app | `assets/js/app.js` + modules | WP Admin ALOOKHOR pages | 3.10.51 | Active |
+| CSS-005 | CSS | Managed Hero | `assets/css/frontend-hero.css` | `[alookhor_managed_hero]` / automatic Home replacement | 3.10.51 | Active |
+| JS-006 | JavaScript | Managed Hero runtime | `assets/js/frontend-hero.js` | Four-slide replacement, controls and REST refresh | 3.10.51 | Active |
+| CSS-006 | CSS | Managed Site Features | `assets/css/frontend-features.css` | `[alookhor_managed_features]` / automatic Home replacement | 3.10.51 | Active |
+| JS-007 | JavaScript | Managed Site Features runtime | `assets/js/frontend-features.js` | Four-card replacement and REST refresh | 3.10.51 | Active |
 
 ## SC-001 — Portal Header
 
@@ -200,10 +200,10 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 |---|---:|---|
 | `.github/workflows/publish.yml` | 535 | `ea2a747b9787cb39313702fd50fd8940891a2ed64de3acac6c4e5d69912dec3d` |
 | `ops/wordpress-ci-bootstrap.php` | 215 | `409c23f2be99c6651b0e75dc877c91c884534e6b16f9985c177cf65d14fd4c95` |
-| `plugin/alookhor-control-center/alookhor-control-center.php` | 386 | `830d47b52728d85abd0b2099b6850f1a75fb119277cf9f561a867fa533b3e32e` |
+| `plugin/alookhor-control-center/alookhor-control-center.php` | 386 | `f86ecdfd276e01b7d33e501511d8649e97690737241b5187ab1ab7e181284cdb` |
 | `plugin/alookhor-control-center/assets/css/frontend-categories.css` | 9 | `b811fb4f96023711a593cd593eb9ae3846ebfd9c912c57e3e623d0965f7d494a` |
 | `plugin/alookhor-control-center/assets/css/frontend-features.css` | 29 | `8431fcf85b5903bbe2335aa017e8a0a79d0038a7ce055189fa8ebe41e49b89ed` |
-| `plugin/alookhor-control-center/assets/css/frontend-footer.css` | 26 | `f0dd733870b626c5581fc84ad2d5311bcf37374ab351cfc74ade1808ae5b1089` |
+| `plugin/alookhor-control-center/assets/css/frontend-footer.css` | 82 | `49afb078b02c6988bb82928152b3d595168c85f7b1df6842f3516fe25220f073` |
 | `plugin/alookhor-control-center/assets/css/frontend-header-luxury-new.css` | 184 | `a07460fb76ed462cc8af5bf0d0bb09f67aa7fe2a91cba24c2ae5ab25e66312dd` |
 | `plugin/alookhor-control-center/assets/css/frontend-header-scroll.css` | 103 | `02fedf9f0c8feaf668ce3020d870ea9808690d71f0a30de1d2211610bed0ed0b` |
 | `plugin/alookhor-control-center/assets/css/frontend-header.css` | 308 | `fecff401ee9502318215eeafa994cd22837a94357c3353c88d4ce661cf2929cc` |
@@ -226,7 +226,7 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 | `plugin/alookhor-control-center/assets/js/modules/orders.js` | 19 | `0ccd8376c69ba37fb50d3261f002789488042e17a0b1b37539bab86abda374eb` |
 | `plugin/alookhor-control-center/assets/js/modules/settings.js` | 740 | `12712606676ffc77d967faff00900b6b634a159cad075434458beea918820513` |
 | `plugin/alookhor-control-center/assets/js/modules/users.js` | 20 | `6fb96546faf00ea831ace016d09b10f903a501db647bae20d0f570034ac36946` |
-| `plugin/alookhor-control-center/config/site.json` | 288 | `55b10696123b934f7a1275045461c0a29f6d40526f783ae7c933e5ee675c2ac4` |
+| `plugin/alookhor-control-center/config/site.json` | 288 | `2df0d1a2a4493d7afd63793677fccc4357ef12478d5ff3d49b972645271e0600` |
 | `plugin/alookhor-control-center/includes/admin.php` | 251 | `ed17e1b42a6e014112872ff3db1e4c7c22802ebec0f44027a1e8f2e6467b885e` |
 | `plugin/alookhor-control-center/includes/ajax.php` | 385 | `5c65fd9ed419b2d9120d6b4ce7f31228c175f4f99b1004282982db6f97337a2d` |
 | `plugin/alookhor-control-center/includes/footer.php` | 269 | `50c7a6e7d67a8905b5d88486d42d9ad7381caf8c60fc49dd37e3db2a17a347f8` |
@@ -1016,7 +1016,7 @@ add_action('rest_api_init', function(){
  * Plugin Name: ALOOKHOR Control Center
  * Plugin URI: https://alookhor.ir
  * Description: کنترل سنتر لوکس و ماژولار آلوخور — مدیریت کامل سایت (هدر، اسلایدر، سورت، محصولات، مشتریان VIP، مالی، آنالیتیکس) با آپدیت آنی بدون رفرش. تمام تنظیمات چت قبلی + شورت‌کد [alookhor_portal_header] اینجا مدیریت می‌شود.
- * Version: 3.10.50
+ * Version: 3.10.51
  * Author: ALOOKHOR Team — Luxury Modular
  * Author URI: https://alookhor.ir
  * Update URI: https://alookhor.ir/alookhor-control-center
@@ -1029,8 +1029,8 @@ add_action('rest_api_init', function(){
 
 if (!defined('ABSPATH')) exit;
 
-define('ALOOKHOR_CC_VERSION', '3.10.50');
-define('ALOOKHOR_CC_BUILD', '3.10.50');
+define('ALOOKHOR_CC_VERSION', '3.10.51');
+define('ALOOKHOR_CC_BUILD', '3.10.51');
 define('ALOOKHOR_CC_FILE', __FILE__);
 define('ALOOKHOR_CC_DIR', plugin_dir_path(__FILE__));
 define('ALOOKHOR_CC_URL', plugin_dir_url(__FILE__));
@@ -1450,31 +1450,87 @@ body.alookhor-sf-hide-legacy .alookhor-trustbar-container{display:none!important
 ## Source Snapshot — `plugin/alookhor-control-center/assets/css/frontend-footer.css`
 
 ````css
-/* ALOOKHOR Managed Footer — scoped, RTL, responsive */
+/* ALOOKHOR Managed Footer — scoped, RTL, responsive — v3.10.51 full-width luxury */
 body.alookhor-mf-hide-legacy .alookhor-footer-system{display:none!important}
 body.alookhor-mf-hide-old-sections .alookhor-newsletter-wrapper,
 body.alookhor-mf-hide-old-sections .alookhor-appbanner-wrapper{display:none!important}
 .alookhor-mf,.alookhor-mf *{box-sizing:border-box}
-.alookhor-mf{width:100%;max-width:none;margin:0;padding:8px;background:var(--mf-bg);color:var(--mf-text);font-family:Tahoma,"Vazirmatn",sans-serif;direction:rtl;overflow:hidden;border-top:1px solid color-mix(in srgb,var(--mf-gold) 34%,transparent)}
+.alookhor-mf{width:100%;max-width:none;margin:0;padding:16px 24px;background:var(--mf-bg);color:var(--mf-text);font-family:Tahoma,"Vazirmatn",sans-serif;direction:rtl;overflow:hidden;border-top:1px solid color-mix(in srgb,var(--mf-gold) 34%,transparent)}
 .alookhor-mf a{color:inherit;text-decoration:none}.alookhor-mf svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
-.alookhor-mf-shell{width:min(var(--mf-width),calc(100% - 16px));margin:auto;border:1px solid color-mix(in srgb,var(--mf-gold) 33%,transparent);border-radius:8px;padding:20px;background:linear-gradient(145deg,color-mix(in srgb,var(--mf-surface) 96%,#000),var(--mf-bg));box-shadow:inset 0 0 40px rgba(0,0,0,.26)}
-.alookhor-mf-main-grid{display:grid;grid-template-columns:minmax(250px,1.55fr) repeat(3,minmax(155px,.88fr)) minmax(230px,1.12fr);gap:0;align-items:stretch}
-.alookhor-mf-main-grid>section{min-width:0;padding:18px 20px;border-left:1px solid color-mix(in srgb,var(--mf-gold) 22%,transparent)}
+.alookhor-mf-shell{width:min(1360px,calc(100% - 48px));margin:0 auto;border:1px solid color-mix(in srgb,var(--mf-gold) 22%,transparent);border-radius:16px;padding:28px 24px;background:linear-gradient(145deg,color-mix(in srgb,var(--mf-surface) 97%,#000),var(--mf-bg));box-shadow:inset 0 0 40px rgba(0,0,0,.18),0 12px 36px rgba(0,0,0,.22)}
+.alookhor-mf-main-grid{display:grid;grid-template-columns:minmax(280px,1.55fr) repeat(3,minmax(160px,.88fr)) minmax(240px,1.12fr);gap:0;align-items:stretch}
+.alookhor-mf-main-grid>section{min-width:0;padding:20px 22px;border-left:1px solid color-mix(in srgb,var(--mf-gold) 14%,transparent)}
 .alookhor-mf-main-grid>section:last-child{border-left:0}
-.alookhor-mf-brand{text-align:center;display:flex;flex-direction:column;align-items:center}.alookhor-mf-logo{display:block}.alookhor-mf-logo img{display:block;width:min(var(--mf-logo),100%);max-height:165px;object-fit:contain;filter:drop-shadow(0 8px 16px rgba(0,0,0,.65))}.alookhor-mf-brand-name{font:700 28px Georgia,serif;letter-spacing:.18em;color:var(--mf-gold-soft);margin-top:5px}.alookhor-mf-brand-sub{font:600 12px Arial,sans-serif;letter-spacing:.08em;color:var(--mf-text)}.alookhor-mf-kicker{display:flex;align-items:center;gap:9px;font:10px Georgia,serif;letter-spacing:.09em;color:var(--mf-gold);margin-top:8px}.alookhor-mf-kicker:before,.alookhor-mf-kicker:after{content:"";width:42px;height:1px;background:linear-gradient(90deg,transparent,var(--mf-gold))}.alookhor-mf-kicker:after{transform:scaleX(-1)}.alookhor-mf-brand>p{font-size:12px;line-height:1.9;color:var(--mf-muted);max-width:330px;margin:14px auto}
-.alookhor-mf-brand-trust{width:100%;display:grid;grid-template-columns:repeat(4,1fr);border:1px solid color-mix(in srgb,var(--mf-gold) 26%,transparent);border-radius:7px;margin:4px 0 12px}.alookhor-mf-brand-trust>span{display:grid;place-items:center;gap:3px;padding:9px 4px;border-left:1px solid color-mix(in srgb,var(--mf-gold) 20%,transparent)}.alookhor-mf-brand-trust>span:last-child{border-left:0}.alookhor-mf-brand-trust svg{color:var(--mf-gold);width:20px;height:20px}.alookhor-mf-brand-trust b{font-size:8px}.alookhor-mf-brand-trust small{font-size:7px;color:var(--mf-muted)}
-.alookhor-mf-cta,.alookhor-mf-contact-cta{width:100%;min-height:42px;display:flex;align-items:center;justify-content:center;gap:8px;border-radius:8px;padding:10px 15px;background:linear-gradient(135deg,var(--mf-gold),color-mix(in srgb,var(--mf-gold) 65%,#765000));border:1px solid var(--mf-gold-soft);color:#170f04!important;font-weight:800;font-size:12px;box-shadow:inset 0 1px rgba(255,255,255,.22)}.alookhor-mf-cta:hover,.alookhor-mf-contact-cta:hover{filter:brightness(1.12);transform:translateY(-1px)}
-.alookhor-mf h3,.alookhor-mf h4{margin:0;color:var(--mf-gold-soft)}.alookhor-mf-menu-card h3,.alookhor-mf-contact h3,.alookhor-mf-license-card h3{display:flex;align-items:center;gap:8px;font-size:15px;padding-bottom:14px}.alookhor-mf-menu-card h3 svg,.alookhor-mf-contact h3 svg,.alookhor-mf-license-card h3 svg{color:var(--mf-gold);width:19px;height:19px}.alookhor-mf-links{list-style:none;margin:0;padding:0;display:grid;gap:11px}.alookhor-mf-links li{margin:0!important}.alookhor-mf-links a{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--mf-muted);transition:.2s}.alookhor-mf-links a:before{content:"‹";font-size:18px;color:var(--mf-gold)}.alookhor-mf-links a:hover{color:var(--mf-gold-soft);transform:translateX(-3px)}
-.alookhor-mf-contact-list{display:grid}.alookhor-mf-contact-list>a,.alookhor-mf-contact-list>div{display:grid;grid-template-columns:38px 1fr;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.07)}.alookhor-mf-contact-list i{width:36px;height:36px;display:grid;place-items:center;border:1px solid color-mix(in srgb,var(--mf-gold) 35%,transparent);border-radius:7px;color:var(--mf-gold);font-style:normal}.alookhor-mf-contact-list i svg{width:18px}.alookhor-mf-contact-list span{display:grid;gap:2px}.alookhor-mf-contact-list small{font-size:9px;color:var(--mf-muted)}.alookhor-mf-contact-list b{font-size:11px;line-height:1.7;color:var(--mf-text)}.alookhor-mf-contact-list a:hover b{color:var(--mf-gold-soft)}.alookhor-mf-contact-cta{margin-top:14px;background:transparent;color:var(--mf-gold-soft)!important;border-color:color-mix(in srgb,var(--mf-gold) 60%,transparent)}
-.alookhor-mf-about-mobile{display:none}.alookhor-mf-license-card{display:none}.alookhor-mf-badges{display:flex;gap:10px}.alookhor-mf-badge{min-width:72px;display:grid;justify-items:center;gap:5px;font-size:8px;color:var(--mf-gold-soft)}.alookhor-mf-badge-media{width:64px;height:52px;display:grid;place-items:center;border:1px solid color-mix(in srgb,var(--mf-gold) 30%,transparent);border-radius:7px;background:#0a0a0a}.alookhor-mf-badge-media img{max-width:58px;max-height:46px;object-fit:contain}.alookhor-mf-badge-fallback{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;border:2px solid var(--mf-gold);font:bold 18px Georgia;color:var(--mf-gold-soft)}
-.alookhor-mf-news-social{position:relative;min-height:130px;margin-top:16px;border:1px solid color-mix(in srgb,var(--mf-gold) 28%,transparent);border-radius:8px;display:grid;grid-template-columns:1fr 1.65fr .9fr;align-items:center;overflow:hidden;direction:ltr}.alookhor-mf-news-social>*{direction:rtl}.alookhor-mf-social{padding:18px;text-align:center;border-left:1px solid color-mix(in srgb,var(--mf-gold) 25%,transparent)}.alookhor-mf-social h3,.alookhor-mf-newsletter h3{font-size:14px}.alookhor-mf-social p,.alookhor-mf-newsletter p{font-size:9px;color:var(--mf-muted);margin:7px 0 11px}.alookhor-mf-social>div{display:flex;justify-content:center;gap:12px}.alookhor-mf-social a{width:38px;height:38px;border:1px solid color-mix(in srgb,var(--mf-gold) 45%,transparent);border-radius:50%;display:grid;place-items:center;color:var(--mf-gold)}.alookhor-mf-social a:hover{background:color-mix(in srgb,var(--mf-gold) 12%,transparent);transform:translateY(-2px)}.alookhor-mf-social svg{width:18px}
-.alookhor-mf-newsletter{padding:18px;text-align:center;z-index:2}.alookhor-mf-newsletter-form{height:38px;display:flex;direction:rtl;border:1px solid color-mix(in srgb,var(--mf-gold) 32%,transparent);border-radius:5px;overflow:hidden;background:#090a0a}.alookhor-mf-newsletter-form input[type=email]{flex:1;min-width:0;border:0;background:transparent;color:var(--mf-text);padding:0 14px;font-family:inherit;font-size:10px;outline:0}.alookhor-mf-newsletter-form button{width:120px;border:0;background:linear-gradient(135deg,var(--mf-gold),#805d1e);color:#fff;font-family:inherit;font-size:11px;cursor:pointer}.alookhor-mf-hp{position:absolute!important;left:-9999px!important}.alookhor-mf-form-msg{display:block;min-height:15px;font-size:9px;color:#78d99a;margin-top:4px}
-.alookhor-mf-product{width:100%;height:130px;object-fit:cover;object-position:right center;mix-blend-mode:screen;opacity:.9;align-self:end}
-.alookhor-mf-assurance{margin-top:10px;border:1px solid color-mix(in srgb,var(--mf-gold) 26%,transparent);border-radius:7px;min-height:96px;display:grid;grid-template-columns:1.2fr 1.15fr 1fr;align-items:center;direction:ltr}.alookhor-mf-assurance>*{direction:rtl}.alookhor-mf-assurance>div{min-height:78px;padding:12px 22px;border-left:1px solid color-mix(in srgb,var(--mf-gold) 22%,transparent);display:flex;align-items:center;justify-content:center;gap:18px}.alookhor-mf-assurance>div:last-child{border-left:0}.alookhor-mf-assurance h4{font-size:11px}.alookhor-mf-payments{flex-direction:column!important}.alookhor-mf-payments>div{display:flex;gap:8px}.alookhor-mf-payments span{min-width:70px;height:39px;padding:5px;display:grid;place-items:center;border:1px solid color-mix(in srgb,var(--mf-gold) 30%,transparent);border-radius:5px;background:#080909;font:bold 10px Arial;color:#ddd}.alookhor-mf-copy{display:grid!important;gap:3px;text-align:center}.alookhor-mf-copy b{font-size:10px}.alookhor-mf-copy span{font-size:10px}.alookhor-mf-copy small{font:9px Georgia;color:var(--mf-gold)}
-.alookhor-mf-benefits{margin-top:8px;min-height:66px;border:1px solid color-mix(in srgb,var(--mf-gold) 25%,transparent);border-radius:7px;display:grid;grid-template-columns:repeat(5,1fr)}.alookhor-mf-benefits>span{display:grid;grid-template-columns:32px 1fr;grid-template-rows:auto auto;align-content:center;gap:1px 9px;padding:8px 14px;border-left:1px solid color-mix(in srgb,var(--mf-gold) 20%,transparent)}.alookhor-mf-benefits>span:last-child{border-left:0}.alookhor-mf-benefits svg{grid-row:1/3;color:var(--mf-gold);align-self:center}.alookhor-mf-benefits b{font-size:9px}.alookhor-mf-benefits small{font-size:7px;color:var(--mf-muted)}
-@media(max-width:1100px){.alookhor-mf-main-grid{grid-template-columns:repeat(2,1fr)}.alookhor-mf-main-grid>section{border:1px solid color-mix(in srgb,var(--mf-gold) 20%,transparent);margin:-1px 0 0 -1px}.alookhor-mf-brand,.alookhor-mf-contact{grid-column:span 2}.alookhor-mf-about{grid-column:auto}.alookhor-mf-news-social{grid-template-columns:1fr 1.4fr}.alookhor-mf-product{display:none}.alookhor-mf-benefits{grid-template-columns:repeat(3,1fr)}}
-@media(max-width:767px){body{padding-bottom:60px}.alookhor-mf{padding:10px 8px 70px;background:#fff}.alookhor-mf-shell{width:min(100%,500px);padding:10px;border-radius:27px;background:var(--mf-bg);border-color:#262626;box-shadow:0 8px 30px rgba(0,0,0,.25)}.alookhor-mf-main-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.alookhor-mf-main-grid>section{border:1px solid color-mix(in srgb,var(--mf-gold) 24%,transparent);border-radius:9px;margin:0;padding:14px 12px}.alookhor-mf-brand{grid-column:1/-1;border:0!important;padding:15px 18px 8px!important}.alookhor-mf-logo img{width:min(var(--mf-logo-mobile),100%);max-height:220px}.alookhor-mf-brand-name{font-size:25px}.alookhor-mf-brand-sub{font-size:10px}.alookhor-mf-brand>p{font-size:12px;max-width:330px;margin:14px auto}.alookhor-mf-brand-trust{display:none}.alookhor-mf-cta{max-width:270px}.alookhor-mf-contact{grid-column:1/-1;order:2}.alookhor-mf-contact h3{display:none}.alookhor-mf-contact-list>a,.alookhor-mf-contact-list>div{grid-template-columns:40px 1fr;padding:11px 0}.alookhor-mf-contact-list small{font-size:10px}.alookhor-mf-contact-list b{font-size:12px}.alookhor-mf-contact-cta{display:none}.alookhor-mf-order{order:3}.alookhor-mf-customer{order:4}.alookhor-mf-about{order:5}.alookhor-mf-about-desktop{display:none}.alookhor-mf-about-mobile{display:inline}.alookhor-mf-license-card{display:block!important;order:6}.alookhor-mf-menu-card h3,.alookhor-mf-license-card h3{font-size:14px;justify-content:center}.alookhor-mf-links{gap:8px}.alookhor-mf-links a{font-size:10px}.alookhor-mf-license-card p{text-align:center;font-size:9px;color:var(--mf-muted)}.alookhor-mf-badges{justify-content:center}.alookhor-mf-news-social{display:block;margin-top:8px;min-height:auto}.alookhor-mf-social{border:0;padding:15px}.alookhor-mf-social h3{font-size:16px}.alookhor-mf-social p{font-size:10px}.alookhor-mf-social a{width:42px;height:42px}.alookhor-mf-newsletter,.alookhor-mf-product{display:none}.alookhor-mf-assurance{display:block;border:0;margin-top:8px;min-height:0}.alookhor-mf-license-desktop,.alookhor-mf-payments{display:none!important}.alookhor-mf-assurance .alookhor-mf-copy{border:0;min-height:68px;padding:13px!important}.alookhor-mf-copy b{display:none}.alookhor-mf-copy span{font-size:10px}.alookhor-mf-copy small{font-size:9px}.alookhor-mf-benefits{display:none}.alookhor-mf-kicker{font-size:9px}.alookhor-mf-menu-card{min-height:175px}.alookhor-mf-footer-ready{opacity:1}}
-@media(max-width:380px){.alookhor-mf-main-grid{gap:6px}.alookhor-mf-main-grid>section{padding:12px 9px}.alookhor-mf-links a{font-size:9px}.alookhor-mf-menu-card h3{font-size:12px}.alookhor-mf-brand-name{font-size:22px}}
+.alookhor-mf-brand{text-align:center;display:flex;flex-direction:column;align-items:center}.alookhor-mf-logo{display:block}.alookhor-mf-logo img{display:block;width:min(var(--mf-logo),100%);max-height:155px;object-fit:contain;filter:drop-shadow(0 8px 16px rgba(0,0,0,.55))}.alookhor-mf-brand-name{font:700 26px Georgia,serif;letter-spacing:.16em;color:var(--mf-gold-soft);margin-top:6px}.alookhor-mf-brand-sub{font:600 11px Arial,sans-serif;letter-spacing:.07em;color:var(--mf-text)}.alookhor-mf-kicker{display:flex;align-items:center;gap:9px;font:10px Georgia,serif;letter-spacing:.09em;color:var(--mf-gold);margin-top:10px}.alookhor-mf-kicker:before,.alookhor-mf-kicker:after{content:"";width:42px;height:1px;background:linear-gradient(90deg,transparent,var(--mf-gold))}.alookhor-mf-kicker:after{transform:scaleX(-1)}.alookhor-mf-brand>p{font-size:11.5px;line-height:1.85;color:var(--mf-muted);max-width:340px;margin:14px auto}
+.alookhor-mf-brand-trust{width:100%;display:grid;grid-template-columns:repeat(4,1fr);border:1px solid color-mix(in srgb,var(--mf-gold) 20%,transparent);border-radius:10px;margin:6px 0 14px;overflow:hidden}.alookhor-mf-brand-trust>span{display:grid;place-items:center;gap:4px;padding:10px 4px;border-left:1px solid color-mix(in srgb,var(--mf-gold) 14%,transparent);background:rgba(255,255,255,.015)}.alookhor-mf-brand-trust>span:last-child{border-left:0}.alookhor-mf-brand-trust svg{color:var(--mf-gold);width:20px;height:20px}.alookhor-mf-brand-trust b{font-size:8px;letter-spacing:.02em}.alookhor-mf-brand-trust small{font-size:7px;color:var(--mf-muted)}
+.alookhor-mf-cta,.alookhor-mf-contact-cta{width:100%;min-height:42px;display:flex;align-items:center;justify-content:center;gap:8px;border-radius:10px;padding:10px 15px;background:linear-gradient(135deg,var(--mf-gold),color-mix(in srgb,var(--mf-gold) 65%,#765000));border:1px solid var(--mf-gold-soft);color:#170f04!important;font-weight:800;font-size:12px;box-shadow:inset 0 1px rgba(255,255,255,.22),0 4px 14px rgba(212,175,55,.18)}.alookhor-mf-cta:hover,.alookhor-mf-contact-cta:hover{filter:brightness(1.08);transform:translateY(-1px)}
+.alookhor-mf h3,.alookhor-mf h4{margin:0;color:var(--mf-gold-soft)}.alookhor-mf-menu-card h3,.alookhor-mf-contact h3,.alookhor-mf-license-card h3{display:flex;align-items:center;gap:8px;font-size:14.5px;padding-bottom:14px;border-bottom:1px solid color-mix(in srgb,var(--mf-gold) 10%,transparent);margin-bottom:4px}.alookhor-mf-menu-card h3 svg,.alookhor-mf-contact h3 svg,.alookhor-mf-license-card h3 svg{color:var(--mf-gold);width:18px;height:18px}.alookhor-mf-links{list-style:none;margin:0;padding:0;display:grid;gap:10px}.alookhor-mf-links li{margin:0!important}.alookhor-mf-links a{display:flex;align-items:center;gap:7px;font-size:11.5px;color:var(--mf-muted);transition:.18s;padding:2px 0}.alookhor-mf-links a:before{content:"‹";font-size:16px;color:var(--mf-gold);transition:.18s}.alookhor-mf-links a:hover{color:var(--mf-gold-soft);transform:translateX(-2px)}.alookhor-mf-links a:hover:before{color:var(--mf-gold-soft)}
+.alookhor-mf-contact-list{display:grid;gap:2px}.alookhor-mf-contact-list>a,.alookhor-mf-contact-list>div{display:grid;grid-template-columns:38px 1fr;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.06)}.alookhor-mf-contact-list>a:last-child,.alookhor-mf-contact-list>div:last-child{border-bottom:0}.alookhor-mf-contact-list i{width:36px;height:36px;display:grid;place-items:center;border:1px solid color-mix(in srgb,var(--mf-gold) 28%,transparent);border-radius:9px;color:var(--mf-gold);font-style:normal;background:rgba(212,175,55,.06)}.alookhor-mf-contact-list i svg{width:17px}.alookhor-mf-contact-list span{display:grid;gap:3px}.alookhor-mf-contact-list small{font-size:9px;color:var(--mf-muted);letter-spacing:.02em}.alookhor-mf-contact-list b{font-size:11.5px;line-height:1.6;color:var(--mf-text);font-weight:600}.alookhor-mf-contact-list a:hover b{color:var(--mf-gold-soft)}.alookhor-mf-contact-cta{margin-top:16px;background:transparent;color:var(--mf-gold-soft)!important;border-color:color-mix(in srgb,var(--mf-gold) 42%,transparent);box-shadow:none}
+.alookhor-mf-about-mobile{display:none}.alookhor-mf-license-card{display:none}.alookhor-mf-badges{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-start}.alookhor-mf-badge{min-width:72px;display:grid;justify-items:center;gap:5px;font-size:8px;color:var(--mf-gold-soft)}.alookhor-mf-badge-media{width:64px;height:52px;display:grid;place-items:center;border:1px solid color-mix(in srgb,var(--mf-gold) 22%,transparent);border-radius:10px;background:rgba(0,0,0,.22)}.alookhor-mf-badge-media img{max-width:58px;max-height:46px;object-fit:contain}.alookhor-mf-badge-fallback{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;border:2px solid var(--mf-gold);font:bold 18px Georgia;color:var(--mf-gold-soft)}
+.alookhor-mf-news-social{position:relative;min-height:132px;margin-top:18px;border:1px solid color-mix(in srgb,var(--mf-gold) 18%,transparent);border-radius:12px;display:grid;grid-template-columns:1fr 1.65fr .9fr;align-items:center;overflow:hidden;direction:ltr;background:rgba(255,255,255,.015)}.alookhor-mf-news-social>*{direction:rtl}.alookhor-mf-social{padding:18px;text-align:center;border-left:1px solid color-mix(in srgb,var(--mf-gold) 14%,transparent)}.alookhor-mf-social h3,.alookhor-mf-newsletter h3{font-size:14px}.alookhor-mf-social p,.alookhor-mf-newsletter p{font-size:9px;color:var(--mf-muted);margin:7px 0 11px;line-height:1.6}.alookhor-mf-social>div{display:flex;justify-content:center;gap:10px}.alookhor-mf-social a{width:38px;height:38px;border:1px solid color-mix(in srgb,var(--mf-gold) 32%,transparent);border-radius:50%;display:grid;place-items:center;color:var(--mf-gold);background:rgba(212,175,55,.06);transition:.18s}.alookhor-mf-social a:hover{background:var(--mf-gold);color:var(--mf-bg);transform:translateY(-2px);box-shadow:0 4px 12px rgba(212,175,55,.22)}.alookhor-mf-social svg{width:17px}
+.alookhor-mf-newsletter{padding:18px;text-align:center;z-index:2}.alookhor-mf-newsletter-form{height:40px;display:flex;direction:rtl;border:1px solid color-mix(in srgb,var(--mf-gold) 26%,transparent);border-radius:10px;overflow:hidden;background:rgba(0,0,0,.22)}.alookhor-mf-newsletter-form input[type=email]{flex:1;min-width:0;border:0;background:transparent;color:var(--mf-text);padding:0 14px;font-family:inherit;font-size:11px;outline:0}.alookhor-mf-newsletter-form input::placeholder{color:var(--mf-muted)}.alookhor-mf-newsletter-form button{width:120px;border:0;background:linear-gradient(135deg,var(--mf-gold),#8a6b1e);color:#fff;font-family:inherit;font-size:11px;font-weight:700;cursor:pointer;transition:.18s}.alookhor-mf-newsletter-form button:hover{filter:brightness(1.08)}.alookhor-mf-hp{position:absolute!important;left:-9999px!important}.alookhor-mf-form-msg{display:block;min-height:15px;font-size:9px;color:#78d99a;margin-top:4px}
+.alookhor-mf-product{width:100%;height:132px;object-fit:cover;object-position:right center;mix-blend-mode:screen;opacity:.88;align-self:end}
+.alookhor-mf-assurance{margin-top:14px;border:1px solid color-mix(in srgb,var(--mf-gold) 16%,transparent);border-radius:12px;min-height:96px;display:grid;grid-template-columns:1.2fr 1.15fr 1fr;align-items:center;direction:ltr;overflow:hidden;background:rgba(255,255,255,.015)}.alookhor-mf-assurance>*{direction:rtl}.alookhor-mf-assurance>div{min-height:78px;padding:14px 22px;border-left:1px solid color-mix(in srgb,var(--mf-gold) 10%,transparent);display:flex;align-items:center;justify-content:center;gap:16px}.alookhor-mf-assurance>div:last-child{border-left:0}.alookhor-mf-assurance h4{font-size:11px}.alookhor-mf-payments{flex-direction:column!important}.alookhor-mf-payments>div{display:flex;gap:8px}.alookhor-mf-payments span{min-width:70px;height:39px;padding:5px;display:grid;place-items:center;border:1px solid color-mix(in srgb,var(--mf-gold) 22%,transparent);border-radius:8px;background:rgba(0,0,0,.18);font:bold 10px Arial;color:#ddd}.alookhor-mf-copy{display:grid!important;gap:4px;text-align:center}.alookhor-mf-copy b{font-size:10px}.alookhor-mf-copy span{font-size:10.5px}.alookhor-mf-copy small{font:9px Georgia;color:var(--mf-gold);letter-spacing:.04em}
+.alookhor-mf-benefits{margin-top:12px;min-height:66px;border:1px solid color-mix(in srgb,var(--mf-gold) 14%,transparent);border-radius:12px;display:grid;grid-template-columns:repeat(5,1fr);overflow:hidden;background:rgba(255,255,255,.015)}.alookhor-mf-benefits>span{display:grid;grid-template-columns:32px 1fr;grid-template-rows:auto auto;align-content:center;gap:1px 9px;padding:10px 14px;border-left:1px solid color-mix(in srgb,var(--mf-gold) 10%,transparent)}.alookhor-mf-benefits>span:last-child{border-left:0}.alookhor-mf-benefits svg{grid-row:1/3;color:var(--mf-gold);align-self:center;width:20px;height:20px}.alookhor-mf-benefits b{font-size:9px}.alookhor-mf-benefits small{font-size:7px;color:var(--mf-muted);line-height:1.4}
+/* ——— Tablet ——— */
+@media(max-width:1100px){.alookhor-mf{padding:14px 16px}.alookhor-mf-shell{width:min(1360px,calc(100% - 32px));padding:20px 16px;border-radius:14px}.alookhor-mf-main-grid{grid-template-columns:repeat(2,1fr);gap:0}.alookhor-mf-main-grid>section{border:1px solid color-mix(in srgb,var(--mf-gold) 10%,transparent);margin:-1px 0 0 -1px;padding:16px 14px}.alookhor-mf-brand,.alookhor-mf-contact{grid-column:span 2}.alookhor-mf-news-social{grid-template-columns:1fr 1.4fr}.alookhor-mf-product{display:none}.alookhor-mf-benefits{grid-template-columns:repeat(3,1fr)}.alookhor-mf-assurance{grid-template-columns:1fr 1fr;gap:0}.alookhor-mf-assurance>div{padding:12px 14px}}
+/* ——— Mobile — Professional, full-width with breathing room ——— */
+@media(max-width:767px){
+  body{padding-bottom:60px}
+  .alookhor-mf{padding:12px 12px 72px;background:var(--mf-bg)}
+  .alookhor-mf-shell{width:100%;max-width:500px;margin:0 auto;padding:14px 12px;border-radius:20px;background:var(--mf-bg);border:1px solid color-mix(in srgb,var(--mf-gold) 16%,transparent);box-shadow:0 8px 32px rgba(0,0,0,.28)}
+  .alookhor-mf-main-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .alookhor-mf-main-grid>section{border:1px solid color-mix(in srgb,var(--mf-gold) 14%,transparent);border-radius:12px;margin:0;padding:16px 12px;background:rgba(255,255,255,.015)}
+  .alookhor-mf-brand{grid-column:1/-1;border:0!important;padding:18px 16px 12px!important;background:transparent!important}
+  .alookhor-mf-logo img{width:min(var(--mf-logo-mobile, 220px), 100%);max-height:200px}
+  .alookhor-mf-brand-name{font-size:24px;letter-spacing:.14em}
+  .alookhor-mf-brand-sub{font-size:10px}
+  .alookhor-mf-brand>p{font-size:11px;max-width:340px;margin:12px auto;line-height:1.85}
+  .alookhor-mf-brand-trust{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:8px 0 14px;border:0;background:transparent}
+  .alookhor-mf-brand-trust>span{border:1px solid color-mix(in srgb,var(--mf-gold) 14%,transparent);border-radius:10px;padding:8px 4px;background:rgba(255,255,255,.02)}
+  .alookhor-mf-cta{max-width:100%;margin:0 auto}
+  .alookhor-mf-contact{grid-column:1/-1;order:2}
+  .alookhor-mf-contact h3{font-size:14px;justify-content:center;border-bottom:0;margin-bottom:2px}
+  .alookhor-mf-contact-list{margin-top:6px}
+  .alookhor-mf-contact-list>a,.alookhor-mf-contact-list>div{grid-template-columns:40px 1fr;padding:10px 0}
+  .alookhor-mf-contact-list small{font-size:9px}
+  .alookhor-mf-contact-list b{font-size:11.5px}
+  .alookhor-mf-contact-cta{display:flex;width:100%;margin-top:14px}
+  .alookhor-mf-order{order:3}.alookhor-mf-customer{order:4}.alookhor-mf-about{order:5}
+  .alookhor-mf-about-desktop{display:none}.alookhor-mf-about-mobile{display:inline}
+  .alookhor-mf-license-card{display:block!important;order:6}
+  .alookhor-mf-menu-card h3,.alookhor-mf-license-card h3{font-size:13px;justify-content:center}
+  .alookhor-mf-links{gap:8px}
+  .alookhor-mf-links a{font-size:11px;padding:4px 0}
+  .alookhor-mf-license-card p{text-align:center;font-size:10px;color:var(--mf-muted);line-height:1.7;margin:8px 0}
+  .alookhor-mf-badges{justify-content:center;gap:8px}
+  .alookhor-mf-news-social{display:block;margin-top:12px;min-height:auto;border-radius:12px}
+  .alookhor-mf-social{border:0;padding:16px 14px;border-bottom:1px solid color-mix(in srgb,var(--mf-gold) 10%,transparent)}
+  .alookhor-mf-social h3{font-size:15px}
+  .alookhor-mf-social p{font-size:10px}
+  .alookhor-mf-social a{width:40px;height:40px}
+  .alookhor-mf-newsletter,.alookhor-mf-product{display:none}
+  .alookhor-mf-assurance{display:block;border:0;margin-top:12px;min-height:0;background:transparent}
+  .alookhor-mf-license-desktop,.alookhor-mf-payments{display:none!important}
+  .alookhor-mf-assurance .alookhor-mf-copy{border:1px solid color-mix(in srgb,var(--mf-gold) 14%,transparent);border-radius:12px;min-height:68px;padding:14px!important;background:rgba(255,255,255,.015);margin-top:8px}
+  .alookhor-mf-copy b{display:none}
+  .alookhor-mf-copy span{font-size:10px}
+  .alookhor-mf-copy small{font-size:9px}
+  .alookhor-mf-benefits{display:grid;grid-template-columns:1fr 1fr;gap:8px;background:transparent;border:0;margin-top:12px}
+  .alookhor-mf-benefits>span{border:1px solid color-mix(in srgb,var(--mf-gold) 14%,transparent);border-radius:10px;padding:10px 12px;background:rgba(255,255,255,.015);border-left:1px solid color-mix(in srgb,var(--mf-gold) 14%,transparent)!important}
+  .alookhor-mf-kicker{font-size:9px;gap:8px}
+  .alookhor-mf-menu-card{min-height:175px}
+}
+@media(max-width:380px){
+  .alookhor-mf{padding:10px 10px 72px}
+  .alookhor-mf-shell{padding:12px 10px;border-radius:16px}
+  .alookhor-mf-main-grid{gap:8px}
+  .alookhor-mf-main-grid>section{padding:12px 10px}
+  .alookhor-mf-links a{font-size:10.5px}
+  .alookhor-mf-menu-card h3{font-size:12.5px}
+  .alookhor-mf-brand-name{font-size:21px}
+  .alookhor-mf-benefits{grid-template-columns:1fr}
+}
 @media(prefers-reduced-motion:reduce){.alookhor-mf *{transition:none!important;scroll-behavior:auto!important}}
 ````
 
@@ -5760,7 +5816,7 @@ export const usersModule = {
   },
   "updated_at": "2026-08-10T16:20:00Z",
   "updated_by": "AI Assistant — recovered from previous chat",
-  "version": "3.10.50",
+  "version": "3.10.51",
   "hero_settings": {
     "enabled": true,
     "hide_legacy": true,

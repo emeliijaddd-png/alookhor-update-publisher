@@ -1,5 +1,11 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.51 — 2026-08-21 — Full-Width Luxury Footer (No-Stick, Mobile Pro)
+- FOOTER: full-width luxury footer — outer `.alookhor-mf` now `16px 24px` padding (desktop) / `12px 12px` (mobile) and inner shell `1360px` max with `48px` side breathing room (desktop) / `100%` max 500px centered mobile — no longer sticks to viewport edges.
+- SHELL: `16px` radius, `28px` inner padding, deeper shadow, `14%` gold hairlines, `rgba(255,255,255,.015)` card backgrounds — premium, not flat.
+- MOBILE PRO: 2-col grid with `10px` gap, trust badges as 4 pill cards, contact full-width with 40px icon, CTA full-width, benefits as 2-col pill cards (1-col at 380px), social/newsletter stacked with dividers — professional, not cramped, respects Woodmart toolbar (72px bottom).
+- VERIFY: footer stays scoped, RTL, no overflow at 320/375/768/1024/1360, `alookhor-managed-footer` id preserved, `no-store` endpoint unchanged.
+
 ## v3.10.50 — 2026-08-21 — Owner Burgundy & Gold Header Code (Exact) — 1:1
 - OWNER CODE: implemented exact HTML/CSS provided by owner (alookhor-header-wrapper, alookhor-topbar, alookhor-main-header, alookhor-nav, alookhor-megamenu 650px 3-col, alookhor-actions) 1:1 — no deviation.
 - DYNAMIC: nav now uses WordPress menu items (wp_get_nav_menu_items) but keeps owner classes and 3-column mega layout; logo uses custom_logo + logo_text, cart/account/search dynamic.
