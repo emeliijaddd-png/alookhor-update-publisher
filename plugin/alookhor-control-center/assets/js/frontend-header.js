@@ -1,6 +1,6 @@
 /**
- * ALOOKHOR Portal Header — accessible drawer and menu accordions.
- * No dependencies; exits immediately when the recovered shortcode is absent.
+ * ALOOKHOR Portal Header — accessible drawer + dynamic WordPress Mega Menu.
+ * No dependencies. Menu data remains WordPress wp_nav_menu output.
  */
 (() => {
   'use strict';
@@ -9,6 +9,88 @@
     'a[href]', 'button:not([disabled])', 'input:not([disabled])',
     'select:not([disabled])', 'textarea:not([disabled])', '[tabindex]:not([tabindex="-1"])'
   ].join(',');
+
+  function injectMegaMenuStyles() {
+    if (document.getElementById('alookhor-mega-menu-runtime')) return;
+    const style = document.createElement('style');
+    style.id = 'alookhor-mega-menu-runtime';
+    style.textContent = `
+      .alookhor-primary-menu > li.menu-item-has-children > .sub-menu {
+        width: min(760px, calc(100vw - 40px));
+        min-width: 430px;
+        padding: 18px !important;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 8px 10px;
+        right: 50%;
+        transform: translate(50%, 8px);
+        background: linear-gradient(145deg, rgba(28,16,36,.98), rgba(10,6,15,.98));
+        border-color: rgba(212,154,46,.34);
+        border-radius: 22px;
+        box-shadow: 0 28px 70px rgba(0,0,0,.58), inset 0 1px 0 rgba(255,255,255,.045), 0 0 36px rgba(212,154,46,.06);
+      }
+      .alookhor-primary-menu > li.menu-item-has-children:hover > .sub-menu,
+      .alookhor-primary-menu > li.menu-item-has-children:focus-within > .sub-menu {
+        transform: translate(50%, 0);
+      }
+      .alookhor-primary-menu > li.menu-item-has-children > .sub-menu > li {
+        min-width: 0;
+      }
+      .alookhor-primary-menu > li.menu-item-has-children > .sub-menu > li > a {
+        min-height: 44px;
+        align-items: center;
+        padding: 11px 13px;
+        border: 1px solid transparent;
+        background: rgba(255,255,255,.018);
+        border-radius: 12px;
+        font-weight: 700;
+      }
+      .alookhor-primary-menu > li.menu-item-has-children > .sub-menu > li > a:hover {
+        border-color: rgba(212,154,46,.22);
+        background: linear-gradient(90deg, rgba(212,154,46,.12), rgba(255,255,255,.025));
+      }
+      .alookhor-primary-menu > li.menu-item-has-children > .sub-menu > li.menu-item-has-children > .sub-menu {
+        position: static;
+        width: auto;
+        min-width: 0;
+        margin: 2px 4px 4px !important;
+        padding: 3px !important;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+        display: block;
+        background: transparent;
+        border: 0;
+        box-shadow: none;
+        backdrop-filter: none;
+      }
+      .alookhor-primary-menu > li.menu-item-has-children > .sub-menu > li.menu-item-has-children > .sub-menu a {
+        padding: 7px 10px;
+        font-size: 10.5px;
+        color: var(--alookhor-capsule-muted, #c8c2c9) !important;
+      }
+      .alookhor-primary-menu > li.menu-item-has-children > .sub-menu > li.menu-item-has-children > .sub-menu a:hover {
+        color: var(--alookhor-capsule-gold-light, #e8b84a) !important;
+        background: rgba(212,154,46,.07);
+      }
+      @media (max-width: 1050px) {
+        .alookhor-primary-menu > li.menu-item-has-children > .sub-menu {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          min-width: 390px;
+          width: min(620px, calc(100vw - 32px));
+        }
+      }
+      @media (max-width: 760px) {
+        .alookhor-primary-menu > li.menu-item-has-children > .sub-menu {
+          display: block;
+          min-width: 0;
+          width: min(330px, calc(100vw - 28px));
+          padding: 12px !important;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+  }
 
   function initHeader(root) {
     if (root.dataset.alookhorReady === '1') return;
@@ -116,6 +198,7 @@
   }
 
   function initAll(scope = document) {
+    injectMegaMenuStyles();
     scope.querySelectorAll('.alookhor-portal-header').forEach(initHeader);
   }
 
@@ -125,7 +208,6 @@
     initAll();
   }
 
-  // Elementor can inject templates after DOMContentLoaded.
   const observer = new MutationObserver(mutations => {
     for (const mutation of mutations) {
       for (const node of mutation.addedNodes) {
