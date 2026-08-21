@@ -28,8 +28,8 @@ When sources disagree, the newer provable runtime/source wins. Missing source is
 - **Final rendered Chrome audit:** `31820882559` on 3.10.18 — WordPress, Desktop and Mobile passed every Header/Hero/Site-Features check; no failed checks.
 - **Direct glass-capsule acceptance:** the same `.header-capsule` now renders `rgba(33,20,38,.75)` with 24px Blur, Burgundy/Card gradient, Gold border/highlights and approved control colors; Cart/Account/Logo/Hamburger geometry/order, Top Bar, Desktop Navigation, Hero underlap and zero overflow are preserved.
 - **Production:** 3.10.18 active and fully verified.
-- **Current source target:** `3.10.19` — Luxury Burgundy/Gold image-accurate header + mega-menu glass (professional) prepared for test/publication; Production remains 3.10.18 until tagged deployment succeeds.
-- **3.10.19 candidate package SHA-256:** `69c3b98d3d39c9636d3126cb48227e32792cd12edec0d039c352362b71251cfe` (rebuilt 2026-08-21 — luxury Burgundy/Gold image-accurate header + mega-menu glass (professional, image.png), superseding cef28f36 and 351e78e7 candidates)
+- **Current source target:** `3.10.47` — Luxury Burgundy/Gold image-accurate header + mega-menu glass (professional) prepared for test/publication; Production remains 3.10.18 until tagged deployment succeeds.
+- **3.10.47 candidate package SHA-256:** `69c3b98d3d39c9636d3126cb48227e32792cd12edec0d039c352362b71251cfe` (rebuilt 2026-08-21 — luxury Burgundy/Gold image-accurate header + mega-menu glass (professional, image.png), superseding cef28f36 and 351e78e7 candidates)
 - **New active Header reference:** `uploads/image.png`.
 - **Final glass evidence:** `automation/318-live2/visual-desktop-before.png`, `automation/318-live2/visual-mobile-before.png`.
 - **New Header reference:** `uploads/Screenshot_۲۰۲۶-۰۸-۱۴-۰۶-۵۶-۵۲-۵۸۲_com.android.chrome-edit.jpg`.

@@ -1,6 +1,7 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
-## v3.10.19 — 2026-08-21 — Luxury Burgundy/Gold Image-Accurate Header (Professional)
+## v3.10.47 — 2026-08-21 — Luxury Burgundy/Gold Image-Accurate Header (Professional) — published (superseeds 3.10.19)
+- RELEASE: version bumped from 3.10.19 to 3.10.47 because production was already at 3.10.46 (2026-08-21); content identical, SHA will be reissued.
 - TOP BAR: luxury deep burgundy `#1C1024` with 20px Blur/saturate 140%, gold separators, image-accurate order Support (left, headset gold, `پشتیبانی ۲۴/۷`), shipping message (center, globe gold, `ارسال رایگان به بیش از ۱۵ کشور جهان`), Phone (right, gold-light, `09159513173`).
 - CAPSULE: image-accurate luxury glass — `rgba(33,20,38,.75)` + 24px Blur/saturate 150%, radial gold highlight at top, linear burgundy gradient, 32px radius, gold border `color-mix(#D49A2E 46%)` with light-gold top highlight, deep shadow + inner gold hairlines, ::before/::after luxury sheens (applies to both legacy bridge and fallback renderer).
 - BRIDGE: preserved legacy HTML; only scoped CSS recolors the existing second `.header-capsule` and fixes Woodmart body offset; all IDs/classes/hooks/mega-menu markup untouched.
