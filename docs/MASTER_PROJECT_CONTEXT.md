@@ -28,8 +28,8 @@ When sources disagree, the newer provable runtime/source wins. Missing source is
 - **Final rendered Chrome audit:** `31820882559` on 3.10.18 — WordPress, Desktop and Mobile passed every Header/Hero/Site-Features check; no failed checks.
 - **Direct glass-capsule acceptance:** the same `.header-capsule` now renders `rgba(33,20,38,.75)` with 24px Blur, Burgundy/Card gradient, Gold border/highlights and approved control colors; Cart/Account/Logo/Hamburger geometry/order, Top Bar, Desktop Navigation, Hero underlap and zero overflow are preserved.
 - **Production:** 3.10.18 active and fully verified.
-- **Current source target:** `3.10.19` — two-row Top Bar/Main Menu reference integration prepared for test/publication; Production remains 3.10.18 until tagged deployment succeeds.
-- **3.10.19 candidate package SHA-256:** `351e78e79fccf666d6f10abb659559d0c75d2c8a454ebf6ef112e65cc0c9069d`
+- **Current source target:** `3.10.49` — Luxury Burgundy/Gold image-accurate header + mega-menu glass (professional) prepared for test/publication; Production remains 3.10.18 until tagged deployment succeeds.
+- **3.10.49 candidate package SHA-256:** `69c3b98d3d39c9636d3126cb48227e32792cd12edec0d039c352362b71251cfe` (rebuilt 2026-08-21 — luxury Burgundy/Gold image-accurate header + mega-menu glass (professional, image.png), superseding cef28f36 and 351e78e7 candidates)
 - **New active Header reference:** `uploads/image.png`.
 - **Final glass evidence:** `automation/318-live2/visual-desktop-before.png`, `automation/318-live2/visual-mobile-before.png`.
 - **New Header reference:** `uploads/Screenshot_۲۰۲۶-۰۸-۱۴-۰۶-۵۶-۵۲-۵۸۲_com.android.chrome-edit.jpg`.
@@ -87,6 +87,10 @@ This rule supersedes every earlier interpretation of full-header Sticky behavior
 17. Visual acceptance requires rendered Chrome audits at 1440×1050 and 430×932, unique Drawer ID, no horizontal overflow, contained logo, hidden duplicate Top Bar logo, hidden Mobile nav stage, and a pinned Desktop navigation rail.
 18. The existing second `.header-capsule` has its own scoped glass palette: Main `#0D0510`, Card `#1C1024`, Glass `rgba(33,20,38,.75)`, Gold `#D49A2E`, Light Gold `#E8B84A`, Text `#F5F3F0`, Muted `#C8C2C9`, Blur 24px. Cart/Account/Logo/Hamburger Nodes remain unchanged.
 19. Top Bar physical order follows the new reference: Support at left, shipping/export Message at center, Phone at right. Desktop capsule expands to 1360px, Logo shifts left and the real menu occupies the right section; Mobile remains two rows with no separate Navigation.
+20. The deep purple glass override block was removed from `frontend-header.css` during 3.10.19 preparation (owner decision, 2026-08-21). The approved Burgundy/Gold palette is the single Header palette for both the legacy bridge and the fallback renderer. Enforced by the header palette guard in `scripts/build_release.py`, which runs in every push and tag job: approved tokens must be present and purple tokens absent.
+21. Mega menu scope (owner-approved, 2026-08-21): legacy dropdown/mega-menu markup is never rebuilt or re-registered; it receives the approved luxury Burgundy glass (`rgba(28,16,36,.97)` → `rgba(13,5,16,.98)`, 22px blur, gold border, 3-column grid) through plugin-scoped CSS only, and its palette stays managed in the Boutique Header panel.
+22. Luxury text alignment (2026-08-21, owner image.png): Top Bar message is now `ارسال رایگان به بیش از ۱۵ کشور جهان`, logo wordmark `آلوخور` + subtitle `پایتخت تولید آلو خشک ایران`, phone `09159513173`; enforced by migration `header_luxury_text_31019` (prio 123) and defaults in `site.json` + `alookhor-control-center.php`.
+23. No-gap sticky capsule + image-exact mega-menu (2026-08-21, owner samples 2-3): empty top gap removed via `:has()` resets, main capsule is now `position:sticky` (admin-bar aware), mega-menu is 920px `220px promo + 3 columns` with injected luxury promo card (image + title + gold button) — pure CSS/JS, no markup rebuild. Top Bar message is now `ارسال رایگان به بیش از ۱۵ کشور جهان`, logo wordmark `آلوخور` + subtitle `پایتخت تولید آلو خشک ایران`, phone `09159513173`; enforced by migration `header_luxury_text_31019` (prio 123) and defaults in `site.json` + `alookhor-control-center.php`.
 
 ## Managed Hero contract
 
