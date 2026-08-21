@@ -1,5 +1,9 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.52 — 2026-08-21 — True Full-Width Footer Edge-to-Edge (Fix)
+- FIX: desktop footer now truly full-width edge-to-edge — outer `.alookhor-mf` padding `0`, inner shell `width:100% max-width:none margin:0 border-radius:0 border:0` with `28px 24px` inner padding — content has 24px breathing room but background spans 100vw, no longer centered boxed 1360px.
+- Keep mobile pro as is (100% max 500px centered with 12px outer, 2-col pills).
+
 ## v3.10.51 — 2026-08-21 — Full-Width Luxury Footer (No-Stick, Mobile Pro)
 - FOOTER: full-width luxury footer — outer `.alookhor-mf` now `16px 24px` padding (desktop) / `12px 12px` (mobile) and inner shell `1360px` max with `48px` side breathing room (desktop) / `100%` max 500px centered mobile — no longer sticks to viewport edges.
 - SHELL: `16px` radius, `28px` inner padding, deeper shadow, `14%` gold hairlines, `rgba(255,255,255,.015)` card backgrounds — premium, not flat.
