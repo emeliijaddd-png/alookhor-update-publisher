@@ -1,5 +1,13 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.50 — 2026-08-21 — Owner Burgundy & Gold Header Code (Exact) — 1:1
+- OWNER CODE: implemented exact HTML/CSS provided by owner (alookhor-header-wrapper, alookhor-topbar, alookhor-main-header, alookhor-nav, alookhor-megamenu 650px 3-col, alookhor-actions) 1:1 — no deviation.
+- DYNAMIC: nav now uses WordPress menu items (wp_get_nav_menu_items) but keeps owner classes and 3-column mega layout; logo uses custom_logo + logo_text, cart/account/search dynamic.
+- WRAPPER: header is now sticky (position:sticky top:0, admin-bar aware) with no-gap resets (html:has(.alookhor-header-wrapper) etc.), .whb-header hidden.
+- ENQUEUE: new CSS plugin/alookhor-control-center/assets/css/frontend-header-luxury-new.css enqueued for both legacy and fallback renderers (in <head> for legacy).
+- LEGACY: alookhor_cc_render_managed_legacy_header now always renders owner header (legacy HTML hidden by CSS), ensures live site matches owner code.
+- BUILD: 3.10.50 includes new asset, guard intact, registry regenerated.
+
 ## v3.10.49 — 2026-08-21 — Pixel-Perfect Rebuild from image.png (New Model, 1:1)
 - REBUILD: complete pixel-perfect rebuild from owner image.png 1:1 with new model — Top Bar #140821→#1C0B2E gradient, 36px height, 16px icons, 11px/12px gold text, 28px padded message with gold hairline dividers.
 - CAPSULE: rebuilt 1:1 — 1360px × 68px, 28px radius, glass rgba(33,20,38,.78) + 24px blur, radial gold highlight, 1px gold border + top light, deep shadow; grid 112px actions | 1fr nav | 280px logo | 48px menu — cart/user 26px white icons with gold badge, logo 44px white card + gold wordmark 22px.
