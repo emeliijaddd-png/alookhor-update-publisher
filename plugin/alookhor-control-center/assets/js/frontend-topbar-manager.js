@@ -228,7 +228,7 @@
     phone?.classList.add('alookhor-managed-phone');
     email?.classList.add('alookhor-managed-email');
     const wholesale = smallestTextMatch(root, 'خرید عمده')?.closest('a,button') || root.querySelector('a[href*="b2b"],a[href*="wholesale"]');
-    const exportNote = smallestTextMatch(root, 'صادرات به');
+    const exportNote = smallestTextMatch(root, 'صادرات به') || smallestTextMatch(root, 'ارسال رایگان') || smallestTextMatch(root, 'کشور جهان');
 
     const explicitCandidates = [...root.querySelectorAll(topbarSelector)];
     const primaryItems = [phone, email, wholesale, exportNote].filter(Boolean);
@@ -280,17 +280,22 @@
       wholesale.target = asBool(cfg.wholesale_new_tab) ? '_blank' : '_self';
       if (wholesale.target === '_blank') wholesale.rel = 'noopener';
       else wholesale.removeAttribute('rel');
-      wholesale.style.setProperty('background', cfg.topbar_button_bg || '#C9A86A', 'important');
-      wholesale.style.setProperty('color', cfg.topbar_button_text || '#1A1206', 'important');
+      wholesale.style.setProperty('background', cfg.topbar_button_bg || '#D49A2E', 'important');
+      wholesale.style.setProperty('color', cfg.topbar_button_text || '#0D0510', 'important');
       wholesale.querySelectorAll('span,b,strong,i').forEach(element => {
-        element.style.setProperty('color', cfg.topbar_button_text || '#1A1206', 'important');
+        element.style.setProperty('color', cfg.topbar_button_text || '#0D0510', 'important');
       });
       setVisible(closestItem(wholesale), asBool(cfg.show_wholesale) && Boolean(cfg.wholesale_text));
     }
     if (exportNote) {
-      const textNode = [...exportNote.childNodes].find(node => node.nodeType === Node.TEXT_NODE && node.textContent.includes('صادرات'));
+      const hasExportPhrase = (t) => t.includes('صادرات') || t.includes('ارسال رایگان') || t.includes('کشور');
+      const textNode = [...exportNote.childNodes].find(node => node.nodeType === Node.TEXT_NODE && hasExportPhrase(node.textContent));
       if (textNode) textNode.textContent = ` ${cfg.export_text || ''} `;
-      else exportNote.textContent = cfg.export_text || '';
+      else {
+        const inner = exportNote.querySelector('span,b,strong');
+        if (inner && hasExportPhrase(inner.textContent)) inner.textContent = cfg.export_text || '';
+        else exportNote.textContent = cfg.export_text || '';
+      }
       const exportLink = exportNote.closest('a') || exportNote.querySelector?.('a');
       if (exportLink && cfg.export_url) exportLink.href = cfg.export_url;
       setVisible(closestItem(exportNote), asBool(cfg.show_export) && Boolean(cfg.export_text));
@@ -301,7 +306,7 @@
       const color = cfg.topbar_text_color || '#F5F3F0';
       const background = cfg.topbar_bg || '#1C1024';
       const border = cfg.topbar_border_color || '#D49A2E';
-      const glassBackground = `color-mix(in srgb, ${background} 78%, transparent)`;
+      const glassBackground = background;
       const height = window.innerWidth <= 767 ? 34 : Math.max(30, Math.min(60, Number(cfg.topbar_height) || 38));
       const layers = explicitCandidates.filter(element => {
         const score = candidateScore(element);
@@ -314,7 +319,7 @@
         element.style.setProperty('--alookhor-topbar-border', border);
         const innerLayer = element !== topbar && topbar.contains(element);
         element.style.setProperty('background-color', innerLayer ? 'transparent' : glassBackground, 'important');
-        element.style.setProperty('background-image', innerLayer ? 'none' : `linear-gradient(90deg, color-mix(in srgb, ${cfg.capsule_card || '#1C1024'} 86%, transparent), color-mix(in srgb, ${cfg.capsule_glass || 'rgba(33,20,38,.75)'} 82%, transparent), color-mix(in srgb, ${cfg.capsule_card || '#1C1024'} 86%, transparent))`, 'important');
+        element.style.setProperty('background-image', innerLayer ? 'none' : `linear-gradient(90deg, rgba(0,0,0,.14), rgba(255,255,255,.03), rgba(0,0,0,.14)), linear-gradient(180deg, color-mix(in srgb, ${cfg.capsule_card || '#1C1024'} 96%, transparent), color-mix(in srgb, ${cfg.capsule_glass || 'rgba(33,20,38,.75)'} 92%, transparent))`, 'important');
         element.style.setProperty('color', color, 'important');
         element.style.setProperty('border-bottom-color', border, 'important');
         element.style.setProperty('min-height', `${height}px`, 'important');

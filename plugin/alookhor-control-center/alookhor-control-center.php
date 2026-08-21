@@ -233,9 +233,9 @@ function alookhor_cc_get_header_settings(){
         'show_export' => true,
         'show_wholesale' => true,
         'email' => sanitize_email(get_option('admin_email')),
-        'phone' => '09222942808',
+        'phone' => '09159513173',
         'whatsapp' => '989222942808',
-        'export_text' => 'صادرات به ۵ کشور جهان',
+        'export_text' => 'ارسال رایگان به بیش از ۱۵ کشور جهان',
         'export_url' => '',
         'wholesale_text' => 'خرید عمده آلو بخارا',
         'wholesale_url' => home_url('/#b2b'),
@@ -353,3 +353,32 @@ function alookhor_cc_migrate_header_reference_31019(){
     update_option(ALOOKHOR_CC_OPTION,$main);
 }
 add_action('init','alookhor_cc_migrate_header_reference_31019',122);
+
+/**
+ * Luxury image-accurate text migration — 3.10.19 — aligns Top Bar message and logo
+ * to the owner-approved image.png (free shipping >15 countries, Persian wordmark).
+ * Only text fields are touched; palette/visibility remain from previous migrations.
+ */
+function alookhor_cc_migrate_header_luxury_text_31019(){
+    $main=get_option(ALOOKHOR_CC_OPTION,[]);if(!is_array($main))$main=[];
+    if(!empty($main['_migrations']['header_luxury_text_31019']['ok']))return;
+    $header=get_option(ALOOKHOR_CC_HEADER_OPTION,[]);if(!is_array($header))$header=[];
+    $before_hash=hash('sha256',wp_json_encode($header));
+    $target=[
+        'phone'=>'09159513173',
+        'export_text'=>'ارسال رایگان به بیش از ۱۵ کشور جهان',
+        'logo_text'=>'آلوخور',
+        'logo_sub'=>'پایتخت تولید آلو خشک ایران',
+    ];
+    $header=array_replace($header,$target);update_option(ALOOKHOR_CC_HEADER_OPTION,$header);
+    $main_header=is_array($main['header_settings']??null)?$main['header_settings']:[];
+    $main['header_settings']=array_replace($main_header,$target);
+    if(!is_array($main['site']??null))$main['site']=[];
+    $main['site']['name']='آلوخور';
+    $main['site']['subtitle']='پایتخت تولید آلو خشک ایران';
+    $main['site']['logoLetter']='آ';
+    $main['site']['goldAccent']='#D49A2E';
+    $main['_migrations']['header_luxury_text_31019']=['ok'=>true,'version'=>'3.10.19','fields'=>array_keys($target),'before_hash'=>$before_hash,'after_hash'=>hash('sha256',wp_json_encode($header)),'checked_at'=>time()];
+    update_option(ALOOKHOR_CC_OPTION,$main);
+}
+add_action('init','alookhor_cc_migrate_header_luxury_text_31019',123);
