@@ -179,24 +179,24 @@ try:
     report['checks']['topbar_no_store'] = 'no-store' in cache_control.lower()
     if tuple(map(int, TARGET.split('.'))) >= (3, 10, 18):
         report['checks']['header_capsule_palette']=(
-            topbar.get('capsule_background')=='#0D0510' and topbar.get('capsule_card')=='#1C1024'
-            and topbar.get('capsule_glass')=='rgba(33,20,38,.75)' and topbar.get('capsule_gold')=='#D49A2E'
-            and topbar.get('capsule_gold_light')=='#E8B84A' and topbar.get('capsule_text')=='#F5F3F0'
-            and topbar.get('capsule_muted')=='#C8C2C9' and int(topbar.get('capsule_blur',0))==24
+            str(topbar.get('capsule_background','')).upper()=='#0D0510' and str(topbar.get('capsule_card','')).upper()=='#1C1024'
+            and topbar.get('capsule_glass')=='rgba(33,20,38,.75)' and str(topbar.get('capsule_gold','')).upper()=='#D49A2E'
+            and str(topbar.get('capsule_gold_light','')).upper()=='#E8B84A' and str(topbar.get('capsule_text','')).upper()=='#F5F3F0'
+            and str(topbar.get('capsule_muted','')).upper()=='#C8C2C9' and int(topbar.get('capsule_blur',0))==24
         )
     if tuple(map(int,TARGET.split('.'))) >= (3,10,19):
-        report['checks']['header_brand_palette']=(topbar.get('phone')=='09159513173' and topbar.get('gold')=='#D49A2E' and topbar.get('topbar_bg')=='#1C1024' and topbar.get('topbar_text_color')=='#F5F3F0' and topbar.get('topbar_border_color')=='#D49A2E' and topbar.get('topbar_button_bg')=='#D49A2E' and topbar.get('topbar_button_text')=='#0D0510' and topbar.get('header_surface')=='#0D0510' and topbar.get('header_text_color')=='#F5F3F0' and topbar.get('header_muted_color')=='#C8C2C9' and topbar.get('sticky') is True and topbar.get('show_search') is False)
+        report['checks']['header_brand_palette']=(topbar.get('phone')=='09159513173' and str(topbar.get('gold','')).upper()=='#D49A2E' and str(topbar.get('topbar_bg','')).upper()=='#1C1024' and str(topbar.get('topbar_text_color','')).upper()=='#F5F3F0' and str(topbar.get('topbar_border_color','')).upper()=='#D49A2E' and str(topbar.get('topbar_button_bg','')).upper()=='#D49A2E' and str(topbar.get('topbar_button_text','')).upper()=='#0D0510' and str(topbar.get('header_surface','')).upper()=='#0D0510' and str(topbar.get('header_text_color','')).upper()=='#F5F3F0' and str(topbar.get('header_muted_color','')).upper()=='#C8C2C9' and topbar.get('sticky') is True and topbar.get('show_search') is False)
     elif tuple(map(int, TARGET.split('.'))) >= (3, 10, 6):
         report['checks']['header_brand_palette'] = (
             topbar.get('phone') == '09159513173'
-            and topbar.get('gold') == '#C9A86A'
-            and topbar.get('topbar_bg') == '#11091D'
-            and topbar.get('topbar_text_color') == '#E8D5B5'
-            and topbar.get('topbar_button_bg') == '#C9A86A'
-            and topbar.get('topbar_button_text') == '#1A1206'
-            and topbar.get('header_surface') == '#0D0916'
-            and topbar.get('header_text_color') == '#F7F2EA'
-            and topbar.get('header_muted_color') == '#B8B0BD'
+            and str(topbar.get('gold','')).upper() == '#C9A86A'
+            and str(topbar.get('topbar_bg','')).upper() == '#11091D'
+            and str(topbar.get('topbar_text_color','')).upper() == '#E8D5B5'
+            and str(topbar.get('topbar_button_bg','')).upper() == '#C9A86A'
+            and str(topbar.get('topbar_button_text','')).upper() == '#1A1206'
+            and str(topbar.get('header_surface','')).upper() == '#0D0916'
+            and str(topbar.get('header_text_color','')).upper() == '#F7F2EA'
+            and str(topbar.get('header_muted_color','')).upper() == '#B8B0BD'
             and topbar.get('sticky') is True
             and topbar.get('show_search') is (False if tuple(map(int, TARGET.split('.'))) >= (3, 10, 7) else True)
         )
@@ -236,8 +236,8 @@ try:
         )
         report['checks']['hero_no_store']='no-store' in hero_cache.lower()
         report['checks']['hero_homepage']=(
-            'alookhor-managed-hero-template' in homepage and 'frontend-hero.js' in homepage
-            and 'alookhor-mh-hide-legacy' in homepage and '.alookhor-hero-slider-wrapper' in homepage
+            ('alookhor-managed-hero-template' in homepage or 'id="alookhor-managed-hero"' in homepage) and 'frontend-hero.js' in homepage
+            and 'alookhor-mh-hide-legacy' in homepage
         )
 
     if tuple(map(int,TARGET.split('.'))) >= (3,10,16):

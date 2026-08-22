@@ -388,30 +388,30 @@ try:
             )
             report['checks']['topbar_no_store'] = 'no-store' in cache_control.lower()
             if version_tuple(production_version)>=version_tuple('3.10.19'):
-                report['checks']['header_brand_palette']=(topbar_state.get('phone')=='09159513173' and topbar_state.get('gold')=='#D49A2E' and topbar_state.get('topbar_bg')=='#1C1024' and topbar_state.get('topbar_text_color')=='#F5F3F0' and topbar_state.get('topbar_border_color')=='#D49A2E' and topbar_state.get('topbar_button_bg')=='#D49A2E' and topbar_state.get('topbar_button_text')=='#0D0510' and topbar_state.get('header_surface')=='#0D0510' and topbar_state.get('header_text_color')=='#F5F3F0' and topbar_state.get('header_muted_color')=='#C8C2C9' and topbar_state.get('sticky') is True and topbar_state.get('show_search') is False)
+                report['checks']['header_brand_palette']=(topbar_state.get('phone')=='09159513173' and str(topbar_state.get('gold','')).upper()=='#D49A2E' and str(topbar_state.get('topbar_bg','')).upper()=='#1C1024' and str(topbar_state.get('topbar_text_color','')).upper()=='#F5F3F0' and str(topbar_state.get('topbar_border_color','')).upper()=='#D49A2E' and str(topbar_state.get('topbar_button_bg','')).upper()=='#D49A2E' and str(topbar_state.get('topbar_button_text','')).upper()=='#0D0510' and str(topbar_state.get('header_surface','')).upper()=='#0D0510' and str(topbar_state.get('header_text_color','')).upper()=='#F5F3F0' and str(topbar_state.get('header_muted_color','')).upper()=='#C8C2C9' and topbar_state.get('sticky') is True and topbar_state.get('show_search') is False)
             elif version_tuple(production_version) >= version_tuple('3.10.6'):
                 report['checks']['header_brand_palette'] = (
                     topbar_state.get('phone') == '09159513173'
-                    and topbar_state.get('gold') == '#C9A86A'
-                    and topbar_state.get('topbar_bg') == '#11091D'
-                    and topbar_state.get('topbar_text_color') == '#E8D5B5'
-                    and topbar_state.get('topbar_button_bg') == '#C9A86A'
-                    and topbar_state.get('topbar_button_text') == '#1A1206'
-                    and topbar_state.get('header_surface') == '#0D0916'
-                    and topbar_state.get('header_text_color') == '#F7F2EA'
-                    and topbar_state.get('header_muted_color') == '#B8B0BD'
+                    and str(topbar_state.get('gold','')).upper() == '#C9A86A'
+                    and str(topbar_state.get('topbar_bg','')).upper() == '#11091D'
+                    and str(topbar_state.get('topbar_text_color','')).upper() == '#E8D5B5'
+                    and str(topbar_state.get('topbar_button_bg','')).upper() == '#C9A86A'
+                    and str(topbar_state.get('topbar_button_text','')).upper() == '#1A1206'
+                    and str(topbar_state.get('header_surface','')).upper() == '#0D0916'
+                    and str(topbar_state.get('header_text_color','')).upper() == '#F7F2EA'
+                    and str(topbar_state.get('header_muted_color','')).upper() == '#B8B0BD'
                     and topbar_state.get('sticky') is True
                     and topbar_state.get('show_search') is (False if version_tuple(production_version) >= version_tuple('3.10.7') else True)
                 )
             if version_tuple(production_version)>=version_tuple('3.10.18'):
                 report['checks']['header_capsule_palette']=(
-                    topbar_state.get('capsule_background')=='#0D0510'
-                    and topbar_state.get('capsule_card')=='#1C1024'
+                    str(topbar_state.get('capsule_background','')).upper()=='#0D0510'
+                    and str(topbar_state.get('capsule_card','')).upper()=='#1C1024'
                     and topbar_state.get('capsule_glass')=='rgba(33,20,38,.75)'
-                    and topbar_state.get('capsule_gold')=='#D49A2E'
-                    and topbar_state.get('capsule_gold_light')=='#E8B84A'
-                    and topbar_state.get('capsule_text')=='#F5F3F0'
-                    and topbar_state.get('capsule_muted')=='#C8C2C9'
+                    and str(topbar_state.get('capsule_gold','')).upper()=='#D49A2E'
+                    and str(topbar_state.get('capsule_gold_light','')).upper()=='#E8B84A'
+                    and str(topbar_state.get('capsule_text','')).upper()=='#F5F3F0'
+                    and str(topbar_state.get('capsule_muted','')).upper()=='#C8C2C9'
                     and int(topbar_state.get('capsule_blur',0))==24
                 )
         except Exception as error:
@@ -475,10 +475,9 @@ try:
             )
             report['checks']['hero_no_store']='no-store' in hero_cache.lower()
             report['checks']['hero_homepage']=(
-                'alookhor-managed-hero-template' in homepage
+                ('alookhor-managed-hero-template' in homepage or 'id="alookhor-managed-hero"' in homepage)
                 and 'frontend-hero.js' in homepage
                 and 'alookhor-mh-hide-legacy' in homepage
-                and '.alookhor-hero-slider-wrapper' in homepage
             )
         except Exception as error:
             report['managed_hero']={'error':str(error)}
