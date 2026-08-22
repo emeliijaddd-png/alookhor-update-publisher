@@ -306,3 +306,52 @@ html:has(.alookhor-portal-header),body:has(.alookhor-portal-header){margin-top:0
 .alookhor-portal-header .alookhor-nav-stage{position:sticky!important;top:0!important;z-index:9995!important}
 body.admin-bar .alookhor-portal-header .alookhor-nav-stage{top:32px!important}
 @media(max-width:782px){body.admin-bar .alookhor-portal-header .alookhor-nav-stage{top:46px!important}}
+
+/* 3.10.56 — authoritative single Header matching owner reference. The external
+   experimental wrapper is suppressed; the source-backed portal Header remains. */
+body:has(.alookhor-portal-header) .alookhor-header-wrapper{display:none!important}
+.alookhor-portal-header{--alookhor-gold:#d4af37;--alookhor-gold-soft:#f3e5ab;--alookhor-topbar-bg:#270408;--alookhor-plum:#3b0910;--alookhor-text:#fff;--alookhor-muted:#c8b9c4;background:#12040b!important}
+.alookhor-portal-header .alookhor-topbar{height:40px!important;background:linear-gradient(90deg,rgba(39,4,8,.96),rgba(71,15,42,.96),rgba(39,4,8,.96))!important;border-bottom:1px solid rgba(212,175,55,.22)!important;color:#f3e5ab!important}
+.alookhor-portal-header .alookhor-topbar-inner{width:min(1360px,calc(100% - 72px))!important;grid-template-columns:minmax(0,1fr) minmax(0,1.6fr) minmax(0,1fr)!important;grid-template-areas:"support message phone"!important}
+.alookhor-portal-header .alookhor-fallback-support{grid-area:support!important;justify-self:start!important;color:#f3e5ab!important}
+.alookhor-portal-header .alookhor-trade-meta{grid-area:message!important;justify-self:center!important}
+.alookhor-portal-header .alookhor-export-note{display:inline-flex!important;color:#f3e5ab!important}
+.alookhor-portal-header .alookhor-wholesale,.alookhor-portal-header .alookhor-top-logo,.alookhor-portal-header .alookhor-whatsapp,.alookhor-portal-header .alookhor-contact-link[href^="mailto:"],.alookhor-portal-header .alookhor-contact-separator{display:none!important}
+.alookhor-portal-header .alookhor-contact-meta{grid-area:phone!important;justify-self:end!important;color:#f3e5ab!important;font-size:12px!important;font-weight:700!important}
+.alookhor-portal-header .alookhor-nav-stage{min-height:108px!important;padding:10px 24px 16px!important;background:linear-gradient(180deg,#18050e,#11030a)!important}
+.alookhor-portal-header .alookhor-nav-shell{width:min(1360px,calc(100% - 8px))!important;min-height:82px!important;padding:8px 24px!important;display:grid!important;grid-template-columns:auto minmax(240px,320px) minmax(0,1fr) auto!important;grid-template-areas:"actions logo nav menu"!important;gap:24px!important;border:1px solid rgba(243,229,171,.42)!important;border-radius:30px!important;background:radial-gradient(700px 120px at 50% 0,rgba(236,93,204,.16),transparent 72%),linear-gradient(180deg,rgba(83,18,63,.96),rgba(55,8,28,.96))!important;box-shadow:0 15px 34px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,207,244,.18),0 0 24px rgba(236,93,204,.12)!important;-webkit-backdrop-filter:blur(22px) saturate(145%)!important;backdrop-filter:blur(22px) saturate(145%)!important;direction:ltr!important}
+.alookhor-portal-header .alookhor-nav-logo{grid-area:logo!important;justify-self:center!important;direction:rtl!important;max-width:320px!important}
+.alookhor-portal-header .alookhor-nav-logo img{width:62px!important;height:62px!important}
+.alookhor-portal-header .alookhor-nav-logo-copy{display:block!important}
+.alookhor-portal-header .alookhor-nav-logo-copy b{font-size:23px!important;color:#e6ca65!important;letter-spacing:0!important}
+.alookhor-portal-header .alookhor-nav-logo-copy small{font-size:9px!important;color:#f3e5ab!important}
+.alookhor-portal-header .alookhor-desktop-nav{grid-area:nav!important;justify-self:end!important;direction:rtl!important}
+.alookhor-portal-header .alookhor-primary-menu{justify-content:flex-end!important;gap:8px!important}
+.alookhor-portal-header .alookhor-primary-menu>li>a{font-size:13px!important;color:#fff!important;padding-inline:14px!important}
+.alookhor-portal-header .alookhor-primary-menu>li.current-menu-item>a,.alookhor-portal-header .alookhor-primary-menu>li:hover>a{color:#e6ca65!important}
+.alookhor-portal-header .alookhor-nav-spacer{display:none!important}
+.alookhor-portal-header .alookhor-nav-actions{grid-area:actions!important;justify-self:start!important;direction:ltr!important}
+.alookhor-portal-header .alookhor-account-link{width:42px!important;height:42px!important;min-height:42px!important;padding:0!important;border:0!important;background:transparent!important;font-size:0!important}
+.alookhor-portal-header .alookhor-account-link svg{width:28px!important;height:28px!important;color:#fff!important}
+.alookhor-portal-header .alookhor-fallback-cart{color:#e6ca65!important}
+.alookhor-portal-header .alookhor-menu-toggle{grid-area:menu!important;justify-self:end!important;direction:ltr!important;border:0!important;background:transparent!important;border-radius:0!important}
+.alookhor-portal-header .alookhor-menu-toggle span{width:25px!important;height:2px!important;background:#e6ca65!important}
+@media(max-width:1023px){
+ .alookhor-portal-header .alookhor-topbar{height:36px!important}
+ .alookhor-portal-header .alookhor-topbar-inner{width:calc(100% - 20px)!important;gap:5px!important}
+ .alookhor-portal-header .alookhor-fallback-support,.alookhor-portal-header .alookhor-export-note,.alookhor-portal-header .alookhor-contact-meta{font-size:8px!important;white-space:nowrap!important}
+ .alookhor-portal-header .alookhor-nav-stage{min-height:78px!important;padding:4px 10px 10px!important}
+ .alookhor-portal-header .alookhor-nav-shell{width:100%!important;min-height:66px!important;padding:5px 14px!important;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr)!important;grid-template-areas:"actions logo menu"!important;gap:6px!important;border-radius:28px!important}
+ .alookhor-portal-header .alookhor-desktop-nav{display:none!important}
+ .alookhor-portal-header .alookhor-nav-logo{max-width:210px!important}
+ .alookhor-portal-header .alookhor-nav-logo img{width:48px!important;height:48px!important}
+ .alookhor-portal-header .alookhor-nav-logo-copy b{font-size:18px!important}
+ .alookhor-portal-header .alookhor-nav-logo-copy small{font-size:7px!important}
+ .alookhor-portal-header .alookhor-nav-actions{gap:8px!important}
+}
+@media(max-width:430px){
+ .alookhor-portal-header .alookhor-topbar-inner{grid-template-columns:1fr 1.45fr 1fr!important}
+ .alookhor-portal-header .alookhor-export-note{font-size:7px!important}
+ .alookhor-portal-header .alookhor-nav-logo-copy b{font-size:16px!important}
+}
+.elementor-element:has(.alookhor-portal-header),.e-con:has(.alookhor-portal-header),.elementor-widget:has(.alookhor-portal-header),.elementor-widget-container:has(.alookhor-portal-header),.elementor-shortcode:has(.alookhor-portal-header){margin-top:0!important;padding-top:0!important;--padding-top:0px!important;gap:0!important}
