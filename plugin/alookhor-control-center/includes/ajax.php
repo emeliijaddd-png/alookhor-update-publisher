@@ -6,7 +6,6 @@ if (!defined('ABSPATH')) exit;
 add_action('wp_ajax_alookhor_save_settings', 'alookhor_ajax_save_settings');
 add_action('wp_ajax_alookhor_toggle_module', 'alookhor_ajax_toggle_module');
 add_action('wp_ajax_alookhor_save_header', 'alookhor_ajax_save_header_wp');
-add_action('wp_ajax_alookhor_save_purple_slider', 'alookhor_ajax_save_purple_slider');
 add_action('wp_ajax_alookhor_get_settings', 'alookhor_ajax_get_settings');
 
 // nonce check helper
@@ -75,11 +74,8 @@ function alookhor_ajax_save_settings(){
             $header['capsule_glass']=preg_match('/^rgba?\(\s*\d{1,3}\s*,\s*\d{1,3}\s*,\s*\d{1,3}(?:\s*,\s*(?:0|1|0?\.\d+))?\s*\)$/',$capsule_glass)?$capsule_glass:($header_current['capsule_glass']??'rgba(33,20,38,.75)');
         }
         if(array_key_exists('capsule_blur',$header))$header['capsule_blur']=max(10,min(36,absint($header['capsule_blur'])));
-        foreach (['export_url', 'wholesale_url', 'top_logo_url', 'top_logo_link', 'mega_cta_url'] as $key) {
+        foreach (['export_url', 'wholesale_url', 'top_logo_url', 'top_logo_link'] as $key) {
             if (array_key_exists($key, $header)) $header[$key] = esc_url_raw($header[$key]);
-        }
-        if (array_key_exists('mega_cta_label', $header)) {
-            $header['mega_cta_label'] = sanitize_text_field($header['mega_cta_label']);
         }
         if (array_key_exists('email', $header)) $header['email'] = sanitize_email($header['email']);
         if (array_key_exists('whatsapp', $header)) $header['whatsapp'] = preg_replace('/\D+/', '', (string) $header['whatsapp']);
@@ -87,7 +83,7 @@ function alookhor_ajax_save_settings(){
         if (array_key_exists('top_logo_width', $header)) $header['top_logo_width'] = max(50, min(180, absint($header['top_logo_width'])));
         if (array_key_exists('header_logo_desktop_width', $header)) $header['header_logo_desktop_width'] = max(70, min(220, absint($header['header_logo_desktop_width'])));
         if (array_key_exists('header_logo_mobile_width', $header)) $header['header_logo_mobile_width'] = max(42, min(110, absint($header['header_logo_mobile_width'])));
-        foreach (['sticky', 'show_search', 'show_topbar', 'show_contact', 'show_account', 'show_phone', 'show_email', 'show_whatsapp', 'show_export', 'show_wholesale', 'wholesale_new_tab', 'mega_menu'] as $key) {
+        foreach (['sticky', 'show_search', 'show_topbar', 'show_contact', 'show_account', 'show_phone', 'show_email', 'show_whatsapp', 'show_export', 'show_wholesale', 'wholesale_new_tab'] as $key) {
             if (array_key_exists($key, $header)) $header[$key] = rest_sanitize_boolean($header[$key]);
         }
         $payload['header_settings'] = $header;
@@ -370,9 +366,7 @@ function alookhor_ajax_save_header_wp(){
     $data['header_logo_mobile_width'] = max(42, min(110, absint($_POST['header_logo_mobile_width'] ?? ($current['header_logo_mobile_width'] ?? 58))));
     $data['account_text'] = sanitize_text_field(wp_unslash($_POST['account_text'] ?? ($current['account_text'] ?? 'ورود / ثبت‌نام')));
     $data['primary_menu'] = absint($_POST['primary_menu'] ?? ($current['primary_menu'] ?? 0));
-    $data['mega_cta_label'] = sanitize_text_field(wp_unslash($_POST['mega_cta_label'] ?? ($current['mega_cta_label'] ?? 'مشاهده همه محصولات')));
-    $data['mega_cta_url'] = esc_url_raw(wp_unslash($_POST['mega_cta_url'] ?? ($current['mega_cta_url'] ?? home_url('/shop/'))));
-    foreach (['sticky', 'show_search', 'show_topbar', 'show_contact', 'show_account', 'show_phone', 'show_email', 'show_whatsapp', 'show_export', 'show_wholesale', 'wholesale_new_tab', 'mega_menu'] as $flag) {
+    foreach (['sticky', 'show_search', 'show_topbar', 'show_contact', 'show_account', 'show_phone', 'show_email', 'show_whatsapp', 'show_export', 'show_wholesale', 'wholesale_new_tab'] as $flag) {
         $data[$flag] = isset($_POST[$flag]) ? rest_sanitize_boolean(wp_unslash($_POST[$flag])) : !empty($current[$flag]);
     }
 
@@ -388,45 +382,4 @@ function alookhor_ajax_save_header_wp(){
     update_option(ALOOKHOR_CC_OPTION, $settings);
 
     wp_send_json_success(['message'=>'هدر با موفقیت ذخیره شد — شورت‌کد [alookhor_portal_header] بروز شد','data'=>$data]);
-}
-
-function alookhor_ajax_save_purple_slider(){
-    alookhor_cc_check();
-    if (!function_exists('alookhor_cc_normalize_purple_slider_slides')) {
-        wp_send_json_error('ماژول اسلایدر بنفش در دسترس نیست');
-    }
-    $current = get_option(defined('ALOOKHOR_CC_PURPLE_SLIDER_OPTION') ? ALOOKHOR_CC_PURPLE_SLIDER_OPTION : 'alookhor_cc_purple_slider', []);
-    if (!is_array($current)) $current = [];
-
-    $incoming_slides = [];
-    if (isset($_POST['payload'])) {
-        $payload = json_decode(wp_unslash($_POST['payload']), true);
-        if (is_array($payload)) {
-            if (isset($payload['slides'])) $incoming_slides = $payload['slides'];
-            if (array_key_exists('autoplay', $payload)) $_POST['autoplay'] = $payload['autoplay'];
-            if (array_key_exists('arrows', $payload)) $_POST['arrows'] = $payload['arrows'];
-            if (array_key_exists('dots', $payload)) $_POST['dots'] = $payload['dots'];
-        }
-    }
-    if (!$incoming_slides && isset($_POST['slides']) && is_array($_POST['slides'])) {
-        $incoming_slides = wp_unslash($_POST['slides']);
-    }
-
-    $slides = alookhor_cc_normalize_purple_slider_slides($incoming_slides);
-    if (!$slides) wp_send_json_error('حداقل یک اسلاید لازم است');
-    if (count($slides) > 6) $slides = array_slice($slides, 0, 6);
-
-    $data = [
-        'autoplay' => alookhor_cc_normalize_purple_slider_autoplay($_POST['autoplay'] ?? ($current['autoplay'] ?? 5500)),
-        'arrows' => isset($_POST['arrows']) ? rest_sanitize_boolean(wp_unslash($_POST['arrows'])) : !empty($current['arrows']),
-        'dots' => isset($_POST['dots']) ? rest_sanitize_boolean(wp_unslash($_POST['dots'])) : !empty($current['dots']),
-        'slides' => $slides,
-    ];
-    $option = defined('ALOOKHOR_CC_PURPLE_SLIDER_OPTION') ? ALOOKHOR_CC_PURPLE_SLIDER_OPTION : 'alookhor_cc_purple_slider';
-    update_option($option, $data);
-    wp_send_json_success([
-        'message' => 'اسلایدر بنفش ذخیره شد — شورت‌کد [alookhor_purple_slider] بروز شد',
-        'slide_count' => count($slides),
-        'data' => $data,
-    ]);
 }

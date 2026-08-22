@@ -3,7 +3,7 @@
  * Plugin Name: ALOOKHOR Control Center
  * Plugin URI: https://alookhor.ir
  * Description: کنترل سنتر لوکس و ماژولار آلوخور — مدیریت کامل سایت (هدر، اسلایدر، سورت، محصولات، مشتریان VIP، مالی، آنالیتیکس) با آپدیت آنی بدون رفرش. تمام تنظیمات چت قبلی + شورت‌کد [alookhor_portal_header] اینجا مدیریت می‌شود.
- * Version: 3.10.46
+ * Version: 3.10.55
  * Author: ALOOKHOR Team — Luxury Modular
  * Author URI: https://alookhor.ir
  * Update URI: https://alookhor.ir/alookhor-control-center
@@ -16,8 +16,8 @@
 
 if (!defined('ABSPATH')) exit;
 
-define('ALOOKHOR_CC_VERSION', '3.10.46');
-define('ALOOKHOR_CC_BUILD', '3.10.46');
+define('ALOOKHOR_CC_VERSION', '3.10.55');
+define('ALOOKHOR_CC_BUILD', '3.10.55');
 define('ALOOKHOR_CC_FILE', __FILE__);
 define('ALOOKHOR_CC_DIR', plugin_dir_path(__FILE__));
 define('ALOOKHOR_CC_URL', plugin_dir_url(__FILE__));
@@ -59,20 +59,17 @@ require_once ALOOKHOR_CC_DIR . 'includes/footer.php';
 require_once ALOOKHOR_CC_DIR . 'includes/product-categories.php';
 require_once ALOOKHOR_CC_DIR . 'includes/hero.php';
 require_once ALOOKHOR_CC_DIR . 'includes/site-features.php';
-require_once ALOOKHOR_CC_DIR . 'includes/shortcode-purple-slider.php';
-require_once ALOOKHOR_CC_DIR . 'includes/admin-purple-slider.php';
 
 // ——— Enqueue برای فرانت (هدر لوکس، کاملاً Scoped) ———
 // فایل کامل luxury.css مخصوص کنترل سنتر است و نباید body/theme فرانت را override کند.
 add_action('wp_enqueue_scripts', function(){
-    wp_enqueue_style('alookhor-cc-purple-slider', ALOOKHOR_CC_URL . 'assets/css/frontend-purple-slider.css', [], ALOOKHOR_CC_BUILD);
-    wp_enqueue_script('alookhor-cc-purple-slider', ALOOKHOR_CC_URL . 'assets/js/frontend-purple-slider.js', [], ALOOKHOR_CC_BUILD, true);
     if (!empty($GLOBALS['alookhor_cc_legacy_header_provider'])) {
         // خروجی و CSS هدر قدیمی دست‌نخورده می‌ماند؛ فقط مقادیر Top Bar مدیریت می‌شوند.
         $h = alookhor_cc_front_header_settings();
         // Load in <head>: the observer can hide stale legacy markup before the
         // browser paints it, then reveal only freshly synchronized Top Bar data.
         wp_enqueue_style('alookhor-cc-legacy-header-scroll', ALOOKHOR_CC_URL . 'assets/css/frontend-header-scroll.css', [], ALOOKHOR_CC_BUILD);
+        wp_enqueue_style('alookhor-cc-luxury-new', ALOOKHOR_CC_URL . 'assets/css/frontend-header-luxury-new.css', [], ALOOKHOR_CC_BUILD);
         wp_enqueue_script('alookhor-cc-legacy-topbar-manager', ALOOKHOR_CC_URL . 'assets/js/frontend-topbar-manager.js', [], ALOOKHOR_CC_BUILD, false);
         wp_localize_script('alookhor-cc-legacy-topbar-manager', 'ALOOKHOR_TOPBAR', [
             'endpoint' => rest_url('alookhor-cc/v1/topbar'),
@@ -126,6 +123,7 @@ add_action('wp_enqueue_scripts', function(){
         return;
     }
     wp_enqueue_style('alookhor-cc-front', ALOOKHOR_CC_URL . 'assets/css/frontend-header.css', [], ALOOKHOR_CC_BUILD);
+    wp_enqueue_style('alookhor-cc-luxury-new', ALOOKHOR_CC_URL . 'assets/css/frontend-header-luxury-new.css', [], ALOOKHOR_CC_BUILD);
     wp_enqueue_script('alookhor-cc-front-header', ALOOKHOR_CC_URL . 'assets/js/frontend-header.js', [], ALOOKHOR_CC_BUILD, true);
 });
 
@@ -237,9 +235,9 @@ function alookhor_cc_get_header_settings(){
         'show_export' => true,
         'show_wholesale' => true,
         'email' => sanitize_email(get_option('admin_email')),
-        'phone' => '09222942808',
+        'phone' => '09159513173',
         'whatsapp' => '989222942808',
-        'export_text' => 'صادرات به ۵ کشور جهان',
+        'export_text' => 'ارسال رایگان به بیش از ۱۵ کشور جهان',
         'export_url' => '',
         'wholesale_text' => 'خرید عمده آلو بخارا',
         'wholesale_url' => home_url('/#b2b'),
@@ -256,7 +254,6 @@ function alookhor_cc_get_header_settings(){
         'top_logo_width' => 96,
         'account_text' => 'ورود / ثبت‌نام',
         'primary_menu' => 0,
-        'mega_menu' => true,
     ];
     return wp_parse_args($h, $defaults);
 }
@@ -359,16 +356,31 @@ function alookhor_cc_migrate_header_reference_31019(){
 }
 add_action('init','alookhor_cc_migrate_header_reference_31019',122);
 
-/** One-time 3.10.25 restoration of the source-backed approved Header logo. */
-function alookhor_cc_migrate_approved_header_logo_31025(){
+/**
+ * Luxury image-accurate text migration — 3.10.19 — aligns Top Bar message and logo
+ * to the owner-approved image.png (free shipping >15 countries, Persian wordmark).
+ * Only text fields are touched; palette/visibility remain from previous migrations.
+ */
+function alookhor_cc_migrate_header_luxury_text_31019(){
     $main=get_option(ALOOKHOR_CC_OPTION,[]);if(!is_array($main))$main=[];
-    if(!empty($main['_migrations']['approved_header_logo_31025']['ok']))return;
+    if(!empty($main['_migrations']['header_luxury_text_31019']['ok']))return;
     $header=get_option(ALOOKHOR_CC_HEADER_OPTION,[]);if(!is_array($header))$header=[];
-    $before=hash('sha256',wp_json_encode($header));
-    $target=['top_logo_url'=>'https://alookhor.ir/wp-content/uploads/2026/08/LOGO2.png','top_logo_alt'=>'لوگوی رسمی بازرگانی آلوخور','top_logo_link'=>home_url('/'),'top_logo_width'=>118];
+    $before_hash=hash('sha256',wp_json_encode($header));
+    $target=[
+        'phone'=>'09159513173',
+        'export_text'=>'ارسال رایگان به بیش از ۱۵ کشور جهان',
+        'logo_text'=>'آلوخور',
+        'logo_sub'=>'پایتخت تولید آلو خشک ایران',
+    ];
     $header=array_replace($header,$target);update_option(ALOOKHOR_CC_HEADER_OPTION,$header);
-    $main_header=is_array($main['header_settings']??null)?$main['header_settings']:[];$main['header_settings']=array_replace($main_header,$target);
-    $main['_migrations']['approved_header_logo_31025']=['ok'=>true,'version'=>'3.10.25','fields'=>array_keys($target),'before_hash'=>$before,'after_hash'=>hash('sha256',wp_json_encode($header)),'checked_at'=>time()];
+    $main_header=is_array($main['header_settings']??null)?$main['header_settings']:[];
+    $main['header_settings']=array_replace($main_header,$target);
+    if(!is_array($main['site']??null))$main['site']=[];
+    $main['site']['name']='آلوخور';
+    $main['site']['subtitle']='پایتخت تولید آلو خشک ایران';
+    $main['site']['logoLetter']='آ';
+    $main['site']['goldAccent']='#D49A2E';
+    $main['_migrations']['header_luxury_text_31019']=['ok'=>true,'version'=>'3.10.19','fields'=>array_keys($target),'before_hash'=>$before_hash,'after_hash'=>hash('sha256',wp_json_encode($header)),'checked_at'=>time()];
     update_option(ALOOKHOR_CC_OPTION,$main);
 }
-add_action('init','alookhor_cc_migrate_approved_header_logo_31025',125);
+add_action('init','alookhor_cc_migrate_header_luxury_text_31019',123);

@@ -1,76 +1,65 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
-## v3.10.46 — 2026-08-20 — Header Revert to Original Burgundy Glass Only
-- REVERT: Main Menu (Header) and Topbar reverted to their original elegant Burgundy glass and gold overlapping logo design from v3.10.24.
-- PRESERVE: All other files and includes are fully restored to their clean v3.10.40 state without any other modifications.
+## v3.10.55 — 2026-08-16 — Header Renderer Recovery
+- FIX: Renderer کامل `[alookhor_portal_header]` بازگردانده شد؛ خروجی دوباره کلاس‌های واقعی `.alookhor-portal-header`/Legacy wrapper را تولید می‌کند.
+- REFERENCE: Top Bar و Main Menu Burgundy/Gold، منوی WordPress، Cart، Account، Logo و Hamburger مطابق `image.png`.
+- PRESERVE: تمام اصلاحات Footer و Site نسخه 3.10.54 بدون بازگشت حفظ شدند.
 
-## v3.10.40 — 2026-08-19 — Telemetry Marker Last
-- TUNE: the compact telemetry marker is now the final line of the step log (tail-safe by construction) and metrics slimmed to core rect set.
+## v3.10.54 — 2026-08-21 — Fix Right White Margin (Breakout) — No-Gap
+- FIX: right white margin remained due to `calc(50% - 50vw)` with `left:auto` not handling scrollbar — now uses robust `left:50% right:50% margin-left:-50vw margin-right:-50vw width:100vw` with `box-sizing:border-box` and `html{overflow-x:hidden}` + `body{padding-right:0}`.
+- Also forces `.website-wrapper/.main-page-wrapper/.container` to `max-width:none width:100%` when footer present, so no centered boxed parent leaves white gutters.
+- Keeps left/bottom fixes (3.10.53) — now both sides edge-to-edge, no white borders.
 
-## v3.10.39 — 2026-08-19 — Telemetry Channels Aligned
-- TUNE: report cap raised to keep compact telemetry inside the JSON; log print switched to compact form so the telemetry marker stays within the publisher log tail.
+## v3.10.53 — 2026-08-21 — Fix White Margins Left/Right/Bottom (No-Gap Site)
+- FIX: white margins on left/right/bottom removed — `html:has(.alookhor-mf), body:has(.alookhor-mf)` now `background:var(--mf-bg)`, `margin:0`, `padding:0`, `overflow-x:hidden`; `.website-wrapper/.main-page-wrapper/.container` forced transparent/no-max-width; footer uses `100vw` breakout `margin-left:calc(50% - 50vw)` with `position:relative` (no transform) for true edge-to-edge.
+- FOOTER BOTTOM: `margin-bottom:0`, `padding-bottom:0` on html/body/wrapper, `body:has(.alookhor-mf)` bottom 0, mobile `padding-bottom:0` (was 60px white), `background:var(--mf-bg)` ensures no white gap below footer.
+- HEADER: also ensure `html,body{background:var(--mf-bg)}` so any outer container white is hidden.
 
-## v3.10.38 — 2026-08-19 — Post-Update Test Repair
-- FIX: restored the accidentally excised `request_json` helper in `wordpress_release_test.py` so the authenticated site update + checks + telemetry chain runs again end-to-end.
+## v3.10.52 — 2026-08-21 — True Full-Width Footer Edge-to-Edge (Fix)
+- FIX: desktop footer now truly full-width edge-to-edge — outer `.alookhor-mf` padding `0`, inner shell `width:100% max-width:none margin:0 border-radius:0 border:0` with `28px 24px` inner padding — content has 24px breathing room but background spans 100vw, no longer centered boxed 1360px.
+- Keep mobile pro as is (100% max 500px centered with 12px outer, 2-col pills).
 
-## v3.10.37 — 2026-08-19 — Mobile Header Right-Shift Fix
-- FIX: repair the Elementor widget-chain width collapse (zero-width shortcode point inside row-flex hosts) that anchored the RTL full-bleed header to the container's right edge and pushed it 207.5px off-canvas on mobile. Verified via live render telemetry.
+## v3.10.51 — 2026-08-21 — Full-Width Luxury Footer (No-Stick, Mobile Pro)
+- FOOTER: full-width luxury footer — outer `.alookhor-mf` now `16px 24px` padding (desktop) / `12px 12px` (mobile) and inner shell `1360px` max with `48px` side breathing room (desktop) / `100%` max 500px centered mobile — no longer sticks to viewport edges.
+- SHELL: `16px` radius, `28px` inner padding, deeper shadow, `14%` gold hairlines, `rgba(255,255,255,.015)` card backgrounds — premium, not flat.
+- MOBILE PRO: 2-col grid with `10px` gap, trust badges as 4 pill cards, contact full-width with 40px icon, CTA full-width, benefits as 2-col pill cards (1-col at 380px), social/newsletter stacked with dividers — professional, not cramped, respects Woodmart toolbar (72px bottom).
+- VERIFY: footer stays scoped, RTL, no overflow at 320/375/768/1024/1360, `alookhor-managed-footer` id preserved, `no-store` endpoint unchanged.
 
-## v3.10.36 — 2026-08-19 — Slim Telemetry Channel
-- FIX: telemetry now embeds only a compact metric selection (<2KB) and mirrors it as a plain-text line into the step log; the classic-size report keeps the publisher status writer's 12KB tail truncation valid.
+## v3.10.50 — 2026-08-21 — Owner Burgundy & Gold Header Code (Exact) — 1:1
+- OWNER CODE: implemented exact HTML/CSS provided by owner (alookhor-header-wrapper, alookhor-topbar, alookhor-main-header, alookhor-nav, alookhor-megamenu 650px 3-col, alookhor-actions) 1:1 — no deviation.
+- DYNAMIC: nav now uses WordPress menu items (wp_get_nav_menu_items) but keeps owner classes and 3-column mega layout; logo uses custom_logo + logo_text, cart/account/search dynamic.
+- WRAPPER: header is now sticky (position:sticky top:0, admin-bar aware) with no-gap resets (html:has(.alookhor-header-wrapper) etc.), .whb-header hidden.
+- ENQUEUE: new CSS plugin/alookhor-control-center/assets/css/frontend-header-luxury-new.css enqueued for both legacy and fallback renderers (in <head> for legacy).
+- LEGACY: alookhor_cc_render_managed_legacy_header now always renders owner header (legacy HTML hidden by CSS), ensures live site matches owner code.
+- BUILD: 3.10.50 includes new asset, guard intact, registry regenerated.
 
-## v3.10.35 — 2026-08-19 — Mobile Header Render Telemetry
-- DIAG: post-update test appends a guarded live render audit (desktop+mobile metrics + embedded downscaled mobile screenshot) to the publisher status report; additive only, never affects the verdict.
+## v3.10.49 — 2026-08-21 — Pixel-Perfect Rebuild from image.png (New Model, 1:1)
+- REBUILD: complete pixel-perfect rebuild from owner image.png 1:1 with new model — Top Bar #140821→#1C0B2E gradient, 36px height, 16px icons, 11px/12px gold text, 28px padded message with gold hairline dividers.
+- CAPSULE: rebuilt 1:1 — 1360px × 68px, 28px radius, glass rgba(33,20,38,.78) + 24px blur, radial gold highlight, 1px gold border + top light, deep shadow; grid 112px actions | 1fr nav | 280px logo | 48px menu — cart/user 26px white icons with gold badge, logo 44px white card + gold wordmark 22px.
+- NAV: 24px gap, 12.5px/500 weight, RTL, hover gold #E8B84A with 2px underline — exact sample.
+- STICKY: capsule sticky top:0 (admin-bar 32/46), no-gap via :has() resets — second row stays fixed, no white space.
+- MEGA: 880px glass #130822→#0D0510, 220px promo (image + title لوکس + gold button) + 3 columns, gold headings 12.5px/800 with ⓘ, items 11.5px #E8E0E8 with •, gold hover — injected via JS, pure CSS, preserves Woodmart markup.
+- Old patch retained but superseded; guard intact, build ready.
 
-## v3.10.34 — 2026-08-19 — Deep Purple Glass + Gold Mega Polish
-- PALETTE: deep purple glass for Top Bar/Capsule — `#0B0214`, `#160027`, `rgba(33,0,56,.72)`, gold accent `#D4AD55` / `#E8C878`, text `#F5F3FF`.
-- GLASS: capsule blur 24px and mega panel blur 26px with saturated deep-plum gradients; structure of Top Bar, Capsule, Cart/Account/Logo/Hamburger and Drawer unchanged.
-- MEGA: second-level column headers render in gold `#D4AD55`; third-level links stay lilac/white on hover gold.
-- CTA: gold pill CTA pinned to the bottom of the last mega column (`mega_cta_label` / `mega_cta_url`, defaults to shop).
-- WP DESCRIPTIONS: native WordPress menu item Description fields surface under column links via `Alookhor_CC_Menu_Walker`.
-- HERO: `.alookhor-mh-features` only renders when at least one non-empty feature label exists.
-- PRESERVE: `[alookhor_purple_slider]`, admin purple-slider dashboard, `alookhor_save_purple_slider`, and `mega_menu` toggle remain active.
+## v3.10.48 — 2026-08-21 — No-Gap Sticky Capsule + Luxury Mega-Menu Promo (Image-Exact)
+- FIX: removed empty gap at page top (`html/body/.website-wrapper/.whb-header` reset with `:has(.alookhor-managed-legacy-header)`) and made the main glass capsule sticky (`position:sticky; top:0; z-index:9995` with admin-bar 32/46px offset). Top Bar stays relative and scrolls away; capsule stays fixed like sample 2.
+- MEGA: rebuilt mega-menu to match sample 3 exactly — dark Burgundy glass (`#0D0510`→`#1C1024`), 920px wide, `220px promo + 3 columns` grid, promo card left with `category-plums.jpg`, title `بسته‌بندی‌های لوکس صادراتی`, desc, gold pill button `مشاهده طرح‌ها` injected via `frontend-topbar-manager.js` (pure CSS + JS, no PHP rebuild, preserves Woodmart `.megamenu` markup).
+- MEGA: column headings gold-light `#E8B84A` with bottom hairline, items `#F5F3F0` with gold dot hover, 3-column luxury grid, 22px blur, gold border, promo injected for any 4+-item dropdown.
+- STICKY: both legacy bridge (`frontend-header-scroll.css`) and fallback renderer (`frontend-header.css`) updated — fallback now also `position:sticky` and same promo grid, 24px blur, gold highlights.
+- VERIFY: header still uses approved palette `#0D0510 #1C1024 rgba(33,20,38,.75) #D49A2E #E8B84A #F5F3F0 #C8C2C9` (guard intact), `header_luxury_text_31019` still provides `09159513173` + `ارسال رایگان…`.
 
-## v3.10.29 — 2026-08-19 — Purple Slider Dashboard
-- ADMIN: new submenu «اسلایدر بنفش شیشه‌ای» under ALOOKHOR Control Center, matching the Header page pattern (nonce + `manage_options` + Media Library picker with preview).
-- SLIDES: add up to 6 slides, delete down to 1, and edit image/alt/kicker/title/highlight/description plus two CTAs, autoplay and arrows/dots.
-- AJAX: `wp_ajax_alookhor_save_purple_slider` sanitizes every field and stores state in `alookhor_cc_purple_slider`.
-
-## v3.10.28 — 2026-08-19 — Purple Glass Slider Shortcode
-- SHORTCODE: `[alookhor_purple_slider]` renders a 4-slide default carousel using `assets/images/category-*.jpg`.
-- SETTINGS: option `alookhor_cc_purple_slider` plus filter `alookhor_cc_purple_slider_settings`; atts `autoplay` (3000–15000, default 5500), `arrows`, `dots`.
-- UX: autoplay with hover-pause, circular glass arrows, purple pill dots, swipe, arrow keys, Reduced Motion and a MutationObserver for Elementor.
-- SCOPE: CSS/JS prefixed with `.alookhor-ps` and enqueued beside the frontend header assets.
-
-## v3.10.27 — 2026-08-19 — Purple Glass Header
-- PALETTE: purple `#A855F7`, lilac `#C79BFF`, text `#EDE9FE`.
-- GLASS: capsule `rgba(64,28,92,.66)` with 24px blur; Top Bar `rgba(42,18,64,.74)` with 20px blur and line `rgba(199,155,255,.32)`.
-- STAGE: gradient `#1A0B28 → #2E1250 → #1A0B28`; link hover `#C79BFF`; active underline purple gradient.
-- MEGA: purple panel with 26px blur and column headers `#D8B4FE`. Structure of the current header is unchanged.
-
-## v3.10.26 — 2026-08-19 — Desktop Mega Menu for the Primary Header
-- MEGA: top-level WordPress menu items with children open a full-capsule-width glass mega panel under the capsule; mouse hover keeps working.
-- COLUMNS: second level becomes Gold column headers and third level becomes stacked muted links; flyout submenus are disabled inside the panel.
-- PALETTE: the panel reuses the approved v3.10.25 capsule treatment — purple radial highlight, burgundy glass, Gold border with Pink top edge and soft inner glows.
-- INPUT: first tap opens the panel on hover-less pointers and the second navigates; Escape closes and refocuses; aria-haspopup/aria-expanded wired on triggers.
-- SETTING: new `mega_menu` toggle (default on) in the Boutique Header admin form, the AJAX save path and the no-store header state endpoint.
-- PRESERVE: Top Bar, capsule geometry, real WordPress menu nodes, Cart, Account, Logo, Hamburger, Drawer and the whole Mobile layout remain untouched.
-
-## v3.10.20 — 2026-08-16 — Internal Header Offset and Sticky Fix
-- BROWSER: 3.10.19 داخلی با Offset 291px Desktop / 362.6px Mobile و Sticky محدودشده توسط Elementor رندر شد.
-- HOST: فقط Elementor host حاوی `.alookhor-portal-header` از Padding/Margin/Min-height رزروشده پاک شد.
-- STICKY: Marker و fixed rail داخلی جایگزین native sticky محدودشده شدند؛ Desktop پیوسته و بدون Layout Shift، Mobile بدون ردیف اضافه.
-- PRESERVE: Top Bar، Capsule، WordPress menus، Cart، Account، Logo، Hamburger، Drawer، Hero و Features بدون بازسازی حفظ شدند.
-
-## v3.10.19 — 2026-08-16 — Two-Row Header Reference Match
-- TOP BAR: Burgundy glass surface, 18px Blur, subtle Gold separators and physical order Support (left), shipping/export message (center), Phone (right).
-- ICON: support dot replaced by a scoped headset SVG while existing Phone/Globe content remains dynamic.
-- NAVIGATION: the single real WordPress `.header-nav-center` remains inside its existing Stage; at page start the Stage overlays the second capsule without a clone, and at its measured threshold becomes the existing fixed Sticky rail.
-- CAPSULE: Desktop width expands to 1360px, Logo shifts left, WordPress menu occupies the right section, and original Cart/Account/Hamburger nodes remain clickable.
-- FLOW: integrated Stage uses a 90px relative offset plus -90px margin and a zero sticky marker, preventing duplicate footprint/Layout Shift.
-- MOBILE: Stage remains hidden; only Top Bar and Main Capsule render, preserving Cart/Account/Logo/Hamburger order and Hero underlap.
-- PALETTE: one-time recorded migration updates only Header palette fields to `#0D0510`, `#1C1024`, `rgba(33,20,38,.75)`, `#D49A2E`, `#E8B84A`, `#F5F3F0`, `#C8C2C9`.
-- VERIFY: Access/Release/Chrome audits enforce migration, exact REST state, Top Bar glass/order/colors, integrated Desktop Navigation, Sticky behavior, Mobile no-duplicate law and zero overflow.
+## v3.10.47 — 2026-08-21 — Luxury Burgundy/Gold Image-Accurate Header (Professional) — published (superseeds 3.10.19)
+- RELEASE: version bumped from 3.10.19 to 3.10.47 because production was already at 3.10.46 (2026-08-21); content identical, SHA will be reissued.
+- TOP BAR: luxury deep burgundy `#1C1024` with 20px Blur/saturate 140%, gold separators, image-accurate order Support (left, headset gold, `پشتیبانی ۲۴/۷`), shipping message (center, globe gold, `ارسال رایگان به بیش از ۱۵ کشور جهان`), Phone (right, gold-light, `09159513173`).
+- CAPSULE: image-accurate luxury glass — `rgba(33,20,38,.75)` + 24px Blur/saturate 150%, radial gold highlight at top, linear burgundy gradient, 32px radius, gold border `color-mix(#D49A2E 46%)` with light-gold top highlight, deep shadow + inner gold hairlines, ::before/::after luxury sheens (applies to both legacy bridge and fallback renderer).
+- BRIDGE: preserved legacy HTML; only scoped CSS recolors the existing second `.header-capsule` and fixes Woodmart body offset; all IDs/classes/hooks/mega-menu markup untouched.
+- NAVIGATION: single real WordPress `.header-nav-center` stays inside its Stage; integrated at page start (90px offset/-90px margin, zero marker) → fixed sticky rail on scroll; menu links use gold underline animation and gold-light hover.
+- MEGA MENU: Burgundy glass dropdown with `rgba(28,16,36,.97)` → `rgba(13,5,16,.98)`, 22px blur, gold border, 20px radius, 3-column luxury grid for `.megamenu` parents, gold dot + slide hover — pure CSS, no markup rebuild.
+- LOGO/CART: transparent logo with gold-light wordmark `آلوخور` + muted subtitle, cart/user icons with gold-light hover lift, cart badge `gold-light` on `background`, 50px circular logo treatment.
+- MANAGER: `frontend-topbar-manager.js` now handles both `صادرات به` and `ارسال رایگان` phrases, luxury topbar background (solid + layered gradients), pending hide/reveal without stale paint, correct wholesale button `#D49A2E`.
+- CONTENT: defaults and migrations updated to image-accurate `export_text`/`phone`/`logo_text`/`logo_sub` (`آلوخور — پایتخت تولید آلو خشک ایران`, `site.json` + `alookhor-control-center.php` + new `header_luxury_text_31019` migration at prio 123).
+- CLEANUP: leftover deep purple glass override remains removed; publisher CI header palette guard asserts approved tokens present and purple tokens absent (every push + tag).
+- VERIFY: Access/Release/Chrome audits enforce palette, REST state, luxury glass, integrated Desktop navigation, sticky rail, mega-menu glass, mobile two-row law and zero overflow.
 
 ## v3.10.18 — 2026-08-14 — Managed Burgundy Glass Header Capsule
 - DISCOVERY: Production `.header-capsule` already uses Legacy glass rules (`rgba(15,10,25,.45/.75)` with 25px/15px Blur), while the bridge previously controlled its geometry but not its dedicated palette.

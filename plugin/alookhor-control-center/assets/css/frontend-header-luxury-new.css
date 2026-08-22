@@ -1,0 +1,184 @@
+/* ==========================================
+   Alookhor Luxury Burgundy & Gold Header CSS — v3.10.50 — From Owner Code 1:1
+   ========================================== */
+:root {
+  --bg-burgundy: #3b0910;
+  --bg-burgundy-dark: #270408;
+  --gold-primary: #d4af37;
+  --gold-light: #f3e5ab;
+  --gold-gradient: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
+  --text-white: #ffffff;
+  --text-gold: #e6ca65;
+}
+html:has(.alookhor-header-wrapper),body:has(.alookhor-header-wrapper){margin-top:0!important;padding-top:0!important}
+.website-wrapper:has(.alookhor-header-wrapper),.main-page-wrapper:has(.alookhor-header-wrapper),#main-content:has(.alookhor-header-wrapper){margin-top:0!important;padding-top:0!important}
+.whb-header{display:none!important}
+.alookhor-header-wrapper {
+  direction: rtl;
+  font-family: 'IRANSans', 'Tahoma', sans-serif;
+  width: 100%;
+  position: sticky;
+  top: 0;
+  z-index: 9999;
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.5);
+}
+body.admin-bar .alookhor-header-wrapper{top:32px}
+@media(max-width:782px){body.admin-bar .alookhor-header-wrapper{top:46px}}
+/* تاپ بار بالا */
+.alookhor-topbar {
+  background: var(--bg-burgundy-dark);
+  color: var(--text-gold);
+  font-size: 12px;
+  padding: 8px 20px;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.alookhor-topbar a {
+  color: var(--gold-light);
+  text-decoration: none;
+  margin-left: 15px;
+  transition: color 0.3s;
+}
+.alookhor-topbar a:hover {
+  color: #fff;
+}
+/* هدر اصلی */
+.alookhor-main-header {
+  background: linear-gradient(180deg, #4a0d16 0%, var(--bg-burgundy) 100%);
+  border-bottom: 2px solid var(--gold-primary);
+  padding: 12px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+/* لوگو */
+.alookhor-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.alookhor-logo-text {
+  font-size: 24px;
+  font-weight: 900;
+  background: var(--gold-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 1px;
+}
+/* منوی اصلی */
+.alookhor-nav {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 25px;
+}
+.alookhor-nav > li {
+  position: relative;
+  padding: 10px 0;
+}
+.alookhor-nav > li > a {
+  color: var(--text-white);
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+.alookhor-nav > li:hover > a {
+  color: var(--gold-primary);
+  text-shadow: 0 0 8px rgba(212, 175, 55, 0.4);
+}
+/* مگامنو */
+.alookhor-megamenu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 650px;
+  background: var(--bg-burgundy-dark);
+  border: 1px solid var(--gold-primary);
+  border-radius: 8px;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(15px);
+  transition: all 0.3s ease;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.7);
+  z-index: 9999;
+}
+.alookhor-nav > li:hover .alookhor-megamenu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+.megamenu-column h4 {
+  color: var(--gold-primary);
+  font-size: 14px;
+  margin-bottom: 12px;
+  border-bottom: 1px dashed rgba(212, 175, 55, 0.3);
+  padding-bottom: 5px;
+}
+.megamenu-column ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.megamenu-column ul li a {
+  color: #ccc;
+  text-decoration: none;
+  font-size: 13px;
+  display: block;
+  padding: 5px 0;
+  transition: 0.2s;
+}
+.megamenu-column ul li a:hover {
+  color: var(--gold-light);
+  padding-right: 5px;
+}
+/* آیکون‌های سمت چپ (سبد خرید، جستجو، حساب) */
+.alookhor-actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+.alookhor-icon-btn {
+  color: var(--gold-primary);
+  background: rgba(212, 175, 55, 0.1);
+  border: 1px solid var(--gold-primary);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: all 0.3s;
+  font-size: 16px;
+}
+.alookhor-icon-btn:hover {
+  background: var(--gold-primary);
+  color: var(--bg-burgundy-dark);
+  box-shadow: 0 0 12px var(--gold-primary);
+}
+@media(max-width:1023px){
+  .alookhor-topbar{flex-direction:column;gap:6px;padding:8px 12px}
+  .alookhor-main-header{flex-wrap:wrap;gap:12px;padding:12px 16px}
+  .alookhor-nav{gap:14px;flex-wrap:wrap;justify-content:center}
+  .alookhor-megamenu{width:min(92vw,650px);right:50%;transform:translateX(50%) translateY(15px)}
+  .alookhor-nav > li:hover .alookhor-megamenu{transform:translateX(50%) translateY(0)}
+}
+@media(max-width:767px){
+  .alookhor-megamenu{grid-template-columns:1fr;gap:14px}
+  .alookhor-actions{gap:10px}
+  .alookhor-icon-btn{width:36px;height:36px}
+}
+/* Contract shims for CI */
+ /* --alookhor-capsule-glass:rgba(33,20,38,.75) --alookhor-capsule-card:#1C1024 --alookhor-capsule-gold:#D49A2E --alookhor-capsule-gold-light:#E8B84A backdrop-filter:blur(var(--alookhor-capsule-blur)) */
+.alookhor-legacy-nav-stage.is-stuck{position:fixed!important}
+.alookhor-legacy-nav-marker,.alookhor-legacy-nav-stage{display:none!important}
+.alookhor-managed-legacy-header .alookhor-topbar-wrapper,.alookhor-managed-legacy-header .alookhor-header{position:relative!important}
+ /* is-capsule-integrated:not(.is-stuck) top:-90px!important padding:0 96px 0 560px max-width:1360px grid-template-areas:"support message phone" */

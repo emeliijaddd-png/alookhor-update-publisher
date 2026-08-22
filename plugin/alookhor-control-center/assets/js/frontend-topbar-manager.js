@@ -1,5 +1,5 @@
 /**
- * ALOOKHOR Legacy Top Bar Manager — v3.10.46
+ * ALOOKHOR Legacy Top Bar Manager — v3.10.19
  * Preserves the legacy header/mega-menu HTML and synchronizes managed Top Bar
  * values from a fresh read-only REST endpoint, even when the page HTML is cached.
  */
@@ -212,11 +212,38 @@
         window.addEventListener('resize', setLogoSize, {passive:true});
       }
     }
+    injectMegaPromo(root);
     root.dataset.headerBehaviorReady = '1';
   }
 
+  function injectMegaPromo(root){
+    try{
+      const menus = root.querySelectorAll('.header-nav-center li.megamenu > .sub-menu, .header-nav-center li.menu-item-has-children.mega > .sub-menu, .header-nav-center li.menu-item-has-children:has(> .sub-menu > li:nth-child(4)) > .sub-menu');
+      // fallback: any sub-menu with >=4 items that is likely a mega
+      const fallback = [...root.querySelectorAll('.header-nav-center .sub-menu')].filter(sm => sm.querySelectorAll(':scope > li').length >= 4 && !sm.querySelector('.alookhor-mega-promo'));
+      const targets = [...menus, ...fallback];
+      // dedupe
+      const seen = new Set();
+      targets.forEach(sm => {
+        if(seen.has(sm) || sm.querySelector('.alookhor-mega-promo')) return;
+        seen.add(sm);
+        // ensure it's a top-level dropdown (parent is primary menu item)
+        const parent = sm.closest('li');
+        if(!parent || !parent.matches('.alookhor-primary-menu > li, .nav-menu > li')) return;
+        // create promo
+        const promo = document.createElement('div');
+        promo.className = 'alookhor-mega-promo';
+        promo.innerHTML = '<div class="alookhor-mega-promo-img"><img src="' + (window.ALOOKHOR_TOPBAR?.home_url || '/') + 'wp-content/plugins/alookhor-control-center/assets/images/category-plums.jpg" alt="بسته‌بندی لوکس" onerror="this.style.display=\'none\'"><span style="display:grid;place-items:center;width:100%;height:100%;color:#E8B84A;font-size:10px">بسته‌بندی لوکس</span></div><div class="alookhor-mega-promo-title">بسته‌بندی‌های لوکس صادراتی</div><div class="alookhor-mega-promo-desc">پک‌های چوبی و مخمل اعلا مناسب<br>سوغات شیک و هدیه سازمانی تجاری</div><a class="alookhor-mega-promo-btn" href="' + (window.ALOOKHOR_TOPBAR?.home_url || '/') + 'shop/">مشاهده طرح‌ها</a>';
+        // fallback if image fails, hide img and show span (already)
+        sm.prepend(promo);
+        sm.classList.add('alookhor-mega-with-promo');
+        parent.classList.add('megamenu');
+      });
+    }catch(e){ /* no-op */ }
+  }
+
   function manage(root, force = false) {
-    if (!root || (!force && root.dataset.topbarManaged === '3.10.46')) return;
+    if (!root || (!force && root.dataset.topbarManaged === '3.10.19')) return;
 
     const contactTexts = [...root.querySelectorAll('.topbar-contact-txt,[class*="contact-txt" i]')];
     const phone = root.querySelector('a[href^="tel:"]') || contactTexts.find(element => {
@@ -228,7 +255,7 @@
     phone?.classList.add('alookhor-managed-phone');
     email?.classList.add('alookhor-managed-email');
     const wholesale = smallestTextMatch(root, 'خرید عمده')?.closest('a,button') || root.querySelector('a[href*="b2b"],a[href*="wholesale"]');
-    const exportNote = smallestTextMatch(root, 'صادرات به');
+    const exportNote = smallestTextMatch(root, 'صادرات به') || smallestTextMatch(root, 'ارسال رایگان') || smallestTextMatch(root, 'کشور جهان');
 
     const explicitCandidates = [...root.querySelectorAll(topbarSelector)];
     const primaryItems = [phone, email, wholesale, exportNote].filter(Boolean);
@@ -247,6 +274,7 @@
     // Establish the three-row in-flow layout immediately when the legacy DOM
     // arrives, before paint. Fresh REST values can update colors/content later.
     setupHeaderBehavior(root);
+    injectMegaPromo(root);
 
     // A cached legacy header can contain old text/colors. Reserve its layout but
     // never paint stale content while the fresh same-origin REST read is pending.
@@ -280,17 +308,22 @@
       wholesale.target = asBool(cfg.wholesale_new_tab) ? '_blank' : '_self';
       if (wholesale.target === '_blank') wholesale.rel = 'noopener';
       else wholesale.removeAttribute('rel');
-      wholesale.style.setProperty('background', cfg.topbar_button_bg || '#C9A86A', 'important');
-      wholesale.style.setProperty('color', cfg.topbar_button_text || '#1A1206', 'important');
+      wholesale.style.setProperty('background', cfg.topbar_button_bg || '#D49A2E', 'important');
+      wholesale.style.setProperty('color', cfg.topbar_button_text || '#0D0510', 'important');
       wholesale.querySelectorAll('span,b,strong,i').forEach(element => {
-        element.style.setProperty('color', cfg.topbar_button_text || '#1A1206', 'important');
+        element.style.setProperty('color', cfg.topbar_button_text || '#0D0510', 'important');
       });
       setVisible(closestItem(wholesale), asBool(cfg.show_wholesale) && Boolean(cfg.wholesale_text));
     }
     if (exportNote) {
-      const textNode = [...exportNote.childNodes].find(node => node.nodeType === Node.TEXT_NODE && node.textContent.includes('صادرات'));
+      const hasExportPhrase = (t) => t.includes('صادرات') || t.includes('ارسال رایگان') || t.includes('کشور');
+      const textNode = [...exportNote.childNodes].find(node => node.nodeType === Node.TEXT_NODE && hasExportPhrase(node.textContent));
       if (textNode) textNode.textContent = ` ${cfg.export_text || ''} `;
-      else exportNote.textContent = cfg.export_text || '';
+      else {
+        const inner = exportNote.querySelector('span,b,strong');
+        if (inner && hasExportPhrase(inner.textContent)) inner.textContent = cfg.export_text || '';
+        else exportNote.textContent = cfg.export_text || '';
+      }
       const exportLink = exportNote.closest('a') || exportNote.querySelector?.('a');
       if (exportLink && cfg.export_url) exportLink.href = cfg.export_url;
       setVisible(closestItem(exportNote), asBool(cfg.show_export) && Boolean(cfg.export_text));
@@ -301,7 +334,7 @@
       const color = cfg.topbar_text_color || '#F5F3F0';
       const background = cfg.topbar_bg || '#1C1024';
       const border = cfg.topbar_border_color || '#D49A2E';
-      const glassBackground = `color-mix(in srgb, ${background} 78%, transparent)`;
+      const glassBackground = background;
       const height = window.innerWidth <= 767 ? 34 : Math.max(30, Math.min(60, Number(cfg.topbar_height) || 38));
       const layers = explicitCandidates.filter(element => {
         const score = candidateScore(element);
@@ -314,7 +347,7 @@
         element.style.setProperty('--alookhor-topbar-border', border);
         const innerLayer = element !== topbar && topbar.contains(element);
         element.style.setProperty('background-color', innerLayer ? 'transparent' : glassBackground, 'important');
-        element.style.setProperty('background-image', innerLayer ? 'none' : `linear-gradient(90deg, color-mix(in srgb, ${cfg.capsule_card || '#1C1024'} 86%, transparent), color-mix(in srgb, ${cfg.capsule_glass || 'rgba(33,20,38,.75)'} 82%, transparent), color-mix(in srgb, ${cfg.capsule_card || '#1C1024'} 86%, transparent))`, 'important');
+        element.style.setProperty('background-image', innerLayer ? 'none' : `linear-gradient(90deg, rgba(0,0,0,.14), rgba(255,255,255,.03), rgba(0,0,0,.14)), linear-gradient(180deg, color-mix(in srgb, ${cfg.capsule_card || '#1C1024'} 96%, transparent), color-mix(in srgb, ${cfg.capsule_glass || 'rgba(33,20,38,.75)'} 92%, transparent))`, 'important');
         element.style.setProperty('color', color, 'important');
         element.style.setProperty('border-bottom-color', border, 'important');
         element.style.setProperty('min-height', `${height}px`, 'important');
@@ -355,8 +388,9 @@
     }
 
     setupHeaderBehavior(root);
-    root.dataset.topbarManaged = '3.10.46';
-    root.dispatchEvent(new CustomEvent('alookhor:topbar-managed', {bubbles:true, detail:{version:'3.10.46'}}));
+    injectMegaPromo(root);
+    root.dataset.topbarManaged = '3.10.19';
+    root.dispatchEvent(new CustomEvent('alookhor:topbar-managed', {bubbles:true, detail:{version:'3.10.19'}}));
   }
 
   function init(scope = document, force = false) {

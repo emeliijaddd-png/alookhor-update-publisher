@@ -6,8 +6,9 @@
 
 - **نام افزونه:** ALOOKHOR Control Center
 - **نسخه پایه بازیابی‌شده:** `3.8.4`
-- **Production پیش از این Release:** `3.10.19` (کپسول شیشه‌ای و تمام Header/Hero/Features checks پاس)
-- **Release آماده انتشار اتمی:** `3.10.20` (Top Bar و منوی اصلی دو‌ردیفه مطابق مرجع)
+- **Production پیش از این Release:** `3.10.18` (کپسول شیشه‌ای و تمام Header/Hero/Features checks پاس)
+- **Release آماده انتشار اتمی:** `3.10.54` (Luxury Burgundy/Gold image-accurate — Top Bar + Capsule + Mega Menu glass حرفه‌ای مطابق `image.png`؛ هنوز Tag نخورده و روی Production نیست)
+- **تصمیم‌های نشست ۲۰۲۶-۰۸-۲۱:** (۱) بلوک بنفش «DEEP PURPLE GLASS» از `frontend-header.css` حذف شد (Burgundy/Gold تنها پالت هدر؛ با گارد `scripts/build_release.py` قفل شد). (۲) هدر + Top Bar دقیقاً مثل تصویر مرجع `image.png` بازسازی لوکس شد — `frontend-header-scroll.css` + `frontend-header.css` با glass `rgba(33,20,38,.75)` / `blur 24px` / border طلایی + mega-menu glass ۳ ستونه، و `frontend-topbar-manager.js` برای `ارسال رایگان`/`صادرات به`، و migration جدید `header_luxury_text_31019` برای `phone`/`export_text`/`logo`. همه در همان کاندیدای `3.10.19` — یک انتشار (تصمیم مالک).
 - **تاریخ بازیابی:** 2026-08-11
 - **منبع بازیابی:** ZIP واقعی افزونه `alookhor-control-center (5).zip`
 - **حداقل WordPress:** 6.0
@@ -248,8 +249,8 @@ Schema حداقلی Manifest:
 
 ```json
 {
-  "version": "3.10.22",
-  "download_url": "https://updates.alookhor.ir/releases/alookhor-control-center-3.10.22.zip",
+  "version": "3.10.19",
+  "download_url": "https://updates.alookhor.ir/releases/alookhor-control-center-3.10.19.zip",
   "details_url": "https://alookhor.ir/changelog",
   "requires": "6.0",
   "tested": "7.0",

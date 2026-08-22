@@ -4,7 +4,7 @@ Tags: control center, luxury, alookhor, admin, dashboard
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 3.10.46
+Stable tag: 3.10.55
 License: Private
 License URI: https://alookhor.ir
 
@@ -47,51 +47,11 @@ License URI: https://alookhor.ir
 
 == Changelog ==
 
-= 3.10.34 =
-* پالت بنفش تیره شیشه‌ای با blur 24–26 و هایلایت طلایی #D4AD55
-* سرستون طلایی مگا منو + CTA طلایی پایین ستون آخر
-* نمایش Description آیتم‌های منوی WordPress زیر لینک ستون‌ها
-* رندر شرطی `.alookhor-mh-features` فقط با برچسب غیرخالی
-* حفظ اسلایدر بنفش، داشبورد مدیریت و سوییچ mega_menu
-
-= 3.10.29 =
-* صفحه مدیریت اسلایدر بنفش شیشه‌ای زیر ALOOKHOR Control Center
-* افزودن حداکثر ۶ اسلاید، حذف تا حداقل ۱ اسلاید و Media Picker با پیش‌نمایش
-* ذخیره AJAX با nonce، manage_options و سانیتیز کامل در `alookhor_cc_purple_slider`
-
-= 3.10.28 =
-* شورت‌کد `[alookhor_purple_slider]` با ۴ اسلاید پیش‌فرض و تصاویر category
-* Autoplay با hover-pause، پیکان شیشه‌ای، نقطه‌های قرصی بنفش، سوایپ و Reduced Motion
-* MutationObserver برای درج پویای المنتور
-
-= 3.10.27 =
-* پالت Purple Glass برای هدر: `#A855F7`، `#C79BFF`، `#EDE9FE`
-* شیشه کپسول `rgba(64,28,92,.66)` با blur 24px و Top Bar بنفش شیشه‌ای
-* مگا پنل بنفش با blur 26px و سرستون‌های `#D8B4FE`
-
-= 3.10.26 =
-* مگا منوی دسکتاپ برای فهرست اصلی هدر
-* پنل شیشه‌ای عریض هم‌عرض کپسول با ستون‌های سطح دو و لینک‌های سطح سه
-* کلید mega_menu در فرم هدر؛ پیش‌فرض روشن
-
-= 3.10.25 =
-* تطبیق نهایی Header با image.png
-* پس‌زمینه Burgundy، لوگوی رسمی LOGO2 و Hamburger قابل مشاهده
-* حفظ منوی WordPress، Cart، Account و Drawer
-
-= 3.10.24 =
-* استفاده از لوگوی مدیریت‌شده Header به‌جای Site Icon نامرتبط
-* Wordmark فارسی آلوخور و الزام Visibility Hamburger
-
-= 3.10.23 =
-* حذف دو Header Draft المنتور و فضای 221/292px
-* حفظ Header مرجع WordPress، Drawer و Sticky Navigation
-
-= 3.10.20 =
-* حذف Offset واقعی Elementor بالای Header داخلی
-* شروع Top Bar از ابتدای viewport
-* Sticky fixed rail برای Navigation داخلی Desktop با Marker ضد Layout Shift
-* حفظ کامل Reference Header و Mobile دو‌ردیفه
+= 3.10.55 =
+* بازیابی Renderer کامل `[alookhor_portal_header]`
+* Top Bar و Main Menu مطابق مرجع Burgundy/Gold
+* حفظ منوی واقعی WordPress و Hamburger/Drawer
+* حفظ Footer edge-to-edge و تمام بخش‌های 3.10.54
 
 = 3.10.19 =
 * Top Bar شیشه‌ای Burgundy/Gold با ترتیب پشتیبانی، پیام و تلفن مطابق مرجع

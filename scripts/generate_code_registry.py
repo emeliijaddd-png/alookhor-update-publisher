@@ -65,9 +65,9 @@ def render() -> str:
     add(f'- CURRENT VERSION: `{version}`')
     add(f'- LAST FUNCTIONAL CHANGE: {release.get("description", "Not recorded")}')
     add('- ACTIVE DESIGN: Luxury Black/Gold; actual component colors remain controlled by saved WordPress settings and existing module defaults.')
-    add('- ACTIVE SHORTCODES: `[alookhor_portal_header]`, `[alookhor_managed_categories]`, `[alookhor_managed_hero]`, `[alookhor_managed_features]`, `[alookhor_purple_slider]`.')
-    add('- ACTIVE PANELS: Main ALOOKHOR Control Center, Header/Top Bar submenu, and Purple Slider submenu.')
-    add('- ACTIVE COMPONENTS: Header/Top Bar manager, purple glass header, purple slider, managed four-slide Hero, managed four-card site features, WooCommerce categories, managed footer, private native updater.')
+    add('- ACTIVE SHORTCODES: `[alookhor_portal_header]`, `[alookhor_managed_categories]`, `[alookhor_managed_hero]`, `[alookhor_managed_features]`.')
+    add('- ACTIVE PANELS: Main ALOOKHOR Control Center and Header/Top Bar submenu.')
+    add('- ACTIVE COMPONENTS: Header/Top Bar manager, managed four-slide Hero, managed four-card site features, WooCommerce categories, managed footer, private native updater.')
     add('- KNOWN EXTERNAL LEGACY: `[alookhor_categories_carousel]` belongs to `alookhor-categories-manager`; its source is not in this repository and is not reconstructed here.')
     add('- KNOWN SOURCE GAP: Elementor template export/internal element IDs and historical Code Snippets source are not present in this repository.')
     add('')
@@ -92,11 +92,9 @@ def render() -> str:
         ('SC-002','Shortcode','`[alookhor_managed_categories]`','`includes/product-categories.php`','Home page → Elementor Shortcode widget',version,'Active'),
         ('SC-003','Shortcode','`[alookhor_managed_hero]`','`includes/hero.php`','Home Elementor Shortcode widget / automatic Legacy-root replacement',version,'Active'),
         ('SC-004','Shortcode','`[alookhor_managed_features]`','`includes/site-features.php`','Home Elementor HTML widget / automatic Legacy-root replacement',version,'Active'),
-        ('SC-005','Shortcode','`[alookhor_purple_slider]`','`includes/shortcode-purple-slider.php`','Elementor Shortcode widget / any page',version,'Active'),
         ('SC-EXT-001','External shortcode','`[alookhor_categories_carousel]`','External plugin source unavailable','Former Home showcase', 'External','Replaced on Home / do not reconstruct'),
         ('PN-001','Admin panel','ALOOKHOR Control Center','`includes/admin.php`','WP Admin top-level menu',version,'Active'),
         ('PN-002','Admin panel','Header & Top Bar','`includes/admin.php`','WP Admin submenu',version,'Active mirror'),
-        ('PN-003','Admin panel','Purple Glass Slider','`includes/admin-purple-slider.php`','WP Admin submenu',version,'Active'),
         ('MOD-001','Managed module','WooCommerce Categories','`includes/product-categories.php`','Home / Elementor / REST',version,'Active'),
         ('MOD-002','Managed module','Responsive Footer','`includes/footer.php`','Frontend footer / REST',version,'Active'),
         ('MOD-003','Managed module','Four-slide Hero','`includes/hero.php`','Home / Elementor / REST',version,'Active'),
@@ -105,7 +103,6 @@ def render() -> str:
         ('UPD-001','Updater','Private native updater','`includes/updater.php`','Control Center + GitHub Actions',version,'Active'),
         ('CFG-001','WordPress state','Main settings','`alookhor_cc_settings`','All managed modules',version,'Active'),
         ('CFG-002','WordPress state','Header settings','`alookhor_header_settings`','Header and Top Bar',version,'Active'),
-        ('CFG-003','WordPress state','Purple slider','`alookhor_cc_purple_slider`','`[alookhor_purple_slider]`',version,'Active'),
         ('CSS-001','CSS','Managed Header','`assets/css/frontend-header.css`','`[alookhor_portal_header]` fallback renderer',version,'Active'),
         ('JS-001','JavaScript','Managed Header runtime','`assets/js/frontend-header.js`','`[alookhor_portal_header]` fallback renderer',version,'Active'),
         ('JS-002','JavaScript','Legacy Top Bar manager','`assets/js/frontend-topbar-manager.js`','Preserved legacy header provider',version,'Active when legacy provider exists'),
@@ -207,20 +204,6 @@ def render() -> str:
     add('- **Created:** 3.10.16; **status:** source release pending tagged Production verification.')
     add('- **Complete source:** see Source Snapshots for `includes/site-features.php`, `assets/css/frontend-features.css`, `assets/js/frontend-features.js`, `assets/js/modules/settings.js`, `includes/ajax.php`, and `includes/rest-api.php`.')
     add('')
-    add('## SC-005 — Purple Glass Slider')
-    add('')
-    add('- **Shortcode:** `[alookhor_purple_slider]`')
-    add('- **Function:** `alookhor_cc_purple_slider_shortcode()`; markup callback `alookhor_cc_purple_slider_markup()`.')
-    add('- **Registration:** `add_shortcode(\'alookhor_purple_slider\', \'alookhor_cc_purple_slider_shortcode\')`.')
-    add('- **PHP file:** `plugin/alookhor-control-center/includes/shortcode-purple-slider.php`.')
-    add('- **Admin:** submenu `اسلایدر بنفش شیشه‌ای` via `includes/admin-purple-slider.php`.')
-    add('- **Inputs:** `autoplay` (3000–15000, default 5500), `arrows`, `dots`.')
-    add('- **Storage:** dedicated option `alookhor_cc_purple_slider`; filter `alookhor_cc_purple_slider_settings`.')
-    add('- **Per-slide fields:** Media Library image/ID, Alt, Kicker, Title, Highlight, Description, primary CTA, secondary CTA.')
-    add('- **Defaults:** four slides using `assets/images/category-*.jpg`; 1–6 slides after save.')
-    add('- **CSS/JS:** `assets/css/frontend-purple-slider.css`, `assets/js/frontend-purple-slider.js`; prefix `.alookhor-ps`.')
-    add('- **Created:** 3.10.28/3.10.29; **status:** Active.')
-    add('')
     add('## SC-EXT-001 — Legacy Categories Carousel')
     add('')
     add('- **Shortcode:** `[alookhor_categories_carousel]`')
@@ -239,7 +222,7 @@ def render() -> str:
     add('- **PHP:** `includes/admin.php`, `includes/ajax.php`, `templates/admin-control-center.php`')
     add('- **CSS:** `assets/css/luxury.css`')
     add('- **JavaScript:** `assets/js/app.js`, `assets/js/admin-wp.js`, `assets/js/core/*`, `assets/js/modules/*`')
-    add('- **AJAX:** `alookhor_save_settings`, `alookhor_toggle_module`, `alookhor_save_header`, `alookhor_save_purple_slider`, `alookhor_get_settings`, `alookhor_check_updates`.')
+    add('- **AJAX:** `alookhor_save_settings`, `alookhor_toggle_module`, `alookhor_save_header`, `alookhor_get_settings`, `alookhor_check_updates`.')
     add('- **REST:** authenticated status/check/install plus public Top Bar/Hero/Site Features/Footer/Categories state.')
     add('- **Database:** `alookhor_cc_settings` (including `hero_settings` and `feature_settings`), `alookhor_header_settings`, `alookhor_footer_subscribers`.')
     add('- **Managed shortcodes:** `[alookhor_portal_header]`, `[alookhor_managed_categories]`, `[alookhor_managed_hero]`, `[alookhor_managed_features]`.')

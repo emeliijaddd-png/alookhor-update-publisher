@@ -21,18 +21,15 @@ When sources disagree, the newer provable runtime/source wins. Missing source is
 
 ## Authoritative current state
 
-- **Production runtime:** ALOOKHOR Control Center `3.10.21`
-- **Current Production tag/source:** `v3.10.19` / `68afe12bf644ed1af0598e5ef59ff9b5f0fe47cc`
-- **Published package SHA-256:** `a29ec080380a2175ea29f12ff9f4b31564241d60ab434cdc114005585e39cfcf`
-- **Deployment run:** `31962035770` — publication, Manifest and native WordPress checks passed.
+- **Production runtime:** ALOOKHOR Control Center `3.10.18`
+- **Current Production tag/source:** `v3.10.18` / `5e7d33a4a90f33f0e79a63a9a0f3a6e26dcdee7f`
+- **Published package SHA-256:** `28fe044652db8ec0d359c6521fd555599dd70d53eac2b0503f9b476f771f4021`
+- **Deployment run:** `31820525729` — ZIP/SHA, Manifest, native WordPress and exact capsule palette endpoint checks all passed.
 - **Final rendered Chrome audit:** `31820882559` on 3.10.18 — WordPress, Desktop and Mobile passed every Header/Hero/Site-Features check; no failed checks.
 - **Direct glass-capsule acceptance:** the same `.header-capsule` now renders `rgba(33,20,38,.75)` with 24px Blur, Burgundy/Card gradient, Gold border/highlights and approved control colors; Cart/Account/Logo/Hamburger geometry/order, Top Bar, Desktop Navigation, Hero underlap and zero overflow are preserved.
-- **Production:** 3.10.21 active; final host runtime override pending.
-- **Current source target:** `3.10.22` — scoped inline host normalization prepared.
-- **3.10.22 candidate package SHA-256:** `0b32b3a29267c751d72466c61547587ed6250b65c6b69d28fe2d1725d16997c8`
-- **3.10.21 candidate package SHA-256:** `a29ec080380a2175ea29f12ff9f4b31564241d60ab434cdc114005585e39cfcf`
-- **3.10.20 candidate package SHA-256:** `36fed15806ab80c6e001836376550eae5b645add2aaf627c8832019e83ec917e`
-- **3.10.19 candidate package SHA-256:** `36fed15806ab80c6e001836376550eae5b645add2aaf627c8832019e83ec917e`
+- **Production:** 3.10.18 active and fully verified.
+- **Current source target:** `3.10.54` — Luxury Burgundy/Gold image-accurate header + mega-menu glass (professional) prepared for test/publication; Production remains 3.10.18 until tagged deployment succeeds.
+- **3.10.54 candidate package SHA-256:** `69c3b98d3d39c9636d3126cb48227e32792cd12edec0d039c352362b71251cfe` (rebuilt 2026-08-21 — luxury Burgundy/Gold image-accurate header + mega-menu glass (professional, image.png), superseding cef28f36 and 351e78e7 candidates)
 - **New active Header reference:** `uploads/image.png`.
 - **Final glass evidence:** `automation/318-live2/visual-desktop-before.png`, `automation/318-live2/visual-mobile-before.png`.
 - **New Header reference:** `uploads/Screenshot_۲۰۲۶-۰۸-۱۴-۰۶-۵۶-۵۲-۵۸۲_com.android.chrome-edit.jpg`.
@@ -90,6 +87,15 @@ This rule supersedes every earlier interpretation of full-header Sticky behavior
 17. Visual acceptance requires rendered Chrome audits at 1440×1050 and 430×932, unique Drawer ID, no horizontal overflow, contained logo, hidden duplicate Top Bar logo, hidden Mobile nav stage, and a pinned Desktop navigation rail.
 18. The existing second `.header-capsule` has its own scoped glass palette: Main `#0D0510`, Card `#1C1024`, Glass `rgba(33,20,38,.75)`, Gold `#D49A2E`, Light Gold `#E8B84A`, Text `#F5F3F0`, Muted `#C8C2C9`, Blur 24px. Cart/Account/Logo/Hamburger Nodes remain unchanged.
 19. Top Bar physical order follows the new reference: Support at left, shipping/export Message at center, Phone at right. Desktop capsule expands to 1360px, Logo shifts left and the real menu occupies the right section; Mobile remains two rows with no separate Navigation.
+20. The deep purple glass override block was removed from `frontend-header.css` during 3.10.19 preparation (owner decision, 2026-08-21). The approved Burgundy/Gold palette is the single Header palette for both the legacy bridge and the fallback renderer. Enforced by the header palette guard in `scripts/build_release.py`, which runs in every push and tag job: approved tokens must be present and purple tokens absent.
+21. Mega menu scope (owner-approved, 2026-08-21): legacy dropdown/mega-menu markup is never rebuilt or re-registered; it receives the approved luxury Burgundy glass (`rgba(28,16,36,.97)` → `rgba(13,5,16,.98)`, 22px blur, gold border, 3-column grid) through plugin-scoped CSS only, and its palette stays managed in the Boutique Header panel.
+22. Luxury text alignment (2026-08-21, owner image.png): Top Bar message is now `ارسال رایگان به بیش از ۱۵ کشور جهان`, logo wordmark `آلوخور` + subtitle `پایتخت تولید آلو خشک ایران`, phone `09159513173`; enforced by migration `header_luxury_text_31019` (prio 123) and defaults in `site.json` + `alookhor-control-center.php`.
+28. Right White Margin Fix (2026-08-21): right gap was `calc(50% - 50vw)` with `left:auto` + scrollbar 100vw overflow — now `left:50% right:50% margin:-50vw` + `html overflow-x:hidden` + `body padding-right:0` + wrapper max-width none — both sides edge-to-edge.
+27. White Margins Fix (2026-08-21): left/right/bottom white gaps removed via `html:has(.alookhor-mf)` background var(--mf-bg), `100vw` breakout, zero bottom margin/padding — site is now edge-to-edge, no white borders.
+26. True Full-Width Fix (2026-08-21): desktop footer is now edge-to-edge 100vw (`shell width:100% max-width:none border-radius:0`) with 24px inner breathing room — truly full-width, not centered boxed.
+25. Full-Width Footer (2026-08-21): `.alookhor-mf` is now `16px 24px` outer + `1360px/48px` inner shell (desktop) and `12px 12px` + `500px` centered mobile — breathing room, not edge-stuck; mobile is 2-col pro with pill cards, full-width contact, 72px toolbar respect — scoped, no overflow.
+24. Owner Burgundy & Gold exact code (2026-08-21, owner HTML/CSS): header is now exactly `alookhor-header-wrapper` with `#3b0910/#270408` and `#d4af37` palette, 650px 3-col mega, sticky wrapper — owner code is single source, WordPress menu injected, legacy HTML hidden.
+23. No-gap sticky capsule + image-exact mega-menu (2026-08-21, owner samples 2-3): empty top gap removed via `:has()` resets, main capsule is now `position:sticky` (admin-bar aware), mega-menu is 920px `220px promo + 3 columns` with injected luxury promo card (image + title + gold button) — pure CSS/JS, no markup rebuild. Top Bar message is now `ارسال رایگان به بیش از ۱۵ کشور جهان`, logo wordmark `آلوخور` + subtitle `پایتخت تولید آلو خشک ایران`, phone `09159513173`; enforced by migration `header_luxury_text_31019` (prio 123) and defaults in `site.json` + `alookhor-control-center.php`.
 
 ## Managed Hero contract
 
