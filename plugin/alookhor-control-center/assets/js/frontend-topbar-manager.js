@@ -57,6 +57,20 @@
   const topbarSelector = '[class*="topbar" i],[class*="top-bar" i],[class*="top_bar" i]';
   const clamp = (value, min, max, fallback) => Math.max(min, Math.min(max, Number(value) || fallback));
 
+  function reconcileOwnerReferenceHeader(scope=document){
+    const portal=document.querySelector('.alookhor-portal-header');
+    if(portal){
+      document.querySelectorAll('.alookhor-header-wrapper').forEach(wrapper=>{
+        const legacyRoot=wrapper.closest('.alookhor-managed-legacy-header');
+        if(legacyRoot&&!legacyRoot.contains(portal))legacyRoot.remove();
+        else wrapper.remove();
+      });
+    }
+    const root=scope===document?document.body:scope;if(!root||!root.isConnected)return;
+    const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);const nodes=[];while(walker.nextNode())nodes.push(walker.currentNode);
+    nodes.forEach(node=>{if(/\[\s*alookhor_premium_header\s*\]/i.test(node.nodeValue||''))node.nodeValue=(node.nodeValue||'').replace(/\[\s*alookhor_premium_header\s*\]/ig,'')});
+  }
+
   function setupHeaderBehavior(root) {
     const topbar = root.querySelector('.alookhor-topbar-wrapper');
     const header = root.querySelector('.alookhor-header');
@@ -433,7 +447,7 @@
   // Begin the fresh read while <head> is still being parsed. MutationObserver
   // hides any stale legacy Top Bar that arrives before this promise resolves.
   refreshFromWordPress();
-  const start = () => init();
+  const start = () => { reconcileOwnerReferenceHeader(); init(); };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start, {once:true});
   else start();
 
@@ -441,6 +455,7 @@
     for (const mutation of mutations) {
       for (const node of mutation.addedNodes) {
         if (!(node instanceof Element)) continue;
+        reconcileOwnerReferenceHeader(node);
         if (node.matches?.('.alookhor-managed-legacy-header')) manage(node);
         else init(node);
       }

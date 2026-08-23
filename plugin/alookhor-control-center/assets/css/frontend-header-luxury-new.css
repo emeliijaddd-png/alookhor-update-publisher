@@ -182,3 +182,7 @@ body.admin-bar .alookhor-header-wrapper{top:32px}
 .alookhor-legacy-nav-marker,.alookhor-legacy-nav-stage{display:none!important}
 .alookhor-managed-legacy-header .alookhor-topbar-wrapper,.alookhor-managed-legacy-header .alookhor-header{position:relative!important}
  /* is-capsule-integrated:not(.is-stuck) top:-90px!important padding:0 96px 0 560px max-width:1360px grid-template-areas:"support message phone" */
+
+/* 3.10.57 — the source-backed Portal owns the single Header. This rule lives
+   in the asset that demonstrably styles the external wrapper on Production. */
+body:has(.alookhor-portal-header) .alookhor-header-wrapper{display:none!important;height:0!important;min-height:0!important;margin:0!important;padding:0!important;overflow:hidden!important}
