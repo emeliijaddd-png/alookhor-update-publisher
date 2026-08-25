@@ -17,6 +17,117 @@ APP_PASSWORD = os.environ['WP_APP_PASSWORD'].strip()
 REPORT_PATH = Path(os.environ.get('WP_REPORT_PATH', '/tmp/wordpress-report.json'))
 AUTH = base64.b64encode(f'{USERNAME}:{APP_PASSWORD}'.encode()).decode()
 
+# ——— Self-healing auth resolution (v3.10.59) ———
+# WP displays application passwords in spaced 4-char groups; if a secret is
+# pasted with whitespace/newlines, the spaced variant fails while the stripped
+# one works. Try safe variants (read-only GETs) and remember which one works.
+# Secrets are never printed anywhere: only variant *names* are reported.
+_AUTH_RESOLVED = {'value': None, 'variant': None}
+AUTH_PROBES = []
+
+
+def _b64(user, password):
+    return base64.b64encode(f'{user}:{password}'.encode()).decode()
+
+
+def resolve_auth():
+    if _AUTH_RESOLVED['value'] is not None:
+        return _AUTH_RESOLVED['value']
+    user_variants = []
+    for candidate in (USERNAME, re.sub(r'\s+', '', USERNAME)):
+        if candidate and candidate not in user_variants:
+            user_variants.append(candidate)
+    password_variants = []
+    for candidate in (APP_PASSWORD, re.sub(r'\s+', '', APP_PASSWORD)):
+        if candidate and candidate not in password_variants:
+            password_variants.append(candidate)
+    for user in user_variants:
+        for password in password_variants:
+            variant = ('user_stripped;' if user != USERNAME else '') + ('password_stripped' if password != APP_PASSWORD else 'default')
+            try:
+                probe_auth('/wp-json/alookhor-cc/v1/status', _b64(user, password), record=False)
+            except Exception:
+                continue
+            _AUTH_RESOLVED['value'] = _b64(user, password)
+            _AUTH_RESOLVED['variant'] = variant
+            AUTH_PROBES.append({'probe': 'self_heal_auth', 'variant': variant, 'result': 'accepted'})
+            return _AUTH_RESOLVED['value']
+    AUTH_PROBES.append({'probe': 'self_heal_auth', 'variant': 'all_four', 'result': 'rejected'})
+    return AUTH
+
+
+def active_auth():
+    return _AUTH_RESOLVED['value'] or resolve_auth()
+
+
+def probe_auth(path, token, record=True, note=''):
+    """Read-only GET with an explicit Basic token; returns (http, wp_code)."""
+    request = Request(
+        BASE + path,
+        headers={
+            'Authorization': f'Basic {token}',
+            'Accept': 'application/json',
+            'User-Agent': 'ALOOKHOR-GitHub-Publisher/1.0',
+        },
+    )
+    http_status = None
+    wp_code = ''
+    try:
+        with urlopen(request, timeout=30) as response:
+            http_status = response.status
+            data = response.read().decode(errors='replace')
+    except HTTPError as error:
+        http_status = error.code
+        data = error.read().decode(errors='replace')
+    try:
+        wp_code = str(json.loads(data).get('code') or '')
+    except Exception:
+        wp_code = ''
+    if record:
+        entry = {'http': http_status, 'wp_code': wp_code}
+        if note:
+            entry['note'] = note
+        AUTH_PROBES.append(entry)
+    if http_status != 200:
+        raise RuntimeError(f'HTTP {http_status} for {path}: {data[:300]}')
+    return http_status, json.loads(data)
+
+
+def diagnose_auth_failure():
+    """Read-only probes that identify WHY application-password auth fails."""
+    diagnostics = {'probes': AUTH_PROBES}
+    try:
+        request = Request(BASE + '/wp-json/', headers={'Accept': 'application/json', 'User-Agent': 'ALOOKHOR-GitHub-Publisher/1.0'})
+        with urlopen(request, timeout=30) as response:
+            index = json.loads(response.read().decode(errors='replace'))
+        routes = '\n'.join(sorted(index.get('routes', {}).keys())) if isinstance(index, dict) else ''
+        namespaces = index.get('namespaces', []) if isinstance(index, dict) else []
+        diagnostics['rest_index'] = {'http': 200, 'native_namespace': 'alookhor-cc/v1' in namespaces, 'bootstrap_namespace': 'alookhor-ci/v1' in namespaces}
+    except Exception as error:
+        diagnostics['rest_index'] = {'error': str(error)[:240]}
+    try:
+        request = Request(BASE + '/wp-json/alookhor-cc/v1/topbar?diag=1', headers={'Accept': 'application/json', 'User-Agent': 'ALOOKHOR-GitHub-Publisher/1.0'})
+        with urlopen(request, timeout=30) as response:
+            public_topbar = json.loads(response.read().decode(errors='replace'))
+        diagnostics['live_plugin_version'] = str(public_topbar.get('version') or '')
+    except Exception as error:
+        diagnostics['live_plugin_version_error'] = str(error)[:240]
+    # Key discriminator: a deliberately wrong password for the REAL username.
+    #   invalid_username   -> WP_USERNAME itself does not exist on the site
+    #   incorrect_password -> user exists; the password value is the problem
+    try:
+        probe_auth('/wp-json/alookhor-cc/v1/status', _b64(USERNAME, 'alookhor-diagnostic-invalid-password'), record=False)
+        diagnostics['wrong_password_probe'] = {'unexpected': 'accepted'}
+    except Exception as error:
+        match = re.search(r'"code":"([a-z_]+)"', str(error))
+        diagnostics['wrong_password_probe'] = {'wp_code': match.group(1) if match else '', 'raw': str(error)[:240]}
+    diagnostics['conclusion'] = (
+        'username_mismatch' if str(diagnostics.get('wrong_password_probe', {}).get('wp_code')) == 'invalid_username'
+        else 'password_value_mismatch' if str(diagnostics.get('wrong_password_probe', {}).get('wp_code')) == 'incorrect_password'
+        else 'unknown'
+    )
+    return diagnostics
+
 
 def request_json(path, method='GET', payload=None, allow=(200,)):
     body = json.dumps(payload).encode() if payload is not None else None
@@ -25,7 +136,7 @@ def request_json(path, method='GET', payload=None, allow=(200,)):
         data=body,
         method=method,
         headers={
-            'Authorization': f'Basic {AUTH}',
+            'Authorization': f'Basic {active_auth()}',
             'Accept': 'application/json',
             'Content-Type': 'application/json',
             'User-Agent': 'ALOOKHOR-GitHub-Publisher/1.0',
@@ -44,7 +155,11 @@ def request_json(path, method='GET', payload=None, allow=(200,)):
         raise RuntimeError(f'HTTP {error.code} for {path}: {data[:800]}') from error
 
 
+LAST_DIAGNOSTICS = None
+
+
 def get_pre_update_status():
+    global LAST_DIAGNOSTICS
     try:
         _, data = request_json('/wp-json/alookhor-cc/v1/status')
         return 'native', data
@@ -53,6 +168,7 @@ def get_pre_update_status():
             _, data = request_json('/wp-json/alookhor-ci/v1/status')
             return 'bootstrap', data
         except Exception as bootstrap_error:
+            LAST_DIAGNOSTICS = diagnose_auth_failure()
             raise RuntimeError(f'No authenticated ALOOKHOR status endpoint. Native: {native_error}; Bootstrap: {bootstrap_error}')
 
 
@@ -258,9 +374,15 @@ try:
 except Exception as error:
     report['ok'] = False
     report['error'] = str(error)
+    report['auth'] = {
+        'variant': _AUTH_RESOLVED['variant'] or 'unresolved',
+        'probes': AUTH_PROBES,
+        'diagnostics': LAST_DIAGNOSTICS,
+    }
     REPORT_PATH.write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n')
     print(json.dumps(report, ensure_ascii=False, indent=2))
     raise
 else:
+    report['auth'] = {'variant': _AUTH_RESOLVED['variant'] or 'unresolved'}
     REPORT_PATH.write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n')
     print(json.dumps(report, ensure_ascii=False, indent=2))
