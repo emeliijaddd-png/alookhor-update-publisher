@@ -322,7 +322,33 @@ function alookhor_ajax_save_header_wp(){
     $data['logo_text'] = sanitize_text_field(wp_unslash($_POST['logo_text'] ?? ($current['logo_text'] ?? 'ALOOKHOR')));
     $data['logo_sub'] = sanitize_text_field(wp_unslash($_POST['logo_sub'] ?? ($current['logo_sub'] ?? 'Control Center • Luxury')));
     $data['logo_letter'] = sanitize_text_field(wp_unslash($_POST['logo_letter'] ?? ($current['logo_letter'] ?? 'A')));
-    $data['search_placeholder'] = sanitize_text_field(wp_unslash($_POST['search_placeholder'] ?? ($current['search_placeholder'] ?? 'جستجوی محصول…')));
+
+    // === AKX-specific fields (only write when present in $_POST) ===
+    if (isset($_POST['enabled'])) {
+        $data['enabled'] = (bool) wp_unslash($_POST['enabled']);
+    }
+    if (isset($_POST['logo_id'])) {
+        $data['logo_id'] = absint($_POST['logo_id']);
+    }
+    if (array_key_exists('logo_url', $_POST)) {
+        $data['logo_url'] = esc_url_raw(wp_unslash($_POST['logo_url']));
+    }
+    if (isset($_POST['logo_width'])) {
+        $data['logo_width'] = max(40, min(180, absint($_POST['logo_width'])));
+    }
+    if (array_key_exists('whatsapp_number', $_POST)) {
+        $data['whatsapp_number'] = preg_replace('/\D+/', '', (string) wp_unslash($_POST['whatsapp_number']));
+    }
+    if (array_key_exists('brand_name', $_POST)) {
+        $data['brand_name'] = sanitize_text_field(wp_unslash($_POST['brand_name']));
+    }
+    if (array_key_exists('brand_subtitle', $_POST)) {
+        $data['brand_subtitle'] = sanitize_text_field(wp_unslash($_POST['brand_subtitle']));
+    }
+    if (array_key_exists('search_placeholder', $_POST)) {
+        $data['search_placeholder'] = sanitize_text_field(wp_unslash($_POST['search_placeholder']));
+    }
+
     if (isset($_POST['gold'])) {
         $data['gold'] = sanitize_hex_color(wp_unslash($_POST['gold'])) ?: ($current['gold'] ?? '#D49A2E');
     } elseif (empty($data['gold'])) {

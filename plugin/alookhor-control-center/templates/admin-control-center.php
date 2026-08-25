@@ -349,10 +349,9 @@
       el.addEventListener('click', function(){
         var mod = el.getAttribute('data-module');
         if(mod==='settings'){
-          // تنظیمات را با PHP رندر شده نشان بده — اسکرول به بخش تنظیمات اگر وجود دارد
-          var fallback = document.getElementById('alookhor-fallback-settings');
-          if(fallback) fallback.style.display='block';
-          alert('تنظیمات بوتیک — نسخه Fallback: لطفاً کش را پاک کنید (Ctrl+Shift+R) یا افزونه را دوباره فعال کنید. اگر باز هم نشد، فایل /wp-content/plugins/alookhor-control-center/assets/js/app.js را چک کنید که ES Modules پشتیبانی می‌شود.');
+          // ماژول settings در assets/js/modules/settings.js پیاده‌سازی شده است.
+          // (اگر روزی المان Fallback نیاز شد، id یکتا تعریف و dispatch کن.)
+          alert('تنظیمات بوتیک — لطفاً کش را پاک کنید (Ctrl+Shift+R) یا افزونه را دوباره فعال کنید.');
         } else if(mod==='update'){
           var m = document.getElementById('updateModal');
           if(m) m.classList.add('show');

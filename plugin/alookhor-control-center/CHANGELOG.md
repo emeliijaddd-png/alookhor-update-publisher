@@ -1,5 +1,11 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.65 — 2026-08-25 — Boutique Header Settings (۱۴ فیلد AKX) inside Control Center
+- HEADER: تنظیمات هدر حرفه‌ای (۱۴ فیلد AKX: enabled, logo_id/url/width, wholesale, export, whatsapp, phone, email, brand, search_placeholder) در بخش بوتیک داخل صفحه اصلی Control Center — نه submenu جداگانه. Source of Truth: `alookhor_header_settings`.
+- ADMIN: alookhor_ajax_save_header_wp extended برای ۷ فیلد جدید AKX در حالی که رفتار Legacy ۳۰+ فیلدی دست‌نخورده باقی می‌ماند.
+- FIX: Dead reference `alookhor-fallback-settings` در template JS که console warning بی‌صدا تولید می‌کرد رفع شد.
+- BACKWARD: هیچ submenu جدید اضافه نشد، رفتار Legacy و migrations بدون تغییر.
+
 ## v3.10.63 — 2026-08-25 — AKX Mega Menu HTML Restored (v3.10.62 fix)
 - FIX: بازسازی دقیق HTML مگامنوی تب «محصولات» با ۴ ستون (۳ دسته + promo card بسته‌بندی صادراتی). wp_nav_menu از فراخوانی حذف شد چون با ساختار سفارشی مگامنو ناسازگار بود و تب محصولات را حذف می‌کرد.
 - FIX: CSS مربوط به `.sub-menu` که با `.akx-mega-menu` تداخل داشت حذف شد.

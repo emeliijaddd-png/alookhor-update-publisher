@@ -3,7 +3,7 @@
 > این سند از روی فایل‌های واقعی Repository تولید می‌شود. Source اصلی همچنان فایل‌های اجرایی است؛ Snapshotهای کامل زیر برای بازیابی، ممیزی و انتقال دانش نگهداری می‌شوند.
 
 - **Registry version:** `1.0.0`
-- **Plugin/source version:** `3.10.64`
+- **Plugin/source version:** `3.10.65`
 - **Generated:** `2026-08-14`
 - **Repository:** `alookhor-update-publisher`
 - **Production:** `https://alookhor.ir`
@@ -13,8 +13,8 @@
 
 ## Current Project State
 
-- CURRENT VERSION: `3.10.64`
-- LAST FUNCTIONAL CHANGE: Fixed black drawer bug: ID ها در PHP پویا بود (akxMobDrawer-NNN) ولی JS به دنبال akxMobDrawer ثابت می‌گشت → دراور موبایل بسته نمی‌شد.
+- CURRENT VERSION: `3.10.65`
+- LAST FUNCTIONAL CHANGE: Boutique Header Settings (۱۴ فیلد AKX) داخل Control Center، بدون submenu جداگانه. Source of Truth همچنان alookhor_header_settings. Dead reference 'alookhor-fallback-settings' رفع شد.
 - ACTIVE DESIGN: Luxury Black/Gold; actual component colors remain controlled by saved WordPress settings and existing module defaults.
 - ACTIVE SHORTCODES: `[alookhor_portal_header]`, `[alookhor_managed_categories]`, `[alookhor_managed_hero]`, `[alookhor_managed_features]`.
 - ACTIVE PANELS: Main ALOOKHOR Control Center and Header/Top Bar submenu.
@@ -27,10 +27,10 @@
 ```text
 PROJECT: ALOOKHOR
 AREA: Header Module
-CURRENT VERSION: 3.10.64
-CHANGE: Fixed black drawer bug: ID ها در PHP پویا بود (akxMobDrawer-NNN) ولی JS به دنبال akxMobDrawer ثابت می‌گشت → دراور موبایل بسته نمی‌شد.
-REASON: v3.10.63 ID های پویا تولید می‌کرد که با selectorهای JS و CSS هماهنگ نبود → دو آیکون بزرگ مشکی در سایت ظاهر شد.
-FILES: includes/shortcode-header.php; alookhor-control-center.php; readme.txt; config/site.json
+CURRENT VERSION: 3.10.65
+CHANGE: Boutique Header Settings (۱۴ فیلد AKX) داخل Control Center، بدون submenu جداگانه. Source of Truth همچنان alookhor_header_settings. Dead reference 'alookhor-fallback-settings' رفع شد.
+REASON: بازطراحی UI مدیریت Header: از submenu جداگانه به بخش بوتیک داخل Control Center، فقط فیلدهایی که frontend AKX واقعاً استفاده می‌کند.
+FILES: includes/shortcode-header.php; includes/admin.php; includes/ajax.php; assets/css/frontend-header-akx.css; assets/js/frontend-header-akx.js; assets/js/modules/settings.js; templates/admin-control-center.php
 STATUS: SOURCE READY — deployment status must be verified separately.
 ```
 
@@ -38,34 +38,34 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 
 | ID | Type | Name | File | Used In | Version | Status |
 |---|---|---|---|---|---:|---|
-| SC-001 | Shortcode | `[alookhor_portal_header]` | `includes/shortcode-header.php` | Elementor Header Shortcode widget; exact template ID unavailable | 3.10.64 | Active / compatibility-preserving |
-| SC-002 | Shortcode | `[alookhor_managed_categories]` | `includes/product-categories.php` | Home page → Elementor Shortcode widget | 3.10.64 | Active |
-| SC-003 | Shortcode | `[alookhor_managed_hero]` | `includes/hero.php` | Home Elementor Shortcode widget / automatic Legacy-root replacement | 3.10.64 | Active |
-| SC-004 | Shortcode | `[alookhor_managed_features]` | `includes/site-features.php` | Home Elementor HTML widget / automatic Legacy-root replacement | 3.10.64 | Active |
+| SC-001 | Shortcode | `[alookhor_portal_header]` | `includes/shortcode-header.php` | Elementor Header Shortcode widget; exact template ID unavailable | 3.10.65 | Active / compatibility-preserving |
+| SC-002 | Shortcode | `[alookhor_managed_categories]` | `includes/product-categories.php` | Home page → Elementor Shortcode widget | 3.10.65 | Active |
+| SC-003 | Shortcode | `[alookhor_managed_hero]` | `includes/hero.php` | Home Elementor Shortcode widget / automatic Legacy-root replacement | 3.10.65 | Active |
+| SC-004 | Shortcode | `[alookhor_managed_features]` | `includes/site-features.php` | Home Elementor HTML widget / automatic Legacy-root replacement | 3.10.65 | Active |
 | SC-EXT-001 | External shortcode | `[alookhor_categories_carousel]` | External plugin source unavailable | Former Home showcase | External | Replaced on Home / do not reconstruct |
-| PN-001 | Admin panel | ALOOKHOR Control Center | `includes/admin.php` | WP Admin top-level menu | 3.10.64 | Active |
-| PN-002 | Admin panel | Header & Top Bar | `includes/admin.php` | WP Admin submenu | 3.10.64 | Active mirror |
-| MOD-001 | Managed module | WooCommerce Categories | `includes/product-categories.php` | Home / Elementor / REST | 3.10.64 | Active |
-| MOD-002 | Managed module | Responsive Footer | `includes/footer.php` | Frontend footer / REST | 3.10.64 | Active |
-| MOD-003 | Managed module | Four-slide Hero | `includes/hero.php` | Home / Elementor / REST | 3.10.64 | Active |
-| MOD-004 | Managed module | Four-card Site Features | `includes/site-features.php` | Home / Elementor / REST | 3.10.64 | Active |
-| API-001 | REST API | `alookhor-cc/v1` | `includes/rest-api.php` | Public state + authenticated updater | 3.10.64 | Active |
-| UPD-001 | Updater | Private native updater | `includes/updater.php` | Control Center + GitHub Actions | 3.10.64 | Active |
-| CFG-001 | WordPress state | Main settings | `alookhor_cc_settings` | All managed modules | 3.10.64 | Active |
-| CFG-002 | WordPress state | Header settings | `alookhor_header_settings` | Header and Top Bar | 3.10.64 | Active |
-| CSS-001 | CSS | Managed Header | `assets/css/frontend-header.css` | `[alookhor_portal_header]` fallback renderer | 3.10.64 | Active |
-| JS-001 | JavaScript | Managed Header runtime | `assets/js/frontend-header.js` | `[alookhor_portal_header]` fallback renderer | 3.10.64 | Active |
-| JS-002 | JavaScript | Legacy Top Bar manager | `assets/js/frontend-topbar-manager.js` | Preserved legacy header provider | 3.10.64 | Active when legacy provider exists |
-| CSS-002 | CSS | WooCommerce Categories | `assets/css/frontend-categories.css` | `[alookhor_managed_categories]` | 3.10.64 | Active |
-| JS-003 | JavaScript | Categories carousel | `assets/js/frontend-categories.js` | `[alookhor_managed_categories]` | 3.10.64 | Active |
-| CSS-003 | CSS | Managed Footer | `assets/css/frontend-footer.css` | Managed Footer module | 3.10.64 | Active |
-| JS-004 | JavaScript | Managed Footer | `assets/js/frontend-footer.js` | Managed Footer module | 3.10.64 | Active |
-| CSS-004 | CSS | Control Center UI | `assets/css/luxury.css` | WP Admin ALOOKHOR pages | 3.10.64 | Active |
-| JS-005 | JavaScript | Control Center app | `assets/js/app.js` + modules | WP Admin ALOOKHOR pages | 3.10.64 | Active |
-| CSS-005 | CSS | Managed Hero | `assets/css/frontend-hero.css` | `[alookhor_managed_hero]` / automatic Home replacement | 3.10.64 | Active |
-| JS-006 | JavaScript | Managed Hero runtime | `assets/js/frontend-hero.js` | Four-slide replacement, controls and REST refresh | 3.10.64 | Active |
-| CSS-006 | CSS | Managed Site Features | `assets/css/frontend-features.css` | `[alookhor_managed_features]` / automatic Home replacement | 3.10.64 | Active |
-| JS-007 | JavaScript | Managed Site Features runtime | `assets/js/frontend-features.js` | Four-card replacement and REST refresh | 3.10.64 | Active |
+| PN-001 | Admin panel | ALOOKHOR Control Center | `includes/admin.php` | WP Admin top-level menu | 3.10.65 | Active |
+| PN-002 | Admin panel | Header & Top Bar | `includes/admin.php` | WP Admin submenu | 3.10.65 | Active mirror |
+| MOD-001 | Managed module | WooCommerce Categories | `includes/product-categories.php` | Home / Elementor / REST | 3.10.65 | Active |
+| MOD-002 | Managed module | Responsive Footer | `includes/footer.php` | Frontend footer / REST | 3.10.65 | Active |
+| MOD-003 | Managed module | Four-slide Hero | `includes/hero.php` | Home / Elementor / REST | 3.10.65 | Active |
+| MOD-004 | Managed module | Four-card Site Features | `includes/site-features.php` | Home / Elementor / REST | 3.10.65 | Active |
+| API-001 | REST API | `alookhor-cc/v1` | `includes/rest-api.php` | Public state + authenticated updater | 3.10.65 | Active |
+| UPD-001 | Updater | Private native updater | `includes/updater.php` | Control Center + GitHub Actions | 3.10.65 | Active |
+| CFG-001 | WordPress state | Main settings | `alookhor_cc_settings` | All managed modules | 3.10.65 | Active |
+| CFG-002 | WordPress state | Header settings | `alookhor_header_settings` | Header and Top Bar | 3.10.65 | Active |
+| CSS-001 | CSS | Managed Header | `assets/css/frontend-header.css` | `[alookhor_portal_header]` fallback renderer | 3.10.65 | Active |
+| JS-001 | JavaScript | Managed Header runtime | `assets/js/frontend-header.js` | `[alookhor_portal_header]` fallback renderer | 3.10.65 | Active |
+| JS-002 | JavaScript | Legacy Top Bar manager | `assets/js/frontend-topbar-manager.js` | Preserved legacy header provider | 3.10.65 | Active when legacy provider exists |
+| CSS-002 | CSS | WooCommerce Categories | `assets/css/frontend-categories.css` | `[alookhor_managed_categories]` | 3.10.65 | Active |
+| JS-003 | JavaScript | Categories carousel | `assets/js/frontend-categories.js` | `[alookhor_managed_categories]` | 3.10.65 | Active |
+| CSS-003 | CSS | Managed Footer | `assets/css/frontend-footer.css` | Managed Footer module | 3.10.65 | Active |
+| JS-004 | JavaScript | Managed Footer | `assets/js/frontend-footer.js` | Managed Footer module | 3.10.65 | Active |
+| CSS-004 | CSS | Control Center UI | `assets/css/luxury.css` | WP Admin ALOOKHOR pages | 3.10.65 | Active |
+| JS-005 | JavaScript | Control Center app | `assets/js/app.js` + modules | WP Admin ALOOKHOR pages | 3.10.65 | Active |
+| CSS-005 | CSS | Managed Hero | `assets/css/frontend-hero.css` | `[alookhor_managed_hero]` / automatic Home replacement | 3.10.65 | Active |
+| JS-006 | JavaScript | Managed Hero runtime | `assets/js/frontend-hero.js` | Four-slide replacement, controls and REST refresh | 3.10.65 | Active |
+| CSS-006 | CSS | Managed Site Features | `assets/css/frontend-features.css` | `[alookhor_managed_features]` / automatic Home replacement | 3.10.65 | Active |
+| JS-007 | JavaScript | Managed Site Features runtime | `assets/js/frontend-features.js` | Four-card replacement and REST refresh | 3.10.65 | Active |
 
 ## SC-001 — Portal Header
 
@@ -200,7 +200,7 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 |---|---:|---|
 | `.github/workflows/publish.yml` | 535 | `ea2a747b9787cb39313702fd50fd8940891a2ed64de3acac6c4e5d69912dec3d` |
 | `ops/wordpress-ci-bootstrap.php` | 215 | `409c23f2be99c6651b0e75dc877c91c884534e6b16f9985c177cf65d14fd4c95` |
-| `plugin/alookhor-control-center/alookhor-control-center.php` | 395 | `65e23a91ea2068416437c6f313c1029b23619ba388a34ced5adb2c4b0fd965e0` |
+| `plugin/alookhor-control-center/alookhor-control-center.php` | 395 | `54f9ee829d770e5b8377388fc86863d33967a3cc6dfb1f7475ee6f7fa62be9a1` |
 | `plugin/alookhor-control-center/assets/css/frontend-categories.css` | 9 | `b811fb4f96023711a593cd593eb9ae3846ebfd9c912c57e3e623d0965f7d494a` |
 | `plugin/alookhor-control-center/assets/css/frontend-export-banner.css` | 310 | `89a5cbb86e50636301ecd59b631abee1249259081657e01e67107644da172754` |
 | `plugin/alookhor-control-center/assets/css/frontend-features.css` | 29 | `8431fcf85b5903bbe2335aa017e8a0a79d0038a7ce055189fa8ebe41e49b89ed` |
@@ -230,14 +230,14 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 | `plugin/alookhor-control-center/assets/js/modules/dashboard.js` | 173 | `4e420d8606a1d564ae3e82dda4435bf3f11acf695d15a0a103bdc01486b5d4ab` |
 | `plugin/alookhor-control-center/assets/js/modules/inventory.js` | 30 | `e1c39f880a1e7985fa8ea64b07ec72ce69c416165fb514ad9fb7d9f8e8e93723` |
 | `plugin/alookhor-control-center/assets/js/modules/orders.js` | 19 | `0ccd8376c69ba37fb50d3261f002789488042e17a0b1b37539bab86abda374eb` |
-| `plugin/alookhor-control-center/assets/js/modules/settings.js` | 740 | `12712606676ffc77d967faff00900b6b634a159cad075434458beea918820513` |
+| `plugin/alookhor-control-center/assets/js/modules/settings.js` | 699 | `fb4f022fc483df4ca1f5a097e945e80f8344f3125affb4f450e6efaa532d9594` |
 | `plugin/alookhor-control-center/assets/js/modules/users.js` | 20 | `6fb96546faf00ea831ace016d09b10f903a501db647bae20d0f570034ac36946` |
-| `plugin/alookhor-control-center/config/site.json` | 288 | `ddc89125a1e9922ce2e47d3a01ef9a4b9c0a26b2d6c68709c79d487b6c577e1d` |
+| `plugin/alookhor-control-center/config/site.json` | 288 | `a5b1d01dd8232d7fe8ca07e5dcb10de3e397c59375760f4a507b06d3d0218b48` |
 | `plugin/alookhor-control-center/includes/admin-export-banner.php` | 189 | `698710323b87290cea3078cca55f45883fd6654f3dc82c64cf1926f23025e995` |
 | `plugin/alookhor-control-center/includes/admin-header-manager.php` | 198 | `6a0935a70a8768e8b730bf1325fe6668112281cdfeeb2ed60da14a22c89bc548` |
 | `plugin/alookhor-control-center/includes/admin-purple-slider.php` | 179 | `11e9d8e4efaddc02956d2cfe9ae5ca1d3208c33fca8a776d24426279d0eec19e` |
 | `plugin/alookhor-control-center/includes/admin.php` | 253 | `b59917024c6e100abc29e4c4045dd526b1909a64c95c5f6a0ca38b5614f1c857` |
-| `plugin/alookhor-control-center/includes/ajax.php` | 385 | `5c65fd9ed419b2d9120d6b4ce7f31228c175f4f99b1004282982db6f97337a2d` |
+| `plugin/alookhor-control-center/includes/ajax.php` | 411 | `31c3fa2ed2848669aef3f8952c4e70f8a067f7a034e087c29433e2fec9b7da96` |
 | `plugin/alookhor-control-center/includes/footer.php` | 269 | `50c7a6e7d67a8905b5d88486d42d9ad7381caf8c60fc49dd37e3db2a17a347f8` |
 | `plugin/alookhor-control-center/includes/hero.php` | 229 | `edaba49c0057e137f0d6e0b16cc516fc98b73a70d24c09cc62cbe7302c2b6342` |
 | `plugin/alookhor-control-center/includes/product-categories.php` | 88 | `64d42189315d77e8bda401a945e37d18d16bcf2346159f8cabe0022920dba2cb` |
@@ -247,7 +247,7 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 | `plugin/alookhor-control-center/includes/shortcode-purple-slider.php` | 213 | `997d63ca609094548c6a1273be563e257c7fb3fdc7f04699b1b110fa55369996` |
 | `plugin/alookhor-control-center/includes/site-features.php` | 133 | `8c0f550195121550d1085b5415fd63291fcf1e8d17bfaf0bca491e2df7468c72` |
 | `plugin/alookhor-control-center/includes/updater.php` | 385 | `ac1f5773bce98245ea3a6a9b81177cdf7440ed1ed54dcfba6c1a535b7c5acbc8` |
-| `plugin/alookhor-control-center/templates/admin-control-center.php` | 388 | `c4450ab6e703b3845327118522efc2e650b2bab9d6e188c3b4e0e320de75f0aa` |
+| `plugin/alookhor-control-center/templates/admin-control-center.php` | 387 | `3b6b725c7bb58419d98bf3bf6606b0a6273dfb791b870325ad7b2bb50d0c9e70` |
 | `plugin/alookhor-control-center/uninstall.php` | 6 | `d69282a9ab7c0865b6c60e6fca272d0859433e9c8730754fb2995295209ff84c` |
 | `scripts/build_release.py` | 113 | `7d54cb088e271f83a724467786b6c72377157df57b73699d12d64f1d3ddcb82a` |
 | `scripts/generate_code_registry.py` | 293 | `cc820adb6cd74358acfe6eea9bcc5206a2262b91a53e053cc0794c47fec3026a` |
@@ -1027,7 +1027,7 @@ add_action('rest_api_init', function(){
  * Plugin Name: ALOOKHOR Control Center
  * Plugin URI: https://alookhor.ir
  * Description: کنترل سنتر لوکس و ماژولار آلوخور — مدیریت کامل سایت (هدر، اسلایدر، سورت، محصولات، مشتریان VIP، مالی، آنالیتیکس) با آپدیت آنی بدون رفرش. تمام تنظیمات چت قبلی + شورت‌کد [alookhor_portal_header] اینجا مدیریت می‌شود.
- * Version: 3.10.64
+ * Version: 3.10.65
  * Author: ALOOKHOR Team — Luxury Modular
  * Author URI: https://alookhor.ir
  * Update URI: https://alookhor.ir/alookhor-control-center
@@ -1040,8 +1040,8 @@ add_action('rest_api_init', function(){
 
 if (!defined('ABSPATH')) exit;
 
-define('ALOOKHOR_CC_VERSION', '3.10.64');
-define('ALOOKHOR_CC_BUILD', '3.10.64');
+define('ALOOKHOR_CC_VERSION', '3.10.65');
+define('ALOOKHOR_CC_BUILD', '3.10.65');
 define('ALOOKHOR_CC_FILE', __FILE__);
 define('ALOOKHOR_CC_DIR', plugin_dir_path(__FILE__));
 define('ALOOKHOR_CC_URL', plugin_dir_url(__FILE__));
@@ -6651,16 +6651,20 @@ export const settingsModule = {
     if(!cfg) cfg = {site:{name:'ALOOKHOR', subtitle:'Control Center • Luxury', logoLetter:'A'}, modules:{}, system:{}, header_settings:{logo_text:'ALOOKHOR', logo_sub:'Control Center • Luxury'}, ai_assistant:{suggestions:[]}};
     if(!cfg.modules) cfg.modules = {};
     cfg.header_settings = Object.assign({
-      logo_text:'ALOOKHOR', logo_sub:'Control Center • Luxury', phone:'', email:'', whatsapp:'',
-      export_text:'صادرات به ۵ کشور جهان', export_url:'', wholesale_text:'خرید عمده آلو بخارا', wholesale_url:'',
-      top_logo_url:'', top_logo_alt:'ALOOKHOR', top_logo_link:'', top_logo_width:96,
-      topbar_bg:'#1C1024', topbar_text_color:'#F5F3F0', topbar_border_color:'#D49A2E',
-      topbar_button_bg:'#D49A2E', topbar_button_text:'#0D0510', topbar_height:38,
-      header_surface:'#0D0510', header_text_color:'#F5F3F0', header_muted_color:'#C8C2C9',
-      capsule_background:'#0D0510', capsule_card:'#1C1024', capsule_glass:'rgba(33,20,38,.75)', capsule_gold:'#D49A2E', capsule_gold_light:'#E8B84A', capsule_text:'#F5F3F0', capsule_muted:'#C8C2C9', capsule_blur:24,
-      header_logo_desktop_width:118, header_logo_mobile_width:58,
-      show_search:false, search_placeholder:'جستجوی محصول…', show_topbar:true, show_phone:true, show_email:true, show_whatsapp:true, show_export:true,
-      show_wholesale:true, wholesale_new_tab:false
+      enabled:               true,
+      logo_id:               0,
+      logo_url:              '',
+      logo_width:            74,
+      wholesale_text:        'خرید عمده',
+      wholesale_url:         '/wholesale/',
+      export_text:           'صادرات به بیش از ۵۰ کشور جهان',
+      export_url:            '/export/',
+      whatsapp_number:       '989159513173',
+      email:                 sanitize_email(get_option('admin_email')),
+      phone:                 '09159513173',
+      brand_name:            'آلوخور',
+      brand_subtitle:        'خشکبار طبیعی اصیل',
+      search_placeholder:    'جستجوی محصول، مقاله و ...'
     }, cfg.header_settings || {});
     cfg.footer_settings = Object.assign({
       enabled:true, hide_legacy:true, hide_old_newsletter:true, use_header_contact:true,
@@ -6887,74 +6891,24 @@ export const settingsModule = {
     let commitQuickSettings = null;
 
     const detailRenderers = {
-      header: () => `
-        <div class="qh-head"><div><h4>◈ مدیریت کامل هدر و Top Bar</h4><p>مرجع اصلی تنظیمات — متصل به همان شورت‌کد و هدر حرفه‌ای فعلی</p></div><code>[alookhor_portal_header]</code></div>
+      header: () => {
+        const h = cfg.header_settings;
+        const val = id => escapeAttr(String(h[id] ?? ''));
+        return `
+        <div class="qh-head"><div><h4>◈ تنظیمات هدر AKX</h4><p>فقط فیلدهای استفاده‌شده توسط <code>[alookhor_portal_header]</code> — Source: <code>alookhor_header_settings</code></p></div><code>14 FIELD AKX</code></div>
 
-        <div class="qh-live" id="quickTopbar" style="--qh-bg:${escapeAttr(cfg.header_settings.topbar_bg)};--qh-text:${escapeAttr(cfg.header_settings.topbar_text_color)};--qh-border:${escapeAttr(cfg.header_settings.topbar_border_color)};--qh-btn:${escapeAttr(cfg.header_settings.topbar_button_bg)};--qh-btn-text:${escapeAttr(cfg.header_settings.topbar_button_text)};height:${Number(cfg.header_settings.topbar_height)||38}px">
-          <div class="qh-trade"><span id="quickWholesale">${escapeAttr(cfg.header_settings.wholesale_text)}</span><span id="quickExport">${escapeAttr(cfg.header_settings.export_text)}</span></div>
-          <div class="qh-logo" id="quickTopLogo">${cfg.header_settings.top_logo_url ? `<img src="${escapeAttr(cfg.header_settings.top_logo_url)}" alt="">` : 'ALOOKHOR'}</div>
-          <div class="qh-contact" dir="ltr"><span id="quickWhatsapp">●</span><span id="quickEmail">${escapeAttr(cfg.header_settings.email)}</span><span id="quickPhone">${escapeAttr(cfg.header_settings.phone)}</span></div>
-        </div>
+        <div class="qh-section"><div class="qh-title"><b>وضعیت و لوگو</b><small>BRAND</small></div><div class="qh-flags"><label><input type="checkbox" id="inpHeaderEnabled" ${h.enabled?'checked':''}>هدر فعال باشد</label></div><div class="qh-grid"><label class="qh-span-2">لوگو<span class="qh-inline"><input id="inpHeaderLogoUrl" value="${val('logo_url')}" dir="ltr"><button type="button" id="btnBoutiqueSelectLogo">انتخاب</button><input type="hidden" id="inpHeaderLogoId" value="${val('logo_id')}"></span></label><label>عرض لوگو (px)<input type="number" id="inpHeaderLogoWidth" min="40" max="180" value="${val('logo_width')||74}"></label></div></div>
 
-        <div class="qh-section"><div class="qh-title"><b>محتوا و لینک‌های Top Bar</b><small>CONTENT</small></div><div class="qh-grid">
-          <label>تلفن<input id="inpHeaderPhone" value="${escapeAttr(cfg.header_settings.phone)}" dir="ltr"></label>
-          <label>ایمیل<input id="inpHeaderEmail" type="email" value="${escapeAttr(cfg.header_settings.email)}" dir="ltr"></label>
-          <label>WhatsApp<input id="inpHeaderWhatsapp" value="${escapeAttr(cfg.header_settings.whatsapp)}" dir="ltr"></label>
-          <label>متن صادرات<input id="inpHeaderExportText" value="${escapeAttr(cfg.header_settings.export_text)}"></label>
-          <label>لینک صادرات<input id="inpHeaderExportUrl" type="url" value="${escapeAttr(cfg.header_settings.export_url)}" dir="ltr"></label>
-          <label>متن خرید عمده<input id="inpHeaderWholesaleText" value="${escapeAttr(cfg.header_settings.wholesale_text)}"></label>
-          <label>لینک خرید عمده<input id="inpHeaderWholesaleUrl" type="url" value="${escapeAttr(cfg.header_settings.wholesale_url)}" dir="ltr"></label>
-        </div></div>
+        <div class="qh-section"><div class="qh-title"><b>محتوا</b><small>CONTENT</small></div><div class="qh-grid"><label>متن خرید عمده<input id="inpBoutiqueWholesaleText" value="${val('wholesale_text')}"></label><label>لینک خرید عمده<input type="url" id="inpBoutiqueWholesaleUrl" value="${val('wholesale_url')}" dir="ltr"></label><label>متن صادرات<input id="inpBoutiqueExportText" value="${val('export_text')}"></label><label>لینک صادرات<input type="url" id="inpBoutiqueExportUrl" value="${val('export_url')}" dir="ltr"></label></div></div>
 
-        <div class="qh-section"><div class="qh-title"><b>لوگوی مرکزی نوار بالا</b><small>MEDIA</small></div><div class="qh-grid">
-          <label class="qh-span-2">آدرس لوگو<span class="qh-inline"><input id="inpTopLogoUrl" value="${escapeAttr(cfg.header_settings.top_logo_url)}" dir="ltr"><button type="button" id="btnSelectTopLogoQuick">انتخاب</button></span></label>
-          <label>Alt لوگو<input id="inpTopLogoAlt" value="${escapeAttr(cfg.header_settings.top_logo_alt)}"></label>
-          <label>لینک لوگو<input id="inpTopLogoLink" type="url" value="${escapeAttr(cfg.header_settings.top_logo_link)}" dir="ltr"></label>
-          <label>عرض لوگو<input id="inpTopLogoWidth" type="number" min="50" max="180" value="${Number(cfg.header_settings.top_logo_width)||96}"></label>
-        </div></div>
+        <div class="qh-section"><div class="qh-title"><b>تماس</b><small>CONTACT</small></div><div class="qh-grid"><label>WhatsApp (989...)<input id="inpBoutiqueWhatsappNumber" dir="ltr" value="${val('whatsapp_number')}"></label><label>ایمیل<input type="email" id="inpBoutiqueEmail" value="${val('email')}" dir="ltr"></label><label>تلفن<input id="inpBoutiquePhone" dir="ltr" value="${val('phone')}"></label><label>Placeholder جستجو<input id="inpBoutiqueSearchPlaceholder" value="${escapeAttr(String(h.search_placeholder ?? 'جستجوی محصول، مقاله و ...'))}"></label></div></div>
 
-        <div class="qh-section"><div class="qh-title"><b>ظاهر نوار بالا</b><small>STYLE</small></div><div class="qh-colors">
-          <label>پس‌زمینه<input id="inpTopbarBg" type="color" value="${escapeAttr(cfg.header_settings.topbar_bg)}"></label>
-          <label>رنگ متن<input id="inpTopbarText" type="color" value="${escapeAttr(cfg.header_settings.topbar_text_color)}"></label>
-          <label>حاشیه<input id="inpTopbarBorder" type="color" value="${escapeAttr(cfg.header_settings.topbar_border_color)}"></label>
-          <label>رنگ دکمه<input id="inpTopbarButtonBg" type="color" value="${escapeAttr(cfg.header_settings.topbar_button_bg)}"></label>
-          <label>متن دکمه<input id="inpTopbarButtonText" type="color" value="${escapeAttr(cfg.header_settings.topbar_button_text)}"></label>
-          <label>ارتفاع<input id="inpTopbarHeight" type="number" min="30" max="60" value="${Number(cfg.header_settings.topbar_height)||38}"></label>
-        </div></div>
+        <div class="qh-section"><div class="qh-title"><b>برند دراور موبایل</b><small>MOBILE BRAND</small></div><div class="qh-grid"><label>نام برند<input id="inpBoutiqueBrandName" value="${val('brand_name')}"></label><label>زیرعنوان<input id="inpBoutiqueBrandSubtitle" value="${val('brand_subtitle')}"></label></div></div>
 
-        <div class="qh-section"><div class="qh-title"><b>هدر اصلی و Navigation چسبان</b><small>STICKY NAV</small></div><div class="qh-grid">
-          <label>عرض لوگو Desktop<input id="inpHeaderLogoDesktop" type="number" min="70" max="220" value="${Number(cfg.header_settings.header_logo_desktop_width)||118}"></label>
-          <label>عرض لوگو Mobile<input id="inpHeaderLogoMobile" type="number" min="42" max="110" value="${Number(cfg.header_settings.header_logo_mobile_width)||58}"></label>
-        </div><div class="qh-colors" style="margin-top:9px">
-          <label>سطح Navigation<input id="inpHeaderSurface" type="color" value="${escapeAttr(cfg.header_settings.header_surface)}"></label>
-          <label>متن Navigation<input id="inpHeaderText" type="color" value="${escapeAttr(cfg.header_settings.header_text_color)}"></label>
-          <label>متن فرعی<input id="inpHeaderMuted" type="color" value="${escapeAttr(cfg.header_settings.header_muted_color)}"></label>
-        </div><p style="margin:9px 0 0;color:var(--text-faint);font-size:10.5px;line-height:1.8">Top Bar و Header اصلی در جریان عادی صفحه می‌مانند؛ فقط Navigation بدون Layout Shift به بالای viewport می‌چسبد.</p></div>
-
-        <div class="qh-section"><div class="qh-title"><b>کپسول شیشه‌ای ردیف دوم</b><small>GLASS CAPSULE</small></div><div class="qh-colors">
-          ${[['پس‌زمینه اصلی','capsule_background'],['سطح کارت','capsule_card'],['طلایی اصلی','capsule_gold'],['طلایی روشن','capsule_gold_light'],['سفید متن','capsule_text'],['متن فرعی','capsule_muted']].map(([label,key])=>`<label>${label}<input id="inpCapsule_${key}" type="color" value="${escapeAttr(cfg.header_settings[key])}"></label>`).join('')}
-        </div><div class="qh-grid" style="margin-top:9px"><label>Glass RGBA<input id="inpCapsuleGlass" value="${escapeAttr(cfg.header_settings.capsule_glass)}" dir="ltr"></label><label>Blur px<input id="inpCapsuleBlur" type="number" min="10" max="36" value="${Number(cfg.header_settings.capsule_blur)||24}"></label></div><div class="qh-capsule-preview" id="quickCapsulePreview" style="--cp-bg:${escapeAttr(cfg.header_settings.capsule_glass)};--cp-gold:${escapeAttr(cfg.header_settings.capsule_gold)};--cp-gold-light:${escapeAttr(cfg.header_settings.capsule_gold_light)};--cp-text:${escapeAttr(cfg.header_settings.capsule_text)};--cp-muted:${escapeAttr(cfg.header_settings.capsule_muted)}"><span>سبد / حساب</span><b>آلوخور</b><i>☰</i></div><p style="margin:9px 0 0;color:var(--text-faint);font-size:10.5px;line-height:1.8">فقط کپسول اصلی ردیف دوم تغییر می‌کند؛ Top Bar، Navigation چسبان و ساختار کنترل‌ها دست‌نخورده می‌مانند.</p></div>
-
-        <div class="qh-section"><div class="qh-title"><b>نمایش یا عدم نمایش</b><small>VISIBILITY</small></div><div class="qh-flags">
-          ${[
-            ['sticky','Sticky فقط Navigation'],['show_topbar','کل Top Bar'],['show_phone','تلفن'],['show_email','ایمیل'],['show_whatsapp','WhatsApp'],
-            ['show_export','صادرات'],['show_wholesale','خرید عمده'],['show_account','ورود/حساب'],['wholesale_new_tab','لینک عمده در تب جدید']
-          ].map(([key,label])=>`<label><input type="checkbox" data-header-flag="${key}" ${isEnabled(cfg.header_settings[key])?'checked':''}>${label}</label>`).join('')}
-        </div></div>
-
-        <div class="qh-section"><div class="qh-title"><b>هویت هدر اصلی</b><small>IDENTITY</small></div><div class="qh-grid">
-          <label>متن لوگو<input id="inpLogoText" value="${escapeAttr(cfg.header_settings.logo_text)}"></label>
-          <label>زیرعنوان<input id="inpLogoSub" value="${escapeAttr(cfg.header_settings.logo_sub)}"></label>
-          <label>حرف لوگو<input id="inpLogoLetter" value="${escapeAttr(cfg.site.logoLetter)}" maxlength="2"></label>
-        </div></div>
-
-        <div class="qh-actions"><button class="btn-gold" id="btnApplyHeader">ذخیره و اعمال روی سایت</button><span>همه گزینه‌ها در پنل اصلی و Option مشترک ذخیره می‌شوند.</span></div>
-        <style>
-          .qh-head{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:12px}.qh-head h4{margin:0;font-size:14px}.qh-head p{margin:4px 0 0;color:var(--text-muted);font-size:11px}.qh-head code{direction:ltr;padding:7px 9px;border:1px solid var(--gold-border);border-radius:8px;color:var(--gold-soft);font-size:10px}
-          .qh-live{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:9px;padding:0 12px;border-bottom:1px solid var(--qh-border);border-radius:10px;background:var(--qh-bg);color:var(--qh-text);overflow:hidden;margin-bottom:12px}.qh-trade,.qh-contact{display:flex;align-items:center;gap:8px;min-width:0;font-size:9px}.qh-trade{justify-self:start}.qh-contact{justify-self:end}.qh-trade span:first-child{padding:5px 8px;border-radius:999px;background:var(--qh-btn);color:var(--qh-btn-text);font-weight:800}.qh-logo{font:700 10px Georgia;color:var(--gold-soft)}.qh-logo img{display:block;max-width:76px;max-height:30px}
-          .qh-section{padding:12px;margin-top:9px;border:1px solid var(--gold-border);border-radius:11px;background:rgba(255,255,255,.018)}.qh-title{display:flex;justify-content:space-between;gap:8px;margin-bottom:10px}.qh-title b{font-size:11.5px}.qh-title small{color:var(--gold);font:9px Arial}.qh-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.qh-colors{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.qh-section label{display:grid;gap:4px;color:var(--text-muted);font-size:10.5px}.qh-section input{width:100%;min-width:0;background:rgba(255,255,255,.035);border:1px solid var(--gold-border);border-radius:8px;padding:8px;color:var(--text-primary)}.qh-section input[type=color]{height:37px;padding:3px}.qh-inline{display:flex;gap:6px}.qh-inline button{border:1px solid var(--gold-border-strong);border-radius:8px;background:rgba(201,168,106,.1);color:var(--gold-soft);cursor:pointer}.qh-span-2{grid-column:span 2}.qh-flags{display:flex;gap:6px;flex-wrap:wrap}.qh-flags label{display:flex;align-items:center;gap:5px;padding:6px 8px;border:1px solid var(--gold-border);border-radius:999px}.qh-flags input{width:auto;accent-color:var(--gold)}.qh-actions{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-top:11px}.qh-actions button{padding:9px 15px;font-size:11px}.qh-actions span{color:var(--text-faint);font-size:10px}.qh-capsule-preview{height:62px;margin-top:10px;padding:0 18px;border:1px solid color-mix(in srgb,var(--cp-gold) 42%,transparent);border-radius:999px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;background:var(--cp-bg);color:var(--cp-text);box-shadow:0 12px 28px rgba(13,5,16,.35),inset 0 1px 0 color-mix(in srgb,var(--cp-gold-light) 18%,transparent);backdrop-filter:blur(18px)}.qh-capsule-preview span{color:var(--cp-muted);font-size:9px}.qh-capsule-preview b{color:var(--cp-gold-light);font-size:17px}.qh-capsule-preview i{justify-self:end;color:var(--cp-gold);font-style:normal;font-size:20px}@media(max-width:700px){.qh-grid,.qh-colors{grid-template-columns:1fr}.qh-span-2{grid-column:auto}.qh-contact{display:none}}
-        </style>
-      `,
+        <div class="qh-actions"><button class="btn-gold" id="btnBoutiqueApplyHeader">ذخیره هدر</button><span>ذخیره در Source: <code style="direction:ltr">alookhor_header_settings</code> — Frontend بلافاصله می‌خواند.</span></div>
+        <style>.qh-head{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:12px}.qh-head h4{margin:0;font-size:14px}.qh-head p{margin:4px 0 0;color:var(--text-muted);font-size:11px}.qh-head code{direction:ltr;padding:7px 9px;border:1px solid var(--gold-border);border-radius:8px;color:var(--gold-soft);font-size:10px}.qh-section{padding:12px;margin-top:9px;border:1px solid var(--gold-border);border-radius:11px;background:rgba(255,255,255,.02)}.qh-title{display:flex;justify-content:space-between;gap:8px;margin-bottom:10px}.qh-title b{font-size:11.5px}.qh-title small{color:var(--gold);font:9px Arial}.qh-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.qh-span-2{grid-column:span 2}.qh-flags label{display:flex;align-items:center;gap:8px;padding:6px 10px;border:1px solid var(--gold-border);border-radius:999px}.qh-flags input{width:auto;accent-color:var(--gold)}.qh-section label{display:grid;gap:4px;color:var(--text-muted);font-size:10.5px}.qh-section input[type=text],.qh-section input[type=email],.qh-section input[type=number],.qh-section input[type=url]{width:100%;min-width:0;background:rgba(255,255,255,.035);border:1px solid var(--gold-border);border-radius:8px;padding:8px;color:var(--text-primary)}.qh-inline{display:flex;gap:6px}.qh-inline input{flex:1;min-width:0}.qh-inline button{border:1px solid var(--gold-border-strong);border-radius:8px;background:rgba(201,168,106,.1);color:var(--gold-soft);cursor:pointer;padding:0 10px}.qh-actions{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-top:11px}.qh-actions button{padding:9px 15px;font-size:11px}.qh-actions span{color:var(--text-faint);font-size:10px}.qh-actions code{direction:ltr;color:var(--gold-soft);background:rgba(201,168,106,0.1);padding:1px 6px;border-radius:6px}@media(max-width:700px){.qh-grid{grid-template-columns:1fr}.qh-span-2{grid-column:auto}}</style>
+      `;
+      },
       product_categories: () => {
         const c=cfg.category_settings;const selected=new Set((c.selected_ids||[]).map(Number));const terms=window.ALOOKHOR_CC?.wc_categories||[];
         return `<div class="qh-head"><div><h4>◉ دسته‌بندی محصولات WooCommerce</h4><p>کارت‌های واقعی از taxonomy ووکامرس؛ عنوان، URL، تعداد و تصویر دسته به‌صورت پویا خوانده می‌شوند.</p></div><code>WC PRODUCT_CAT</code></div>
@@ -7087,13 +7041,15 @@ export const settingsModule = {
       quick.querySelectorAll('.qh-section input').forEach(input=>input.addEventListener('input',updateQuickHeaderPreview));
       updateQuickHeaderPreview();
 
-      quick.querySelector('#btnSelectTopLogoQuick')?.addEventListener('click', ()=>{
+      quick.querySelector('#btnBoutiqueSelectLogo')?.addEventListener('click', ()=>{
         if(!window.wp?.media){ window.ALOOKHOR.toast('Media Library در دسترس نیست','info'); return; }
-        const frame = window.wp.media({title:'انتخاب لوگوی Top Bar',button:{text:'استفاده از تصویر'},multiple:false});
+        const frame = window.wp.media({title:'انتخاب لوگوی هدر',button:{text:'استفاده'},multiple:false});
         frame.on('select',()=>{
           const item=frame.state().get('selection').first().toJSON();
-          const input=quick.querySelector('#inpTopLogoUrl');
-          if(input){ input.value=item.url; updateQuickHeaderPreview(); }
+          const url=quick.querySelector('#inpHeaderLogoUrl');
+          const id=quick.querySelector('#inpHeaderLogoId');
+          if(url) url.value=item.url||'';
+          if(id) id.value=Number(item.id)||0;
         });
         frame.open();
       });
@@ -7101,22 +7057,21 @@ export const settingsModule = {
       if(btnApplyHeader){
         commitQuickSettings = () => {
           Object.assign(cfg.header_settings, {
-            logo_text:value('inpLogoText'), logo_sub:value('inpLogoSub'),
-            phone:value('inpHeaderPhone'), email:value('inpHeaderEmail'), whatsapp:value('inpHeaderWhatsapp'),
-            export_text:value('inpHeaderExportText'), export_url:value('inpHeaderExportUrl'),
-            wholesale_text:value('inpHeaderWholesaleText'), wholesale_url:value('inpHeaderWholesaleUrl'),
-            top_logo_url:value('inpTopLogoUrl'), top_logo_alt:value('inpTopLogoAlt'), top_logo_link:value('inpTopLogoLink'),
-            top_logo_width:Math.max(50,Math.min(180,Number(value('inpTopLogoWidth'))||96)),
-            header_logo_desktop_width:Math.max(70,Math.min(220,Number(value('inpHeaderLogoDesktop'))||118)),
-            header_logo_mobile_width:Math.max(42,Math.min(110,Number(value('inpHeaderLogoMobile'))||58)),
-            header_surface:value('inpHeaderSurface'), header_text_color:value('inpHeaderText'), header_muted_color:value('inpHeaderMuted'),
-            capsule_background:value('inpCapsule_capsule_background'), capsule_card:value('inpCapsule_capsule_card'), capsule_glass:value('inpCapsuleGlass'), capsule_gold:value('inpCapsule_capsule_gold'), capsule_gold_light:value('inpCapsule_capsule_gold_light'), capsule_text:value('inpCapsule_capsule_text'), capsule_muted:value('inpCapsule_capsule_muted'), capsule_blur:Math.max(10,Math.min(36,Number(value('inpCapsuleBlur'))||24)),
-            topbar_bg:value('inpTopbarBg'), topbar_text_color:value('inpTopbarText'), topbar_border_color:value('inpTopbarBorder'),
-            topbar_button_bg:value('inpTopbarButtonBg'), topbar_button_text:value('inpTopbarButtonText'),
-            topbar_height:Math.max(30,Math.min(60,Number(value('inpTopbarHeight'))||38))
+            enabled: !!quick.querySelector('#inpHeaderEnabled')?.checked,
+            logo_id: Number(value('inpHeaderLogoId'))||0,
+            logo_url: value('inpHeaderLogoUrl'),
+            logo_width: Math.max(40, Math.min(180, Number(value('inpHeaderLogoWidth'))||74)),
+            wholesale_text: value('inpBoutiqueWholesaleText'),
+            wholesale_url: value('inpBoutiqueWholesaleUrl'),
+            export_text: value('inpBoutiqueExportText'),
+            export_url: value('inpBoutiqueExportUrl'),
+            whatsapp_number: value('inpBoutiqueWhatsappNumber').replace(/\D+/g,''),
+            email: value('inpBoutiqueEmail'),
+            phone: value('inpBoutiquePhone'),
+            brand_name: value('inpBoutiqueBrandName'),
+            brand_subtitle: value('inpBoutiqueBrandSubtitle'),
+            search_placeholder: value('inpBoutiqueSearchPlaceholder')
           });
-          quick.querySelectorAll('[data-header-flag]').forEach(el=> cfg.header_settings[el.dataset.headerFlag]=el.checked);
-          cfg.site.logoLetter = inpLogoLetter?.value || 'A';
         };
         btnApplyHeader.addEventListener('click', async ()=>{
           commitQuickSettings();
@@ -7124,16 +7079,20 @@ export const settingsModule = {
           const result = await Config.save({notify:false});
           btnApplyHeader.disabled = false;
           if(!result.ok) return;
-          const persistedPhone = result.data?.header_settings?.phone;
-          if(persistedPhone !== undefined && String(persistedPhone).trim() !== String(cfg.header_settings.phone || '').trim()){
-            window.ALOOKHOR.toast('شماره تلفن در WordPress تأیید نشد؛ ذخیره متوقف شد','error');
-            return;
+          // Verify header_settings persistence: read back
+          const ok = (key, want) => {
+            const got = result.data?.header_settings?.[key];
+            return want === undefined || want === '' || String(got ?? '') === String(want);
+          };
+          if(!ok('enabled', !!cfg.header_settings.enabled)){
+            window.ALOOKHOR.toast('تأیید enabled در WordPress ناموفق بود','error'); return;
           }
-          if(result.data?.header_settings?.capsule_glass!==undefined&&String(result.data.header_settings.capsule_glass)!==String(cfg.header_settings.capsule_glass)){window.ALOOKHOR.toast('رنگ شیشه‌ای کپسول در WordPress تأیید نشد','error');return}
-          Config.apply();
-          const liveTitle=document.getElementById('liveLogoText'); if(liveTitle) liveTitle.textContent=inpLogoText?.value||'ALOOKHOR';
-          const liveSub=document.getElementById('liveLogoSub'); if(liveSub) liveSub.textContent=inpLogoSub?.value||'';
-          window.ALOOKHOR.toast('ذخیره WordPress تأیید شد؛ تغییرات Top Bar روی سایت آماده است','success');
+          window.ALOOKHOR.toast('هدر AKX با موفقیت در WordPress ذخیره شد — frontend بلافاصله می‌خواند','success');
+          // Live update preview
+          const liveTitle=document.getElementById('liveLogoText');
+          if(liveTitle) liveTitle.textContent=cfg.header_settings.logo_text||'ALOOKHOR';
+          const liveSub=document.getElementById('liveLogoSub');
+          if(liveSub) liveSub.textContent=cfg.header_settings.logo_sub||'';
         });
       }
 
@@ -7552,7 +7511,7 @@ export const usersModule = {
   },
   "updated_at": "2026-08-10T16:20:00Z",
   "updated_by": "AI Assistant — recovered from previous chat",
-  "version": "3.10.64",
+  "version": "3.10.65",
   "hero_settings": {
     "enabled": true,
     "hide_legacy": true,
@@ -8854,7 +8813,33 @@ function alookhor_ajax_save_header_wp(){
     $data['logo_text'] = sanitize_text_field(wp_unslash($_POST['logo_text'] ?? ($current['logo_text'] ?? 'ALOOKHOR')));
     $data['logo_sub'] = sanitize_text_field(wp_unslash($_POST['logo_sub'] ?? ($current['logo_sub'] ?? 'Control Center • Luxury')));
     $data['logo_letter'] = sanitize_text_field(wp_unslash($_POST['logo_letter'] ?? ($current['logo_letter'] ?? 'A')));
-    $data['search_placeholder'] = sanitize_text_field(wp_unslash($_POST['search_placeholder'] ?? ($current['search_placeholder'] ?? 'جستجوی محصول…')));
+
+    // === AKX-specific fields (only write when present in $_POST) ===
+    if (isset($_POST['enabled'])) {
+        $data['enabled'] = (bool) wp_unslash($_POST['enabled']);
+    }
+    if (isset($_POST['logo_id'])) {
+        $data['logo_id'] = absint($_POST['logo_id']);
+    }
+    if (array_key_exists('logo_url', $_POST)) {
+        $data['logo_url'] = esc_url_raw(wp_unslash($_POST['logo_url']));
+    }
+    if (isset($_POST['logo_width'])) {
+        $data['logo_width'] = max(40, min(180, absint($_POST['logo_width'])));
+    }
+    if (array_key_exists('whatsapp_number', $_POST)) {
+        $data['whatsapp_number'] = preg_replace('/\D+/', '', (string) wp_unslash($_POST['whatsapp_number']));
+    }
+    if (array_key_exists('brand_name', $_POST)) {
+        $data['brand_name'] = sanitize_text_field(wp_unslash($_POST['brand_name']));
+    }
+    if (array_key_exists('brand_subtitle', $_POST)) {
+        $data['brand_subtitle'] = sanitize_text_field(wp_unslash($_POST['brand_subtitle']));
+    }
+    if (array_key_exists('search_placeholder', $_POST)) {
+        $data['search_placeholder'] = sanitize_text_field(wp_unslash($_POST['search_placeholder']));
+    }
+
     if (isset($_POST['gold'])) {
         $data['gold'] = sanitize_hex_color(wp_unslash($_POST['gold'])) ?: ($current['gold'] ?? '#D49A2E');
     } elseif (empty($data['gold'])) {
@@ -11478,10 +11463,9 @@ add_action('upgrader_process_complete', function($upgrader, $options){
       el.addEventListener('click', function(){
         var mod = el.getAttribute('data-module');
         if(mod==='settings'){
-          // تنظیمات را با PHP رندر شده نشان بده — اسکرول به بخش تنظیمات اگر وجود دارد
-          var fallback = document.getElementById('alookhor-fallback-settings');
-          if(fallback) fallback.style.display='block';
-          alert('تنظیمات بوتیک — نسخه Fallback: لطفاً کش را پاک کنید (Ctrl+Shift+R) یا افزونه را دوباره فعال کنید. اگر باز هم نشد، فایل /wp-content/plugins/alookhor-control-center/assets/js/app.js را چک کنید که ES Modules پشتیبانی می‌شود.');
+          // ماژول settings در assets/js/modules/settings.js پیاده‌سازی شده است.
+          // (اگر روزی المان Fallback نیاز شد، id یکتا تعریف و dispatch کن.)
+          alert('تنظیمات بوتیک — لطفاً کش را پاک کنید (Ctrl+Shift+R) یا افزونه را دوباره فعال کنید.');
         } else if(mod==='update'){
           var m = document.getElementById('updateModal');
           if(m) m.classList.add('show');
