@@ -1,8 +1,5 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
-## v3.10.64 — 2026-08-25 — AKX Drawer ID Fix (v3.10.63 regression)
-- FIX: PHP ID های dynamic (akxMobDrawer-NNN) به ثابت (akxMobDrawer, akxMobBackdrop, akxMobClose, akx-header) برگشت تا selectorهای JS و CSS match شوند. دراور موبایل اکنون به‌درستی بسته می‌شود.
-
 ## v3.10.63 — 2026-08-25 — AKX Mega Menu HTML Restored (v3.10.62 fix)
 - FIX: بازسازی دقیق HTML مگامنوی تب «محصولات» با ۴ ستون (۳ دسته + promo card بسته‌بندی صادراتی). wp_nav_menu از فراخوانی حذف شد چون با ساختار سفارشی مگامنو ناسازگار بود و تب محصولات را حذف می‌کرد.
 - FIX: CSS مربوط به `.sub-menu` که با `.akx-mega-menu` تداخل داشت حذف شد.
