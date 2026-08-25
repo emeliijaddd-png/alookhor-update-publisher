@@ -170,7 +170,7 @@ function alookhor_cc_render_akx_header() {
 
     ob_start();
     ?>
-<div id="<?php echo $instance_id; ?>" class="akx-header" dir="rtl" style="--akx-gold: <?php echo esc_attr($h['gold_color']); ?>; --akx-gold-light: <?php echo esc_attr($h['gold_light']); ?>;">
+<div id="<?php echo $instance_id; ?>" class="akx-header alookhor-portal-header" dir="rtl" style="--akx-gold: <?php echo esc_attr($h['gold_color']); ?>; --akx-gold-light: <?php echo esc_attr($h['gold_light']); ?>;">
   <!-- ===== TOPBAR ===== -->
   <div class="akx-topbar">
     <div class="akx-wrap akx-topbar-inner">
