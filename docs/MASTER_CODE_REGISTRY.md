@@ -205,7 +205,7 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 | `plugin/alookhor-control-center/assets/css/frontend-export-banner.css` | 310 | `89a5cbb86e50636301ecd59b631abee1249259081657e01e67107644da172754` |
 | `plugin/alookhor-control-center/assets/css/frontend-features.css` | 29 | `8431fcf85b5903bbe2335aa017e8a0a79d0038a7ce055189fa8ebe41e49b89ed` |
 | `plugin/alookhor-control-center/assets/css/frontend-footer.css` | 87 | `55055da4d7fbe8e95f9e318176362f0dacdb26f4ebdb3a4690ca3c2aafa0f534` |
-| `plugin/alookhor-control-center/assets/css/frontend-header-akx.css` | 754 | `e05bda392f846c2f00f99f4a006aa55700bcb6fdb8535494826e595b0ddcf510` |
+| `plugin/alookhor-control-center/assets/css/frontend-header-akx.css` | 762 | `5c0268f45d1d949bc7def1208fd9b971ea907ca742527fa8554ef42842f41d8e` |
 | `plugin/alookhor-control-center/assets/css/frontend-header-luxury-new.css` | 188 | `98f1056b6281e757fac56819bbec29fbd382ffddc950b933f4baea969886b983` |
 | `plugin/alookhor-control-center/assets/css/frontend-header-scroll.css` | 103 | `02fedf9f0c8feaf668ce3020d870ea9808690d71f0a30de1d2211610bed0ed0b` |
 | `plugin/alookhor-control-center/assets/css/frontend-header.css` | 357 | `261de9ba7f2385d39b5e706e8c6d85a357c3e77af8df809b05a6275c513caa1b` |
@@ -1884,16 +1884,22 @@ body:has(.alookhor-mf){padding-right:0!important}
   box-sizing: border-box !important;
 }
 
+/* Prevent horizontal scroll caused by edge-to-edge header breakout */
+html, body {
+  overflow-x: clip !important;
+}
+
 .akx-header {
-  width: 100vw !important;
-  max-width: 100vw !important;
-  margin-right: calc(50% - 50vw) !important;
-  margin-left: calc(50% - 50vw) !important;
   position: relative !important;
+  width: 100% !important;
+  max-width: 100% !important;
   z-index: 99999 !important;
   color: #fff !important;
   background: #17041f !important;
   direction: rtl !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
 }
 
 .akx-header a {
@@ -1911,7 +1917,8 @@ body:has(.alookhor-mf){padding-right:0!important}
 }
 
 .akx-header .akx-wrap {
-  width: min(1380px, 100%) !important;
+  width: 100% !important;
+  max-width: 1380px !important;
   margin: 0 auto !important;
   padding-right: 24px !important;
   padding-left: 24px !important;
@@ -1926,6 +1933,7 @@ body:has(.alookhor-mf){padding-right:0!important}
     radial-gradient(circle at 80% -80%, rgba(137, 39, 190, .34), transparent 35%),
     linear-gradient(90deg, #1a0527 0%, #2d0d4a 48%, #1c0629 100%);
   border-bottom: 1px solid rgba(212, 175, 55, .13);
+  overflow: hidden !important;
 }
 
 .akx-header .akx-topbar-inner {
