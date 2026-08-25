@@ -282,6 +282,81 @@ html, body {
   box-shadow: 0 0 9px rgba(234,192,53,.8);
 }
 
+/* ===== WordPress sub-menu (must be ABSOLUTE, not normal flow) ===== */
+.akx-header .akx-nav > ul > li > .sub-menu {
+  position: absolute !important;
+  top: 100% !important;
+  right: 0 !important;
+  z-index: 999999 !important;
+  min-width: 240px !important;
+  max-width: calc(100vw - 32px) !important;
+  display: none !important;
+  flex-direction: column !important;
+  list-style: none !important;
+  margin: 0 !important;
+  padding: 8px !important;
+  background: linear-gradient(180deg, rgba(28,16,36,.98), rgba(13,5,16,.98)) !important;
+  border: 1px solid rgba(212,175,55,.32) !important;
+  border-radius: 14px !important;
+  box-shadow: 0 18px 48px rgba(0,0,0,.55) !important;
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  overflow: visible !important;
+}
+
+.akx-header .akx-nav > ul > li:hover > .sub-menu,
+.akx-header .akx-nav > ul > li:focus-within > .sub-menu {
+  display: flex !important;
+}
+
+.akx-header .akx-nav > ul > li > .sub-menu > li {
+  list-style: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  position: relative !important;
+}
+
+.akx-header .akx-nav > ul > li > .sub-menu > li > a {
+  display: flex !important;
+  align-items: center !important;
+  min-height: 38px !important;
+  padding: 8px 14px !important;
+  color: rgba(255,255,255,.78) !important;
+  font-size: 12px !important;
+  white-space: nowrap !important;
+  border-radius: 9px !important;
+  transition: background .18s ease, color .18s ease !important;
+  text-decoration: none !important;
+}
+
+.akx-header .akx-nav > ul > li > .sub-menu > li > a:hover {
+  background: rgba(212,175,55,.12) !important;
+  color: #efcf56 !important;
+}
+
+/* Nested sub-menus (level 3) — open to the left in RTL */
+.akx-header .akx-nav > ul > li > .sub-menu .sub-menu {
+  position: absolute !important;
+  top: 0 !important;
+  right: 100% !important;
+  display: none !important;
+  flex-direction: column !important;
+  min-width: 200px !important;
+  background: linear-gradient(180deg, rgba(28,16,36,.98), rgba(13,5,16,.98)) !important;
+  border: 1px solid rgba(212,175,55,.32) !important;
+  border-radius: 14px !important;
+  padding: 8px !important;
+  list-style: none !important;
+  margin: 0 !important;
+  box-shadow: 0 18px 48px rgba(0,0,0,.55) !important;
+  z-index: 999999 !important;
+}
+
+.akx-header .akx-nav > ul > li > .sub-menu li:hover > .sub-menu,
+.akx-header .akx-nav > ul > li > .sub-menu li:focus-within > .sub-menu {
+  display: flex !important;
+}
+
 /* Tools */
 .akx-header .akx-tools {
   display: flex;
