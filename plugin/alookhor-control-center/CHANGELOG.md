@@ -1,5 +1,11 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.60 — 2026-08-25 — AKX Luxury Header Redesign + Admin Manager
+- HEADER: بازنویسی کامل هدر با طراحی جدید AKX (بنفش/طلایی) — نوار بالایی با خرید عمده و صادرات، دکمه واتساپ متحرک، کپسول ناوبری شیشه‌ای، دراور موبایل اپ-لایک.
+- ADMIN: صفحه اختصاصی «هدر حرفه‌ای» در Control Center با تنظیمات کامل لوگو (Media Library)، نوار بالایی (متن/لینک خرید عمده و صادرات، واتساپ، ایمیل، تلفن)، رنگ‌های بنفش/طلایی و متن برند دراور موبایل.
+- ASSETS: فایل‌های `frontend-header-akx.css` و `frontend-header-akx.js` برای استایل و تعاملات هدر جدید.
+- BACKWARD: هدر قبلی (`alookhor_portal_header`) با فعال‌سازی گزینه `enabled` در تنظیمات جدید جایگزین می‌شود.
+
 ## v3.10.59 — 2026-08-25 — Publisher Auth Self-Heal + 401 Diagnostics
 - PUBLISHER: اگر سکرت `WP_APP_PASSWORD` با فاصله/نیو‌لاین ذخیره شده باشد، پابلیشر گزینه‌ی نرمال‌شده را خودکار امتحان و در صورت پذیرفته‌شدن با همان ادامه می‌دهد (فقط GETهای امن).
 - DIAG: در صورت ادامه‌داربودن 401، تشخیص read-only دقیق ثبت می‌شود: `invalid_username` (نام‌کاربری غلط) در برابر `incorrect_password` (مقدار پسورد غلط/قفل نهاد امنیتی)، نسخه‌ی زنده‌ی افزونه از endpoint عمومی و وضعیت namespaceهای REST — بدون افشای هیچ سکرت.
