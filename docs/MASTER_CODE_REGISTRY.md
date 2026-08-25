@@ -253,7 +253,7 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 | `scripts/generate_code_registry.py` | 293 | `cc820adb6cd74358acfe6eea9bcc5206a2262b91a53e053cc0794c47fec3026a` |
 | `scripts/header_visual_audit.py` | 195 | `cfb3caec7aa5d08adbd3383a7accf02244ba09f866e0801de0fde5d874e144c9` |
 | `scripts/wordpress_access_check.py` | 529 | `6e2a1bce046c718c2ac58f05419b51d9163567c140de5fe5cc332ce3d6e1abd2` |
-| `scripts/wordpress_release_test.py` | 388 | `bb73444fd9b744ce793d10aab638cbe9104b6c0ee52725e5fc7b42ce130dc22b` |
+| `scripts/wordpress_release_test.py` | 388 | `1c34361e2ba6abd83077089af8c3fb57079426522bb159cc8db701643dfd6eb2` |
 
 # COMPLETE SOURCE SNAPSHOTS
 
@@ -12889,7 +12889,7 @@ try:
         homepage = response.read().decode(errors='replace')
     report['checks']['homepage_http'] = response.status == 200
     report['checks']['header_content'] = 'خرید عمده' in homepage and ('ALOOKHOR' in homepage or 'آلوخور' in homepage)
-    report['checks']['header_scroll_asset'] = (('frontend-header-scroll.css' in homepage and 'alookhor-managed-legacy-header' in homepage) or ('frontend-header.css' in homepage and 'alookhor-portal-header' in homepage))
+    report['checks']['header_scroll_asset'] = (('frontend-header-scroll.css' in homepage and 'alookhor-managed-legacy-header' in homepage) or ('frontend-header.css' in homepage and 'alookhor-portal-header' in homepage) or ('frontend-header-akx.css' in homepage and 'akx-header' in homepage))
 
     topbar_url = BASE + '/wp-json/alookhor-cc/v1/topbar?release_test=' + TARGET.replace('.', '')
     with urlopen(Request(topbar_url, headers={'Accept': 'application/json', 'Cache-Control': 'no-cache', 'User-Agent': 'ALOOKHOR-GitHub-Publisher/1.0'}), timeout=30) as response:
