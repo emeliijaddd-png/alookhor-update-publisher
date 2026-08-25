@@ -3,7 +3,7 @@
 > این سند از روی فایل‌های واقعی Repository تولید می‌شود. Source اصلی همچنان فایل‌های اجرایی است؛ Snapshotهای کامل زیر برای بازیابی، ممیزی و انتقال دانش نگهداری می‌شوند.
 
 - **Registry version:** `1.0.0`
-- **Plugin/source version:** `3.10.57`
+- **Plugin/source version:** `3.10.58`
 - **Generated:** `2026-08-14`
 - **Repository:** `alookhor-update-publisher`
 - **Production:** `https://alookhor.ir`
@@ -13,8 +13,8 @@
 
 ## Current Project State
 
-- CURRENT VERSION: `3.10.57`
-- LAST FUNCTIONAL CHANGE: حذف قطعی Header خارجی و نگه‌داشتن تنها Header واقعی Portal.
+- CURRENT VERSION: `3.10.58`
+- LAST FUNCTIONAL CHANGE: ماژول «بنر صادراتی» — بنر لوکس سبز و طلایی با شورت‌کد [alookhor_export_banner] و پنل مدیریت کامل در Control Center.
 - ACTIVE DESIGN: Luxury Black/Gold; actual component colors remain controlled by saved WordPress settings and existing module defaults.
 - ACTIVE SHORTCODES: `[alookhor_portal_header]`, `[alookhor_managed_categories]`, `[alookhor_managed_hero]`, `[alookhor_managed_features]`.
 - ACTIVE PANELS: Main ALOOKHOR Control Center and Header/Top Bar submenu.
@@ -26,11 +26,11 @@
 
 ```text
 PROJECT: ALOOKHOR
-AREA: Owner Reference Header Dedupe
-CURRENT VERSION: 3.10.57
-CHANGE: حذف قطعی Header خارجی و نگه‌داشتن تنها Header واقعی Portal.
-REASON: Screenshot زنده 3.10.56 هنوز دو Header نشان داد.
-FILES: plugin/alookhor-control-center/assets/css/frontend-header-luxury-new.css; plugin/alookhor-control-center/assets/js/frontend-topbar-manager.js
+AREA: Export Banner Module
+CURRENT VERSION: 3.10.58
+CHANGE: ماژول «بنر صادراتی» — بنر لوکس سبز و طلایی با شورت‌کد [alookhor_export_banner] و پنل مدیریت کامل در Control Center.
+REASON: قابلیت «بنر صادراتی» در سورس وجود نداشت و باید production-ready پیاده‌سازی می‌شد.
+FILES: plugin/alookhor-control-center/includes/shortcode-export-banner.php; plugin/alookhor-control-center/includes/admin-export-banner.php; plugin/alookhor-control-center/assets/css/frontend-export-banner.css; plugin/alookhor-control-center/assets/js/frontend-export-banner.js; plugin/alookhor-control-center/assets/images/export-banner-bg.jpg; plugin/alookhor-control-center/alookhor-control-center.php; plugin/alookhor-control-center/includes/admin.php; plugin/alookhor-control-center/config/site.json; plugin/alookhor-control-center/readme.txt; plugin/alookhor-control-center/CHANGELOG.md
 STATUS: SOURCE READY — deployment status must be verified separately.
 ```
 
@@ -38,34 +38,34 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 
 | ID | Type | Name | File | Used In | Version | Status |
 |---|---|---|---|---|---:|---|
-| SC-001 | Shortcode | `[alookhor_portal_header]` | `includes/shortcode-header.php` | Elementor Header Shortcode widget; exact template ID unavailable | 3.10.57 | Active / compatibility-preserving |
-| SC-002 | Shortcode | `[alookhor_managed_categories]` | `includes/product-categories.php` | Home page → Elementor Shortcode widget | 3.10.57 | Active |
-| SC-003 | Shortcode | `[alookhor_managed_hero]` | `includes/hero.php` | Home Elementor Shortcode widget / automatic Legacy-root replacement | 3.10.57 | Active |
-| SC-004 | Shortcode | `[alookhor_managed_features]` | `includes/site-features.php` | Home Elementor HTML widget / automatic Legacy-root replacement | 3.10.57 | Active |
+| SC-001 | Shortcode | `[alookhor_portal_header]` | `includes/shortcode-header.php` | Elementor Header Shortcode widget; exact template ID unavailable | 3.10.58 | Active / compatibility-preserving |
+| SC-002 | Shortcode | `[alookhor_managed_categories]` | `includes/product-categories.php` | Home page → Elementor Shortcode widget | 3.10.58 | Active |
+| SC-003 | Shortcode | `[alookhor_managed_hero]` | `includes/hero.php` | Home Elementor Shortcode widget / automatic Legacy-root replacement | 3.10.58 | Active |
+| SC-004 | Shortcode | `[alookhor_managed_features]` | `includes/site-features.php` | Home Elementor HTML widget / automatic Legacy-root replacement | 3.10.58 | Active |
 | SC-EXT-001 | External shortcode | `[alookhor_categories_carousel]` | External plugin source unavailable | Former Home showcase | External | Replaced on Home / do not reconstruct |
-| PN-001 | Admin panel | ALOOKHOR Control Center | `includes/admin.php` | WP Admin top-level menu | 3.10.57 | Active |
-| PN-002 | Admin panel | Header & Top Bar | `includes/admin.php` | WP Admin submenu | 3.10.57 | Active mirror |
-| MOD-001 | Managed module | WooCommerce Categories | `includes/product-categories.php` | Home / Elementor / REST | 3.10.57 | Active |
-| MOD-002 | Managed module | Responsive Footer | `includes/footer.php` | Frontend footer / REST | 3.10.57 | Active |
-| MOD-003 | Managed module | Four-slide Hero | `includes/hero.php` | Home / Elementor / REST | 3.10.57 | Active |
-| MOD-004 | Managed module | Four-card Site Features | `includes/site-features.php` | Home / Elementor / REST | 3.10.57 | Active |
-| API-001 | REST API | `alookhor-cc/v1` | `includes/rest-api.php` | Public state + authenticated updater | 3.10.57 | Active |
-| UPD-001 | Updater | Private native updater | `includes/updater.php` | Control Center + GitHub Actions | 3.10.57 | Active |
-| CFG-001 | WordPress state | Main settings | `alookhor_cc_settings` | All managed modules | 3.10.57 | Active |
-| CFG-002 | WordPress state | Header settings | `alookhor_header_settings` | Header and Top Bar | 3.10.57 | Active |
-| CSS-001 | CSS | Managed Header | `assets/css/frontend-header.css` | `[alookhor_portal_header]` fallback renderer | 3.10.57 | Active |
-| JS-001 | JavaScript | Managed Header runtime | `assets/js/frontend-header.js` | `[alookhor_portal_header]` fallback renderer | 3.10.57 | Active |
-| JS-002 | JavaScript | Legacy Top Bar manager | `assets/js/frontend-topbar-manager.js` | Preserved legacy header provider | 3.10.57 | Active when legacy provider exists |
-| CSS-002 | CSS | WooCommerce Categories | `assets/css/frontend-categories.css` | `[alookhor_managed_categories]` | 3.10.57 | Active |
-| JS-003 | JavaScript | Categories carousel | `assets/js/frontend-categories.js` | `[alookhor_managed_categories]` | 3.10.57 | Active |
-| CSS-003 | CSS | Managed Footer | `assets/css/frontend-footer.css` | Managed Footer module | 3.10.57 | Active |
-| JS-004 | JavaScript | Managed Footer | `assets/js/frontend-footer.js` | Managed Footer module | 3.10.57 | Active |
-| CSS-004 | CSS | Control Center UI | `assets/css/luxury.css` | WP Admin ALOOKHOR pages | 3.10.57 | Active |
-| JS-005 | JavaScript | Control Center app | `assets/js/app.js` + modules | WP Admin ALOOKHOR pages | 3.10.57 | Active |
-| CSS-005 | CSS | Managed Hero | `assets/css/frontend-hero.css` | `[alookhor_managed_hero]` / automatic Home replacement | 3.10.57 | Active |
-| JS-006 | JavaScript | Managed Hero runtime | `assets/js/frontend-hero.js` | Four-slide replacement, controls and REST refresh | 3.10.57 | Active |
-| CSS-006 | CSS | Managed Site Features | `assets/css/frontend-features.css` | `[alookhor_managed_features]` / automatic Home replacement | 3.10.57 | Active |
-| JS-007 | JavaScript | Managed Site Features runtime | `assets/js/frontend-features.js` | Four-card replacement and REST refresh | 3.10.57 | Active |
+| PN-001 | Admin panel | ALOOKHOR Control Center | `includes/admin.php` | WP Admin top-level menu | 3.10.58 | Active |
+| PN-002 | Admin panel | Header & Top Bar | `includes/admin.php` | WP Admin submenu | 3.10.58 | Active mirror |
+| MOD-001 | Managed module | WooCommerce Categories | `includes/product-categories.php` | Home / Elementor / REST | 3.10.58 | Active |
+| MOD-002 | Managed module | Responsive Footer | `includes/footer.php` | Frontend footer / REST | 3.10.58 | Active |
+| MOD-003 | Managed module | Four-slide Hero | `includes/hero.php` | Home / Elementor / REST | 3.10.58 | Active |
+| MOD-004 | Managed module | Four-card Site Features | `includes/site-features.php` | Home / Elementor / REST | 3.10.58 | Active |
+| API-001 | REST API | `alookhor-cc/v1` | `includes/rest-api.php` | Public state + authenticated updater | 3.10.58 | Active |
+| UPD-001 | Updater | Private native updater | `includes/updater.php` | Control Center + GitHub Actions | 3.10.58 | Active |
+| CFG-001 | WordPress state | Main settings | `alookhor_cc_settings` | All managed modules | 3.10.58 | Active |
+| CFG-002 | WordPress state | Header settings | `alookhor_header_settings` | Header and Top Bar | 3.10.58 | Active |
+| CSS-001 | CSS | Managed Header | `assets/css/frontend-header.css` | `[alookhor_portal_header]` fallback renderer | 3.10.58 | Active |
+| JS-001 | JavaScript | Managed Header runtime | `assets/js/frontend-header.js` | `[alookhor_portal_header]` fallback renderer | 3.10.58 | Active |
+| JS-002 | JavaScript | Legacy Top Bar manager | `assets/js/frontend-topbar-manager.js` | Preserved legacy header provider | 3.10.58 | Active when legacy provider exists |
+| CSS-002 | CSS | WooCommerce Categories | `assets/css/frontend-categories.css` | `[alookhor_managed_categories]` | 3.10.58 | Active |
+| JS-003 | JavaScript | Categories carousel | `assets/js/frontend-categories.js` | `[alookhor_managed_categories]` | 3.10.58 | Active |
+| CSS-003 | CSS | Managed Footer | `assets/css/frontend-footer.css` | Managed Footer module | 3.10.58 | Active |
+| JS-004 | JavaScript | Managed Footer | `assets/js/frontend-footer.js` | Managed Footer module | 3.10.58 | Active |
+| CSS-004 | CSS | Control Center UI | `assets/css/luxury.css` | WP Admin ALOOKHOR pages | 3.10.58 | Active |
+| JS-005 | JavaScript | Control Center app | `assets/js/app.js` + modules | WP Admin ALOOKHOR pages | 3.10.58 | Active |
+| CSS-005 | CSS | Managed Hero | `assets/css/frontend-hero.css` | `[alookhor_managed_hero]` / automatic Home replacement | 3.10.58 | Active |
+| JS-006 | JavaScript | Managed Hero runtime | `assets/js/frontend-hero.js` | Four-slide replacement, controls and REST refresh | 3.10.58 | Active |
+| CSS-006 | CSS | Managed Site Features | `assets/css/frontend-features.css` | `[alookhor_managed_features]` / automatic Home replacement | 3.10.58 | Active |
+| JS-007 | JavaScript | Managed Site Features runtime | `assets/js/frontend-features.js` | Four-card replacement and REST refresh | 3.10.58 | Active |
 
 ## SC-001 — Portal Header
 
@@ -200,8 +200,9 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 |---|---:|---|
 | `.github/workflows/publish.yml` | 535 | `ea2a747b9787cb39313702fd50fd8940891a2ed64de3acac6c4e5d69912dec3d` |
 | `ops/wordpress-ci-bootstrap.php` | 215 | `409c23f2be99c6651b0e75dc877c91c884534e6b16f9985c177cf65d14fd4c95` |
-| `plugin/alookhor-control-center/alookhor-control-center.php` | 386 | `2aecb4cc23f0cfb2908897284493333404a713349bc9acccd51bcbaf44581fca` |
+| `plugin/alookhor-control-center/alookhor-control-center.php` | 388 | `a15122261dd48af103b16608b40ae55dc06d50a797afa9f99ee00bce0c058bd5` |
 | `plugin/alookhor-control-center/assets/css/frontend-categories.css` | 9 | `b811fb4f96023711a593cd593eb9ae3846ebfd9c912c57e3e623d0965f7d494a` |
+| `plugin/alookhor-control-center/assets/css/frontend-export-banner.css` | 310 | `89a5cbb86e50636301ecd59b631abee1249259081657e01e67107644da172754` |
 | `plugin/alookhor-control-center/assets/css/frontend-features.css` | 29 | `8431fcf85b5903bbe2335aa017e8a0a79d0038a7ce055189fa8ebe41e49b89ed` |
 | `plugin/alookhor-control-center/assets/css/frontend-footer.css` | 87 | `55055da4d7fbe8e95f9e318176362f0dacdb26f4ebdb3a4690ca3c2aafa0f534` |
 | `plugin/alookhor-control-center/assets/css/frontend-header-luxury-new.css` | 188 | `98f1056b6281e757fac56819bbec29fbd382ffddc950b933f4baea969886b983` |
@@ -216,6 +217,7 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 | `plugin/alookhor-control-center/assets/js/core/responsive.js` | 52 | `0848ef0deef9aaa532581904c4adab9b45cbe8445a99fbeb71f92d358a1aa724` |
 | `plugin/alookhor-control-center/assets/js/core/updateSystem.js` | 189 | `7215de27d873ee6dc5e691ad6ac673375973b635d4e3d61b64cbc406f8c9d407` |
 | `plugin/alookhor-control-center/assets/js/frontend-categories.js` | 27 | `7ae122e4427522d6004a97f43cc22d271476a3a8dee4980bd2c05ca398e75bb0` |
+| `plugin/alookhor-control-center/assets/js/frontend-export-banner.js` | 37 | `23bf0e4403f56787effb3f4dae63be84dd6ffd63a64ee027d24e5695e08505d1` |
 | `plugin/alookhor-control-center/assets/js/frontend-features.js` | 62 | `e611fe59f35f43e061a98cff77685eba514564c98b2ea6b44bd31fe8c4d0f746` |
 | `plugin/alookhor-control-center/assets/js/frontend-footer.js` | 75 | `70b41991fca96014f6951a81012d6163222839cf6914cd7efbed186088168542` |
 | `plugin/alookhor-control-center/assets/js/frontend-header.js` | 200 | `700be06bd6dc357f5e24268f41e1e392f6147ea28dcdd86d3b9fc611fbd296c6` |
@@ -228,14 +230,16 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 | `plugin/alookhor-control-center/assets/js/modules/orders.js` | 19 | `0ccd8376c69ba37fb50d3261f002789488042e17a0b1b37539bab86abda374eb` |
 | `plugin/alookhor-control-center/assets/js/modules/settings.js` | 740 | `12712606676ffc77d967faff00900b6b634a159cad075434458beea918820513` |
 | `plugin/alookhor-control-center/assets/js/modules/users.js` | 20 | `6fb96546faf00ea831ace016d09b10f903a501db647bae20d0f570034ac36946` |
-| `plugin/alookhor-control-center/config/site.json` | 288 | `0a8f5c637785c17c9fd8350b6db2f442f9ce8943d7ecde3b6c6fefece3060ba0` |
+| `plugin/alookhor-control-center/config/site.json` | 288 | `077176c7809ac3b99b71e19cfd4692beb3edbbef58cdb50c38544d8ffd4f6e34` |
+| `plugin/alookhor-control-center/includes/admin-export-banner.php` | 189 | `698710323b87290cea3078cca55f45883fd6654f3dc82c64cf1926f23025e995` |
 | `plugin/alookhor-control-center/includes/admin-purple-slider.php` | 179 | `11e9d8e4efaddc02956d2cfe9ae5ca1d3208c33fca8a776d24426279d0eec19e` |
-| `plugin/alookhor-control-center/includes/admin.php` | 251 | `ed17e1b42a6e014112872ff3db1e4c7c22802ebec0f44027a1e8f2e6467b885e` |
+| `plugin/alookhor-control-center/includes/admin.php` | 253 | `b59917024c6e100abc29e4c4045dd526b1909a64c95c5f6a0ca38b5614f1c857` |
 | `plugin/alookhor-control-center/includes/ajax.php` | 385 | `5c65fd9ed419b2d9120d6b4ce7f31228c175f4f99b1004282982db6f97337a2d` |
 | `plugin/alookhor-control-center/includes/footer.php` | 269 | `50c7a6e7d67a8905b5d88486d42d9ad7381caf8c60fc49dd37e3db2a17a347f8` |
 | `plugin/alookhor-control-center/includes/hero.php` | 229 | `edaba49c0057e137f0d6e0b16cc516fc98b73a70d24c09cc62cbe7302c2b6342` |
 | `plugin/alookhor-control-center/includes/product-categories.php` | 88 | `64d42189315d77e8bda401a945e37d18d16bcf2346159f8cabe0022920dba2cb` |
 | `plugin/alookhor-control-center/includes/rest-api.php` | 334 | `771be7cb71efdcb57ae5c2459bcb10dffb7c88f6fc53428af371c5d9e81734e4` |
+| `plugin/alookhor-control-center/includes/shortcode-export-banner.php` | 194 | `a7ade6e17b85634c380ddd298839d21518d4b3dac6c516e1e0ad73432a725aad` |
 | `plugin/alookhor-control-center/includes/shortcode-header.php` | 361 | `9634be28833cbc70f870f6e902df3101843c537dab2f893fb38c3fe323487408` |
 | `plugin/alookhor-control-center/includes/shortcode-purple-slider.php` | 213 | `997d63ca609094548c6a1273be563e257c7fb3fdc7f04699b1b110fa55369996` |
 | `plugin/alookhor-control-center/includes/site-features.php` | 133 | `8c0f550195121550d1085b5415fd63291fcf1e8d17bfaf0bca491e2df7468c72` |
@@ -1020,7 +1024,7 @@ add_action('rest_api_init', function(){
  * Plugin Name: ALOOKHOR Control Center
  * Plugin URI: https://alookhor.ir
  * Description: کنترل سنتر لوکس و ماژولار آلوخور — مدیریت کامل سایت (هدر، اسلایدر، سورت، محصولات، مشتریان VIP، مالی، آنالیتیکس) با آپدیت آنی بدون رفرش. تمام تنظیمات چت قبلی + شورت‌کد [alookhor_portal_header] اینجا مدیریت می‌شود.
- * Version: 3.10.57
+ * Version: 3.10.58
  * Author: ALOOKHOR Team — Luxury Modular
  * Author URI: https://alookhor.ir
  * Update URI: https://alookhor.ir/alookhor-control-center
@@ -1033,8 +1037,8 @@ add_action('rest_api_init', function(){
 
 if (!defined('ABSPATH')) exit;
 
-define('ALOOKHOR_CC_VERSION', '3.10.57');
-define('ALOOKHOR_CC_BUILD', '3.10.57');
+define('ALOOKHOR_CC_VERSION', '3.10.58');
+define('ALOOKHOR_CC_BUILD', '3.10.58');
 define('ALOOKHOR_CC_FILE', __FILE__);
 define('ALOOKHOR_CC_DIR', plugin_dir_path(__FILE__));
 define('ALOOKHOR_CC_URL', plugin_dir_url(__FILE__));
@@ -1076,6 +1080,8 @@ require_once ALOOKHOR_CC_DIR . 'includes/footer.php';
 require_once ALOOKHOR_CC_DIR . 'includes/product-categories.php';
 require_once ALOOKHOR_CC_DIR . 'includes/hero.php';
 require_once ALOOKHOR_CC_DIR . 'includes/site-features.php';
+require_once ALOOKHOR_CC_DIR . 'includes/shortcode-export-banner.php';
+require_once ALOOKHOR_CC_DIR . 'includes/admin-export-banner.php';
 
 // ——— Enqueue برای فرانت (هدر لوکس، کاملاً Scoped) ———
 // فایل کامل luxury.css مخصوص کنترل سنتر است و نباید body/theme فرانت را override کند.
@@ -1415,6 +1421,321 @@ body.alookhor-mc-hide-legacy .category-carousel-section{display:none!important}
 /* Mobile receives a safe single-card baseline; the dedicated mobile design is the next approved phase. */
 @media(max-width:767px){.alookhor-mc{padding:42px 0 34px}.alookhor-mc-shell{width:100%}.alookhor-mc-head{margin-bottom:23px;padding:0 18px}.alookhor-mc-kicker{font-size:13px;gap:8px}.alookhor-mc-kicker i{width:42px}.alookhor-mc-head h2{font-size:28px;margin-top:14px}.alookhor-mc-head p{font-size:14px;line-height:1.75}.alookhor-mc-stage{padding:0}.alookhor-mc-track{gap:var(--mc-mobile-gap)}.alookhor-mc-card{flex-basis:calc(var(--mc-mobile-width)*1%);border-radius:var(--mc-mobile-radius);transition:transform .35s ease,opacity .35s ease,border-color .3s ease}.alookhor-mc-card:not(.is-active){opacity:.52;transform:scale(.94)}.alookhor-mc-card.is-active{opacity:1;transform:scale(1)}.alookhor-mc-image{height:var(--mc-mobile-image)}.alookhor-mc-icon{width:58px;height:58px;top:14px;right:14px}.alookhor-mc-icon svg{width:34px;height:34px}.alookhor-mc-body{min-height:150px;padding:14px 14px 16px}.alookhor-mc-body h3{font-size:22px}.alookhor-mc-body p{font-size:11.5px;line-height:1.65;min-height:36px;margin-top:5px}.alookhor-mc-button{height:38px;min-width:175px;font-size:12px}.alookhor-mc-arrow{display:none!important}.alookhor-mc-dots{margin-top:23px!important;gap:10px!important}.alookhor-mc-dots button{flex-basis:10px!important;width:10px!important;min-width:10px!important;max-width:10px!important;height:10px!important;min-height:10px!important;max-height:10px!important}.alookhor-mc-dots button.is-active{flex-basis:33px!important;width:33px!important;min-width:33px!important;max-width:33px!important;height:10px!important;min-height:10px!important;max-height:10px!important}}
 @media(prefers-reduced-motion:reduce){.alookhor-mc *{transition:none!important;scroll-behavior:auto!important}}
+````
+
+## Source Snapshot — `plugin/alookhor-control-center/assets/css/frontend-export-banner.css`
+
+````css
+/* ==========================================================================
+   ALOOKHOR Export Banner — [alookhor_export_banner]
+   Fully scoped to .alookhor-xb — header, mega menu, hero, footer, Woodmart
+   and Elementor styles are never touched. RTL native.
+   ========================================================================== */
+
+.alookhor-xb,
+.alookhor-xb *{
+  box-sizing:border-box;
+}
+
+@keyframes alookhor-xb-shine{
+  0%{inset-inline-start:-75%}
+  55%,100%{inset-inline-start:135%}
+}
+
+@keyframes alookhor-xb-pulse{
+  0%{box-shadow:0 0 0 0 rgba(61,214,140,.55)}
+  70%{box-shadow:0 0 0 9px rgba(61,214,140,0)}
+  100%{box-shadow:0 0 0 0 rgba(61,214,140,0)}
+}
+
+@keyframes alookhor-xb-float{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-7px)}
+}
+
+.alookhor-xb{
+  position:relative;
+  width:100%;
+  margin:0;
+  padding:0;
+  border:2px solid var(--akx-gold,#D4AF37);
+  border-radius:30px;
+  overflow:hidden;
+  isolation:isolate;
+  background:var(--akx-bg,#0A2A1C);
+  box-shadow:0 34px 70px -38px rgba(0,0,0,.75);
+  color:#F4F1E6;
+  font-family:inherit;
+  font-size:16px;
+  line-height:1.9;
+  direction:rtl;
+  text-align:right;
+}
+
+/* Inner gold hairline — the second line of the luxury frame */
+.alookhor-xb::before{
+  content:"";
+  position:absolute;
+  inset:9px;
+  border:1px solid var(--akx-gold,#D4AF37);
+  opacity:.42;
+  border-radius:22px;
+  pointer-events:none;
+  z-index:3;
+}
+
+/* Background image + tinted overlay (darkness = شفافیت بنر) */
+.alookhor-xb-bg{
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  background-image:var(--akx-image,none);
+  background-size:cover;
+  background-position:center;
+  background-repeat:no-repeat;
+}
+.alookhor-xb-bg::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(115deg,
+    rgba(var(--akx-bg-rgb,10,42,28),calc(var(--akx-overlay,.55) + .18)) 0%,
+    rgba(var(--akx-bg-rgb,10,42,28),var(--akx-overlay,.55)) 55%,
+    rgba(var(--akx-bg-rgb,10,42,28),calc(var(--akx-overlay,.55) + .1)) 100%);
+}
+
+.alookhor-xb-inner{
+  position:relative;
+  z-index:1;
+  width:100%;
+  max-width:1280px;
+  margin-inline:auto;
+  padding:54px 46px;
+}
+
+.alookhor-xb-grid{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto minmax(310px,392px);
+  grid-template-areas:"content logo card";
+  align-items:center;
+  gap:42px;
+}
+
+/* ——— Export content (right side in RTL) ——— */
+.alookhor-xb-content{grid-area:content;min-width:0}
+
+.alookhor-xb-title{
+  margin:0;
+  padding:0;
+  font-size:clamp(25px,3.1vw,42px);
+  font-weight:800;
+  line-height:1.55;
+  color:#FFFFFF;
+  text-shadow:0 3px 22px rgba(0,0,0,.45);
+}
+.alookhor-xb-title strong{
+  font-weight:inherit;
+  color:var(--akx-gold,#D4AF37);
+  text-shadow:0 0 26px rgba(212,175,55,.35);
+}
+
+.alookhor-xb-rule{
+  display:block;
+  width:92px;
+  height:3px;
+  margin-top:20px;
+  border-radius:999px;
+  background:linear-gradient(to left,var(--akx-gold,#D4AF37),transparent);
+}
+
+/* ——— Center logo ——— */
+.alookhor-xb-logo{grid-area:logo;display:flex;justify-content:center}
+.alookhor-xb-logo-ring{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:148px;
+  height:148px;
+  border-radius:50%;
+  border:1px solid var(--akx-gold,#D4AF37);
+  background:rgba(var(--akx-bg-rgb,10,42,28),.55);
+  backdrop-filter:blur(var(--akx-blur,14px));
+  -webkit-backdrop-filter:blur(var(--akx-blur,14px));
+  box-shadow:0 0 0 9px rgba(var(--akx-bg-rgb,10,42,28),.25),0 22px 48px -20px rgba(0,0,0,.7),inset 0 0 34px rgba(212,175,55,.12);
+  overflow:hidden;
+  animation:alookhor-xb-float 6s ease-in-out infinite;
+}
+.alookhor-xb-logo-ring img{
+  width:72%;
+  height:72%;
+  object-fit:contain;
+  margin:0;
+  border:0;
+  box-shadow:none;
+  border-radius:0;
+}
+.alookhor-xb-logo-letter{
+  font-size:56px;
+  font-weight:800;
+  color:var(--akx-gold,#D4AF37);
+  line-height:1;
+}
+
+/* ——— Glass contact card (left side in RTL) ——— */
+.alookhor-xb-card{
+  grid-area:card;
+  min-width:0;
+  padding:26px 26px 24px;
+  border-radius:22px;
+  border:1px solid var(--akx-gold,#D4AF37);
+  background:rgba(var(--akx-bg-rgb,10,42,28),var(--akx-card-alpha,.78));
+  backdrop-filter:blur(var(--akx-blur,14px)) saturate(150%);
+  -webkit-backdrop-filter:blur(var(--akx-blur,14px)) saturate(150%);
+  box-shadow:0 26px 55px -30px rgba(0,0,0,.75);
+}
+
+.alookhor-xb-card-text{
+  margin:0 0 16px;
+  padding:0;
+  font-size:14.5px;
+  line-height:2;
+  color:#EDEAE0;
+}
+
+.alookhor-xb-status{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  margin:0 0 20px;
+  padding:10px 14px;
+  border-radius:12px;
+  background:rgba(255,255,255,.055);
+  border:1px solid rgba(255,255,255,.08);
+  font-size:12.5px;
+  color:#CFF5E1;
+}
+.alookhor-xb-pulse{
+  flex:0 0 auto;
+  width:9px;
+  height:9px;
+  border-radius:50%;
+  background:#3DD68C;
+  animation:alookhor-xb-pulse 2.2s ease-out infinite;
+}
+
+/* ——— WhatsApp actions ——— */
+.alookhor-xb-actions{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.alookhor-xb-wa{
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  padding:13px 18px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.16);
+  background:linear-gradient(135deg,var(--akx-wa,#1EBE5D) 0%,var(--akx-wa-dark,#13A24B) 100%);
+  color:#FFFFFF !important;
+  font-size:15px;
+  font-weight:700;
+  letter-spacing:.02em;
+  text-decoration:none !important;
+  box-shadow:0 14px 32px -14px rgba(30,190,93,.65);
+  overflow:hidden;
+  transition:transform .28s ease,box-shadow .28s ease,filter .28s ease;
+}
+.alookhor-xb-wa::after{
+  content:"";
+  position:absolute;
+  top:-20%;
+  height:140%;
+  width:52%;
+  inset-inline-start:-75%;
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.42),transparent);
+  transform:skewX(-18deg);
+  animation:alookhor-xb-shine 3.8s ease-in-out infinite;
+  pointer-events:none;
+}
+.alookhor-xb-wa svg{
+  flex:0 0 auto;
+  width:22px;
+  height:22px;
+  fill:currentColor;
+}
+.alookhor-xb-wa span{position:relative;z-index:1}
+.alookhor-xb-wa:is(:hover,:focus-visible){
+  transform:translateY(-3px);
+  filter:brightness(1.07);
+  box-shadow:0 22px 42px -16px rgba(30,190,93,.8);
+  color:#FFFFFF !important;
+  text-decoration:none !important;
+}
+.alookhor-xb-wa:focus-visible{
+  outline:2px solid var(--akx-gold,#D4AF37);
+  outline-offset:3px;
+}
+.alookhor-xb-wa.is-alt{
+  background:linear-gradient(135deg,rgba(255,255,255,.1),rgba(255,255,255,.03));
+  border-color:var(--akx-wa,#1EBE5D);
+  box-shadow:0 14px 32px -18px rgba(0,0,0,.65);
+}
+
+/* ——— Entrance animation (armed only by frontend-export-banner.js) ——— */
+.alookhor-xb.will-animate{opacity:0;transform:translateY(26px)}
+.alookhor-xb.will-animate.is-visible{
+  opacity:1;
+  transform:none;
+  transition:opacity .7s ease,transform .7s ease;
+}
+
+/* ——— Tablet ——— */
+@media (max-width:1023px){
+  .alookhor-xb-inner{padding:44px 30px}
+  .alookhor-xb-grid{
+    grid-template-columns:auto minmax(0,1fr);
+    grid-template-areas:
+      "content content"
+      "logo card";
+    gap:30px;
+  }
+  .alookhor-xb-content{text-align:center}
+  .alookhor-xb-rule{margin-inline:auto}
+  .alookhor-xb-logo-ring{width:124px;height:124px}
+}
+
+/* ——— Mobile ——— */
+@media (max-width:767px){
+  .alookhor-xb{border-radius:22px}
+  .alookhor-xb::before{inset:7px;border-radius:16px}
+  .alookhor-xb-inner{padding:38px 20px}
+  .alookhor-xb-grid{
+    grid-template-columns:minmax(0,1fr);
+    grid-template-areas:
+      "logo"
+      "content"
+      "card";
+    gap:24px;
+  }
+  .alookhor-xb-title{font-size:clamp(22px,6.6vw,29px)}
+  .alookhor-xb-logo-ring{width:108px;height:108px}
+  .alookhor-xb-logo-letter{font-size:42px}
+  .alookhor-xb-card{padding:22px 18px 20px;border-radius:18px}
+  .alookhor-xb-card-text{font-size:13.5px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .alookhor-xb,
+  .alookhor-xb-logo-ring,
+  .alookhor-xb-pulse,
+  .alookhor-xb-wa::after{animation:none !important}
+  .alookhor-xb.will-animate{opacity:1;transform:none}
+  .alookhor-xb.will-animate.is-visible{transition:none}
+}
 ````
 
 ## Source Snapshot — `plugin/alookhor-control-center/assets/css/frontend-features.css`
@@ -3946,6 +4267,48 @@ function start(){document.body.classList.add('alookhor-mc-enabled');if(cfg.hide_
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true});else start();})();
 ````
 
+## Source Snapshot — `plugin/alookhor-control-center/assets/js/frontend-export-banner.js`
+
+````javascript
+/**
+ * ALOOKHOR Export Banner — entrance animation helper for [alookhor_export_banner].
+ * Fully scoped to .alookhor-xb elements; touches nothing else on the page.
+ * If JavaScript is unavailable the banner simply renders statically (the
+ * `will-animate` hidden state is only ever applied from this file).
+ */
+(function () {
+    'use strict';
+
+    function arm(banner) {
+        banner.classList.add('will-animate');
+        if (!('IntersectionObserver' in window)) {
+            banner.classList.add('is-visible');
+            return;
+        }
+        var observer = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+                if (!entry.isIntersecting) return;
+                entry.target.classList.add('is-visible');
+                observer.unobserve(entry.target);
+            });
+        }, { threshold: 0.18, rootMargin: '0px 0px -8% 0px' });
+        observer.observe(banner);
+    }
+
+    function boot() {
+        var banners = document.querySelectorAll('.alookhor-xb');
+        if (!banners.length) return;
+        banners.forEach(arm);
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', boot, { once: true });
+    } else {
+        boot();
+    }
+})();
+````
+
 ## Source Snapshot — `plugin/alookhor-control-center/assets/js/frontend-features.js`
 
 ````javascript
@@ -6232,7 +6595,7 @@ export const usersModule = {
   },
   "updated_at": "2026-08-10T16:20:00Z",
   "updated_by": "AI Assistant — recovered from previous chat",
-  "version": "3.10.57",
+  "version": "3.10.58",
   "hero_settings": {
     "enabled": true,
     "hide_legacy": true,
@@ -6365,6 +6728,200 @@ export const usersModule = {
       }
     ]
   }
+}
+````
+
+## Source Snapshot — `plugin/alookhor-control-center/includes/admin-export-banner.php`
+
+````php
+<?php
+/**
+ * Export banner settings — صفحه مدیریت «بنر صادراتی» در Control Center.
+ *
+ * نسخه مدیریتی ماژول [alookhor_export_banner]: فعال/غیرفعال، انتخاب تصویر
+ * پس‌زمینه و لوگوی مرکزی از کتابخانه رسانه، متن‌ها، شماره‌ها و لینک‌های
+ * واتساپ و تمام کنترل‌های رنگ/شفافیت/بلور. ذخیره از طریق admin-ajax با همان
+ * قرارداد nonce امن کنترل سنتر انجام می‌شود و هیچ تنظیمات دیگری دست نمی‌خورد.
+ */
+if (!defined('ABSPATH')) exit;
+
+// ——— منوی مدیریت (بعد از منوی والد در admin.php) ———
+add_action('admin_menu', function(){
+    add_submenu_page(
+        'alookhor-control-center',
+        'بنر صادراتی',
+        'بنر صادراتی',
+        'manage_options',
+        'alookhor-cc-export-banner',
+        'alookhor_cc_render_export_banner_settings'
+    );
+}, 20);
+
+function alookhor_cc_render_export_banner_settings(){
+    if(!current_user_can('manage_options')) return;
+    $b = alookhor_cc_get_export_banner_settings();
+    $bg_preview = alookhor_cc_export_banner_image_url($b['background_image_id'], $b['background_image_url']);
+    $logo_preview = alookhor_cc_export_banner_image_url($b['logo_id'], $b['logo_url']);
+    ?>
+    <div class="wrap" style="background:#070708; margin-left:-20px; padding:24px; color:#F5F1E9">
+        <h1 style="color:#E8D5B5; font-family:'Cormorant Garamond',serif">بنر صادراتی</h1>
+        <p style="color:#9A9590">بنر لوکس سبز و طلایی صادرات — شورت‌کد <code dir="ltr" style="background:#111113; border:1px solid rgba(201,168,106,0.14); padding:4px 8px; border-radius:6px; color:#E8D5B5">[alookhor_export_banner]</code> را در هر صفحه یا ویجت Elementor قرار دهید؛ بدون هیچ اثری روی هدر، مگامنو، هیرو یا فوتر.</p>
+        <form id="alookhorExportBannerForm" style="max-width:900px; background:rgba(255,255,255,0.03); border:1px solid rgba(201,168,106,0.14); border-radius:18px; padding:20px; display:grid; gap:16px">
+            <?php wp_nonce_field('alookhor_cc_nonce','nonce'); ?>
+
+            <section class="alookhor-settings-section">
+                <div class="alookhor-section-head"><div><b>وضعیت و رسانه</b><span>فعال‌سازی، تصویر پس‌زمینه و لوگوی مرکزی از WordPress Media Library</span></div><em>MEDIA</em></div>
+                <label style="display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.035);border:1px solid rgba(201,168,106,.14);border-radius:999px;padding:8px 12px;width:fit-content">
+                    <input type="hidden" name="enabled" value="0">
+                    <input type="checkbox" name="enabled" value="1" <?php checked(!empty($b['enabled'])); ?> style="accent-color:#C9A86A">
+                    نمایش بنر صادراتی در خروجی شورت‌کد
+                </label>
+                <div class="alookhor-fields-grid">
+                    <label style="grid-column:span 2">تصویر Background (کامیون/کانتینر)
+                        <span style="display:flex;gap:8px;align-items:center">
+                            <input type="hidden" id="alookhorXbBgId" name="background_image_id" value="<?php echo esc_attr($b['background_image_id']); ?>">
+                            <input id="alookhorXbBgUrl" name="background_image_url" value="<?php echo esc_attr($b['background_image_url']); ?>" class="alookhor-field" dir="ltr">
+                            <button type="button" id="alookhorXbBgSelect" class="alookhor-media-btn">انتخاب تصویر</button>
+                        </span>
+                        <img id="alookhorXbBgPreview" src="<?php echo esc_url($bg_preview); ?>" alt="" style="margin-top:8px;max-width:260px;border-radius:10px;border:1px solid rgba(201,168,106,.25);<?php echo $bg_preview ? '' : 'display:none;'; ?>">
+                    </label>
+                    <label style="grid-column:span 2">لوگوی وسط بنر
+                        <span style="display:flex;gap:8px;align-items:center">
+                            <input type="hidden" id="alookhorXbLogoId" name="logo_id" value="<?php echo esc_attr($b['logo_id']); ?>">
+                            <input id="alookhorXbLogoUrl" name="logo_url" value="<?php echo esc_attr($b['logo_url']); ?>" class="alookhor-field" dir="ltr">
+                            <button type="button" id="alookhorXbLogoSelect" class="alookhor-media-btn">انتخاب لوگو</button>
+                        </span>
+                        <img id="alookhorXbLogoPreview" src="<?php echo esc_url($logo_preview); ?>" alt="" style="margin-top:8px;max-width:120px;border-radius:50%;border:1px solid rgba(201,168,106,.25);<?php echo $logo_preview ? '' : 'display:none;'; ?>">
+                    </label>
+                </div>
+            </section>
+
+            <section class="alookhor-settings-section">
+                <div class="alookhor-section-head"><div><b>متن‌های بنر</b><span>عنوان اصلی، عنوان طلایی، متن کارت و وضعیت پاسخگویی</span></div><em>CONTENT</em></div>
+                <div class="alookhor-fields-grid">
+                    <label>عنوان اصلی <input name="title" value="<?php echo esc_attr($b['title']); ?>" class="alookhor-field"></label>
+                    <label>عنوان طلایی <input name="title_gold" value="<?php echo esc_attr($b['title_gold']); ?>" class="alookhor-field"></label>
+                    <label style="grid-column:span 2">متن کارت صادراتی <textarea name="card_text" rows="3" class="alookhor-field"><?php echo esc_textarea($b['card_text']); ?></textarea></label>
+                    <label style="grid-column:span 2">متن وضعیت پاسخگویی <input name="status_text" value="<?php echo esc_attr($b['status_text']); ?>" class="alookhor-field"></label>
+                </div>
+            </section>
+
+            <section class="alookhor-settings-section">
+                <div class="alookhor-section-head"><div><b>دکمه‌های واتساپ</b><span>دو شماره به‌همراه لینک مستقیم wa.me</span></div><em>WHATSAPP</em></div>
+                <div class="alookhor-fields-grid">
+                    <label>شماره واتساپ اول <input name="whatsapp1_number" value="<?php echo esc_attr($b['whatsapp1_number']); ?>" class="alookhor-field" dir="ltr"></label>
+                    <label>لینک واتساپ اول <input type="url" name="whatsapp1_link" value="<?php echo esc_attr($b['whatsapp1_link']); ?>" class="alookhor-field" dir="ltr" placeholder="https://wa.me/98..."></label>
+                    <label>شماره واتساپ دوم <input name="whatsapp2_number" value="<?php echo esc_attr($b['whatsapp2_number']); ?>" class="alookhor-field" dir="ltr"></label>
+                    <label>لینک واتساپ دوم <input type="url" name="whatsapp2_link" value="<?php echo esc_attr($b['whatsapp2_link']); ?>" class="alookhor-field" dir="ltr" placeholder="https://wa.me/98..."></label>
+                </div>
+            </section>
+
+            <section class="alookhor-settings-section">
+                <div class="alookhor-section-head"><div><b>ظاهر و جلوه‌ها</b><span>رنگ‌ها، شفافیت کارت و بنر و شدت Blur شیشه‌ای</span></div><em>STYLE</em></div>
+                <div class="alookhor-color-grid">
+                    <?php foreach ([
+                        'bg_color' => 'رنگ پس‌زمینه (سبز تیره)',
+                        'gold_color' => 'رنگ طلایی',
+                        'whatsapp_color' => 'رنگ سبز واتساپ',
+                    ] as $color_key => $color_label): ?>
+                        <label><?php echo esc_html($color_label); ?><input type="color" name="<?php echo esc_attr($color_key); ?>" value="<?php echo esc_attr($b[$color_key]); ?>" class="alookhor-field alookhor-color-field"></label>
+                    <?php endforeach; ?>
+                </div>
+                <div class="alookhor-fields-grid">
+                    <label>شفافیت کارت (20–95٪ تیرگی) <input type="number" min="20" max="95" name="card_opacity" value="<?php echo esc_attr($b['card_opacity']); ?>" class="alookhor-field"></label>
+                    <label>شفافیت بنر (0–95٪ تیرگی روکش) <input type="number" min="0" max="95" name="overlay_opacity" value="<?php echo esc_attr($b['overlay_opacity']); ?>" class="alookhor-field"></label>
+                    <label>شدت Blur / Glass (0–40px) <input type="number" min="0" max="40" name="blur_strength" value="<?php echo esc_attr($b['blur_strength']); ?>" class="alookhor-field"></label>
+                </div>
+            </section>
+
+            <button type="submit" style="background:linear-gradient(135deg,#C9A86A,#B8935A); color:#1A1206; border:0; padding:12px; border-radius:999px; font-weight:700; cursor:pointer">ذخیره تنظیمات بنر صادراتی</button>
+            <div id="alookhorExportBannerMsg" style="font-size:12px; color:#3DD68C; display:none">ذخیره شد ✓</div>
+        </form>
+        <style>
+          #alookhorExportBannerForm label{color:#D8D0C7;font-size:12px;display:grid;gap:6px}
+          #alookhorExportBannerForm .alookhor-field{width:100%;max-width:none;background:rgba(255,255,255,.04);border:1px solid rgba(201,168,106,.18);border-radius:9px;padding:9px 10px;color:#fff}
+          #alookhorExportBannerForm select.alookhor-field{background:#17131A}
+          #alookhorExportBannerForm textarea.alookhor-field{resize:vertical}
+          .alookhor-settings-section{padding:16px;border:1px solid rgba(201,168,106,.13);border-radius:14px;background:rgba(0,0,0,.14);display:grid;gap:14px}
+          .alookhor-section-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-bottom:11px;border-bottom:1px solid rgba(201,168,106,.1)}
+          .alookhor-section-head b{display:block;color:#E8D5B5;font-size:14px}.alookhor-section-head span{display:block;color:#8F8991;font-size:10px;margin-top:4px}.alookhor-section-head em{font:700 9px Arial;color:#C9A86A;border:1px solid rgba(201,168,106,.2);border-radius:999px;padding:4px 7px}
+          .alookhor-fields-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:13px}.alookhor-color-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+          #alookhorExportBannerForm .alookhor-color-field{height:42px;padding:4px}.alookhor-media-btn{white-space:nowrap;border:1px solid rgba(201,168,106,.3);border-radius:9px;background:rgba(201,168,106,.1);color:#E8D5B5;padding:8px 12px;cursor:pointer}
+          @media(max-width:782px){.alookhor-fields-grid,.alookhor-color-grid{grid-template-columns:1fr}.alookhor-fields-grid label[style*="span 2"]{grid-column:auto!important}}
+        </style>
+        <p style="margin-top:14px; font-size:12px; color:#9A9590">شورت‌کد در المنتور: <code dir="ltr" style="background:#111113; border:1px solid rgba(201,168,106,0.14); padding:4px 8px; border-radius:6px; color:#E8D5B5">[alookhor_export_banner]</code></p>
+    </div>
+    <script>
+    jQuery(function($){
+        function bindMediaPicker(buttonId, idField, urlField, preview){
+            let frame;
+            $(buttonId).on('click', function(e){
+                e.preventDefault();
+                if(frame){ frame.open(); return; }
+                frame = wp.media({title:'انتخاب تصویر', button:{text:'استفاده از این تصویر'}, multiple:false});
+                frame.on('select', function(){
+                    const item = frame.state().get('selection').first().toJSON();
+                    $(idField).val(item.id);
+                    $(urlField).val(item.url).trigger('change');
+                    if(preview){ $(preview).attr('src', item.url).show(); }
+                });
+                frame.open();
+            });
+        }
+        bindMediaPicker('#alookhorXbBgSelect', '#alookhorXbBgId', '#alookhorXbBgUrl', '#alookhorXbBgPreview');
+        bindMediaPicker('#alookhorXbLogoSelect', '#alookhorXbLogoId', '#alookhorXbLogoUrl', '#alookhorXbLogoPreview');
+        $('#alookhorXbBgUrl, #alookhorXbLogoUrl').on('change', function(){
+            const preview = this.id === 'alookhorXbBgUrl' ? '#alookhorXbBgPreview' : '#alookhorXbLogoPreview';
+            const value = $(this).val();
+            if(value){ $(preview).attr('src', value).show(); } else { $(preview).hide(); }
+        });
+        $('#alookhorExportBannerForm').on('submit', function(e){
+            e.preventDefault();
+            const data = $(this).serializeArray();
+            data.push({name:'action', value:'alookhor_save_export_banner'});
+            $.post(ALOOKHOR_CC.ajax_url, data, function(res){
+                if(res.success){ $('#alookhorExportBannerMsg').show().text('ذخیره شد ✓ — شورت‌کد [alookhor_export_banner] بروز شد'); setTimeout(()=>$('#alookhorExportBannerMsg').fadeOut(),3000); }
+                else alert(res.data||'خطا');
+            });
+        });
+    });
+    </script>
+    <?php
+}
+
+// ——— AJAX: ذخیره امن تنظیمات بنر صادراتی ———
+add_action('wp_ajax_alookhor_save_export_banner', 'alookhor_ajax_save_export_banner');
+function alookhor_ajax_save_export_banner(){
+    alookhor_cc_check();
+    $current = get_option(ALOOKHOR_CC_EXPORT_BANNER_OPTION, []);
+    if (!is_array($current)) $current = [];
+    $defaults = alookhor_cc_export_banner_defaults();
+    $data = array_replace($defaults, $current);
+
+    $data['enabled'] = isset($_POST['enabled']) ? rest_sanitize_boolean(wp_unslash($_POST['enabled'])) : !empty($current['enabled']);
+    $data['background_image_id'] = absint($_POST['background_image_id'] ?? ($current['background_image_id'] ?? 0));
+    $data['background_image_url'] = esc_url_raw(wp_unslash($_POST['background_image_url'] ?? ($current['background_image_url'] ?? $defaults['background_image_url'])));
+    $data['logo_id'] = absint($_POST['logo_id'] ?? ($current['logo_id'] ?? 0));
+    $data['logo_url'] = esc_url_raw(wp_unslash($_POST['logo_url'] ?? ($current['logo_url'] ?? '')));
+    $data['title'] = sanitize_text_field(wp_unslash($_POST['title'] ?? ($current['title'] ?? $defaults['title'])));
+    $data['title_gold'] = sanitize_text_field(wp_unslash($_POST['title_gold'] ?? ($current['title_gold'] ?? $defaults['title_gold'])));
+    $data['card_text'] = sanitize_textarea_field(wp_unslash($_POST['card_text'] ?? ($current['card_text'] ?? $defaults['card_text'])));
+    $data['status_text'] = sanitize_text_field(wp_unslash($_POST['status_text'] ?? ($current['status_text'] ?? $defaults['status_text'])));
+    $data['whatsapp1_number'] = sanitize_text_field(wp_unslash($_POST['whatsapp1_number'] ?? ($current['whatsapp1_number'] ?? $defaults['whatsapp1_number'])));
+    $data['whatsapp1_link'] = esc_url_raw(wp_unslash($_POST['whatsapp1_link'] ?? ($current['whatsapp1_link'] ?? $defaults['whatsapp1_link'])));
+    $data['whatsapp2_number'] = sanitize_text_field(wp_unslash($_POST['whatsapp2_number'] ?? ($current['whatsapp2_number'] ?? $defaults['whatsapp2_number'])));
+    $data['whatsapp2_link'] = esc_url_raw(wp_unslash($_POST['whatsapp2_link'] ?? ($current['whatsapp2_link'] ?? $defaults['whatsapp2_link'])));
+    foreach (['bg_color', 'gold_color', 'whatsapp_color'] as $color_key) {
+        $data[$color_key] = sanitize_hex_color(wp_unslash($_POST[$color_key] ?? ($current[$color_key] ?? $defaults[$color_key]))) ?: $defaults[$color_key];
+    }
+    $data['card_opacity'] = max(20, min(95, absint($_POST['card_opacity'] ?? ($current['card_opacity'] ?? $defaults['card_opacity']))));
+    $data['overlay_opacity'] = max(0, min(95, absint($_POST['overlay_opacity'] ?? ($current['overlay_opacity'] ?? $defaults['overlay_opacity']))));
+    $data['blur_strength'] = max(0, min(40, absint($_POST['blur_strength'] ?? ($current['blur_strength'] ?? $defaults['blur_strength']))));
+
+    $data = alookhor_cc_export_banner_normalize($data);
+    update_option(ALOOKHOR_CC_EXPORT_BANNER_OPTION, $data);
+
+    wp_send_json_success(['message' => 'بنر صادراتی با موفقیت ذخیره شد — شورت‌کد [alookhor_export_banner] بروز شد', 'data' => $data]);
 }
 ````
 
@@ -6602,6 +7159,7 @@ add_action('admin_enqueue_scripts', function($hook){
         ),
         'updater_configured' => (bool) alookhor_cc_update_manifest_url(),
         'header_shortcode' => '[alookhor_portal_header]',
+        'export_banner_shortcode' => '[alookhor_export_banner]',
         'hero_shortcode' => '[alookhor_managed_hero]',
         'feature_shortcode' => '[alookhor_managed_features]',
         'home_url' => home_url('/'),
@@ -6637,6 +7195,7 @@ function alookhor_cc_render_admin(){
             <span style="font-size:12px; color:#9A9590">v<?php echo esc_html(ALOOKHOR_CC_VERSION); ?> — نصب شده و فعال</span>
             <span style="margin-left:auto; display:flex; gap:8px; align-items:center">
                 <code dir="ltr" style="background:rgba(255,255,255,0.06); border:1px solid rgba(201,168,106,0.14); padding:4px 8px; border-radius:8px; color:#E8D5B5; font-size:11px">[alookhor_portal_header]</code>
+                <code dir="ltr" style="background:rgba(255,255,255,0.06); border:1px solid rgba(201,168,106,0.14); padding:4px 8px; border-radius:8px; color:#E8D5B5; font-size:11px">[alookhor_export_banner]</code>
                 <span style="font-size:11px; color:#9A9590">هدر المنتوری شما</span>
                 <a href="<?php echo esc_url(home_url('/')); ?>" target="_blank" style="background:linear-gradient(135deg,#C9A86A,#B8935A); color:#1A1206; padding:7px 12px; border-radius:999px; font-weight:700; font-size:12px; text-decoration:none">نمایش سایت</a>
             </span>
@@ -8136,6 +8695,205 @@ add_action('rest_api_init', function(){
         },
     ]);
 });
+````
+
+## Source Snapshot — `plugin/alookhor-control-center/includes/shortcode-export-banner.php`
+
+````php
+<?php
+/**
+ * Export banner — [alookhor_export_banner]
+ *
+ * Luxury dark-green export banner with gold frame, background image,
+ * centered logo, glass contact card and two animated WhatsApp actions.
+ *
+ * Settings live in the dedicated option `alookhor_cc_export_banner` and can be
+ * filtered with `alookhor_cc_export_banner_settings`. All assets are scoped to
+ * `.alookhor-xb` so the Header, Mega Menu, Hero, Footer, Woodmart and
+ * Elementor output remain untouched.
+ */
+if (!defined('ABSPATH')) exit;
+
+if (!defined('ALOOKHOR_CC_EXPORT_BANNER_OPTION')) {
+    define('ALOOKHOR_CC_EXPORT_BANNER_OPTION', 'alookhor_cc_export_banner');
+}
+
+function alookhor_cc_export_banner_asset($filename){
+    return ALOOKHOR_CC_URL . 'assets/images/' . ltrim((string) $filename, '/');
+}
+
+function alookhor_cc_export_banner_defaults(){
+    return [
+        'enabled' => true,
+        'background_image_id' => 0,
+        'background_image_url' => alookhor_cc_export_banner_asset('export-banner-bg.jpg'),
+        'logo_id' => 0,
+        'logo_url' => '',
+        'title' => 'صادرات آلو خشک ایران',
+        'title_gold' => 'از باغ خراسان تا بندر جهان',
+        'card_text' => 'ارسال مستقیم از مرکز سورت و بسته‌بندی آلوخور به بیش از ۱۵ کشور جهان — با بسته‌بندی صادراتی استاندارد، فاکتور رسمی و پیگیری لحظه‌ای مرسوله.',
+        'status_text' => 'هم‌اکنون پاسخگو هستیم — پاسخ در کمتر از ۲ ساعت کاری',
+        'whatsapp1_number' => '0915 951 3173',
+        'whatsapp1_link' => 'https://wa.me/989159513173',
+        'whatsapp2_number' => '0922 294 2808',
+        'whatsapp2_link' => 'https://wa.me/989222942808',
+        'bg_color' => '#0A2A1C',
+        'gold_color' => '#D4AF37',
+        'whatsapp_color' => '#1EBE5D',
+        'card_opacity' => 78,
+        'overlay_opacity' => 55,
+        'blur_strength' => 14,
+    ];
+}
+
+/** Convert a sanitized hex color to an "r,g,b" triplet for rgba() composition. */
+function alookhor_cc_export_banner_hex_to_rgb($hex, $fallback){
+    $hex = sanitize_hex_color($hex) ?: sanitize_hex_color($fallback) ?: '#0A2A1C';
+    $hex = ltrim($hex, '#');
+    if (strlen($hex) === 3) {
+        $hex = $hex[0] . $hex[0] . $hex[1] . $hex[1] . $hex[2] . $hex[2];
+    }
+    return hexdec(substr($hex, 0, 2)) . ',' . hexdec(substr($hex, 2, 2)) . ',' . hexdec(substr($hex, 4, 2));
+}
+
+/** Shift a hex color lighter (positive amount) or darker (negative), clamped. */
+function alookhor_cc_export_banner_shade($hex, $fallback, $amount){
+    $rgb = alookhor_cc_export_banner_hex_to_rgb($hex, $fallback);
+    $parts = array_map('intval', explode(',', $rgb));
+    $shift = function($channel) use ($amount){
+        return max(0, min(255, $channel + $amount));
+    };
+    return sprintf('#%02X%02X%02X', $shift($parts[0]), $shift($parts[1]), $shift($parts[2]));
+}
+
+function alookhor_cc_export_banner_normalize($incoming){
+    $defaults = alookhor_cc_export_banner_defaults();
+    $candidate = is_array($incoming) ? $incoming : [];
+    $s = array_replace($defaults, $candidate);
+
+    $s['enabled'] = rest_sanitize_boolean($s['enabled']);
+    $s['background_image_id'] = absint($s['background_image_id']);
+    $s['logo_id'] = absint($s['logo_id']);
+    foreach (['background_image_url', 'logo_url', 'whatsapp1_link', 'whatsapp2_link'] as $key) {
+        $s[$key] = esc_url_raw($s[$key]);
+    }
+    foreach (['title', 'title_gold', 'status_text', 'whatsapp1_number', 'whatsapp2_number'] as $key) {
+        $s[$key] = sanitize_text_field($s[$key]);
+    }
+    $s['card_text'] = sanitize_textarea_field($s['card_text']);
+    foreach (['bg_color' => $defaults['bg_color'], 'gold_color' => $defaults['gold_color'], 'whatsapp_color' => $defaults['whatsapp_color']] as $key => $fallback) {
+        $s[$key] = sanitize_hex_color($s[$key]) ?: $fallback;
+    }
+    $s['card_opacity'] = max(20, min(95, absint($s['card_opacity'])));
+    $s['overlay_opacity'] = max(0, min(95, absint($s['overlay_opacity'])));
+    $s['blur_strength'] = max(0, min(40, absint($s['blur_strength'])));
+    return $s;
+}
+
+function alookhor_cc_get_export_banner_settings(){
+    $saved = get_option(ALOOKHOR_CC_EXPORT_BANNER_OPTION, []);
+    if (!is_array($saved)) $saved = [];
+    return apply_filters('alookhor_cc_export_banner_settings', alookhor_cc_export_banner_normalize($saved));
+}
+
+/** Resolve a media-library attachment first, falling back to the stored URL. */
+function alookhor_cc_export_banner_image_url($attachment_id, $stored_url){
+    $attachment_id = absint($attachment_id);
+    if ($attachment_id) {
+        $attachment = wp_get_attachment_image_url($attachment_id, 'full');
+        if ($attachment) return $attachment;
+    }
+    return esc_url_raw($stored_url);
+}
+
+function alookhor_cc_export_banner_markup($settings = null){
+    $s = is_array($settings) ? alookhor_cc_export_banner_normalize($settings) : alookhor_cc_get_export_banner_settings();
+    if (empty($s['enabled'])) return '';
+
+    $background = alookhor_cc_export_banner_image_url($s['background_image_id'], $s['background_image_url']);
+    $logo = alookhor_cc_export_banner_image_url($s['logo_id'], $s['logo_url']);
+
+    $site = function_exists('alookhor_cc_get_settings') ? alookhor_cc_get_settings() : [];
+    $logo_letter = is_array($site['site'] ?? null) && !empty($site['site']['logoLetter']) ? $site['site']['logoLetter'] : 'آ';
+
+    $bg_rgb = alookhor_cc_export_banner_hex_to_rgb($s['bg_color'], '#0A2A1C');
+    $gold_light = alookhor_cc_export_banner_shade($s['gold_color'], '#D4AF37', 28);
+    $wa_dark = alookhor_cc_export_banner_shade($s['whatsapp_color'], '#1EBE5D', -34);
+
+    $style_vars = [
+        '--akx-bg:' . $s['bg_color'],
+        '--akx-bg-rgb:' . $bg_rgb,
+        '--akx-gold:' . $s['gold_color'],
+        '--akx-gold-light:' . $gold_light,
+        '--akx-wa:' . $s['whatsapp_color'],
+        '--akx-wa-dark:' . $wa_dark,
+        '--akx-card-alpha:' . number_format($s['card_opacity'] / 100, 2, '.', ''),
+        '--akx-overlay:' . number_format($s['overlay_opacity'] / 100, 2, '.', ''),
+        '--akx-blur:' . $s['blur_strength'] . 'px',
+        '--akx-image:' . ($background ? "url('" . esc_url($background) . "')" : 'none'),
+    ];
+
+    ob_start(); ?>
+    <section class="alookhor-xb" dir="rtl" data-version="<?php echo esc_attr(ALOOKHOR_CC_VERSION); ?>" style="<?php echo esc_attr(implode(';', $style_vars)); ?>" aria-label="بنر صادراتی آلوخور">
+      <div class="alookhor-xb-bg" aria-hidden="true"></div>
+      <div class="alookhor-xb-inner">
+        <div class="alookhor-xb-grid">
+          <div class="alookhor-xb-content">
+            <?php if ($s['title'] !== '' || $s['title_gold'] !== ''): ?>
+            <h2 class="alookhor-xb-title"><?php echo esc_html($s['title']); ?><?php if ($s['title_gold'] !== ''): ?> <strong><?php echo esc_html($s['title_gold']); ?></strong><?php endif; ?></h2>
+            <?php endif; ?>
+            <span class="alookhor-xb-rule" aria-hidden="true"></span>
+          </div>
+          <div class="alookhor-xb-logo">
+            <span class="alookhor-xb-logo-ring" aria-hidden="true">
+              <?php if ($logo): ?>
+              <img src="<?php echo esc_url($logo); ?>" alt="<?php echo esc_attr(get_bloginfo('name')); ?>" loading="lazy" decoding="async" draggable="false">
+              <?php else: ?>
+              <span class="alookhor-xb-logo-letter"><?php echo esc_html($logo_letter); ?></span>
+              <?php endif; ?>
+            </span>
+          </div>
+          <aside class="alookhor-xb-card">
+            <?php if ($s['card_text'] !== ''): ?><p class="alookhor-xb-card-text"><?php echo esc_html($s['card_text']); ?></p><?php endif; ?>
+            <?php if ($s['status_text'] !== ''): ?><p class="alookhor-xb-status"><span class="alookhor-xb-pulse" aria-hidden="true"></span><?php echo esc_html($s['status_text']); ?></p><?php endif; ?>
+            <div class="alookhor-xb-actions">
+              <?php foreach ([1, 2] as $slot):
+                  $number = trim((string) $s['whatsapp' . $slot . '_number']);
+                  $link = trim((string) $s['whatsapp' . $slot . '_link']);
+                  if ($number === '') continue;
+                  $href = $link !== '' ? $link : 'https://wa.me/' . preg_replace('/\D+/', '', $number);
+              ?>
+              <a class="alookhor-xb-wa<?php echo $slot === 2 ? ' is-alt' : ''; ?>" href="<?php echo esc_url($href); ?>" target="_blank" rel="noopener nofollow">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12.04 2a9.9 9.9 0 0 0-8.5 14.96L2 22l5.2-1.5A9.92 9.92 0 1 0 12.04 2Zm0 1.82a8.1 8.1 0 1 1-4.13 15.06l-.3-.18-3.07.88.9-2.99-.2-.31a8.1 8.1 0 0 1 6.8-12.46Zm-3.1 4.12c-.17 0-.45.06-.68.32-.23.26-.9.88-.9 2.14s.92 2.48 1.05 2.65c.13.17 1.8 2.88 4.44 3.92 2.2.87 2.65.7 3.12.65.48-.04 1.54-.63 1.76-1.24.22-.6.22-1.13.15-1.24-.06-.1-.24-.17-.5-.3-.27-.13-1.55-.76-1.79-.85-.24-.09-.42-.13-.6.13-.17.26-.68.85-.84 1.02-.15.17-.3.2-.57.07a7.4 7.4 0 0 1-2.2-1.36 8.24 8.24 0 0 1-1.52-1.9c-.16-.26-.02-.4.12-.53.12-.12.26-.3.4-.46.13-.16.17-.27.26-.46.09-.19.04-.35-.02-.5-.07-.14-.6-1.44-.84-1.97-.2-.47-.41-.47-.58-.48l-.87-.01Z"/></svg>
+                <span><?php echo esc_html($number); ?></span>
+              </a>
+              <?php endforeach; ?>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+    <?php
+    return ob_get_clean();
+}
+
+function alookhor_cc_export_banner_shortcode($atts = []){
+    $settings = alookhor_cc_get_export_banner_settings();
+    $atts = shortcode_atts([
+        'enabled' => !empty($settings['enabled']) ? '1' : '0',
+    ], $atts, 'alookhor_export_banner');
+    $settings['enabled'] = rest_sanitize_boolean($atts['enabled']);
+    return alookhor_cc_export_banner_markup($settings);
+}
+add_shortcode('alookhor_export_banner', 'alookhor_cc_export_banner_shortcode');
+
+// ——— Frontend assets — کاملاً Scoped به .alookhor-xb ———
+add_action('wp_enqueue_scripts', function(){
+    $settings = alookhor_cc_get_export_banner_settings();
+    if (empty($settings['enabled'])) return;
+    wp_enqueue_style('alookhor-cc-export-banner', ALOOKHOR_CC_URL . 'assets/css/frontend-export-banner.css', [], ALOOKHOR_CC_BUILD);
+    wp_enqueue_script('alookhor-cc-export-banner', ALOOKHOR_CC_URL . 'assets/js/frontend-export-banner.js', [], ALOOKHOR_CC_BUILD, true);
+}, 31);
 ````
 
 ## Source Snapshot — `plugin/alookhor-control-center/includes/shortcode-header.php`

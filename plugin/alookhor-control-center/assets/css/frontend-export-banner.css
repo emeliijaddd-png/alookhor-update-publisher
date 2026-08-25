@@ -1,0 +1,310 @@
+/* ==========================================================================
+   ALOOKHOR Export Banner — [alookhor_export_banner]
+   Fully scoped to .alookhor-xb — header, mega menu, hero, footer, Woodmart
+   and Elementor styles are never touched. RTL native.
+   ========================================================================== */
+
+.alookhor-xb,
+.alookhor-xb *{
+  box-sizing:border-box;
+}
+
+@keyframes alookhor-xb-shine{
+  0%{inset-inline-start:-75%}
+  55%,100%{inset-inline-start:135%}
+}
+
+@keyframes alookhor-xb-pulse{
+  0%{box-shadow:0 0 0 0 rgba(61,214,140,.55)}
+  70%{box-shadow:0 0 0 9px rgba(61,214,140,0)}
+  100%{box-shadow:0 0 0 0 rgba(61,214,140,0)}
+}
+
+@keyframes alookhor-xb-float{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-7px)}
+}
+
+.alookhor-xb{
+  position:relative;
+  width:100%;
+  margin:0;
+  padding:0;
+  border:2px solid var(--akx-gold,#D4AF37);
+  border-radius:30px;
+  overflow:hidden;
+  isolation:isolate;
+  background:var(--akx-bg,#0A2A1C);
+  box-shadow:0 34px 70px -38px rgba(0,0,0,.75);
+  color:#F4F1E6;
+  font-family:inherit;
+  font-size:16px;
+  line-height:1.9;
+  direction:rtl;
+  text-align:right;
+}
+
+/* Inner gold hairline — the second line of the luxury frame */
+.alookhor-xb::before{
+  content:"";
+  position:absolute;
+  inset:9px;
+  border:1px solid var(--akx-gold,#D4AF37);
+  opacity:.42;
+  border-radius:22px;
+  pointer-events:none;
+  z-index:3;
+}
+
+/* Background image + tinted overlay (darkness = شفافیت بنر) */
+.alookhor-xb-bg{
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  background-image:var(--akx-image,none);
+  background-size:cover;
+  background-position:center;
+  background-repeat:no-repeat;
+}
+.alookhor-xb-bg::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(115deg,
+    rgba(var(--akx-bg-rgb,10,42,28),calc(var(--akx-overlay,.55) + .18)) 0%,
+    rgba(var(--akx-bg-rgb,10,42,28),var(--akx-overlay,.55)) 55%,
+    rgba(var(--akx-bg-rgb,10,42,28),calc(var(--akx-overlay,.55) + .1)) 100%);
+}
+
+.alookhor-xb-inner{
+  position:relative;
+  z-index:1;
+  width:100%;
+  max-width:1280px;
+  margin-inline:auto;
+  padding:54px 46px;
+}
+
+.alookhor-xb-grid{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto minmax(310px,392px);
+  grid-template-areas:"content logo card";
+  align-items:center;
+  gap:42px;
+}
+
+/* ——— Export content (right side in RTL) ——— */
+.alookhor-xb-content{grid-area:content;min-width:0}
+
+.alookhor-xb-title{
+  margin:0;
+  padding:0;
+  font-size:clamp(25px,3.1vw,42px);
+  font-weight:800;
+  line-height:1.55;
+  color:#FFFFFF;
+  text-shadow:0 3px 22px rgba(0,0,0,.45);
+}
+.alookhor-xb-title strong{
+  font-weight:inherit;
+  color:var(--akx-gold,#D4AF37);
+  text-shadow:0 0 26px rgba(212,175,55,.35);
+}
+
+.alookhor-xb-rule{
+  display:block;
+  width:92px;
+  height:3px;
+  margin-top:20px;
+  border-radius:999px;
+  background:linear-gradient(to left,var(--akx-gold,#D4AF37),transparent);
+}
+
+/* ——— Center logo ——— */
+.alookhor-xb-logo{grid-area:logo;display:flex;justify-content:center}
+.alookhor-xb-logo-ring{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:148px;
+  height:148px;
+  border-radius:50%;
+  border:1px solid var(--akx-gold,#D4AF37);
+  background:rgba(var(--akx-bg-rgb,10,42,28),.55);
+  backdrop-filter:blur(var(--akx-blur,14px));
+  -webkit-backdrop-filter:blur(var(--akx-blur,14px));
+  box-shadow:0 0 0 9px rgba(var(--akx-bg-rgb,10,42,28),.25),0 22px 48px -20px rgba(0,0,0,.7),inset 0 0 34px rgba(212,175,55,.12);
+  overflow:hidden;
+  animation:alookhor-xb-float 6s ease-in-out infinite;
+}
+.alookhor-xb-logo-ring img{
+  width:72%;
+  height:72%;
+  object-fit:contain;
+  margin:0;
+  border:0;
+  box-shadow:none;
+  border-radius:0;
+}
+.alookhor-xb-logo-letter{
+  font-size:56px;
+  font-weight:800;
+  color:var(--akx-gold,#D4AF37);
+  line-height:1;
+}
+
+/* ——— Glass contact card (left side in RTL) ——— */
+.alookhor-xb-card{
+  grid-area:card;
+  min-width:0;
+  padding:26px 26px 24px;
+  border-radius:22px;
+  border:1px solid var(--akx-gold,#D4AF37);
+  background:rgba(var(--akx-bg-rgb,10,42,28),var(--akx-card-alpha,.78));
+  backdrop-filter:blur(var(--akx-blur,14px)) saturate(150%);
+  -webkit-backdrop-filter:blur(var(--akx-blur,14px)) saturate(150%);
+  box-shadow:0 26px 55px -30px rgba(0,0,0,.75);
+}
+
+.alookhor-xb-card-text{
+  margin:0 0 16px;
+  padding:0;
+  font-size:14.5px;
+  line-height:2;
+  color:#EDEAE0;
+}
+
+.alookhor-xb-status{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  margin:0 0 20px;
+  padding:10px 14px;
+  border-radius:12px;
+  background:rgba(255,255,255,.055);
+  border:1px solid rgba(255,255,255,.08);
+  font-size:12.5px;
+  color:#CFF5E1;
+}
+.alookhor-xb-pulse{
+  flex:0 0 auto;
+  width:9px;
+  height:9px;
+  border-radius:50%;
+  background:#3DD68C;
+  animation:alookhor-xb-pulse 2.2s ease-out infinite;
+}
+
+/* ——— WhatsApp actions ——— */
+.alookhor-xb-actions{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.alookhor-xb-wa{
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  padding:13px 18px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.16);
+  background:linear-gradient(135deg,var(--akx-wa,#1EBE5D) 0%,var(--akx-wa-dark,#13A24B) 100%);
+  color:#FFFFFF !important;
+  font-size:15px;
+  font-weight:700;
+  letter-spacing:.02em;
+  text-decoration:none !important;
+  box-shadow:0 14px 32px -14px rgba(30,190,93,.65);
+  overflow:hidden;
+  transition:transform .28s ease,box-shadow .28s ease,filter .28s ease;
+}
+.alookhor-xb-wa::after{
+  content:"";
+  position:absolute;
+  top:-20%;
+  height:140%;
+  width:52%;
+  inset-inline-start:-75%;
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.42),transparent);
+  transform:skewX(-18deg);
+  animation:alookhor-xb-shine 3.8s ease-in-out infinite;
+  pointer-events:none;
+}
+.alookhor-xb-wa svg{
+  flex:0 0 auto;
+  width:22px;
+  height:22px;
+  fill:currentColor;
+}
+.alookhor-xb-wa span{position:relative;z-index:1}
+.alookhor-xb-wa:is(:hover,:focus-visible){
+  transform:translateY(-3px);
+  filter:brightness(1.07);
+  box-shadow:0 22px 42px -16px rgba(30,190,93,.8);
+  color:#FFFFFF !important;
+  text-decoration:none !important;
+}
+.alookhor-xb-wa:focus-visible{
+  outline:2px solid var(--akx-gold,#D4AF37);
+  outline-offset:3px;
+}
+.alookhor-xb-wa.is-alt{
+  background:linear-gradient(135deg,rgba(255,255,255,.1),rgba(255,255,255,.03));
+  border-color:var(--akx-wa,#1EBE5D);
+  box-shadow:0 14px 32px -18px rgba(0,0,0,.65);
+}
+
+/* ——— Entrance animation (armed only by frontend-export-banner.js) ——— */
+.alookhor-xb.will-animate{opacity:0;transform:translateY(26px)}
+.alookhor-xb.will-animate.is-visible{
+  opacity:1;
+  transform:none;
+  transition:opacity .7s ease,transform .7s ease;
+}
+
+/* ——— Tablet ——— */
+@media (max-width:1023px){
+  .alookhor-xb-inner{padding:44px 30px}
+  .alookhor-xb-grid{
+    grid-template-columns:auto minmax(0,1fr);
+    grid-template-areas:
+      "content content"
+      "logo card";
+    gap:30px;
+  }
+  .alookhor-xb-content{text-align:center}
+  .alookhor-xb-rule{margin-inline:auto}
+  .alookhor-xb-logo-ring{width:124px;height:124px}
+}
+
+/* ——— Mobile ——— */
+@media (max-width:767px){
+  .alookhor-xb{border-radius:22px}
+  .alookhor-xb::before{inset:7px;border-radius:16px}
+  .alookhor-xb-inner{padding:38px 20px}
+  .alookhor-xb-grid{
+    grid-template-columns:minmax(0,1fr);
+    grid-template-areas:
+      "logo"
+      "content"
+      "card";
+    gap:24px;
+  }
+  .alookhor-xb-title{font-size:clamp(22px,6.6vw,29px)}
+  .alookhor-xb-logo-ring{width:108px;height:108px}
+  .alookhor-xb-logo-letter{font-size:42px}
+  .alookhor-xb-card{padding:22px 18px 20px;border-radius:18px}
+  .alookhor-xb-card-text{font-size:13.5px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .alookhor-xb,
+  .alookhor-xb-logo-ring,
+  .alookhor-xb-pulse,
+  .alookhor-xb-wa::after{animation:none !important}
+  .alookhor-xb.will-animate{opacity:1;transform:none}
+  .alookhor-xb.will-animate.is-visible{transition:none}
+}

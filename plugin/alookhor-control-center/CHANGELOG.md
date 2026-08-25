@@ -1,5 +1,11 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.58 — 2026-08-25 — Export Banner Module
+- FEATURE: ماژول جدید «بنر صادراتی» با شورت‌کد واقعی `[alookhor_export_banner]` — بنر لوکس سبز تیره با Border طلایی دولایه، تصویر Background کامیون/کانتینر، لوگوی مرکزی شیشه‌ای، کارت تماس Glass و دو دکمه واتساپ لوکس متحرک.
+- ADMIN: صفحه اختصاصی «بنر صادراتی» در Control Center — فعال/غیرفعال، انتخاب Background و لوگو از WordPress Media Library، عنوان اصلی، عنوان طلایی، متن کارت صادراتی، متن وضعیت پاسخگویی، دو شماره و لینک واتساپ، رنگ پس‌زمینه/طلایی/واتساپ، شفافیت کارت و بنر و شدت Blur — ذخیره امن admin-ajax با nonce.
+- FRONTEND: خروجی کاملاً Scoped به `.alookhor-xb` (RTL native، Responsive کامل Desktop/Tablet/Mobile) بدون هیچ اثر یا Reset روی Header، Mega Menu، Hero، Footer یا Elementor؛ تصویر پیش‌فرض `assets/images/export-banner-bg.jpg` همراه افزونه است.
+- PRESERVE: هیچ قابلیت فعلی حذف، جایگزین یا بازنویسی نشده — تغییرات صرفاً افزایشی است (دو require جدید در bootstrap).
+
 ## v3.10.55 — 2026-08-16 — Header Renderer Recovery
 - FIX: Renderer کامل `[alookhor_portal_header]` بازگردانده شد؛ خروجی دوباره کلاس‌های واقعی `.alookhor-portal-header`/Legacy wrapper را تولید می‌کند.
 - REFERENCE: Top Bar و Main Menu Burgundy/Gold، منوی WordPress، Cart، Account، Logo و Hamburger مطابق `image.png`.

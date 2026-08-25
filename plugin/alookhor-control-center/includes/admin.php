@@ -45,6 +45,7 @@ add_action('admin_enqueue_scripts', function($hook){
         ),
         'updater_configured' => (bool) alookhor_cc_update_manifest_url(),
         'header_shortcode' => '[alookhor_portal_header]',
+        'export_banner_shortcode' => '[alookhor_export_banner]',
         'hero_shortcode' => '[alookhor_managed_hero]',
         'feature_shortcode' => '[alookhor_managed_features]',
         'home_url' => home_url('/'),
@@ -80,6 +81,7 @@ function alookhor_cc_render_admin(){
             <span style="font-size:12px; color:#9A9590">v<?php echo esc_html(ALOOKHOR_CC_VERSION); ?> — نصب شده و فعال</span>
             <span style="margin-left:auto; display:flex; gap:8px; align-items:center">
                 <code dir="ltr" style="background:rgba(255,255,255,0.06); border:1px solid rgba(201,168,106,0.14); padding:4px 8px; border-radius:8px; color:#E8D5B5; font-size:11px">[alookhor_portal_header]</code>
+                <code dir="ltr" style="background:rgba(255,255,255,0.06); border:1px solid rgba(201,168,106,0.14); padding:4px 8px; border-radius:8px; color:#E8D5B5; font-size:11px">[alookhor_export_banner]</code>
                 <span style="font-size:11px; color:#9A9590">هدر المنتوری شما</span>
                 <a href="<?php echo esc_url(home_url('/')); ?>" target="_blank" style="background:linear-gradient(135deg,#C9A86A,#B8935A); color:#1A1206; padding:7px 12px; border-radius:999px; font-weight:700; font-size:12px; text-decoration:none">نمایش سایت</a>
             </span>
