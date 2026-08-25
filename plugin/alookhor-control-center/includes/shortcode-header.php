@@ -80,10 +80,10 @@ function alookhor_cc_render_akx_header() {
     $account_url = function_exists('wc_get_page_permalink') ? esc_url(wc_get_page_permalink('myaccount')) : $home_url . 'my-account/';
 
     // Render-time unique IDs (one shortcode per page is supported).
-    $instance_id = 'akx-header-' . wp_unique_id();
-    $drawer_id   = 'akxMobDrawer-' . wp_unique_id();
-    $close_id    = 'akxMobClose-' . wp_unique_id();
-    $back_id     = 'akxMobBackdrop-' . wp_unique_id();
+    $instance_id = 'akx-header';
+    $drawer_id   = 'akxMobDrawer';
+    $close_id    = 'akxMobClose';
+    $back_id     = 'akxMobBackdrop';
 
     ob_start();
     ?>
