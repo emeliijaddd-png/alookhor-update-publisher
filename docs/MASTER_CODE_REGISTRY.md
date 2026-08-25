@@ -243,7 +243,7 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 | `plugin/alookhor-control-center/includes/product-categories.php` | 88 | `64d42189315d77e8bda401a945e37d18d16bcf2346159f8cabe0022920dba2cb` |
 | `plugin/alookhor-control-center/includes/rest-api.php` | 334 | `771be7cb71efdcb57ae5c2459bcb10dffb7c88f6fc53428af371c5d9e81734e4` |
 | `plugin/alookhor-control-center/includes/shortcode-export-banner.php` | 194 | `a7ade6e17b85634c380ddd298839d21518d4b3dac6c516e1e0ad73432a725aad` |
-| `plugin/alookhor-control-center/includes/shortcode-header.php` | 345 | `0d9659d52dbfe46d95d438d0562e81e36a5d8e9738fa095e0f414a22e8995c22` |
+| `plugin/alookhor-control-center/includes/shortcode-header.php` | 345 | `53b86e1c2430137c80b0c003d254d2d96dac103f5652ccbb67257d5a706c7674` |
 | `plugin/alookhor-control-center/includes/shortcode-purple-slider.php` | 213 | `997d63ca609094548c6a1273be563e257c7fb3fdc7f04699b1b110fa55369996` |
 | `plugin/alookhor-control-center/includes/site-features.php` | 133 | `8c0f550195121550d1085b5415fd63291fcf1e8d17bfaf0bca491e2df7468c72` |
 | `plugin/alookhor-control-center/includes/updater.php` | 385 | `ac1f5773bce98245ea3a6a9b81177cdf7440ed1ed54dcfba6c1a535b7c5acbc8` |
@@ -10042,7 +10042,7 @@ function alookhor_cc_front_header_settings() {
         'primary_menu'     => 0,
         'topbar_height'    => 43,
         'header_logo_desktop_width' => 118,
-        'header_logo_mobile_width'  => 58,
+        'header_logo_mobile_width' => 58,
     );
 
     $settings = wp_parse_args($saved, $defaults);

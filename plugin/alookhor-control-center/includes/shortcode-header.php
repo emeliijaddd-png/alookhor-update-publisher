@@ -76,7 +76,7 @@ function alookhor_cc_front_header_settings() {
         'primary_menu'     => 0,
         'topbar_height'    => 43,
         'header_logo_desktop_width' => 118,
-        'header_logo_mobile_width'  => 58,
+        'header_logo_mobile_width' => 58,
     );
 
     $settings = wp_parse_args($saved, $defaults);
