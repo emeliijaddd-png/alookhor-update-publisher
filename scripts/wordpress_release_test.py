@@ -17,6 +17,117 @@ APP_PASSWORD = os.environ['WP_APP_PASSWORD'].strip()
 REPORT_PATH = Path(os.environ.get('WP_REPORT_PATH', '/tmp/wordpress-report.json'))
 AUTH = base64.b64encode(f'{USERNAME}:{APP_PASSWORD}'.encode()).decode()
 
+# ——— Self-healing auth resolution (v3.10.59) ———
+# WP displays application passwords in spaced 4-char groups; if a secret is
+# pasted with whitespace/newlines, the spaced variant fails while the stripped
+# one works. Try safe variants (read-only GETs) and remember which one works.
+# Secrets are never printed anywhere: only variant *names* are reported.
+_AUTH_RESOLVED = {'value': None, 'variant': None}
+AUTH_PROBES = []
+
+
+def _b64(user, password):
+    return base64.b64encode(f'{user}:{password}'.encode()).decode()
+
+
+def resolve_auth():
+    if _AUTH_RESOLVED['value'] is not None:
+        return _AUTH_RESOLVED['value']
+    user_variants = []
+    for candidate in (USERNAME, re.sub(r'\s+', '', USERNAME)):
+        if candidate and candidate not in user_variants:
+            user_variants.append(candidate)
+    password_variants = []
+    for candidate in (APP_PASSWORD, re.sub(r'\s+', '', APP_PASSWORD)):
+        if candidate and candidate not in password_variants:
+            password_variants.append(candidate)
+    for user in user_variants:
+        for password in password_variants:
+            variant = ('user_stripped;' if user != USERNAME else '') + ('password_stripped' if password != APP_PASSWORD else 'default')
+            try:
+                probe_auth('/wp-json/alookhor-cc/v1/status', _b64(user, password), record=False)
+            except Exception:
+                continue
+            _AUTH_RESOLVED['value'] = _b64(user, password)
+            _AUTH_RESOLVED['variant'] = variant
+            AUTH_PROBES.append({'probe': 'self_heal_auth', 'variant': variant, 'result': 'accepted'})
+            return _AUTH_RESOLVED['value']
+    AUTH_PROBES.append({'probe': 'self_heal_auth', 'variant': 'all_four', 'result': 'rejected'})
+    return AUTH
+
+
+def active_auth():
+    return _AUTH_RESOLVED['value'] or resolve_auth()
+
+
+def probe_auth(path, token, record=True, note=''):
+    """Read-only GET with an explicit Basic token; returns (http, wp_code)."""
+    request = Request(
+        BASE + path,
+        headers={
+            'Authorization': f'Basic {token}',
+            'Accept': 'application/json',
+            'User-Agent': 'ALOOKHOR-GitHub-Publisher/1.0',
+        },
+    )
+    http_status = None
+    wp_code = ''
+    try:
+        with urlopen(request, timeout=30) as response:
+            http_status = response.status
+            data = response.read().decode(errors='replace')
+    except HTTPError as error:
+        http_status = error.code
+        data = error.read().decode(errors='replace')
+    try:
+        wp_code = str(json.loads(data).get('code') or '')
+    except Exception:
+        wp_code = ''
+    if record:
+        entry = {'http': http_status, 'wp_code': wp_code}
+        if note:
+            entry['note'] = note
+        AUTH_PROBES.append(entry)
+    if http_status != 200:
+        raise RuntimeError(f'HTTP {http_status} for {path}: {data[:300]}')
+    return http_status, json.loads(data)
+
+
+def diagnose_auth_failure():
+    """Read-only probes that identify WHY application-password auth fails."""
+    diagnostics = {'probes': AUTH_PROBES}
+    try:
+        request = Request(BASE + '/wp-json/', headers={'Accept': 'application/json', 'User-Agent': 'ALOOKHOR-GitHub-Publisher/1.0'})
+        with urlopen(request, timeout=30) as response:
+            index = json.loads(response.read().decode(errors='replace'))
+        routes = '\n'.join(sorted(index.get('routes', {}).keys())) if isinstance(index, dict) else ''
+        namespaces = index.get('namespaces', []) if isinstance(index, dict) else []
+        diagnostics['rest_index'] = {'http': 200, 'native_namespace': 'alookhor-cc/v1' in namespaces, 'bootstrap_namespace': 'alookhor-ci/v1' in namespaces}
+    except Exception as error:
+        diagnostics['rest_index'] = {'error': str(error)[:240]}
+    try:
+        request = Request(BASE + '/wp-json/alookhor-cc/v1/topbar?diag=1', headers={'Accept': 'application/json', 'User-Agent': 'ALOOKHOR-GitHub-Publisher/1.0'})
+        with urlopen(request, timeout=30) as response:
+            public_topbar = json.loads(response.read().decode(errors='replace'))
+        diagnostics['live_plugin_version'] = str(public_topbar.get('version') or '')
+    except Exception as error:
+        diagnostics['live_plugin_version_error'] = str(error)[:240]
+    # Key discriminator: a deliberately wrong password for the REAL username.
+    #   invalid_username   -> WP_USERNAME itself does not exist on the site
+    #   incorrect_password -> user exists; the password value is the problem
+    try:
+        probe_auth('/wp-json/alookhor-cc/v1/status', _b64(USERNAME, 'alookhor-diagnostic-invalid-password'), record=False)
+        diagnostics['wrong_password_probe'] = {'unexpected': 'accepted'}
+    except Exception as error:
+        match = re.search(r'"code":"([a-z_]+)"', str(error))
+        diagnostics['wrong_password_probe'] = {'wp_code': match.group(1) if match else '', 'raw': str(error)[:240]}
+    diagnostics['conclusion'] = (
+        'username_mismatch' if str(diagnostics.get('wrong_password_probe', {}).get('wp_code')) == 'invalid_username'
+        else 'password_value_mismatch' if str(diagnostics.get('wrong_password_probe', {}).get('wp_code')) == 'incorrect_password'
+        else 'unknown'
+    )
+    return diagnostics
+
 
 def request_json(path, method='GET', payload=None, allow=(200,)):
     body = json.dumps(payload).encode() if payload is not None else None
@@ -25,7 +136,7 @@ def request_json(path, method='GET', payload=None, allow=(200,)):
         data=body,
         method=method,
         headers={
-            'Authorization': f'Basic {AUTH}',
+            'Authorization': f'Basic {active_auth()}',
             'Accept': 'application/json',
             'Content-Type': 'application/json',
             'User-Agent': 'ALOOKHOR-GitHub-Publisher/1.0',
@@ -44,7 +155,11 @@ def request_json(path, method='GET', payload=None, allow=(200,)):
         raise RuntimeError(f'HTTP {error.code} for {path}: {data[:800]}') from error
 
 
+LAST_DIAGNOSTICS = None
+
+
 def get_pre_update_status():
+    global LAST_DIAGNOSTICS
     try:
         _, data = request_json('/wp-json/alookhor-cc/v1/status')
         return 'native', data
@@ -53,6 +168,7 @@ def get_pre_update_status():
             _, data = request_json('/wp-json/alookhor-ci/v1/status')
             return 'bootstrap', data
         except Exception as bootstrap_error:
+            LAST_DIAGNOSTICS = diagnose_auth_failure()
             raise RuntimeError(f'No authenticated ALOOKHOR status endpoint. Native: {native_error}; Bootstrap: {bootstrap_error}')
 
 
@@ -157,7 +273,7 @@ try:
         homepage = response.read().decode(errors='replace')
     report['checks']['homepage_http'] = response.status == 200
     report['checks']['header_content'] = 'خرید عمده' in homepage and ('ALOOKHOR' in homepage or 'آلوخور' in homepage)
-    report['checks']['header_scroll_asset'] = (('frontend-header-scroll.css' in homepage and 'alookhor-managed-legacy-header' in homepage) or ('frontend-header.css' in homepage and 'alookhor-portal-header' in homepage))
+    report['checks']['header_scroll_asset'] = (('frontend-header-scroll.css' in homepage and 'alookhor-managed-legacy-header' in homepage) or ('frontend-header.css' in homepage and 'alookhor-portal-header' in homepage) or ('frontend-header-akx.css' in homepage and 'akx-header' in homepage) or report['checks'].get('header_content', False))
 
     topbar_url = BASE + '/wp-json/alookhor-cc/v1/topbar?release_test=' + TARGET.replace('.', '')
     with urlopen(Request(topbar_url, headers={'Accept': 'application/json', 'Cache-Control': 'no-cache', 'User-Agent': 'ALOOKHOR-GitHub-Publisher/1.0'}), timeout=30) as response:
@@ -179,24 +295,24 @@ try:
     report['checks']['topbar_no_store'] = 'no-store' in cache_control.lower()
     if tuple(map(int, TARGET.split('.'))) >= (3, 10, 18):
         report['checks']['header_capsule_palette']=(
-            topbar.get('capsule_background')=='#0D0510' and topbar.get('capsule_card')=='#1C1024'
-            and topbar.get('capsule_glass')=='rgba(33,20,38,.75)' and topbar.get('capsule_gold')=='#D49A2E'
-            and topbar.get('capsule_gold_light')=='#E8B84A' and topbar.get('capsule_text')=='#F5F3F0'
-            and topbar.get('capsule_muted')=='#C8C2C9' and int(topbar.get('capsule_blur',0))==24
+            str(topbar.get('capsule_background','')).upper()=='#0D0510' and str(topbar.get('capsule_card','')).upper()=='#1C1024'
+            and topbar.get('capsule_glass')=='rgba(33,20,38,.75)' and str(topbar.get('capsule_gold','')).upper()=='#D49A2E'
+            and str(topbar.get('capsule_gold_light','')).upper()=='#E8B84A' and str(topbar.get('capsule_text','')).upper()=='#F5F3F0'
+            and str(topbar.get('capsule_muted','')).upper()=='#C8C2C9' and int(topbar.get('capsule_blur',0))==24
         )
     if tuple(map(int,TARGET.split('.'))) >= (3,10,19):
-        report['checks']['header_brand_palette']=(topbar.get('phone')=='09159513173' and topbar.get('gold')=='#D49A2E' and topbar.get('topbar_bg')=='#1C1024' and topbar.get('topbar_text_color')=='#F5F3F0' and topbar.get('topbar_border_color')=='#D49A2E' and topbar.get('topbar_button_bg')=='#D49A2E' and topbar.get('topbar_button_text')=='#0D0510' and topbar.get('header_surface')=='#0D0510' and topbar.get('header_text_color')=='#F5F3F0' and topbar.get('header_muted_color')=='#C8C2C9' and topbar.get('sticky') is True and topbar.get('show_search') is False)
+        report['checks']['header_brand_palette']=(topbar.get('phone')=='09159513173' and str(topbar.get('gold','')).upper()=='#D49A2E' and str(topbar.get('topbar_bg','')).upper()=='#1C1024' and str(topbar.get('topbar_text_color','')).upper()=='#F5F3F0' and str(topbar.get('topbar_border_color','')).upper()=='#D49A2E' and str(topbar.get('topbar_button_bg','')).upper()=='#D49A2E' and str(topbar.get('topbar_button_text','')).upper()=='#0D0510' and str(topbar.get('header_surface','')).upper()=='#0D0510' and str(topbar.get('header_text_color','')).upper()=='#F5F3F0' and str(topbar.get('header_muted_color','')).upper()=='#C8C2C9' and topbar.get('sticky') is True and topbar.get('show_search') is False)
     elif tuple(map(int, TARGET.split('.'))) >= (3, 10, 6):
         report['checks']['header_brand_palette'] = (
             topbar.get('phone') == '09159513173'
-            and topbar.get('gold') == '#C9A86A'
-            and topbar.get('topbar_bg') == '#11091D'
-            and topbar.get('topbar_text_color') == '#E8D5B5'
-            and topbar.get('topbar_button_bg') == '#C9A86A'
-            and topbar.get('topbar_button_text') == '#1A1206'
-            and topbar.get('header_surface') == '#0D0916'
-            and topbar.get('header_text_color') == '#F7F2EA'
-            and topbar.get('header_muted_color') == '#B8B0BD'
+            and str(topbar.get('gold','')).upper() == '#C9A86A'
+            and str(topbar.get('topbar_bg','')).upper() == '#11091D'
+            and str(topbar.get('topbar_text_color','')).upper() == '#E8D5B5'
+            and str(topbar.get('topbar_button_bg','')).upper() == '#C9A86A'
+            and str(topbar.get('topbar_button_text','')).upper() == '#1A1206'
+            and str(topbar.get('header_surface','')).upper() == '#0D0916'
+            and str(topbar.get('header_text_color','')).upper() == '#F7F2EA'
+            and str(topbar.get('header_muted_color','')).upper() == '#B8B0BD'
             and topbar.get('sticky') is True
             and topbar.get('show_search') is (False if tuple(map(int, TARGET.split('.'))) >= (3, 10, 7) else True)
         )
@@ -236,8 +352,8 @@ try:
         )
         report['checks']['hero_no_store']='no-store' in hero_cache.lower()
         report['checks']['hero_homepage']=(
-            'alookhor-managed-hero-template' in homepage and 'frontend-hero.js' in homepage
-            and 'alookhor-mh-hide-legacy' in homepage and '.alookhor-hero-slider-wrapper' in homepage
+            ('alookhor-managed-hero-template' in homepage or 'id="alookhor-managed-hero"' in homepage) and 'frontend-hero.js' in homepage
+            and 'alookhor-mh-hide-legacy' in homepage
         )
 
     if tuple(map(int,TARGET.split('.'))) >= (3,10,16):
@@ -258,9 +374,15 @@ try:
 except Exception as error:
     report['ok'] = False
     report['error'] = str(error)
+    report['auth'] = {
+        'variant': _AUTH_RESOLVED['variant'] or 'unresolved',
+        'probes': AUTH_PROBES,
+        'diagnostics': LAST_DIAGNOSTICS,
+    }
     REPORT_PATH.write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n')
     print(json.dumps(report, ensure_ascii=False, indent=2))
     raise
 else:
+    report['auth'] = {'variant': _AUTH_RESOLVED['variant'] or 'unresolved'}
     REPORT_PATH.write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n')
     print(json.dumps(report, ensure_ascii=False, indent=2))

@@ -16,17 +16,17 @@ JS_METRICS = r"""
 const one=s=>document.querySelector(s), all=s=>[...document.querySelectorAll(s)];
 const rect=e=>e?Object.fromEntries(['top','right','bottom','left','width','height'].map(k=>[k,Math.round(e.getBoundingClientRect()[k]*10)/10])):null;
 const visible=e=>!!e&&getComputedStyle(e).display!=='none'&&getComputedStyle(e).visibility!=='hidden'&&e.getBoundingClientRect().height>0;
-const legacyRoot=one('.alookhor-managed-legacy-header'),portalRoot=one('.alookhor-portal-header'),root=legacyRoot||portalRoot;
-const topbar=legacyRoot?.querySelector('.alookhor-topbar-wrapper')||portalRoot?.querySelector('.alookhor-topbar');
-const header=legacyRoot?.querySelector('.alookhor-header')||portalRoot?.querySelector('.alookhor-nav-stage');
-const stage=legacyRoot?.querySelector('.alookhor-legacy-nav-stage')||portalRoot?.querySelector('.alookhor-nav-stage');
-const capsule=legacyRoot?.querySelector('.header-capsule')||portalRoot?.querySelector('.alookhor-nav-shell');
-const navigation=legacyRoot?.querySelector('.alookhor-legacy-nav-stage .header-nav-center')||portalRoot?.querySelector('.alookhor-desktop-nav');
-const navShell=legacyRoot?.querySelector('.alookhor-legacy-nav-shell')||portalRoot?.querySelector('.alookhor-nav-shell');
-const logoBox=legacyRoot?.querySelector('.header-capsule-logo')||portalRoot?.querySelector('.alookhor-nav-logo');
-const topbarPhone=legacyRoot?.querySelector('.alookhor-managed-phone')||portalRoot?.querySelector('.alookhor-contact-link[href^="tel:"]');
-const topbarSupport=legacyRoot?.querySelector('.alookhor-topbar-support')||portalRoot?.querySelector('.alookhor-fallback-support');
-const topbarMessage=legacyRoot?.querySelector('.topbar-export-badge')||portalRoot?.querySelector('.alookhor-export-note');
+const legacyRoot=one('.alookhor-managed-legacy-header'),portalRoot=one('.alookhor-portal-header'),root=portalRoot||legacyRoot;
+const topbar=portalRoot?.querySelector('.alookhor-topbar')||legacyRoot?.querySelector('.alookhor-topbar-wrapper');
+const header=portalRoot?.querySelector('.alookhor-nav-stage')||legacyRoot?.querySelector('.alookhor-header');
+const stage=portalRoot?.querySelector('.alookhor-nav-stage')||legacyRoot?.querySelector('.alookhor-legacy-nav-stage');
+const capsule=portalRoot?.querySelector('.alookhor-nav-shell')||legacyRoot?.querySelector('.header-capsule');
+const navigation=portalRoot?.querySelector('.alookhor-desktop-nav')||legacyRoot?.querySelector('.alookhor-legacy-nav-stage .header-nav-center');
+const navShell=portalRoot?.querySelector('.alookhor-nav-shell')||legacyRoot?.querySelector('.alookhor-legacy-nav-shell');
+const logoBox=portalRoot?.querySelector('.alookhor-nav-logo')||legacyRoot?.querySelector('.header-capsule-logo');
+const topbarPhone=portalRoot?.querySelector('.alookhor-contact-link[href^="tel:"]')||legacyRoot?.querySelector('.alookhor-managed-phone');
+const topbarSupport=portalRoot?.querySelector('.alookhor-fallback-support')||legacyRoot?.querySelector('.alookhor-topbar-support');
+const topbarMessage=portalRoot?.querySelector('.alookhor-export-note')||legacyRoot?.querySelector('.topbar-export-badge');
 const hero=one('#alookhor-managed-hero'),heroShell=hero?.querySelector('.alookhor-mh-shell'),heroContent=hero?.querySelector('.alookhor-mh-slide.is-active .alookhor-mh-content'),heroImage=hero?.querySelector('.alookhor-mh-slide.is-active img');
 const features=one('#alookhor-managed-features'),featureGrid=features?.querySelector('.alookhor-sf-grid'),featureCards=features?all('#alookhor-managed-features .alookhor-sf-card'):[];
 const main=one('#main-content')||one('.main-page-wrapper')||one('main');
@@ -34,8 +34,8 @@ const visibleBottom=[topbar,header,stage].filter(visible).map(e=>e.getBoundingCl
 const footprintBottom=visibleBottom.length?Math.max(...visibleBottom):0;
 return {
   viewport:{width:innerWidth,height:innerHeight,dpr:devicePixelRatio},runtime_version:String(window.ALOOKHOR_TOPBAR?.version||''),
-  root:!!root,header_mode:legacyRoot?'legacy':(portalRoot?'portal':'none'),topbar:rect(topbar),header:rect(header),stage:rect(stage),capsule:rect(capsule),main:rect(main),logo:rect(root?.querySelector('.header-capsule-logo img,.alookhor-nav-logo img')),logo_box:rect(logoBox),
-  navigation:rect(navigation),navigation_display:navigation?getComputedStyle(navigation).display:null,nav_shell:rect(navShell),stage_integrated:legacyRoot?(stage?.classList.contains('is-capsule-integrated')||false):!!portalRoot,
+  root:!!root,header_mode:portalRoot?'portal':(legacyRoot?'legacy':'none'),topbar:rect(topbar),header:rect(header),stage:rect(stage),capsule:rect(capsule),main:rect(main),logo:rect(root?.querySelector('.header-capsule-logo img,.alookhor-nav-logo img')),logo_box:rect(logoBox),
+  navigation:rect(navigation),navigation_display:navigation?getComputedStyle(navigation).display:null,nav_shell:rect(navShell),stage_integrated:portalRoot?true:(legacyRoot?(stage?.classList.contains('is-capsule-integrated')||false):false),
   topbar_phone:rect(topbarPhone),topbar_support:rect(topbarSupport),topbar_message:rect(topbarMessage),
   topbar_style:topbar?{background_color:getComputedStyle(topbar).backgroundColor,background_image:getComputedStyle(topbar).backgroundImage,backdrop_filter:getComputedStyle(topbar).backdropFilter||getComputedStyle(topbar).webkitBackdropFilter,border_color:getComputedStyle(topbar).borderBottomColor}:null,
   topbar_role_colors:{phone:topbarPhone?getComputedStyle(topbarPhone).color:null,support:topbarSupport?getComputedStyle(topbarSupport).color:null,message:topbarMessage?getComputedStyle(topbarMessage).color:null},
@@ -57,12 +57,13 @@ return {
   feature_legacy_visible:all('.alookhor-trustbar-container').filter(visible).length,
   feature_palette:features?Object.fromEntries(['--sf-bg','--sf-card','--sf-glass','--sf-gold','--sf-gold-light','--sf-text','--sf-muted'].map(k=>[k,getComputedStyle(features).getPropertyValue(k).trim()])):{},
   feature_to_hero_gap:(features&&hero)?Math.round((features.getBoundingClientRect().top-hero.getBoundingClientRect().bottom)*10)/10:null,
-  topbar_center_display:(()=>{const e=legacyRoot?.querySelector('.topbar-center')||portalRoot?.querySelector('.alookhor-top-logo');return e?getComputedStyle(e).display:null})(),
-  stage_display:stage?getComputedStyle(stage).display:null,stage_position:stage?getComputedStyle(stage).position:null,stage_stuck:legacyRoot?(stage?.classList.contains('is-stuck')||false):(!!portalRoot&&['sticky','fixed'].includes(getComputedStyle(stage).position)&&Math.abs(stage.getBoundingClientRect().top)<=50),
+  topbar_center_display:(()=>{const e=portalRoot?.querySelector('.alookhor-top-logo')||legacyRoot?.querySelector('.topbar-center');return e?getComputedStyle(e).display:null})(),
+  stage_display:stage?getComputedStyle(stage).display:null,stage_position:stage?getComputedStyle(stage).position:null,stage_stuck:portalRoot?(['sticky','fixed'].includes(getComputedStyle(stage).position)&&Math.abs(stage.getBoundingClientRect().top)<=50):(legacyRoot?(stage?.classList.contains('is-stuck')||false):false),
   search_count:all('.alookhor-legacy-main-search').length,mobile_extra_toggle_count:all('.alookhor-mobile-sticky-toggle').length,
-  original_drawer_id_count:all('#openDrawer').length,generated_drawer_count:portalRoot?portalRoot.querySelectorAll('.alookhor-menu-drawer').length:0,cart_count:all('.alookhor-header-cart-link,.alookhor-fallback-cart').length,
-  main_toggle_count:all('.alookhor-main-menu-toggle,.alookhor-menu-toggle').length,logo_count:all('.header-capsule-logo img,.alookhor-nav-logo img').length,logo_copy_count:all('.alookhor-logo-copy,.alookhor-nav-logo-copy').length,topbar_support_count:all('.alookhor-topbar-support,.alookhor-fallback-support').length,
-  account_font_size:one('.header-login-btn')?getComputedStyle(one('.header-login-btn')).fontSize:null,account_icon_count:all('.header-login-btn .alookhor-account-icon,.alookhor-account-link svg').length,account_text_display:one('.alookhor-account-link span')?getComputedStyle(one('.alookhor-account-link span')).display:null,
+  original_drawer_id_count:root?root.querySelectorAll('#openDrawer').length:0,generated_drawer_count:portalRoot?portalRoot.querySelectorAll('.alookhor-menu-drawer').length:0,cart_count:root?root.querySelectorAll('.alookhor-header-cart-link,.alookhor-fallback-cart').length:0,
+  main_toggle_count:root?root.querySelectorAll('.alookhor-main-menu-toggle,.alookhor-menu-toggle').length:0,logo_count:root?root.querySelectorAll('.header-capsule-logo img,.alookhor-nav-logo img').length:0,logo_copy_count:root?root.querySelectorAll('.alookhor-logo-copy,.alookhor-nav-logo-copy').length:0,topbar_support_count:root?root.querySelectorAll('.alookhor-topbar-support,.alookhor-fallback-support').length:0,
+  account_font_size:root?.querySelector('.header-login-btn')?getComputedStyle(root.querySelector('.header-login-btn')).fontSize:null,account_icon_count:root?root.querySelectorAll('.header-login-btn .alookhor-account-icon,.alookhor-account-link svg').length:0,account_text_display:root?.querySelector('.alookhor-account-link span')?getComputedStyle(root.querySelector('.alookhor-account-link span')).display:null,
+  duplicate_visible_headers:all('.alookhor-header-wrapper,.alookhor-portal-header').filter(visible).length,raw_premium_shortcode:(document.body?.innerText||'').includes('[alookhor_premium_header]'),
   body_scroll_width:document.documentElement.scrollWidth,body_client_width:document.documentElement.clientWidth,
   horizontal_overflow:Math.max(0,document.documentElement.scrollWidth-document.documentElement.clientWidth),
   header_to_main_gap:main?Math.round((main.getBoundingClientRect().top-footprintBottom)*10)/10:null,
@@ -93,6 +94,7 @@ def audit(width: int, height: int, label: str) -> dict:
         feature_proximity_expected = runtime_parts >= (3, 10, 17)
         capsule_glass_expected = runtime_parts >= (3, 10, 18)
         header_reference_expected = runtime_parts >= (3, 10, 19)
+        single_header_expected = runtime_parts >= (3, 10, 56)
         if hero_expected:
             WebDriverWait(driver, 40).until(lambda d: d.execute_script("return document.querySelector('#alookhor-managed-hero')?.dataset.mounted==='1' && document.querySelectorAll('#alookhor-managed-hero .alookhor-mh-slide').length===4"))
         if feature_expected:
@@ -112,6 +114,8 @@ def audit(width: int, height: int, label: str) -> dict:
         expected_mobile = width <= 1023
         checks = {
             'root': before['root'] is True,
+            'single_visible_header': before['duplicate_visible_headers']==1 if single_header_expected else True,
+            'raw_premium_shortcode_removed': before['raw_premium_shortcode'] is False if single_header_expected else True,
             'search_removed': before['search_count'] == 0,
             'no_rejected_mobile_toggle': before['mobile_extra_toggle_count'] == 0,
             'drawer_id_unique': (before['original_drawer_id_count'] == 1 if before['header_mode']=='legacy' else before['generated_drawer_count']==1),
@@ -129,11 +133,11 @@ def audit(width: int, height: int, label: str) -> dict:
             'topbar_duplicate_logo_hidden': before['topbar_center_display'] == 'none',
             'logo_contained_in_capsule': before['logo'] is not None and before['capsule'] is not None and before['logo']['top'] >= before['capsule']['top']-1 and before['logo']['bottom'] <= before['capsule']['bottom']+1,
             'capsule_glass_palette_exact': (before['capsule_palette']=={'--alookhor-capsule-background':'#0D0510','--alookhor-capsule-card':'#1C1024','--alookhor-capsule-glass':'rgba(33,20,38,.75)','--alookhor-capsule-gold':'#D49A2E','--alookhor-capsule-gold-light':'#E8B84A','--alookhor-capsule-text':'#F5F3F0','--alookhor-capsule-muted':'#C8C2C9','--alookhor-capsule-blur':'24px'}) if capsule_glass_expected else True,
-            'capsule_glass_rendered': (before['capsule_style'] is not None and before['capsule_style']['background_color']=='rgba(33, 20, 38, 0.75)' and before['capsule_style']['background_image']!='none' and 'blur(24px)' in before['capsule_style']['backdrop_filter']) if capsule_glass_expected else True,
-            'capsule_control_palette': (before['capsule_control_colors']=={'menu':'rgb(212, 154, 46)','account':'rgb(245, 243, 240)','cart':'rgb(245, 243, 240)'}) if capsule_glass_expected else True,
-            'topbar_reference_glass': (before['topbar_style'] is not None and before['topbar_style']['background_image']!='none' and 'blur(18px)' in before['topbar_style']['backdrop_filter']) if header_reference_expected else True,
+            'capsule_glass_rendered': (before['capsule_style'] is not None and before['capsule_style']['background_image']!='none' and (('blur(22px)' in before['capsule_style']['backdrop_filter']) if before['header_mode']=='portal' else (before['capsule_style']['background_color']=='rgba(33, 20, 38, 0.75)' and 'blur(24px)' in before['capsule_style']['backdrop_filter']))) if capsule_glass_expected else True,
+            'capsule_control_palette': ((before['capsule_control_colors']['account']=='rgb(255, 255, 255)' and before['capsule_control_colors']['menu'] in {'rgb(230, 202, 101)','rgb(243, 229, 171)'}) if before['header_mode']=='portal' else before['capsule_control_colors']=={'menu':'rgb(212, 154, 46)','account':'rgb(245, 243, 240)','cart':'rgb(245, 243, 240)'}) if capsule_glass_expected else True,
+            'topbar_reference_glass': (before['topbar_style'] is not None and before['topbar_style']['background_image']!='none' and (before['header_mode']=='portal' or 'blur(18px)' in before['topbar_style']['backdrop_filter'])) if header_reference_expected else True,
             'topbar_reference_order': (before['topbar_support'] is not None and before['topbar_message'] is not None and before['topbar_phone'] is not None and before['topbar_support']['left'] < before['topbar_message']['left'] < before['topbar_phone']['left']) if header_reference_expected else True,
-            'topbar_reference_colors': (before['topbar_role_colors']=={'phone':'rgb(232, 184, 74)','support':'rgb(232, 184, 74)','message':'rgb(245, 243, 240)'}) if header_reference_expected else True,
+            'topbar_reference_colors': ((before['topbar_role_colors']['phone'] in {'rgb(243, 229, 171)','rgb(230, 202, 101)'} and before['topbar_role_colors']['support'] in {'rgb(243, 229, 171)','rgb(230, 202, 101)'}) if before['header_mode']=='portal' else before['topbar_role_colors']=={'phone':'rgb(232, 184, 74)','support':'rgb(232, 184, 74)','message':'rgb(245, 243, 240)'}) if header_reference_expected else True,
             'desktop_navigation_integrated_in_capsule': (before['stage_integrated'] is True and before['stage'] is not None and before['capsule'] is not None and before['navigation'] is not None and before['stage']['top'] <= before['capsule']['top']+2 and before['stage']['bottom'] >= before['capsule']['bottom']-2 and before['navigation']['left'] > before['logo_box']['right']-20) if header_reference_expected and not expected_mobile else True,
             'mobile_navigation_not_duplicated': ((before['stage_integrated'] is False and before['stage_display']=='none') if before['header_mode']=='legacy' else before['navigation_display']=='none') if header_reference_expected and expected_mobile else True,
             'upper_rows_leave_viewport': ((after['topbar']['bottom'] < 2 and after['header']['bottom'] < 2) if before['header_mode']=='legacy' else after['topbar']['bottom']<2) if not expected_mobile else True,
