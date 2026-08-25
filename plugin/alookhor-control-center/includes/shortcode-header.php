@@ -31,7 +31,7 @@ function alookhor_cc_front_header_settings() {
         'brand_subtitle'       => 'خشکبار طبیعی اصیل',
         'search_placeholder'   => 'جستجوی محصول، مقاله و ...',
         'header_logo_desktop_width' => 118,
-        'header_logo_mobile_width'  => 58,
+        'header_logo_mobile_width' => 58,
     );
     $settings = wp_parse_args($saved, $defaults);
     return apply_filters('alookhor_cc_front_header_settings', $settings);
