@@ -1,5 +1,10 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.95 — 2026-08-26 — Bestsellers Empty Output Fix
+- OWNERSHIP: شورت‌کد `[alookhor_bestselling_products]` در `init:999` دوباره ثبت می‌شود تا Callback خالی افزونه‌های قدیمی نتواند آن را Override کند.
+- FALLBACK: پس از پرفروش‌ها و جدیدترین محصولات WooCommerce، fallback مستقیم محصولات منتشرشده WordPress نیز اضافه شد.
+- DIAGNOSTIC: اگر واقعاً هیچ محصولی وجود نداشته باشد، پیام مشخص نمایش داده می‌شود و خروجی دیگر کاملاً خالی نیست.
+
 ## v3.10.94 — 2026-08-26 — Luxury WooCommerce Bestsellers
 - SHORTCODE: `[alookhor_bestselling_products]` اضافه شد.
 - WOO: محصولات بر اساس `total_sales` واقعی مرتب و با قیمت، خرید، موجودی و تعداد فروش نمایش داده می‌شوند.

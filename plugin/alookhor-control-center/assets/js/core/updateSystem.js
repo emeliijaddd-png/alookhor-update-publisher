@@ -2,7 +2,7 @@
 // UI/state remain modular; version discovery and installation are delegated to WordPress.
 
 const runtimeConfig = window.ALOOKHOR_CC || {};
-const runtimeVersion = String(runtimeConfig.version || '3.10.94');
+const runtimeVersion = String(runtimeConfig.version || '3.10.95');
 
 function normalizeResult(data = {}) {
   const current = String(data.current || runtimeVersion);
@@ -55,6 +55,7 @@ export const Updater = {
   latest: runtimeVersion,
   lastCheck: null,
   changelog: [
+    { tag: 'BESTSELLERS FIX', title: 'v3.10.95 — رفع خروجی خالی پرفروش‌ها', desc: 'مالکیت شورت‌کد تثبیت و fallback چندمرحله‌ای محصولات اضافه شد.' },
     { tag: 'BESTSELLERS', title: 'v3.10.94 — پرفروش‌ترین محصولات', desc: 'بخش پرفروش‌ها با تب دسته، آمار فروش و تنظیمات کامل بوتیک اضافه شد.' },
     { tag: 'CAMPAIGN SLIDER', title: 'v3.10.93 — بازیابی اسلایدر کمپین', desc: '[alookhor_campaign_slider] با ۶ اسلاید و تنظیم کامل بوتیک فعال شد.' },
     { tag: 'FEATURED VERIFIED', title: 'v3.10.92 — تثبیت محصولات منتخب', desc: 'محصولات منتخب فعال و سازگاری Health Check با شورت‌کد مستقیم Elementor اصلاح شد.' },

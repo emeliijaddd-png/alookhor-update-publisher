@@ -1,16 +1,16 @@
 {
-  "version": "3.10.94",
-  "previous": "3.10.93",
+  "version": "3.10.95",
+  "previous": "3.10.94",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "افزودن بخش لوکس پرفروش‌ترین محصولات با تب دسته‌ها و مدیریت کامل بوتیک.",
+  "description": "رفع خروجی خالی شورت‌کد پرفروش‌ها با تثبیت مالکیت شورت‌کد و fallback چندمرحله‌ای محصولات.",
   "changelog": [
     {
-      "tag": "BESTSELLERS",
-      "title": "پرفروش‌ترین محصولات آلوخور",
-      "desc": "[alookhor_bestselling_products] با رتبه‌بندی فروش WooCommerce، تب دسته‌ها، قیمت، خرید، موجودی، فروش و طراحی مطابق مرجع اضافه شد."
+      "tag": "BESTSELLERS OUTPUT FIX",
+      "title": "رفع نمایش‌ندادن پرفروش‌ها",
+      "desc": "مالکیت [alookhor_bestselling_products] در init:999 تثبیت شد تا افزونه قدیمی آن را Override نکند؛ سه سطح fallback برای بازیابی محصولات اضافه شد."
     }
   ],
   "project": "ALOOKHOR",
