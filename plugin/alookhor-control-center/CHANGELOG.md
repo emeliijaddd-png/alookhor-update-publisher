@@ -1,5 +1,9 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.91 — 2026-08-26 — Featured Products Production Verification
+- VERIFY: انتشار محصولات منتخب تثبیت شد.
+- FEATURE MARKER: هنگام قرارگیری مستقیم شورت‌کد ویژگی‌ها در Elementor، Template marker خالی حفظ می‌شود تا Runtime و Health Check بدون تولید کارت تکراری معتبر بمانند.
+
 ## v3.10.90 — 2026-08-26 — Featured Products Shortcode Restored
 - SHORTCODE: `[alookhor_featured_products]` دوباره ثبت و فعال شد.
 - WOO: محصولات Featured واقعی ووکامرس خوانده می‌شوند و اگر هیچ Featured وجود نداشت، جدیدترین محصولات جایگزین می‌شوند.

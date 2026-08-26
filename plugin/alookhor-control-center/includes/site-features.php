@@ -106,7 +106,10 @@ add_shortcode('alookhor_managed_features','alookhor_cc_site_feature_shortcode');
 
 function alookhor_cc_site_feature_template(){
     static $done=false;
-    if($done||is_admin()||!is_front_page()||!empty($GLOBALS['alookhor_cc_site_feature_shortcode_rendered']))return;
+    if($done||is_admin()||!is_front_page())return;
+    // اگر شورت‌کد مستقیماً در Elementor قرار گرفته، Marker خالی برای قرارداد Runtime/Health Check
+    // حفظ می‌شود اما هیچ خروجی دوم یا کپی موازی از کارت‌ها ساخته نمی‌شود.
+    if(!empty($GLOBALS['alookhor_cc_site_feature_shortcode_rendered'])){$done=true;echo '<template id="alookhor-managed-features-template"></template>';return;}
     $settings=alookhor_cc_get_site_feature_settings();
     if(empty($settings['enabled']))return;
     $done=true;
