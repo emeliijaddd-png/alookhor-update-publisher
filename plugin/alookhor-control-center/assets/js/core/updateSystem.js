@@ -2,7 +2,7 @@
 // UI/state remain modular; version discovery and installation are delegated to WordPress.
 
 const runtimeConfig = window.ALOOKHOR_CC || {};
-const runtimeVersion = String(runtimeConfig.version || '3.10.83');
+const runtimeVersion = String(runtimeConfig.version || '3.10.84');
 
 function normalizeResult(data = {}) {
   const current = String(data.current || runtimeVersion);
@@ -55,6 +55,7 @@ export const Updater = {
   latest: runtimeVersion,
   lastCheck: null,
   changelog: [
+    { tag: 'FULL BLEED', title: 'v3.10.84 — پس‌زمینه تمام‌عرض مرکز سورت', desc: 'پس‌زمینه تا لبه‌های صفحه کشیده شد اما همه گزینه‌ها داخل کانتینر ۱۳۸۰px وسط‌چین ماندند.' },
     { tag: 'SORT ICONS', title: 'v3.10.83 — محصولات و مزیت‌های متحرک', desc: 'چیپ محصولات و ۴ کارت مزیت با آیکن SVG متحرک و مدیریت کامل به مرکز سورت اضافه شد.' },
     { tag: 'SORT FIX', title: 'v3.10.82 — رفع نمایش مرکز سورت', desc: 'آمار اضافی حذف، تصاویر سمت راست و بارگذاری داخل Elementor اصلاح شد.' },
     { tag: 'SORT CENTER', title: 'v3.10.80 — مرکز سورت اسلایدی', desc: '[alookhor_sort_center] با ۶ تصویر و تنظیمات کامل محتوا، رنگ و حرکت به مدیریت بوتیک اضافه شد.' },

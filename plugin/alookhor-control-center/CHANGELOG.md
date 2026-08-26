@@ -1,5 +1,10 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.84 — 2026-08-26 — Full-bleed Sort Center Background
+- FULL BLEED: پس‌زمینه بخش با تکنیک `100vw` تا لبه چپ و راست viewport امتداد یافت.
+- CENTERED: تمام گزینه‌ها، متن، اسلایدر و کارت‌ها داخل Wrapper مرکزی با سقف ۱۳۸۰px باقی ماندند و کشیده نمی‌شوند.
+- RESPONSIVE: در موبایل فقط Padding بیرونی کم می‌شود و ساختار داخلی یک‌ستونه است.
+
 ## v3.10.83 — 2026-08-26 — Sorting Center Products + Animated Benefits
 - PRODUCTS: عنوان و پنج چیپ «محصولات قابل عرضه» با ویرایش کامل از مدیریت بوتیک اضافه شد.
 - BENEFITS: چهار کارت مزیت با عنوان، زیرعنوان و آیکن SVG انتخابی اضافه شد.
