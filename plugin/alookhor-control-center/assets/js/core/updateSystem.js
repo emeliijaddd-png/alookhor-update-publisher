@@ -2,7 +2,7 @@
 // UI/state remain modular; version discovery and installation are delegated to WordPress.
 
 const runtimeConfig = window.ALOOKHOR_CC || {};
-const runtimeVersion = String(runtimeConfig.version || '3.10.72');
+const runtimeVersion = String(runtimeConfig.version || '3.10.73');
 
 function normalizeResult(data = {}) {
   const current = String(data.current || runtimeVersion);
@@ -55,6 +55,7 @@ export const Updater = {
   latest: runtimeVersion,
   lastCheck: null,
   changelog: [
+    { tag: 'GLASS THEME', title: 'v3.10.73 — منوی شیشه‌ای و رنگ‌بندی کامل هدر', desc: 'فعال‌سازی شیشه‌ای، درصد شفافیت، شدت Blur و ۱۴ رنگ تمام اجزای هدر اکنون از مدیریت بوتیک قابل تنظیم، ذخیره و اعمال مستقیم است.' },
     { tag: 'FLUSH TOP', title: 'v3.10.72 — هدر چسبیده به بالای صفحه', desc: 'فاصله سفید بالای هدر حذف شد: Body offset رزروشده Woodmart صفر، Header آن مخفی و پس‌زمینه Body همرنگ هدر شد — فقط روی صفحات دارای هدر AKX.' },
     { tag: 'MENU TYPOGRAPHY', title: 'v3.10.71 — منوی اصلی وسط‌چین + فونت خواناتر', desc: 'محتوای نوار منو دوباره داخل کانتینر ۱۳۸۰px وسط‌چین شد (تمام‌عرض فقط برای نوار بالا)؛ لینک‌های منو ۱۵px با وزن ۶۰۰ و مگامنو خواناتر شد.' },
     { tag: 'STATIC COPY PURGE', title: 'v3.10.70 — حذف کپی Static قدیمی هدر از صفحه', desc: 'روی صفحه اصلی یک کپی قدیمی HTML هدر با CSS اینلاین (۱۳۸۰px و فونت ریز) داخل ویجت HTML المنتور بود که ظاهر هدر واقعی را override می‌کرد؛ حالا خودکار حذف می‌شود و CSS افزونه همیشه غالب است.' },

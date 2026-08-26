@@ -73,7 +73,9 @@ function alookhor_ajax_save_settings(){
             $capsule_glass=sanitize_text_field($header['capsule_glass']);
             $header['capsule_glass']=preg_match('/^rgba?\(\s*\d{1,3}\s*,\s*\d{1,3}\s*,\s*\d{1,3}(?:\s*,\s*(?:0|1|0?\.\d+))?\s*\)$/',$capsule_glass)?$capsule_glass:($header_current['capsule_glass']??'rgba(33,20,38,.75)');
         }
-        if(array_key_exists('capsule_blur',$header))$header['capsule_blur']=max(10,min(36,absint($header['capsule_blur'])));
+        if(array_key_exists('capsule_blur',$header))$header['capsule_blur']=max(0,min(36,absint($header['capsule_blur'])));
+        if(array_key_exists('mainbar_opacity',$header))$header['mainbar_opacity']=max(10,min(100,absint($header['mainbar_opacity'])));
+        if(array_key_exists('mainbar_glass_enabled',$header))$header['mainbar_glass_enabled']=rest_sanitize_boolean($header['mainbar_glass_enabled']);
         foreach (['export_url', 'wholesale_url', 'top_logo_url', 'top_logo_link'] as $key) {
             if (array_key_exists($key, $header)) $header[$key] = esc_url_raw($header[$key]);
         }
@@ -267,6 +269,8 @@ function alookhor_ajax_save_settings(){
             'capsule_text' => $persisted_header['capsule_text'] ?? null,
             'capsule_muted' => $persisted_header['capsule_muted'] ?? null,
             'capsule_blur' => $persisted_header['capsule_blur'] ?? null,
+            'mainbar_glass_enabled' => !empty($persisted_header['mainbar_glass_enabled']),
+            'mainbar_opacity' => (int) ($persisted_header['mainbar_opacity'] ?? 72),
             'header_logo_desktop_width' => $persisted_header['header_logo_desktop_width'] ?? null,
             'header_logo_mobile_width' => $persisted_header['header_logo_mobile_width'] ?? null,
             'sticky' => $persisted_header['sticky'] ?? null,

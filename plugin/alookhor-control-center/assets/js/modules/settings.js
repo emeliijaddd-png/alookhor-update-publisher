@@ -1,4 +1,4 @@
-import { Config } from '../core/config.js?v=3.10.72';
+import { Config } from '../core/config.js?v=3.10.73';
 
 const escapeAttr = value => String(value ?? '').replace(/[&<>'"]/g, char => ({
   '&':'&amp;', '<':'&lt;', '>':'&gt;', "'":'&#039;', '"':'&quot;'
@@ -34,7 +34,24 @@ export const settingsModule = {
       phone:                 '09159513173',
       brand_name:            'آلوخور',
       brand_subtitle:        'خشکبار طبیعی اصیل',
-      search_placeholder:    'جستجوی محصول، مقاله و ...'
+      search_placeholder:    'جستجوی محصول، مقاله و ...',
+      mainbar_glass_enabled:  true,
+      mainbar_opacity:        72,
+      capsule_blur:           18,
+      topbar_bg:              '#1C0629',
+      topbar_text_color:      '#F5F3F0',
+      topbar_border_color:    '#D4AF37',
+      topbar_button_bg:       '#D4AF37',
+      topbar_button_text:     '#210A2C',
+      header_surface:         '#21072F',
+      header_text_color:      '#FFFFFF',
+      header_muted_color:     '#C8C2C9',
+      capsule_background:     '#16031F',
+      capsule_card:           '#2D0D4A',
+      capsule_gold:           '#D4AF37',
+      capsule_gold_light:     '#F1D468',
+      capsule_text:           '#FFFFFF',
+      capsule_muted:          '#C8C2C9'
     }, cfg.header_settings || {});
     cfg.footer_settings = Object.assign({
       enabled:true, hide_legacy:true, hide_old_newsletter:true, use_header_contact:true,
@@ -275,7 +292,11 @@ export const settingsModule = {
 
         <div class="qh-section"><div class="qh-title"><b>برند دراور موبایل</b><small>MOBILE BRAND</small></div><div class="qh-grid"><label>نام برند<input id="inpBoutiqueBrandName" value="${val('brand_name')}"></label><label>زیرعنوان<input id="inpBoutiqueBrandSubtitle" value="${val('brand_subtitle')}"></label></div></div>
 
-        <div class="qh-actions"><button class="btn-gold" id="btnBoutiqueApplyHeader">ذخیره هدر</button><span>ذخیره در Source: <code style="direction:ltr">alookhor_header_settings</code> — Frontend بلافاصله می‌خواند.</span></div>
+        <div class="qh-section"><div class="qh-title"><b>شیشه‌ای‌سازی منوی اصلی</b><small>GLASS MENU</small></div><div class="qh-flags"><label><input type="checkbox" id="inpMainbarGlassEnabled" ${isEnabled(h.mainbar_glass_enabled)?'checked':''}>منوی اصلی شیشه‌ای باشد</label></div><div class="qh-grid" style="margin-top:10px"><label>شفافیت منو (درصد)<input type="number" id="inpMainbarOpacity" min="10" max="100" value="${Number(h.mainbar_opacity)||72}"></label><label>مات‌شدگی پشت شیشه (px)<input type="number" id="inpCapsuleBlur" min="0" max="36" value="${Number(h.capsule_blur)||18}"></label></div><p style="margin:8px 0 0;color:var(--text-faint);font-size:10px">عدد کمتر در شفافیت، شیشه را شفاف‌تر می‌کند. مقدار ۱۰۰ پس‌زمینه را کاملاً مات می‌کند.</p></div>
+
+        <div class="qh-section"><div class="qh-title"><b>رنگ‌بندی کامل هدر</b><small>COLOR SYSTEM</small></div><div class="qh-colors qh-header-colors">${[['پس‌زمینه نوار بالا','topbar_bg'],['متن نوار بالا','topbar_text_color'],['خط نوار بالا','topbar_border_color'],['دکمه نوار بالا','topbar_button_bg'],['متن دکمه بالا','topbar_button_text'],['سطح منوی اصلی','header_surface'],['متن اصلی','header_text_color'],['متن فرعی','header_muted_color'],['پس‌زمینه کپسول منو','capsule_background'],['سطح مگامنو و کارت','capsule_card'],['طلایی اصلی','capsule_gold'],['طلایی روشن','capsule_gold_light'],['متن کپسول','capsule_text'],['متن فرعی کپسول','capsule_muted']].map(([label,key])=>`<label>${label}<input type="color" id="inpHeaderColor_${key}" value="${val(key)}"></label>`).join('')}</div></div>
+
+        <div class="qh-actions"><button class="btn-gold" id="btnBoutiqueApplyHeader">ذخیره و اعمال هدر</button><span>تنظیمات شیشه، شفافیت و همه رنگ‌ها مستقیماً روی سایت اعمال می‌شوند.</span></div>
         <style>.qh-head{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:12px}.qh-head h4{margin:0;font-size:14px}.qh-head p{margin:4px 0 0;color:var(--text-muted);font-size:11px}.qh-head code{direction:ltr;padding:7px 9px;border:1px solid var(--gold-border);border-radius:8px;color:var(--gold-soft);font-size:10px}.qh-section{padding:12px;margin-top:9px;border:1px solid var(--gold-border);border-radius:11px;background:rgba(255,255,255,.02)}.qh-title{display:flex;justify-content:space-between;gap:8px;margin-bottom:10px}.qh-title b{font-size:11.5px}.qh-title small{color:var(--gold);font:9px Arial}.qh-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.qh-span-2{grid-column:span 2}.qh-flags label{display:flex;align-items:center;gap:8px;padding:6px 10px;border:1px solid var(--gold-border);border-radius:999px}.qh-flags input{width:auto;accent-color:var(--gold)}.qh-section label{display:grid;gap:4px;color:var(--text-muted);font-size:10.5px}.qh-section input[type=text],.qh-section input[type=email],.qh-section input[type=number],.qh-section input[type=url]{width:100%;min-width:0;background:rgba(255,255,255,.035);border:1px solid var(--gold-border);border-radius:8px;padding:8px;color:var(--text-primary)}.qh-inline{display:flex;gap:6px}.qh-inline input{flex:1;min-width:0}.qh-inline button{border:1px solid var(--gold-border-strong);border-radius:8px;background:rgba(201,168,106,.1);color:var(--gold-soft);cursor:pointer;padding:0 10px}.qh-actions{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-top:11px}.qh-actions button{padding:9px 15px;font-size:11px}.qh-actions span{color:var(--text-faint);font-size:10px}.qh-actions code{direction:ltr;color:var(--gold-soft);background:rgba(201,168,106,0.1);padding:1px 6px;border-radius:6px}@media(max-width:700px){.qh-grid{grid-template-columns:1fr}.qh-span-2{grid-column:auto}}</style>
       `;
       },
@@ -403,7 +424,24 @@ export const settingsModule = {
             phone: value('inpBoutiquePhone'),
             brand_name: value('inpBoutiqueBrandName'),
             brand_subtitle: value('inpBoutiqueBrandSubtitle'),
-            search_placeholder: value('inpBoutiqueSearchPlaceholder')
+            search_placeholder: value('inpBoutiqueSearchPlaceholder'),
+            mainbar_glass_enabled: !!quick.querySelector('#inpMainbarGlassEnabled')?.checked,
+            mainbar_opacity: Math.max(10, Math.min(100, Number(value('inpMainbarOpacity'))||72)),
+            capsule_blur: Math.max(0, Math.min(36, Number(value('inpCapsuleBlur'))||18)),
+            topbar_bg: value('inpHeaderColor_topbar_bg'),
+            topbar_text_color: value('inpHeaderColor_topbar_text_color'),
+            topbar_border_color: value('inpHeaderColor_topbar_border_color'),
+            topbar_button_bg: value('inpHeaderColor_topbar_button_bg'),
+            topbar_button_text: value('inpHeaderColor_topbar_button_text'),
+            header_surface: value('inpHeaderColor_header_surface'),
+            header_text_color: value('inpHeaderColor_header_text_color'),
+            header_muted_color: value('inpHeaderColor_header_muted_color'),
+            capsule_background: value('inpHeaderColor_capsule_background'),
+            capsule_card: value('inpHeaderColor_capsule_card'),
+            capsule_gold: value('inpHeaderColor_capsule_gold'),
+            capsule_gold_light: value('inpHeaderColor_capsule_gold_light'),
+            capsule_text: value('inpHeaderColor_capsule_text'),
+            capsule_muted: value('inpHeaderColor_capsule_muted')
           });
         };
         btnApplyHeader.addEventListener('click', async ()=>{

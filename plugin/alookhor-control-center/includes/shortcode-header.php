@@ -32,6 +32,23 @@ function alookhor_cc_front_header_settings() {
         'search_placeholder'   => 'جستجوی محصول، مقاله و ...',
         'header_logo_desktop_width' => 118,
         'header_logo_mobile_width' => 58,
+        'mainbar_glass_enabled' => true,
+        'mainbar_opacity'       => 72,
+        'capsule_blur'          => 18,
+        'topbar_bg'             => '#1C0629',
+        'topbar_text_color'     => '#F5F3F0',
+        'topbar_border_color'   => '#D4AF37',
+        'topbar_button_bg'      => '#D4AF37',
+        'topbar_button_text'    => '#210A2C',
+        'header_surface'        => '#21072F',
+        'header_text_color'     => '#FFFFFF',
+        'header_muted_color'    => '#C8C2C9',
+        'capsule_background'    => '#16031F',
+        'capsule_card'          => '#2D0D4A',
+        'capsule_gold'          => '#D4AF37',
+        'capsule_gold_light'    => '#F1D468',
+        'capsule_text'          => '#FFFFFF',
+        'capsule_muted'         => '#C8C2C9',
     );
     $settings = wp_parse_args($saved, $defaults);
     return apply_filters('alookhor_cc_front_header_settings', $settings);
@@ -88,9 +105,39 @@ function alookhor_cc_render_akx_header() {
     // v3.10.70: نشانه‌گذاری هدر واقعی که خود شورت‌کد رندر کرده (در برابر کپی‌های Static داخل صفحه)
     $live_flag = 'data-akx-live="1" data-akx-ver="' . esc_attr(ALOOKHOR_CC_VERSION) . '"';
 
+    // متغیرهای ظاهری فقط از مقادیر امن ساخته می‌شوند تا فرم بوتیک مستقیماً هدر را کنترل کند.
+    $color = static function ($key, $fallback) use ($h) {
+        return sanitize_hex_color($h[$key] ?? '') ?: $fallback;
+    };
+    $opacity = max(10, min(100, (int) ($h['mainbar_opacity'] ?? 72))) / 100;
+    $hex_to_rgba = static function ($hex, $alpha) {
+        $hex = ltrim($hex, '#');
+        return sprintf('rgba(%d,%d,%d,%.2F)', hexdec(substr($hex, 0, 2)), hexdec(substr($hex, 2, 2)), hexdec(substr($hex, 4, 2)), $alpha);
+    };
+    $surface = $color('header_surface', '#21072F');
+    $style_vars = implode(';', array(
+        '--akx-topbar-bg:' . $color('topbar_bg', '#1C0629'),
+        '--akx-topbar-text:' . $color('topbar_text_color', '#F5F3F0'),
+        '--akx-topbar-border:' . $color('topbar_border_color', '#D4AF37'),
+        '--akx-topbar-button:' . $color('topbar_button_bg', '#D4AF37'),
+        '--akx-topbar-button-text:' . $color('topbar_button_text', '#210A2C'),
+        '--akx-surface:' . $surface,
+        '--akx-surface-glass:' . $hex_to_rgba($surface, $opacity),
+        '--akx-text:' . $color('header_text_color', '#FFFFFF'),
+        '--akx-muted:' . $color('header_muted_color', '#C8C2C9'),
+        '--akx-capsule:' . $color('capsule_background', '#16031F'),
+        '--akx-card:' . $color('capsule_card', '#2D0D4A'),
+        '--akx-gold:' . $color('capsule_gold', '#D4AF37'),
+        '--akx-gold-light:' . $color('capsule_gold_light', '#F1D468'),
+        '--akx-capsule-text:' . $color('capsule_text', '#FFFFFF'),
+        '--akx-capsule-muted:' . $color('capsule_muted', '#C8C2C9'),
+        '--akx-blur:' . max(0, min(36, (int) ($h['capsule_blur'] ?? 18))) . 'px',
+    ));
+    $glass_class = !empty($h['mainbar_glass_enabled']) ? ' akx-glass-enabled' : '';
+
     ob_start();
     ?>
-<div id="<?php echo $instance_id; ?>" class="akx-header" dir="rtl" <?php echo $live_flag; ?>>
+<div id="<?php echo $instance_id; ?>" class="akx-header<?php echo esc_attr($glass_class); ?>" dir="rtl" style="<?php echo esc_attr($style_vars); ?>" <?php echo $live_flag; ?>>
 
   <!-- نوار بالایی -->
   <div class="akx-topbar">

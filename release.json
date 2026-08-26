@@ -1,1 +1,34 @@
-{"version": "3.10.72", "previous": "3.10.71", "state": "ready", "requires": "6.0", "tested": "7.0", "requires_php": "8.0", "description": "هدر کاملاً به بالای صفحه چسبید — حذف فاصله سفید بالای هدر.", "changelog": [{"tag": "FLUSH TOP", "title": "حذف فاصله سفید بالای هدر", "desc": "Body offset رزروشده Woodmart و Header آن فقط روی صفحات دارای هدر AKX صفر/مخفی شد و پس‌زمینه Body همرنگ هدر شد."}], "project": "ALOOKHOR", "area": "Boutique Header Settings / Admin Menu Cleanup", "reason": "نسخه 3.10.65 (فرم بوتیک) هرگز منتشر نشد چون CI assertion های قدیمی مانع Build شد؛ علاوه بر رفع آن، دکمه ذخیره فرم به دلیل selector اشتباه اصلاً کار نمی‌کرد و مالک پاکسازی منوهای تکراری هدر را درخواست کرده بود.", "files": ["plugin/alookhor-control-center/assets/css/frontend-header-akx.css", "plugin/alookhor-control-center/alookhor-control-center.php", "plugin/alookhor-control-center/assets/js/app.js", "plugin/alookhor-control-center/assets/js/core/updateSystem.js", "plugin/alookhor-control-center/assets/js/modules/settings.js", "plugin/alookhor-control-center/assets/js/modules/dashboard.js", "plugin/alookhor-control-center/templates/admin-control-center.php", "plugin/alookhor-control-center/config/site.json", "plugin/alookhor-control-center/readme.txt", "plugin/alookhor-control-center/CHANGELOG.md", "release.json"]}
+{
+  "version": "3.10.73",
+  "previous": "3.10.72",
+  "state": "ready",
+  "requires": "6.0",
+  "tested": "7.0",
+  "requires_php": "8.0",
+  "description": "منوی اصلی شیشه‌ای با کنترل شفافیت، Blur و رنگ‌بندی کامل از مدیریت بوتیک.",
+  "changelog": [
+    {
+      "tag": "GLASS THEME",
+      "title": "کنترل کامل ظاهر منوی اصلی",
+      "desc": "فعال‌سازی شیشه‌ای، درصد شفافیت، شدت Blur و ۱۴ رنگ هدر از داخل داشبورد آلوخور قابل تنظیم و ذخیره شد."
+    }
+  ],
+  "project": "ALOOKHOR",
+  "area": "Boutique Header Settings / Admin Menu Cleanup",
+  "reason": "نسخه 3.10.65 (فرم بوتیک) هرگز منتشر نشد چون CI assertion های قدیمی مانع Build شد؛ علاوه بر رفع آن، دکمه ذخیره فرم به دلیل selector اشتباه اصلاً کار نمی‌کرد و مالک پاکسازی منوهای تکراری هدر را درخواست کرده بود.",
+  "files": [
+    "plugin/alookhor-control-center/assets/css/frontend-header-akx.css",
+    "plugin/alookhor-control-center/assets/js/modules/settings.js",
+    "plugin/alookhor-control-center/includes/shortcode-header.php",
+    "plugin/alookhor-control-center/includes/ajax.php",
+    "plugin/alookhor-control-center/alookhor-control-center.php",
+    "plugin/alookhor-control-center/assets/js/app.js",
+    "plugin/alookhor-control-center/assets/js/core/updateSystem.js",
+    "plugin/alookhor-control-center/assets/js/modules/dashboard.js",
+    "plugin/alookhor-control-center/templates/admin-control-center.php",
+    "plugin/alookhor-control-center/config/site.json",
+    "plugin/alookhor-control-center/readme.txt",
+    "plugin/alookhor-control-center/CHANGELOG.md",
+    "release.json"
+  ]
+}

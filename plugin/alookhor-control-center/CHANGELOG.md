@@ -1,5 +1,10 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.73 — 2026-08-26 — Glass Main Menu + Complete Header Theme Controls
+- GLASS: منوی اصلی با کنترل روشن/خاموش، درصد شفافیت ۱۰ تا ۱۰۰ و Blur صفر تا ۳۶ پیکسل از مدیریت بوتیک قابل تنظیم شد؛ حالت Sticky نیز همان ظاهر شیشه‌ای را حفظ می‌کند.
+- COLORS: چهارده کنترل رنگ برای نوار بالا، دکمه، سطح اصلی، کپسول، مگامنو، متن‌ها و طلایی‌ها اضافه و با CSS Variables امن مستقیماً روی هدر اعمال شد.
+- PERSISTENCE: تمام مقادیر در `alookhor_header_settings` ذخیره، سمت سرور پاک‌سازی و در پاسخ ذخیره تأیید می‌شوند.
+
 ## v3.10.72 — 2026-08-26 — Header Flush To Viewport Top (حذف فاصله سفید بالای هدر)
 - ROOT CAUSE: قوانین حذف Body offset رزروشده‌ی Woodmart فقط در CSS حالت Legacy (`frontend-header-scroll.css`) موجود بود که در حالت AKX لود نمی‌شود؛ در نتیجه Padding/Margin بالای Body و WrappER های Woodmart فضای سفید بالای هدر می‌ساختند.
 - FLUSH: همان قوانین تثبیت‌شده به CSS هدر AKX منتقل شد — `html/body:has(#akx-header[data-akx-live])` صفر، `.website-wrapper/.main-page-wrapper/#main-content` بدون margin-top/padding-top، `.whb-header` مخفی — همگی فقط روی صفحاتی که هدر AKX دارند (`:has()` scope).
