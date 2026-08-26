@@ -210,7 +210,7 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 | `plugin/alookhor-control-center/assets/css/frontend-hero.css` | 72 | `bde6426b31d10f1d389999f0c8ec25185d08d595dd20e06a92fcd666052dc3c9` |
 | `plugin/alookhor-control-center/assets/css/frontend-purple-slider.css` | 183 | `624a045166f54d3014cd249130aad1f204ed6bd5031fbb58ef7b48234cd24d33` |
 | `plugin/alookhor-control-center/assets/css/luxury.css` | 564 | `eef0550c9d8b090dbe799d9a969518207519fdb585c9701e2d897a507e669f8f` |
-| `plugin/alookhor-control-center/assets/js/admin-wp.js` | 109 | `cc3b4683f65f952bdbb390fd204a6ab7d1cce3ae57a62ab96c2f3e754b7362da` |
+| `plugin/alookhor-control-center/assets/js/admin-wp.js` | 92 | `5372851555bfa62b94f5daac673e1d96cd3184f05467ee3793b445347c068468` |
 | `plugin/alookhor-control-center/assets/js/app.js` | 325 | `30a838d2429c84cf88071561dbfe45b58f9443dc3ed23164e0de40f67a46ee04` |
 | `plugin/alookhor-control-center/assets/js/core/config.js` | 199 | `1c89b0d0d8121bce7fc7097f9d1974eb1e38d1ec7f6b0f6f6d5244ab60ea1e85` |
 | `plugin/alookhor-control-center/assets/js/core/responsive.js` | 52 | `0848ef0deef9aaa532581904c4adab9b45cbe8445a99fbeb71f92d358a1aa724` |
@@ -3050,29 +3050,19 @@ tr:last-child td{border-bottom:0}
 
     function toast(msg, type='success'){
         const stack = document.getElementById('toastStack');
-        if(!stack){
-            console.log(msg);
-            return;
-        }
+        if(!stack){ console.log(msg); return; }
         const el = document.createElement('div');
         el.className = 'toast';
         const icon = type==='update' ? '✦' : type==='info' ? '◐' : '✓';
-        el.innerHTML = `<div class="toast-icon">${icon}</div><div style="flex:1"><div style="font-weight:700; font-size:13px">${msg}</div><div style="font-size:12px; color:var(--text-muted); margin-top:2px">${new Date().toLocaleTimeString('fa-IR')}</div></div><button onclick="this.parentElement.remove()" style="background:none; border:0; color:var(--text-faint); cursor:pointer; font-size:16px">×</button>`;
+        el.innerHTML = `<div class="toast-icon">${icon}</div><div style="flex:1"><div style="font-weight:700; font-size:13px">${msg}</div><div style="font-size:12px; color:var(--text-muted); margin-top:2px">${new Date().toLocaleTimeString('fa-IR')}</div></div><button onclick="this.parentElement.remove()" style="background:none;border:0;color:var(--text-faint);cursor:pointer;font-size:16px">×</button>`;
         stack.appendChild(el);
-        setTimeout(()=> { el.style.opacity='0'; el.style.transform='translateY(8px)'; setTimeout(()=>el.remove(),300)}, 4200);
+        setTimeout(()=>{el.style.opacity='0';el.style.transform='translateY(8px)';setTimeout(()=>el.remove(),300)},4200);
     }
 
-    // حذف آیتم‌هایی که خود WordPress / WooCommerce در منوی اصلی مدیریت ارائه می‌کند.
-    // این موارد فقط یک‌بار، در منوی بومی وردپرس، نگه داشته می‌شوند.
-    function removeNativeDuplicateModules(){
-        const duplicateModules = [
-            'orders',      // WooCommerce → Orders
-            'products',    // WooCommerce → Products
-            'categories',  // WooCommerce → Products → Categories
-            'users',       // WordPress → Users
-            'reviews'      // WordPress/WooCommerce → Comments/Reviews
-        ];
+    // مواردی که خود WordPress/WooCommerce در منوی اصلی ارائه می‌کند، نباید در مدیریت بوتیک تکرار شوند.
+    const duplicateModules = ['orders','products','categories','users','reviews'];
 
+    function removeNativeDuplicateModules(){
         duplicateModules.forEach(function(module){
             document.querySelectorAll('[data-module="'+module+'"].nav-sub-item').forEach(function(item){
                 const group = item.closest('.nav-group');
@@ -3083,8 +3073,6 @@ tr:last-child td{border-bottom:0}
                 }
             });
         });
-
-        // شمارنده گروه‌ها را بعد از حذف آیتم‌های تکراری اصلاح می‌کنیم.
         document.querySelectorAll('.nav-group').forEach(function(group){
             const count = group.querySelectorAll('.nav-sub-item').length;
             const badge = group.querySelector('.nav-group-count');
@@ -3092,30 +3080,30 @@ tr:last-child td{border-bottom:0}
         });
     }
 
-    // ——— Override Config for WP: save via AJAX ———
+    // اجرای اولیه + MutationObserver برای جلوگیری از برگشت آیتم‌های تکراری هنگام رندر ماژول‌ها.
+    function protectNativeDuplicateRemoval(){
+        removeNativeDuplicateModules();
+        if(window.MutationObserver){
+            const root = document.getElementById('alookhor-cc-root') || document.body;
+            if(root && !root.__alookhorDuplicateObserver){
+                const observer = new MutationObserver(function(){ removeNativeDuplicateModules(); });
+                observer.observe(root,{childList:true,subtree:true});
+                root.__alookhorDuplicateObserver = observer;
+            }
+        }
+    }
+
     if(window.Config && window.ALOOKHOR_CC){
         const originalSave = window.Config.save;
         window.Config.save = function(){
             if(!this.data) return;
             this.data.updated_at = new Date().toISOString();
             try{ localStorage.setItem('alookhor_real_config_v38', JSON.stringify(this.data)); }catch(e){}
-            $.post(ALOOKHOR_CC.ajax_url, {
-                action: 'alookhor_save_settings',
-                nonce: ALOOKHOR_CC.nonce,
-                payload: JSON.stringify(this.data)
-            }, function(res){
-                if(res && res.success){
-                    toast('ذخیره شد — بدون رفرش روی وردپرس اعمال شد','success');
-                    if(window.Config.data?.header_settings){
-                        // trigger live header update if on front
-                    }
-                } else {
-                    toast('خطا در ذخیره: ' + (res.data||'نامشخص'),'info');
-                }
-            }).fail(function(){
-                toast('ذخیره محلی انجام شد (آفلاین)','info');
-            });
-            window.dispatchEvent(new CustomEvent('alookhor:config:changed', {detail: this.data}));
+            $.post(ALOOKHOR_CC.ajax_url,{action:'alookhor_save_settings',nonce:ALOOKHOR_CC.nonce,payload:JSON.stringify(this.data)},function(res){
+                if(res && res.success) toast('ذخیره شد — بدون رفرش روی وردپرس اعمال شد','success');
+                else toast('خطا در ذخیره: '+(res.data||'نامشخص'),'info');
+            }).fail(function(){ toast('ذخیره محلی انجام شد (آفلاین)','info'); });
+            window.dispatchEvent(new CustomEvent('alookhor:config:changed',{detail:this.data}));
         };
 
         const originalToggle = window.Config.toggleModule;
@@ -3124,30 +3112,25 @@ tr:last-child td{border-bottom:0}
             const enabled = !this.data.modules[key].enabled;
             this.data.modules[key].enabled = enabled;
             try{ localStorage.setItem('alookhor_real_config_v38', JSON.stringify(this.data)); }catch(e){}
-            $.post(ALOOKHOR_CC.ajax_url, {
-                action: 'alookhor_toggle_module',
-                nonce: ALOOKHOR_CC.nonce,
-                module: key,
-                enabled: enabled ? '1' : '0'
-            }, function(res){
-                if(res && res.success) toast(res.data?.message || (enabled?'فعال شد':'غیرفعال شد'), enabled?'success':'info');
+            $.post(ALOOKHOR_CC.ajax_url,{action:'alookhor_toggle_module',nonce:ALOOKHOR_CC.nonce,module:key,enabled:enabled?'1':'0'},function(res){
+                if(res && res.success) toast(res.data?.message || (enabled?'فعال شد':'غیرفعال شد'),enabled?'success':'info');
             });
-            window.dispatchEvent(new CustomEvent('alookhor:config:changed', {detail: this.data}));
+            window.dispatchEvent(new CustomEvent('alookhor:config:changed',{detail:this.data}));
             return enabled;
         };
     }
 
-    $(document).on('click', '#btnSaveAll', function(){});
+    $(document).on('click','#btnSaveAll',function(){});
 
-    // پس از ساخته‌شدن رابط کنترل سنتر، موارد تکراری را حذف کن.
     $(function(){
-        removeNativeDuplicateModules();
-        setTimeout(removeNativeDuplicateModules, 100);
-        setTimeout(removeNativeDuplicateModules, 500);
+        protectNativeDuplicateRemoval();
+        setTimeout(protectNativeDuplicateRemoval,100);
+        setTimeout(protectNativeDuplicateRemoval,500);
+        setTimeout(protectNativeDuplicateRemoval,1500);
     });
 
-    console.log('%cALOOKHOR Control Center v'+ (window.ALOOKHOR_CC?.version || '3.8.0') +' — WP Plugin Active — آپدیت آنی فعال',"color:#C9A86A; font-size:13px; font-weight:700");
-    console.log('Shortcode: ' + (window.ALOOKHOR_CC?.header_shortcode || '[alookhor_portal_header]'));
+    console.log('%cALOOKHOR Control Center v'+(window.ALOOKHOR_CC?.version||'3.8.0')+' — WP Plugin Active — آپدیت آنی فعال','color:#C9A86A;font-size:13px;font-weight:700');
+    console.log('Shortcode: '+(window.ALOOKHOR_CC?.header_shortcode||'[alookhor_portal_header]'));
 
 })(jQuery);
 ````
