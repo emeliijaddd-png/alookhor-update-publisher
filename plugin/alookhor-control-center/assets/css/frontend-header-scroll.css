@@ -94,3 +94,13 @@ body:has(.alookhor-managed-legacy-header){padding-top:0!important}
 @media(min-width:783px){body.admin-bar .alookhor-legacy-nav-stage.is-enabled{--alookhor-sticky-offset:32px}}
 @media(max-width:782px){body.admin-bar .alookhor-legacy-nav-stage.is-enabled{--alookhor-sticky-offset:46px}}
 @media(prefers-reduced-motion:reduce){.alookhor-managed-legacy-header .alookhor-topbar-wrapper,.alookhor-managed-legacy-header .alookhor-header,.alookhor-legacy-nav-stage,.alookhor-legacy-nav-shell{transition:none!important;scroll-behavior:auto!important}}
+
+/* Owner refinement: use the legacy bridge too, so existing WordPress/Elementor
+   headers receive the same wide, glass and readable RTL treatment. */
+.alookhor-managed-legacy-header .alookhor-topbar-container{width:100%!important;max-width:none!important;padding-inline:clamp(14px,4vw,64px)!important}
+.alookhor-managed-legacy-header .header-capsule{background:linear-gradient(135deg,rgba(92,32,126,.62),rgba(28,10,46,.72) 55%,rgba(82,23,118,.5))!important;border-color:rgba(230,199,90,.52)!important;-webkit-backdrop-filter:blur(30px) saturate(180%)!important;backdrop-filter:blur(30px) saturate(180%)!important;box-shadow:0 16px 42px rgba(10,0,18,.58),inset 0 1px 0 rgba(255,255,255,.13),0 0 30px rgba(212,175,55,.09)!important}
+.alookhor-managed-legacy-header .header-capsule .nav-menu>li>a,.alookhor-managed-legacy-header .header-capsule .alookhor-main-menu-item>a{font-size:14px!important;line-height:1.7!important}
+.alookhor-managed-legacy-header .alookhor-legacy-nav-shell{background:rgba(36,16,47,.72)!important;-webkit-backdrop-filter:blur(26px) saturate(165%)!important;backdrop-filter:blur(26px) saturate(165%)!important}
+.alookhor-managed-legacy-header .alookhor-legacy-nav-shell .nav-menu>li>a{font-size:14px!important;line-height:1.7!important}
+@media(min-width:1024px){.alookhor-managed-legacy-header .header-capsule{width:calc(100% - 24px)!important;max-width:1500px!important}.alookhor-managed-legacy-header .alookhor-legacy-nav-stage.is-stuck .alookhor-legacy-nav-shell{width:min(1500px,calc(100% - 24px))!important;max-width:none!important;background:rgba(36,16,47,.72)!important;-webkit-backdrop-filter:blur(30px) saturate(180%)!important;backdrop-filter:blur(30px) saturate(180%)!important}}
+@media(max-width:767px){.alookhor-managed-legacy-header .alookhor-topbar-container{padding-inline:10px!important}.alookhor-managed-legacy-header .alookhor-legacy-nav-shell .nav-menu>li>a{font-size:12px!important}}
