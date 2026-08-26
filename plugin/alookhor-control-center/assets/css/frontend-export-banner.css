@@ -27,11 +27,13 @@
 
 .alookhor-xb{
   position:relative;
-  width:100%;
-  margin:0;
+  width:100vw;
+  max-width:100vw;
+  margin:0 calc(50% - 50vw);
   padding:0;
-  border:2px solid var(--akx-gold,#D4AF37);
-  border-radius:30px;
+  border-block:2px solid var(--akx-gold,#D4AF37);
+  border-inline:0;
+  border-radius:0;
   overflow:hidden;
   isolation:isolate;
   background:var(--akx-bg,#0A2A1C);

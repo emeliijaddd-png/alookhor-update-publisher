@@ -2,7 +2,7 @@
 // UI/state remain modular; version discovery and installation are delegated to WordPress.
 
 const runtimeConfig = window.ALOOKHOR_CC || {};
-const runtimeVersion = String(runtimeConfig.version || '3.10.85');
+const runtimeVersion = String(runtimeConfig.version || '3.10.86');
 
 function normalizeResult(data = {}) {
   const current = String(data.current || runtimeVersion);
@@ -55,6 +55,7 @@ export const Updater = {
   latest: runtimeVersion,
   lastCheck: null,
   changelog: [
+    { tag: 'EXPORT FULL BLEED', title: 'v3.10.86 — بنر صادراتی تمام‌عرض', desc: 'پس‌زمینه بنر به لبه‌های چپ و راست صفحه چسبید و فضای سفید جانبی حذف شد.' },
     { tag: 'EXPORT BANNER', title: 'v3.10.85 — بنر صادراتی در مدیریت بوتیک', desc: 'تصویر، لوگو، متن‌ها، دو واتساپ، رنگ‌ها و افکت‌های [alookhor_export_banner] داخل بوتیک یکپارچه شد.' },
     { tag: 'FULL BLEED', title: 'v3.10.84 — پس‌زمینه تمام‌عرض مرکز سورت', desc: 'پس‌زمینه تا لبه‌های صفحه کشیده شد اما همه گزینه‌ها داخل کانتینر ۱۳۸۰px وسط‌چین ماندند.' },
     { tag: 'SORT ICONS', title: 'v3.10.83 — محصولات و مزیت‌های متحرک', desc: 'چیپ محصولات و ۴ کارت مزیت با آیکن SVG متحرک و مدیریت کامل به مرکز سورت اضافه شد.' },
