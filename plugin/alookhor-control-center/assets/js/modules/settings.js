@@ -1,4 +1,4 @@
-import { Config } from '../core/config.js?v=3.10.73';
+import { Config } from '../core/config.js?v=3.10.74';
 
 const escapeAttr = value => String(value ?? '').replace(/[&<>'"]/g, char => ({
   '&':'&amp;', '<':'&lt;', '>':'&gt;', "'":'&#039;', '"':'&quot;'
@@ -292,7 +292,7 @@ export const settingsModule = {
 
         <div class="qh-section"><div class="qh-title"><b>برند دراور موبایل</b><small>MOBILE BRAND</small></div><div class="qh-grid"><label>نام برند<input id="inpBoutiqueBrandName" value="${val('brand_name')}"></label><label>زیرعنوان<input id="inpBoutiqueBrandSubtitle" value="${val('brand_subtitle')}"></label></div></div>
 
-        <div class="qh-section"><div class="qh-title"><b>شیشه‌ای‌سازی منوی اصلی</b><small>GLASS MENU</small></div><div class="qh-flags"><label><input type="checkbox" id="inpMainbarGlassEnabled" ${isEnabled(h.mainbar_glass_enabled)?'checked':''}>منوی اصلی شیشه‌ای باشد</label></div><div class="qh-grid" style="margin-top:10px"><label>شفافیت منو (درصد)<input type="number" id="inpMainbarOpacity" min="10" max="100" value="${Number(h.mainbar_opacity)||72}"></label><label>مات‌شدگی پشت شیشه (px)<input type="number" id="inpCapsuleBlur" min="0" max="36" value="${Number(h.capsule_blur)||18}"></label></div><p style="margin:8px 0 0;color:var(--text-faint);font-size:10px">عدد کمتر در شفافیت، شیشه را شفاف‌تر می‌کند. مقدار ۱۰۰ پس‌زمینه را کاملاً مات می‌کند.</p></div>
+        <div class="qh-section"><div class="qh-title"><b>شیشه‌ای‌سازی کپسول منو</b><small>GLASS MENU</small></div><div class="qh-flags"><label><input type="checkbox" id="inpMainbarGlassEnabled" ${isEnabled(h.mainbar_glass_enabled)?'checked':''}>فقط کپسول منو شیشه‌ای باشد</label></div><div class="qh-grid" style="margin-top:10px"><label>شفافیت کپسول (درصد)<input type="number" id="inpMainbarOpacity" min="10" max="100" value="${Number(h.mainbar_opacity)||72}"></label><label>مات‌شدگی پشت شیشه (px)<input type="number" id="inpCapsuleBlur" min="0" max="36" value="${Number(h.capsule_blur)||18}"></label></div><p style="margin:8px 0 0;color:var(--text-faint);font-size:10px">فضای چپ و راست کپسول همیشه بدون پس‌زمینه است. عدد کمتر، خود کپسول را شفاف‌تر می‌کند.</p></div>
 
         <div class="qh-section"><div class="qh-title"><b>رنگ‌بندی کامل هدر</b><small>COLOR SYSTEM</small></div><div class="qh-colors qh-header-colors">${[['پس‌زمینه نوار بالا','topbar_bg'],['متن نوار بالا','topbar_text_color'],['خط نوار بالا','topbar_border_color'],['دکمه نوار بالا','topbar_button_bg'],['متن دکمه بالا','topbar_button_text'],['سطح منوی اصلی','header_surface'],['متن اصلی','header_text_color'],['متن فرعی','header_muted_color'],['پس‌زمینه کپسول منو','capsule_background'],['سطح مگامنو و کارت','capsule_card'],['طلایی اصلی','capsule_gold'],['طلایی روشن','capsule_gold_light'],['متن کپسول','capsule_text'],['متن فرعی کپسول','capsule_muted']].map(([label,key])=>`<label>${label}<input type="color" id="inpHeaderColor_${key}" value="${val(key)}"></label>`).join('')}</div></div>
 

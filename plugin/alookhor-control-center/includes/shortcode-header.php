@@ -115,6 +115,7 @@ function alookhor_cc_render_akx_header() {
         return sprintf('rgba(%d,%d,%d,%.2F)', hexdec(substr($hex, 0, 2)), hexdec(substr($hex, 2, 2)), hexdec(substr($hex, 4, 2)), $alpha);
     };
     $surface = $color('header_surface', '#21072F');
+    $capsule = $color('capsule_background', '#16031F');
     $style_vars = implode(';', array(
         '--akx-topbar-bg:' . $color('topbar_bg', '#1C0629'),
         '--akx-topbar-text:' . $color('topbar_text_color', '#F5F3F0'),
@@ -125,7 +126,8 @@ function alookhor_cc_render_akx_header() {
         '--akx-surface-glass:' . $hex_to_rgba($surface, $opacity),
         '--akx-text:' . $color('header_text_color', '#FFFFFF'),
         '--akx-muted:' . $color('header_muted_color', '#C8C2C9'),
-        '--akx-capsule:' . $color('capsule_background', '#16031F'),
+        '--akx-capsule:' . $capsule,
+        '--akx-capsule-glass:' . $hex_to_rgba($capsule, $opacity),
         '--akx-card:' . $color('capsule_card', '#2D0D4A'),
         '--akx-gold:' . $color('capsule_gold', '#D4AF37'),
         '--akx-gold-light:' . $color('capsule_gold_light', '#F1D468'),

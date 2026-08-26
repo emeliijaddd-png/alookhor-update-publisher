@@ -1,16 +1,14 @@
 /* ===== ALOOKHOR AKX Luxury Header ===== */
 /* Purple/gold design — fully scoped to #akx-header (matches reference exactly) */
 
-/* v3.10.73: هدر بچسبد به بالای صفحه — حذف فاصله سفید بالای هدر
+/* v3.10.74: هدر بچسبد به بالای صفحه — حذف فاصله سفید بالای هدر
    (port قوانین تثبیت‌شده‌ی حالت Legacy؛ فقط روی صفحاتی که هدر AKX رویشان رندر شده) */
 html:has(#akx-header[data-akx-live="1"]),
 body:has(#akx-header[data-akx-live="1"]) {
   margin: 0 !important;
   padding: 0 !important;
 }
-body:has(#akx-header[data-akx-live="1"]) {
-  background: #17041f;
-}
+/* پس‌زمینه صفحه را هدر تغییر نمی‌دهد؛ فضای دو طرف کپسول باید کاملاً بدون رنگ باشد. */
 .website-wrapper:has(#akx-header[data-akx-live="1"]),
 .main-page-wrapper:has(#akx-header[data-akx-live="1"]),
 #main-content:has(#akx-header[data-akx-live="1"]) {
@@ -905,8 +903,8 @@ body #akx-header .akx-search-panel button {
   }
 }
 
-/* v3.10.73: Theme controls — values are emitted safely by shortcode-header.php. */
-body #akx-header { color: var(--akx-text, #fff) !important; background: var(--akx-surface, #21072f) !important; }
+/* v3.10.74: Theme controls — values are emitted safely by shortcode-header.php. */
+body #akx-header { color: var(--akx-text, #fff) !important; background: transparent !important; }
 body #akx-header .akx-topbar { background: var(--akx-topbar-bg, #1c0629) !important; border-bottom-color: var(--akx-topbar-border, #d4af37) !important; color: var(--akx-topbar-text, #f5f3f0) !important; }
 body #akx-header .akx-topbar-left,
 body #akx-header .akx-topbar-left a { color: var(--akx-topbar-text, #f5f3f0) !important; }
@@ -914,14 +912,26 @@ body #akx-header .akx-wholesale { background: var(--akx-topbar-button, #d4af37) 
 body #akx-header .akx-export-link,
 body #akx-header .akx-phone,
 body #akx-header .akx-mini-icon { color: var(--akx-gold-light, #f1d468) !important; }
-body #akx-header .akx-mainbar { background: var(--akx-surface, #21072f) !important; color: var(--akx-text, #fff) !important; }
+/* نوار سراسری هیچ سطح رنگی ندارد؛ فقط خود کپسول منو می‌تواند شیشه‌ای باشد. */
+body #akx-header .akx-mainbar,
 body #akx-header.akx-glass-enabled .akx-mainbar {
-  background: var(--akx-surface-glass, rgba(33,7,47,.72)) !important;
-  -webkit-backdrop-filter: blur(var(--akx-blur, 18px)) saturate(145%);
-  backdrop-filter: blur(var(--akx-blur, 18px)) saturate(145%);
-  border-bottom: 1px solid color-mix(in srgb, var(--akx-gold, #d4af37) 28%, transparent);
+  background: transparent !important;
+  color: var(--akx-text, #fff) !important;
+  border: 0 !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
 }
-body #akx-header .akx-nav-capsule { background: color-mix(in srgb, var(--akx-capsule, #16031f) 72%, transparent) !important; border-color: color-mix(in srgb, var(--akx-gold, #d4af37) 35%, transparent) !important; backdrop-filter: blur(var(--akx-blur, 18px)) saturate(145%); -webkit-backdrop-filter: blur(var(--akx-blur, 18px)) saturate(145%); }
+body #akx-header .akx-nav-capsule {
+  background: var(--akx-capsule, #16031f) !important;
+  border-color: color-mix(in srgb, var(--akx-gold, #d4af37) 35%, transparent) !important;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+body #akx-header.akx-glass-enabled .akx-nav-capsule {
+  background: var(--akx-capsule-glass, rgba(22,3,31,.72)) !important;
+  backdrop-filter: blur(var(--akx-blur, 18px)) saturate(145%);
+  -webkit-backdrop-filter: blur(var(--akx-blur, 18px)) saturate(145%);
+}
 body #akx-header .akx-menu-button { background: linear-gradient(135deg, var(--akx-gold-light, #f1d468), var(--akx-gold, #d4af37)) !important; color: var(--akx-topbar-button-text, #210a2c) !important; }
 body #akx-header .akx-nav > ul > li > a { color: var(--akx-capsule-muted, #c8c2c9) !important; }
 body #akx-header .akx-nav > ul > li > a:hover { color: var(--akx-capsule-text, #fff) !important; }
