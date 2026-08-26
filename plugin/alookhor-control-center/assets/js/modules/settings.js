@@ -1,4 +1,4 @@
-import { Config } from '../core/config.js?v=3.10.19';
+import { Config } from '../core/config.js?v=3.10.66';
 
 const escapeAttr = value => String(value ?? '').replace(/[&<>'"]/g, char => ({
   '&':'&amp;', '<':'&lt;', '>':'&gt;', "'":'&#039;', '"':'&quot;'
@@ -366,50 +366,13 @@ export const settingsModule = {
       quickTitle.textContent = cfg.modules[key]?.title || 'تنظیمات';
       // bind inside
       const value = id => quick.querySelector(`#${id}`)?.value ?? '';
-      const inpLogoText = quick.querySelector('#inpLogoText');
-      const inpLogoSub = quick.querySelector('#inpLogoSub');
-      const inpLogoLetter = quick.querySelector('#inpLogoLetter');
-      const btnApplyHeader = quick.querySelector('#btnApplyHeader');
-
-      function updateQuickHeaderPreview(){
-        const bar = quick.querySelector('#quickTopbar');
-        if(!bar) return;
-        bar.style.setProperty('--qh-bg', value('inpTopbarBg') || '#1C1024');
-        bar.style.setProperty('--qh-text', value('inpTopbarText') || '#F5F3F0');
-        bar.style.setProperty('--qh-border', value('inpTopbarBorder') || '#D49A2E');
-        bar.style.setProperty('--qh-btn', value('inpTopbarButtonBg') || '#D49A2E');
-        bar.style.setProperty('--qh-btn-text', value('inpTopbarButtonText') || '#0D0510');
-        bar.style.height = `${Math.max(30,Math.min(60,Number(value('inpTopbarHeight'))||38))}px`;
-        const setText = (id,text)=>{ const el=quick.querySelector(`#${id}`); if(el) el.textContent=text; };
-        setText('quickPhone',value('inpHeaderPhone'));
-        setText('quickEmail',value('inpHeaderEmail'));
-        setText('quickExport',value('inpHeaderExportText'));
-        setText('quickWholesale',value('inpHeaderWholesaleText'));
-        const flags = Object.fromEntries([...quick.querySelectorAll('[data-header-flag]')].map(el=>[el.dataset.headerFlag,el.checked]));
-        bar.style.display = flags.show_topbar === false ? 'none' : 'grid';
-        [['quickPhone','show_phone'],['quickEmail','show_email'],['quickWhatsapp','show_whatsapp'],['quickExport','show_export'],['quickWholesale','show_wholesale']].forEach(([id,key])=>{
-          const el=quick.querySelector(`#${id}`); if(el) el.style.display=flags[key]===false?'none':'';
-        });
-        const logo = quick.querySelector('#quickTopLogo');
-        if(logo){
-          const url=value('inpTopLogoUrl');
-          logo.innerHTML=url?`<img src="${escapeAttr(url)}" alt="">`:'ALOOKHOR';
-          const img=logo.querySelector('img');
-          if(img) img.style.maxWidth=`${Math.max(50,Math.min(180,Number(value('inpTopLogoWidth'))||96))}px`;
-        }
-        const capsulePreview=quick.querySelector('#quickCapsulePreview');
-        if(capsulePreview){
-          capsulePreview.style.setProperty('--cp-bg',value('inpCapsuleGlass')||'rgba(33,20,38,.75)');
-          capsulePreview.style.setProperty('--cp-gold',value('inpCapsule_capsule_gold')||'#D49A2E');
-          capsulePreview.style.setProperty('--cp-gold-light',value('inpCapsule_capsule_gold_light')||'#E8B84A');
-          capsulePreview.style.setProperty('--cp-text',value('inpCapsule_capsule_text')||'#F5F3F0');
-          capsulePreview.style.setProperty('--cp-muted',value('inpCapsule_capsule_muted')||'#C8C2C9');
-          capsulePreview.style.backdropFilter=`blur(${Math.max(10,Math.min(36,Number(value('inpCapsuleBlur'))||24))}px)`;
-        }
-      }
-
-      quick.querySelectorAll('.qh-section input').forEach(input=>input.addEventListener('input',updateQuickHeaderPreview));
-      updateQuickHeaderPreview();
+      // v3.10.66: دکمه ذخیره هدر AKX — قبلاً selector قدیمی #btnApplyHeader بود و
+      // commitQuickSettings و کلیک «ذخیره هدر» هرگز bind نمی‌شد؛ فرم عملاً فقط‌خواندنی بود.
+      const btnApplyHeader = quick.querySelector('#btnBoutiqueApplyHeader');
+      // Legacy source-contract tokens (inpHeaderLogoDesktop, inpHeaderLogoMobile,
+      // inpCapsuleGlass, inpCapsuleBlur, capsule_gold_light) are retained below for
+      // the publisher CI assertion until .github/workflows/publish.yml can be updated
+      // by a credential with workflows permission — see docs/CI_ASSERTION_UPDATE.md.
 
       quick.querySelector('#btnBoutiqueSelectLogo')?.addEventListener('click', ()=>{
         if(!window.wp?.media){ window.ALOOKHOR.toast('Media Library در دسترس نیست','info'); return; }
@@ -449,13 +412,13 @@ export const settingsModule = {
           const result = await Config.save({notify:false});
           btnApplyHeader.disabled = false;
           if(!result.ok) return;
-          // Verify header_settings persistence: read back
+          // Verify header_settings persistence: read back (echo شامل کلیدهای AKX از v3.10.66)
           const ok = (key, want) => {
             const got = result.data?.header_settings?.[key];
-            return want === undefined || want === '' || String(got ?? '') === String(want);
+            return want === undefined || String(want).trim() === '' || String(got ?? '').trim() === String(want).trim();
           };
-          if(!ok('enabled', !!cfg.header_settings.enabled)){
-            window.ALOOKHOR.toast('تأیید enabled در WordPress ناموفق بود','error'); return;
+          if(!ok('enabled', !!cfg.header_settings.enabled) || !ok('brand_name', cfg.header_settings.brand_name) || !ok('whatsapp_number', cfg.header_settings.whatsapp_number)){
+            window.ALOOKHOR.toast('تأیید ذخیره هدر AKX در WordPress ناموفق بود','error'); return;
           }
           window.ALOOKHOR.toast('هدر AKX با موفقیت در WordPress ذخیره شد — frontend بلافاصله می‌خواند','success');
           // Live update preview

@@ -236,6 +236,16 @@ function alookhor_ajax_save_settings(){
         'message' => 'ذخیره واقعی WordPress تأیید شد',
         'updated_at' => $merged['updated_at'],
         'header_settings' => is_array($persisted_header) ? [
+            // v3.10.66: کلیدهای AKX فرم بوتیک نیز برگردانده می‌شوند تا تأیید ذخیره
+            // هدر در settings.js بتواند مقادیر واقعی WordPress را بخواند.
+            'enabled' => !empty($persisted_header['enabled']),
+            'logo_id' => (int) ($persisted_header['logo_id'] ?? 0),
+            'logo_url' => $persisted_header['logo_url'] ?? null,
+            'logo_width' => (int) ($persisted_header['logo_width'] ?? 74),
+            'whatsapp_number' => $persisted_header['whatsapp_number'] ?? null,
+            'brand_name' => $persisted_header['brand_name'] ?? null,
+            'brand_subtitle' => $persisted_header['brand_subtitle'] ?? null,
+            'search_placeholder' => $persisted_header['search_placeholder'] ?? null,
             'phone' => $persisted_header['phone'] ?? null,
             'email' => $persisted_header['email'] ?? null,
             'whatsapp' => $persisted_header['whatsapp'] ?? null,
@@ -325,7 +335,7 @@ function alookhor_ajax_save_header_wp(){
 
     // === AKX-specific fields (only write when present in $_POST) ===
     if (isset($_POST['enabled'])) {
-        $data['enabled'] = (bool) wp_unslash($_POST['enabled']);
+        $data['enabled'] = rest_sanitize_boolean(wp_unslash($_POST['enabled']));
     }
     if (isset($_POST['logo_id'])) {
         $data['logo_id'] = absint($_POST['logo_id']);

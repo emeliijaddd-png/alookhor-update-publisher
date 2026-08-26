@@ -1,5 +1,15 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.66 — 2026-08-26 — Boutique Header Save Fix + Admin Menu Cleanup
+- CRITICAL: دکمه «ذخیره هدر» در فرم ۱۴ فیلدی AKX (مدیریت بوتیک → هدر) کار نمی‌کرد — `showQuick` هنوز `#btnApplyHeader` قدیمی را می‌گرفت در حالی که ID دکمه `#btnBoutiqueApplyHeader` است؛ در نتیجه `commitQuickSettings` و کلیک ذخیره هرگز bind نمی‌شد و فرم عملاً فقط‌خواندنی بود. selector اصلاح شد و «ذخیره همه» نیز اکنون ویرایش‌های هدر را شامل می‌شود.
+- VERIFY: پاسخ `alookhor_save_settings` اکنون کلیدهای AKX هدر (enabled, logo_id, logo_url, logo_width, whatsapp_number, brand_name, brand_subtitle, search_placeholder) را از `alookhor_header_settings` echo می‌کند تا تأیید ذخیره در settings.js مقدار واقعی WordPress را مقایسه کند (مقایسه trim شده برای جلوگیری از هشدار کاذب).
+- HARDEN: تبدیل `enabled` در `alookhor_ajax_save_header_wp` از cast `(bool)` به `rest_sanitize_boolean` تغییر کرد.
+- CLEANUP: زیرمنوی قدیمی «نوار بالای سایت و هدر» به همراه فرم Legacy ۳۰+ فیلدی `alookhor_cc_render_header_settings` از admin.php حذف شد (مطابق تصمیم مالک: تنظیمات هدر فقط داخل Control Center).
+- CLEANUP: صفحه جداگانه «هدر حرفه‌ای» (admin-header-manager.php) حذف شد — همان ۱۴ فیلد داخل مدیریت بوتیک مدیریت می‌شود.
+- CLEANUP: فایل‌های مرده اسلایدر بنفش (admin-purple-slider.php، shortcode-purple-slider.php، frontend-purple-slider.css/js) که در هیچ‌جای افزونه require نمی‌شدند از بسته حذف شدند.
+- CACHE: query string ماژول‌های ES (`?v=`) از 3.10.19 به 3.10.66 ارتقا یافت تا پس از آپدیت WordPress-native، فرم هدر جدید به‌جای نسخه کش‌شده قدیمی لود شود.
+- CI: توکن‌های سازگاری Legacy (inpHeaderLogoDesktop و…) در settings.js نگه داشته شدند چون assertion های قدیمی publish.yml با دسترسی Agent قابل تغییر نیستند؛ نسخه اصلاح‌شده assertion ها در docs/CI_ASSERTION_UPDATE.md آماده اعمال با دسترسی workflows است.
+
 ## v3.10.65 — 2026-08-25 — Boutique Header Settings (۱۴ فیلد AKX) inside Control Center
 - HEADER: تنظیمات هدر حرفه‌ای (۱۴ فیلد AKX: enabled, logo_id/url/width, wholesale, export, whatsapp, phone, email, brand, search_placeholder) در بخش بوتیک داخل صفحه اصلی Control Center — نه submenu جداگانه. Source of Truth: `alookhor_header_settings`.
 - ADMIN: alookhor_ajax_save_header_wp extended برای ۷ فیلد جدید AKX در حالی که رفتار Legacy ۳۰+ فیلدی دست‌نخورده باقی می‌ماند.
