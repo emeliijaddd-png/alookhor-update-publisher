@@ -2,7 +2,7 @@
 // UI/state remain modular; version discovery and installation are delegated to WordPress.
 
 const runtimeConfig = window.ALOOKHOR_CC || {};
-const runtimeVersion = String(runtimeConfig.version || '3.10.79');
+const runtimeVersion = String(runtimeConfig.version || '3.10.80');
 
 function normalizeResult(data = {}) {
   const current = String(data.current || runtimeVersion);
@@ -55,6 +55,7 @@ export const Updater = {
   latest: runtimeVersion,
   lastCheck: null,
   changelog: [
+    { tag: 'SORT CENTER', title: 'v3.10.80 — مرکز سورت اسلایدی', desc: '[alookhor_sort_center] با ۶ تصویر و تنظیمات کامل محتوا، رنگ و حرکت به مدیریت بوتیک اضافه شد.' },
     { tag: 'ONE HERO SHORTCODE', title: 'v3.10.79 — یک شورت‌کد رسمی اسلایدر', desc: '[alookhor_managed_hero] تنها اسلایدر فعال است؛ نسخه VIP قدیمی خنثی و همه تنظیمات در بوتیک یکپارچه شد.' },
     { tag: 'PIXEL PERFECT GAP', title: 'v3.10.78 — حذف کامل نوار سفید اسلایدر', desc: 'Hero بدون فاصله از لبه پایین Topbar آغاز می‌شود.' },
     { tag: 'ZERO HERO GAP', title: 'v3.10.77 — جابه‌جایی اسلایدر به نوار بالا', desc: 'فضای رزروشده اولیه قالب از بالای Hero حذف شد.' },

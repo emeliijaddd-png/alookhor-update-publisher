@@ -1,5 +1,11 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.80 — 2026-08-26 — Managed Sorting Center Slider
+- SHORTCODE: شورت‌کد مستقل `[alookhor_sort_center]` برای Elementor اضافه شد.
+- GALLERY: تا ۶ تصویر از Media Library با Alt و کپشن مستقل، Autoplay، سرعت، فلش و نقاط قابل مدیریت است.
+- CONTENT/THEME: عنوان، توضیح، ظرفیت، آمار امروز، CTA، لینک، پنج رنگ و گردی کادر همگی از مدیریت بوتیک ذخیره می‌شوند.
+- RESPONSIVE: خروجی Desktop/Mobile کاملاً واکنش‌گرا و Scoped است.
+
 ## v3.10.79 — 2026-08-26 — One Canonical Managed Hero Shortcode
 - CANONICAL: تنها شورت‌کد رسمی اسلایدر `[alookhor_managed_hero]` است و در فرم Hero مدیریت بوتیک نیز به‌وضوح نمایش داده می‌شود.
 - LEGACY: شورت‌کد `[alookhor_vip_slider]` در اولویت انتهایی خنثی می‌شود؛ تکرارهای باقی‌مانده در Elementor خروجی موازی نمی‌سازند.

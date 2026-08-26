@@ -1,16 +1,16 @@
 {
-  "version": "3.10.79",
-  "previous": "3.10.78",
+  "version": "3.10.80",
+  "previous": "3.10.79",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "یکپارچه‌سازی اسلایدر روی تنها شورت‌کد مدیریت‌شده و غیرفعال‌سازی شورت‌کد VIP قدیمی.",
+  "description": "مرکز سورت و بسته‌بندی به شورت‌کد مستقل با گالری اسلایدی و مدیریت کامل بوتیک تبدیل شد.",
   "changelog": [
     {
-      "tag": "ONE HERO SHORTCODE",
-      "title": "تنها شورت‌کد رسمی اسلایدر",
-      "desc": "[alookhor_managed_hero] تنها خروجی Hero است؛ [alookhor_vip_slider] حتی اگر چند بار در صفحه مانده باشد خنثی می‌شود و همه تنظیمات از مدیریت بوتیک اعمال می‌شوند."
+      "tag": "SORT CENTER SLIDER",
+      "title": "شورت‌کد مرکز سورت چندتصویری",
+      "desc": "[alookhor_sort_center] با حداکثر ۶ تصویر، متن‌ها، آمار، CTA، رنگ‌ها، Autoplay، فلش، نقاط و Responsive از مدیریت بوتیک کنترل می‌شود."
     }
   ],
   "project": "ALOOKHOR",
@@ -30,6 +30,9 @@
     "plugin/alookhor-control-center/readme.txt",
     "plugin/alookhor-control-center/CHANGELOG.md",
     "release.json",
-    "plugin/alookhor-control-center/includes/hero.php"
+    "plugin/alookhor-control-center/includes/hero.php",
+    "plugin/alookhor-control-center/includes/sort-center.php",
+    "plugin/alookhor-control-center/assets/css/frontend-sort-center.css",
+    "plugin/alookhor-control-center/assets/js/frontend-sort-center.js"
   ]
 }
