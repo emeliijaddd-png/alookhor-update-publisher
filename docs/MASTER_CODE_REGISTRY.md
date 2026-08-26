@@ -210,7 +210,7 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 | `plugin/alookhor-control-center/assets/css/frontend-hero.css` | 72 | `bde6426b31d10f1d389999f0c8ec25185d08d595dd20e06a92fcd666052dc3c9` |
 | `plugin/alookhor-control-center/assets/css/frontend-purple-slider.css` | 183 | `624a045166f54d3014cd249130aad1f204ed6bd5031fbb58ef7b48234cd24d33` |
 | `plugin/alookhor-control-center/assets/css/luxury.css` | 564 | `eef0550c9d8b090dbe799d9a969518207519fdb585c9701e2d897a507e669f8f` |
-| `plugin/alookhor-control-center/assets/js/admin-wp.js` | 84 | `b8ff32723f2f46dc44add19fdc441eec1c611f5229ce7e13ac8b773457be6afc` |
+| `plugin/alookhor-control-center/assets/js/admin-wp.js` | 109 | `cc3b4683f65f952bdbb390fd204a6ab7d1cce3ae57a62ab96c2f3e754b7362da` |
 | `plugin/alookhor-control-center/assets/js/app.js` | 325 | `30a838d2429c84cf88071561dbfe45b58f9443dc3ed23164e0de40f67a46ee04` |
 | `plugin/alookhor-control-center/assets/js/core/config.js` | 199 | `1c89b0d0d8121bce7fc7097f9d1974eb1e38d1ec7f6b0f6f6d5244ab60ea1e85` |
 | `plugin/alookhor-control-center/assets/js/core/responsive.js` | 52 | `0848ef0deef9aaa532581904c4adab9b45cbe8445a99fbeb71f92d358a1aa724` |
@@ -3048,7 +3048,6 @@ tr:last-child td{border-bottom:0}
 (function($){
     'use strict';
 
-    // ——— Helper: Toast (همان لوکس) ———
     function toast(msg, type='success'){
         const stack = document.getElementById('toastStack');
         if(!stack){
@@ -3063,15 +3062,43 @@ tr:last-child td{border-bottom:0}
         setTimeout(()=> { el.style.opacity='0'; el.style.transform='translateY(8px)'; setTimeout(()=>el.remove(),300)}, 4200);
     }
 
+    // حذف آیتم‌هایی که خود WordPress / WooCommerce در منوی اصلی مدیریت ارائه می‌کند.
+    // این موارد فقط یک‌بار، در منوی بومی وردپرس، نگه داشته می‌شوند.
+    function removeNativeDuplicateModules(){
+        const duplicateModules = [
+            'orders',      // WooCommerce → Orders
+            'products',    // WooCommerce → Products
+            'categories',  // WooCommerce → Products → Categories
+            'users',       // WordPress → Users
+            'reviews'      // WordPress/WooCommerce → Comments/Reviews
+        ];
+
+        duplicateModules.forEach(function(module){
+            document.querySelectorAll('[data-module="'+module+'"].nav-sub-item').forEach(function(item){
+                const group = item.closest('.nav-group');
+                item.remove();
+                if(group){
+                    const list = group.querySelector('.nav-sub-list');
+                    if(list && !list.querySelector('.nav-sub-item')) group.remove();
+                }
+            });
+        });
+
+        // شمارنده گروه‌ها را بعد از حذف آیتم‌های تکراری اصلاح می‌کنیم.
+        document.querySelectorAll('.nav-group').forEach(function(group){
+            const count = group.querySelectorAll('.nav-sub-item').length;
+            const badge = group.querySelector('.nav-group-count');
+            if(badge) badge.textContent = String(count);
+        });
+    }
+
     // ——— Override Config for WP: save via AJAX ———
     if(window.Config && window.ALOOKHOR_CC){
         const originalSave = window.Config.save;
         window.Config.save = function(){
             if(!this.data) return;
             this.data.updated_at = new Date().toISOString();
-            // local backup
             try{ localStorage.setItem('alookhor_real_config_v38', JSON.stringify(this.data)); }catch(e){}
-            // WP AJAX save — آپدیت آنی
             $.post(ALOOKHOR_CC.ajax_url, {
                 action: 'alookhor_save_settings',
                 nonce: ALOOKHOR_CC.nonce,
@@ -3079,7 +3106,6 @@ tr:last-child td{border-bottom:0}
             }, function(res){
                 if(res && res.success){
                     toast('ذخیره شد — بدون رفرش روی وردپرس اعمال شد','success');
-                    // همچنین هدر شورت‌کد را بروز کن
                     if(window.Config.data?.header_settings){
                         // trigger live header update if on front
                     }
@@ -3092,15 +3118,12 @@ tr:last-child td{border-bottom:0}
             window.dispatchEvent(new CustomEvent('alookhor:config:changed', {detail: this.data}));
         };
 
-        // Toggle module via dedicated AJAX (سریع‌تر)
         const originalToggle = window.Config.toggleModule;
         window.Config.toggleModule = function(key){
             if(!this.data.modules[key]) return false;
             const enabled = !this.data.modules[key].enabled;
             this.data.modules[key].enabled = enabled;
-            // local
             try{ localStorage.setItem('alookhor_real_config_v38', JSON.stringify(this.data)); }catch(e){}
-            // WP
             $.post(ALOOKHOR_CC.ajax_url, {
                 action: 'alookhor_toggle_module',
                 nonce: ALOOKHOR_CC.nonce,
@@ -3114,13 +3137,15 @@ tr:last-child td{border-bottom:0}
         };
     }
 
-    // ——— Global: هر دکمه ذخیره در کنترل سنتر، WP AJAX را صدا بزند ———
-    $(document).on('click', '#btnSaveAll', function(){
-        // Config.save قبلاً override شده، فقط toast اضافه
-        // این دکمه در settings.js هم هندل می‌شود، اینجا فقط اطمینان
+    $(document).on('click', '#btnSaveAll', function(){});
+
+    // پس از ساخته‌شدن رابط کنترل سنتر، موارد تکراری را حذف کن.
+    $(function(){
+        removeNativeDuplicateModules();
+        setTimeout(removeNativeDuplicateModules, 100);
+        setTimeout(removeNativeDuplicateModules, 500);
     });
 
-    // ——— نمایش نسخه و شورت‌کد در کنسول ———
     console.log('%cALOOKHOR Control Center v'+ (window.ALOOKHOR_CC?.version || '3.8.0') +' — WP Plugin Active — آپدیت آنی فعال',"color:#C9A86A; font-size:13px; font-weight:700");
     console.log('Shortcode: ' + (window.ALOOKHOR_CC?.header_shortcode || '[alookhor_portal_header]'));
 
