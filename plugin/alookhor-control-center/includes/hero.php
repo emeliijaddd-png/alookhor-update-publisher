@@ -196,6 +196,16 @@ function alookhor_cc_hero_shortcode(){
 }
 add_shortcode('alookhor_managed_hero','alookhor_cc_hero_shortcode');
 
+/**
+ * قرارداد واحد Hero: شورت‌کد قدیمی افزونه VIP نباید اسلایدر موازی بسازد.
+ * در اولویت انتهایی ثبت می‌شود تا مستقل از ترتیب بارگذاری افزونه‌ها باشد.
+ */
+function alookhor_cc_retire_legacy_vip_slider_shortcode() {
+    remove_shortcode('alookhor_vip_slider');
+    add_shortcode('alookhor_vip_slider', '__return_empty_string');
+}
+add_action('init', 'alookhor_cc_retire_legacy_vip_slider_shortcode', 999);
+
 function alookhor_cc_hero_template(){
     static $done=false;
     if($done || is_admin() || !is_front_page() || !empty($GLOBALS['alookhor_cc_hero_shortcode_rendered'])) return;

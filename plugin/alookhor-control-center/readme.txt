@@ -4,7 +4,7 @@ Tags: control center, luxury, alookhor, admin, dashboard
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 3.10.78
+Stable tag: 3.10.79
 License: Private
 License URI: https://alookhor.ir
 
@@ -47,8 +47,12 @@ License URI: https://alookhor.ir
 
 == Changelog ==
 
+= 3.10.79 =
+* تنها شورت‌کد اسلایدر `[alookhor_managed_hero]` است و تمام تنظیمات آن از مدیریت بوتیک انجام می‌شود
+* `[alookhor_vip_slider]` قدیمی خنثی شد تا تکرارهای موجود اسلایدر اضافی نسازند
+
 = 3.10.78 =
-* آخرین نوار سفید باریک حذف شد و Hero دقیقاً به لبه پایین Topbar چسبید
+* آخرین نوار سفید باریک حذف شد و Hero دقیقاً به Topbar چسبید
 
 = 3.10.77 =
 * جابه‌جایی اولیه اسلایدر برای خنثی‌سازی فاصله قالب

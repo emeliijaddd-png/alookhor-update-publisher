@@ -1,5 +1,10 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.79 — 2026-08-26 — One Canonical Managed Hero Shortcode
+- CANONICAL: تنها شورت‌کد رسمی اسلایدر `[alookhor_managed_hero]` است و در فرم Hero مدیریت بوتیک نیز به‌وضوح نمایش داده می‌شود.
+- LEGACY: شورت‌کد `[alookhor_vip_slider]` در اولویت انتهایی خنثی می‌شود؛ تکرارهای باقی‌مانده در Elementor خروجی موازی نمی‌سازند.
+- CONTROL: چهار تصویر، همه متن‌ها، CTAها، رنگ‌ها، Autoplay، فلش، نقاط، Ken Burns و Responsive از مدیریت بوتیک ذخیره و اعمال می‌شوند.
+
 ## v3.10.78 — 2026-08-26 — Pixel-perfect Zero Hero Gap
 - GAP: آخرین نوار سفید باریک نیز با خنثی‌سازی offset واقعی ۴۲ پیکسلی Woodmart/Elementor حذف شد.
 - RESULT: تصویر Hero مستقیماً از لبه پایین Topbar آغاز می‌شود.

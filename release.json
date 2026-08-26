@@ -1,16 +1,16 @@
 {
-  "version": "3.10.78",
-  "previous": "3.10.77",
+  "version": "3.10.79",
+  "previous": "3.10.78",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "حذف آخرین نوار سفید باریک میان Topbar و تصویر اسلایدر.",
+  "description": "یکپارچه‌سازی اسلایدر روی تنها شورت‌کد مدیریت‌شده و غیرفعال‌سازی شورت‌کد VIP قدیمی.",
   "changelog": [
     {
-      "tag": "PIXEL PERFECT GAP",
-      "title": "حذف کامل فاصله باقی‌مانده اسلایدر",
-      "desc": "offset واقعی ۴۲ پیکسلی Woodmart/Elementor خنثی شد تا Hero بدون حتی یک نوار سفید از لبه Topbar آغاز شود."
+      "tag": "ONE HERO SHORTCODE",
+      "title": "تنها شورت‌کد رسمی اسلایدر",
+      "desc": "[alookhor_managed_hero] تنها خروجی Hero است؛ [alookhor_vip_slider] حتی اگر چند بار در صفحه مانده باشد خنثی می‌شود و همه تنظیمات از مدیریت بوتیک اعمال می‌شوند."
     }
   ],
   "project": "ALOOKHOR",
@@ -29,6 +29,7 @@
     "plugin/alookhor-control-center/config/site.json",
     "plugin/alookhor-control-center/readme.txt",
     "plugin/alookhor-control-center/CHANGELOG.md",
-    "release.json"
+    "release.json",
+    "plugin/alookhor-control-center/includes/hero.php"
   ]
 }
