@@ -4,7 +4,7 @@ Tags: control center, luxury, alookhor, admin, dashboard
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 3.10.70
+Stable tag: 3.10.71
 License: Private
 License URI: https://alookhor.ir
 
@@ -46,6 +46,12 @@ License URI: https://alookhor.ir
 در `config/site.json` و `wp_options: alookhor_cc_settings` — همان حافظه واقعی که در چت قبلی ویرایش می‌شد.
 
 == Changelog ==
+
+= 3.10.71 =
+* نوار دوم (منوی اصلی): محتوا دوباره داخل کانتینر وسط‌چین (حداکثر ۱۳۸۰px) — دیگر تمام‌عرض نیست؛ پس‌زمینه و چسبندگی همان می‌ماند
+* نوار اول (Topbar): بدون هیچ تغییری — همان تمام‌عرض با همان فونت‌ها
+* متن‌های منوی اصلی بزرگ‌تر و خواناتر: لینک‌ها ۱۳→۱۵px با وزن ۶۰۰، دکمه منو ۱۴px، مگامنو ۱۴.۵/۱۶.۵px
+
 
 = 3.10.70 =
 * ریشه‌ی واقعی «تغییر نکردن شورت‌کد»: یک کپی Static قدیمی از هدر (HTML + CSS اینلاین با سقف ۱۳۸۰px و فونت‌های ریز و id تکراری akx-header) داخل HTML خود صفحه جای‌گذاری شده بود و استایل‌های قدیمی‌اش روی هدر واقعی غالب می‌شد
