@@ -1,16 +1,16 @@
 {
-  "version": "3.10.75",
-  "previous": "3.10.74",
+  "version": "3.10.76",
+  "previous": "3.10.75",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "حذف هاله و سایه تمام‌عرض باقی‌مانده زیر نوار منوی شفاف.",
+  "description": "انتقال اسلایدر به زیر منوی اصلی و چسباندن آن به نوار بالایی.",
   "changelog": [
     {
-      "tag": "NO FULL-WIDTH HALO",
-      "title": "حذف کامل هاله سراسری منو",
-      "desc": "سایه مشکی/بنفش حالت Sticky و هرگونه filter و border از نوار اصلی حذف شد؛ سایه فقط روی خود کپسول باقی می‌ماند."
+      "tag": "HERO UNDER MENU",
+      "title": "اسلایدر چسبیده به نوار بالا و زیر منو",
+      "desc": "فضای رزروشده نوار اصلی حذف شد؛ Hero/Slider به اندازه ارتفاع Mainbar بالا آمده و پشت کپسول شیشه‌ای شروع می‌شود، بدون تغییر Topbar و Sticky."
     }
   ],
   "project": "ALOOKHOR",

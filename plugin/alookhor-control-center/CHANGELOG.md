@@ -1,8 +1,12 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.76 — 2026-08-26 — Hero Slider Under Glass Menu
+- OVERLAY: فضای عمودی Mainbar از جریان صفحه کم شد تا Hero/Slider بلافاصله بعد از Topbar و پشت کپسول شیشه‌ای آغاز شود.
+- RESPONSIVE: جابه‌جایی Desktop برابر ۷۸px و Mobile برابر ۷۰px است؛ رفتار Sticky و ارتفاع Topbar تغییر نکرد.
+
 ## v3.10.75 — 2026-08-26 — Remove Full-width Sticky Halo
 - HALO: سایه مشکی/بنفش تمام‌عرض حالت Sticky از نوار اصلی حذف شد.
-- CLEAN: `box-shadow`، `filter` و Border نوار اصلی در حالت عادی و Sticky صراحتاً صفر شدند؛ سایه خود کپسول دست‌نخورده باقی ماند.
+- CLEAN: سایه و فیلتر نوار اصلی صفر شد و سایه فقط روی کپسول باقی ماند.
 
 ## v3.10.74 — 2026-08-26 — Glass Capsule Only
 - CLEAN: پس‌زمینه بنفش سراسری نوار اصلی و فضای چپ و راست منو کاملاً حذف شد.

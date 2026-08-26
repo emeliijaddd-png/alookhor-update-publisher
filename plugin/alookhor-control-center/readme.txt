@@ -4,7 +4,7 @@ Tags: control center, luxury, alookhor, admin, dashboard
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 3.10.75
+Stable tag: 3.10.76
 License: Private
 License URI: https://alookhor.ir
 
@@ -47,8 +47,12 @@ License URI: https://alookhor.ir
 
 == Changelog ==
 
+= 3.10.76 =
+* اسلایدر به نوار بالایی چسبید و از زیر کپسول شیشه‌ای منوی اصلی شروع می‌شود
+* چینش Responsive و رفتار Sticky بدون پرش حفظ شد
+
 = 3.10.75 =
-* هاله و سایه مشکی/بنفش تمام‌عرض زیر منوی Sticky کاملاً حذف شد؛ سایه فقط روی خود کپسول است
+* هاله و سایه تمام‌عرض منوی Sticky حذف شد
 
 = 3.10.74 =
 * پس‌زمینه رنگی سراسری حذف و افکت شیشه‌ای فقط روی خود کپسول منو اعمال شد
