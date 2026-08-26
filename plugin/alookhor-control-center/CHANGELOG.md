@@ -1,5 +1,11 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.98 — 2026-08-26 — Luxury Category Shortcode Fix
+- CANONICAL: بخش تصویر متعلق به `[alookhor_managed_categories]` است و مالکیت آن در `init:999` تثبیت شد.
+- ELEMENTOR: CSS Scoped همراه خروجی چاپ و Mount شورت‌کد مستقیم بدون انتظار برای REST انجام می‌شود.
+- DEDUPE: Template marker خالی حفظ می‌شود اما کپی موازی دسته‌ها ساخته نمی‌شود.
+- DYNAMIC: رندرهای پویا Elementor با MutationObserver Mount می‌شوند.
+
 ## v3.10.97 — 2026-08-26 — Bestsellers Carousel Specificity Lock
 - ROOT CAUSE: CSS قالب/Elementor در خروجی نهایی `display:grid` را دوباره روی Track اعمال می‌کرد.
 - LOCK: Selector قوی `html body .alookhor-bs ...` همراه `display:flex!important`، `nowrap` و عرض قطعی ۴/۲/۱ کارت اضافه شد.

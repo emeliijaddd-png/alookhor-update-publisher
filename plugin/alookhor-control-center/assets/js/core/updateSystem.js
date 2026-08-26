@@ -2,7 +2,7 @@
 // UI/state remain modular; version discovery and installation are delegated to WordPress.
 
 const runtimeConfig = window.ALOOKHOR_CC || {};
-const runtimeVersion = String(runtimeConfig.version || '3.10.97');
+const runtimeVersion = String(runtimeConfig.version || '3.10.98');
 
 function normalizeResult(data = {}) {
   const current = String(data.current || runtimeVersion);
@@ -55,6 +55,7 @@ export const Updater = {
   latest: runtimeVersion,
   lastCheck: null,
   changelog: [
+    { tag: 'CATEGORY FIX', title: 'v3.10.98 — رفع شورت‌کد دسته‌بندی لوکس', desc: '[alookhor_managed_categories] در Elementor تثبیت و Runtime آن اصلاح شد.' },
     { tag: 'CAROUSEL LOCK', title: 'v3.10.97 — حذف قطعی ردیف دوم', desc: 'Flex و عرض کارت‌ها با specificity بالا در برابر Woodmart/Elementor قفل شد.' },
     { tag: 'BESTSELLERS CAROUSEL', title: 'v3.10.96 — پرفروش‌های تک‌ردیفه', desc: 'محصولات به اسلایدر یک‌ردیفه با فلش و Autoplay تبدیل شدند و ردیف دوم حذف شد.' },
     { tag: 'BESTSELLERS FIX', title: 'v3.10.95 — رفع خروجی خالی پرفروش‌ها', desc: 'مالکیت شورت‌کد تثبیت و fallback چندمرحله‌ای محصولات اضافه شد.' },

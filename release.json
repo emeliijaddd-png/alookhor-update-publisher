@@ -1,16 +1,16 @@
 {
-  "version": "3.10.97",
-  "previous": "3.10.96",
+  "version": "3.10.98",
+  "previous": "3.10.97",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "قفل قطعی تک‌ردیفه پرفروش‌ها در برابر CSS قالب Woodmart و Elementor.",
+  "description": "رفع کامل شورت‌کد بخش دسته‌بندی لوکس و نمایش صحیح مستقیم در Elementor.",
   "changelog": [
     {
-      "tag": "CAROUSEL SPECIFICITY LOCK",
-      "title": "حذف قطعی ردیف دوم",
-      "desc": "Selectorهای قوی html body و !important روی Flex، nowrap، width و flex-basis کارت‌ها اعمال شد تا Woodmart/Elementor نتواند اسلایدر را دوباره Grid کند."
+      "tag": "CATEGORY SHORTCODE FIX",
+      "title": "تثبیت بخش دسته‌بندی لوکس",
+      "desc": "[alookhor_managed_categories] در init:999 تثبیت، CSS همراه خروجی و Runtime مستقیم Elementor اصلاح شد؛ بدون کپی تکراری."
     }
   ],
   "project": "ALOOKHOR",
