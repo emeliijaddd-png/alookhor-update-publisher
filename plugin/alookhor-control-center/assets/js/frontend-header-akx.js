@@ -109,17 +109,32 @@
   }
 
   function initAll() {
-    document.querySelectorAll('#akx-header').forEach(initRoot);
+    document.querySelectorAll('#akx-header[data-akx-live="1"]').forEach(initRoot);
+  }
+
+  // v3.10.70: پاکسازی کپی Static قدیمی هدر که داخل HTML خود صفحه (Elementor HTML Widget)
+  // با id تکراری akx-header و <style> اینلاین قدیمی (سقف 1380px و فونت‌های ریز) جاگذاری شده —
+  // همان علت «تغییر نکردن ظاهر شورت‌کد». فقط هدر دارای data-akx-live معتبر نگه داشته می‌شود.
+  function purgeStaticHeaderCopies() {
+    const live = document.querySelector('#akx-header[data-akx-live="1"]');
+    if (!live) return;
+    document.querySelectorAll('#akx-header').forEach(function (node) {
+      if (node !== live) node.remove();
+    });
+    document.querySelectorAll('style').forEach(function (tag) {
+      if ((tag.textContent || '').indexOf('#akx-header') !== -1) tag.remove();
+    });
   }
 
   // v3.10.69: حذف هدر تکراری خارجی (alookhor-categories-manager) و متن خام شورت‌کدهای
   // ثبت‌نشده — فقط وقتی هدر AKX خودمان روی صفحه رندر شده باشد (همان منطق تثبیت‌شده‌ی 3.10.57).
   function removeExternalDuplicate() {
-    const ours = document.getElementById('akx-header');
+    const ours = document.querySelector('#akx-header[data-akx-live="1"]');
     if (!ours) return;
     document.querySelectorAll('.alookhor-header-wrapper').forEach(function (wrapper) {
       if (!ours.contains(wrapper)) wrapper.remove();
     });
+    purgeStaticHeaderCopies();
     const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
     const nodes = [];
     while (walker.nextNode()) nodes.push(walker.currentNode);
@@ -141,7 +156,7 @@
   // Watch for dynamically inserted headers
   try {
     var observer = new MutationObserver(function () {
-      document.querySelectorAll('#akx-header:not([data-akx-ready])').forEach(initRoot);
+      document.querySelectorAll('#akx-header[data-akx-live="1"]:not([data-akx-ready])').forEach(initRoot);
       removeExternalDuplicate();
     });
     observer.observe(document.documentElement, { childList: true, subtree: true });

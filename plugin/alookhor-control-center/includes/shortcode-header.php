@@ -85,9 +85,12 @@ function alookhor_cc_render_akx_header() {
     $close_id    = 'akxMobClose';
     $back_id     = 'akxMobBackdrop';
 
+    // v3.10.70: نشانه‌گذاری هدر واقعی که خود شورت‌کد رندر کرده (در برابر کپی‌های Static داخل صفحه)
+    $live_flag = 'data-akx-live="1" data-akx-ver="' . esc_attr(ALOOKHOR_CC_VERSION) . '"';
+
     ob_start();
     ?>
-<div id="<?php echo $instance_id; ?>" class="akx-header" dir="rtl">
+<div id="<?php echo $instance_id; ?>" class="akx-header" dir="rtl" <?php echo $live_flag; ?>>
 
   <!-- نوار بالایی -->
   <div class="akx-topbar">

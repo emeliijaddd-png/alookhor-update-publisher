@@ -2,7 +2,7 @@
 // UI/state remain modular; version discovery and installation are delegated to WordPress.
 
 const runtimeConfig = window.ALOOKHOR_CC || {};
-const runtimeVersion = String(runtimeConfig.version || '3.10.69');
+const runtimeVersion = String(runtimeConfig.version || '3.10.70');
 
 function normalizeResult(data = {}) {
   const current = String(data.current || runtimeVersion);
@@ -55,6 +55,7 @@ export const Updater = {
   latest: runtimeVersion,
   lastCheck: null,
   changelog: [
+    { tag: 'STATIC COPY PURGE', title: 'v3.10.70 — حذف کپی Static قدیمی هدر از صفحه', desc: 'روی صفحه اصلی یک کپی قدیمی HTML هدر با CSS اینلاین (۱۳۸۰px و فونت ریز) داخل ویجت HTML المنتور بود که ظاهر هدر واقعی را override می‌کرد؛ حالا خودکار حذف می‌شود و CSS افزونه همیشه غالب است.' },
     { tag: 'DEDUPE + TYPO', title: 'v3.10.69 — حذف هدر تکراری + فونت بزرگ‌تر', desc: 'هدر خارجی تکراری (نوار بالایی غیر تمام‌عرض با ظاهر قدیمی) حذف شد؛ فونت‌های هدر بزرگ‌تر شدند و کش صفحه بعد از آپدیت خودکار پاک می‌شود.' },
     { tag: 'FULL-WIDTH + STICKY', title: 'v3.10.68 — هدر تمام‌عرض و نوار دوم چسبان', desc: 'سقف عرض ۱۳۸۰px حذف شد و Mainbar کپسول منو هنگام اسکرول به بالای صفحه می‌چسبد؛ Topbar عادی خارج می‌شود و هیچ پرش محتوایی رخ نمی‌دهد.' },
     { tag: 'CRITICAL FIX', title: 'v3.10.67 — رفع کرش ماژول مدیریت بوتیک', desc: 'مقدار پیش‌فرض email به اشتباه کد PHP در JS بود و ReferenceError می‌داد؛ ماژول بوتیک هنگام لود می‌شکست.' },
