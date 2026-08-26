@@ -382,4 +382,11 @@ add_action('upgrader_process_complete', function($upgrader, $options){
         'upgrader_process_complete'
     );
     unset($GLOBALS['alookhor_cc_pre_update_activation']);
+
+    // v3.10.69: کش صفحه را بعد از آپدیت خود افزونه پاک کن تا HTML جدید با URL نسخه‌ی
+    // جدید CSS/JS لود شود (LiteSpeed/W3TC در صورت وجود + Object Cache).
+    if (function_exists('wp_cache_flush')) wp_cache_flush();
+    if (function_exists('litespeed_purge_all')) litespeed_purge_all();
+    do_action('litespeed_purge_all');
+    if (class_exists('W3TC')) { if (function_exists('w3tc_flush_all')) w3tc_flush_all(); }
 }, 20, 2);

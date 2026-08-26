@@ -1,5 +1,11 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.69 — 2026-08-26 — External Duplicate Header Removal + Larger Typography
+- ROOT CAUSE: «نوار بالایی تمام‌عرض نشد» — کنترل سنتر AKX (3.10.60) هنگام فعال‌شدن، اسکریپت مدیریت Legacy را لود نمی‌کرد؛ در نتیجه هدر تکراری خارجی `.alookhor-header-wrapper` (از افزونه‌ی alookhor-categories-manager با ظاهر جعبه‌ای و فونت‌های قدیمی) روی صفحه می‌ماند. همان منطق Dedupe تثبیت‌شده‌ی 3.10.57 به JS هدر AKX منتقل شد: حذف `.alookhor-header-wrapper` خارجی + پاکسازی متن خام شورت‌کدهای `alookhor_*` ثبت‌نشده — فقط وقتی هدر AKX رندر شده باشد.
+- TYPOGRAPHY: فونت‌های هدر بزرگ شدند — لینک‌های منوی اصلی ۱۱→۱۳px، متن‌های Top Bar ۱۱→۱۳px، دکمه خرید عمده ۱۱→۱۲.۵px، صادرات ۱۰→۱۲px، دکمه منو ۱۲→۱۳px، عناوین مگامنو ۱۴→۱۵.۵px، لینک‌های مگامنو ۱۲→۱۳.۵px، عنوان‌های دراور موبایل ۱۴→۱۵.۵px و سایر متن‌ها متناسب.
+- RESPONSIVE: نقطه‌ی فشرده‌سازی منو از ۱۱۰۰px به ۱۲۴۰px منتقل شد تا فونت بزرگ‌تر در عرض‌های میانی بدون سرریز جا شود.
+- CACHE: بعد از هر آپدیت خودِ افزونه، کش صفحه (LiteSpeed/W3TC در صورت وجود + Object Cache) خودکار پاک می‌شود تا HTML با URL نسخه‌ی جدید asset ها لود شود.
+
 ## v3.10.68 — 2026-08-26 — Full-Width Header + Sticky Mainbar
 - WIDTH: `.akx-wrap` هدر از `min(1380px, 100%)` به `100%` تغییر کرد — محتوا همانند پس‌زمینه، لبه‌به‌لبه (padding افقی ۲۴px حفظ شد؛ در موبایل ۱۰px).
 - STICKY: نوار دوم (`.akx-mainbar`) با کلاس `is-stuck` به `position:fixed; top:0` می‌رود وقتی اسکرول از جای طبیعی Mainbar عبور کند؛ Topbar (نوار اول) طبق طراحی خارج می‌شود. Spacer پویا جابه‌جایی محتوا (Layout Shift) را حذف می‌کند.

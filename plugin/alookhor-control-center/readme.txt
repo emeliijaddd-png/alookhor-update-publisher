@@ -4,7 +4,7 @@ Tags: control center, luxury, alookhor, admin, dashboard
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 3.10.68
+Stable tag: 3.10.69
 License: Private
 License URI: https://alookhor.ir
 
@@ -46,6 +46,14 @@ License URI: https://alookhor.ir
 در `config/site.json` و `wp_options: alookhor_cc_settings` — همان حافظه واقعی که در چت قبلی ویرایش می‌شد.
 
 == Changelog ==
+
+= 3.10.69 =
+* حذف هدر تکراری خارجی (alookhor-categories-manager) از صفحه — علت دیده‌شدن «نوار بالایی غیر تمام‌عرض» با ظاهر قدیمی
+* پاکسازی متن خام شورت‌کدهای ثبت‌نشده alookhor_* از صفحه
+* فونت‌های هدر بزرگ‌تر شدند (منوی اصلی ۱۱→۱۳px، نوار بالایی ۱۱→۱۳px، مگامنو و دراور موبایل متناسب)
+* فشرده‌سازی منو از عرض ۱۲۴۰px (به‌جای ۱۱۰۰px) برای جا شدن فونت بزرگ‌تر
+* پاکسازی خودکار کش صفحه (LiteSpeed/W3TC/Object Cache) بعد از هر آپدیت افزونه
+
 
 = 3.10.68 =
 * هدر تمام‌عرض شد — سقف ۱۳۸۰px محتوای هدر برداشته شد (پس‌زمینه و محتوا هر دو لبه‌به‌لبه)

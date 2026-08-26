@@ -112,16 +112,37 @@
     document.querySelectorAll('#akx-header').forEach(initRoot);
   }
 
+  // v3.10.69: حذف هدر تکراری خارجی (alookhor-categories-manager) و متن خام شورت‌کدهای
+  // ثبت‌نشده — فقط وقتی هدر AKX خودمان روی صفحه رندر شده باشد (همان منطق تثبیت‌شده‌ی 3.10.57).
+  function removeExternalDuplicate() {
+    const ours = document.getElementById('akx-header');
+    if (!ours) return;
+    document.querySelectorAll('.alookhor-header-wrapper').forEach(function (wrapper) {
+      if (!ours.contains(wrapper)) wrapper.remove();
+    });
+    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+    const nodes = [];
+    while (walker.nextNode()) nodes.push(walker.currentNode);
+    nodes.forEach(function (node) {
+      const value = node.nodeValue || '';
+      if (/\[\s*alookhor_[a-z0-9_]+\s*\]/i.test(value)) {
+        node.nodeValue = value.replace(/\[\s*alookhor_[a-z0-9_]+\s*\]/gi, '').trim();
+      }
+    });
+  }
+
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initAll, { once: true });
+    document.addEventListener('DOMContentLoaded', function () { initAll(); removeExternalDuplicate(); }, { once: true });
   } else {
     initAll();
+    removeExternalDuplicate();
   }
 
   // Watch for dynamically inserted headers
   try {
     var observer = new MutationObserver(function () {
       document.querySelectorAll('#akx-header:not([data-akx-ready])').forEach(initRoot);
+      removeExternalDuplicate();
     });
     observer.observe(document.documentElement, { childList: true, subtree: true });
   } catch (e) {
