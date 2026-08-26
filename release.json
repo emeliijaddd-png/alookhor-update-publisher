@@ -1,16 +1,16 @@
 {
-  "version": "3.10.84",
-  "previous": "3.10.83",
+  "version": "3.10.85",
+  "previous": "3.10.84",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "پس‌زمینه مرکز سورت تمام‌عرض شد و محتوای داخلی بدون کشیدگی در کانتینر مرکزی باقی ماند.",
+  "description": "یکپارچه‌سازی کامل بنر صادراتی در مدیریت بوتیک با شورت‌کد، رسانه، متن، واتساپ، رنگ و افکت‌ها.",
   "changelog": [
     {
-      "tag": "FULL BLEED / CENTERED",
-      "title": "پس‌زمینه تمام‌عرض با محتوای ثابت",
-      "desc": "سطح رنگی بخش تا لبه چپ و راست viewport امتداد دارد؛ اسلایدر، نوشته‌ها، محصولات و کارت‌ها داخل کانتینر ۱۳۸۰px وسط‌چین و بدون کشیدگی باقی می‌مانند."
+      "tag": "EXPORT BANNER IN BOUTIQUE",
+      "title": "مدیریت کامل بنر صادراتی",
+      "desc": "[alookhor_export_banner] از مدیریت بوتیک کنترل می‌شود: تصویر کامیون، لوگو، تیترها، کارت، وضعیت، دو واتساپ، رنگ، شفافیت و Blur؛ زیرمنوی تکراری حذف شد."
     }
   ],
   "project": "ALOOKHOR",
@@ -33,6 +33,11 @@
     "plugin/alookhor-control-center/includes/hero.php",
     "plugin/alookhor-control-center/includes/sort-center.php",
     "plugin/alookhor-control-center/assets/css/frontend-sort-center.css",
-    "plugin/alookhor-control-center/assets/js/frontend-sort-center.js"
+    "plugin/alookhor-control-center/assets/js/frontend-sort-center.js",
+    "plugin/alookhor-control-center/includes/shortcode-export-banner.php",
+    "plugin/alookhor-control-center/includes/admin-export-banner.php",
+    "plugin/alookhor-control-center/assets/css/frontend-export-banner.css",
+    "plugin/alookhor-control-center/assets/js/frontend-export-banner.js",
+    "plugin/alookhor-control-center/includes/admin.php"
   ]
 }

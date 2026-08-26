@@ -9,17 +9,8 @@
  */
 if (!defined('ABSPATH')) exit;
 
-// ——— منوی مدیریت (بعد از منوی والد در admin.php) ———
-add_action('admin_menu', function(){
-    add_submenu_page(
-        'alookhor-control-center',
-        'بنر صادراتی',
-        'بنر صادراتی',
-        'manage_options',
-        'alookhor-cc-export-banner',
-        'alookhor_cc_render_export_banner_settings'
-    );
-}, 20);
+// تنظیمات این ماژول از v3.10.85 داخل «مدیریت بوتیک ← بنر صادراتی» یکپارچه شده است.
+// Renderer قدیمی برای سازگاری نگه داشته شده اما زیرمنوی تکراری دیگر ثبت نمی‌شود.
 
 function alookhor_cc_render_export_banner_settings(){
     if(!current_user_can('manage_options')) return;

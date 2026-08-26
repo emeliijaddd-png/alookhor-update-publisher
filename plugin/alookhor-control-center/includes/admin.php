@@ -47,6 +47,7 @@ add_action('admin_enqueue_scripts', function($hook){
         'updater_configured' => (bool) alookhor_cc_update_manifest_url(),
         'header_shortcode' => '[alookhor_portal_header]',
         'export_banner_shortcode' => '[alookhor_export_banner]',
+        'export_banner_settings' => function_exists('alookhor_cc_get_export_banner_settings') ? alookhor_cc_get_export_banner_settings() : [],
         'hero_shortcode' => '[alookhor_managed_hero]',
         'feature_shortcode' => '[alookhor_managed_features]',
         'home_url' => home_url('/'),

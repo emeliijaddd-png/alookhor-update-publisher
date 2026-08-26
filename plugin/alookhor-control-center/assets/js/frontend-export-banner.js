@@ -8,6 +8,8 @@
     'use strict';
 
     function arm(banner) {
+        if (banner.dataset.alookhorXbReady === '1') return;
+        banner.dataset.alookhorXbReady = '1';
         banner.classList.add('will-animate');
         if (!('IntersectionObserver' in window)) {
             banner.classList.add('is-visible');
@@ -34,4 +36,5 @@
     } else {
         boot();
     }
+    new MutationObserver(boot).observe(document.documentElement, { childList: true, subtree: true });
 })();

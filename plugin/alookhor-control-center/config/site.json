@@ -29,10 +29,10 @@
       "order": 4
     },
     "export": {
-      "enabled": false,
-      "title": "محصولات ممبر صادراتی",
+      "enabled": true,
+      "title": "بنر صادراتی آلوخور",
       "order": 5,
-      "note": "فقط برای ممبرها"
+      "note": "شورت‌کد مدیریت‌شده صادرات"
     },
     "sort": {
       "enabled": true,
@@ -152,7 +152,7 @@
   },
   "updated_at": "2026-08-10T16:20:00Z",
   "updated_by": "AI Assistant — recovered from previous chat",
-  "version": "3.10.84",
+  "version": "3.10.85",
   "hero_settings": {
     "enabled": true,
     "hide_legacy": true,

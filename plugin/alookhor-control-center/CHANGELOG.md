@@ -1,5 +1,11 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.85 — 2026-08-26 — Export Banner Integrated in Boutique
+- SHORTCODE: شورت‌کد رسمی `[alookhor_export_banner]` با خروجی لوکس سبز/طلایی و واتساپ متحرک تثبیت شد.
+- BOUTIQUE: تصویر کامیون، لوگو، تیترها، متن کارت، وضعیت، دو شماره/لینک واتساپ، سه رنگ، شفافیت و Blur داخل مدیریت بوتیک یکپارچه شد.
+- CLEANUP: زیرمنوی مستقل و تکراری بنر صادراتی حذف شد.
+- ELEMENTOR: CSS Scoped همراه خروجی چاپ و Runtime رندرهای پویا را شناسایی می‌کند.
+
 ## v3.10.84 — 2026-08-26 — Full-bleed Sort Center Background
 - FULL BLEED: پس‌زمینه بخش با تکنیک `100vw` تا لبه چپ و راست viewport امتداد یافت.
 - CENTERED: تمام گزینه‌ها، متن، اسلایدر و کارت‌ها داخل Wrapper مرکزی با سقف ۱۳۸۰px باقی ماندند و کشیده نمی‌شوند.

@@ -131,7 +131,15 @@ function alookhor_cc_export_banner_markup($settings = null){
         '--akx-image:' . ($background ? "url('" . esc_url($background) . "')" : 'none'),
     ];
 
-    ob_start(); ?>
+    ob_start();
+    // Elementor Editor ممکن است شورت‌کد را بعد از wp_head رندر کند؛ استایل Scoped همراه خروجی تضمین می‌شود.
+    static $inline_style_printed = false;
+    if (!$inline_style_printed) {
+        $inline_style_printed = true;
+        $css_file = ALOOKHOR_CC_DIR . 'assets/css/frontend-export-banner.css';
+        if (file_exists($css_file)) echo '<style id="alookhor-export-banner-inline">' . file_get_contents($css_file) . '</style>';
+    }
+    ?>
     <section class="alookhor-xb" dir="rtl" data-version="<?php echo esc_attr(ALOOKHOR_CC_VERSION); ?>" style="<?php echo esc_attr(implode(';', $style_vars)); ?>" aria-label="بنر صادراتی آلوخور">
       <div class="alookhor-xb-bg" aria-hidden="true"></div>
       <div class="alookhor-xb-inner">
