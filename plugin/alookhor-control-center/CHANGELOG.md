@@ -1,5 +1,10 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.81 — 2026-08-26 — Sorting Center Elementor Rendering Fix
+- SIMPLIFY: ظرفیت روزانه و سورت امروز از خروجی و فرم تنظیمات حذف شد؛ فقط کیکر، عنوان، توضیح و دکمه قابل ویرایش باقی ماند.
+- LAYOUT: گالری ۶ تصویری در سمت راست و متن‌ها در سمت چپ قرار گرفتند.
+- ELEMENTOR: CSS Scoped همراه خود شورت‌کد چاپ می‌شود تا در Editor نیز بدون خروجی خام و شکسته نمایش داده شود؛ Runtime تغییرات پویا را نیز تشخیص می‌دهد.
+
 ## v3.10.80 — 2026-08-26 — Managed Sorting Center Slider
 - SHORTCODE: شورت‌کد مستقل `[alookhor_sort_center]` برای Elementor اضافه شد.
 - GALLERY: تا ۶ تصویر از Media Library با Alt و کپشن مستقل، Autoplay، سرعت، فلش و نقاط قابل مدیریت است.

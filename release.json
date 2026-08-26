@@ -1,16 +1,16 @@
 {
-  "version": "3.10.80",
-  "previous": "3.10.79",
+  "version": "3.10.81",
+  "previous": "3.10.80",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "مرکز سورت و بسته‌بندی به شورت‌کد مستقل با گالری اسلایدی و مدیریت کامل بوتیک تبدیل شد.",
+  "description": "ساده‌سازی مرکز سورت به متن‌های قابل ویرایش و گالری ۶ تصویری، همراه رفع نمایش در Elementor.",
   "changelog": [
     {
-      "tag": "SORT CENTER SLIDER",
-      "title": "شورت‌کد مرکز سورت چندتصویری",
-      "desc": "[alookhor_sort_center] با حداکثر ۶ تصویر، متن‌ها، آمار، CTA، رنگ‌ها، Autoplay، فلش، نقاط و Responsive از مدیریت بوتیک کنترل می‌شود."
+      "tag": "SORT CENTER FIX",
+      "title": "مرکز سورت ساده و قابل نمایش در Elementor",
+      "desc": "آمار ظرفیت حذف شد؛ فقط متن‌های قابل ویرایش، دکمه و ۶ تصویر باقی ماند. تصاویر سمت راست قرار گرفتند و CSS همراه شورت‌کد در Elementor بارگذاری می‌شود."
     }
   ],
   "project": "ALOOKHOR",
