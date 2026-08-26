@@ -1,16 +1,16 @@
 {
-  "version": "3.10.92",
-  "previous": "3.10.90",
+  "version": "3.10.93",
+  "previous": "3.10.92",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "انتشار مجدد تثبیت محصولات منتخب پس از خطای موقت اتصال FTPS.",
+  "description": "بازیابی شورت‌کد اسلایدر کمپین با ۶ اسلاید و مدیریت کامل بوتیک.",
   "changelog": [
     {
-      "tag": "FEATURED PRODUCTS VERIFIED",
-      "title": "محصولات منتخب فعال و تأییدشده",
-      "desc": "همان اصلاح 3.10.91 که به‌دلیل خطای موقت SSL/FTPS آپلود نشد، بدون تغییر مجدداً منتشر شد."
+      "tag": "CAMPAIGN SLIDER RESTORED",
+      "title": "فعال‌سازی اسلایدر کمپین‌ها",
+      "desc": "[alookhor_campaign_slider] با ۶ تصویر، متن و CTA مستقل، Autoplay، فلش، نقاط، ارتفاع، تیرگی، رنگ و Responsive فعال شد."
     }
   ],
   "project": "ALOOKHOR",
@@ -46,6 +46,9 @@
     "plugin/alookhor-control-center/assets/css/frontend-app-banner.css",
     "plugin/alookhor-control-center/includes/featured-products.php",
     "plugin/alookhor-control-center/assets/css/frontend-featured-products.css",
-    "plugin/alookhor-control-center/assets/js/frontend-featured-products.js"
+    "plugin/alookhor-control-center/assets/js/frontend-featured-products.js",
+    "plugin/alookhor-control-center/includes/campaign-slider.php",
+    "plugin/alookhor-control-center/assets/css/frontend-campaign-slider.css",
+    "plugin/alookhor-control-center/assets/js/frontend-campaign-slider.js"
   ]
 }

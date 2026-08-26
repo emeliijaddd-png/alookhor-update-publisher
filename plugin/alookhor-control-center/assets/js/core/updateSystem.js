@@ -2,7 +2,7 @@
 // UI/state remain modular; version discovery and installation are delegated to WordPress.
 
 const runtimeConfig = window.ALOOKHOR_CC || {};
-const runtimeVersion = String(runtimeConfig.version || '3.10.92');
+const runtimeVersion = String(runtimeConfig.version || '3.10.93');
 
 function normalizeResult(data = {}) {
   const current = String(data.current || runtimeVersion);
@@ -55,6 +55,7 @@ export const Updater = {
   latest: runtimeVersion,
   lastCheck: null,
   changelog: [
+    { tag: 'CAMPAIGN SLIDER', title: 'v3.10.93 — بازیابی اسلایدر کمپین', desc: '[alookhor_campaign_slider] با ۶ اسلاید و تنظیم کامل بوتیک فعال شد.' },
     { tag: 'FEATURED VERIFIED', title: 'v3.10.92 — تثبیت محصولات منتخب', desc: 'محصولات منتخب فعال و سازگاری Health Check با شورت‌کد مستقیم Elementor اصلاح شد.' },
     { tag: 'FEATURED PRODUCTS', title: 'v3.10.90 — بازیابی محصولات منتخب', desc: '[alookhor_featured_products] با کاروسل WooCommerce و تنظیمات کامل بوتیک فعال شد.' },
     { tag: 'APP ICONS', title: 'v3.10.89 — آیکن‌های استاندارد فروشگاه‌ها', desc: 'نمادهای قبلی با SVGهای رنگی بازار، مایکت، Apple و More جایگزین شدند.' },

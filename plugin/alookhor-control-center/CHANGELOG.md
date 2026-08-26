@@ -1,5 +1,11 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.93 — 2026-08-26 — Campaign Slider Shortcode Restored
+- SHORTCODE: `[alookhor_campaign_slider]` ثبت و فعال شد.
+- SLIDES: تا ۶ کمپین با تصویر، Alt، کیکر، عنوان، توضیح، CTA و لینک مستقل قابل مدیریت است.
+- BEHAVIOR: Autoplay، سرعت، فلش، نقاط، ارتفاع، گردی، تیرگی تصویر و رنگ‌ها از بوتیک کنترل می‌شوند.
+- RESPONSIVE: خروجی لوکس، واکنش‌گرا و سازگار با Elementor است.
+
 ## v3.10.92 — 2026-08-26 — Featured Products Production Verification (FTPS Retry)
 - VERIFY: انتشار محصولات منتخب تثبیت شد.
 - FEATURE MARKER: هنگام قرارگیری مستقیم شورت‌کد ویژگی‌ها در Elementor، Template marker خالی حفظ می‌شود تا Runtime و Health Check بدون تولید کارت تکراری معتبر بمانند.

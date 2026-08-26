@@ -74,10 +74,15 @@
       "slides": 4,
       "autoplay": true
     },
+    "campaign": {
+      "enabled": true,
+      "title": "اسلایدر کمپین‌ها",
+      "order": 11
+    },
     "auto": {
       "enabled": true,
       "title": "بروزرسانی خودکار افزونه",
-      "order": 11,
+      "order": 12,
       "schedule": "03:00"
     },
     "site_features": {
@@ -162,7 +167,7 @@
   },
   "updated_at": "2026-08-10T16:20:00Z",
   "updated_by": "AI Assistant — recovered from previous chat",
-  "version": "3.10.92",
+  "version": "3.10.93",
   "hero_settings": {
     "enabled": true,
     "hide_legacy": true,
