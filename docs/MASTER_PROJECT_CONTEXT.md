@@ -79,7 +79,7 @@ This rule supersedes every earlier interpretation of full-header Sticky behavior
 9. Desktop and Mobile use the same transparent logo source; separate safe width controls are available in the main Boutique Header settings.
 10. Rollback remains available through the existing `sticky` setting and versioned plugin release.
 11. The owner-approved Header reference palette is now explicit for Top Bar, Capsule and Sticky Navigation: `#0D0510`, `#1C1024`, `rgba(33,20,38,.75)`, `#D49A2E`, `#E8B84A`, `#F5F3F0`, `#C8C2C9`; migration `header_reference_31019` records this scoped change.
-12. The authoritative shared Header/Footer contact phone is `09159513173`; any ending in 3174 or 3179 is a regression.
+12. The authoritative shared Header/Footer contact phone is `09159513176` (updated live by the owner on 2026-08-26; previously `09159513173`); any ending in 3173, 3174 or 3179 is now a regression.
 13. Mobile has exactly two visible rows: Top Bar and one Main Capsule. No extra sticky Navigation row is rendered at `≤1023px`.
 14. The Main Capsule layout is: original simple Hamburger/Drawer trigger on the right, a large horizontal transparent logo composition (symbol + «آلوخور» wordmark) in the center, and icon-only Account plus real WooCommerce Cart/Badge on the left.
 15. Product Search is explicitly rejected and must not be rendered in Desktop or Mobile Header, nor exposed as a Boutique setting.

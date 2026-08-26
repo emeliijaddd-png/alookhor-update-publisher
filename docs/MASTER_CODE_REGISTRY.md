@@ -247,8 +247,8 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 | `scripts/build_release.py` | 113 | `7d54cb088e271f83a724467786b6c72377157df57b73699d12d64f1d3ddcb82a` |
 | `scripts/generate_code_registry.py` | 293 | `cc820adb6cd74358acfe6eea9bcc5206a2262b91a53e053cc0794c47fec3026a` |
 | `scripts/header_visual_audit.py` | 195 | `cfb3caec7aa5d08adbd3383a7accf02244ba09f866e0801de0fde5d874e144c9` |
-| `scripts/wordpress_access_check.py` | 529 | `6e2a1bce046c718c2ac58f05419b51d9163567c140de5fe5cc332ce3d6e1abd2` |
-| `scripts/wordpress_release_test.py` | 388 | `c8c4ded8a19447de8bc190e705265a0bd3fd6de358c10364990548113821671b` |
+| `scripts/wordpress_access_check.py` | 529 | `8b2d8fa1e2b20ba940d3b13c3e7e62072d5d30bcf8225af8f49ed8cd156cb20f` |
+| `scripts/wordpress_release_test.py` | 390 | `8c00fa55ad4ae96a02f4e163cce90c8e2e25ab3103d3c5e11cbf66a2e182f9ce` |
 
 # COMPLETE SOURCE SNAPSHOTS
 
@@ -11405,10 +11405,10 @@ try:
             )
             report['checks']['topbar_no_store'] = 'no-store' in cache_control.lower()
             if version_tuple(production_version)>=version_tuple('3.10.19'):
-                report['checks']['header_brand_palette']=(topbar_state.get('phone')=='09159513173' and str(topbar_state.get('gold','')).upper()=='#D49A2E' and str(topbar_state.get('topbar_bg','')).upper()=='#1C1024' and str(topbar_state.get('topbar_text_color','')).upper()=='#F5F3F0' and str(topbar_state.get('topbar_border_color','')).upper()=='#D49A2E' and str(topbar_state.get('topbar_button_bg','')).upper()=='#D49A2E' and str(topbar_state.get('topbar_button_text','')).upper()=='#0D0510' and str(topbar_state.get('header_surface','')).upper()=='#0D0510' and str(topbar_state.get('header_text_color','')).upper()=='#F5F3F0' and str(topbar_state.get('header_muted_color','')).upper()=='#C8C2C9' and topbar_state.get('sticky') is True and topbar_state.get('show_search') is False)
+                report['checks']['header_brand_palette']=(topbar_state.get('phone')=='09159513176' and str(topbar_state.get('gold','')).upper()=='#D49A2E' and str(topbar_state.get('topbar_bg','')).upper()=='#1C1024' and str(topbar_state.get('topbar_text_color','')).upper()=='#F5F3F0' and str(topbar_state.get('topbar_border_color','')).upper()=='#D49A2E' and str(topbar_state.get('topbar_button_bg','')).upper()=='#D49A2E' and str(topbar_state.get('topbar_button_text','')).upper()=='#0D0510' and str(topbar_state.get('header_surface','')).upper()=='#0D0510' and str(topbar_state.get('header_text_color','')).upper()=='#F5F3F0' and str(topbar_state.get('header_muted_color','')).upper()=='#C8C2C9' and topbar_state.get('sticky') is True and topbar_state.get('show_search') is False)
             elif version_tuple(production_version) >= version_tuple('3.10.6'):
                 report['checks']['header_brand_palette'] = (
-                    topbar_state.get('phone') == '09159513173'
+                    topbar_state.get('phone') == '09159513176'
                     and str(topbar_state.get('gold','')).upper() == '#C9A86A'
                     and str(topbar_state.get('topbar_bg','')).upper() == '#11091D'
                     and str(topbar_state.get('topbar_text_color','')).upper() == '#E8D5B5'
@@ -11852,7 +11852,9 @@ try:
             and str(topbar.get('capsule_muted','')).upper()=='#C8C2C9' and int(topbar.get('capsule_blur',0))==24
         )
     if tuple(map(int,TARGET.split('.'))) >= (3,10,19):
-        report['checks']['header_brand_palette']=(topbar.get('phone')=='09159513173' and str(topbar.get('gold','')).upper()=='#D49A2E' and str(topbar.get('topbar_bg','')).upper()=='#1C1024' and str(topbar.get('topbar_text_color','')).upper()=='#F5F3F0' and str(topbar.get('topbar_border_color','')).upper()=='#D49A2E' and str(topbar.get('topbar_button_bg','')).upper()=='#D49A2E' and str(topbar.get('topbar_button_text','')).upper()=='#0D0510' and str(topbar.get('header_surface','')).upper()=='#0D0510' and str(topbar.get('header_text_color','')).upper()=='#F5F3F0' and str(topbar.get('header_muted_color','')).upper()=='#C8C2C9' and topbar.get('sticky') is True and topbar.get('show_search') is False)
+        # v3.10.66: authoritative owner phone updated live to 09159513176 (2026-08-26);
+        # the guard still catches regressions to the older 3173/3174/3179 endings.
+        report['checks']['header_brand_palette']=(topbar.get('phone')=='09159513176' and str(topbar.get('gold','')).upper()=='#D49A2E' and str(topbar.get('topbar_bg','')).upper()=='#1C1024' and str(topbar.get('topbar_text_color','')).upper()=='#F5F3F0' and str(topbar.get('topbar_border_color','')).upper()=='#D49A2E' and str(topbar.get('topbar_button_bg','')).upper()=='#D49A2E' and str(topbar.get('topbar_button_text','')).upper()=='#0D0510' and str(topbar.get('header_surface','')).upper()=='#0D0510' and str(topbar.get('header_text_color','')).upper()=='#F5F3F0' and str(topbar.get('header_muted_color','')).upper()=='#C8C2C9' and topbar.get('sticky') is True and topbar.get('show_search') is False)
     elif tuple(map(int, TARGET.split('.'))) >= (3, 10, 6):
         report['checks']['header_brand_palette'] = (
             topbar.get('phone') == '09159513173'

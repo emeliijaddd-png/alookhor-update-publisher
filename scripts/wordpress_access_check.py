@@ -388,10 +388,10 @@ try:
             )
             report['checks']['topbar_no_store'] = 'no-store' in cache_control.lower()
             if version_tuple(production_version)>=version_tuple('3.10.19'):
-                report['checks']['header_brand_palette']=(topbar_state.get('phone')=='09159513173' and str(topbar_state.get('gold','')).upper()=='#D49A2E' and str(topbar_state.get('topbar_bg','')).upper()=='#1C1024' and str(topbar_state.get('topbar_text_color','')).upper()=='#F5F3F0' and str(topbar_state.get('topbar_border_color','')).upper()=='#D49A2E' and str(topbar_state.get('topbar_button_bg','')).upper()=='#D49A2E' and str(topbar_state.get('topbar_button_text','')).upper()=='#0D0510' and str(topbar_state.get('header_surface','')).upper()=='#0D0510' and str(topbar_state.get('header_text_color','')).upper()=='#F5F3F0' and str(topbar_state.get('header_muted_color','')).upper()=='#C8C2C9' and topbar_state.get('sticky') is True and topbar_state.get('show_search') is False)
+                report['checks']['header_brand_palette']=(topbar_state.get('phone')=='09159513176' and str(topbar_state.get('gold','')).upper()=='#D49A2E' and str(topbar_state.get('topbar_bg','')).upper()=='#1C1024' and str(topbar_state.get('topbar_text_color','')).upper()=='#F5F3F0' and str(topbar_state.get('topbar_border_color','')).upper()=='#D49A2E' and str(topbar_state.get('topbar_button_bg','')).upper()=='#D49A2E' and str(topbar_state.get('topbar_button_text','')).upper()=='#0D0510' and str(topbar_state.get('header_surface','')).upper()=='#0D0510' and str(topbar_state.get('header_text_color','')).upper()=='#F5F3F0' and str(topbar_state.get('header_muted_color','')).upper()=='#C8C2C9' and topbar_state.get('sticky') is True and topbar_state.get('show_search') is False)
             elif version_tuple(production_version) >= version_tuple('3.10.6'):
                 report['checks']['header_brand_palette'] = (
-                    topbar_state.get('phone') == '09159513173'
+                    topbar_state.get('phone') == '09159513176'
                     and str(topbar_state.get('gold','')).upper() == '#C9A86A'
                     and str(topbar_state.get('topbar_bg','')).upper() == '#11091D'
                     and str(topbar_state.get('topbar_text_color','')).upper() == '#E8D5B5'

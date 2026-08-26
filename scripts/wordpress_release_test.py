@@ -301,7 +301,9 @@ try:
             and str(topbar.get('capsule_muted','')).upper()=='#C8C2C9' and int(topbar.get('capsule_blur',0))==24
         )
     if tuple(map(int,TARGET.split('.'))) >= (3,10,19):
-        report['checks']['header_brand_palette']=(topbar.get('phone')=='09159513173' and str(topbar.get('gold','')).upper()=='#D49A2E' and str(topbar.get('topbar_bg','')).upper()=='#1C1024' and str(topbar.get('topbar_text_color','')).upper()=='#F5F3F0' and str(topbar.get('topbar_border_color','')).upper()=='#D49A2E' and str(topbar.get('topbar_button_bg','')).upper()=='#D49A2E' and str(topbar.get('topbar_button_text','')).upper()=='#0D0510' and str(topbar.get('header_surface','')).upper()=='#0D0510' and str(topbar.get('header_text_color','')).upper()=='#F5F3F0' and str(topbar.get('header_muted_color','')).upper()=='#C8C2C9' and topbar.get('sticky') is True and topbar.get('show_search') is False)
+        # v3.10.66: authoritative owner phone updated live to 09159513176 (2026-08-26);
+        # the guard still catches regressions to the older 3173/3174/3179 endings.
+        report['checks']['header_brand_palette']=(topbar.get('phone')=='09159513176' and str(topbar.get('gold','')).upper()=='#D49A2E' and str(topbar.get('topbar_bg','')).upper()=='#1C1024' and str(topbar.get('topbar_text_color','')).upper()=='#F5F3F0' and str(topbar.get('topbar_border_color','')).upper()=='#D49A2E' and str(topbar.get('topbar_button_bg','')).upper()=='#D49A2E' and str(topbar.get('topbar_button_text','')).upper()=='#0D0510' and str(topbar.get('header_surface','')).upper()=='#0D0510' and str(topbar.get('header_text_color','')).upper()=='#F5F3F0' and str(topbar.get('header_muted_color','')).upper()=='#C8C2C9' and topbar.get('sticky') is True and topbar.get('show_search') is False)
     elif tuple(map(int, TARGET.split('.'))) >= (3, 10, 6):
         report['checks']['header_brand_palette'] = (
             topbar.get('phone') == '09159513173'
