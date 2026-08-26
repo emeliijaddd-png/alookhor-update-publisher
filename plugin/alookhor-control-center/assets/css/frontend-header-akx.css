@@ -1,6 +1,26 @@
 /* ===== ALOOKHOR AKX Luxury Header ===== */
 /* Purple/gold design — fully scoped to #akx-header (matches reference exactly) */
 
+/* v3.10.72: هدر بچسبد به بالای صفحه — حذف فاصله سفید بالای هدر
+   (port قوانین تثبیت‌شده‌ی حالت Legacy؛ فقط روی صفحاتی که هدر AKX رویشان رندر شده) */
+html:has(#akx-header[data-akx-live="1"]),
+body:has(#akx-header[data-akx-live="1"]) {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+body:has(#akx-header[data-akx-live="1"]) {
+  background: #17041f;
+}
+.website-wrapper:has(#akx-header[data-akx-live="1"]),
+.main-page-wrapper:has(#akx-header[data-akx-live="1"]),
+#main-content:has(#akx-header[data-akx-live="1"]) {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+body:has(#akx-header[data-akx-live="1"]) .whb-header {
+  display: none !important;
+}
+
 /* Box-sizing reset scoped to header */
 body #akx-header,
 body #akx-header * {

@@ -4,7 +4,7 @@ Tags: control center, luxury, alookhor, admin, dashboard
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 3.10.71
+Stable tag: 3.10.72
 License: Private
 License URI: https://alookhor.ir
 
@@ -46,6 +46,11 @@ License URI: https://alookhor.ir
 در `config/site.json` و `wp_options: alookhor_cc_settings` — همان حافظه واقعی که در چت قبلی ویرایش می‌شد.
 
 == Changelog ==
+
+= 3.10.72 =
+* هدر کاملاً به بالای صفحه چسبید — فاصله سفید بالای هدر حذف شد (Body offset رزروشده Woodmart و Header مخفی آن، فقط روی صفحاتی که هدر AKX دارند)
+* پس‌زمینه Body همرنگ هدر شد تا هیچ درز سفیدی دیده نشود
+
 
 = 3.10.71 =
 * نوار دوم (منوی اصلی): محتوا دوباره داخل کانتینر وسط‌چین (حداکثر ۱۳۸۰px) — دیگر تمام‌عرض نیست؛ پس‌زمینه و چسبندگی همان می‌ماند

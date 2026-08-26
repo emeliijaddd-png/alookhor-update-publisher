@@ -1,5 +1,10 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.72 — 2026-08-26 — Header Flush To Viewport Top (حذف فاصله سفید بالای هدر)
+- ROOT CAUSE: قوانین حذف Body offset رزروشده‌ی Woodmart فقط در CSS حالت Legacy (`frontend-header-scroll.css`) موجود بود که در حالت AKX لود نمی‌شود؛ در نتیجه Padding/Margin بالای Body و WrappER های Woodmart فضای سفید بالای هدر می‌ساختند.
+- FLUSH: همان قوانین تثبیت‌شده به CSS هدر AKX منتقل شد — `html/body:has(#akx-header[data-akx-live])` صفر، `.website-wrapper/.main-page-wrapper/#main-content` بدون margin-top/padding-top، `.whb-header` مخفی — همگی فقط روی صفحاتی که هدر AKX دارند (`:has()` scope).
+- SEAMLESS: پس‌زمینه Body روی این صفحات همرنگ هدر (#17041f) شد تا حتی کوچک‌ترین درزی دیده نشود.
+
 ## v3.10.71 — 2026-08-26 — Mainbar Centered Container + Bigger Menu Typography
 - WIDTH: محتوای نوار دوم (`.akx-mainbar .akx-wrap`) دوباره داخل کانتینر `min(1380px, 100%)` وسط‌چین شد — درخواست مالک: منوی اصلی تمام‌عرض نباشد. پس‌زمینه گرادیانی نوار همچنان تمام‌عرض و رفتار Sticky دست‌نخورده.
 - UNCHANGED: نوار اول (Topbar) کاملاً بدون تغییر — تمام‌عرض با همان فونت‌ها.
