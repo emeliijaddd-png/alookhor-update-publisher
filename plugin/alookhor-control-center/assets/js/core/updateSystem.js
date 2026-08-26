@@ -2,7 +2,7 @@
 // UI/state remain modular; version discovery and installation are delegated to WordPress.
 
 const runtimeConfig = window.ALOOKHOR_CC || {};
-const runtimeVersion = String(runtimeConfig.version || '3.10.67');
+const runtimeVersion = String(runtimeConfig.version || '3.10.68');
 
 function normalizeResult(data = {}) {
   const current = String(data.current || runtimeVersion);
@@ -55,6 +55,7 @@ export const Updater = {
   latest: runtimeVersion,
   lastCheck: null,
   changelog: [
+    { tag: 'FULL-WIDTH + STICKY', title: 'v3.10.68 — هدر تمام‌عرض و نوار دوم چسبان', desc: 'سقف عرض ۱۳۸۰px حذف شد و Mainbar کپسول منو هنگام اسکرول به بالای صفحه می‌چسبد؛ Topbar عادی خارج می‌شود و هیچ پرش محتوایی رخ نمی‌دهد.' },
     { tag: 'CRITICAL FIX', title: 'v3.10.67 — رفع کرش ماژول مدیریت بوتیک', desc: 'مقدار پیش‌فرض email به اشتباه کد PHP در JS بود و ReferenceError می‌داد؛ ماژول بوتیک هنگام لود می‌شکست.' },
     { tag: 'HEADER FIX', title: 'v3.10.66 — دکمه ذخیره هدر AKX فعال شد', desc: 'فرم ۱۴ فیلدی هدر داخل مدیریت بوتیک قبلاً فقط‌خواندنی بود (selector اشتباه)؛ حالا «ذخیره هدر» واقعاً در WordPress ذخیره و تأیید می‌شود.' },
     { tag: 'HEADER DEDUPE', title: 'v3.10.57 — حذف قطعی Header دوم', desc: 'Header مرجع مالک تنها خروجی قابل مشاهده است؛ Header خارجی و shortcode خام حذف شد؛ Portal واقعی با Logo و Menu اصلی حفظ شد.' },

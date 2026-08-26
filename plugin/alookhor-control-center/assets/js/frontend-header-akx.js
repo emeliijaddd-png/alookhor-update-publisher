@@ -61,6 +61,51 @@
         if (searchPanel) searchPanel.classList.remove('is-open');
       }
     });
+
+    // v3.10.68: نوار دوم چسبان — Mainbar وقتی جای طبیعی‌اش از بالا رد شد به بالای viewport می‌چسبد
+    const mainbar = root.querySelector('.akx-mainbar');
+    if (mainbar) {
+      const spacer = document.createElement('div');
+      spacer.className = 'akx-mainbar-spacer';
+      mainbar.parentNode.insertBefore(spacer, mainbar.nextSibling);
+
+      let threshold = 0;
+      const isStuck = () => mainbar.classList.contains('is-stuck');
+
+      function measure() {
+        if (isStuck()) return; // موقع چسبیدن مختصات طبیعی معتبر نیست
+        const rect = mainbar.getBoundingClientRect();
+        threshold = rect.top + (window.scrollY || window.pageYOffset || 0);
+      }
+
+      function apply() {
+        const y = window.scrollY || window.pageYOffset || 0;
+        const shouldStick = threshold > 0 && y >= threshold;
+        if (shouldStick === isStuck()) return;
+        if (shouldStick) {
+          spacer.style.height = mainbar.offsetHeight + 'px';
+          mainbar.classList.add('is-stuck');
+          root.classList.add('akx-has-stuck-bar');
+        } else {
+          mainbar.classList.remove('is-stuck');
+          root.classList.remove('akx-has-stuck-bar');
+          spacer.style.height = '0px';
+        }
+      }
+
+      measure();
+      apply();
+      window.addEventListener('scroll', apply, { passive: true });
+      window.addEventListener('resize', function () {
+        if (isStuck()) {
+          mainbar.classList.remove('is-stuck');
+          root.classList.remove('akx-has-stuck-bar');
+          spacer.style.height = '0px';
+        }
+        measure();
+        apply();
+      });
+    }
   }
 
   function initAll() {

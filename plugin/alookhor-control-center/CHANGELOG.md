@@ -1,5 +1,12 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.68 — 2026-08-26 — Full-Width Header + Sticky Mainbar
+- WIDTH: `.akx-wrap` هدر از `min(1380px, 100%)` به `100%` تغییر کرد — محتوا همانند پس‌زمینه، لبه‌به‌لبه (padding افقی ۲۴px حفظ شد؛ در موبایل ۱۰px).
+- STICKY: نوار دوم (`.akx-mainbar`) با کلاس `is-stuck` به `position:fixed; top:0` می‌رود وقتی اسکرول از جای طبیعی Mainbar عبور کند؛ Topbar (نوار اول) طبق طراحی خارج می‌شود. Spacer پویا جابه‌جایی محتوا (Layout Shift) را حذف می‌کند.
+- ADMIN BAR: با `body.admin-bar` چسبیدن زیر نوار مدیریت (۳۲px دسکتاپ / ۴۶px موبایل) انجام می‌شود.
+- UX: انیمیشن ورود ملایم ۰.۱۸s + سایه عمق فقط در حالت چسبیده؛ با `prefers-reduced-motion` غیرفعال.
+- SCOPE: مگامنو و پنل جستجو (absolute داخل Mainbar) همراه نوار چسبیده جابه‌جا می‌شوند؛ ساختار HTML، دراور موبایل و بقیه ماژول‌ها دست‌نخورده.
+
 ## v3.10.67 — 2026-08-26 — Critical: PHP-in-JS crash in boutique module
 - CRITICAL: خط ۳۳ settings.js مقدار پیش‌فرض `email` به‌اشتباه کد PHP بود (`sanitize_email(get_option('admin_email'))` — بازمانده‌ی ادغام v3.10.65). اجرای آن ReferenceError می‌داد و کل ماژول مدیریت بوتیک هنگام لود می‌شکست. به رشته ختم به مقدار ذخیره‌شده WordPress اصلاح شد.
 - بدون تغییر دیگر نسبت به 3.10.66.

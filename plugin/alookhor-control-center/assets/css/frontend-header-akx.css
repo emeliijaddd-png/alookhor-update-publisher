@@ -36,7 +36,8 @@
 }
 
 #akx-header .akx-wrap {
-  width: min(1380px, 100%) !important;
+  /* v3.10.68: تمام‌عرض — سقف ۱۳۸۰px برداشته شد */
+  width: 100% !important;
   margin: 0 auto !important;
   padding-right: 24px !important;
   padding-left: 24px !important;
@@ -164,6 +165,31 @@
   background:
     radial-gradient(circle at 10% 20%, rgba(123,23,174,.18), transparent 26%),
     linear-gradient(90deg,#16031f,#21072f 52%,#14021d);
+}
+
+/* v3.10.68: نوار دوم (Mainbar) چسبان — وقتی Topbar از دید خارج شد، Mainbar به بالای صفحه می‌چسبد */
+#akx-header .akx-mainbar.is-stuck {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 99990;
+  box-shadow: 0 12px 34px rgba(10, 2, 16, .5);
+  animation: akx-stuck-in .18s ease-out;
+}
+body.admin-bar #akx-header .akx-mainbar.is-stuck { top: 32px; }
+@media (max-width: 782px) {
+  body.admin-bar #akx-header .akx-mainbar.is-stuck { top: 46px; }
+}
+@keyframes akx-stuck-in {
+  from { transform: translateY(-6px); opacity: .82; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+/* جایگزین ارتفاع Mainbar هنگام چسبیدن تا محتوا نپرد */
+#akx-header .akx-mainbar-spacer { height: 0; }
+#akx-header.akx-has-stuck-bar .akx-mainbar-spacer { display: block; }
+@media (prefers-reduced-motion: reduce) {
+  #akx-header .akx-mainbar.is-stuck { animation: none; }
 }
 
 #akx-header .akx-main-inner {
