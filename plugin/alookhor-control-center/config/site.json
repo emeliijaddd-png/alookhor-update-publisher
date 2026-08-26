@@ -52,10 +52,20 @@
       ]
     },
     "app": {
-      "enabled": false,
+      "enabled": true,
       "title": "دانلود اپلیکیشن آلوخور",
       "order": 8,
-      "link": "https://alookhor.ir/app"
+      "description": "خرید آسان، استعلام سریع قیمت عمده و دسترسی به تخفیف‌های ویژه صادرکنندگان خشکبار",
+      "bazaar_url": "https://cafebazaar.ir/",
+      "myket_url": "https://myket.ir/",
+      "ios_url": "",
+      "more_url": "",
+      "background": "#100A1B",
+      "surface": "#181022",
+      "gold": "#F2A900",
+      "text": "#FFFFFF",
+      "muted": "#B8B0BD",
+      "radius": 24
     },
     "hero": {
       "enabled": true,
@@ -152,7 +162,7 @@
   },
   "updated_at": "2026-08-10T16:20:00Z",
   "updated_by": "AI Assistant — recovered from previous chat",
-  "version": "3.10.87",
+  "version": "3.10.88",
   "hero_settings": {
     "enabled": true,
     "hide_legacy": true,

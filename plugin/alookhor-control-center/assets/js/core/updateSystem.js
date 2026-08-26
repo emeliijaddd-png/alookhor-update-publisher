@@ -2,7 +2,7 @@
 // UI/state remain modular; version discovery and installation are delegated to WordPress.
 
 const runtimeConfig = window.ALOOKHOR_CC || {};
-const runtimeVersion = String(runtimeConfig.version || '3.10.87');
+const runtimeVersion = String(runtimeConfig.version || '3.10.88');
 
 function normalizeResult(data = {}) {
   const current = String(data.current || runtimeVersion);
@@ -55,6 +55,7 @@ export const Updater = {
   latest: runtimeVersion,
   lastCheck: null,
   changelog: [
+    { tag: 'APP BANNER', title: 'v3.10.88 — فعال‌سازی بنر اپلیکیشن', desc: '[alookhor_app_banner] با لینک فروشگاه‌ها، طراحی تمام‌عرض و تنظیمات کامل بوتیک فعال شد.' },
     { tag: 'LUXURY FEATURES', title: 'v3.10.87 — ویژگی‌های لوکس متحرک', desc: 'نوار چهارستونه مشکی/طلایی با Glow آیکن، Shine کارت و تنظیم کامل بوتیک برای [alookhor_managed_features] اضافه شد.' },
     { tag: 'EXPORT FULL BLEED', title: 'v3.10.86 — بنر صادراتی تمام‌عرض', desc: 'پس‌زمینه بنر به لبه‌های چپ و راست صفحه چسبید و فضای سفید جانبی حذف شد.' },
     { tag: 'EXPORT BANNER', title: 'v3.10.85 — بنر صادراتی در مدیریت بوتیک', desc: 'تصویر، لوگو، متن‌ها، دو واتساپ، رنگ‌ها و افکت‌های [alookhor_export_banner] داخل بوتیک یکپارچه شد.' },

@@ -28,7 +28,7 @@ body.alookhor-sf-hide-legacy .alookhor-trustbar-container{display:none!important
 @media(max-width:390px){.alookhor-sf{padding-inline:7px}.alookhor-sf-grid{gap:3px}.alookhor-sf-card{min-height:108px;padding-inline:2px}.alookhor-sf-icon{width:28px;height:28px;flex-basis:28px}.alookhor-sf-icon svg{width:26px;height:26px}.alookhor-sf-copy h3{font-size:9.3px!important}.alookhor-sf-copy p{font-size:7.5px!important}}
 @media(prefers-reduced-motion:reduce){.alookhor-sf-card{transition:none!important}}
 
-/* v3.10.87 — compact ultra-luxury black/gold animated trust strip */
+/* v3.10.88 — compact ultra-luxury black/gold animated trust strip */
 @keyframes alookhor-sf-icon-breathe{0%,100%{transform:translateY(0) scale(1);filter:drop-shadow(0 0 4px color-mix(in srgb,var(--sf-gold) 22%,transparent))}50%{transform:translateY(-3px) scale(1.06);filter:drop-shadow(0 0 12px color-mix(in srgb,var(--sf-gold-light) 55%,transparent))}}
 @keyframes alookhor-sf-sheen{0%,65%{transform:translateX(-160%) skewX(-20deg)}100%{transform:translateX(420%) skewX(-20deg)}}
 .alookhor-sf{margin:0 calc(50% - 50vw)!important;padding:18px 20px!important;background:linear-gradient(180deg,color-mix(in srgb,var(--sf-bg) 92%,#000),#080808)!important;border-block:1px solid color-mix(in srgb,var(--sf-gold) 20%,transparent)}

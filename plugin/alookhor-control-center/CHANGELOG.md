@@ -1,5 +1,11 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.88 — 2026-08-26 — Managed App Download Banner
+- SHORTCODE: شورت‌کد واقعی `[alookhor_app_banner]` ثبت شد؛ مشکل دیده‌نشدن خروجی برطرف شد.
+- BOUTIQUE: عنوان، توضیح، لینک بازار، مایکت، iOS، بیشتر، پنج رنگ و گردی کادر قابل مدیریت است.
+- DESIGN: بنر تمام‌عرض با محتوای مرکزی، دکمه‌های فروشگاه، آیکن متحرک، Hover و Responsive اضافه شد.
+- ELEMENTOR: CSS Scoped همراه شورت‌کد چاپ می‌شود تا Editor نیز خروجی صحیح داشته باشد.
+
 ## v3.10.87 — 2026-08-26 — Luxury Animated Site Features
 - DESIGN: `[alookhor_managed_features]` به نوار فشرده مشکی/طلایی چهارستونه مطابق مرجع تبدیل شد؛ آیکن کنار متن و محتوا در کانتینر مرکزی است.
 - MOTION: Glow تنفسی آیکن، Shine دوره‌ای کارت و Hover لوکس اضافه شد؛ Reduced Motion رعایت می‌شود.

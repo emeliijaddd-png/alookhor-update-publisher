@@ -1,4 +1,4 @@
-import { Config } from '../core/config.js?v=3.10.87';
+import { Config } from '../core/config.js?v=3.10.88';
 
 const escapeAttr = value => String(value ?? '').replace(/[&<>'"]/g, char => ({
   '&':'&amp;', '<':'&lt;', '>':'&gt;', "'":'&#039;', '"':'&quot;'
@@ -21,6 +21,8 @@ export const settingsModule = {
     if(!cfg) cfg = {site:{name:'ALOOKHOR', subtitle:'Control Center • Luxury', logoLetter:'A'}, modules:{}, system:{}, header_settings:{logo_text:'ALOOKHOR', logo_sub:'Control Center • Luxury'}, ai_assistant:{suggestions:[]}};
     if(!cfg.modules) cfg.modules = {};
     if(cfg.modules.export){cfg.modules.export.title='بنر صادراتی آلوخور';cfg.modules.export.enabled=true;cfg.modules.export.note='شورت‌کد مدیریت‌شده صادرات'}
+    cfg.modules.app=Object.assign({enabled:true,title:'دانلود اپلیکیشن آلوخور',description:'خرید آسان، استعلام سریع قیمت عمده و دسترسی به تخفیف‌های ویژه صادرکنندگان خشکبار',bazaar_url:'https://cafebazaar.ir/',myket_url:'https://myket.ir/',ios_url:'',more_url:'',background:'#100A1B',surface:'#181022',gold:'#F2A900',text:'#FFFFFF',muted:'#B8B0BD',radius:24},cfg.modules.app||{});
+    cfg.modules.app.enabled=true;
     cfg.header_settings = Object.assign({
       enabled:               true,
       logo_id:               0,
@@ -369,7 +371,7 @@ export const settingsModule = {
         <div class="qh-section"><div class="qh-title"><b>گالری اسلایدی</b><small>UP TO 6 IMAGES</small></div><div class="alookhor-sort-admin-list">${s.slides.map((slide,index)=>`<article class="alookhor-sort-admin-item"><b>تصویر ${index+1}</b><span class="qh-inline"><input id="sortImage_${index}" value="${escapeAttr(slide.image_url)}" dir="ltr"><button type="button" data-sort-media="${index}">انتخاب</button></span><input type="hidden" id="sortImageId_${index}" value="${Number(slide.image_id)||0}"><label>Alt<input id="sortAlt_${index}" value="${escapeAttr(slide.image_alt)}"></label><label>کپشن<input id="sortCaption_${index}" value="${escapeAttr(slide.caption)}"></label></article>`).join('')}</div></div>
         <div class="qh-actions"><button class="btn-gold" id="btnApplySortCenter">ذخیره و اعمال مرکز سورت</button><span>تصاویر خالی نمایش داده نمی‌شوند؛ ترتیب اسلایدها مطابق همین فهرست است.</span></div><style>.alookhor-sort-admin-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.alookhor-sort-admin-item{display:grid;gap:8px;padding:11px;border:1px solid var(--gold-border);border-radius:11px;background:rgba(255,255,255,.02)}@media(max-width:760px){.alookhor-sort-admin-list{grid-template-columns:1fr}}</style>`; },
       collection: () => `<h4>② مجموعه منتخب آلوخور</h4><p style="color:var(--text-muted); font-size:12.5px">کالکشن‌ها: ${cfg.modules.collection.collections.join(' ، ')}</p><div style="display:flex; gap:8px; margin-top:10px; flex-wrap:wrap">${cfg.modules.collection.collections.map(c=>`<span style="padding:6px 10px; background:rgba(201,168,106,0.14); border:1px solid var(--gold-border); border-radius:999px; font-size:12px">${c}</span>`).join('')}</div>`,
-      app: () => `<h4>📱 دانلود اپلیکیشن آلوخور</h4><p style="color:var(--text-muted); font-size:12.5px">لینک: <span dir="ltr" style="color:var(--gold-soft)">${cfg.modules.app.link}</span></p><div style="display:flex; gap:8px; margin-top:10px"><input id="inpAppLink" value="${cfg.modules.app.link}" style="flex:1; background:rgba(255,255,255,0.04); border:1px solid var(--gold-border); border-radius:8px; padding:8px; color:var(--text-primary)" dir="ltr"><button class="btn-gold" style="padding:8px 12px; font-size:12px" id="btnSaveApp">ذخیره</button></div>`,
+      app: () => {const a=cfg.modules.app;return `<div class="qh-head"><div><h4>📱 دانلود اپلیکیشن آلوخور</h4><p>بنر رسمی دانلود اپ با لینک فروشگاه‌ها و طراحی تمام‌عرض</p></div><code>APP BANNER</code></div><div class="qh-section"><div class="qh-title"><b>شورت‌کد و وضعیت</b><small>ELEMENTOR</small></div><div class="qh-grid"><label class="qh-span-2">شورت‌کد رسمی<input value="[alookhor_app_banner]" readonly dir="ltr" onclick="this.select()"></label></div><div class="qh-flags" style="margin-top:10px"><label><input id="appEnabled" type="checkbox" ${isEnabled(a.enabled)?'checked':''}>بنر فعال باشد</label></div></div><div class="qh-section"><div class="qh-title"><b>نوشته‌ها</b><small>CONTENT</small></div><div class="qh-grid"><label class="qh-span-2">عنوان<input id="appTitle" value="${escapeAttr(a.title)}"></label><label class="qh-span-2">توضیحات<textarea id="appDescription" rows="3">${escapeAttr(a.description)}</textarea></label></div></div><div class="qh-section"><div class="qh-title"><b>لینک فروشگاه‌ها</b><small>DOWNLOAD LINKS</small></div><div class="qh-grid"><label>بازار<input id="appBazaar" value="${escapeAttr(a.bazaar_url)}" dir="ltr"></label><label>مایکت<input id="appMyket" value="${escapeAttr(a.myket_url)}" dir="ltr"></label><label>نسخه iOS / سیب‌اپ<input id="appIos" value="${escapeAttr(a.ios_url)}" dir="ltr"></label><label>لینک بیشتر<input id="appMore" value="${escapeAttr(a.more_url)}" dir="ltr"></label></div></div><div class="qh-section"><div class="qh-title"><b>رنگ‌بندی و ظاهر</b><small>THEME</small></div><div class="qh-colors">${[['پس‌زمینه','background'],['سطح داخلی','surface'],['طلایی','gold'],['متن','text'],['متن فرعی','muted']].map(([l,k])=>`<label>${l}<input type="color" id="appColor_${k}" value="${escapeAttr(a[k])}"></label>`).join('')}</div><div class="qh-grid" style="margin-top:10px"><label>گردی کادر<input id="appRadius" type="number" min="12" max="40" value="${Number(a.radius)||24}"></label></div></div><div class="qh-actions"><button class="btn-gold" id="btnSaveApp">ذخیره و اعمال بنر اپلیکیشن</button></div>`;},
       hero: () => {
         const h=cfg.hero_settings;
         return `<div class="qh-head"><div><h4>🎠 اسلایدر هیروی مدیریت‌شده</h4><p>چهار اسلاید مشترک Desktop و Mobile؛ جایگزین خودکار اسلایدر فعلی در همان جایگاه Elementor</p></div><code>4 MANAGED SLIDES</code></div>
@@ -606,10 +608,10 @@ export const settingsModule = {
       }
       const btnSaveApp = quick.querySelector('#btnSaveApp');
       if(btnSaveApp){
-        btnSaveApp.addEventListener('click', ()=>{
-          const v = quick.querySelector('#inpAppLink').value;
-          Config.set('modules.app.link', v);
-          window.ALOOKHOR.toast('لینک اپلیکیشن ذخیره شد','success');
+        btnSaveApp.addEventListener('click', async event=>{
+          const v=id=>quick.querySelector(`#${id}`)?.value??'',a=cfg.modules.app;
+          Object.assign(a,{enabled:!!quick.querySelector('#appEnabled')?.checked,title:v('appTitle'),description:v('appDescription'),bazaar_url:v('appBazaar'),myket_url:v('appMyket'),ios_url:v('appIos'),more_url:v('appMore'),radius:Math.max(12,Math.min(40,Number(v('appRadius'))||24))});
+          ['background','surface','gold','text','muted'].forEach(k=>a[k]=v(`appColor_${k}`));const button=event.currentTarget;button.disabled=true;const result=await Config.save({notify:false});button.disabled=false;if(result.ok)window.ALOOKHOR.toast('بنر اپلیکیشن ذخیره و روی شورت‌کد اعمال شد','success');
         });
       }
     }

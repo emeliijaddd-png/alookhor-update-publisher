@@ -4,7 +4,7 @@ Tags: control center, luxury, alookhor, admin, dashboard
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 3.10.87
+Stable tag: 3.10.88
 License: Private
 License URI: https://alookhor.ir
 
@@ -46,6 +46,9 @@ License URI: https://alookhor.ir
 در `config/site.json` و `wp_options: alookhor_cc_settings` — همان حافظه واقعی که در چت قبلی ویرایش می‌شد.
 
 == Changelog ==
+
+= 3.10.88 =
+* فعال‌سازی `[alookhor_app_banner]` و مدیریت کامل لینک‌ها، متن و رنگ‌ها از بوتیک
 
 = 3.10.87 =
 * بازطراحی `[alookhor_managed_features]` به نوار مشکی/طلایی لوکس با آیکن‌ها و افکت‌های متحرک
