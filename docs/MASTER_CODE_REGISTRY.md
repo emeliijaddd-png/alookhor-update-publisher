@@ -229,7 +229,7 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 | `plugin/alookhor-control-center/assets/js/modules/settings.js` | 740 | `12712606676ffc77d967faff00900b6b634a159cad075434458beea918820513` |
 | `plugin/alookhor-control-center/assets/js/modules/users.js` | 20 | `6fb96546faf00ea831ace016d09b10f903a501db647bae20d0f570034ac36946` |
 | `plugin/alookhor-control-center/config/site.json` | 288 | `0a8f5c637785c17c9fd8350b6db2f442f9ce8943d7ecde3b6c6fefece3060ba0` |
-| `plugin/alookhor-control-center/includes/admin.php` | 251 | `ed17e1b42a6e014112872ff3db1e4c7c22802ebec0f44027a1e8f2e6467b885e` |
+| `plugin/alookhor-control-center/includes/admin.php` | 220 | `b66c8856ba293cc17c895b5efe154171fba5d9d60bcb4b350e446a91f5ac052e` |
 | `plugin/alookhor-control-center/includes/ajax.php` | 385 | `5c65fd9ed419b2d9120d6b4ce7f31228c175f4f99b1004282982db6f97337a2d` |
 | `plugin/alookhor-control-center/includes/footer.php` | 269 | `50c7a6e7d67a8905b5d88486d42d9ad7381caf8c60fc49dd37e3db2a17a347f8` |
 | `plugin/alookhor-control-center/includes/hero.php` | 229 | `edaba49c0057e137f0d6e0b16cc516fc98b73a70d24c09cc62cbe7302c2b6342` |
@@ -6384,7 +6384,6 @@ add_action('admin_menu', function(){
         2
     );
     add_submenu_page('alookhor-control-center', 'داشبورد', 'داشبورد', 'manage_options', 'alookhor-control-center', 'alookhor_cc_render_admin');
-    add_submenu_page('alookhor-control-center', 'نوار بالای سایت و هدر', 'نوار بالای سایت و هدر', 'manage_options', 'alookhor-cc-header', 'alookhor_cc_render_header_settings');
 });
 
 // ——— لود استایل/اسکریپت فقط در صفحه کنترل سنتر ———
@@ -6393,7 +6392,6 @@ add_action('admin_enqueue_scripts', function($hook){
     wp_enqueue_media();
     wp_enqueue_style('alookhor-cc-luxury', ALOOKHOR_CC_URL . 'assets/css/luxury.css', [], ALOOKHOR_CC_BUILD);
     wp_enqueue_style('alookhor-cc-admin', ALOOKHOR_CC_URL . 'assets/css/luxury.css', [], ALOOKHOR_CC_BUILD);
-    // فونت لوکس
     wp_enqueue_style('alookhor-cc-fonts', 'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap', [], null);
 
     // NOTE: config.js is ES Module — DO NOT enqueue as regular script (caused SyntaxError: Unexpected token 'export')
@@ -6430,11 +6428,9 @@ add_action('admin_enqueue_scripts', function($hook){
 
 // ——— رندر صفحه اصلی کنترل سنتر ———
 function alookhor_cc_render_admin(){
-    // چک دسترسی
     if(!current_user_can('manage_options')) return;
     $settings = alookhor_cc_get_settings();
     $header = alookhor_cc_get_header_settings();
-    // یک صفحه فول‌اسکرین لوکس
     ?>
     <div class="wrap" style="margin:0; padding:0; background:#070708; margin-left:-20px; margin-top:-10px;">
         <style>
@@ -6456,7 +6452,6 @@ function alookhor_cc_render_admin(){
             </span>
         </div>
         <?php
-        // لود قالب کنترل سنتر (همون index.html اما با مسیرهای وردپرسی)
         $template = ALOOKHOR_CC_DIR . 'templates/admin-control-center.php';
         if(file_exists($template)) include $template;
         else echo '<div style="padding:40px; color:#fff">Template not found</div>';
@@ -6486,7 +6481,6 @@ function alookhor_cc_render_header_settings(){
                     <label>لینک خرید عمده <input type="url" name="wholesale_url" value="<?php echo esc_attr($h['wholesale_url']); ?>" class="alookhor-field" dir="ltr"></label>
                 </div>
             </section>
-
             <section class="alookhor-settings-section">
                 <div class="alookhor-section-head"><div><b>لوگوی مرکزی Top Bar</b><span>انتخاب از کتابخانه رسانه WordPress</span></div><em>MEDIA</em></div>
                 <div class="alookhor-fields-grid">
@@ -6500,44 +6494,28 @@ function alookhor_cc_render_header_settings(){
                     <label>عرض لوگوی Header در Mobile <input type="number" min="42" max="110" name="header_logo_mobile_width" value="<?php echo esc_attr($h['header_logo_mobile_width']); ?>" class="alookhor-field"></label>
                 </div>
             </section>
-
             <section class="alookhor-settings-section">
                 <div class="alookhor-section-head"><div><b>ظاهر Top Bar</b><span>رنگ، ارتفاع، حاشیه و دکمه CTA</span></div><em>STYLE</em></div>
                 <div class="alookhor-color-grid">
                     <?php foreach ([
-                        'topbar_bg' => 'پس‌زمینه نوار',
-                        'topbar_text_color' => 'رنگ متن',
-                        'topbar_border_color' => 'رنگ خط پایین',
-                        'topbar_button_bg' => 'رنگ دکمه عمده',
-                        'topbar_button_text' => 'متن دکمه عمده',
-                        'gold' => 'طلایی اصلی هدر',
-                        'header_surface' => 'سطح Navigation',
-                        'header_text_color' => 'متن Navigation',
-                        'header_muted_color' => 'متن فرعی Navigation'
+                        'topbar_bg' => 'پس‌زمینه نوار','topbar_text_color' => 'رنگ متن','topbar_border_color' => 'رنگ خط پایین','topbar_button_bg' => 'رنگ دکمه عمده','topbar_button_text' => 'متن دکمه عمده','gold' => 'طلایی اصلی هدر','header_surface' => 'سطح Navigation','header_text_color' => 'متن Navigation','header_muted_color' => 'متن فرعی Navigation'
                     ] as $color_key => $color_label): ?>
                         <label><?php echo esc_html($color_label); ?><input type="color" name="<?php echo esc_attr($color_key); ?>" value="<?php echo esc_attr($h[$color_key]); ?>" class="alookhor-field alookhor-color-field"></label>
                     <?php endforeach; ?>
                     <label>ارتفاع نوار (30–60px)<input type="number" min="30" max="60" name="topbar_height" value="<?php echo esc_attr($h['topbar_height']); ?>" class="alookhor-field"></label>
                 </div>
             </section>
-
             <section class="alookhor-settings-section">
                 <div class="alookhor-section-head"><div><b>کپسول شیشه‌ای ردیف دوم</b><span>پالت اختصاصی فقط برای Main Header Capsule</span></div><em>GLASS</em></div>
                 <div class="alookhor-color-grid">
                     <?php foreach ([
-                        'capsule_background'=>'پس‌زمینه اصلی',
-                        'capsule_card'=>'سطح کارت',
-                        'capsule_gold'=>'طلایی اصلی',
-                        'capsule_gold_light'=>'طلایی روشن',
-                        'capsule_text'=>'سفید متن',
-                        'capsule_muted'=>'متن فرعی'
+                        'capsule_background'=>'پس‌زمینه اصلی','capsule_card'=>'سطح کارت','capsule_gold'=>'طلایی اصلی','capsule_gold_light'=>'طلایی روشن','capsule_text'=>'سفید متن','capsule_muted'=>'متن فرعی'
                     ] as $color_key=>$color_label): ?>
                         <label><?php echo esc_html($color_label); ?><input type="color" name="<?php echo esc_attr($color_key); ?>" value="<?php echo esc_attr($h[$color_key]); ?>" class="alookhor-field alookhor-color-field"></label>
                     <?php endforeach; ?>
                 </div>
                 <div class="alookhor-fields-grid"><label>Glass RGBA<input name="capsule_glass" value="<?php echo esc_attr($h['capsule_glass']); ?>" class="alookhor-field" dir="ltr"></label><label>Blur (10–36px)<input type="number" min="10" max="36" name="capsule_blur" value="<?php echo esc_attr($h['capsule_blur']); ?>" class="alookhor-field"></label></div>
             </section>
-
             <section class="alookhor-settings-section">
                 <div class="alookhor-section-head"><div><b>هویت و منوی اصلی</b><span>لوگوی اصلی، حساب کاربری و اتصال فهرست‌ها</span></div><em>HEADER</em></div>
                 <div class="alookhor-fields-grid">
@@ -6557,16 +6535,7 @@ function alookhor_cc_render_header_settings(){
             </section>
             <div style="display:flex;gap:10px;flex-wrap:wrap">
                 <?php foreach ([
-                    'sticky' => 'Sticky فقط Navigation اصلی',
-                    'show_topbar' => 'نمایش Top Bar',
-                    'show_phone' => 'نمایش تلفن',
-                    'show_email' => 'نمایش ایمیل',
-                    'show_whatsapp' => 'نمایش WhatsApp',
-                    'show_export' => 'نمایش متن صادرات',
-                    'show_wholesale' => 'نمایش دکمه عمده',
-                    'wholesale_new_tab' => 'بازشدن عمده در تب جدید',
-                    'show_contact' => 'نمایش گروه تماس',
-                    'show_account' => 'نمایش ورود/حساب'
+                    'sticky' => 'Sticky فقط Navigation اصلی','show_topbar' => 'نمایش Top Bar','show_phone' => 'نمایش تلفن','show_email' => 'نمایش ایمیل','show_whatsapp' => 'نمایش WhatsApp','show_export' => 'نمایش متن صادرات','show_wholesale' => 'نمایش دکمه عمده','wholesale_new_tab' => 'بازشدن عمده در تب جدید','show_contact' => 'نمایش گروه تماس','show_account' => 'نمایش ورود/حساب'
                 ] as $key => $label): ?>
                     <label style="display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.035);border:1px solid rgba(201,168,106,.14);border-radius:999px;padding:8px 12px">
                         <input type="hidden" name="<?php echo esc_attr($key); ?>" value="0">
