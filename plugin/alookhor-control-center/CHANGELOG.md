@@ -1,5 +1,11 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.90 — 2026-08-26 — Featured Products Shortcode Restored
+- SHORTCODE: `[alookhor_featured_products]` دوباره ثبت و فعال شد.
+- WOO: محصولات Featured واقعی ووکامرس خوانده می‌شوند و اگر هیچ Featured وجود نداشت، جدیدترین محصولات جایگزین می‌شوند.
+- CAROUSEL: کاروسل لوکس تمام‌عرض با ۴/۲/۱ کارت Responsive، Autoplay، فلش، Hover، قیمت و افزودن به سبد ساخته شد.
+- BOUTIQUE: عنوان، زیرعنوان، تعداد، سرعت، قیمت، خرید، دکمه، پنج رنگ و گردی کارت قابل مدیریت است.
+
 ## v3.10.89 — 2026-08-26 — Proper App Store SVG Icons
 - ICONS: نمادهای متنی و نامناسب با SVG اختصاصی بازار (سبز)، مایکت (آبی)، Apple (مشکی) و More جایگزین شد.
 - MAIN ICON: شکلک قبلی با آیکن حرفه‌ای کیف اپلیکیشن و لبخند جایگزین شد.
