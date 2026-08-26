@@ -1,4 +1,4 @@
-import { Config } from '../core/config.js?v=3.10.66';
+import { Config } from '../core/config.js?v=3.10.67';
 
 const escapeAttr = value => String(value ?? '').replace(/[&<>'"]/g, char => ({
   '&':'&amp;', '<':'&lt;', '>':'&gt;', "'":'&#039;', '"':'&quot;'
@@ -30,7 +30,7 @@ export const settingsModule = {
       export_text:           'صادرات به بیش از ۵۰ کشور جهان',
       export_url:            '/export/',
       whatsapp_number:       '989159513173',
-      email:                 sanitize_email(get_option('admin_email')),
+      email:                 '',
       phone:                 '09159513173',
       brand_name:            'آلوخور',
       brand_subtitle:        'خشکبار طبیعی اصیل',

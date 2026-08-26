@@ -1,5 +1,9 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.67 — 2026-08-26 — Critical: PHP-in-JS crash in boutique module
+- CRITICAL: خط ۳۳ settings.js مقدار پیش‌فرض `email` به‌اشتباه کد PHP بود (`sanitize_email(get_option('admin_email'))` — بازمانده‌ی ادغام v3.10.65). اجرای آن ReferenceError می‌داد و کل ماژول مدیریت بوتیک هنگام لود می‌شکست. به رشته ختم به مقدار ذخیره‌شده WordPress اصلاح شد.
+- بدون تغییر دیگر نسبت به 3.10.66.
+
 ## v3.10.66 — 2026-08-26 — Boutique Header Save Fix + Admin Menu Cleanup
 - CRITICAL: دکمه «ذخیره هدر» در فرم ۱۴ فیلدی AKX (مدیریت بوتیک → هدر) کار نمی‌کرد — `showQuick` هنوز `#btnApplyHeader` قدیمی را می‌گرفت در حالی که ID دکمه `#btnBoutiqueApplyHeader` است؛ در نتیجه `commitQuickSettings` و کلیک ذخیره هرگز bind نمی‌شد و فرم عملاً فقط‌خواندنی بود. selector اصلاح شد و «ذخیره همه» نیز اکنون ویرایش‌های هدر را شامل می‌شود.
 - VERIFY: پاسخ `alookhor_save_settings` اکنون کلیدهای AKX هدر (enabled, logo_id, logo_url, logo_width, whatsapp_number, brand_name, brand_subtitle, search_placeholder) را از `alookhor_header_settings` echo می‌کند تا تأیید ذخیره در settings.js مقدار واقعی WordPress را مقایسه کند (مقایسه trim شده برای جلوگیری از هشدار کاذب).
