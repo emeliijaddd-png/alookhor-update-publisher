@@ -1,16 +1,16 @@
 {
-  "version": "3.10.93",
-  "previous": "3.10.92",
+  "version": "3.10.94",
+  "previous": "3.10.93",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "بازیابی شورت‌کد اسلایدر کمپین با ۶ اسلاید و مدیریت کامل بوتیک.",
+  "description": "افزودن بخش لوکس پرفروش‌ترین محصولات با تب دسته‌ها و مدیریت کامل بوتیک.",
   "changelog": [
     {
-      "tag": "CAMPAIGN SLIDER RESTORED",
-      "title": "فعال‌سازی اسلایدر کمپین‌ها",
-      "desc": "[alookhor_campaign_slider] با ۶ تصویر، متن و CTA مستقل، Autoplay، فلش، نقاط، ارتفاع، تیرگی، رنگ و Responsive فعال شد."
+      "tag": "BESTSELLERS",
+      "title": "پرفروش‌ترین محصولات آلوخور",
+      "desc": "[alookhor_bestselling_products] با رتبه‌بندی فروش WooCommerce، تب دسته‌ها، قیمت، خرید، موجودی، فروش و طراحی مطابق مرجع اضافه شد."
     }
   ],
   "project": "ALOOKHOR",
@@ -49,6 +49,9 @@
     "plugin/alookhor-control-center/assets/js/frontend-featured-products.js",
     "plugin/alookhor-control-center/includes/campaign-slider.php",
     "plugin/alookhor-control-center/assets/css/frontend-campaign-slider.css",
-    "plugin/alookhor-control-center/assets/js/frontend-campaign-slider.js"
+    "plugin/alookhor-control-center/assets/js/frontend-campaign-slider.js",
+    "plugin/alookhor-control-center/includes/bestselling-products.php",
+    "plugin/alookhor-control-center/assets/css/frontend-bestsellers.css",
+    "plugin/alookhor-control-center/assets/js/frontend-bestsellers.js"
   ]
 }

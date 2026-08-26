@@ -1,5 +1,11 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.94 — 2026-08-26 — Luxury WooCommerce Bestsellers
+- SHORTCODE: `[alookhor_bestselling_products]` اضافه شد.
+- WOO: محصولات بر اساس `total_sales` واقعی مرتب و با قیمت، خرید، موجودی و تعداد فروش نمایش داده می‌شوند.
+- TABS: تب «همه» و دسته‌های انتخابی با فیلتر آنی اضافه شد.
+- BOUTIQUE: عنوان، دسته‌ها، تعداد، اجزای نمایشی، شش رنگ و گردی کارت قابل مدیریت است.
+
 ## v3.10.93 — 2026-08-26 — Campaign Slider Shortcode Restored
 - SHORTCODE: `[alookhor_campaign_slider]` ثبت و فعال شد.
 - SLIDES: تا ۶ کمپین با تصویر، Alt، کیکر، عنوان، توضیح، CTA و لینک مستقل قابل مدیریت است.

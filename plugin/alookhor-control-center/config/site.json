@@ -79,10 +79,15 @@
       "title": "اسلایدر کمپین‌ها",
       "order": 11
     },
+    "bestsellers": {
+      "enabled": true,
+      "title": "پرفروش‌ترین محصولات",
+      "order": 12
+    },
     "auto": {
       "enabled": true,
       "title": "بروزرسانی خودکار افزونه",
-      "order": 12,
+      "order": 13,
       "schedule": "03:00"
     },
     "site_features": {
@@ -167,7 +172,7 @@
   },
   "updated_at": "2026-08-10T16:20:00Z",
   "updated_by": "AI Assistant — recovered from previous chat",
-  "version": "3.10.93",
+  "version": "3.10.94",
   "hero_settings": {
     "enabled": true,
     "hide_legacy": true,
