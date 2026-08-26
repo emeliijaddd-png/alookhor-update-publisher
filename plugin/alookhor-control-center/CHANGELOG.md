@@ -1,5 +1,10 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.97 — 2026-08-26 — Bestsellers Carousel Specificity Lock
+- ROOT CAUSE: CSS قالب/Elementor در خروجی نهایی `display:grid` را دوباره روی Track اعمال می‌کرد.
+- LOCK: Selector قوی `html body .alookhor-bs ...` همراه `display:flex!important`، `nowrap` و عرض قطعی ۴/۲/۱ کارت اضافه شد.
+- RESULT: ردیف دوم تحت هیچ Breakpoint یا Override قالب ساخته نمی‌شود.
+
 ## v3.10.96 — 2026-08-26 — Bestsellers Single-row Carousel
 - CAROUSEL: محصولات پرفروش همیشه در یک ردیف باقی می‌مانند و به ردیف دوم Wrap نمی‌شوند.
 - RESPONSIVE: چهار کارت دسکتاپ، دو کارت تبلت و یک کارت/Peek موبایل نمایش داده می‌شود.
