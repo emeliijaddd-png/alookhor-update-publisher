@@ -5,7 +5,6 @@
 (function($){
     'use strict';
 
-    // ——— Helper: Toast (همان لوکس) ———
     function toast(msg, type='success'){
         const stack = document.getElementById('toastStack');
         if(!stack){
@@ -20,15 +19,43 @@
         setTimeout(()=> { el.style.opacity='0'; el.style.transform='translateY(8px)'; setTimeout(()=>el.remove(),300)}, 4200);
     }
 
+    // حذف آیتم‌هایی که خود WordPress / WooCommerce در منوی اصلی مدیریت ارائه می‌کند.
+    // این موارد فقط یک‌بار، در منوی بومی وردپرس، نگه داشته می‌شوند.
+    function removeNativeDuplicateModules(){
+        const duplicateModules = [
+            'orders',      // WooCommerce → Orders
+            'products',    // WooCommerce → Products
+            'categories',  // WooCommerce → Products → Categories
+            'users',       // WordPress → Users
+            'reviews'      // WordPress/WooCommerce → Comments/Reviews
+        ];
+
+        duplicateModules.forEach(function(module){
+            document.querySelectorAll('[data-module="'+module+'"].nav-sub-item').forEach(function(item){
+                const group = item.closest('.nav-group');
+                item.remove();
+                if(group){
+                    const list = group.querySelector('.nav-sub-list');
+                    if(list && !list.querySelector('.nav-sub-item')) group.remove();
+                }
+            });
+        });
+
+        // شمارنده گروه‌ها را بعد از حذف آیتم‌های تکراری اصلاح می‌کنیم.
+        document.querySelectorAll('.nav-group').forEach(function(group){
+            const count = group.querySelectorAll('.nav-sub-item').length;
+            const badge = group.querySelector('.nav-group-count');
+            if(badge) badge.textContent = String(count);
+        });
+    }
+
     // ——— Override Config for WP: save via AJAX ———
     if(window.Config && window.ALOOKHOR_CC){
         const originalSave = window.Config.save;
         window.Config.save = function(){
             if(!this.data) return;
             this.data.updated_at = new Date().toISOString();
-            // local backup
             try{ localStorage.setItem('alookhor_real_config_v38', JSON.stringify(this.data)); }catch(e){}
-            // WP AJAX save — آپدیت آنی
             $.post(ALOOKHOR_CC.ajax_url, {
                 action: 'alookhor_save_settings',
                 nonce: ALOOKHOR_CC.nonce,
@@ -36,7 +63,6 @@
             }, function(res){
                 if(res && res.success){
                     toast('ذخیره شد — بدون رفرش روی وردپرس اعمال شد','success');
-                    // همچنین هدر شورت‌کد را بروز کن
                     if(window.Config.data?.header_settings){
                         // trigger live header update if on front
                     }
@@ -49,15 +75,12 @@
             window.dispatchEvent(new CustomEvent('alookhor:config:changed', {detail: this.data}));
         };
 
-        // Toggle module via dedicated AJAX (سریع‌تر)
         const originalToggle = window.Config.toggleModule;
         window.Config.toggleModule = function(key){
             if(!this.data.modules[key]) return false;
             const enabled = !this.data.modules[key].enabled;
             this.data.modules[key].enabled = enabled;
-            // local
             try{ localStorage.setItem('alookhor_real_config_v38', JSON.stringify(this.data)); }catch(e){}
-            // WP
             $.post(ALOOKHOR_CC.ajax_url, {
                 action: 'alookhor_toggle_module',
                 nonce: ALOOKHOR_CC.nonce,
@@ -71,13 +94,15 @@
         };
     }
 
-    // ——— Global: هر دکمه ذخیره در کنترل سنتر، WP AJAX را صدا بزند ———
-    $(document).on('click', '#btnSaveAll', function(){
-        // Config.save قبلاً override شده، فقط toast اضافه
-        // این دکمه در settings.js هم هندل می‌شود، اینجا فقط اطمینان
+    $(document).on('click', '#btnSaveAll', function(){});
+
+    // پس از ساخته‌شدن رابط کنترل سنتر، موارد تکراری را حذف کن.
+    $(function(){
+        removeNativeDuplicateModules();
+        setTimeout(removeNativeDuplicateModules, 100);
+        setTimeout(removeNativeDuplicateModules, 500);
     });
 
-    // ——— نمایش نسخه و شورت‌کد در کنسول ———
     console.log('%cALOOKHOR Control Center v'+ (window.ALOOKHOR_CC?.version || '3.8.0') +' — WP Plugin Active — آپدیت آنی فعال',"color:#C9A86A; font-size:13px; font-weight:700");
     console.log('Shortcode: ' + (window.ALOOKHOR_CC?.header_shortcode || '[alookhor_portal_header]'));
 
