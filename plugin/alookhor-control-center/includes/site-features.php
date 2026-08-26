@@ -45,8 +45,8 @@ add_action('wp_footer','alookhor_cc_site_feature_template',2);
 add_filter('body_class',function($classes){ $settings=alookhor_cc_get_site_feature_settings(); if(!empty($settings['enabled']))$classes[]='alookhor-sf-enabled'; if(!empty($settings['enabled'])&&!empty($settings['hide_legacy']))$classes[]='alookhor-sf-hide-legacy'; return array_values(array_unique($classes)); });
 add_action('wp_enqueue_scripts',function(){ if(!is_front_page())return; $settings=alookhor_cc_get_site_feature_settings(); if(empty($settings['enabled']))return; wp_enqueue_style('alookhor-cc-managed-features',ALOOKHOR_CC_URL.'assets/css/frontend-features.css',[],ALOOKHOR_CC_BUILD); wp_enqueue_script('alookhor-cc-managed-features',ALOOKHOR_CC_URL.'assets/js/frontend-features.js',[],ALOOKHOR_CC_BUILD,true); wp_localize_script('alookhor-cc-managed-features','ALOOKHOR_FEATURES',['endpoint'=>rest_url('alookhor-cc/v1/site-features'),'version'=>ALOOKHOR_CC_VERSION,'hide_legacy'=>!empty($settings['hide_legacy']),'legacy_selector'=>'.alookhor-trustbar-container']); },31);
 
-// WordPress main-menu cleanup: remove ONLY standalone legacy Header Center / Export Banner tools.
-// The ALOOKHOR Center / مدیریت بوتیک menu and all of its modules remain untouched.
+// Remove ONLY standalone legacy Header Center / Export Banner tools from the native WordPress admin menu.
+// ALOOKHOR Center / مدیریت بوتیک and every module inside it are intentionally untouched.
 add_action('admin_menu', function(){
     if(!current_user_can('manage_options')) return;
     $legacy_slugs = [
@@ -56,28 +56,13 @@ add_action('admin_menu', function(){
     foreach($legacy_slugs as $slug){ remove_menu_page($slug); }
     $parents=['alookhor-glass-header','alookhor-header-center','alookhor-export-banner','alookhor-export'];
     foreach($parents as $parent){ remove_submenu_page($parent,$parent); }
-
-    // Fallback for legacy plugins whose menu slug differs between versions.
-    // Match visible labels only; never remove the ALOOKHOR Center menu itself.
     global $menu, $submenu;
     $is_legacy_label = static function($label){
         $label = trim(wp_strip_all_tags((string)$label));
         $labels = ['سنتر هدر حرفه ای','سنتر هدر حرفه‌ای','هدر حرفه ای','هدر حرفه‌ای','بنر صادراتی','بنر صادرات'];
-        foreach($labels as $needle){
-            if($label === $needle || strpos($label,$needle) !== false) return true;
-        }
+        foreach($labels as $needle){ if($label === $needle || strpos($label,$needle) !== false) return true; }
         return false;
     };
-    if(is_array($menu)){
-        foreach($menu as $index=>$item){
-            if(isset($item[0]) && $is_legacy_label($item[0])) unset($menu[$index]);
-        }
-    }
-    if(is_array($submenu)){
-        foreach($submenu as $parent=>$items){
-            foreach($items as $index=>$item){
-                if(isset($item[0]) && $is_legacy_label($item[0])) unset($submenu[$parent][$index]);
-            }
-        }
-    }
+    if(is_array($menu)) foreach($menu as $index=>$item) if(isset($item[0]) && $is_legacy_label($item[0])) unset($menu[$index]);
+    if(is_array($submenu)) foreach($submenu as $parent=>$items) foreach($items as $index=>$item) if(isset($item[0]) && $is_legacy_label($item[0])) unset($submenu[$parent][$index]);
 }, 999);
