@@ -4,7 +4,7 @@ Tags: control center, luxury, alookhor, admin, dashboard
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 3.10.77
+Stable tag: 3.10.78
 License: Private
 License URI: https://alookhor.ir
 
@@ -47,8 +47,11 @@ License URI: https://alookhor.ir
 
 == Changelog ==
 
+= 3.10.78 =
+* آخرین نوار سفید باریک حذف شد و Hero دقیقاً به لبه پایین Topbar چسبید
+
 = 3.10.77 =
-* فاصله سفید باقی‌مانده حذف شد تا تصویر اسلایدر دقیقاً به لبه پایین نوار بالایی بچسبد
+* جابه‌جایی اولیه اسلایدر برای خنثی‌سازی فاصله قالب
 
 = 3.10.76 =
 * اسلایدر از زیر کپسول شیشه‌ای منو شروع می‌شود

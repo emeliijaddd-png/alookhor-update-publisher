@@ -1,8 +1,11 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.78 — 2026-08-26 — Pixel-perfect Zero Hero Gap
+- GAP: آخرین نوار سفید باریک نیز با خنثی‌سازی offset واقعی ۴۲ پیکسلی Woodmart/Elementor حذف شد.
+- RESULT: تصویر Hero مستقیماً از لبه پایین Topbar آغاز می‌شود.
+
 ## v3.10.77 — 2026-08-26 — Zero Gap Between Topbar and Hero
-- GAP: نوار سفید ۳۰ پیکسلی باقی‌مانده قالب خنثی شد تا تصویر Hero دقیقاً از لبه پایین Topbar آغاز شود.
-- OVERLAY: کپسول شیشه‌ای منو بدون ساخت فاصله روی تصویر اسلایدر قرار می‌گیرد.
+- GAP: جابه‌جایی اولیه برای حذف فضای رزروشده قالب انجام شد.
 
 ## v3.10.76 — 2026-08-26 — Hero Slider Under Glass Menu
 - OVERLAY: Hero به زیر کپسول منو منتقل شد و رفتار Sticky/Responsive حفظ شد.
