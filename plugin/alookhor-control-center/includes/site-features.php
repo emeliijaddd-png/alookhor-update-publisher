@@ -75,7 +75,11 @@ function alookhor_cc_site_feature_markup($settings=null){
         max(10,min(30,absint($s['radius']??20))),
         max(0,min(20,absint($s['gap']??8)))
     );
-    ob_start(); ?>
+    ob_start();
+    // نمایش صحیح داخل Elementor Editor حتی وقتی شورت‌کد پس از wp_head رندر می‌شود.
+    static $inline_style_printed=false;
+    if(!$inline_style_printed){$inline_style_printed=true;$css_file=ALOOKHOR_CC_DIR.'assets/css/frontend-features.css';if(file_exists($css_file))echo '<style id="alookhor-features-inline">'.file_get_contents($css_file).'</style>';}
+    ?>
     <section id="alookhor-managed-features" class="alookhor-sf" dir="rtl" style="<?php echo esc_attr($style); ?>" data-version="<?php echo esc_attr(ALOOKHOR_CC_VERSION); ?>" data-item-count="4" aria-label="ویژگی‌های آلوخور">
       <div class="alookhor-sf-shell">
         <div class="alookhor-sf-grid">

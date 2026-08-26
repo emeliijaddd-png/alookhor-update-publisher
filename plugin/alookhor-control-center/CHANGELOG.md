@@ -1,5 +1,11 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.87 — 2026-08-26 — Luxury Animated Site Features
+- DESIGN: `[alookhor_managed_features]` به نوار فشرده مشکی/طلایی چهارستونه مطابق مرجع تبدیل شد؛ آیکن کنار متن و محتوا در کانتینر مرکزی است.
+- MOTION: Glow تنفسی آیکن، Shine دوره‌ای کارت و Hover لوکس اضافه شد؛ Reduced Motion رعایت می‌شود.
+- BOUTIQUE: عنوان، توضیح، نوع آیکن، تمام رنگ‌ها، Glass، فاصله و گردی همچنان از مدیریت بوتیک قابل تنظیم است.
+- ELEMENTOR: CSS Scoped همراه شورت‌کد چاپ می‌شود تا Editor نیز درست نمایش دهد.
+
 ## v3.10.86 — 2026-08-26 — Full-bleed Export Banner
 - FULL BLEED: بنر صادراتی با `100vw` و حاشیه محاسبه‌شده از محدودیت Container المنتور خارج و به لبه‌های viewport چسبید.
 - CLEAN EDGES: Border کناری و گردی قاب خارجی حذف شد تا هیچ نوار سفید در چپ و راست دیده نشود.

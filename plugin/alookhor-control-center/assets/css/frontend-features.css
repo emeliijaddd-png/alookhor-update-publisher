@@ -27,3 +27,21 @@ body.alookhor-sf-hide-legacy .alookhor-trustbar-container{display:none!important
 }
 @media(max-width:390px){.alookhor-sf{padding-inline:7px}.alookhor-sf-grid{gap:3px}.alookhor-sf-card{min-height:108px;padding-inline:2px}.alookhor-sf-icon{width:28px;height:28px;flex-basis:28px}.alookhor-sf-icon svg{width:26px;height:26px}.alookhor-sf-copy h3{font-size:9.3px!important}.alookhor-sf-copy p{font-size:7.5px!important}}
 @media(prefers-reduced-motion:reduce){.alookhor-sf-card{transition:none!important}}
+
+/* v3.10.87 — compact ultra-luxury black/gold animated trust strip */
+@keyframes alookhor-sf-icon-breathe{0%,100%{transform:translateY(0) scale(1);filter:drop-shadow(0 0 4px color-mix(in srgb,var(--sf-gold) 22%,transparent))}50%{transform:translateY(-3px) scale(1.06);filter:drop-shadow(0 0 12px color-mix(in srgb,var(--sf-gold-light) 55%,transparent))}}
+@keyframes alookhor-sf-sheen{0%,65%{transform:translateX(-160%) skewX(-20deg)}100%{transform:translateX(420%) skewX(-20deg)}}
+.alookhor-sf{margin:0 calc(50% - 50vw)!important;padding:18px 20px!important;background:linear-gradient(180deg,color-mix(in srgb,var(--sf-bg) 92%,#000),#080808)!important;border-block:1px solid color-mix(in srgb,var(--sf-gold) 20%,transparent)}
+.alookhor-sf-shell{width:min(1380px,100%)!important}
+.alookhor-sf-grid{gap:10px!important}
+.alookhor-sf-card{min-height:92px!important;padding:15px 18px!important;display:flex!important;flex-direction:row!important;align-items:center!important;justify-content:center!important;gap:14px!important;border-radius:14px!important;background:linear-gradient(135deg,color-mix(in srgb,var(--sf-card) 68%,#090909),#0b0b0c)!important;border-color:color-mix(in srgb,var(--sf-gold) 18%,transparent)!important;text-align:right!important;overflow:hidden!important}
+.alookhor-sf-card:after{content:"";position:absolute;inset:-35% auto -35% -25%;width:18%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.11),transparent);transform:translateX(-160%) skewX(-20deg);animation:alookhor-sf-sheen 5.5s ease-in-out infinite;pointer-events:none}
+.alookhor-sf-card:nth-child(2):after{animation-delay:.5s}.alookhor-sf-card:nth-child(3):after{animation-delay:1s}.alookhor-sf-card:nth-child(4):after{animation-delay:1.5s}
+.alookhor-sf-card:hover{transform:translateY(-5px)!important;border-color:color-mix(in srgb,var(--sf-gold-light) 52%,transparent)!important;box-shadow:0 16px 34px rgba(0,0,0,.5),0 0 22px color-mix(in srgb,var(--sf-gold) 12%,transparent)!important}
+.alookhor-sf-icon{width:50px!important;height:50px!important;flex:0 0 50px!important;border-radius:13px;border:1px solid color-mix(in srgb,var(--sf-gold) 24%,transparent);background:linear-gradient(145deg,color-mix(in srgb,var(--sf-gold) 10%,transparent),rgba(255,255,255,.02));animation:alookhor-sf-icon-breathe 2.9s ease-in-out infinite!important}
+.alookhor-sf-card:nth-child(2) .alookhor-sf-icon{animation-delay:.3s!important}.alookhor-sf-card:nth-child(3) .alookhor-sf-icon{animation-delay:.6s!important}.alookhor-sf-card:nth-child(4) .alookhor-sf-icon{animation-delay:.9s!important}
+.alookhor-sf-icon svg{width:30px!important;height:30px!important;stroke-width:2.1!important}
+.alookhor-sf-copy{justify-items:start!important;gap:4px!important}.alookhor-sf-copy h3,.alookhor-sf-copy p{text-align:right!important}.alookhor-sf-copy h3{font-size:14px!important;white-space:nowrap!important}.alookhor-sf-copy p{font-size:10.5px!important;white-space:nowrap!important}
+@media(max-width:900px){.alookhor-sf-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}.alookhor-sf-card{min-height:88px!important}}
+@media(max-width:520px){.alookhor-sf{padding:10px 8px!important}.alookhor-sf-grid{gap:6px!important}.alookhor-sf-card{padding:11px 8px!important;gap:8px!important;min-height:78px!important}.alookhor-sf-icon{width:38px!important;height:38px!important;flex-basis:38px!important}.alookhor-sf-icon svg{width:24px!important;height:24px!important}.alookhor-sf-copy h3{font-size:11px!important}.alookhor-sf-copy p{font-size:8px!important;white-space:normal!important}}
+@media(prefers-reduced-motion:reduce){.alookhor-sf-icon,.alookhor-sf-card:after{animation:none!important}}

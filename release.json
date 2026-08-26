@@ -1,16 +1,16 @@
 {
-  "version": "3.10.86",
-  "previous": "3.10.85",
+  "version": "3.10.87",
+  "previous": "3.10.86",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "پس‌زمینه بنر صادراتی تمام‌عرض و چسبیده به لبه‌های صفحه شد.",
+  "description": "بازطراحی لوکس، فشرده و انیمیشنی بخش ویژگی‌های سایت با مدیریت کامل بوتیک.",
   "changelog": [
     {
-      "tag": "EXPORT FULL BLEED",
-      "title": "بنر صادراتی بدون حاشیه سفید",
-      "desc": "بنر با 100vw از محدودیت کانتینر Elementor خارج شد، به لبه‌های چپ و راست viewport چسبید و Border جانبی و گردی بیرونی حذف شد؛ محتوای داخلی وسط‌چین باقی ماند."
+      "tag": "LUXURY FEATURES",
+      "title": "نوار ویژگی‌های مدرن و متحرک",
+      "desc": "[alookhor_managed_features] به نوار مشکی/طلایی چهارستونه با آیکن کنار متن، Glow تنفسی، Shine و Hover تبدیل شد؛ متن، آیکن، رنگ، فاصله و گردی از بوتیک کنترل می‌شود."
     }
   ],
   "project": "ALOOKHOR",
@@ -38,6 +38,9 @@
     "plugin/alookhor-control-center/includes/admin-export-banner.php",
     "plugin/alookhor-control-center/assets/css/frontend-export-banner.css",
     "plugin/alookhor-control-center/assets/js/frontend-export-banner.js",
-    "plugin/alookhor-control-center/includes/admin.php"
+    "plugin/alookhor-control-center/includes/admin.php",
+    "plugin/alookhor-control-center/includes/site-features.php",
+    "plugin/alookhor-control-center/assets/css/frontend-features.css",
+    "plugin/alookhor-control-center/assets/js/frontend-features.js"
   ]
 }
