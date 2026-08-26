@@ -1,8 +1,11 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.77 — 2026-08-26 — Zero Gap Between Topbar and Hero
+- GAP: نوار سفید ۳۰ پیکسلی باقی‌مانده قالب خنثی شد تا تصویر Hero دقیقاً از لبه پایین Topbar آغاز شود.
+- OVERLAY: کپسول شیشه‌ای منو بدون ساخت فاصله روی تصویر اسلایدر قرار می‌گیرد.
+
 ## v3.10.76 — 2026-08-26 — Hero Slider Under Glass Menu
-- OVERLAY: فضای عمودی Mainbar از جریان صفحه کم شد تا Hero/Slider بلافاصله بعد از Topbar و پشت کپسول شیشه‌ای آغاز شود.
-- RESPONSIVE: جابه‌جایی Desktop برابر ۷۸px و Mobile برابر ۷۰px است؛ رفتار Sticky و ارتفاع Topbar تغییر نکرد.
+- OVERLAY: Hero به زیر کپسول منو منتقل شد و رفتار Sticky/Responsive حفظ شد.
 
 ## v3.10.75 — 2026-08-26 — Remove Full-width Sticky Halo
 - HALO: سایه مشکی/بنفش تمام‌عرض حالت Sticky از نوار اصلی حذف شد.

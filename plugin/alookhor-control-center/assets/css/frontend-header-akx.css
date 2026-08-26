@@ -1,7 +1,7 @@
 /* ===== ALOOKHOR AKX Luxury Header ===== */
 /* Purple/gold design — fully scoped to #akx-header (matches reference exactly) */
 
-/* v3.10.76: هدر بچسبد به بالای صفحه — حذف فاصله سفید بالای هدر
+/* v3.10.77: هدر بچسبد به بالای صفحه — حذف فاصله سفید بالای هدر
    (port قوانین تثبیت‌شده‌ی حالت Legacy؛ فقط روی صفحاتی که هدر AKX رویشان رندر شده) */
 html:has(#akx-header[data-akx-live="1"]),
 body:has(#akx-header[data-akx-live="1"]) {
@@ -905,9 +905,10 @@ body #akx-header .akx-search-panel button {
   }
 }
 
-/* v3.10.76: محتوای بعدی (Hero/Slider) به اندازه Mainbar بالا می‌آید و زیر کپسول قرار می‌گیرد. */
+/* v3.10.77: محتوای بعدی (Hero/Slider) به اندازه Mainbar بالا می‌آید و زیر کپسول قرار می‌گیرد. */
 body #akx-header {
-  margin-bottom: -78px !important;
+  /* 78px ارتفاع Mainbar + 30px فاصله رزروشده قالب/کانتینر صفحه */
+  margin-bottom: -108px !important;
 }
 @media (max-width: 860px) {
   body #akx-header { margin-bottom: -70px !important; }

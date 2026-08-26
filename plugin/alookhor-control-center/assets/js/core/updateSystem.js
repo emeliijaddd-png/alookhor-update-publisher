@@ -2,7 +2,7 @@
 // UI/state remain modular; version discovery and installation are delegated to WordPress.
 
 const runtimeConfig = window.ALOOKHOR_CC || {};
-const runtimeVersion = String(runtimeConfig.version || '3.10.76');
+const runtimeVersion = String(runtimeConfig.version || '3.10.77');
 
 function normalizeResult(data = {}) {
   const current = String(data.current || runtimeVersion);
@@ -55,7 +55,8 @@ export const Updater = {
   latest: runtimeVersion,
   lastCheck: null,
   changelog: [
-    { tag: 'HERO UNDER MENU', title: 'v3.10.76 — اسلایدر زیر منوی شیشه‌ای', desc: 'اسلایدر به نوار بالایی چسبید و از زیر کپسول منوی اصلی شروع می‌شود؛ Sticky و Responsive حفظ شده‌اند.' },
+    { tag: 'ZERO HERO GAP', title: 'v3.10.77 — اتصال دقیق اسلایدر به نوار بالا', desc: 'فاصله سفید ۳۰ پیکسلی باقی‌مانده حذف شد و تصویر Hero دقیقاً از زیر Topbar شروع می‌شود.' },
+    { tag: 'HERO UNDER MENU', title: 'v3.10.76 — اسلایدر زیر منوی شیشه‌ای', desc: 'اسلایدر از زیر کپسول منوی اصلی شروع می‌شود و Sticky حفظ شده است.' },
     { tag: 'NO HALO', title: 'v3.10.75 — حذف هاله سراسری زیر منو', desc: 'سایه مشکی/بنفش تمام‌عرض حذف شد و سایه فقط روی کپسول باقی ماند.' },
     { tag: 'CAPSULE ONLY', title: 'v3.10.74 — شیشه فقط روی کپسول منو', desc: 'پس‌زمینه بنفش سراسری چپ و راست منو حذف شد؛ شفافیت و Blur فقط روی خود کپسول گرد منو اعمال می‌شود.' },
     { tag: 'GLASS THEME', title: 'v3.10.73 — کنترل شیشه و رنگ‌بندی کامل هدر', desc: 'فعال‌سازی شیشه‌ای، درصد شفافیت، شدت Blur و ۱۴ رنگ اجزای هدر از مدیریت بوتیک قابل تنظیم شد.' },
