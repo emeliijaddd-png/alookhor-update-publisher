@@ -1,16 +1,16 @@
 {
-  "version": "3.10.95",
-  "previous": "3.10.94",
+  "version": "3.10.96",
+  "previous": "3.10.93",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "رفع خروجی خالی شورت‌کد پرفروش‌ها با تثبیت مالکیت شورت‌کد و fallback چندمرحله‌ای محصولات.",
+  "description": "تبدیل پرفروش‌ترین محصولات به اسلایدر تک‌ردیفه بدون سرریز و ردیف دوم.",
   "changelog": [
     {
-      "tag": "BESTSELLERS OUTPUT FIX",
-      "title": "رفع نمایش‌ندادن پرفروش‌ها",
-      "desc": "مالکیت [alookhor_bestselling_products] در init:999 تثبیت شد تا افزونه قدیمی آن را Override نکند؛ سه سطح fallback برای بازیابی محصولات اضافه شد."
+      "tag": "BESTSELLERS CAROUSEL",
+      "title": "پرفروش‌ها همیشه تک‌ردیفه و اسلایدی",
+      "desc": "کارت‌ها دیگر Wrap نمی‌شوند؛ ۴ کارت دسکتاپ، ۲ تبلت و یک کارت موبایل با فلش و Autoplay نمایش داده می‌شوند."
     }
   ],
   "project": "ALOOKHOR",

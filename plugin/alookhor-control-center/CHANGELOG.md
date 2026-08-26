@@ -1,5 +1,10 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.96 — 2026-08-26 — Bestsellers Single-row Carousel
+- CAROUSEL: محصولات پرفروش همیشه در یک ردیف باقی می‌مانند و به ردیف دوم Wrap نمی‌شوند.
+- RESPONSIVE: چهار کارت دسکتاپ، دو کارت تبلت و یک کارت/Peek موبایل نمایش داده می‌شود.
+- CONTROLS: فلش‌های دوطرفه، Autoplay، توقف Hover و سرعت قابل تنظیم از بوتیک اضافه شد.
+
 ## v3.10.95 — 2026-08-26 — Bestsellers Empty Output Fix
 - OWNERSHIP: شورت‌کد `[alookhor_bestselling_products]` در `init:999` دوباره ثبت می‌شود تا Callback خالی افزونه‌های قدیمی نتواند آن را Override کند.
 - FALLBACK: پس از پرفروش‌ها و جدیدترین محصولات WooCommerce، fallback مستقیم محصولات منتشرشده WordPress نیز اضافه شد.
