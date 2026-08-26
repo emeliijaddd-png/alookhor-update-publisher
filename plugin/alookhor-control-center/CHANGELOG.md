@@ -1,5 +1,10 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.83 — 2026-08-26 — Sorting Center Products + Animated Benefits
+- PRODUCTS: عنوان و پنج چیپ «محصولات قابل عرضه» با ویرایش کامل از مدیریت بوتیک اضافه شد.
+- BENEFITS: چهار کارت مزیت با عنوان، زیرعنوان و آیکن SVG انتخابی اضافه شد.
+- MOTION: آیکن‌ها حرکت شناور و Glow کنترل‌شده دارند و کارت‌ها Hover لوکس دارند؛ Reduced Motion رعایت شده است.
+
 ## v3.10.82 — 2026-08-26 — Sorting Center Elementor Rendering Fix (FTPS Retry)
 - SIMPLIFY: ظرفیت روزانه و سورت امروز از خروجی و فرم تنظیمات حذف شد؛ فقط کیکر، عنوان، توضیح و دکمه قابل ویرایش باقی ماند.
 - LAYOUT: گالری ۶ تصویری در سمت راست و متن‌ها در سمت چپ قرار گرفتند.
