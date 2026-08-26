@@ -4,7 +4,7 @@ Tags: control center, luxury, alookhor, admin, dashboard
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 3.10.74
+Stable tag: 3.10.75
 License: Private
 License URI: https://alookhor.ir
 
@@ -47,9 +47,11 @@ License URI: https://alookhor.ir
 
 == Changelog ==
 
+= 3.10.75 =
+* هاله و سایه مشکی/بنفش تمام‌عرض زیر منوی Sticky کاملاً حذف شد؛ سایه فقط روی خود کپسول است
+
 = 3.10.74 =
-* پس‌زمینه رنگی سراسری نوار منو و فضای چپ و راست آن کاملاً حذف شد
-* افکت شیشه‌ای، درصد شفافیت و Blur فقط روی خود کپسول گرد منو اعمال می‌شود
+* پس‌زمینه رنگی سراسری حذف و افکت شیشه‌ای فقط روی خود کپسول منو اعمال شد
 
 = 3.10.73 =
 * کنترل شیشه‌ای و چهارده کنترل رنگ برای تمام اجزای هدر، کپسول و مگامنو

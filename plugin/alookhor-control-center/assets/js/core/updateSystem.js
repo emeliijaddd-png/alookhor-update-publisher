@@ -2,7 +2,7 @@
 // UI/state remain modular; version discovery and installation are delegated to WordPress.
 
 const runtimeConfig = window.ALOOKHOR_CC || {};
-const runtimeVersion = String(runtimeConfig.version || '3.10.74');
+const runtimeVersion = String(runtimeConfig.version || '3.10.75');
 
 function normalizeResult(data = {}) {
   const current = String(data.current || runtimeVersion);
@@ -55,6 +55,7 @@ export const Updater = {
   latest: runtimeVersion,
   lastCheck: null,
   changelog: [
+    { tag: 'NO HALO', title: 'v3.10.75 — حذف هاله سراسری زیر منو', desc: 'سایه مشکی/بنفش تمام‌عرض حالت Sticky حذف شد؛ سایه فقط روی خود کپسول منو باقی می‌ماند.' },
     { tag: 'CAPSULE ONLY', title: 'v3.10.74 — شیشه فقط روی کپسول منو', desc: 'پس‌زمینه بنفش سراسری چپ و راست منو حذف شد؛ شفافیت و Blur فقط روی خود کپسول گرد منو اعمال می‌شود.' },
     { tag: 'GLASS THEME', title: 'v3.10.73 — کنترل شیشه و رنگ‌بندی کامل هدر', desc: 'فعال‌سازی شیشه‌ای، درصد شفافیت، شدت Blur و ۱۴ رنگ اجزای هدر از مدیریت بوتیک قابل تنظیم شد.' },
     { tag: 'FLUSH TOP', title: 'v3.10.72 — هدر چسبیده به بالای صفحه', desc: 'فاصله سفید بالای هدر حذف شد: Body offset رزروشده Woodmart صفر، Header آن مخفی و پس‌زمینه Body همرنگ هدر شد — فقط روی صفحات دارای هدر AKX.' },

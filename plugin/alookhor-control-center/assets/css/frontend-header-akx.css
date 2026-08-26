@@ -1,7 +1,7 @@
 /* ===== ALOOKHOR AKX Luxury Header ===== */
 /* Purple/gold design — fully scoped to #akx-header (matches reference exactly) */
 
-/* v3.10.74: هدر بچسبد به بالای صفحه — حذف فاصله سفید بالای هدر
+/* v3.10.75: هدر بچسبد به بالای صفحه — حذف فاصله سفید بالای هدر
    (port قوانین تثبیت‌شده‌ی حالت Legacy؛ فقط روی صفحاتی که هدر AKX رویشان رندر شده) */
 html:has(#akx-header[data-akx-live="1"]),
 body:has(#akx-header[data-akx-live="1"]) {
@@ -199,7 +199,9 @@ body #akx-header .akx-mainbar.is-stuck {
   left: 0;
   right: 0;
   z-index: 99990;
-  box-shadow: 0 12px 34px rgba(10, 2, 16, .5);
+  /* خود نوار سراسری نباید هاله یا سایه تمام‌عرض بسازد؛ سایه فقط متعلق به کپسول است. */
+  box-shadow: none !important;
+  filter: none !important;
   animation: akx-stuck-in .18s ease-out;
 }
 body.admin-bar #akx-header .akx-mainbar.is-stuck { top: 32px; }
@@ -903,7 +905,7 @@ body #akx-header .akx-search-panel button {
   }
 }
 
-/* v3.10.74: Theme controls — values are emitted safely by shortcode-header.php. */
+/* v3.10.75: Theme controls — values are emitted safely by shortcode-header.php. */
 body #akx-header { color: var(--akx-text, #fff) !important; background: transparent !important; }
 body #akx-header .akx-topbar { background: var(--akx-topbar-bg, #1c0629) !important; border-bottom-color: var(--akx-topbar-border, #d4af37) !important; color: var(--akx-topbar-text, #f5f3f0) !important; }
 body #akx-header .akx-topbar-left,
@@ -918,6 +920,8 @@ body #akx-header.akx-glass-enabled .akx-mainbar {
   background: transparent !important;
   color: var(--akx-text, #fff) !important;
   border: 0 !important;
+  box-shadow: none !important;
+  filter: none !important;
   -webkit-backdrop-filter: none !important;
   backdrop-filter: none !important;
 }
