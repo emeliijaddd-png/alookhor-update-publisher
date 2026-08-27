@@ -1,4 +1,4 @@
-import { Config } from '../core/config.js?v=3.10.137';
+import { Config } from '../core/config.js?v=3.10.138';
 
 const escapeAttr = value => String(value ?? '').replace(/[&<>'"]/g, char => ({
   '&':'&amp;', '<':'&lt;', '>':'&gt;', "'":'&#039;', '"':'&quot;'
@@ -119,8 +119,9 @@ export const settingsModule = {
     if(!cfg.modules.magazine)cfg.modules.magazine={enabled:true,title:'مجله آلوخور',order:14};
     cfg.magazine_settings=Object.assign({enabled:true,title:'مجله آلوخور',subtitle:'آخرین مطالب درباره خواص، نگهداری، صادرات و فرآوری خشکبار',limit:8,category_id:0,autoplay:true,autoplay_interval:5500,show_arrows:true,show_date:true,show_excerpt:true,show_like:true,show_save:true,button_text:'ادامه مطلب',background:'#0B0713',card:'#1A1027',gold:'#D4AF37',text:'#FFFFFF',muted:'#B8B0BD',radius:20},cfg.magazine_settings||{});
     if(!cfg.modules.why_alookhor)cfg.modules.why_alookhor={enabled:true,title:'چرا آلوخور؟',order:15};
-    const whyItems=[['heart','رضایت مشتریان'],['medal','تجربه و اعتبار'],['quality','نظارت کیفیت'],['natural','محصول ۱۰۰٪ طبیعی']];
-    cfg.why_settings=Object.assign({enabled:true,eyebrow:'WHY ALOOKHOR',title:'چرا آلوخور را انتخاب کنید؟',subtitle:'تضمین ارگانیک بودن، نظارت مستمر و کیفیت بی‌رقیب خشکبار خراسان',background:'#1C1025',card:'#26213D',gold:'#D4AF37',text:'#FFFFFF',muted:'#E5E5E5',radius:20,items:[],stats:[]},cfg.why_settings||{});cfg.why_settings.items=whyItems.map((x,i)=>({icon:x[0],title:x[1],description:'',...(cfg.why_settings.items?.[i]||{})}));cfg.why_settings.stats=[0,1,2,3].map((_,i)=>({value:'',label:'',...(cfg.why_settings.stats?.[i]||{})}));
+    const whyItems=[['heart','رضایت مشتریان','هزاران مشتری و خریدار عمده راضی از سراسر جهان که کیفیت بالای آلوخور را انتخاب همیشگی خود قرار داده‌اند.'],['medal','تجربه و اعتبار','بیش از ۱۳ سال فعالیت درخشان در صنعت فرآوری، سورتینگ مکانیزه و عرضه محصولات خشکبار در قطب آلوی ایران.'],['quality','نظارت کیفیت','کنترل کیفی مستمر و سختگیرانه در تمام مراحل برداشت، بوجاری، شستشو، سورت و بسته‌بندی محصول.'],['natural','محصول ۱۰۰٪ طبیعی','تهیه‌شده بدون کوچک‌ترین اسانس یا مواد افزودنی شیمیایی مضر، با طعم سالم و اصیل برآمده از باغات ارگانیک.']];
+    const whyStats=[['+15','سال تجربه'],['+50','کشورهای هدف'],['+1000','مشتریان راضی'],['+500','محصول متنوع']];
+    cfg.why_settings=Object.assign({enabled:true,eyebrow:'WHY ALOOKHOR',title:'چرا آلوخور را انتخاب کنید؟',subtitle:'تضمین ارگانیک بودن، نظارت مستمر و کیفیت بی‌رقیب خشکبار خراسان',background:'#0B0716',card:'#12091A',gold:'#D4A436',text:'#FFFFFF',muted:'#C8BDCC',radius:20,items:[],stats:[]},cfg.why_settings||{});cfg.why_settings.items=whyItems.map((x,i)=>{const saved=cfg.why_settings.items?.[i]||{};return{icon:saved.icon||x[0],title:saved.title||x[1],description:saved.description||x[2]}});cfg.why_settings.stats=whyStats.map((x,i)=>{const saved=cfg.why_settings.stats?.[i]||{};return{value:saved.value||x[0],label:saved.label||x[1]}});if(['#1C1025','#2B0A3D'].includes(String(cfg.why_settings.background).toUpperCase()))cfg.why_settings.background='#0B0716';if(['#26213D','#1D1126'].includes(String(cfg.why_settings.card).toUpperCase()))cfg.why_settings.card='#12091A';
     if(!cfg.site) cfg.site = {name:'ALOOKHOR', subtitle:'Control Center • Luxury', logoLetter:'A'};
     if(!cfg.system) cfg.system = {uptime:'99.9%', cache:'فعال', woocommerce:'فعال', woodmart_plus:'فعال', elementor_pro:'فعال', php_version:'8.1.6', memory:'256MB / 512MB', ssl:'فعال (امن)'};
     if(!cfg.ai_assistant) cfg.ai_assistant = {suggestions:[]};

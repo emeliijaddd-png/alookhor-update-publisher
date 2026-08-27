@@ -1,5 +1,12 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.138 — 2026-08-27 — Why ALOOKHOR Complete Content + Palette
+- CONTENT: متن کامل چهار مزیت مطابق مرجع به Defaults و ترمیم مقادیر خالی اضافه شد.
+- STATS: مقادیر +15، +50، +1000 و +500 با عنوان‌های کامل و شمارنده انیمیشنی اضافه شدند.
+- PALETTE: Background `#0B0716`، Card `#12091A`، Gold `#D4A436`، Text سفید و Muted `#C8BDCC` تنظیم شد.
+- COMPOSITION: خط نقطه‌ای تزئینی طلایی به ردیف آمار اضافه و در موبایل بهینه شد.
+- BOUTIQUE: تمام عنوان‌ها، توضیحات، آیکن‌ها، اعداد، برچسب آمار و رنگ‌ها قابل ویرایش‌اند.
+
 ## v3.10.137 — 2026-08-27 — Moving Gold Navigation Indicator
 - MOTION: زیرخط طلایی با اندازه و مختصات واقعی لینک Hover شده حرکت می‌کند.
 - RETURN: پس از خروج Pointer، نشانگر نرم به صفحه فعال بازمی‌گردد.

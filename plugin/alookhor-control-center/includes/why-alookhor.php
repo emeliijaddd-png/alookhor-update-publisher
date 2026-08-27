@@ -1,13 +1,21 @@
 <?php
 /** Why ALOOKHOR — [alookhor_why_alookhor]. */
 if(!defined('ABSPATH'))exit;
-function alookhor_cc_why_defaults(){return ['enabled'=>true,'eyebrow'=>'WHY ALOOKHOR','title'=>'چرا آلوخور را انتخاب کنید؟','subtitle'=>'تضمین ارگانیک بودن، نظارت مستمر و کیفیت بی‌رقیب خشکبار خراسان','background'=>'#1C1025','card'=>'#26213D','gold'=>'#D4AF37','text'=>'#FFFFFF','muted'=>'#E5E5E5','radius'=>20,'items'=>[
- ['icon'=>'heart','title'=>'رضایت مشتریان','description'=>'اعتماد و رضایت مشتریان، نتیجه تعهد ما به کیفیت پایدار و تجربه خرید حرفه‌ای است.'],
- ['icon'=>'medal','title'=>'تجربه و اعتبار','description'=>'تجربه تخصصی در انتخاب، فرآوری و عرضه محصولات ممتاز خراسان.'],
- ['icon'=>'quality','title'=>'نظارت کیفیت','description'=>'کنترل مستمر کیفیت و بررسی دقیق محصول در تمام مراحل آماده‌سازی و بسته‌بندی.'],
- ['icon'=>'natural','title'=>'محصول ۱۰۰٪ طبیعی','description'=>'محصول طبیعی، سالم و بدون افزودنی غیرضروری؛ مناسب مصرف روزانه و صادرات.']], 'stats'=>[
- ['value'=>'','label'=>'سال تجربه'],['value'=>'','label'=>'کشورهای هدف'],['value'=>'','label'=>'مشتریان راضی'],['value'=>'','label'=>'محصول منتخب']]];}
-function alookhor_cc_get_why_settings(){$state=alookhor_cc_get_settings();$saved=is_array($state['why_settings']??null)?$state['why_settings']:[];return array_replace_recursive(alookhor_cc_why_defaults(),$saved);}
+function alookhor_cc_why_defaults(){return ['enabled'=>true,'eyebrow'=>'WHY ALOOKHOR','title'=>'چرا آلوخور را انتخاب کنید؟','subtitle'=>'تضمین ارگانیک بودن، نظارت مستمر و کیفیت بی‌رقیب خشکبار خراسان','background'=>'#0B0716','card'=>'#12091A','gold'=>'#D4A436','text'=>'#FFFFFF','muted'=>'#C8BDCC','radius'=>20,'items'=>[
+ ['icon'=>'heart','title'=>'رضایت مشتریان','description'=>'هزاران مشتری و خریدار عمده راضی از سراسر جهان که کیفیت بالای آلوخور را انتخاب همیشگی خود قرار داده‌اند.'],
+ ['icon'=>'medal','title'=>'تجربه و اعتبار','description'=>'بیش از ۱۳ سال فعالیت درخشان در صنعت فرآوری، سورتینگ مکانیزه و عرضه محصولات خشکبار در قطب آلوی ایران.'],
+ ['icon'=>'quality','title'=>'نظارت کیفیت','description'=>'کنترل کیفی مستمر و سختگیرانه در تمام مراحل برداشت، بوجاری، شستشو، سورت و بسته‌بندی محصول.'],
+ ['icon'=>'natural','title'=>'محصول ۱۰۰٪ طبیعی','description'=>'تهیه‌شده بدون کوچک‌ترین اسانس یا مواد افزودنی شیمیایی مضر، با طعم سالم و اصیل برآمده از باغات ارگانیک.']], 'stats'=>[
+ ['value'=>'+15','label'=>'سال تجربه'],['value'=>'+50','label'=>'کشورهای هدف'],['value'=>'+1000','label'=>'مشتریان راضی'],['value'=>'+500','label'=>'محصول متنوع']]];}
+function alookhor_cc_get_why_settings(){
+ $state=alookhor_cc_get_settings();$saved=is_array($state['why_settings']??null)?$state['why_settings']:[];$defaults=alookhor_cc_why_defaults();$settings=array_replace_recursive($defaults,$saved);
+ // مقادیر خالی نسخه اولیه با محتوای کامل تأییدشده مالک ترمیم شوند.
+ foreach($defaults['items'] as $i=>$item){foreach(['icon','title','description'] as $key)if(trim((string)($settings['items'][$i][$key]??''))==='')$settings['items'][$i][$key]=$item[$key];}
+ foreach($defaults['stats'] as $i=>$stat){foreach(['value','label'] as $key)if(trim((string)($settings['stats'][$i][$key]??''))==='')$settings['stats'][$i][$key]=$stat[$key];}
+ if(in_array(strtoupper((string)($settings['background']??'')),['#1C1025','#2B0A3D'],true))$settings['background']=$defaults['background'];
+ if(in_array(strtoupper((string)($settings['card']??'')),['#26213D','#1D1126'],true))$settings['card']=$defaults['card'];
+ return $settings;
+}
 function alookhor_cc_why_icon($name){$p=['heart'=>'<path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21.2l8.8-8.8a5.5 5.5 0 0 0 0-7.8Z"/>','medal'=>'<circle cx="12" cy="9" r="6"/><path d="m8 14-1 8 5-3 5 3-1-8M12 6v6M9 9h6"/>','quality'=>'<path d="M12 2 15 5l4-.2.2 4L22 12l-2.8 3.2-.2 4-4-.2-3 3-3-3-4 .2-.2-4L2 12l2.8-3.2.2-4 4 .2 3-3Z"/><path d="m9 12 2 2 4-5"/>','natural'=>'<path d="M12 21V10M12 16c-6 0-9-4-9-9 6 0 9 4 9 9Zm0-4c0-6 4-9 9-9 0 6-4 9-9 9Z"/>'];return '<svg viewBox="0 0 24 24" aria-hidden="true">'.($p[$name]??$p['quality']).'</svg>';}
 function alookhor_cc_why_shortcode(){$s=alookhor_cc_get_why_settings();if(empty($s['enabled']))return '';$c=[];foreach(['background','card','gold','text','muted'] as $k)$c[$k]=sanitize_hex_color($s[$k]??'')?:alookhor_cc_why_defaults()[$k];ob_start();static $style=false;if(!$style && alookhor_cc_should_inline_shortcode_css()){$style=true;$f=ALOOKHOR_CC_DIR.'assets/css/frontend-why-alookhor.css';if(file_exists($f))echo '<style id="alookhor-why-inline">'.file_get_contents($f).'</style>';}?>
 <section id="why-alookhor" class="alookhor-why" dir="rtl" style="--awy-bg:<?php echo esc_attr($c['background']);?>;--awy-card:<?php echo esc_attr($c['card']);?>;--awy-gold:<?php echo esc_attr($c['gold']);?>;--awy-text:<?php echo esc_attr($c['text']);?>;--awy-muted:<?php echo esc_attr($c['muted']);?>;--awy-radius:<?php echo max(12,min(36,absint($s['radius'])));?>px"><div class="awy-inner"><header><span>♛</span><small><?php echo esc_html($s['eyebrow']);?></small><h2><?php echo esc_html($s['title']);?></h2><p><?php echo esc_html($s['subtitle']);?></p><i></i></header><div class="awy-grid"><?php foreach((array)$s['items'] as $item):?><article><i><?php echo alookhor_cc_why_icon($item['icon']??'quality');?></i><h3><?php echo esc_html($item['title']??'');?></h3><p><?php echo esc_html($item['description']??'');?></p></article><?php endforeach;?></div><?php $stats=array_values(array_filter((array)$s['stats'],fn($x)=>!empty($x['value'])));if($stats):?><div class="awy-stats"><?php foreach($stats as $stat):?><span><b><?php echo esc_html($stat['value']);?></b><small><?php echo esc_html($stat['label']);?></small></span><?php endforeach;?></div><?php endif;?></div></section><?php return ob_get_clean();}
