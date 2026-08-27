@@ -1,16 +1,16 @@
 {
-  "version": "3.10.118",
-  "previous": "3.10.117",
+  "version": "3.10.119",
+  "previous": "3.10.118",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "انتشار مجدد UX پرفروش‌ها پس از timeout موقت DNS بررسی Manifest.",
+  "description": "رفع قطعی فیلتر تب‌های دسته‌بندی محصولات پرفروش.",
   "changelog": [
     {
-      "tag": "BESTSELLERS UX V3",
-      "title": "تب، Loop و تایمر واقعی پرفروش‌ها",
-      "desc": "انتشار مجدد همان اصلاحات 3.10.117 پس از خطای موقت DNS در مرحله تأیید Manifest."
+      "tag": "CATEGORY TABS FIX",
+      "title": "هر تب فقط محصولات همان دسته",
+      "desc": "Runtime v4 با Binding مستقیم، مقایسه قطعی ID، display اجباری و پشتیبانی دسته‌های والد بازنویسی شد."
     }
   ],
   "project": "ALOOKHOR",

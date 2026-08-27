@@ -1,5 +1,11 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.119 — 2026-08-27 — Bestsellers Category Tabs Runtime V4
+- ROOT CAUSE: محصولاتی که در زیر‌دسته بودند ID دسته مادر را در `data-cats` نداشتند و Binding عمومی در بعضی رندرهای Elementor اجرا نمی‌شد.
+- HIERARCHY: تمام Ancestorهای `product_cat` هر محصول به قرارداد کارت اضافه شدند.
+- DIRECT BINDING: تب‌ها در Runtime v4 مستقیماً Bind و با ID دقیق مقایسه می‌شوند.
+- GUARANTEE: Display هر کارت با اولویت Inline تنظیم می‌شود؛ هر تب فقط محصولات همان دسته/زیر‌دسته را نشان می‌دهد.
+
 ## v3.10.118 — 2026-08-27 — Bestsellers UX Runtime V3 + Countdown
 - RUNTIME: Event Delegation مستقل جایگزین Binding شکننده شد؛ تب‌ها و فلش‌ها حتی پس از رندر پویا Elementor همیشه کار می‌کنند.
 - LOOP: چرخش DOM بدون Transform و Autoplay پایدار حفظ شد.
