@@ -1,16 +1,16 @@
 {
-  "version": "3.10.98",
-  "previous": "3.10.97",
+  "version": "3.10.99",
+  "previous": "3.10.98",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "رفع کامل شورت‌کد بخش دسته‌بندی لوکس و نمایش صحیح مستقیم در Elementor.",
+  "description": "رفع جهت حرکت، خروج کارت‌ها و نبود Loop در اسلایدر محصولات پرفروش.",
   "changelog": [
     {
-      "tag": "CATEGORY SHORTCODE FIX",
-      "title": "تثبیت بخش دسته‌بندی لوکس",
-      "desc": "[alookhor_managed_categories] در init:999 تثبیت، CSS همراه خروجی و Runtime مستقیم Elementor اصلاح شد؛ بدون کپی تکراری."
+      "tag": "BESTSELLERS LOOP FIX",
+      "title": "اسلایدر پرفروش‌ها بدون خروج و با Loop",
+      "desc": "محور Track به LTR قطعی، حرکت به translate منفی و فلش‌ها/Autoplay به Loop دوطرفه تبدیل شدند؛ کارت‌ها RTL باقی ماندند."
     }
   ],
   "project": "ALOOKHOR",

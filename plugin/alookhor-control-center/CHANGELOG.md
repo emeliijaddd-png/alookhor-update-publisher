@@ -1,5 +1,11 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.99 — 2026-08-27 — Bestsellers Direction + Loop Fix
+- ROOT CAUSE: Track در RTL با translate مثبت حرکت می‌کرد و کارت‌ها را از Viewport بیرون می‌برد.
+- AXIS: محور Track به LTR قطعی و محتوای هر کارت RTL نگه داشته شد؛ حرکت با translate منفی انجام می‌شود.
+- LOOP: فلش‌های قبل/بعد و Autoplay در ابتدا و انتها به‌صورت دوطرفه Loop می‌شوند.
+- CONTAINMENT: Overflow و عرض کارت‌ها بدون سرریز در Viewport قفل باقی ماند.
+
 ## v3.10.98 — 2026-08-26 — Luxury Category Shortcode Fix
 - CANONICAL: بخش تصویر متعلق به `[alookhor_managed_categories]` است و مالکیت آن در `init:999` تثبیت شد.
 - ELEMENTOR: CSS Scoped همراه خروجی چاپ و Mount شورت‌کد مستقیم بدون انتظار برای REST انجام می‌شود.
