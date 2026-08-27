@@ -89,6 +89,8 @@ function alookhor_cc_hero_defaults(){
         'text'=>'#FFFFFF',
         'muted'=>'#D9D1DA',
         'radius'=>32,
+        'panel_opacity'=>34,
+        'panel_blur'=>20,
         'slides'=>alookhor_cc_hero_slide_defaults(),
     ];
 }
@@ -136,12 +138,14 @@ function alookhor_cc_hero_markup($settings=null){
     $slides = array_slice(array_values((array)($s['slides'] ?? [])), 0, 4);
     if (count($slides) !== 4) return '';
     $style = sprintf(
-        '--mh-gold:%s;--mh-surface:%s;--mh-text:%s;--mh-muted:%s;--mh-radius:%dpx',
+        '--mh-gold:%s;--mh-surface:%s;--mh-text:%s;--mh-muted:%s;--mh-radius:%dpx;--mh-panel-alpha:%.2F;--mh-panel-blur:%dpx',
         sanitize_hex_color($s['gold'] ?? '') ?: '#D4AF37',
         sanitize_hex_color($s['surface'] ?? '') ?: '#09060D',
         sanitize_hex_color($s['text'] ?? '') ?: '#FFFFFF',
         sanitize_hex_color($s['muted'] ?? '') ?: '#D9D1DA',
-        max(16, min(40, absint($s['radius'] ?? 32)))
+        max(16, min(40, absint($s['radius'] ?? 32))),
+        max(10, min(85, absint($s['panel_opacity'] ?? 34))) / 100,
+        max(0, min(40, absint($s['panel_blur'] ?? 20)))
     );
     ob_start(); ?>
     <section id="alookhor-managed-hero" class="alookhor-mh" dir="rtl" style="<?php echo esc_attr($style); ?>"

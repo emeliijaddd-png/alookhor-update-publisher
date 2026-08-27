@@ -1,5 +1,11 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.112 — 2026-08-27 — True Glass Hero Copy Panel
+- GLASS: پنل متن با Alpha واقعی، Backdrop Blur، Saturation، Highlight و Border طلایی به شیشه واقعی تبدیل شد.
+- VISIBILITY: Overlay بنفش سنگین کاهش یافت تا عکس کامل پشت پنل نیز واضح دیده شود.
+- BOUTIQUE: کنترل شفافیت پنل (۱۰–۸۵٪) و Blur (۰–۴۰px) به تنظیمات Hero اضافه شد.
+- MOBILE: همین شفافیت و Blur کنترل‌شده در موبایل حفظ می‌شود.
+
 ## v3.10.111 — 2026-08-27 — Unified Purple Glass Navigation
 - STRUCTURE: لوگوی رسمی داخل کپسول در سمت راست، دکمه همبرگری کنار لوگو، لینک‌ها در مرکز و ابزارهای حساب/سبد/جستجو در چپ قرار گرفتند.
 - LOGO: اگر لوگوی AKX خالی باشد، `top_logo_url` رسمی به‌صورت خودکار استفاده می‌شود.
