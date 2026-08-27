@@ -71,7 +71,7 @@ body.alookhor-mh-hide-legacy .alookhor-hero-slider-wrapper{display:none!importan
 @media(prefers-reduced-motion:reduce){.alookhor-mh-slide,.alookhor-mh-media img,.alookhor-mh-cta,.alookhor-mh-dots button{transition:none!important}.alookhor-mh[data-ken-burns="1"] .alookhor-mh-slide.is-active .alookhor-mh-media img{transform:scale(1.015)}.alookhor-mh[data-ken-burns="1"] .alookhor-mh-slide.is-active.is-image-flipped .alookhor-mh-media img{transform:translateX(-36%) scale(1.12)}}
 @media(max-width:767px) and (prefers-reduced-motion:reduce){.alookhor-mh[data-ken-burns="1"] .alookhor-mh-slide.is-active.is-image-flipped .alookhor-mh-media img{transform:scale(1.015)}}
 
-/* v3.10.108 — purple brand treatment + uncropped complete banner photography. */
+/* v3.10.109 — purple brand treatment + uncropped complete banner photography. */
 .alookhor-mh{background:radial-gradient(circle at 50% -20%,rgba(122,44,168,.16),transparent 48%),#17041f!important}
 .alookhor-mh-shell{background:#21072f!important;border-color:color-mix(in srgb,var(--mh-gold) 38%,transparent)!important}
 .alookhor-mh-media{background:linear-gradient(135deg,#17041f,#2d0d4a)!important}

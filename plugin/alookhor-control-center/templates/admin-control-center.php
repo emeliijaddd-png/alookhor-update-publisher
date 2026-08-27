@@ -26,7 +26,7 @@
       <div class="header-actions">
         <div class="version-badge" title="نسخه فعلی">
           <span style="width:6px; height:6px; border-radius:50%; background:#3DD68C; box-shadow:0 0 0 4px rgba(61,214,140,0.15); display:inline-block"></span>
-          <span id="headerVersion">v3.10.108</span>
+          <span id="headerVersion">v3.10.109</span>
           <span style="opacity:0.5">•</span>
           <span id="bpIndicator" style="font-family:monospace; font-size:11px">—</span>
         </div>
@@ -206,7 +206,7 @@
           <span style="margin-right:auto; font-size:10px; background:var(--gold); color:#1A1206; font-weight:800; padding:2px 7px; border-radius:999px">PRO</span>
         </div>
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:10px">
-          <div style="background:rgba(255,255,255,0.04); border:1px solid var(--gold-border); border-radius:10px; padding:8px; text-align:center"><div style="font-size:11px; color:var(--text-faint)">نسخه</div><b id="versionBadgeText" style="font-family:monospace; font-size:12px; color:var(--text-primary)">v3.10.108</b></div>
+          <div style="background:rgba(255,255,255,0.04); border:1px solid var(--gold-border); border-radius:10px; padding:8px; text-align:center"><div style="font-size:11px; color:var(--text-faint)">نسخه</div><b id="versionBadgeText" style="font-family:monospace; font-size:12px; color:var(--text-primary)">v3.10.109</b></div>
           <div style="background:rgba(255,255,255,0.04); border:1px solid var(--gold-border); border-radius:10px; padding:8px; text-align:center"><div style="font-size:11px; color:var(--text-faint)">ماژول</div><b style="font-size:12px; color:var(--gold-soft)">۱۹ فعال</b></div>
         </div>
         <div style="height:6px; background:rgba(255,255,255,0.06); border-radius:999px; overflow:hidden; margin-top:10px"><div style="width:100%; height:100%; background:linear-gradient(90deg,#C9A86A,#E8D5B5)"></div></div>
@@ -281,7 +281,7 @@
 
       <!-- Footer luxury -->
       <div style="margin-top:18px; padding:14px 16px; display:flex; flex-wrap:wrap; gap:10px; justify-content:space-between; align-items:center; background:rgba(255,255,255,0.02); border:1px solid var(--gold-border); border-radius:14px; font-size:12px; color:var(--text-muted)">
-        <span>© 2026 ALOOKHOR — Control Center v3.10.108 • <span id="pageTitle" style="color:var(--gold-soft); font-weight:700">داشبورد</span> • معماری ماژولار حفظ شد</span>
+        <span>© 2026 ALOOKHOR — Control Center v3.10.109 • <span id="pageTitle" style="color:var(--gold-soft); font-weight:700">داشبورد</span> • معماری ماژولار حفظ شد</span>
         <span style="display:flex; gap:8px; align-items:center">
           <span style="width:7px; height:7px; border-radius:50%; background:#3DD68C; display:inline-block"></span> سیستم پایدار
           <span style="opacity:0.4">|</span> <a href="<?php echo esc_url(ALOOKHOR_CC_URL . 'docs/PROJECT_MEMORY.md'); ?>" target="_blank" rel="noopener" style="color:var(--gold-soft); text-decoration:underline; text-underline-offset:3px">حافظه پروژه</a>
@@ -300,7 +300,7 @@
           </div>
           <div>
             <h3>Update Center</h3>
-            <div style="font-size:12px; color:var(--text-muted); margin-top:2px" id="modalVersion">v3.10.108 — به‌روز</div>
+            <div style="font-size:12px; color:var(--text-muted); margin-top:2px" id="modalVersion">v3.10.109 — به‌روز</div>
           </div>
         </div>
         <button class="icon-btn" id="btnCloseModal" style="width:34px; height:34px">✕</button>
