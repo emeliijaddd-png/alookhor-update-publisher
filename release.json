@@ -1,16 +1,16 @@
 {
-  "version": "3.10.123",
+  "version": "3.10.124",
   "previous": "3.10.121",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "انتشار مجدد سطوح Rich Plum پس از timeout موقت DNS وردپرس.",
+  "description": "تلاش سوم انتشار Rich Plum پس از اختلال DNS داخلی سرور WordPress.",
   "changelog": [
     {
       "tag": "RICH PLUM",
       "title": "سطوح بنفش آلویی پررنگ",
-      "desc": "انتشار مجدد اصلاح 3.10.122 پس از خطای موقت DNS در نصب وردپرس."
+      "desc": "تلاش سوم نصب پس از دو timeout موقت DNS در سرور وردپرس."
     }
   ],
   "project": "ALOOKHOR",

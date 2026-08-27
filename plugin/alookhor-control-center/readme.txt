@@ -4,7 +4,7 @@ Tags: control center, luxury, alookhor, admin, dashboard
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 3.10.123
+Stable tag: 3.10.124
 License: Private
 License URI: https://alookhor.ir
 
@@ -47,7 +47,7 @@ License URI: https://alookhor.ir
 
 == Changelog ==
 
-= 3.10.123 =
+= 3.10.124 =
 * جایگزینی سطوح روشن با بنفش آلویی جدید #2B0D3A و کارت‌های #3B164F
 
 = 3.10.121 =

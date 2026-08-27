@@ -2,7 +2,7 @@
 // UI/state remain modular; version discovery and installation are delegated to WordPress.
 
 const runtimeConfig = window.ALOOKHOR_CC || {};
-const runtimeVersion = String(runtimeConfig.version || '3.10.123');
+const runtimeVersion = String(runtimeConfig.version || '3.10.124');
 
 function normalizeResult(data = {}) {
   const current = String(data.current || runtimeVersion);
@@ -55,7 +55,7 @@ export const Updater = {
   latest: runtimeVersion,
   lastCheck: null,
   changelog: [
-    { tag: 'RICH PLUM', title: 'v3.10.123 — بنفش آلویی پررنگ', desc: 'سطوح روشن با رنگ جدید #2B0D3A و کارت‌های بنفش برند جایگزین شدند.' },
+    { tag: 'RICH PLUM', title: 'v3.10.124 — بنفش آلویی پررنگ', desc: 'سطوح روشن با رنگ جدید #2B0D3A و کارت‌های بنفش برند جایگزین شدند.' },
     { tag: 'WARM LUXURY', title: 'v3.10.121 — سطوح گرم لوکس', desc: 'سفید سرد با Warm Light، Sand و Premium Ivory هماهنگ با بنفش/طلایی برند جایگزین شد.' },
     { tag: 'DESIGN SYSTEM', title: 'v3.10.120 — پالت مرکزی ALOOKHOR', desc: 'ریتم White/Cream/Purple/Deep Purple و شش توکن نهایی روی تمام ماژول‌ها اعمال شد.' },
     { tag: 'CATEGORY TABS', title: 'v3.10.119 — فیلتر واقعی تب‌های پرفروش', desc: 'Runtime v4 و دسته‌های والد اضافه شد تا هر تب فقط محصولات مرتبط را نشان دهد.' },

@@ -36,7 +36,7 @@ html body .alookhor-mf{--mf-bg:var(--alookhor-deep-purple)!important;--mf-surfac
 html body :is(.alookhor-mc,.alookhor-fp,.alookhor-bs,.alookhor-sort-center,.alookhor-mag) :is(button,a):focus-visible{outline:3px solid var(--alookhor-gold)!important;outline-offset:3px}.alookhor-managed-page :is(.alookhor-mc-card,.afp-card,.abs-card,.asc-features article,.am-card){border-radius:20px}.alookhor-managed-page :is(.alookhor-mh-shell,.alookhor-campaign,.alookhor-xb){border-radius:32px}
 @media(prefers-reduced-motion:reduce){html body .alookhor-managed-page *{scroll-behavior:auto!important}}
 
-/* v3.10.123 — Warm Luxury Surface revision: no stark-white section backgrounds. */
+/* v3.10.124 — Warm Luxury Surface revision: no stark-white section backgrounds. */
 :root{--alookhor-warm-light:#F3EBDD;--alookhor-warm-secondary:#EDE2D0;--alookhor-warm-card:#FFF9EF}
 html body.alookhor-managed-page,html body.alookhor-managed-page .website-wrapper,html body.alookhor-managed-page .main-page-wrapper,html body.alookhor-managed-page #main-content{background:var(--alookhor-warm-light)!important}
 /* Trust: warm-light section, premium ivory cards */
@@ -57,7 +57,7 @@ html body .alookhor-newsletter .an-form>div{background:var(--alookhor-warm-card)
 /* Warm, restrained shadow hue derived only from brand purple. */
 html body :is(.alookhor-sf-card,.alookhor-mc-card,.afp-card,.abs-card,.asc-description,.asc-products,.asc-features article,.aab-inner,.am-card){box-shadow:0 10px 30px rgba(59,22,79,.09)!important}
 
-/* v3.10.123 — Owner-approved Rich Plum revision; replaces all warm large surfaces. */
+/* v3.10.124 — Owner-approved Rich Plum revision; replaces all warm large surfaces. */
 :root{--alookhor-rich-plum:#2B0D3A}
 html body.alookhor-managed-page,html body.alookhor-managed-page .website-wrapper,html body.alookhor-managed-page .main-page-wrapper,html body.alookhor-managed-page #main-content{background:var(--alookhor-rich-plum)!important;color:var(--alookhor-white)!important}
 /* Trust */
