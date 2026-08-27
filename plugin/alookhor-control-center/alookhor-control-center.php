@@ -3,7 +3,7 @@
  * Plugin Name: ALOOKHOR Control Center
  * Plugin URI: https://alookhor.ir
  * Description: کنترل سنتر لوکس و ماژولار آلوخور — مدیریت کامل سایت (هدر، اسلایدر، سورت، محصولات، مشتریان VIP، مالی، آنالیتیکس) با آپدیت آنی بدون رفرش. تمام تنظیمات چت قبلی + شورت‌کد [alookhor_portal_header] اینجا مدیریت می‌شود.
- * Version: 3.10.119
+ * Version: 3.10.120
  * Author: ALOOKHOR Team — Luxury Modular
  * Author URI: https://alookhor.ir
  * Update URI: https://alookhor.ir/alookhor-control-center
@@ -16,8 +16,8 @@
 
 if (!defined('ABSPATH')) exit;
 
-define('ALOOKHOR_CC_VERSION', '3.10.119');
-define('ALOOKHOR_CC_BUILD', '3.10.119');
+define('ALOOKHOR_CC_VERSION', '3.10.120');
+define('ALOOKHOR_CC_BUILD', '3.10.120');
 define('ALOOKHOR_CC_FILE', __FILE__);
 define('ALOOKHOR_CC_DIR', plugin_dir_path(__FILE__));
 define('ALOOKHOR_CC_URL', plugin_dir_url(__FILE__));
@@ -75,6 +75,11 @@ add_action('wp_enqueue_scripts',function(){
     wp_enqueue_style('alookhor-cc-managed-layout',ALOOKHOR_CC_URL.'assets/css/frontend-managed-layout.css',[],ALOOKHOR_CC_BUILD);
     wp_enqueue_script('alookhor-cc-managed-layout',ALOOKHOR_CC_URL.'assets/js/frontend-managed-layout.js',[],ALOOKHOR_CC_BUILD,true);
 },99);
+
+// MASTER DESIGN DIRECTIVE — لایه نهایی و مرکزی پالت/ریتم تمام ماژول‌های فرانت.
+add_action('wp_enqueue_scripts',function(){
+    wp_enqueue_style('alookhor-cc-design-system',ALOOKHOR_CC_URL.'assets/css/frontend-design-system.css',['alookhor-cc-managed-layout'],ALOOKHOR_CC_BUILD);
+},999);
 
 // ——— Enqueue برای فرانت (هدر لوکس، کاملاً Scoped) ———
 // فایل کامل luxury.css مخصوص کنترل سنتر است و نباید body/theme فرانت را override کند.

@@ -1,5 +1,12 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.120 — 2026-08-27 — Canonical ALOOKHOR Design System
+- TOKENS: شش رنگ نهایی Purple/Deep Purple/Gold/Light Gold/Cream/White به‌صورت Global Token مرکزی تعریف شد.
+- RHYTHM: Header و Export و Footer تیره؛ Hero/Promo/Newsletter بنفش؛ Trust/Products سفید؛ Categories/Sorting/Magazine کرم نگاشت شدند.
+- DEPTH: Surface بخش و Card از هم جدا شدند؛ کارت‌های روشن Border بنفش ظریف و Shadow محدود گرفتند.
+- COMPONENTS: تمام ماژول‌های مدیریت‌شده از Header تا Footer به لایه مرکزی متصل شدند؛ Hard-coded overrideهای قبلی دیگر مرجع نهایی نیستند.
+- ACCESSIBILITY: متن روشن/تیره بر اساس Surface، Focus طلایی و Reduced Motion حفظ شد.
+
 ## v3.10.119 — 2026-08-27 — Bestsellers Category Tabs Runtime V4
 - ROOT CAUSE: محصولاتی که در زیر‌دسته بودند ID دسته مادر را در `data-cats` نداشتند و Binding عمومی در بعضی رندرهای Elementor اجرا نمی‌شد.
 - HIERARCHY: تمام Ancestorهای `product_cat` هر محصول به قرارداد کارت اضافه شدند.
