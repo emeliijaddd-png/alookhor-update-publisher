@@ -1,5 +1,11 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.114 — 2026-08-27 — Elementor Managed-module Gap Cleanup
+- DETECT: تمام ریشه‌های شورت‌کد مدیریت‌شده شناسایی و Widget/Container والد آن‌ها نشانه‌گذاری می‌شوند.
+- ZERO GAP: Margin، Padding و Gap رزروشده Elementor فقط روی همان میزبان‌ها صفر می‌شود.
+- NO WHITE: پس‌زمینه میزبان‌ها با تم بنفش هماهنگ شد تا نوار سفید بالا/پایین حذف شود.
+- SAFE: کانتینرها و محتوای غیرمرتبط Elementor دست‌نخورده می‌مانند.
+
 ## v3.10.113 — 2026-08-27 — Live Boutique Hero Palette
 - ROOT CAUSE: Overrideهای نسخه 3.10.108 رنگ‌های بنفش ثابت داشتند و مقدار Surface ذخیره‌شده بوتیک را می‌پوشاندند.
 - VARIABLES: RGB امن رنگ Surface در PHP تولید و به CSS Variable تبدیل شد.

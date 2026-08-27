@@ -3,7 +3,7 @@
  * Plugin Name: ALOOKHOR Control Center
  * Plugin URI: https://alookhor.ir
  * Description: کنترل سنتر لوکس و ماژولار آلوخور — مدیریت کامل سایت (هدر، اسلایدر، سورت، محصولات، مشتریان VIP، مالی، آنالیتیکس) با آپدیت آنی بدون رفرش. تمام تنظیمات چت قبلی + شورت‌کد [alookhor_portal_header] اینجا مدیریت می‌شود.
- * Version: 3.10.113
+ * Version: 3.10.114
  * Author: ALOOKHOR Team — Luxury Modular
  * Author URI: https://alookhor.ir
  * Update URI: https://alookhor.ir/alookhor-control-center
@@ -16,8 +16,8 @@
 
 if (!defined('ABSPATH')) exit;
 
-define('ALOOKHOR_CC_VERSION', '3.10.113');
-define('ALOOKHOR_CC_BUILD', '3.10.113');
+define('ALOOKHOR_CC_VERSION', '3.10.114');
+define('ALOOKHOR_CC_BUILD', '3.10.114');
 define('ALOOKHOR_CC_FILE', __FILE__);
 define('ALOOKHOR_CC_DIR', plugin_dir_path(__FILE__));
 define('ALOOKHOR_CC_URL', plugin_dir_url(__FILE__));
@@ -69,6 +69,12 @@ require_once ALOOKHOR_CC_DIR . 'includes/magazine.php';
 require_once ALOOKHOR_CC_DIR . 'includes/shortcode-export-banner.php';
 require_once ALOOKHOR_CC_DIR . 'includes/admin-export-banner.php';
 // v3.10.66: admin-header-manager.php حذف شد — تنظیمات هدر AKX داخل مدیریت بوتیک است.
+
+// حذف فاصله‌های سفید رزروشده Elementor فقط برای کانتینرهای میزبان شورت‌کدهای مدیریت‌شده.
+add_action('wp_enqueue_scripts',function(){
+    wp_enqueue_style('alookhor-cc-managed-layout',ALOOKHOR_CC_URL.'assets/css/frontend-managed-layout.css',[],ALOOKHOR_CC_BUILD);
+    wp_enqueue_script('alookhor-cc-managed-layout',ALOOKHOR_CC_URL.'assets/js/frontend-managed-layout.js',[],ALOOKHOR_CC_BUILD,true);
+},99);
 
 // ——— Enqueue برای فرانت (هدر لوکس، کاملاً Scoped) ———
 // فایل کامل luxury.css مخصوص کنترل سنتر است و نباید body/theme فرانت را override کند.

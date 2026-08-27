@@ -1,16 +1,16 @@
 {
-  "version": "3.10.113",
-  "previous": "3.10.112",
+  "version": "3.10.114",
+  "previous": "3.10.113",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "رفع نادیده‌گرفتن رنگ‌های انتخابی بوتیک در اسلایدر Hero.",
+  "description": "حذف خودکار فاصله‌ها و نوارهای سفید کانتینرهای Elementor میزبان شورت‌کدهای مدیریت‌شده.",
   "changelog": [
     {
-      "tag": "LIVE HERO PALETTE",
-      "title": "اعمال واقعی رنگ بوتیک روی اسلایدر",
-      "desc": "رنگ‌های hardcoded حذف و Surface/RGB ذخیره‌شده در تمام پس‌زمینه، Overlay، پنل شیشه‌ای و دکمه‌ها اعمال شد."
+      "tag": "ZERO WHITE GAPS",
+      "title": "پاکسازی فاصله کانتینرهای شورت‌کد",
+      "desc": "Runtime میزبان هر ماژول را شناسایی و Margin/Padding/Gap سفید Elementor را فقط همان‌جا صفر و پس‌زمینه را بنفش می‌کند."
     }
   ],
   "project": "ALOOKHOR",
@@ -59,6 +59,8 @@
     "plugin/alookhor-control-center/includes/magazine.php",
     "plugin/alookhor-control-center/assets/css/frontend-magazine.css",
     "plugin/alookhor-control-center/assets/js/frontend-magazine.js",
-    "scripts/wordpress_release_test.py"
+    "scripts/wordpress_release_test.py",
+    "plugin/alookhor-control-center/assets/css/frontend-managed-layout.css",
+    "plugin/alookhor-control-center/assets/js/frontend-managed-layout.js"
   ]
 }
