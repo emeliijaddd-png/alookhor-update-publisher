@@ -1,16 +1,16 @@
 {
-  "version": "3.10.114",
-  "previous": "3.10.113",
+  "version": "3.10.115",
+  "previous": "3.10.114",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "حذف خودکار فاصله‌ها و نوارهای سفید کانتینرهای Elementor میزبان شورت‌کدهای مدیریت‌شده.",
+  "description": "حذف آخرین درزهای سفید میان کانتینرهای Elementor و Woodmart.",
   "changelog": [
     {
-      "tag": "ZERO WHITE GAPS",
-      "title": "پاکسازی فاصله کانتینرهای شورت‌کد",
-      "desc": "Runtime میزبان هر ماژول را شناسایی و Margin/Padding/Gap سفید Elementor را فقط همان‌جا صفر و پس‌زمینه را بنفش می‌کند."
+      "tag": "NO WHITE SEAMS",
+      "title": "حذف کامل خطوط سفید بین بخش‌ها",
+      "desc": "سطح والدهای تو در تو، Wrapperهای Woodmart، Spacerها و Dividerها در صفحات ماژولار به پس‌زمینه بنفش هماهنگ شدند."
     }
   ],
   "project": "ALOOKHOR",

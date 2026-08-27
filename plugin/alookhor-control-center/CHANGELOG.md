@@ -1,5 +1,11 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.115 — 2026-08-27 — Residual White Seam Cleanup
+- ROOT CAUSE: درز باقی‌مانده متعلق به Wrapperهای تو‌در‌توی Woodmart/Elementor و Spacer/Divider بین میزبان‌ها بود، نه خود شورت‌کد.
+- SURFACE: تا سه سطح والد هر ماژول نشانه‌گذاری و فقط Background آن‌ها با بنفش سایت هماهنگ شد.
+- WRAPPERS: Body، Website Wrapper، Main Page Wrapper و Main Content صفحات ماژولار سطح بنفش یکپارچه گرفتند.
+- SPACERS: Spacer و HRهای باقی‌مانده دیگر نوار سفید تولید نمی‌کنند.
+
 ## v3.10.114 — 2026-08-27 — Elementor Managed-module Gap Cleanup
 - DETECT: تمام ریشه‌های شورت‌کد مدیریت‌شده شناسایی و Widget/Container والد آن‌ها نشانه‌گذاری می‌شوند.
 - ZERO GAP: Margin، Padding و Gap رزروشده Elementor فقط روی همان میزبان‌ها صفر می‌شود.
