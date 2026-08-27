@@ -1,16 +1,16 @@
 {
-  "version": "3.10.99",
+  "version": "3.10.100",
   "previous": "3.10.98",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "رفع جهت حرکت، خروج کارت‌ها و نبود Loop در اسلایدر محصولات پرفروش.",
+  "description": "بازیابی فایل‌های اسلایدر و رفع نهایی جهت، خروج از کادر و Loop محصولات پرفروش.",
   "changelog": [
     {
-      "tag": "BESTSELLERS LOOP FIX",
-      "title": "اسلایدر پرفروش‌ها بدون خروج و با Loop",
-      "desc": "محور Track به LTR قطعی، حرکت به translate منفی و فلش‌ها/Autoplay به Loop دوطرفه تبدیل شدند؛ کارت‌ها RTL باقی ماندند."
+      "tag": "BESTSELLERS LOOP FINAL",
+      "title": "رفع نهایی اسلایدر پرفروش‌ها",
+      "desc": "فایل‌های CSS/JS کامل بازیابی، محور حرکت قطعی، translate منفی و Loop دوطرفه اعمال شد."
     }
   ],
   "project": "ALOOKHOR",

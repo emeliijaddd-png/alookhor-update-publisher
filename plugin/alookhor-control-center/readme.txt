@@ -4,7 +4,7 @@ Tags: control center, luxury, alookhor, admin, dashboard
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 3.10.99
+Stable tag: 3.10.100
 License: Private
 License URI: https://alookhor.ir
 
@@ -47,7 +47,7 @@ License URI: https://alookhor.ir
 
 == Changelog ==
 
-= 3.10.99 =
+= 3.10.100 =
 * رفع خروج کارت‌های پرفروش از کادر و افزودن Loop دوطرفه فلش و Autoplay
 
 = 3.10.98 =

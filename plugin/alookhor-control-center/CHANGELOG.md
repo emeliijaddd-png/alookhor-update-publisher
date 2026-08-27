@@ -1,6 +1,6 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
-## v3.10.99 — 2026-08-27 — Bestsellers Direction + Loop Fix
+## v3.10.100 — 2026-08-27 — Bestsellers Direction + Loop Fix
 - ROOT CAUSE: Track در RTL با translate مثبت حرکت می‌کرد و کارت‌ها را از Viewport بیرون می‌برد.
 - AXIS: محور Track به LTR قطعی و محتوای هر کارت RTL نگه داشته شد؛ حرکت با translate منفی انجام می‌شود.
 - LOOP: فلش‌های قبل/بعد و Autoplay در ابتدا و انتها به‌صورت دوطرفه Loop می‌شوند.
