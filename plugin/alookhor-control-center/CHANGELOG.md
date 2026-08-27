@@ -1,5 +1,11 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.116 — 2026-08-27 — Professional Footer Typography
+- FONT: فونت Variable Vazirmatn با دو Subset فارسی و لاتین WOFF2 محلی، `font-display:swap` و وزن 100–900 اضافه شد؛ هیچ وابستگی خارجی ندارد.
+- DESKTOP: تیتر 18/30 وزن 700، لینک 14/28 وزن 400، توضیح 14/30 وزن 400، تماس 15/30 وزن 500 و کپی‌رایت 13/24 اعمال شد.
+- MOBILE: تیتر 16/28، لینک 14/32، توضیح 14/30، تماس 15/30 وزن 600 و کپی‌رایت 12/24 اعمال شد.
+- RTL: Letter spacing فارسی صفر، Font synthesis غیرفعال و Hover طلایی 0.3s حفظ شد.
+
 ## v3.10.115 — 2026-08-27 — Residual White Seam Cleanup
 - ROOT CAUSE: درز باقی‌مانده متعلق به Wrapperهای تو‌در‌توی Woodmart/Elementor و Spacer/Divider بین میزبان‌ها بود، نه خود شورت‌کد.
 - SURFACE: تا سه سطح والد هر ماژول نشانه‌گذاری و فقط Background آن‌ها با بنفش سایت هماهنگ شد.

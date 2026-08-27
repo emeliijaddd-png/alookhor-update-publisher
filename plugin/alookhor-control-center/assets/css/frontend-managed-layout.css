@@ -13,7 +13,7 @@ html body :is(.alookhor-mh,.alookhor-sf,.alookhor-sort-center,.alookhor-xb,.aloo
 html body .alookhor-managed-module-host+ .alookhor-managed-module-host{border-top:0!important}
 @media(max-width:767px){html body .alookhor-managed-module-host{min-height:0!important}}
 
-/* v3.10.115 — remove residual Woodmart/Elementor white seams between module containers. */
+/* v3.10.116 — remove residual Woodmart/Elementor white seams between module containers. */
 html body.alookhor-managed-page,
 html body.alookhor-managed-page .website-wrapper,
 html body.alookhor-managed-page .main-page-wrapper,

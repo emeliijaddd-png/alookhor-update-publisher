@@ -4,7 +4,7 @@ Tags: control center, luxury, alookhor, admin, dashboard
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 3.10.115
+Stable tag: 3.10.116
 License: Private
 License URI: https://alookhor.ir
 
@@ -46,6 +46,9 @@ License URI: https://alookhor.ir
 در `config/site.json` و `wp_options: alookhor_cc_settings` — همان حافظه واقعی که در چت قبلی ویرایش می‌شد.
 
 == Changelog ==
+
+= 3.10.116 =
+* تایپوگرافی حرفه‌ای فوتر با Vazirmatn WOFF2 محلی و اندازه‌های استاندارد Desktop/Mobile
 
 = 3.10.115 =
 * حذف آخرین درزهای سفید Wrapper، Spacer و Divider میان بخش‌های ماژولار
