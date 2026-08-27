@@ -2,7 +2,7 @@
 // UI/state remain modular; version discovery and installation are delegated to WordPress.
 
 const runtimeConfig = window.ALOOKHOR_CC || {};
-const runtimeVersion = String(runtimeConfig.version || '3.10.125');
+const runtimeVersion = String(runtimeConfig.version || '3.10.126');
 
 function normalizeResult(data = {}) {
   const current = String(data.current || runtimeVersion);
@@ -55,6 +55,7 @@ export const Updater = {
   latest: runtimeVersion,
   lastCheck: null,
   changelog: [
+    { tag: 'THREE PLUM', title: 'v3.10.126 — چرخه سه‌رنگ کانتینرها', desc: 'سه رنگ انتخابی مالک به ترتیب واقعی بخش‌ها تکرار می‌شوند.' },
     { tag: 'PLUM RHYTHM', title: 'v3.10.125 — بنفش‌های یکی‌درمیان', desc: 'کانتینرهای Homepage به‌ترتیب بین #2B0A3D و #3A0D5C جابه‌جا می‌شوند.' },
     { tag: 'RICH PLUM', title: 'v3.10.124 — بنفش آلویی پررنگ', desc: 'سطوح روشن با رنگ جدید #2B0D3A و کارت‌های بنفش برند جایگزین شدند.' },
     { tag: 'WARM LUXURY', title: 'v3.10.121 — سطوح گرم لوکس', desc: 'سفید سرد با Warm Light، Sand و Premium Ivory هماهنگ با بنفش/طلایی برند جایگزین شد.' },

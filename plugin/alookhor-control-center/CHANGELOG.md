@@ -1,5 +1,11 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.126 — 2026-08-27 — Three-step Plum Container Rhythm
+- COLORS: رنگ‌های دقیق `#1C1025`، `#26213D` و `#1D1126` به توکن‌های کانتینر اضافه شدند.
+- CYCLE: Runtime ترتیب واقعی DOM را با الگوی A → B → C → A تکرار می‌کند.
+- SEAMLESS: Root هر ماژول و میزبان Elementor آن رنگ یکسان می‌گیرند تا هیچ درزی ایجاد نشود.
+- CLEANUP: کلاس‌های چرخه قبلی در هر اجرا به‌روز می‌شوند و رنگ مانده از ترتیب قبلی وجود ندارد.
+
 ## v3.10.125 — 2026-08-27 — Alternating Plum Section Rhythm
 - COLORS: دو رنگ دقیق `#2B0A3D` و `#3A0D5C` به توکن‌های مرکزی اضافه شدند.
 - RUNTIME: ترتیب واقعی ماژول‌ها پس از رندر Elementor خوانده و کلاس A/B یکی‌درمیان اعمال می‌شود.

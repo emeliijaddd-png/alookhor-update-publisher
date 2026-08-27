@@ -88,3 +88,6 @@ At the owner's explicit direction, the warm light large surfaces from v3.10.121 
 
 ## Alternating Plum Rhythm Amendment — 2026-08-27
 At the owner's direction, managed Homepage content sections alternate by actual DOM order between `#2B0A3D` and `#3A0D5C`. Header, Hero and Footer retain their dedicated role colors. The runtime assigns deterministic A/B surface classes after Elementor renders, and each section plus its host receives the same token to prevent seams.
+
+## Three-step Container Rhythm Amendment — 2026-08-27
+The previous two-color alternation is superseded by a deterministic three-step DOM rhythm: `#1C1025` → `#26213D` → `#1D1126` → repeat. Each managed section and its Elementor host share the same assigned surface. Header, Hero and Footer remain role-specific.
