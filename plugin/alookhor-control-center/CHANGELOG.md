@@ -1,5 +1,11 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.125 — 2026-08-27 — Alternating Plum Section Rhythm
+- COLORS: دو رنگ دقیق `#2B0A3D` و `#3A0D5C` به توکن‌های مرکزی اضافه شدند.
+- RUNTIME: ترتیب واقعی ماژول‌ها پس از رندر Elementor خوانده و کلاس A/B یکی‌درمیان اعمال می‌شود.
+- SEAMLESS: Root هر سکشن و Container میزبان آن دقیقاً یک رنگ می‌گیرند تا هیچ درز یا زمینه متفاوتی ایجاد نشود.
+- EXCLUSIONS: Header، Hero و Footer نقش رنگی مستقل خود را حفظ می‌کنند.
+
 ## v3.10.124 — 2026-08-27 — Rich Plum Luxury Surfaces
 - NEW COLOR: بنفش آلویی پررنگ و جدید `#2B0D3A` به‌عنوان Surface بزرگ اضافه شد.
 - DEPTH: Cardها `#3B164F` و سطوح Inset برابر `#16091F` هستند؛ متن سفید و Gold محدود حفظ شد.

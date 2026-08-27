@@ -85,3 +85,6 @@ The owner approved replacing stark white section backgrounds with a warmer plum-
 
 ## Rich Plum Surface Amendment — 2026-08-27
 At the owner's explicit direction, the warm light large surfaces from v3.10.121 are superseded by a new Rich Plum token `#2B0D3A`. Managed Trust, Categories, Product, Sorting, App and Magazine sections use Rich Plum as their large surface, Primary Purple `#3B164F` as card depth, Deep Purple `#16091F` for inset surfaces, white text and restrained gold accents. The warm tokens remain archived but are not active storefront surfaces.
+
+## Alternating Plum Rhythm Amendment — 2026-08-27
+At the owner's direction, managed Homepage content sections alternate by actual DOM order between `#2B0A3D` and `#3A0D5C`. Header, Hero and Footer retain their dedicated role colors. The runtime assigns deterministic A/B surface classes after Elementor renders, and each section plus its host receives the same token to prevent seams.

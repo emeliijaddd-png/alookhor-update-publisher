@@ -1,16 +1,16 @@
 {
-  "version": "3.10.124",
-  "previous": "3.10.121",
+  "version": "3.10.125",
+  "previous": "3.10.124",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "تلاش سوم انتشار Rich Plum پس از اختلال DNS داخلی سرور WordPress.",
+  "description": "اجرای ریتم یکی‌درمیان دو بنفش #2B0A3D و #3A0D5C روی کانتینرهای Homepage.",
   "changelog": [
     {
-      "tag": "RICH PLUM",
-      "title": "سطوح بنفش آلویی پررنگ",
-      "desc": "تلاش سوم نصب پس از دو timeout موقت DNS در سرور وردپرس."
+      "tag": "ALTERNATING PLUM",
+      "title": "کانتینرهای بنفش یکی‌درمیان",
+      "desc": "Runtime ترتیب واقعی DOM را می‌خواند و Surface هر بخش و میزبان Elementor آن را به‌تناوب بین دو بنفش انتخابی مالک تنظیم می‌کند."
     }
   ],
   "project": "ALOOKHOR",

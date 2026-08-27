@@ -36,7 +36,7 @@ html body .alookhor-mf{--mf-bg:var(--alookhor-deep-purple)!important;--mf-surfac
 html body :is(.alookhor-mc,.alookhor-fp,.alookhor-bs,.alookhor-sort-center,.alookhor-mag) :is(button,a):focus-visible{outline:3px solid var(--alookhor-gold)!important;outline-offset:3px}.alookhor-managed-page :is(.alookhor-mc-card,.afp-card,.abs-card,.asc-features article,.am-card){border-radius:20px}.alookhor-managed-page :is(.alookhor-mh-shell,.alookhor-campaign,.alookhor-xb){border-radius:32px}
 @media(prefers-reduced-motion:reduce){html body .alookhor-managed-page *{scroll-behavior:auto!important}}
 
-/* v3.10.124 — Warm Luxury Surface revision: no stark-white section backgrounds. */
+/* v3.10.125 — Warm Luxury Surface revision: no stark-white section backgrounds. */
 :root{--alookhor-warm-light:#F3EBDD;--alookhor-warm-secondary:#EDE2D0;--alookhor-warm-card:#FFF9EF}
 html body.alookhor-managed-page,html body.alookhor-managed-page .website-wrapper,html body.alookhor-managed-page .main-page-wrapper,html body.alookhor-managed-page #main-content{background:var(--alookhor-warm-light)!important}
 /* Trust: warm-light section, premium ivory cards */
@@ -57,7 +57,7 @@ html body .alookhor-newsletter .an-form>div{background:var(--alookhor-warm-card)
 /* Warm, restrained shadow hue derived only from brand purple. */
 html body :is(.alookhor-sf-card,.alookhor-mc-card,.afp-card,.abs-card,.asc-description,.asc-products,.asc-features article,.aab-inner,.am-card){box-shadow:0 10px 30px rgba(59,22,79,.09)!important}
 
-/* v3.10.124 — Owner-approved Rich Plum revision; replaces all warm large surfaces. */
+/* v3.10.125 — Owner-approved Rich Plum revision; replaces all warm large surfaces. */
 :root{--alookhor-rich-plum:#2B0D3A}
 html body.alookhor-managed-page,html body.alookhor-managed-page .website-wrapper,html body.alookhor-managed-page .main-page-wrapper,html body.alookhor-managed-page #main-content{background:var(--alookhor-rich-plum)!important;color:var(--alookhor-white)!important}
 /* Trust */
@@ -74,3 +74,15 @@ html body .alookhor-app-banner{--aab-bg:var(--alookhor-rich-plum)!important;--aa
 html body .alookhor-mag{--am-bg:var(--alookhor-rich-plum)!important;--am-card:var(--alookhor-purple)!important;--am-text:var(--alookhor-white)!important;--am-muted:var(--alookhor-text-light-muted)!important;background:var(--alookhor-rich-plum)!important;color:var(--alookhor-white)!important}.am-inner>header,.am-card{background:var(--alookhor-purple)!important;border-color:rgba(212,175,55,.2)!important}.am-body h3 a{color:var(--alookhor-white)!important}
 /* Purple-tinted restrained depth; no clinical light surface remains. */
 html body :is(.alookhor-sf-card,.alookhor-mc-card,.afp-card,.abs-card,.asc-description,.asc-products,.asc-features article,.aab-inner,.am-card){box-shadow:0 12px 32px rgba(22,9,31,.22)!important}
+
+/* v3.10.125 — alternating plum rhythm requested by owner. */
+:root{--alookhor-plum-a:#2B0A3D;--alookhor-plum-b:#3A0D5C}
+html body .alookhor-managed-module-host.alookhor-surface-a,
+html body .alookhor-managed-module-surface:has(.alookhor-module-surface-a){background:#2B0A3D!important}
+html body .alookhor-managed-module-host.alookhor-surface-b,
+html body .alookhor-managed-module-surface:has(.alookhor-module-surface-b){background:#3A0D5C!important}
+html body :is(.alookhor-sf,.alookhor-sort-center,.alookhor-xb,.alookhor-app-banner,.alookhor-fp,.alookhor-campaign-wrap,.alookhor-bs,.alookhor-newsletter,.alookhor-mag,.alookhor-mc).alookhor-module-surface-a{background:#2B0A3D!important;background-image:none!important}
+html body :is(.alookhor-sf,.alookhor-sort-center,.alookhor-xb,.alookhor-app-banner,.alookhor-fp,.alookhor-campaign-wrap,.alookhor-bs,.alookhor-newsletter,.alookhor-mag,.alookhor-mc).alookhor-module-surface-b{background:#3A0D5C!important;background-image:none!important}
+/* Full-bleed roots keep the exact same surface as their Elementor host, eliminating seams. */
+html body .alookhor-module-surface-a{--sf-bg:#2B0A3D!important;--asc-bg:#2B0A3D!important;--akx-bg:#2B0A3D!important;--aab-bg:#2B0A3D!important;--afp-bg:#2B0A3D!important;--ac-bg:#2B0A3D!important;--abs-bg:#2B0A3D!important;--an-bg:#2B0A3D!important;--am-bg:#2B0A3D!important;--mc-bg:#2B0A3D!important}
+html body .alookhor-module-surface-b{--sf-bg:#3A0D5C!important;--asc-bg:#3A0D5C!important;--akx-bg:#3A0D5C!important;--aab-bg:#3A0D5C!important;--afp-bg:#3A0D5C!important;--ac-bg:#3A0D5C!important;--abs-bg:#3A0D5C!important;--an-bg:#3A0D5C!important;--am-bg:#3A0D5C!important;--mc-bg:#3A0D5C!important}
