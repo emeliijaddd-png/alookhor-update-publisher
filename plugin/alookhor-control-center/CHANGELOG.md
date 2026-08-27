@@ -1,5 +1,11 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.104 — 2026-08-27 — Professional Newsletter
+- SHORTCODE: `[alookhor_newsletter]` اضافه شد.
+- SUBSCRIBE: اعتبارسنجی ایمیل، Nonce، رضایت حریم خصوصی، جلوگیری از تکرار و ذخیره واقعی اعضا در WordPress پیاده شد.
+- BOUTIQUE: تمام متن‌ها، پیام موفقیت، پنج رنگ و گردی فرم قابل مدیریت است.
+- DESIGN: پس‌زمینه تمام‌عرض، کانتینر مرکزی، فرم شیشه‌ای و Responsive مطابق تم سایت ساخته شد.
+
 ## v3.10.103 — 2026-08-27 — Transform-free Infinite Bestsellers Loop
 - ROOT CAUSE: محاسبه Translate در ترکیب RTL و Elementor در بعضی عرض‌ها Track را به سمت راست خارج می‌کرد.
 - LOOP: Translate کامل حذف شد؛ Next/Prev با چرخش واقعی اولین/آخرین Card در DOM انجام می‌شود.

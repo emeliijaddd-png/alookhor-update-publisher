@@ -2,7 +2,7 @@
 // UI/state remain modular; version discovery and installation are delegated to WordPress.
 
 const runtimeConfig = window.ALOOKHOR_CC || {};
-const runtimeVersion = String(runtimeConfig.version || '3.10.103');
+const runtimeVersion = String(runtimeConfig.version || '3.10.104');
 
 function normalizeResult(data = {}) {
   const current = String(data.current || runtimeVersion);
@@ -55,6 +55,7 @@ export const Updater = {
   latest: runtimeVersion,
   lastCheck: null,
   changelog: [
+    { tag: 'NEWSLETTER', title: 'v3.10.104 — خبرنامه حرفه‌ای', desc: 'فرم عضویت واقعی و امن با طراحی تمام‌عرض و تنظیمات کامل بوتیک اضافه شد.' },
     { tag: 'INFINITE LOOP', title: 'v3.10.103 — Loop بدون خروج پرفروش‌ها', desc: 'Translate حذف و Loop با چرخش کارت‌ها پیاده شد؛ هیچ فضای خالی یا سرریز باقی نمی‌ماند.' },
     { tag: 'CAMPAIGN FULL BLEED', title: 'v3.10.102 — پس‌زمینه تمام‌عرض کمپین', desc: 'فضای سفید حذف و پس‌زمینه بنفش قابل تنظیم تا لبه‌های صفحه کشیده شد.' },
     { tag: 'LOOP FIX', title: 'v3.10.100 — رفع جهت و Loop پرفروش‌ها', desc: 'کارت‌ها دیگر از Viewport خارج نمی‌شوند و فلش‌ها و Autoplay به‌صورت دوطرفه Loop می‌شوند.' },

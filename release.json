@@ -1,16 +1,16 @@
 {
-  "version": "3.10.103",
-  "previous": "3.10.102",
+  "version": "3.10.104",
+  "previous": "3.10.103",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "بازنویسی Loop پرفروش‌ها بدون Transform برای حذف قطعی خروج و فضای خالی.",
+  "description": "افزودن خبرنامه حرفه‌ای با شورت‌کد، ذخیره واقعی اعضا و مدیریت کامل بوتیک.",
   "changelog": [
     {
-      "tag": "TRANSFORM-FREE LOOP",
-      "title": "Loop بی‌نهایت بدون خروج کارت‌ها",
-      "desc": "حرکت translate حذف و Loop با جابه‌جایی DOM کارت اول/آخر پیاده شد؛ بنابراین Track همیشه پر است و هیچ سمت خالی یا کارت گمشده ایجاد نمی‌شود."
+      "tag": "PRO NEWSLETTER",
+      "title": "خبرنامه حرفه‌ای آلوخور",
+      "desc": "[alookhor_newsletter] با فرم امن، رضایت حریم خصوصی، اعتبارسنجی، ذخیره اعضا، پیام موفقیت، طراحی تمام‌عرض و تنظیم کامل بوتیک اضافه شد."
     }
   ],
   "project": "ALOOKHOR",
@@ -52,6 +52,9 @@
     "plugin/alookhor-control-center/assets/js/frontend-campaign-slider.js",
     "plugin/alookhor-control-center/includes/bestselling-products.php",
     "plugin/alookhor-control-center/assets/css/frontend-bestsellers.css",
-    "plugin/alookhor-control-center/assets/js/frontend-bestsellers.js"
+    "plugin/alookhor-control-center/assets/js/frontend-bestsellers.js",
+    "plugin/alookhor-control-center/includes/newsletter.php",
+    "plugin/alookhor-control-center/assets/css/frontend-newsletter.css",
+    "plugin/alookhor-control-center/assets/js/frontend-newsletter.js"
   ]
 }
