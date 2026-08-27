@@ -1,6 +1,6 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
-## v3.10.138 — 2026-08-27 — Why ALOOKHOR Complete Content + Palette
+## v3.10.139 — 2026-08-27 — Why ALOOKHOR Complete Content + Palette
 - CONTENT: متن کامل چهار مزیت مطابق مرجع به Defaults و ترمیم مقادیر خالی اضافه شد.
 - STATS: مقادیر +15، +50، +1000 و +500 با عنوان‌های کامل و شمارنده انیمیشنی اضافه شدند.
 - PALETTE: Background `#0B0716`، Card `#12091A`، Gold `#D4A436`، Text سفید و Muted `#C8BDCC` تنظیم شد.
