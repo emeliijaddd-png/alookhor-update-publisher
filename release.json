@@ -1,16 +1,16 @@
 {
-  "version": "3.10.134",
-  "previous": "3.10.133",
+  "version": "3.10.135",
+  "previous": "3.10.134",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "افزودن قاب باریک نورانی دور کپسول منوی اصلی.",
+  "description": "ارتقای بخش چرا آلوخور با کارت‌های شیشه‌ای، انیمیشن ظریف و شمارنده‌های پویا.",
   "changelog": [
     {
-      "tag": "LUMINOUS NAV FRAME",
-      "title": "نوار نورانی ظریف دور منو",
-      "desc": "قاب پیوسته 1px طلایی با Glow بیرونی و نور داخلی محدود دور کپسول شیشه‌ای اضافه شد؛ Hover فقط شدت نور را نرم افزایش می‌دهد."
+      "tag": "WHY GLASS MOTION",
+      "title": "چرا آلوخور شیشه‌ای و انیمیشنی",
+      "desc": "Glass blur، نور طلایی، Shine، Hover lift، چرخش ظریف آیکن، Reveal مرحله‌ای و شمارنده انیمیشنی آمار اضافه شد."
     }
   ],
   "project": "ALOOKHOR",
@@ -70,6 +70,7 @@
     "plugin/alookhor-control-center/includes/why-alookhor.php",
     "plugin/alookhor-control-center/assets/css/frontend-why-alookhor.css",
     "plugin/alookhor-control-center/includes/footer.php",
-    "plugin/alookhor-control-center/includes/product-categories.php"
+    "plugin/alookhor-control-center/includes/product-categories.php",
+    "plugin/alookhor-control-center/assets/js/frontend-why-alookhor.js"
   ]
 }
