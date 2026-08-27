@@ -2,7 +2,7 @@
 // UI/state remain modular; version discovery and installation are delegated to WordPress.
 
 const runtimeConfig = window.ALOOKHOR_CC || {};
-const runtimeVersion = String(runtimeConfig.version || '3.10.105');
+const runtimeVersion = String(runtimeConfig.version || '3.10.106');
 
 function normalizeResult(data = {}) {
   const current = String(data.current || runtimeVersion);
@@ -55,6 +55,7 @@ export const Updater = {
   latest: runtimeVersion,
   lastCheck: null,
   changelog: [
+    { tag: 'MAGAZINE ACTIONS', title: 'v3.10.106 — لایک، ذخیره و Blob متحرک', desc: 'تصاویر هندسی متحرک و دکمه‌های واقعی لایک و ذخیره به مجله اضافه شد.' },
     { tag: 'MAGAZINE', title: 'v3.10.105 — مجله لوکس آلوخور', desc: 'نوشته‌های WordPress در کاروسل حرفه‌ای با تنظیمات کامل بوتیک نمایش داده می‌شوند.' },
     { tag: 'NEWSLETTER', title: 'v3.10.104 — خبرنامه حرفه‌ای', desc: 'فرم عضویت واقعی و امن با طراحی تمام‌عرض و تنظیمات کامل بوتیک اضافه شد.' },
     { tag: 'INFINITE LOOP', title: 'v3.10.103 — Loop بدون خروج پرفروش‌ها', desc: 'Translate حذف و Loop با چرخش کارت‌ها پیاده شد؛ هیچ فضای خالی یا سرریز باقی نمی‌ماند.' },

@@ -1,5 +1,11 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.106 — 2026-08-27 — Magazine Likes, Saves + Animated Blob Media
+- BLOB: تصویر شاخص واقعی داخل شکل هندسی Blob با Border/Glow رنگی قرار گرفت و در Hover به فرم دوم Morph می‌شود.
+- LIKE: لایک واقعی با AJAX امن و شمارنده ذخیره‌شده در Post Meta اضافه شد؛ هر مرورگر فقط یک‌بار لایک می‌کند.
+- SAVE: ذخیره/حذف مطلب در مرورگر با LocalStorage و وضعیت بصری فعال اضافه شد.
+- BOUTIQUE: نمایش دکمه لایک و ذخیره به کنترل‌های مجله اضافه شد.
+
 ## v3.10.105 — 2026-08-27 — Luxury WordPress Magazine Carousel
 - SHORTCODE: `[alookhor_magazine]` اضافه شد.
 - WORDPRESS: نوشته‌های واقعی با تصویر شاخص، دسته، تاریخ، عنوان، خلاصه و لینک فراخوانی می‌شوند.

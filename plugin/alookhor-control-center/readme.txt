@@ -4,7 +4,7 @@ Tags: control center, luxury, alookhor, admin, dashboard
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 3.10.105
+Stable tag: 3.10.106
 License: Private
 License URI: https://alookhor.ir
 
@@ -47,8 +47,11 @@ License URI: https://alookhor.ir
 
 == Changelog ==
 
+= 3.10.106 =
+* افزودن لایک واقعی، ذخیره مطلب و تصاویر Blob هندسی متحرک به `[alookhor_magazine]`
+
 = 3.10.105 =
-* افزودن `[alookhor_magazine]` با نوشته‌های واقعی وردپرس و کاروسل Loop
+* افزودن `[alookhor_magazine]`` با نوشته‌های واقعی وردپرس و کاروسل Loop
 
 = 3.10.104 =
 * افزودن `[alookhor_newsletter]`` با عضویت واقعی، حریم خصوصی و تنظیمات کامل بوتیک

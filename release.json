@@ -1,16 +1,16 @@
 {
-  "version": "3.10.105",
-  "previous": "3.10.104",
+  "version": "3.10.106",
+  "previous": "3.10.105",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "افزودن مجله لوکس وردپرس با کاروسل Loop و تنظیمات کامل بوتیک.",
+  "description": "افزودن لایک واقعی، ذخیره مطلب و تصاویر Blob هندسی متحرک به مجله آلوخور.",
   "changelog": [
     {
-      "tag": "LUXURY MAGAZINE",
-      "title": "مجله اسلایدی آلوخور",
-      "desc": "[alookhor_magazine] نوشته‌های واقعی WordPress را با تصویر، دسته، تاریخ، خلاصه و لینک در کاروسل Loop نمایش می‌دهد."
+      "tag": "MAGAZINE INTERACTIONS",
+      "title": "لایک، ذخیره و تصاویر هندسی متحرک",
+      "desc": "تصاویر شاخص داخل Blobهای متغیر قرار گرفتند؛ لایک واقعی WordPress و ذخیره محلی مطلب با کنترل نمایش از بوتیک اضافه شد."
     }
   ],
   "project": "ALOOKHOR",
