@@ -1,5 +1,11 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.127 — 2026-08-27 — Strict Three-purple Surface Palette
+- ROOT CAUSE: لایه‌های قدیمی Design System هنوز قبل از چرخه Runtime رنگ‌های سابق را به برخی Root/Cardها می‌دادند.
+- REMAP: Purple/Deep/Card مرکزی به سه رنگ `#3A0D5C`، `#1C1025` و `#1D1126` remap شدند.
+- STRICT SURFACES: تمام ماژول‌ها fallback ثابت فقط از `#1C1025`، `#26213D` و `#1D1126` دارند.
+- NO-JS SAFETY: حتی قبل از اجرای Runtime یا داخل Elementor Editor نیز هیچ Surface قدیمی دیده نمی‌شود.
+
 ## v3.10.126 — 2026-08-27 — Three-step Plum Container Rhythm
 - COLORS: رنگ‌های دقیق `#1C1025`، `#26213D` و `#1D1126` به توکن‌های کانتینر اضافه شدند.
 - CYCLE: Runtime ترتیب واقعی DOM را با الگوی A → B → C → A تکرار می‌کند.

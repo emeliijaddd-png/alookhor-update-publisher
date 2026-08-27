@@ -91,3 +91,6 @@ At the owner's direction, managed Homepage content sections alternate by actual 
 
 ## Three-step Container Rhythm Amendment — 2026-08-27
 The previous two-color alternation is superseded by a deterministic three-step DOM rhythm: `#1C1025` → `#26213D` → `#1D1126` → repeat. Each managed section and its Elementor host share the same assigned surface. Header, Hero and Footer remain role-specific.
+
+## Strict Three-purple Palette Amendment — 2026-08-27
+The active storefront surface system is now strictly limited to `#1C1025`, `#26213D`, and `#1D1126`. Legacy Primary/Deep/Card surface tokens are remapped to this trio. Every managed module has a static fallback assignment, while runtime DOM alternation uses the same three values. Gold, light gold, white and muted light remain text/accent colors only.
