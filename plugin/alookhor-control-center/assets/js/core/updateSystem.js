@@ -2,7 +2,7 @@
 // UI/state remain modular; version discovery and installation are delegated to WordPress.
 
 const runtimeConfig = window.ALOOKHOR_CC || {};
-const runtimeVersion = String(runtimeConfig.version || '3.10.107');
+const runtimeVersion = String(runtimeConfig.version || '3.10.108');
 
 function normalizeResult(data = {}) {
   const current = String(data.current || runtimeVersion);
@@ -55,6 +55,7 @@ export const Updater = {
   latest: runtimeVersion,
   lastCheck: null,
   changelog: [
+    { tag: 'PURPLE HERO', title: 'v3.10.108 — هیروی بنفش با تصویر کامل', desc: 'پس‌زمینه Hero بنفش شد و تصاویر بدون برش، Shift یا Zoom کامل نمایش داده می‌شوند.' },
     { tag: 'FOOTER SHORTCODE', title: 'v3.10.107 — شورت‌کد رسمی فوتر', desc: '[alookhor_portal_footer] با جلوگیری از خروجی تکراری و پشتیبانی Elementor ثبت شد.' },
     { tag: 'MAGAZINE ACTIONS', title: 'v3.10.106 — لایک، ذخیره و Blob متحرک', desc: 'تصاویر هندسی متحرک و دکمه‌های واقعی لایک و ذخیره به مجله اضافه شد.' },
     { tag: 'MAGAZINE', title: 'v3.10.105 — مجله لوکس آلوخور', desc: 'نوشته‌های WordPress در کاروسل حرفه‌ای با تنظیمات کامل بوتیک نمایش داده می‌شوند.' },

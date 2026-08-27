@@ -1,5 +1,11 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.108 — 2026-08-27 — Purple Full-image Hero
+- PURPLE: پس‌زمینه مشکی Hero با طیف بنفش برند `#17041f / #2d0d4a` جایگزین شد.
+- FULL IMAGE: `object-fit: contain` اعمال و تمام Flip Shift / Zoom / Ken Burnsهای برش‌دهنده تصویر خنثی شدند.
+- GLASS COPY: پنل متن به سطح شیشه‌ای بنفش با Border طلایی تبدیل شد.
+- RESPONSIVE: نمایش کامل عکس در Desktop و Mobile حفظ می‌شود.
+
 ## v3.10.107 — 2026-08-27 — Official Portal Footer Shortcode
 - SHORTCODE: `[alookhor_portal_footer]` ثبت و در مدیریت بوتیک نمایش داده شد.
 - DEDUPE: هنگام استفاده مستقیم در Elementor، Footer خودکار اجرا نمی‌شود و خروجی تکراری ساخته نخواهد شد.

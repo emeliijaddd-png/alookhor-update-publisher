@@ -1,16 +1,16 @@
 {
-  "version": "3.10.107",
-  "previous": "3.10.106",
+  "version": "3.10.108",
+  "previous": "3.10.107",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "ثبت شورت‌کد رسمی فوتر و جلوگیری از خروجی تکراری هنگام جایگذاری در Elementor.",
+  "description": "هماهنگ‌سازی اسلایدر بالای سایت با تم بنفش و نمایش کامل تصاویر بدون برش.",
   "changelog": [
     {
-      "tag": "FOOTER SHORTCODE",
-      "title": "شورت‌کد رسمی فوتر آلوخور",
-      "desc": "[alookhor_portal_footer] ثبت شد؛ CSS همراه خروجی بارگذاری و Auto Footer هنگام استفاده مستقیم شورت‌کد غیرفعال می‌شود تا فوتر تکراری ساخته نشود."
+      "tag": "PURPLE FULL IMAGE HERO",
+      "title": "هیروی بنفش با تصویر کامل",
+      "desc": "پس‌زمینه مشکی به بنفش برند تغییر کرد، تصویر با contain کامل نمایش داده می‌شود و همه Zoom/Shiftهای برش‌دهنده حذف شدند؛ پنل متن شیشه‌ای بنفش شد."
     }
   ],
   "project": "ALOOKHOR",
