@@ -1,5 +1,11 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.113 — 2026-08-27 — Live Boutique Hero Palette
+- ROOT CAUSE: Overrideهای نسخه 3.10.108 رنگ‌های بنفش ثابت داشتند و مقدار Surface ذخیره‌شده بوتیک را می‌پوشاندند.
+- VARIABLES: RGB امن رنگ Surface در PHP تولید و به CSS Variable تبدیل شد.
+- LIVE: پس‌زمینه، Media surface، Overlay، پنل شیشه‌ای، دکمه دوم و نسخه موبایل همگی از رنگ ذخیره‌شده بوتیک می‌خوانند.
+- CACHE: Build جدید باعث Cache Bust کامل CSS و خروجی Hero می‌شود.
+
 ## v3.10.112 — 2026-08-27 — True Glass Hero Copy Panel
 - GLASS: پنل متن با Alpha واقعی، Backdrop Blur، Saturation، Highlight و Border طلایی به شیشه واقعی تبدیل شد.
 - VISIBILITY: Overlay بنفش سنگین کاهش یافت تا عکس کامل پشت پنل نیز واضح دیده شود.

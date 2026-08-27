@@ -1,16 +1,16 @@
 {
-  "version": "3.10.112",
-  "previous": "3.10.111",
+  "version": "3.10.113",
+  "previous": "3.10.112",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "تبدیل پنل متن Hero به شیشه واقعی و نمایش واضح تصویر پشت آن با کنترل شفافیت و Blur در بوتیک.",
+  "description": "رفع نادیده‌گرفتن رنگ‌های انتخابی بوتیک در اسلایدر Hero.",
   "changelog": [
     {
-      "tag": "TRUE GLASS HERO",
-      "title": "پنل شیشه‌ای واقعی اسلایدر",
-      "desc": "Overlay سنگین حذف، پنل به شیشه بنفش شفاف تبدیل و کنترل درصد شفافیت و Blur به مدیریت بوتیک اضافه شد؛ تصویر کامل پشت پنل دیده می‌شود."
+      "tag": "LIVE HERO PALETTE",
+      "title": "اعمال واقعی رنگ بوتیک روی اسلایدر",
+      "desc": "رنگ‌های hardcoded حذف و Surface/RGB ذخیره‌شده در تمام پس‌زمینه، Overlay، پنل شیشه‌ای و دکمه‌ها اعمال شد."
     }
   ],
   "project": "ALOOKHOR",

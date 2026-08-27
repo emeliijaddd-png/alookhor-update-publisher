@@ -2,7 +2,7 @@
 // UI/state remain modular; version discovery and installation are delegated to WordPress.
 
 const runtimeConfig = window.ALOOKHOR_CC || {};
-const runtimeVersion = String(runtimeConfig.version || '3.10.112');
+const runtimeVersion = String(runtimeConfig.version || '3.10.113');
 
 function normalizeResult(data = {}) {
   const current = String(data.current || runtimeVersion);
@@ -55,6 +55,7 @@ export const Updater = {
   latest: runtimeVersion,
   lastCheck: null,
   changelog: [
+    { tag: 'LIVE HERO COLOR', title: 'v3.10.113 — اعمال واقعی رنگ Hero', desc: 'رنگ‌های ثابت حذف و تمام سطوح اسلایدر به رنگ ذخیره‌شده بوتیک متصل شدند.' },
     { tag: 'TRUE GLASS HERO', title: 'v3.10.112 — پنل شیشه‌ای واقعی Hero', desc: 'Overlay سنگین حذف و کنترل شفافیت و Blur پنل Hero به بوتیک اضافه شد.' },
     { tag: 'GLASS NAV', title: 'v3.10.111 — منوی شیشه‌ای یکپارچه', desc: 'لوگوی رسمی، همبرگری، لینک‌ها و ابزارها در کپسول بنفش/طلایی مطابق مرجع یکپارچه شدند.' },
     { tag: 'PURPLE HERO', title: 'v3.10.109 — هیروی بنفش با تصویر کامل', desc: 'پس‌زمینه Hero بنفش شد و تصاویر بدون برش، Shift یا Zoom کامل نمایش داده می‌شوند.' },

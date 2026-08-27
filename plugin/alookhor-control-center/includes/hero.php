@@ -137,10 +137,14 @@ function alookhor_cc_hero_markup($settings=null){
     if (empty($s['enabled'])) return '';
     $slides = array_slice(array_values((array)($s['slides'] ?? [])), 0, 4);
     if (count($slides) !== 4) return '';
+    $surface = sanitize_hex_color($s['surface'] ?? '') ?: '#21072F';
+    $surface_hex = ltrim($surface, '#');
+    $surface_rgb = hexdec(substr($surface_hex,0,2)).','.hexdec(substr($surface_hex,2,2)).','.hexdec(substr($surface_hex,4,2));
     $style = sprintf(
-        '--mh-gold:%s;--mh-surface:%s;--mh-text:%s;--mh-muted:%s;--mh-radius:%dpx;--mh-panel-alpha:%.2F;--mh-panel-blur:%dpx',
+        '--mh-gold:%s;--mh-surface:%s;--mh-surface-rgb:%s;--mh-text:%s;--mh-muted:%s;--mh-radius:%dpx;--mh-panel-alpha:%.2F;--mh-panel-blur:%dpx',
         sanitize_hex_color($s['gold'] ?? '') ?: '#D4AF37',
-        sanitize_hex_color($s['surface'] ?? '') ?: '#09060D',
+        $surface,
+        $surface_rgb,
         sanitize_hex_color($s['text'] ?? '') ?: '#FFFFFF',
         sanitize_hex_color($s['muted'] ?? '') ?: '#D9D1DA',
         max(16, min(40, absint($s['radius'] ?? 32))),
