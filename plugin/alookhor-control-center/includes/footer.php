@@ -180,7 +180,11 @@ function alookhor_cc_footer_markup($settings = null){
         sanitize_hex_color($s['border']) ?: '#4A3820', max(960,min(1600,absint($s['container_width']))),
         max(100,min(320,absint($s['desktop_logo_width']))), max(100,min(280,absint($s['mobile_logo_width'])))
     );
-    ob_start(); ?>
+    ob_start();
+    // Elementor ممکن است شورت‌کد را پس از wp_head رندر کند؛ CSS Scoped همراه خروجی تضمین می‌شود.
+    static $inline_style_printed=false;
+    if(!$inline_style_printed){$inline_style_printed=true;$css_file=ALOOKHOR_CC_DIR.'assets/css/frontend-footer.css';if(file_exists($css_file))echo '<style id="alookhor-footer-inline">'.file_get_contents($css_file).'</style>';}
+    ?>
     <footer id="alookhor-managed-footer" class="alookhor-mf" dir="rtl" style="<?php echo esc_attr($style); ?>" data-version="<?php echo esc_attr(ALOOKHOR_CC_VERSION); ?>">
       <div class="alookhor-mf-shell">
         <div class="alookhor-mf-main-grid">
@@ -236,9 +240,18 @@ function alookhor_cc_footer_markup($settings = null){
     <?php return ob_get_clean();
 }
 
+function alookhor_cc_portal_footer_shortcode(){
+    if(!empty($GLOBALS['alookhor_cc_footer_shortcode_rendered']))return '';
+    $settings=alookhor_cc_get_footer_settings();if(empty($settings['enabled']))return '';
+    $GLOBALS['alookhor_cc_footer_shortcode_rendered']=true;
+    return alookhor_cc_footer_markup($settings);
+}
+add_shortcode('alookhor_portal_footer','alookhor_cc_portal_footer_shortcode');
+add_action('init',function(){remove_shortcode('alookhor_portal_footer');add_shortcode('alookhor_portal_footer','alookhor_cc_portal_footer_shortcode');},999);
+
 function alookhor_cc_render_managed_footer(){
     static $rendered = false;
-    if ($rendered || is_admin() || wp_doing_ajax()) return;
+    if ($rendered || is_admin() || wp_doing_ajax() || !empty($GLOBALS['alookhor_cc_footer_shortcode_rendered'])) return;
     $settings = alookhor_cc_get_footer_settings();
     if (empty($settings['enabled'])) return;
     $rendered = true;

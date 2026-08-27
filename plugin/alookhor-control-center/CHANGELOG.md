@@ -1,5 +1,11 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.107 — 2026-08-27 — Official Portal Footer Shortcode
+- SHORTCODE: `[alookhor_portal_footer]` ثبت و در مدیریت بوتیک نمایش داده شد.
+- DEDUPE: هنگام استفاده مستقیم در Elementor، Footer خودکار اجرا نمی‌شود و خروجی تکراری ساخته نخواهد شد.
+- ELEMENTOR: CSS Scoped همراه خروجی شورت‌کد چاپ می‌شود تا Editor نیز ظاهر کامل داشته باشد.
+- SETTINGS: تمام تنظیمات موجود فوتر در مدیریت بوتیک بدون تغییر حفظ شد.
+
 ## v3.10.106 — 2026-08-27 — Magazine Likes, Saves + Animated Blob Media
 - BLOB: تصویر شاخص واقعی داخل شکل هندسی Blob با Border/Glow رنگی قرار گرفت و در Hover به فرم دوم Morph می‌شود.
 - LIKE: لایک واقعی با AJAX امن و شمارنده ذخیره‌شده در Post Meta اضافه شد؛ هر مرورگر فقط یک‌بار لایک می‌کند.

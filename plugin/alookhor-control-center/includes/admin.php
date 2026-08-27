@@ -50,6 +50,7 @@ add_action('admin_enqueue_scripts', function($hook){
         'export_banner_settings' => function_exists('alookhor_cc_get_export_banner_settings') ? alookhor_cc_get_export_banner_settings() : [],
         'hero_shortcode' => '[alookhor_managed_hero]',
         'feature_shortcode' => '[alookhor_managed_features]',
+        'footer_shortcode' => '[alookhor_portal_footer]',
         'home_url' => home_url('/'),
         'footer_menus' => array_map(function($menu){
             return ['id' => (int) $menu->term_id, 'name' => $menu->name];
