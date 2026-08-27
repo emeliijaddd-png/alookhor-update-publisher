@@ -294,16 +294,21 @@ try:
     )
     report['checks']['topbar_no_store'] = 'no-store' in cache_control.lower()
     if tuple(map(int, TARGET.split('.'))) >= (3, 10, 18):
+        # Colors are owner-configurable from Boutique; validate safe persisted formats,
+        # not stale historical literals that would reject a legitimate palette edit.
         report['checks']['header_capsule_palette']=(
-            str(topbar.get('capsule_background','')).upper()=='#0D0510' and str(topbar.get('capsule_card','')).upper()=='#1C1024'
-            and topbar.get('capsule_glass')=='rgba(33,20,38,.75)' and str(topbar.get('capsule_gold','')).upper()=='#D49A2E'
-            and str(topbar.get('capsule_gold_light','')).upper()=='#E8B84A' and str(topbar.get('capsule_text','')).upper()=='#F5F3F0'
-            and str(topbar.get('capsule_muted','')).upper()=='#C8C2C9' and 0<=int(topbar.get('capsule_blur',0))<=36
+            all(bool(re.fullmatch(r'#[0-9A-Fa-f]{6}',str(topbar.get(key,'')))) for key in ['capsule_background','capsule_card','capsule_gold','capsule_gold_light','capsule_text','capsule_muted'])
+            and bool(re.fullmatch(r'rgba?\([^)]*\)',str(topbar.get('capsule_glass',''))))
+            and 0<=int(topbar.get('capsule_blur',0))<=36
         )
     if tuple(map(int,TARGET.split('.'))) >= (3,10,19):
         # v3.10.66: authoritative owner phone updated live to 09159513176 (2026-08-26);
         # the guard still catches regressions to the older 3173/3174/3179 endings.
-        report['checks']['header_brand_palette']=(topbar.get('phone')=='09159513176' and str(topbar.get('gold','')).upper()=='#D49A2E' and str(topbar.get('topbar_bg','')).upper()=='#1C1024' and str(topbar.get('topbar_text_color','')).upper()=='#F5F3F0' and str(topbar.get('topbar_border_color','')).upper()=='#D49A2E' and str(topbar.get('topbar_button_bg','')).upper()=='#D49A2E' and str(topbar.get('topbar_button_text','')).upper()=='#0D0510' and str(topbar.get('header_surface','')).upper()=='#0D0510' and str(topbar.get('header_text_color','')).upper()=='#F5F3F0' and str(topbar.get('header_muted_color','')).upper()=='#C8C2C9' and topbar.get('sticky') is True and topbar.get('show_search') is False)
+        report['checks']['header_brand_palette']=(
+            topbar.get('phone')=='09159513176'
+            and all(bool(re.fullmatch(r'#[0-9A-Fa-f]{6}',str(topbar.get(key,'')))) for key in ['gold','topbar_bg','topbar_text_color','topbar_border_color','topbar_button_bg','topbar_button_text','header_surface','header_text_color','header_muted_color'])
+            and topbar.get('sticky') is True and topbar.get('show_search') is False
+        )
     elif tuple(map(int, TARGET.split('.'))) >= (3, 10, 6):
         report['checks']['header_brand_palette'] = (
             topbar.get('phone') == '09159513173'

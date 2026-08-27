@@ -1,6 +1,6 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
-## v3.10.130 — 2026-08-27 — Premium Featured Collection Redesign
+## v3.10.131 — 2026-08-27 — Premium Featured Collection Redesign
 - COMPOSITION: Header مرکزی تاج‌دار، Kicker انگلیسی، عنوان دو‌رنگ، Divider و CTA کل مجموعه مطابق مرجع اضافه شد.
 - CARDS: تصویر بزرگ، Badge، نام، امتیاز/تعداد نظر واقعی WooCommerce، توضیح کوتاه، قیمت و دکمه مشاهده محصول پیاده شد.
 - DECOR: بوته‌های خطی طلایی دو گوشه و Glow بسیار ظریف بدون تصویر خارجی اضافه شد.
