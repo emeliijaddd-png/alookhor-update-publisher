@@ -1,6 +1,6 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
-## v3.10.117 — 2026-08-27 — Bestsellers UX Runtime V3 + Countdown
+## v3.10.118 — 2026-08-27 — Bestsellers UX Runtime V3 + Countdown
 - RUNTIME: Event Delegation مستقل جایگزین Binding شکننده شد؛ تب‌ها و فلش‌ها حتی پس از رندر پویا Elementor همیشه کار می‌کنند.
 - LOOP: چرخش DOM بدون Transform و Autoplay پایدار حفظ شد.
 - TIMER: Countdown روز/ساعت/دقیقه/ثانیه بر اساس پایان تخفیف WooCommerce و fallback چهارده‌روزه اضافه شد.

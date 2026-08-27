@@ -1,16 +1,16 @@
 {
-  "version": "3.10.117",
-  "previous": "3.10.116",
+  "version": "3.10.118",
+  "previous": "3.10.117",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "بازطراحی UX پرفروش‌ها، رفع قطعی تب و حرکت، افزودن تایمر و Responsive حرفه‌ای.",
+  "description": "انتشار مجدد UX پرفروش‌ها پس از timeout موقت DNS بررسی Manifest.",
   "changelog": [
     {
       "tag": "BESTSELLERS UX V3",
       "title": "تب، Loop و تایمر واقعی پرفروش‌ها",
-      "desc": "Runtime مستقل v3 با Event Delegation، Loop DOM، تب‌های عملیاتی، Countdown فروش، Badge تخفیف و چیدمان موبایل مطابق مرجع اضافه شد."
+      "desc": "انتشار مجدد همان اصلاحات 3.10.117 پس از خطای موقت DNS در مرحله تأیید Manifest."
     }
   ],
   "project": "ALOOKHOR",
