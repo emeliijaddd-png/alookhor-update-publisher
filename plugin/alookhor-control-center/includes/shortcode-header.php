@@ -75,7 +75,9 @@ function alookhor_cc_render_akx_header() {
     $h = alookhor_cc_front_header_settings();
     if (empty($h['enabled'])) return '';
 
+    // لوگوی اصلی AKX؛ اگر فیلد اختصاصی خالی باشد از لوگوی رسمی Topbar استفاده می‌شود.
     $logo_img   = alookhor_cc_resolve_logo_src($h['logo_id'], $h['logo_url']);
+    if (!$logo_img && !empty($h['top_logo_url'])) $logo_img = esc_url_raw($h['top_logo_url']);
     $logo_w     = max(40, min(180, (int)$h['logo_width']));
     $ws_txt     = esc_html($h['wholesale_text']);
     $ws_url     = esc_url($h['wholesale_url']);
@@ -185,15 +187,14 @@ function alookhor_cc_render_akx_header() {
   <div class="akx-mainbar">
     <div class="akx-wrap akx-main-inner">
 
-      <!-- لوگو -->
-      <a class="akx-logo" href="<?php echo $home_url; ?>" aria-label="آلوخور">
-        <?php if ($logo_img): ?>
-        <img src="<?php echo $logo_img; ?>" alt="آلوخور" style="width:<?php echo $logo_w; ?>px;max-height:61px;object-fit:contain">
-        <?php endif; ?>
-      </a>
-
-      <!-- کپسول منو -->
+      <!-- کپسول شیشه‌ای یکپارچه: لوگو، همبرگری، منو و ابزارها -->
       <div class="akx-nav-capsule">
+
+        <a class="akx-logo" href="<?php echo $home_url; ?>" aria-label="آلوخور">
+          <?php if ($logo_img): ?>
+          <img src="<?php echo $logo_img; ?>" alt="آلوخور" style="width:<?php echo $logo_w; ?>px;max-height:67px;object-fit:contain">
+          <?php endif; ?>
+        </a>
 
         <button class="akx-menu-button" type="button" aria-label="باز کردن منو" aria-expanded="false">
           <span>منو</span>
