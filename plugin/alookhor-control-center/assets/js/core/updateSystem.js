@@ -2,7 +2,7 @@
 // UI/state remain modular; version discovery and installation are delegated to WordPress.
 
 const runtimeConfig = window.ALOOKHOR_CC || {};
-const runtimeVersion = String(runtimeConfig.version || '3.10.129');
+const runtimeVersion = String(runtimeConfig.version || '3.10.130');
 
 function normalizeResult(data = {}) {
   const current = String(data.current || runtimeVersion);
@@ -55,6 +55,7 @@ export const Updater = {
   latest: runtimeVersion,
   lastCheck: null,
   changelog: [
+    { tag: 'PREMIUM COLLECTION', title: 'v3.10.130 — مجموعه منتخب لوکس', desc: 'کارت‌های کامل WooCommerce، بوته طلایی، امتیاز، توضیح و CTA مطابق مرجع اضافه شد.' },
     { tag: 'COLOR AUTHORITY', title: 'v3.10.129 — اختیار کامل رنگ در بوتیک', desc: 'Override مرکزی حذف شد و هر بخش مستقیماً رنگ ذخیره‌شده خودش را اعمال می‌کند.' },
     { tag: 'TRUST CARDS', title: 'v3.10.128 — بازگشت کارت‌های تیره ویژگی', desc: 'قانون سفید قدیمی خنثی و کارت‌ها به بنفش تیره انتخابی بازگشتند.' },
     { tag: 'STRICT PALETTE', title: 'v3.10.127 — فقط سه بنفش نهایی', desc: 'تمام رنگ‌های سطح قدیمی حذف و ماژول‌ها به سه کد انتخابی محدود شدند.' },

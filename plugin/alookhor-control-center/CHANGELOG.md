@@ -1,5 +1,12 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.130 — 2026-08-27 — Premium Featured Collection Redesign
+- COMPOSITION: Header مرکزی تاج‌دار، Kicker انگلیسی، عنوان دو‌رنگ، Divider و CTA کل مجموعه مطابق مرجع اضافه شد.
+- CARDS: تصویر بزرگ، Badge، نام، امتیاز/تعداد نظر واقعی WooCommerce، توضیح کوتاه، قیمت و دکمه مشاهده محصول پیاده شد.
+- DECOR: بوته‌های خطی طلایی دو گوشه و Glow بسیار ظریف بدون تصویر خارجی اضافه شد.
+- CAROUSEL: Loop بدون Transform، فلش دوطرفه، Autoplay و Responsive ۴/۲/۱ کارتی اجرا شد.
+- BOUTIQUE: تمام متن‌های جدید، اجزای نمایشی و رنگ‌های Section/Card/Gold/Text/Muted قابل کنترل هستند.
+
 ## v3.10.129 — 2026-08-27 — Boutique Color Authority Restored
 - ROOT CAUSE: لایه مرکزی Design System با `!important` و چرخه A/B/C رنگ‌های ذخیره‌شده هر فرم را Override می‌کرد.
 - AUTHORITY: هر ماژول اکنون مستقیماً از CSS Variable اینلاین و ذخیره‌شده خودش برای Section، Card، Text و Accent می‌خواند.
