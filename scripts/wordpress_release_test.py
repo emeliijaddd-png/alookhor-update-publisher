@@ -298,7 +298,7 @@ try:
             str(topbar.get('capsule_background','')).upper()=='#0D0510' and str(topbar.get('capsule_card','')).upper()=='#1C1024'
             and topbar.get('capsule_glass')=='rgba(33,20,38,.75)' and str(topbar.get('capsule_gold','')).upper()=='#D49A2E'
             and str(topbar.get('capsule_gold_light','')).upper()=='#E8B84A' and str(topbar.get('capsule_text','')).upper()=='#F5F3F0'
-            and str(topbar.get('capsule_muted','')).upper()=='#C8C2C9' and int(topbar.get('capsule_blur',0))==24
+            and str(topbar.get('capsule_muted','')).upper()=='#C8C2C9' and 0<=int(topbar.get('capsule_blur',0))<=36
         )
     if tuple(map(int,TARGET.split('.'))) >= (3,10,19):
         # v3.10.66: authoritative owner phone updated live to 09159513176 (2026-08-26);

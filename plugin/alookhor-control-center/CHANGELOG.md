@@ -1,6 +1,6 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
-## v3.10.110 — 2026-08-27 — Unified Purple Glass Navigation
+## v3.10.111 — 2026-08-27 — Unified Purple Glass Navigation
 - STRUCTURE: لوگوی رسمی داخل کپسول در سمت راست، دکمه همبرگری کنار لوگو، لینک‌ها در مرکز و ابزارهای حساب/سبد/جستجو در چپ قرار گرفتند.
 - LOGO: اگر لوگوی AKX خالی باشد، `top_logo_url` رسمی به‌صورت خودکار استفاده می‌شود.
 - GLASS: شیشه بنفش چندلایه، Blur، Border طلایی، Highlight بالایی و Shadow کنترل‌شده مطابق مرجع اضافه شد.

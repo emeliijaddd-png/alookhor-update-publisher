@@ -955,7 +955,7 @@ body #akx-header .akx-mega-menu a { color: var(--akx-capsule-muted, #c8c2c9) !im
 body #akx-header .akx-mega-menu a:hover { color: var(--akx-capsule-text, #fff) !important; }
 body #akx-header .akx-circle-btn { color: var(--akx-muted, #c8c2c9) !important; background: color-mix(in srgb, var(--akx-capsule, #16031f) 70%, transparent) !important; border-color: color-mix(in srgb, var(--akx-gold, #d4af37) 28%, transparent) !important; }
 
-/* v3.10.110 — unified luxury glass capsule matching the approved navigation reference. */
+/* v3.10.111 — unified luxury glass capsule matching the approved navigation reference. */
 body #akx-header .akx-mainbar .akx-wrap{width:min(1380px,calc(100% - 28px))!important;padding:0!important}
 body #akx-header .akx-main-inner{gap:0!important}
 body #akx-header .akx-nav-capsule{position:relative!important;min-height:72px!important;padding:7px 13px!important;gap:11px!important;border-radius:28px!important;border:1px solid color-mix(in srgb,var(--akx-gold) 32%,rgba(255,255,255,.22))!important;background:linear-gradient(135deg,rgba(45,13,74,.68),rgba(20,4,29,.78))!important;-webkit-backdrop-filter:blur(var(--akx-blur,18px)) saturate(155%)!important;backdrop-filter:blur(var(--akx-blur,18px)) saturate(155%)!important;box-shadow:0 16px 38px rgba(10,1,15,.42),0 0 22px color-mix(in srgb,var(--akx-gold) 10%,transparent),inset 0 1px rgba(255,255,255,.12)!important;overflow:visible}

@@ -1,16 +1,16 @@
 {
-  "version": "3.10.110",
-  "previous": "3.10.109",
+  "version": "3.10.111",
+  "previous": "3.10.110",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "بازطراحی منوی اصلی به کپسول شیشه‌ای یکپارچه با لوگوی رسمی، همبرگری و ابزارهای مرتب.",
+  "description": "تثبیت انتشار منوی شیشه‌ای و هماهنگ‌سازی تست با Blur قابل تنظیم مالک.",
   "changelog": [
     {
-      "tag": "UNIFIED GLASS NAV",
-      "title": "منوی شیشه‌ای یکپارچه با لوگوی رسمی",
-      "desc": "لوگو داخل کپسول در سمت راست، همبرگری کنار آن، لینک‌ها وسط و ابزارها چپ قرار گرفتند؛ شیشه بنفش/طلایی و Responsive مطابق مرجع شد."
+      "tag": "GLASS NAV VERIFIED",
+      "title": "منوی شیشه‌ای تأییدشده",
+      "desc": "تست تولید به‌جای مقدار ثابت 24، بازه مجاز Blur صفر تا 36 تنظیم شد تا انتخاب واقعی 36px مالک پذیرفته شود."
     }
   ],
   "project": "ALOOKHOR",
@@ -58,6 +58,7 @@
     "plugin/alookhor-control-center/assets/js/frontend-newsletter.js",
     "plugin/alookhor-control-center/includes/magazine.php",
     "plugin/alookhor-control-center/assets/css/frontend-magazine.css",
-    "plugin/alookhor-control-center/assets/js/frontend-magazine.js"
+    "plugin/alookhor-control-center/assets/js/frontend-magazine.js",
+    "scripts/wordpress_release_test.py"
   ]
 }
