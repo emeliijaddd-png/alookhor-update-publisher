@@ -4,7 +4,7 @@ Tags: control center, luxury, alookhor, admin, dashboard
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 3.10.120
+Stable tag: 3.10.121
 License: Private
 License URI: https://alookhor.ir
 
@@ -46,6 +46,9 @@ License URI: https://alookhor.ir
 در `config/site.json` و `wp_options: alookhor_cc_settings` — همان حافظه واقعی که در چت قبلی ویرایش می‌شد.
 
 == Changelog ==
+
+= 3.10.121 =
+* جایگزینی زمینه‌های سفید با سطوح گرم #F3EBDD و #EDE2D0 و کارت‌های #FFF9EF
 
 = 3.10.120 =
 * اجرای پالت مرکزی و ریتم روشن/تیره MASTER DESIGN DIRECTIVE روی تمام ماژول‌های Homepage

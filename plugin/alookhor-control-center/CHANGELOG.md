@@ -1,5 +1,11 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.121 — 2026-08-27 — Warm Luxury Surface System
+- DIRECTION: سفید سرد از Backgroundهای بزرگ حذف و با سطوح گرم متناسب با آلوی بنفش و هسته طلایی جایگزین شد.
+- PALETTE: Warm Light `#F3EBDD`، Sand `#EDE2D0` و Premium Ivory Card `#FFF9EF` به توکن‌های مرکزی اضافه شدند.
+- RHYTHM: Trust/Products/App روی Warm Light؛ Categories/Sorting/Magazine روی Sand؛ کارت‌ها روی Premium Ivory قرار گرفتند.
+- DEPTH: Shadow بسیار نرم بنفش و Border ظریف جایگزین تضاد سفید و Dark شد؛ متن روشن همچنان White باقی ماند.
+
 ## v3.10.120 — 2026-08-27 — Canonical ALOOKHOR Design System
 - TOKENS: شش رنگ نهایی Purple/Deep Purple/Gold/Light Gold/Cream/White به‌صورت Global Token مرکزی تعریف شد.
 - RHYTHM: Header و Export و Footer تیره؛ Hero/Promo/Newsletter بنفش؛ Trust/Products سفید؛ Categories/Sorting/Magazine کرم نگاشت شدند.

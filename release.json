@@ -1,16 +1,16 @@
 {
-  "version": "3.10.120",
-  "previous": "3.10.119",
+  "version": "3.10.121",
+  "previous": "3.10.120",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "اجرای فاز مرکزی MASTER DESIGN DIRECTIVE روی تمام ماژول‌های مدیریت‌شده Homepage.",
+  "description": "جایگزینی سطوح سفید سرد با سیستم Warm Luxury هماهنگ با آلوی بنفش و هسته طلایی.",
   "changelog": [
     {
-      "tag": "CANONICAL DESIGN SYSTEM",
-      "title": "پالت و ریتم مرکزی ALOOKHOR",
-      "desc": "شش توکن نهایی، ریتم روشن/تیره و نگاشت Header، Hero، Trust، Categories، Products، Promo، Export، Sorting، App، Magazine، Newsletter و Footer در یک لایه مرکزی اعمال شد."
+      "tag": "WARM LUXURY SURFACES",
+      "title": "سطوح گرم و لوکس به‌جای سفید",
+      "desc": "بخش‌های روشن با #F3EBDD و #EDE2D0 و کارت‌ها با #FFF9EF بازطراحی شدند؛ ریتم روشن/تیره و خوانایی بنفش/طلایی حفظ شد."
     }
   ],
   "project": "ALOOKHOR",

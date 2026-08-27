@@ -71,3 +71,14 @@ All managed components must consume the canonical global tokens. New hard-coded 
 
 ## Final QA gate
 Before a visual release, verify: no pure black; no off-palette identity color; balanced light/dark rhythm; no excessive gold; photography prominence; correct hierarchy; readable contrast; real mobile responsiveness; restrained cards; credible B2B/export character; authentic Iranian/natural character; no decorative element without purpose.
+
+## Warm Luxury Surface Amendment — 2026-08-27
+The owner approved replacing stark white section backgrounds with a warmer plum-compatible luxury surface set:
+
+```css
+--alookhor-warm-light: #F3EBDD;
+--alookhor-warm-secondary: #EDE2D0;
+--alookhor-warm-card: #FFF9EF;
+```
+
+`#FFFFFF` remains valid for high-contrast text and limited functional use, but is no longer the default large section background. Light rhythm now alternates Warm Light → Sand → Warm Light while cards use Premium Ivory. Purple, Deep Purple and Gold remain unchanged.

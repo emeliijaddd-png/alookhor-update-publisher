@@ -35,3 +35,24 @@ html body .alookhor-mf{--mf-bg:var(--alookhor-deep-purple)!important;--mf-surfac
 /* Unified controls, borders, focus and restrained motion */
 html body :is(.alookhor-mc,.alookhor-fp,.alookhor-bs,.alookhor-sort-center,.alookhor-mag) :is(button,a):focus-visible{outline:3px solid var(--alookhor-gold)!important;outline-offset:3px}.alookhor-managed-page :is(.alookhor-mc-card,.afp-card,.abs-card,.asc-features article,.am-card){border-radius:20px}.alookhor-managed-page :is(.alookhor-mh-shell,.alookhor-campaign,.alookhor-xb){border-radius:32px}
 @media(prefers-reduced-motion:reduce){html body .alookhor-managed-page *{scroll-behavior:auto!important}}
+
+/* v3.10.121 — Warm Luxury Surface revision: no stark-white section backgrounds. */
+:root{--alookhor-warm-light:#F3EBDD;--alookhor-warm-secondary:#EDE2D0;--alookhor-warm-card:#FFF9EF}
+html body.alookhor-managed-page,html body.alookhor-managed-page .website-wrapper,html body.alookhor-managed-page .main-page-wrapper,html body.alookhor-managed-page #main-content{background:var(--alookhor-warm-light)!important}
+/* Trust: warm-light section, premium ivory cards */
+html body .alookhor-sf{--sf-bg:var(--alookhor-warm-light)!important;--sf-card:var(--alookhor-warm-card)!important;--sf-glass:rgba(255,249,239,.92)!important;background:var(--alookhor-warm-light)!important}.alookhor-sf-card{background:var(--alookhor-warm-card)!important}
+/* Categories: sand surface, ivory photography cards */
+html body .alookhor-mc{--mc-bg:var(--alookhor-warm-secondary)!important;--mc-card:var(--alookhor-warm-card)!important;background:var(--alookhor-warm-secondary)!important}.alookhor-mc-card{background:var(--alookhor-warm-card)!important}
+/* Product areas: warm-light section, ivory product cards */
+html body .alookhor-fp{--afp-bg:var(--alookhor-warm-light)!important;--afp-card:var(--alookhor-warm-card)!important;background:var(--alookhor-warm-light)!important}.afp-card,.afp-image{background:var(--alookhor-warm-card)!important}
+html body .alookhor-bs{--abs-bg:var(--alookhor-warm-light)!important;--abs-card:var(--alookhor-warm-card)!important;background:var(--alookhor-warm-light)!important}.abs-inner>header{background:var(--alookhor-warm-secondary)!important}.abs-card,.abs-image,.abs-timer{background:var(--alookhor-warm-card)!important}
+/* Sorting/packaging: sand section and ivory content surfaces */
+html body .alookhor-sort-center{--asc-bg:var(--alookhor-warm-secondary)!important;--asc-surface:var(--alookhor-warm-card)!important;background:var(--alookhor-warm-secondary)!important}.asc-description,.asc-products,.asc-features article,.asc-slider{background:var(--alookhor-warm-card)!important}
+/* App: warm-light pause with a slightly deeper sand capsule */
+html body .alookhor-app-banner{--aab-bg:var(--alookhor-warm-light)!important;--aab-surface:var(--alookhor-warm-secondary)!important;background:var(--alookhor-warm-light)!important}.aab-inner{background:var(--alookhor-warm-secondary)!important}.aab-actions a{background:var(--alookhor-warm-card)!important;color:var(--alookhor-purple)!important}
+/* Magazine: natural sand section, editorial ivory cards */
+html body .alookhor-mag{--am-bg:var(--alookhor-warm-secondary)!important;--am-card:var(--alookhor-warm-card)!important;background:var(--alookhor-warm-secondary)!important}.am-inner>header,.am-card{background:var(--alookhor-warm-card)!important}
+/* Newsletter input remains light but is warm ivory, never clinical white. */
+html body .alookhor-newsletter .an-form>div{background:var(--alookhor-warm-card)!important}
+/* Warm, restrained shadow hue derived only from brand purple. */
+html body :is(.alookhor-sf-card,.alookhor-mc-card,.afp-card,.abs-card,.asc-description,.asc-products,.asc-features article,.aab-inner,.am-card){box-shadow:0 10px 30px rgba(59,22,79,.09)!important}
