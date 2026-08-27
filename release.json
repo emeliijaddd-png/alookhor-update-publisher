@@ -1,16 +1,16 @@
 {
-  "version": "3.10.128",
-  "previous": "3.10.127",
+  "version": "3.10.129",
+  "previous": "3.10.128",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "بازگردانی کارت‌های بخش ویژگی‌ها از سفید به بنفش تیره انتخابی.",
+  "description": "بازگردانی اختیار کامل رنگ هر بخش به تنظیمات مدیریت بوتیک.",
   "changelog": [
     {
-      "tag": "TRUST DARK CARDS",
-      "title": "بازگشت رنگ تیره کارت‌های ویژگی",
-      "desc": "قانون قدیمی Warm Card با specificity بالاتر خنثی شد؛ کارت‌ها #26213D/#1D1126، متن سفید و آیکن طلایی شدند."
+      "tag": "BOUTIQUE COLOR AUTHORITY",
+      "title": "اعمال واقعی رنگ انتخابی هر بخش",
+      "desc": "Overrideهای مرکزی و چرخه خودکار حذف شدند؛ هر ماژول مستقیماً از CSS Variable ذخیره‌شده فرم خود می‌خواند و میزبان Elementor شفاف است."
     }
   ],
   "project": "ALOOKHOR",

@@ -2,7 +2,7 @@
 // UI/state remain modular; version discovery and installation are delegated to WordPress.
 
 const runtimeConfig = window.ALOOKHOR_CC || {};
-const runtimeVersion = String(runtimeConfig.version || '3.10.128');
+const runtimeVersion = String(runtimeConfig.version || '3.10.129');
 
 function normalizeResult(data = {}) {
   const current = String(data.current || runtimeVersion);
@@ -55,6 +55,7 @@ export const Updater = {
   latest: runtimeVersion,
   lastCheck: null,
   changelog: [
+    { tag: 'COLOR AUTHORITY', title: 'v3.10.129 — اختیار کامل رنگ در بوتیک', desc: 'Override مرکزی حذف شد و هر بخش مستقیماً رنگ ذخیره‌شده خودش را اعمال می‌کند.' },
     { tag: 'TRUST CARDS', title: 'v3.10.128 — بازگشت کارت‌های تیره ویژگی', desc: 'قانون سفید قدیمی خنثی و کارت‌ها به بنفش تیره انتخابی بازگشتند.' },
     { tag: 'STRICT PALETTE', title: 'v3.10.127 — فقط سه بنفش نهایی', desc: 'تمام رنگ‌های سطح قدیمی حذف و ماژول‌ها به سه کد انتخابی محدود شدند.' },
     { tag: 'THREE PLUM', title: 'v3.10.126 — چرخه سه‌رنگ کانتینرها', desc: 'سه رنگ انتخابی مالک به ترتیب واقعی بخش‌ها تکرار می‌شوند.' },

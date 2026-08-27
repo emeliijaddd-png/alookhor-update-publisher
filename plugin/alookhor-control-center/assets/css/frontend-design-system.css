@@ -1,123 +1,44 @@
-/* ALOOKHOR canonical storefront design system — MASTER DESIGN DIRECTIVE */
-:root{--alookhor-purple:#3B164F;--alookhor-deep-purple:#16091F;--alookhor-gold:#D4AF37;--alookhor-light-gold:#F5D76E;--alookhor-cream:#FAF5EA;--alookhor-white:#FFFFFF;--alookhor-dark-card:#21132B;--alookhor-text-light-muted:#E5E5E5;--alookhor-shadow:0 10px 30px rgba(22,9,31,.08)}
-html body.alookhor-managed-page,html body.alookhor-managed-page .website-wrapper,html body.alookhor-managed-page .main-page-wrapper,html body.alookhor-managed-page #main-content{background:var(--alookhor-white)!important;color:var(--alookhor-purple)}
-html body .alookhor-managed-module-widget,html body .alookhor-managed-module-widget>.elementor-widget-container,html body .alookhor-managed-module-host,html body .alookhor-managed-module-surface{background:transparent!important;background-image:none!important}
-/* Header — Deep Purple glass */
-html body #akx-header{--akx-topbar-bg:var(--alookhor-deep-purple)!important;--akx-topbar-text:var(--alookhor-white)!important;--akx-topbar-border:var(--alookhor-gold)!important;--akx-topbar-button:var(--alookhor-gold)!important;--akx-topbar-button-text:var(--alookhor-deep-purple)!important;--akx-surface:var(--alookhor-deep-purple)!important;--akx-surface-glass:rgba(22,9,31,.72)!important;--akx-text:var(--alookhor-white)!important;--akx-muted:var(--alookhor-text-light-muted)!important;--akx-capsule:var(--alookhor-deep-purple)!important;--akx-capsule-glass:rgba(22,9,31,.72)!important;--akx-card:var(--alookhor-dark-card)!important;--akx-gold:var(--alookhor-gold)!important;--akx-gold-light:var(--alookhor-light-gold)!important;--akx-capsule-text:var(--alookhor-white)!important;--akx-capsule-muted:var(--alookhor-text-light-muted)!important;--akx-blur:18px!important}
-html body #akx-header .akx-nav-capsule{background:rgba(22,9,31,.72)!important;border-color:rgba(212,175,55,.24)!important;box-shadow:0 12px 30px rgba(22,9,31,.2),inset 0 1px rgba(255,255,255,.1)!important}
-/* Hero — photography + Primary Purple overlay */
-html body .alookhor-mh{--mh-surface:var(--alookhor-purple)!important;--mh-surface-rgb:59,22,79!important;--mh-gold:var(--alookhor-gold)!important;--mh-text:var(--alookhor-white)!important;--mh-muted:var(--alookhor-text-light-muted)!important;background:var(--alookhor-purple)!important}
-html body .alookhor-mh-shade{background:linear-gradient(90deg,rgba(59,22,79,.08),rgba(59,22,79,.38))!important}
-html body .alookhor-mh-content{background:rgba(59,22,79,.36)!important;border-color:rgba(212,175,55,.3)!important}
-html body .alookhor-mh-cta.is-primary{background:var(--alookhor-gold)!important;color:var(--alookhor-deep-purple)!important}html body .alookhor-mh-cta.is-primary:hover{background:var(--alookhor-light-gold)!important}
-/* Trust — White section / Cream cards */
-html body .alookhor-sf{--sf-bg:var(--alookhor-white)!important;--sf-card:var(--alookhor-cream)!important;--sf-glass:rgba(250,245,234,.92)!important;--sf-gold:var(--alookhor-gold)!important;--sf-gold-light:var(--alookhor-light-gold)!important;--sf-text:var(--alookhor-purple)!important;--sf-muted:var(--alookhor-purple)!important;background:var(--alookhor-white)!important;color:var(--alookhor-purple)!important}
-html body .alookhor-sf-card{background:var(--alookhor-cream)!important;border-color:rgba(59,22,79,.08)!important;box-shadow:var(--alookhor-shadow)!important}.alookhor-sf-copy h3,.alookhor-sf-copy p{color:var(--alookhor-purple)!important}
-/* Categories — Cream section / White cards */
-html body .alookhor-mc{--mc-bg:var(--alookhor-cream)!important;--mc-card:var(--alookhor-white)!important;--mc-gold:var(--alookhor-gold)!important;--mc-text:var(--alookhor-purple)!important;--mc-muted:var(--alookhor-purple)!important;--mc-border:rgba(59,22,79,.08)!important;--mc-btn:transparent!important;background:var(--alookhor-cream)!important;color:var(--alookhor-purple)!important}.alookhor-mc-card{background:var(--alookhor-white)!important;box-shadow:var(--alookhor-shadow)!important}
-/* Featured and bestseller products — White section / Cream cards */
-html body .alookhor-fp{--afp-bg:var(--alookhor-white)!important;--afp-card:var(--alookhor-cream)!important;--afp-gold:var(--alookhor-gold)!important;--afp-text:var(--alookhor-purple)!important;--afp-muted:var(--alookhor-purple)!important;background:var(--alookhor-white)!important;color:var(--alookhor-purple)!important}.afp-card{background:var(--alookhor-cream)!important;border-color:rgba(59,22,79,.08)!important;box-shadow:var(--alookhor-shadow)!important}.afp-cart{background:var(--alookhor-purple)!important;color:var(--alookhor-white)!important}.afp-cart:hover{background:var(--alookhor-gold)!important;color:var(--alookhor-deep-purple)!important}
-html body .alookhor-bs{--abs-bg:var(--alookhor-white)!important;--abs-card:var(--alookhor-cream)!important;--abs-gold:var(--alookhor-gold)!important;--abs-purple:var(--alookhor-purple)!important;--abs-text:var(--alookhor-purple)!important;--abs-muted:var(--alookhor-purple)!important;background:var(--alookhor-white)!important;color:var(--alookhor-purple)!important}.abs-inner>header,.abs-card{background:var(--alookhor-cream)!important;border-color:rgba(59,22,79,.08)!important;box-shadow:var(--alookhor-shadow)!important}.abs-cart{background:var(--alookhor-purple)!important;color:var(--alookhor-white)!important}.abs-cart:hover{background:var(--alookhor-gold)!important;color:var(--alookhor-deep-purple)!important}.abs-image>span,.abs-image>em{background:var(--alookhor-gold)!important;color:var(--alookhor-deep-purple)!important}.abs-timer{background:var(--alookhor-white)!important;border-color:rgba(59,22,79,.08)!important}.abs-timer b,.abs-timer small{color:var(--alookhor-purple)!important}
-/* Promo campaign — Primary Purple */
-html body .alookhor-campaign-wrap{--ac-bg:var(--alookhor-purple)!important;background:var(--alookhor-purple)!important}.alookhor-campaign{--ac-gold:var(--alookhor-gold)!important;--ac-text:var(--alookhor-white)!important;background:var(--alookhor-purple)!important}.ac-content a{background:var(--alookhor-gold)!important;color:var(--alookhor-deep-purple)!important}
-/* Export/B2B — Deep Purple */
-html body .alookhor-xb{--akx-bg:var(--alookhor-deep-purple)!important;--akx-bg-rgb:22,9,31!important;--akx-gold:var(--alookhor-gold)!important;--akx-gold-light:var(--alookhor-light-gold)!important;--akx-wa:var(--alookhor-gold)!important;--akx-wa-dark:var(--alookhor-gold)!important;background:var(--alookhor-deep-purple)!important;color:var(--alookhor-white)!important}.alookhor-xb-card{background:rgba(33,19,43,.88)!important;border-color:rgba(212,175,55,.28)!important}.alookhor-xb-wa{background:var(--alookhor-gold)!important;color:var(--alookhor-deep-purple)!important}
-/* Sorting & packaging — Cream / White */
-html body .alookhor-sort-center{--asc-bg:var(--alookhor-cream)!important;--asc-surface:var(--alookhor-white)!important;--asc-gold:var(--alookhor-gold)!important;--asc-text:var(--alookhor-purple)!important;--asc-muted:var(--alookhor-purple)!important;background:var(--alookhor-cream)!important;color:var(--alookhor-purple)!important}.asc-inner,.asc-description,.asc-products,.asc-features article{color:var(--alookhor-purple)!important}.asc-description,.asc-products,.asc-features article{background:var(--alookhor-white)!important;border-color:rgba(59,22,79,.08)!important;box-shadow:var(--alookhor-shadow)!important}.asc-cta{background:var(--alookhor-purple)!important;color:var(--alookhor-white)!important}
-/* App/download — White editorial pause */
-html body .alookhor-app-banner{--aab-bg:var(--alookhor-white)!important;--aab-surface:var(--alookhor-cream)!important;--aab-gold:var(--alookhor-gold)!important;--aab-text:var(--alookhor-purple)!important;--aab-muted:var(--alookhor-purple)!important;background:var(--alookhor-white)!important;color:var(--alookhor-purple)!important}.aab-inner{background:var(--alookhor-cream)!important;border-color:rgba(59,22,79,.08)!important;box-shadow:var(--alookhor-shadow)!important}
-/* Magazine — Cream / White, photography first */
-html body .alookhor-mag{--am-bg:var(--alookhor-cream)!important;--am-card:var(--alookhor-white)!important;--am-gold:var(--alookhor-gold)!important;--am-text:var(--alookhor-purple)!important;--am-muted:var(--alookhor-purple)!important;background:var(--alookhor-cream)!important;color:var(--alookhor-purple)!important}.am-inner>header,.am-card{background:var(--alookhor-white)!important;border-color:rgba(59,22,79,.08)!important;box-shadow:var(--alookhor-shadow)!important}.am-body h3 a{color:var(--alookhor-purple)!important}
-/* Newsletter — Primary Purple / White input */
-html body .alookhor-newsletter{--an-bg:var(--alookhor-purple)!important;--an-surface:var(--alookhor-purple)!important;--an-gold:var(--alookhor-gold)!important;--an-text:var(--alookhor-white)!important;--an-muted:var(--alookhor-text-light-muted)!important;background:var(--alookhor-purple)!important;color:var(--alookhor-white)!important}.an-form>div{background:var(--alookhor-white)!important;border-color:rgba(212,175,55,.3)!important}.an-form input[type=email]{color:var(--alookhor-purple)!important}.an-form button{background:var(--alookhor-gold)!important;color:var(--alookhor-deep-purple)!important}.an-form button:hover{background:var(--alookhor-light-gold)!important}
-/* Footer — Deep Purple */
-html body .alookhor-mf{--mf-bg:var(--alookhor-deep-purple)!important;--mf-surface:var(--alookhor-dark-card)!important;--mf-gold:var(--alookhor-gold)!important;--mf-gold-soft:var(--alookhor-light-gold)!important;--mf-text:var(--alookhor-white)!important;--mf-muted:var(--alookhor-text-light-muted)!important;--mf-border:rgba(212,175,55,.25)!important;background:var(--alookhor-deep-purple)!important;color:var(--alookhor-white)!important}.alookhor-mf-links a{color:var(--alookhor-text-light-muted)!important}.alookhor-mf-links a:hover{color:var(--alookhor-gold)!important}
-/* Unified controls, borders, focus and restrained motion */
-html body :is(.alookhor-mc,.alookhor-fp,.alookhor-bs,.alookhor-sort-center,.alookhor-mag) :is(button,a):focus-visible{outline:3px solid var(--alookhor-gold)!important;outline-offset:3px}.alookhor-managed-page :is(.alookhor-mc-card,.afp-card,.abs-card,.asc-features article,.am-card){border-radius:20px}.alookhor-managed-page :is(.alookhor-mh-shell,.alookhor-campaign,.alookhor-xb){border-radius:32px}
-@media(prefers-reduced-motion:reduce){html body .alookhor-managed-page *{scroll-behavior:auto!important}}
-
-/* v3.10.128 — Warm Luxury Surface revision: no stark-white section backgrounds. */
-:root{--alookhor-warm-light:#F3EBDD;--alookhor-warm-secondary:#EDE2D0;--alookhor-warm-card:#FFF9EF}
-html body.alookhor-managed-page,html body.alookhor-managed-page .website-wrapper,html body.alookhor-managed-page .main-page-wrapper,html body.alookhor-managed-page #main-content{background:var(--alookhor-warm-light)!important}
-/* Trust: warm-light section, premium ivory cards */
-html body .alookhor-sf{--sf-bg:var(--alookhor-warm-light)!important;--sf-card:var(--alookhor-warm-card)!important;--sf-glass:rgba(255,249,239,.92)!important;background:var(--alookhor-warm-light)!important}.alookhor-sf-card{background:var(--alookhor-warm-card)!important}
-/* Categories: sand surface, ivory photography cards */
-html body .alookhor-mc{--mc-bg:var(--alookhor-warm-secondary)!important;--mc-card:var(--alookhor-warm-card)!important;background:var(--alookhor-warm-secondary)!important}.alookhor-mc-card{background:var(--alookhor-warm-card)!important}
-/* Product areas: warm-light section, ivory product cards */
-html body .alookhor-fp{--afp-bg:var(--alookhor-warm-light)!important;--afp-card:var(--alookhor-warm-card)!important;background:var(--alookhor-warm-light)!important}.afp-card,.afp-image{background:var(--alookhor-warm-card)!important}
-html body .alookhor-bs{--abs-bg:var(--alookhor-warm-light)!important;--abs-card:var(--alookhor-warm-card)!important;background:var(--alookhor-warm-light)!important}.abs-inner>header{background:var(--alookhor-warm-secondary)!important}.abs-card,.abs-image,.abs-timer{background:var(--alookhor-warm-card)!important}
-/* Sorting/packaging: sand section and ivory content surfaces */
-html body .alookhor-sort-center{--asc-bg:var(--alookhor-warm-secondary)!important;--asc-surface:var(--alookhor-warm-card)!important;background:var(--alookhor-warm-secondary)!important}.asc-description,.asc-products,.asc-features article,.asc-slider{background:var(--alookhor-warm-card)!important}
-/* App: warm-light pause with a slightly deeper sand capsule */
-html body .alookhor-app-banner{--aab-bg:var(--alookhor-warm-light)!important;--aab-surface:var(--alookhor-warm-secondary)!important;background:var(--alookhor-warm-light)!important}.aab-inner{background:var(--alookhor-warm-secondary)!important}.aab-actions a{background:var(--alookhor-warm-card)!important;color:var(--alookhor-purple)!important}
-/* Magazine: natural sand section, editorial ivory cards */
-html body .alookhor-mag{--am-bg:var(--alookhor-warm-secondary)!important;--am-card:var(--alookhor-warm-card)!important;background:var(--alookhor-warm-secondary)!important}.am-inner>header,.am-card{background:var(--alookhor-warm-card)!important}
-/* Newsletter input remains light but is warm ivory, never clinical white. */
-html body .alookhor-newsletter .an-form>div{background:var(--alookhor-warm-card)!important}
-/* Warm, restrained shadow hue derived only from brand purple. */
-html body :is(.alookhor-sf-card,.alookhor-mc-card,.afp-card,.abs-card,.asc-description,.asc-products,.asc-features article,.aab-inner,.am-card){box-shadow:0 10px 30px rgba(59,22,79,.09)!important}
-
-/* v3.10.128 — Owner-approved Rich Plum revision; replaces all warm large surfaces. */
-:root{--alookhor-rich-plum:#2B0D3A}
-html body.alookhor-managed-page,html body.alookhor-managed-page .website-wrapper,html body.alookhor-managed-page .main-page-wrapper,html body.alookhor-managed-page #main-content{background:var(--alookhor-rich-plum)!important;color:var(--alookhor-white)!important}
-/* Trust */
-html body .alookhor-sf{--sf-bg:var(--alookhor-rich-plum)!important;--sf-card:var(--alookhor-purple)!important;--sf-glass:rgba(59,22,79,.78)!important;--sf-text:var(--alookhor-white)!important;--sf-muted:var(--alookhor-text-light-muted)!important;background:var(--alookhor-rich-plum)!important;color:var(--alookhor-white)!important}.alookhor-sf-card{background:var(--alookhor-purple)!important;border-color:rgba(212,175,55,.22)!important}.alookhor-sf-copy h3{color:var(--alookhor-white)!important}.alookhor-sf-copy p{color:var(--alookhor-text-light-muted)!important}
-/* Categories */
-html body .alookhor-mc{--mc-bg:var(--alookhor-rich-plum)!important;--mc-card:var(--alookhor-purple)!important;--mc-text:var(--alookhor-white)!important;--mc-muted:var(--alookhor-text-light-muted)!important;--mc-border:rgba(212,175,55,.24)!important;background:var(--alookhor-rich-plum)!important;color:var(--alookhor-white)!important}.alookhor-mc-card{background:var(--alookhor-purple)!important}.alookhor-mc-button{color:var(--alookhor-gold)!important}
-/* Featured products and bestsellers */
-html body .alookhor-fp{--afp-bg:var(--alookhor-rich-plum)!important;--afp-card:var(--alookhor-purple)!important;--afp-text:var(--alookhor-white)!important;--afp-muted:var(--alookhor-text-light-muted)!important;background:var(--alookhor-rich-plum)!important;color:var(--alookhor-white)!important}.afp-card{background:var(--alookhor-purple)!important;border-color:rgba(212,175,55,.2)!important}.afp-image{background:var(--alookhor-deep-purple)!important}
-html body .alookhor-bs{--abs-bg:var(--alookhor-rich-plum)!important;--abs-card:var(--alookhor-purple)!important;--abs-text:var(--alookhor-white)!important;--abs-muted:var(--alookhor-text-light-muted)!important;background:var(--alookhor-rich-plum)!important;color:var(--alookhor-white)!important}.abs-inner>header{background:var(--alookhor-deep-purple)!important;border-color:rgba(212,175,55,.22)!important}.abs-card{background:var(--alookhor-purple)!important;border-color:rgba(212,175,55,.2)!important}.abs-image{background:var(--alookhor-deep-purple)!important}.abs-timer{background:var(--alookhor-deep-purple)!important;border-color:rgba(212,175,55,.22)!important}.abs-timer b{color:var(--alookhor-white)!important}.abs-timer small{color:var(--alookhor-text-light-muted)!important}
-/* Sorting */
-html body .alookhor-sort-center{--asc-bg:var(--alookhor-rich-plum)!important;--asc-surface:var(--alookhor-purple)!important;--asc-text:var(--alookhor-white)!important;--asc-muted:var(--alookhor-text-light-muted)!important;background:var(--alookhor-rich-plum)!important;color:var(--alookhor-white)!important}.asc-inner,.asc-description,.asc-products,.asc-features article{color:var(--alookhor-white)!important}.asc-description,.asc-products,.asc-features article,.asc-slider{background:var(--alookhor-purple)!important;border-color:rgba(212,175,55,.22)!important}.asc-description,.asc-products span,.asc-features b{color:var(--alookhor-white)!important}.asc-features small{color:var(--alookhor-text-light-muted)!important}
-/* App and Magazine */
-html body .alookhor-app-banner{--aab-bg:var(--alookhor-rich-plum)!important;--aab-surface:var(--alookhor-purple)!important;--aab-text:var(--alookhor-white)!important;--aab-muted:var(--alookhor-text-light-muted)!important;background:var(--alookhor-rich-plum)!important;color:var(--alookhor-white)!important}.aab-inner{background:var(--alookhor-purple)!important;border-color:rgba(212,175,55,.22)!important}
-html body .alookhor-mag{--am-bg:var(--alookhor-rich-plum)!important;--am-card:var(--alookhor-purple)!important;--am-text:var(--alookhor-white)!important;--am-muted:var(--alookhor-text-light-muted)!important;background:var(--alookhor-rich-plum)!important;color:var(--alookhor-white)!important}.am-inner>header,.am-card{background:var(--alookhor-purple)!important;border-color:rgba(212,175,55,.2)!important}.am-body h3 a{color:var(--alookhor-white)!important}
-/* Purple-tinted restrained depth; no clinical light surface remains. */
-html body :is(.alookhor-sf-card,.alookhor-mc-card,.afp-card,.abs-card,.asc-description,.asc-products,.asc-features article,.aab-inner,.am-card){box-shadow:0 12px 32px rgba(22,9,31,.22)!important}
-
-/* v3.10.128 — alternating plum rhythm requested by owner. */
-:root{--alookhor-plum-a:#2B0A3D;--alookhor-plum-b:#3A0D5C}
+/* ALOOKHOR central tokens — v3.10.129
+   IMPORTANT: this layer supplies fallbacks and accessibility only.
+   Module colors are authoritative from Boutique inline CSS variables. */
+:root{
+  --alookhor-purple:#3A0D5C;
+  --alookhor-deep-purple:#1C1025;
+  --alookhor-card:#26213D;
+  --alookhor-card-alt:#1D1126;
+  --alookhor-gold:#D4AF37;
+  --alookhor-light-gold:#F5D76E;
+  --alookhor-white:#FFFFFF;
+  --alookhor-muted:#E5E5E5;
+}
+/* Elementor hosts must never paint over a module's selected background. */
+html body .alookhor-managed-module-widget,
+html body .alookhor-managed-module-widget>.elementor-widget-container,
+html body .alookhor-managed-module-host,
+html body .alookhor-managed-module-surface,
 html body .alookhor-managed-module-host.alookhor-surface-a,
-html body .alookhor-managed-module-surface:has(.alookhor-module-surface-a){background:#2B0A3D!important}
 html body .alookhor-managed-module-host.alookhor-surface-b,
-html body .alookhor-managed-module-surface:has(.alookhor-module-surface-b){background:#3A0D5C!important}
-html body :is(.alookhor-sf,.alookhor-sort-center,.alookhor-xb,.alookhor-app-banner,.alookhor-fp,.alookhor-campaign-wrap,.alookhor-bs,.alookhor-newsletter,.alookhor-mag,.alookhor-mc).alookhor-module-surface-a{background:#2B0A3D!important;background-image:none!important}
-html body :is(.alookhor-sf,.alookhor-sort-center,.alookhor-xb,.alookhor-app-banner,.alookhor-fp,.alookhor-campaign-wrap,.alookhor-bs,.alookhor-newsletter,.alookhor-mag,.alookhor-mc).alookhor-module-surface-b{background:#3A0D5C!important;background-image:none!important}
-/* Full-bleed roots keep the exact same surface as their Elementor host, eliminating seams. */
-html body .alookhor-module-surface-a{--sf-bg:#2B0A3D!important;--asc-bg:#2B0A3D!important;--akx-bg:#2B0A3D!important;--aab-bg:#2B0A3D!important;--afp-bg:#2B0A3D!important;--ac-bg:#2B0A3D!important;--abs-bg:#2B0A3D!important;--an-bg:#2B0A3D!important;--am-bg:#2B0A3D!important;--mc-bg:#2B0A3D!important}
-html body .alookhor-module-surface-b{--sf-bg:#3A0D5C!important;--asc-bg:#3A0D5C!important;--akx-bg:#3A0D5C!important;--aab-bg:#3A0D5C!important;--afp-bg:#3A0D5C!important;--ac-bg:#3A0D5C!important;--abs-bg:#3A0D5C!important;--an-bg:#3A0D5C!important;--am-bg:#3A0D5C!important;--mc-bg:#3A0D5C!important}
-
-/* v3.10.128 — owner-selected three-step container rhythm. */
-:root{--alookhor-container-a:#1C1025;--alookhor-container-b:#26213D;--alookhor-container-c:#1D1126}
-html body .alookhor-managed-module-host.alookhor-surface-a,html body .alookhor-managed-module-surface:has(.alookhor-module-surface-a),html body .alookhor-module-surface-a{background:#1C1025!important;background-image:none!important}
-html body .alookhor-managed-module-host.alookhor-surface-b,html body .alookhor-managed-module-surface:has(.alookhor-module-surface-b),html body .alookhor-module-surface-b{background:#26213D!important;background-image:none!important}
-html body .alookhor-managed-module-host.alookhor-surface-c,html body .alookhor-managed-module-surface:has(.alookhor-module-surface-c),html body .alookhor-module-surface-c{background:#1D1126!important;background-image:none!important}
-html body .alookhor-module-surface-a{--sf-bg:#1C1025!important;--asc-bg:#1C1025!important;--akx-bg:#1C1025!important;--aab-bg:#1C1025!important;--afp-bg:#1C1025!important;--ac-bg:#1C1025!important;--abs-bg:#1C1025!important;--an-bg:#1C1025!important;--am-bg:#1C1025!important;--mc-bg:#1C1025!important}
-html body .alookhor-module-surface-b{--sf-bg:#26213D!important;--asc-bg:#26213D!important;--akx-bg:#26213D!important;--aab-bg:#26213D!important;--afp-bg:#26213D!important;--ac-bg:#26213D!important;--abs-bg:#26213D!important;--an-bg:#26213D!important;--am-bg:#26213D!important;--mc-bg:#26213D!important}
-html body .alookhor-module-surface-c{--sf-bg:#1D1126!important;--asc-bg:#1D1126!important;--akx-bg:#1D1126!important;--aab-bg:#1D1126!important;--afp-bg:#1D1126!important;--ac-bg:#1D1126!important;--abs-bg:#1D1126!important;--an-bg:#1D1126!important;--am-bg:#1D1126!important;--mc-bg:#1D1126!important}
-
-/* v3.10.128 — strict final three-purple palette; supersedes every legacy surface token. */
-:root{--alookhor-purple:#3A0D5C;--alookhor-deep-purple:#1C1025;--alookhor-dark-card:#1D1126;--alookhor-container-a:#1C1025;--alookhor-container-b:#26213D;--alookhor-container-c:#1D1126}
-html body.alookhor-managed-page,html body.alookhor-managed-page .website-wrapper,html body.alookhor-managed-page .main-page-wrapper,html body.alookhor-managed-page #main-content{background:#1C1025!important;color:#FFFFFF!important}
-/* Fixed module fallback applies before/without JS; runtime A/B/C classes may alternate these same three colors. */
-html body .alookhor-sf{--sf-bg:#1C1025!important;--sf-card:#26213D!important;--sf-glass:rgba(38,33,61,.82)!important;--sf-text:#FFFFFF!important;--sf-muted:#E5E5E5!important;background:#1C1025!important}.alookhor-sf-card{background:#26213D!important}
-html body .alookhor-sort-center{--asc-bg:#26213D!important;--asc-surface:#1D1126!important;--asc-text:#FFFFFF!important;--asc-muted:#E5E5E5!important;background:#26213D!important}.asc-description,.asc-products,.asc-features article,.asc-slider{background:#1D1126!important}
-html body .alookhor-xb{--akx-bg:#1D1126!important;--akx-bg-rgb:29,17,38!important;background:#1D1126!important}.alookhor-xb-card{background:rgba(38,33,61,.9)!important}
-html body .alookhor-app-banner{--aab-bg:#1C1025!important;--aab-surface:#26213D!important;--aab-text:#FFFFFF!important;--aab-muted:#E5E5E5!important;background:#1C1025!important}.aab-inner{background:#26213D!important}
-html body .alookhor-fp{--afp-bg:#26213D!important;--afp-card:#1D1126!important;--afp-text:#FFFFFF!important;--afp-muted:#E5E5E5!important;background:#26213D!important}.afp-card{background:#1D1126!important}
-html body .alookhor-campaign-wrap{--ac-bg:#1D1126!important;background:#1D1126!important}.alookhor-campaign{background:#1C1025!important}
-html body .alookhor-bs{--abs-bg:#1C1025!important;--abs-card:#26213D!important;--abs-purple:#3A0D5C!important;--abs-text:#FFFFFF!important;--abs-muted:#E5E5E5!important;background:#1C1025!important}.abs-inner>header{background:#1D1126!important}.abs-card{background:#26213D!important}.abs-timer{background:#1D1126!important}
-html body .alookhor-mc{--mc-bg:#26213D!important;--mc-card:#1D1126!important;--mc-text:#FFFFFF!important;--mc-muted:#E5E5E5!important;background:#26213D!important}.alookhor-mc-card{background:#1D1126!important}
-html body .alookhor-mag{--am-bg:#1D1126!important;--am-card:#26213D!important;--am-text:#FFFFFF!important;--am-muted:#E5E5E5!important;background:#1D1126!important}.am-inner>header,.am-card{background:#26213D!important}
-html body .alookhor-newsletter{--an-bg:#1C1025!important;--an-surface:#26213D!important;--an-text:#FFFFFF!important;--an-muted:#E5E5E5!important;background:#1C1025!important}.an-form>div{background:#FFF9EF!important}
-html body #akx-header{--akx-surface:#1C1025!important;--akx-surface-glass:rgba(28,16,37,.72)!important;--akx-capsule:#1C1025!important;--akx-capsule-glass:rgba(28,16,37,.72)!important;--akx-card:#26213D!important}html body #akx-header .akx-nav-capsule{background:rgba(28,16,37,.72)!important}
-html body .alookhor-mh{--mh-surface:#3A0D5C!important;--mh-surface-rgb:58,13,92!important;background:#3A0D5C!important}
-html body .alookhor-mf{--mf-bg:#1C1025!important;--mf-surface:#26213D!important;background:#1C1025!important}
-/* All major cards are now restricted to the same selected trio. */
-html body :is(.alookhor-sf-card,.asc-description,.asc-products,.asc-features article,.alookhor-xb-card,.aab-inner,.afp-card,.abs-inner>header,.abs-card,.abs-timer,.alookhor-mc-card,.am-inner>header,.am-card){border-color:rgba(212,175,55,.22)!important;color:#FFFFFF!important}
-
-/* v3.10.128 — Trust card specificity correction; warm-card legacy rule is fully superseded. */
-html body .alookhor-sf .alookhor-sf-card{background:#26213D!important;background-image:linear-gradient(135deg,#26213D,#1D1126)!important;border-color:rgba(212,175,55,.24)!important;color:#FFFFFF!important;box-shadow:0 12px 30px rgba(28,16,37,.28),inset 0 1px rgba(255,255,255,.06)!important}
-html body .alookhor-sf .alookhor-sf-copy h3{color:#FFFFFF!important}
-html body .alookhor-sf .alookhor-sf-copy p{color:#E5E5E5!important}
-html body .alookhor-sf .alookhor-sf-icon{color:#D4AF37!important;background:rgba(29,17,38,.62)!important;border-color:rgba(212,175,55,.28)!important}
+html body .alookhor-managed-module-host.alookhor-surface-c{
+  background:transparent!important;
+  background-image:none!important;
+}
+/* Each module consumes its own variables emitted from saved Boutique settings. */
+html body .alookhor-sf{background:var(--sf-bg,#1C1025)!important;color:var(--sf-text,#FFFFFF)!important}
+html body .alookhor-sf .alookhor-sf-card{background:var(--sf-card,#26213D)!important;color:var(--sf-text,#FFFFFF)!important;border-color:color-mix(in srgb,var(--sf-gold,#D4AF37) 24%,transparent)!important}
+html body .alookhor-sf .alookhor-sf-copy h3{color:var(--sf-text,#FFFFFF)!important}html body .alookhor-sf .alookhor-sf-copy p{color:var(--sf-muted,#E5E5E5)!important}
+html body .alookhor-mc{background:var(--mc-bg,#26213D)!important;color:var(--mc-text,#FFFFFF)!important}.alookhor-mc-card{background:var(--mc-card,#1D1126)!important;color:var(--mc-text,#FFFFFF)!important}
+html body .alookhor-fp{background:var(--afp-bg,#26213D)!important;color:var(--afp-text,#FFFFFF)!important}.afp-card{background:var(--afp-card,#1D1126)!important;color:var(--afp-text,#FFFFFF)!important}
+html body .alookhor-bs{background:var(--abs-bg,#1C1025)!important;color:var(--abs-text,#FFFFFF)!important}.abs-card{background:var(--abs-card,#26213D)!important;color:var(--abs-text,#FFFFFF)!important}.abs-inner>header,.abs-timer{background:color-mix(in srgb,var(--abs-card,#26213D) 72%,var(--abs-bg,#1C1025))!important}
+html body .alookhor-sort-center{background:var(--asc-bg,#26213D)!important;color:var(--asc-text,#FFFFFF)!important}.asc-description,.asc-products,.asc-features article,.asc-slider{background:var(--asc-surface,#1D1126)!important;color:var(--asc-text,#FFFFFF)!important}
+html body .alookhor-app-banner{background:var(--aab-bg,#1C1025)!important;color:var(--aab-text,#FFFFFF)!important}.aab-inner{background:var(--aab-surface,#26213D)!important;color:var(--aab-text,#FFFFFF)!important}
+html body .alookhor-campaign-wrap{background:var(--ac-bg,#1D1126)!important}.alookhor-campaign{color:var(--ac-text,#FFFFFF)!important}
+html body .alookhor-xb{background:var(--akx-bg,#1D1126)!important}.alookhor-xb-card{background:rgba(var(--akx-bg-rgb,29,17,38),var(--akx-card-alpha,.78))!important}
+html body .alookhor-mag{background:var(--am-bg,#1D1126)!important;color:var(--am-text,#FFFFFF)!important}.am-inner>header,.am-card{background:var(--am-card,#26213D)!important;color:var(--am-text,#FFFFFF)!important}
+html body .alookhor-newsletter{background:var(--an-bg,#1C1025)!important;color:var(--an-text,#FFFFFF)!important}.an-form>div{background:var(--an-surface,#26213D)!important}
+html body .alookhor-mf{background:var(--mf-bg,#1C1025)!important;color:var(--mf-text,#FFFFFF)!important}
+/* Header and Hero variables are also emitted inline by their Boutique forms. */
+html body #akx-header .akx-nav-capsule{background:var(--akx-capsule-glass,rgba(28,16,37,.72))!important;border-color:color-mix(in srgb,var(--akx-gold,#D4AF37) 28%,transparent)!important}
+html body .alookhor-mh{background:var(--mh-surface,#3A0D5C)!important;color:var(--mh-text,#FFFFFF)!important}.alookhor-mh-content{background:rgba(var(--mh-surface-rgb,58,13,92),var(--mh-panel-alpha,.34))!important}
+/* Shared accessibility; no visual palette overrides. */
+html body :is(.alookhor-mc,.alookhor-fp,.alookhor-bs,.alookhor-sort-center,.alookhor-mag,.alookhor-newsletter) :is(button,a,input):focus-visible{outline:3px solid var(--alookhor-gold)!important;outline-offset:3px}
+@media(prefers-reduced-motion:reduce){html body .alookhor-managed-page *{scroll-behavior:auto!important}}

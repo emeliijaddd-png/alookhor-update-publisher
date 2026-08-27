@@ -1,5 +1,11 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.129 — 2026-08-27 — Boutique Color Authority Restored
+- ROOT CAUSE: لایه مرکزی Design System با `!important` و چرخه A/B/C رنگ‌های ذخیره‌شده هر فرم را Override می‌کرد.
+- AUTHORITY: هر ماژول اکنون مستقیماً از CSS Variable اینلاین و ذخیره‌شده خودش برای Section، Card، Text و Accent می‌خواند.
+- ELEMENTOR: تمام میزبان‌های Elementor شفاف هستند تا رنگ انتخابی بخش را نپوشانند.
+- RETIRED: تخصیص خودکار یکی‌درمیان رنگ‌ها از Runtime حذف شد؛ کنترل کامل دوباره در اختیار مدیریت بوتیک است.
+
 ## v3.10.128 — 2026-08-27 — Trust Card Dark Palette Restore
 - ROOT CAUSE: قانون قدیمی Warm Card با Selector قوی `html body` روی رنگ جدید کارت ویژگی‌ها غالب مانده بود.
 - FIX: Selector اختصاصی قوی‌تر روی خود `.alookhor-sf .alookhor-sf-card` اعمال شد.

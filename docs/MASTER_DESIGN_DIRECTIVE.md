@@ -94,3 +94,6 @@ The previous two-color alternation is superseded by a deterministic three-step D
 
 ## Strict Three-purple Palette Amendment — 2026-08-27
 The active storefront surface system is now strictly limited to `#1C1025`, `#26213D`, and `#1D1126`. Legacy Primary/Deep/Card surface tokens are remapped to this trio. Every managed module has a static fallback assignment, while runtime DOM alternation uses the same three values. Gold, light gold, white and muted light remain text/accent colors only.
+
+## Boutique Authority Amendment — 2026-08-27
+Owner-selected per-module colors are authoritative. The central design-system stylesheet may provide fallback tokens and accessibility rules, but must never override inline CSS variables emitted from saved Boutique settings. Automatic A/B/C surface assignment is retired. Elementor hosts remain transparent so the selected section background is visible without seams.
