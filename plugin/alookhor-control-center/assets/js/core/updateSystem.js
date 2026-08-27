@@ -2,7 +2,7 @@
 // UI/state remain modular; version discovery and installation are delegated to WordPress.
 
 const runtimeConfig = window.ALOOKHOR_CC || {};
-const runtimeVersion = String(runtimeConfig.version || '3.10.133');
+const runtimeVersion = String(runtimeConfig.version || '3.10.134');
 
 function normalizeResult(data = {}) {
   const current = String(data.current || runtimeVersion);
@@ -55,6 +55,7 @@ export const Updater = {
   latest: runtimeVersion,
   lastCheck: null,
   changelog: [
+    { tag: 'NAV FRAME', title: 'v3.10.134 — قاب نورانی منوی اصلی', desc: 'نوار طلایی باریک و پیوسته با Glow کنترل‌شده دور کپسول منو اضافه شد.' },
     { tag: 'ELEMENTOR FIX', title: 'v3.10.133 — رفع خطای 500 Elementor', desc: 'CSS تکراری سنگین از AJAX ذخیره حذف و شورت‌کدها به دارایی‌های Cacheable متصل شدند.' },
     { tag: 'WHY ALOOKHOR', title: 'v3.10.132 — چرا آلوخور؟', desc: 'بخش مزیت‌ها و آمار واقعی با شورت‌کد و تنظیمات کامل بوتیک اضافه شد.' },
     { tag: 'PREMIUM COLLECTION', title: 'v3.10.131 — مجموعه منتخب لوکس', desc: 'کارت‌های کامل WooCommerce، بوته طلایی، امتیاز، توضیح و CTA مطابق مرجع اضافه شد.' },

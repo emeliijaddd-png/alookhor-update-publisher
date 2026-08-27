@@ -1,16 +1,16 @@
 {
-  "version": "3.10.133",
-  "previous": "3.10.132",
+  "version": "3.10.134",
+  "previous": "3.10.133",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "رفع خطای 500 ذخیره Elementor با حذف CSS تکراری سنگین از درخواست‌های AJAX.",
+  "description": "افزودن قاب باریک نورانی دور کپسول منوی اصلی.",
   "changelog": [
     {
-      "tag": "ELEMENTOR 500 FIX",
-      "title": "ذخیره پایدار شورت‌کدها در Elementor",
-      "desc": "Inline کردن ۱۲ Stylesheet کامل در درخواست elementor_ajax متوقف شد؛ CSS از Handleهای Cacheable بارگذاری و حجم/حافظه پاسخ AJAX کاهش یافت."
+      "tag": "LUMINOUS NAV FRAME",
+      "title": "نوار نورانی ظریف دور منو",
+      "desc": "قاب پیوسته 1px طلایی با Glow بیرونی و نور داخلی محدود دور کپسول شیشه‌ای اضافه شد؛ Hover فقط شدت نور را نرم افزایش می‌دهد."
     }
   ],
   "project": "ALOOKHOR",

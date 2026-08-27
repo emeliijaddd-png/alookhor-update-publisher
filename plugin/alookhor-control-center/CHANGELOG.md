@@ -1,5 +1,10 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.134 — 2026-08-27 — Luminous Main Navigation Frame
+- FRAME: قاب پیوسته و باریک 1px طلایی دور کل کپسول شیشه‌ای منوی اصلی اضافه شد.
+- GLOW: Glow بیرونی 7px و نور داخلی بسیار محدود بدون سنگین‌کردن Header اجرا شد.
+- INTERACTION: Hover با Transition 0.35s فقط شدت نور را افزایش می‌دهد و Layout را تغییر نمی‌دهد.
+
 ## v3.10.133 — 2026-08-27 — Elementor HTTP 500 Save Fix
 - ROOT CAUSE: هر شورت‌کد یک Stylesheet کامل را داخل خروجی HTML تزریق می‌کرد؛ Elementor هنگام Preview/Save همه ماژول‌ها را در یک `admin-ajax` رندر و پاسخ بسیار سنگین تولید می‌کرد.
 - AJAX GUARD: Inline CSS در `wp_doing_ajax`، محیط Admin و Actionهای Elementor به‌طور مرکزی متوقف شد.
