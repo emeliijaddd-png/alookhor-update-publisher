@@ -1,5 +1,12 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.140 — 2026-08-27 — International Standards Section
+- SHORTCODE: `[alookhor_international_standards]` اضافه شد.
+- CARDS: شش کارت Glass برای ISO 9001، HACCP، ORGANIC، HALAL، FDA و GMP با آیکن Line ساخته شد.
+- MOTION: Hover Lift، Icon Glow/Rotate، Reveal مرحله‌ای و شمارنده انیمیشنی اضافه شد.
+- BOUTIQUE: تمام متن‌ها، آیکن‌ها، چهار آمار، پنج رنگ و Radius قابل مدیریت است.
+- RESPONSIVE: ۶/۳/۲ ستون برای Desktop/Tablet/Mobile پیاده شد.
+
 ## v3.10.139 — 2026-08-27 — Why ALOOKHOR Complete Content + Palette
 - CONTENT: متن کامل چهار مزیت مطابق مرجع به Defaults و ترمیم مقادیر خالی اضافه شد.
 - STATS: مقادیر +15، +50، +1000 و +500 با عنوان‌های کامل و شمارنده انیمیشنی اضافه شدند.

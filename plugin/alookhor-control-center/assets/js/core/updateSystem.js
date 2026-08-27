@@ -2,7 +2,7 @@
 // UI/state remain modular; version discovery and installation are delegated to WordPress.
 
 const runtimeConfig = window.ALOOKHOR_CC || {};
-const runtimeVersion = String(runtimeConfig.version || '3.10.139');
+const runtimeVersion = String(runtimeConfig.version || '3.10.140');
 
 function normalizeResult(data = {}) {
   const current = String(data.current || runtimeVersion);
@@ -56,6 +56,7 @@ export const Updater = {
   lastCheck: null,
   changelog: [
     { tag: 'NAV INDICATOR', title: 'v3.10.137 — زیرخط متحرک منو', desc: 'نشانگر طلایی با Hover و Focus بین لینک‌ها حرکت و به صفحه فعال بازمی‌گردد.' },
+    { tag: 'STANDARDS', title: 'v3.10.140 — استانداردهای بین‌المللی', desc: 'شش کارت شیشه‌ای، چهار شمارنده و تنظیمات کامل بوتیک اضافه شد.' },
     { tag: 'WHY COMPLETE', title: 'v3.10.139 — محتوای کامل چرا آلوخور', desc: 'تمام متن‌ها، آمار، رنگ‌ها و ترکیب بصری مطابق مرجع اضافه و در بوتیک قابل ویرایش شد.' },
     { tag: 'WHY MOTION', title: 'v3.10.136 — چرا آلوخور شیشه‌ای و متحرک', desc: 'Glass، Shine، Hover، Reveal مرحله‌ای و شمارنده پویا اضافه شد.' },
     { tag: 'NAV FRAME', title: 'v3.10.134 — قاب نورانی منوی اصلی', desc: 'نوار طلایی باریک و پیوسته با Glow کنترل‌شده دور کپسول منو اضافه شد.' },

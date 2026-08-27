@@ -1,16 +1,16 @@
 {
-  "version": "3.10.139",
-  "previous": "3.10.137",
+  "version": "3.10.140",
+  "previous": "3.10.139",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "انتشار مجدد تکمیل چرا آلوخور پس از خطای موقت FTPS.",
+  "description": "افزودن بخش استانداردهای بین‌المللی با شش کارت شیشه‌ای، آمار و انیمیشن لوکس.",
   "changelog": [
     {
-      "tag": "WHY CONTENT COMPLETE",
-      "title": "محتوای کامل چرا آلوخور",
-      "desc": "انتشار مجدد نسخه 3.10.138 پس از خطای موقت اتصال FTPS."
+      "tag": "INTERNATIONAL STANDARDS",
+      "title": "استانداردهای بین‌المللی کیفیت",
+      "desc": "[alookhor_international_standards] با ۶ کارت، ۴ شمارنده، Glass، Hover، Reveal و تنظیمات کامل بوتیک اضافه شد."
     }
   ],
   "project": "ALOOKHOR",
@@ -71,6 +71,9 @@
     "plugin/alookhor-control-center/assets/css/frontend-why-alookhor.css",
     "plugin/alookhor-control-center/includes/footer.php",
     "plugin/alookhor-control-center/includes/product-categories.php",
-    "plugin/alookhor-control-center/assets/js/frontend-why-alookhor.js"
+    "plugin/alookhor-control-center/assets/js/frontend-why-alookhor.js",
+    "plugin/alookhor-control-center/includes/international-standards.php",
+    "plugin/alookhor-control-center/assets/css/frontend-international-standards.css",
+    "plugin/alookhor-control-center/assets/js/frontend-international-standards.js"
   ]
 }
