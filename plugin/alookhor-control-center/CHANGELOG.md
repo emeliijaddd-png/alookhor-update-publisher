@@ -1,6 +1,6 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
-## v3.10.135 — 2026-08-27 — Why ALOOKHOR Glass Motion Upgrade
+## v3.10.136 — 2026-08-27 — Why ALOOKHOR Glass Motion Upgrade
 - GLASS: کارت‌ها و ردیف آمار به Surface شیشه‌ای واقعی با Blur 25px، Saturation و Border طلایی ظریف تبدیل شدند.
 - INTERACTION: Hover Lift، Shine عبوری و چرخش/Glow ظریف آیکن‌ها مطابق مرجع اضافه شد.
 - REVEAL: کارت‌ها به‌ترتیب با IntersectionObserver ظاهر می‌شوند.

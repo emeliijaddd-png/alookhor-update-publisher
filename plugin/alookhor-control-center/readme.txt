@@ -4,7 +4,7 @@ Tags: control center, luxury, alookhor, admin, dashboard
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 3.10.135
+Stable tag: 3.10.136
 License: Private
 License URI: https://alookhor.ir
 
@@ -47,7 +47,7 @@ License URI: https://alookhor.ir
 
 == Changelog ==
 
-= 3.10.135 =
+= 3.10.136 =
 * ارتقای «چرا آلوخور» با Glass، Shine، Reveal و شمارنده انیمیشنی
 
 = 3.10.134 =
