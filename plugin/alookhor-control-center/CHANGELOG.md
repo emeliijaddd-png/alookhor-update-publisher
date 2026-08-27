@@ -1,5 +1,11 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.103 — 2026-08-27 — Transform-free Infinite Bestsellers Loop
+- ROOT CAUSE: محاسبه Translate در ترکیب RTL و Elementor در بعضی عرض‌ها Track را به سمت راست خارج می‌کرد.
+- LOOP: Translate کامل حذف شد؛ Next/Prev با چرخش واقعی اولین/آخرین Card در DOM انجام می‌شود.
+- GUARANTEE: Track همیشه از ابتدا پر است و هیچ فضای خالی، سرریز یا پایان بدون Loop ایجاد نمی‌شود.
+- MOTION: انیمیشن ورود کوتاه بدون جابه‌جایی ساختاری حفظ شد.
+
 ## v3.10.102 — 2026-08-27 — Campaign Full-bleed Purple Background
 - FULL BLEED: Wrapper بنفش اسلایدر کمپین با `100vw` به لبه چپ و راست viewport چسبید و فضای سفید حذف شد.
 - CENTERED: خود اسلایدر با سقف ۱۳۸۰px در مرکز باقی ماند و کشیده نمی‌شود.

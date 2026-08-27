@@ -1,16 +1,16 @@
 {
-  "version": "3.10.102",
-  "previous": "3.10.100",
+  "version": "3.10.103",
+  "previous": "3.10.102",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "انتشار مجدد پس‌زمینه تمام‌عرض کمپین پس از خطای موقت FTPS.",
+  "description": "بازنویسی Loop پرفروش‌ها بدون Transform برای حذف قطعی خروج و فضای خالی.",
   "changelog": [
     {
-      "tag": "CAMPAIGN FULL BLEED",
-      "title": "پس‌زمینه تمام‌عرض اسلایدر کمپین",
-      "desc": "همان اصلاح 3.10.101 که به‌دلیل خطای موقت FTPS آپلود نشد، مجدداً منتشر شد."
+      "tag": "TRANSFORM-FREE LOOP",
+      "title": "Loop بی‌نهایت بدون خروج کارت‌ها",
+      "desc": "حرکت translate حذف و Loop با جابه‌جایی DOM کارت اول/آخر پیاده شد؛ بنابراین Track همیشه پر است و هیچ سمت خالی یا کارت گمشده ایجاد نمی‌شود."
     }
   ],
   "project": "ALOOKHOR",
