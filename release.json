@@ -1,16 +1,16 @@
 {
-  "version": "3.10.132",
-  "previous": "3.10.131",
+  "version": "3.10.133",
+  "previous": "3.10.132",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "افزودن بخش چرا آلوخور با شورت‌کد و تنظیمات کامل بوتیک.",
+  "description": "رفع خطای 500 ذخیره Elementor با حذف CSS تکراری سنگین از درخواست‌های AJAX.",
   "changelog": [
     {
-      "tag": "WHY ALOOKHOR",
-      "title": "بخش چرا آلوخور؟",
-      "desc": "[alookhor_why_alookhor] با چهار مزیت، آیکن خطی، آمار اختیاری واقعی، طراحی لوکس و مدیریت کامل اضافه شد."
+      "tag": "ELEMENTOR 500 FIX",
+      "title": "ذخیره پایدار شورت‌کدها در Elementor",
+      "desc": "Inline کردن ۱۲ Stylesheet کامل در درخواست elementor_ajax متوقف شد؛ CSS از Handleهای Cacheable بارگذاری و حجم/حافظه پاسخ AJAX کاهش یافت."
     }
   ],
   "project": "ALOOKHOR",
@@ -68,6 +68,8 @@
     "plugin/alookhor-control-center/assets/css/frontend-design-system.css",
     "docs/MASTER_DESIGN_DIRECTIVE.md",
     "plugin/alookhor-control-center/includes/why-alookhor.php",
-    "plugin/alookhor-control-center/assets/css/frontend-why-alookhor.css"
+    "plugin/alookhor-control-center/assets/css/frontend-why-alookhor.css",
+    "plugin/alookhor-control-center/includes/footer.php",
+    "plugin/alookhor-control-center/includes/product-categories.php"
   ]
 }

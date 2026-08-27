@@ -3,7 +3,7 @@
  * Plugin Name: ALOOKHOR Control Center
  * Plugin URI: https://alookhor.ir
  * Description: کنترل سنتر لوکس و ماژولار آلوخور — مدیریت کامل سایت (هدر، اسلایدر، سورت، محصولات، مشتریان VIP، مالی، آنالیتیکس) با آپدیت آنی بدون رفرش. تمام تنظیمات چت قبلی + شورت‌کد [alookhor_portal_header] اینجا مدیریت می‌شود.
- * Version: 3.10.132
+ * Version: 3.10.133
  * Author: ALOOKHOR Team — Luxury Modular
  * Author URI: https://alookhor.ir
  * Update URI: https://alookhor.ir/alookhor-control-center
@@ -16,14 +16,25 @@
 
 if (!defined('ABSPATH')) exit;
 
-define('ALOOKHOR_CC_VERSION', '3.10.132');
-define('ALOOKHOR_CC_BUILD', '3.10.132');
+define('ALOOKHOR_CC_VERSION', '3.10.133');
+define('ALOOKHOR_CC_BUILD', '3.10.133');
 define('ALOOKHOR_CC_FILE', __FILE__);
 define('ALOOKHOR_CC_DIR', plugin_dir_path(__FILE__));
 define('ALOOKHOR_CC_URL', plugin_dir_url(__FILE__));
 define('ALOOKHOR_CC_OPTION', 'alookhor_cc_settings');
 define('ALOOKHOR_CC_HEADER_OPTION', 'alookhor_header_settings');
 define('ALOOKHOR_CC_PLUGIN_BASENAME', plugin_basename(__FILE__));
+
+/**
+ * Inline CSS is useful in normal shortcode output, but Elementor renders many
+ * widgets inside one admin-ajax request. Repeating full stylesheets there can
+ * exhaust response/memory limits and cause HTTP 500 while saving.
+ */
+function alookhor_cc_should_inline_shortcode_css(){
+    if (is_admin() || wp_doing_ajax()) return false;
+    if (isset($_REQUEST['action']) && str_contains(sanitize_key(wp_unslash($_REQUEST['action'])), 'elementor')) return false;
+    return true;
+}
 
 // ——— Activation: حافظه واقعی قبلی را بساز ———
 register_activation_hook(__FILE__, 'alookhor_cc_activate');

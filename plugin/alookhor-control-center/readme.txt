@@ -4,7 +4,7 @@ Tags: control center, luxury, alookhor, admin, dashboard
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 3.10.132
+Stable tag: 3.10.133
 License: Private
 License URI: https://alookhor.ir
 
@@ -47,8 +47,11 @@ License URI: https://alookhor.ir
 
 == Changelog ==
 
+= 3.10.133 =
+* رفع خطای 500 ذخیره Elementor با حذف Inline CSS تکراری از درخواست‌های AJAX
+
 = 3.10.132 =
-* افزودن `[alookhor_why_alookhor]` با چهار مزیت و آمار واقعی قابل مدیریت
+* افزودن `[alookhor_why_alookhor]`` با چهار مزیت و آمار واقعی قابل مدیریت
 
 = 3.10.131 =
 * بازطراحی کامل `[alookhor_featured_products]` مطابق مجموعه منتخب لوکس مرجع

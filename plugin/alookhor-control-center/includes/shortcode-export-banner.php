@@ -134,7 +134,7 @@ function alookhor_cc_export_banner_markup($settings = null){
     ob_start();
     // Elementor Editor ممکن است شورت‌کد را بعد از wp_head رندر کند؛ استایل Scoped همراه خروجی تضمین می‌شود.
     static $inline_style_printed = false;
-    if (!$inline_style_printed) {
+    if (!$inline_style_printed && alookhor_cc_should_inline_shortcode_css()) {
         $inline_style_printed = true;
         $css_file = ALOOKHOR_CC_DIR . 'assets/css/frontend-export-banner.css';
         if (file_exists($css_file)) echo '<style id="alookhor-export-banner-inline">' . file_get_contents($css_file) . '</style>';

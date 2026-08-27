@@ -46,7 +46,7 @@ function alookhor_cc_sort_center_shortcode() {
     ob_start();
     // Elementor Editor شورت‌کد را بعد از wp_head رندر می‌کند؛ CSS به‌صورت Scoped همراه خروجی باشد.
     static $inline_style_printed=false;
-    if(!$inline_style_printed){$inline_style_printed=true;$css_file=ALOOKHOR_CC_DIR.'assets/css/frontend-sort-center.css';if(file_exists($css_file))echo '<style id="alookhor-sort-center-inline">'.file_get_contents($css_file).'</style>';}
+    if(!$inline_style_printed && alookhor_cc_should_inline_shortcode_css()){$inline_style_printed=true;$css_file=ALOOKHOR_CC_DIR.'assets/css/frontend-sort-center.css';if(file_exists($css_file))echo '<style id="alookhor-sort-center-inline">'.file_get_contents($css_file).'</style>';}
     ?>
 <section class="alookhor-sort-center" dir="rtl" data-autoplay="<?php echo !empty($s['autoplay'])?'1':'0'; ?>" data-interval="<?php echo max(2500,min(15000,absint($s['autoplay_interval']))); ?>" style="--asc-bg:<?php echo esc_attr($colors['background']); ?>;--asc-surface:<?php echo esc_attr($colors['surface']); ?>;--asc-gold:<?php echo esc_attr($colors['gold']); ?>;--asc-text:<?php echo esc_attr($colors['text']); ?>;--asc-muted:<?php echo esc_attr($colors['muted']); ?>;--asc-radius:<?php echo max(10,min(40,absint($s['radius']))); ?>px">
  <div class="asc-inner">

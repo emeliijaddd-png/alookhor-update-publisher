@@ -1,5 +1,11 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.133 — 2026-08-27 — Elementor HTTP 500 Save Fix
+- ROOT CAUSE: هر شورت‌کد یک Stylesheet کامل را داخل خروجی HTML تزریق می‌کرد؛ Elementor هنگام Preview/Save همه ماژول‌ها را در یک `admin-ajax` رندر و پاسخ بسیار سنگین تولید می‌کرد.
+- AJAX GUARD: Inline CSS در `wp_doing_ajax`، محیط Admin و Actionهای Elementor به‌طور مرکزی متوقف شد.
+- CACHEABLE ASSETS: CSS در Editor/Frontend فقط از Handleهای نسخه‌دار و Cacheable افزونه بارگذاری می‌شود.
+- SCOPE: تمام ۱۲ شورت‌کد مدیریت‌شده به Guard مشترک متصل شدند؛ خروجی عادی سایت دست‌نخورده است.
+
 ## v3.10.132 — 2026-08-27 — Why ALOOKHOR Section
 - SHORTCODE: `[alookhor_why_alookhor]` و Alias `[alookhor_why_us]` اضافه شد.
 - BENEFITS: چهار کارت مزیت با آیکن‌های Line هماهنگ، عنوان و توضیح مستقل ساخته شد.
