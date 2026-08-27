@@ -1,5 +1,11 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.137 — 2026-08-27 — Moving Gold Navigation Indicator
+- MOTION: زیرخط طلایی با اندازه و مختصات واقعی لینک Hover شده حرکت می‌کند.
+- RETURN: پس از خروج Pointer، نشانگر نرم به صفحه فعال بازمی‌گردد.
+- KEYBOARD: Focus کیبورد نیز دقیقاً همان رفتار را دارد.
+- ACCESSIBILITY: Reduced Motion و مخفی‌سازی در Navigation موبایل رعایت شد.
+
 ## v3.10.136 — 2026-08-27 — Why ALOOKHOR Glass Motion Upgrade
 - GLASS: کارت‌ها و ردیف آمار به Surface شیشه‌ای واقعی با Blur 25px، Saturation و Border طلایی ظریف تبدیل شدند.
 - INTERACTION: Hover Lift، Shine عبوری و چرخش/Glow ظریف آیکن‌ها مطابق مرجع اضافه شد.

@@ -62,6 +62,32 @@
       }
     });
 
+    // نشانگر طلایی متحرک Desktop: با Hover/Keyboard زیر همان لینک حرکت می‌کند
+    // و پس از خروج، نرم به صفحه فعال برمی‌گردد.
+    const navList = root.querySelector('.akx-nav > ul');
+    if (navList) {
+      const links = [...navList.querySelectorAll(':scope > li > a')];
+      const activeLink = navList.querySelector(':scope > li.akx-active > a') || links[0];
+      const moveIndicator = link => {
+        if (!link) return;
+        const listRect = navList.getBoundingClientRect();
+        const linkRect = link.getBoundingClientRect();
+        navList.style.setProperty('--akx-indicator-x', `${linkRect.left - listRect.left}px`);
+        navList.style.setProperty('--akx-indicator-width', `${linkRect.width}px`);
+        navList.classList.add('akx-indicator-ready');
+      };
+      links.forEach(link => {
+        link.addEventListener('pointerenter', () => moveIndicator(link));
+        link.addEventListener('focus', () => moveIndicator(link));
+      });
+      navList.addEventListener('pointerleave', () => moveIndicator(activeLink));
+      navList.addEventListener('focusout', event => {
+        if (!navList.contains(event.relatedTarget)) moveIndicator(activeLink);
+      });
+      requestAnimationFrame(() => moveIndicator(activeLink));
+      window.addEventListener('resize', () => moveIndicator(activeLink), { passive: true });
+    }
+
     // v3.10.68: نوار دوم چسبان — Mainbar وقتی جای طبیعی‌اش از بالا رد شد به بالای viewport می‌چسبد
     const mainbar = root.querySelector('.akx-mainbar');
     if (mainbar) {
