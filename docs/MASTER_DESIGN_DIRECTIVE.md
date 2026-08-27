@@ -82,3 +82,6 @@ The owner approved replacing stark white section backgrounds with a warmer plum-
 ```
 
 `#FFFFFF` remains valid for high-contrast text and limited functional use, but is no longer the default large section background. Light rhythm now alternates Warm Light → Sand → Warm Light while cards use Premium Ivory. Purple, Deep Purple and Gold remain unchanged.
+
+## Rich Plum Surface Amendment — 2026-08-27
+At the owner's explicit direction, the warm light large surfaces from v3.10.121 are superseded by a new Rich Plum token `#2B0D3A`. Managed Trust, Categories, Product, Sorting, App and Magazine sections use Rich Plum as their large surface, Primary Purple `#3B164F` as card depth, Deep Purple `#16091F` for inset surfaces, white text and restrained gold accents. The warm tokens remain archived but are not active storefront surfaces.

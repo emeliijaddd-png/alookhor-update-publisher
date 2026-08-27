@@ -1,5 +1,11 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.122 — 2026-08-27 — Rich Plum Luxury Surfaces
+- NEW COLOR: بنفش آلویی پررنگ و جدید `#2B0D3A` به‌عنوان Surface بزرگ اضافه شد.
+- DEPTH: Cardها `#3B164F` و سطوح Inset برابر `#16091F` هستند؛ متن سفید و Gold محدود حفظ شد.
+- SCOPE: Trust، Categories، Featured/Bestsellers، Sorting، App و Magazine از سطح روشن به Rich Plum منتقل شدند.
+- RESULT: سطوح سفید/کرم فعال حذف شدند و عمق لوکس بدون استفاده از مشکی خالص بازگشت.
+
 ## v3.10.121 — 2026-08-27 — Warm Luxury Surface System
 - DIRECTION: سفید سرد از Backgroundهای بزرگ حذف و با سطوح گرم متناسب با آلوی بنفش و هسته طلایی جایگزین شد.
 - PALETTE: Warm Light `#F3EBDD`، Sand `#EDE2D0` و Premium Ivory Card `#FFF9EF` به توکن‌های مرکزی اضافه شدند.
