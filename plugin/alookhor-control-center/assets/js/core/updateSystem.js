@@ -2,7 +2,7 @@
 // UI/state remain modular; version discovery and installation are delegated to WordPress.
 
 const runtimeConfig = window.ALOOKHOR_CC || {};
-const runtimeVersion = String(runtimeConfig.version || '3.10.127');
+const runtimeVersion = String(runtimeConfig.version || '3.10.128');
 
 function normalizeResult(data = {}) {
   const current = String(data.current || runtimeVersion);
@@ -55,6 +55,7 @@ export const Updater = {
   latest: runtimeVersion,
   lastCheck: null,
   changelog: [
+    { tag: 'TRUST CARDS', title: 'v3.10.128 — بازگشت کارت‌های تیره ویژگی', desc: 'قانون سفید قدیمی خنثی و کارت‌ها به بنفش تیره انتخابی بازگشتند.' },
     { tag: 'STRICT PALETTE', title: 'v3.10.127 — فقط سه بنفش نهایی', desc: 'تمام رنگ‌های سطح قدیمی حذف و ماژول‌ها به سه کد انتخابی محدود شدند.' },
     { tag: 'THREE PLUM', title: 'v3.10.126 — چرخه سه‌رنگ کانتینرها', desc: 'سه رنگ انتخابی مالک به ترتیب واقعی بخش‌ها تکرار می‌شوند.' },
     { tag: 'PLUM RHYTHM', title: 'v3.10.125 — بنفش‌های یکی‌درمیان', desc: 'کانتینرهای Homepage به‌ترتیب بین #2B0A3D و #3A0D5C جابه‌جا می‌شوند.' },

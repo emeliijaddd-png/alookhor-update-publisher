@@ -1,5 +1,10 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.128 — 2026-08-27 — Trust Card Dark Palette Restore
+- ROOT CAUSE: قانون قدیمی Warm Card با Selector قوی `html body` روی رنگ جدید کارت ویژگی‌ها غالب مانده بود.
+- FIX: Selector اختصاصی قوی‌تر روی خود `.alookhor-sf .alookhor-sf-card` اعمال شد.
+- COLORS: کارت گرادیان محدود `#26213D → #1D1126`، متن سفید، متن فرعی `#E5E5E5` و آیکن طلایی شد.
+
 ## v3.10.127 — 2026-08-27 — Strict Three-purple Surface Palette
 - ROOT CAUSE: لایه‌های قدیمی Design System هنوز قبل از چرخه Runtime رنگ‌های سابق را به برخی Root/Cardها می‌دادند.
 - REMAP: Purple/Deep/Card مرکزی به سه رنگ `#3A0D5C`، `#1C1025` و `#1D1126` remap شدند.
