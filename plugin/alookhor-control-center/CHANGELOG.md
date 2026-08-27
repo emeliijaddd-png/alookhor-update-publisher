@@ -1,5 +1,11 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.105 — 2026-08-27 — Luxury WordPress Magazine Carousel
+- SHORTCODE: `[alookhor_magazine]` اضافه شد.
+- WORDPRESS: نوشته‌های واقعی با تصویر شاخص، دسته، تاریخ، عنوان، خلاصه و لینک فراخوانی می‌شوند.
+- CAROUSEL: چهار/دو/یک کارت Responsive با Loop بدون انتها، فلش و Autoplay ساخته شد.
+- BOUTIQUE: دسته، تعداد، سرعت، اجزای نمایشی، متن‌ها، پنج رنگ و گردی قابل مدیریت است.
+
 ## v3.10.104 — 2026-08-27 — Professional Newsletter
 - SHORTCODE: `[alookhor_newsletter]` اضافه شد.
 - SUBSCRIBE: اعتبارسنجی ایمیل، Nonce، رضایت حریم خصوصی، جلوگیری از تکرار و ذخیره واقعی اعضا در WordPress پیاده شد.

@@ -57,6 +57,7 @@ add_action('admin_enqueue_scripts', function($hook){
         'wc_categories' => array_map(function($term){
             return ['id'=>(int)$term->term_id,'name'=>$term->name,'slug'=>$term->slug,'count'=>(int)$term->count,'parent'=>(int)$term->parent];
         }, $category_terms),
+        'post_categories' => array_map(function($term){return ['id'=>(int)$term->term_id,'name'=>$term->name];},get_categories(['hide_empty'=>false])),
     ]);
 });
 

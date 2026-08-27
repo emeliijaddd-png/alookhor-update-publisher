@@ -1,16 +1,16 @@
 {
-  "version": "3.10.104",
-  "previous": "3.10.103",
+  "version": "3.10.105",
+  "previous": "3.10.104",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "افزودن خبرنامه حرفه‌ای با شورت‌کد، ذخیره واقعی اعضا و مدیریت کامل بوتیک.",
+  "description": "افزودن مجله لوکس وردپرس با کاروسل Loop و تنظیمات کامل بوتیک.",
   "changelog": [
     {
-      "tag": "PRO NEWSLETTER",
-      "title": "خبرنامه حرفه‌ای آلوخور",
-      "desc": "[alookhor_newsletter] با فرم امن، رضایت حریم خصوصی، اعتبارسنجی، ذخیره اعضا، پیام موفقیت، طراحی تمام‌عرض و تنظیم کامل بوتیک اضافه شد."
+      "tag": "LUXURY MAGAZINE",
+      "title": "مجله اسلایدی آلوخور",
+      "desc": "[alookhor_magazine] نوشته‌های واقعی WordPress را با تصویر، دسته، تاریخ، خلاصه و لینک در کاروسل Loop نمایش می‌دهد."
     }
   ],
   "project": "ALOOKHOR",
@@ -55,6 +55,9 @@
     "plugin/alookhor-control-center/assets/js/frontend-bestsellers.js",
     "plugin/alookhor-control-center/includes/newsletter.php",
     "plugin/alookhor-control-center/assets/css/frontend-newsletter.css",
-    "plugin/alookhor-control-center/assets/js/frontend-newsletter.js"
+    "plugin/alookhor-control-center/assets/js/frontend-newsletter.js",
+    "plugin/alookhor-control-center/includes/magazine.php",
+    "plugin/alookhor-control-center/assets/css/frontend-magazine.css",
+    "plugin/alookhor-control-center/assets/js/frontend-magazine.js"
   ]
 }
