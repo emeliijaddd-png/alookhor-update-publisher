@@ -1,5 +1,12 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.117 — 2026-08-27 — Bestsellers UX Runtime V3 + Countdown
+- RUNTIME: Event Delegation مستقل جایگزین Binding شکننده شد؛ تب‌ها و فلش‌ها حتی پس از رندر پویا Elementor همیشه کار می‌کنند.
+- LOOP: چرخش DOM بدون Transform و Autoplay پایدار حفظ شد.
+- TIMER: Countdown روز/ساعت/دقیقه/ثانیه بر اساس پایان تخفیف WooCommerce و fallback چهارده‌روزه اضافه شد.
+- DESIGN: Badge جدید/تخفیف، دکمه گرادیانی و Header مطابق مرجع اضافه شد.
+- MOBILE: تب‌های Scroll افقی، کارت 86٪، کنترل‌های لمسی و تایپوگرافی Responsive پیاده شد.
+
 ## v3.10.116 — 2026-08-27 — Professional Footer Typography
 - FONT: فونت Variable Vazirmatn با دو Subset فارسی و لاتین WOFF2 محلی، `font-display:swap` و وزن 100–900 اضافه شد؛ هیچ وابستگی خارجی ندارد.
 - DESKTOP: تیتر 18/30 وزن 700، لینک 14/28 وزن 400، توضیح 14/30 وزن 400، تماس 15/30 وزن 500 و کپی‌رایت 13/24 اعمال شد.

@@ -2,7 +2,7 @@
 // UI/state remain modular; version discovery and installation are delegated to WordPress.
 
 const runtimeConfig = window.ALOOKHOR_CC || {};
-const runtimeVersion = String(runtimeConfig.version || '3.10.116');
+const runtimeVersion = String(runtimeConfig.version || '3.10.117');
 
 function normalizeResult(data = {}) {
   const current = String(data.current || runtimeVersion);
@@ -55,6 +55,7 @@ export const Updater = {
   latest: runtimeVersion,
   lastCheck: null,
   changelog: [
+    { tag: 'BESTSELLERS UX', title: 'v3.10.117 — تب، Loop و تایمر پرفروش‌ها', desc: 'Runtime تب‌ها و اسلایدر بازنویسی و Countdown و Responsive حرفه‌ای اضافه شد.' },
     { tag: 'FOOTER TYPE', title: 'v3.10.116 — تایپوگرافی حرفه‌ای فوتر', desc: 'Vazirmatn WOFF2 محلی و مقیاس استاندارد تیتر، لینک، توضیح، تماس و کپی‌رایت اعمال شد.' },
     { tag: 'NO WHITE SEAMS', title: 'v3.10.115 — حذف کامل درزهای سفید', desc: 'Wrapperهای تو در تو و Spacerهای Elementor/Woodmart با سطح بنفش یکپارچه شدند.' },
     { tag: 'ZERO WHITE GAPS', title: 'v3.10.114 — حذف فاصله سفید شورت‌کدها', desc: 'فاصله و پس‌زمینه سفید کانتینرهای Elementor میزبان ماژول‌ها به‌صورت Scoped حذف شد.' },

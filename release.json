@@ -1,16 +1,16 @@
 {
-  "version": "3.10.116",
-  "previous": "3.10.115",
+  "version": "3.10.117",
+  "previous": "3.10.116",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "استانداردسازی کامل تایپوگرافی فوتر با فونت محلی Vazirmatn WOFF2 و مقیاس حرفه‌ای Desktop/Mobile.",
+  "description": "بازطراحی UX پرفروش‌ها، رفع قطعی تب و حرکت، افزودن تایمر و Responsive حرفه‌ای.",
   "changelog": [
     {
-      "tag": "FOOTER TYPOGRAPHY",
-      "title": "تایپوگرافی حرفه‌ای فوتر",
-      "desc": "Vazirmatn Variable با WOFF2 محلی، وزن 400/500/600/700 هدفمند و اندازه/Line-height استاندارد برای تیتر، لینک، توضیح، تماس و کپی‌رایت اعمال شد."
+      "tag": "BESTSELLERS UX V3",
+      "title": "تب، Loop و تایمر واقعی پرفروش‌ها",
+      "desc": "Runtime مستقل v3 با Event Delegation، Loop DOM، تب‌های عملیاتی، Countdown فروش، Badge تخفیف و چیدمان موبایل مطابق مرجع اضافه شد."
     }
   ],
   "project": "ALOOKHOR",
