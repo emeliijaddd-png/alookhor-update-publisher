@@ -8,6 +8,6 @@ html body .alookhor-bs .abs-inner .abs-grid>.abs-card{display:block!important;fl
 @media(max-width:1000px){html body .alookhor-bs .abs-inner .abs-grid>.abs-card{flex-basis:calc((100% - 22px)/2)!important;width:calc((100% - 22px)/2)!important;max-width:calc((100% - 22px)/2)!important}}
 @media(max-width:560px){html body .alookhor-bs .abs-inner .abs-grid>.abs-card{flex-basis:86%!important;width:86%!important;max-width:86%!important}}
 
-/* v3.10.100 — deterministic carousel axis and loop containment. */
+/* v3.10.101 — deterministic carousel axis and loop containment. */
 html body .alookhor-bs .abs-inner .abs-grid{direction:ltr!important;transform-origin:left center!important;will-change:transform;transition:transform .48s cubic-bezier(.2,.8,.2,1)!important}
 html body .alookhor-bs .abs-inner .abs-grid>.abs-card{direction:rtl!important}

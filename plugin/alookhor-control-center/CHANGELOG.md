@@ -1,5 +1,10 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.101 — 2026-08-27 — Campaign Full-bleed Purple Background
+- FULL BLEED: Wrapper بنفش اسلایدر کمپین با `100vw` به لبه چپ و راست viewport چسبید و فضای سفید حذف شد.
+- CENTERED: خود اسلایدر با سقف ۱۳۸۰px در مرکز باقی ماند و کشیده نمی‌شود.
+- BOUTIQUE: رنگ پس‌زمینه تمام‌عرض به تنظیمات اسلایدر کمپین در مدیریت بوتیک اضافه شد.
+
 ## v3.10.100 — 2026-08-27 — Bestsellers Direction + Loop Fix
 - ROOT CAUSE: Track در RTL با translate مثبت حرکت می‌کرد و کارت‌ها را از Viewport بیرون می‌برد.
 - AXIS: محور Track به LTR قطعی و محتوای هر کارت RTL نگه داشته شد؛ حرکت با translate منفی انجام می‌شود.

@@ -2,7 +2,7 @@
 // UI/state remain modular; version discovery and installation are delegated to WordPress.
 
 const runtimeConfig = window.ALOOKHOR_CC || {};
-const runtimeVersion = String(runtimeConfig.version || '3.10.100');
+const runtimeVersion = String(runtimeConfig.version || '3.10.101');
 
 function normalizeResult(data = {}) {
   const current = String(data.current || runtimeVersion);
@@ -55,6 +55,7 @@ export const Updater = {
   latest: runtimeVersion,
   lastCheck: null,
   changelog: [
+    { tag: 'CAMPAIGN FULL BLEED', title: 'v3.10.101 — پس‌زمینه تمام‌عرض کمپین', desc: 'فضای سفید حذف و پس‌زمینه بنفش قابل تنظیم تا لبه‌های صفحه کشیده شد.' },
     { tag: 'LOOP FIX', title: 'v3.10.100 — رفع جهت و Loop پرفروش‌ها', desc: 'کارت‌ها دیگر از Viewport خارج نمی‌شوند و فلش‌ها و Autoplay به‌صورت دوطرفه Loop می‌شوند.' },
     { tag: 'CATEGORY FIX', title: 'v3.10.98 — رفع شورت‌کد دسته‌بندی لوکس', desc: '[alookhor_managed_categories] در Elementor تثبیت و Runtime آن اصلاح شد.' },
     { tag: 'CAROUSEL LOCK', title: 'v3.10.97 — حذف قطعی ردیف دوم', desc: 'Flex و عرض کارت‌ها با specificity بالا در برابر Woodmart/Elementor قفل شد.' },
