@@ -2,7 +2,7 @@
 // UI/state remain modular; version discovery and installation are delegated to WordPress.
 
 const runtimeConfig = window.ALOOKHOR_CC || {};
-const runtimeVersion = String(runtimeConfig.version || '3.10.142');
+const runtimeVersion = String(runtimeConfig.version || '3.10.143');
 
 function normalizeResult(data = {}) {
   const current = String(data.current || runtimeVersion);
@@ -56,6 +56,7 @@ export const Updater = {
   lastCheck: null,
   changelog: [
     { tag: 'NAV INDICATOR', title: 'v3.10.137 — زیرخط متحرک منو', desc: 'نشانگر طلایی با Hover و Focus بین لینک‌ها حرکت و به صفحه فعال بازمی‌گردد.' },
+    { tag: 'DISCOUNT CARD', title: 'v3.10.143 — کادر لوکس بخش تخفیفات', desc: 'خبرنامه و تخفیفات داخل کارت هم‌اندازه و هم‌استایل بنر اپلیکیشن قرار گرفت.' },
     { tag: 'EXPORT CONTACT', title: 'v3.10.142 — شماره و لوگوی صحیح بنر صادراتی', desc: 'جهت شماره‌ها اصلاح و لوگوی رسمی جایگزین حرف آ شد.' },
     { tag: 'STANDARDS FIX', title: 'v3.10.141 — رفع نمایش استانداردها در Elementor', desc: 'CSS نسخه‌دار و سبک مستقیماً در Editor بارگذاری شد، بدون بازگشت خطای 500.' },
     { tag: 'STANDARDS', title: 'v3.10.140 — استانداردهای بین‌المللی', desc: 'شش کارت شیشه‌ای، چهار شمارنده و تنظیمات کامل بوتیک اضافه شد.' },

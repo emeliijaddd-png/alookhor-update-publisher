@@ -1,5 +1,11 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.143 — 2026-08-27 — Newsletter Discount Card Matches App Banner
+- FOOTPRINT: بخش خبرنامه/تخفیفات داخل Card مرکزی با عرض 1380px و حداقل ارتفاع 104px قرار گرفت.
+- CONSISTENCY: Padding 20/38، Border طلایی ظریف، Radius تنظیم‌شده و Shadow بنفش مطابق بنر اپلیکیشن شد.
+- RESPONSIVE: Padding و Radius کارت در Tablet/Mobile مستقل و Touch-safe تنظیم شد.
+- SETTINGS: Background، Surface، Gold و Radius همچنان از مدیریت بوتیک خوانده می‌شوند.
+
 ## v3.10.142 — 2026-08-27 — Export Banner Phone Direction + Official Logo
 - PHONE BIDI: شماره‌های واتساپ با `direction:ltr` و `unicode-bidi:isolate` از محیط RTL جدا شدند؛ ترتیب ارقام و گروه‌ها صحیح است.
 - LOGO FALLBACK: اگر لوگوی اختصاصی بنر خالی باشد، `top_logo_url` رسمی هدر (LOGO2) خودکار استفاده می‌شود.
