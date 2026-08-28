@@ -196,7 +196,7 @@ function alookhor_cc_render_akx_header() {
           <?php endif; ?>
         </a>
 
-        <button class="akx-menu-button" type="button" aria-label="باز کردن منو" aria-expanded="false">
+        <button class="akx-menu-button" type="button" aria-label="باز کردن منو" aria-expanded="false" aria-controls="<?php echo esc_attr($drawer_id); ?>">
           <span>منو</span>
           <i><b></b><b></b><b></b></i>
         </button>
@@ -288,8 +288,8 @@ function alookhor_cc_render_akx_header() {
       </form>
 
       <!-- منوی کشویی موبایل App-Like -->
-      <div class="akx-mob-backdrop" id="<?php echo $back_id; ?>"></div>
-      <div class="akx-mob-drawer" id="<?php echo $drawer_id; ?>">
+      <div class="akx-mob-backdrop" id="<?php echo $back_id; ?>" aria-hidden="true"></div>
+      <div class="akx-mob-drawer" id="<?php echo $drawer_id; ?>" role="dialog" aria-modal="true" aria-label="منوی موبایل آلوخور" aria-hidden="true" tabindex="-1">
 
         <div class="akx-mob-drawer-head">
           <button type="button" class="akx-mob-close" id="<?php echo $close_id; ?>" aria-label="بستن">
@@ -318,7 +318,7 @@ function alookhor_cc_render_akx_header() {
           <ul class="akx-mob-list">
             <li><a href="<?php echo $home_url; ?>"><div class="akx-mob-item-main"><span class="akx-mob-icon">🏠</span><span class="akx-mob-title">صفحه اصلی</span></div></a></li>
             <li class="akx-mob-has-sub">
-              <a href="/shop/" class="akx-mob-toggle"><div class="akx-mob-item-main"><span class="akx-mob-icon">🛍️</span><span class="akx-mob-title">محصولات</span></div><span class="akx-mob-arrow">‹</span></a>
+              <a href="/shop/" class="akx-mob-toggle" role="button" aria-expanded="false"><div class="akx-mob-item-main"><span class="akx-mob-icon">🛍️</span><span class="akx-mob-title">محصولات</span></div><span class="akx-mob-arrow">‹</span></a>
               <ul class="akx-mob-sub">
                 <li><a href="/product-category/dried-plums/">آلو خشکبار</a></li>
                 <li><a href="/product-category/dried-fruits/">برگه میوه‌ها</a></li>

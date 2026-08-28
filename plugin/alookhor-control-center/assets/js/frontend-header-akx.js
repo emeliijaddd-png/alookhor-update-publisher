@@ -16,13 +16,23 @@
     const searchButton = root.querySelector('.akx-search-button');
     const searchPanel = root.querySelector('.akx-search-panel');
 
+    let drawerReturnFocus = null;
     function openDrawer() {
-      if (drawer) drawer.classList.add('is-open');
-      if (backdrop) backdrop.classList.add('is-open');
+      drawerReturnFocus = document.activeElement;
+      if (drawer) { drawer.classList.add('is-open'); drawer.setAttribute('aria-hidden','false'); }
+      if (backdrop) { backdrop.classList.add('is-open'); backdrop.setAttribute('aria-hidden','false'); }
+      if (menuButton) menuButton.setAttribute('aria-expanded','true');
+      document.documentElement.classList.add('akx-mobile-menu-open');
+      document.body.classList.add('akx-mobile-menu-open');
+      requestAnimationFrame(() => drawer?.querySelector('.akx-mob-close, a, button, input')?.focus());
     }
-    function closeDrawer() {
-      if (drawer) drawer.classList.remove('is-open');
-      if (backdrop) backdrop.classList.remove('is-open');
+    function closeDrawer(restoreFocus = true) {
+      if (drawer) { drawer.classList.remove('is-open'); drawer.setAttribute('aria-hidden','true'); }
+      if (backdrop) { backdrop.classList.remove('is-open'); backdrop.setAttribute('aria-hidden','true'); }
+      if (menuButton) menuButton.setAttribute('aria-expanded','false');
+      document.documentElement.classList.remove('akx-mobile-menu-open');
+      document.body.classList.remove('akx-mobile-menu-open');
+      if (restoreFocus && drawerReturnFocus instanceof HTMLElement) drawerReturnFocus.focus();
     }
 
     if (menuButton && drawer) menuButton.addEventListener('click', openDrawer);
@@ -31,14 +41,24 @@
         if (el !== backdrop) el.addEventListener('click', closeDrawer);
       });
     }
-    if (backdrop) backdrop.addEventListener('click', closeDrawer);
+    if (backdrop) backdrop.addEventListener('click', () => closeDrawer());
+    if (drawer) drawer.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape') { event.preventDefault(); closeDrawer(); return; }
+      if (event.key !== 'Tab') return;
+      const focusable = [...drawer.querySelectorAll('a[href],button:not([disabled]),input:not([disabled]),[tabindex]:not([tabindex="-1"])')].filter(el => el.offsetParent !== null);
+      if (!focusable.length) { event.preventDefault(); drawer.focus(); return; }
+      const first = focusable[0], last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+      else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+    });
 
     // Mobile submenu accordion
     var toggles = root.querySelectorAll('.akx-mob-toggle');
     toggles.forEach(function (t) {
       t.addEventListener('click', function (e) {
         e.preventDefault();
-        t.parentElement.classList.toggle('is-open');
+        const open = t.parentElement.classList.toggle('is-open');
+        t.setAttribute('aria-expanded', open ? 'true' : 'false');
       });
     });
 

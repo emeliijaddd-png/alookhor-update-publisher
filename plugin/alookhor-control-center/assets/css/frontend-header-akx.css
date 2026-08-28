@@ -981,8 +981,39 @@ body #akx-header .akx-nav>ul.akx-indicator-ready>li.akx-active>a:after{display:n
 @media(max-width:860px){body #akx-header .akx-nav>ul:after{display:none!important}}
 @media(prefers-reduced-motion:reduce){body #akx-header .akx-nav>ul.akx-indicator-ready:after{transition:none!important}}
 
-/* v3.10.147 — lock every desktop navigation item to one optical baseline. */
+/* v3.10.148 — lock every desktop navigation item to one optical baseline. */
 body #akx-header .akx-nav,body #akx-header .akx-nav>ul,body #akx-header .akx-nav>ul>li{align-items:center!important}
 body #akx-header .akx-nav>ul>li{display:flex!important;height:42px!important;margin:0!important;padding:0!important;top:auto!important;bottom:auto!important;transform:none!important;vertical-align:middle!important}
 body #akx-header .akx-nav>ul>li>a{display:flex!important;align-items:center!important;justify-content:center!important;height:42px!important;min-height:42px!important;margin:0!important;padding-top:0!important;padding-bottom:0!important;line-height:1!important;top:auto!important;bottom:auto!important;transform:none!important;vertical-align:middle!important}
 body #akx-header .akx-nav>ul>li:last-child,body #akx-header .akx-nav>ul>li:last-child>a{margin-top:0!important;margin-bottom:0!important}
+
+/* v3.10.148 — mobile-first Header UX and accessible drawer. */
+html.akx-mobile-menu-open,body.akx-mobile-menu-open{overflow:hidden!important;overscroll-behavior:none!important}
+@media(max-width:860px){
+ body #akx-header .akx-topbar{display:none!important}
+ body #akx-header .akx-mainbar,body #akx-header .akx-main-inner{min-height:66px!important;height:66px!important}
+ body #akx-header .akx-mainbar .akx-wrap{width:calc(100% - 12px)!important;max-width:none!important;margin-inline:6px!important;padding:0!important}
+ body #akx-header .akx-nav-capsule{width:100%!important;min-width:0!important;min-height:58px!important;height:58px!important;padding:4px 7px!important;display:grid!important;grid-template-columns:minmax(0,1fr) 48px 72px!important;grid-template-areas:"tools menu logo"!important;align-items:center!important;gap:5px!important;border-radius:20px!important;overflow:visible!important}
+ body #akx-header .akx-logo{grid-area:logo!important;order:unset!important;width:72px!important;min-width:0!important;height:49px!important;padding:2px 4px!important;border-left:0!important;border-right:1px solid color-mix(in srgb,var(--akx-gold) 18%,transparent)!important}
+ body #akx-header .akx-logo img{width:64px!important;max-width:64px!important;height:46px!important;max-height:46px!important;object-fit:contain!important}
+ body #akx-header .akx-menu-button{grid-area:menu!important;order:unset!important;width:44px!important;min-width:44px!important;height:44px!important;padding:0!important;border-radius:14px!important;gap:0!important}
+ body #akx-header .akx-menu-button>span{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+ body #akx-header .akx-menu-button i{width:19px!important;gap:4px!important}body #akx-header .akx-menu-button b{width:19px!important;height:2px!important}
+ body #akx-header .akx-nav{display:none!important}
+ body #akx-header .akx-tools{grid-area:tools!important;order:unset!important;width:100%!important;min-width:0!important;margin:0!important;padding:0 5px 0 0!important;border:0!important;display:flex!important;justify-content:flex-start!important;gap:5px!important;direction:ltr!important}
+ body #akx-header .akx-tools .akx-circle-btn{display:grid!important;width:42px!important;min-width:42px!important;height:42px!important;min-height:42px!important;margin:0!important}
+ body #akx-header .akx-tools .akx-circle-btn svg{width:18px!important;height:18px!important}
+ body #akx-header .akx-search-panel{position:fixed!important;top:72px!important;right:10px!important;left:10px!important;width:auto!important;max-width:none!important}
+ .akx-mob-backdrop{background:rgba(28,16,37,.72)!important;-webkit-backdrop-filter:blur(8px)!important;backdrop-filter:blur(8px)!important}
+ .akx-mob-drawer{top:0!important;right:0!important;width:min(360px,90vw)!important;max-width:90vw!important;height:100dvh!important;padding:max(18px,env(safe-area-inset-top)) 16px max(16px,env(safe-area-inset-bottom))!important;background:linear-gradient(180deg,#1C1025,#1D1126)!important;border-left:1px solid rgba(212,175,55,.24)!important;box-shadow:-14px 0 38px rgba(28,16,37,.45)!important;transform:translateX(105%)!important;transition:transform .34s cubic-bezier(.22,.8,.3,1)!important;visibility:hidden!important}
+ .akx-mob-drawer.is-open{right:0!important;transform:translateX(0)!important;visibility:visible!important}
+ .akx-mob-close{width:44px!important;height:44px!important;border:1px solid rgba(212,175,55,.2)!important;background:#26213D!important;color:#E5E5E5!important}
+ .akx-mob-brand-badge{background:#26213D!important;color:#D4AF37!important;box-shadow:none!important;border:1px solid rgba(212,175,55,.25)!important}
+ .akx-mob-search form{min-height:48px!important;margin-bottom:16px!important;background:#26213D!important;border-color:rgba(212,175,55,.18)!important}
+ .akx-mob-search input{font-size:16px!important;color:#FFFFFF!important}
+ .akx-mob-list li{margin:0 0 5px!important}.akx-mob-list a{min-height:48px!important;padding:6px 7px!important;border-bottom-color:rgba(212,175,55,.08)!important}.akx-mob-title{font-size:15px!important;font-weight:600!important}.akx-mob-icon{width:38px!important;height:38px!important;background:#26213D!important;color:#D4AF37!important;border:1px solid rgba(212,175,55,.13)!important}
+ .akx-mob-toggle{min-width:44px!important;min-height:44px!important;display:grid!important;place-items:center!important}.akx-mob-sub{padding:5px 46px 8px 0!important}.akx-mob-sub a{min-height:44px!important;font-size:14px!important;color:#E5E5E5!important}
+ .akx-mob-footer a{min-height:48px!important;background:#26213D!important;border-color:rgba(212,175,55,.16)!important;font-size:14px!important}
+}
+@media(max-width:360px){body #akx-header .akx-nav-capsule{grid-template-columns:minmax(0,1fr) 46px 66px!important}body #akx-header .akx-logo{width:66px!important}body #akx-header .akx-logo img{width:58px!important}body #akx-header .akx-tools{gap:3px!important;padding-right:2px!important}body #akx-header .akx-tools .akx-circle-btn{width:38px!important;min-width:38px!important;height:38px!important;min-height:38px!important}}
+@media(prefers-reduced-motion:reduce){.akx-mob-drawer{transition:none!important}}

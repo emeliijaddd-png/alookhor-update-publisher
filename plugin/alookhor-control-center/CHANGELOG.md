@@ -1,5 +1,12 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.148 — 2026-08-28 — Mobile Header UX Phase
+- LAYOUT: کپسول موبایل به Grid مستقل Logo/Menu/Tools تبدیل و Overflow در عرض 320px حذف شد.
+- TOUCH: تمام دکمه‌های اصلی، Close، Submenu و Footer Drawer حداقل 44–48px شدند.
+- DRAWER A11Y: Role dialog، aria-modal/hidden/expanded، Focus trap، Escape، بازگشت Focus و قفل Scroll پیاده شد.
+- SAFE AREA: ارتفاع 100dvh و Safe Area بالا/پایین برای دستگاه‌های iOS رعایت شد.
+- VISUAL: Drawer و Backdrop با سه Surface بنفش، Border طلایی و Blur کنترل‌شده هماهنگ شدند.
+
 ## v3.10.147 — 2026-08-28 — Luminous Category Heading Hierarchy
 - KICKER: «دسته‌بندی محصولات» به 17–22px، وزن 800 و Glow طلایی چندلایه ارتقا یافت.
 - TITLE: عنوان اصلی «محصولات طبیعی...» به 34–46px کاهش یافت تا Hierarchy متوازن و حرفه‌ای شود.

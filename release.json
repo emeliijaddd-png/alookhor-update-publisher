@@ -1,16 +1,16 @@
 {
-  "version": "3.10.147",
-  "previous": "3.10.146",
+  "version": "3.10.148",
+  "previous": "3.10.147",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "بازطراحی سلسله‌مراتب و افکت نورانی عنوان بخش دسته‌بندی محصولات.",
+  "description": "فاز اول بازطراحی Mobile: هدر، کپسول، ابزارها و Drawer دسترس‌پذیر.",
   "changelog": [
     {
-      "tag": "LUMINOUS CATEGORY TYPE",
-      "title": "عنوان نورانی و متوازن دسته‌بندی",
-      "desc": "کیکر دسته‌بندی بزرگ‌تر و درخشان، عنوان اصلی کوچک‌تر و Editorial و زیرعنوان خواناتر شد؛ Glow طلایی ظریف و Responsive اضافه شد."
+      "tag": "MOBILE HEADER UX",
+      "title": "هدر موبایل حرفه‌ای و استاندارد",
+      "desc": "Grid موبایل بدون Overflow، Touch target 44px، Drawer با Focus trap/Escape/ARIA، قفل Scroll، Safe Area و طراحی مستقل 320–860px اجرا شد."
     }
   ],
   "project": "ALOOKHOR",
