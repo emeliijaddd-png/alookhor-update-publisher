@@ -1,5 +1,10 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.159 — 2026-08-28 — Why ALOOKHOR Responsive Cleanup
+- DESKTOP: محدودیت 650px متن معرفی برداشته و در عرض بالای 1150px متن در یک خط کامل نمایش داده می‌شود.
+- MOBILE: نقاط تزئینی شبیه Pagination به‌طور کامل حذف شدند.
+- WRAP: در Tablet/Mobile شکستن طبیعی متن حفظ شد تا Overflow ایجاد نشود.
+
 ## v3.10.158 — 2026-08-28 — Why ALOOKHOR Mobile Portrait Composition
 - TOP: تصویر در 42٪ چپ و Header/Story در 58٪ راست، مطابق Composition مرجع قرار گرفت.
 - CARDS: چهار کارت در عرض 521–767px و دو کارت در موبایل کوچک نمایش داده می‌شوند.
