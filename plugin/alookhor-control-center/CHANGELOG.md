@@ -1,5 +1,10 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.151 — 2026-08-28 — Clean Mobile Hero Photography + Centered Copy
+- IMAGE: Shade و Gradient بنفش روی تصویر موبایل کاملاً حذف شد؛ Brightness به 98٪ بازگشت.
+- NO DOUBLE SHADOW: تنها کارت Glass زمینه متن را تأمین می‌کند و سایه دوم روی عکس وجود ندارد.
+- ALIGNMENT: عنوان، Highlight، توضیح و CTA داخل کارت به‌طور کامل مرکزچین شدند.
+
 ## v3.10.150 — 2026-08-28 — Compact Mobile Hero Glass Card
 - COMPACT CARD: محتوای Hero در کارت شیشه‌ای 245px گوشه چپ پایین قرار گرفت؛ ارتفاع اسلایدر به 390–470px کاهش یافت.
 - TYPE: عنوان از 27–38px به 21–28px کاهش و Kicker در موبایل حذف شد.

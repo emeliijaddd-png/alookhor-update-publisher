@@ -96,7 +96,7 @@ body.alookhor-mh-hide-legacy .alookhor-hero-slider-wrapper{display:none!importan
 .alookhor-mh-cta.is-secondary{background:rgba(var(--mh-surface-rgb),.22)!important}
 @media(max-width:767px){.alookhor-mh{background:var(--mh-surface)!important}.alookhor-mh-shade{background:linear-gradient(90deg,rgba(var(--mh-surface-rgb),.02),rgba(var(--mh-surface-rgb),.3))!important}.alookhor-mh-content{background:rgba(var(--mh-surface-rgb),var(--mh-panel-alpha,.34))!important}}
 
-/* v3.10.150 — editorial Persian hero typography matching approved references. */
+/* v3.10.151 — editorial Persian hero typography matching approved references. */
 .alookhor-mh-content{text-align:center!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important}
 .alookhor-mh-kicker{align-self:stretch!important;justify-content:center!important;margin-bottom:12px!important;font-family:Vazirmatn,IRANSansX,Tahoma,sans-serif!important;font-size:clamp(12px,.9vw,16px)!important;font-weight:700!important;line-height:1.8!important;color:var(--mh-gold)!important}
 .alookhor-mh-kicker:after{content:"";width:36px;height:1px;background:linear-gradient(90deg,var(--mh-gold),transparent)}
@@ -107,14 +107,14 @@ body.alookhor-mh-hide-legacy .alookhor-hero-slider-wrapper{display:none!importan
 @media(max-width:1200px){.alookhor-mh-content h2{font-size:clamp(38px,4.6vw,58px)!important}}
 @media(max-width:767px){.alookhor-mh-content{align-items:center!important;text-align:center!important}.alookhor-mh-content h2{font-size:clamp(26px,7.4vw,34px)!important;line-height:1.18!important;white-space:normal!important;letter-spacing:-.035em!important}.alookhor-mh-content h2 strong{font-size:.86em!important;white-space:normal!important}.alookhor-mh-description{margin-top:9px!important;font-size:11px!important;line-height:1.7!important;text-align:center!important}.alookhor-mh-actions{width:100%!important;justify-content:center!important}}
 
-/* v3.10.150 — editorial description divider with two fine gold arrow-lines. */
+/* v3.10.151 — editorial description divider with two fine gold arrow-lines. */
 .alookhor-mh-description{width:100%!important;display:flex!important;align-items:center!important;justify-content:center!important;gap:13px!important;text-wrap:balance}
 .alookhor-mh-description:before,.alookhor-mh-description:after{content:"";display:block;flex:1 1 58px;max-width:78px;min-width:32px;height:9px;opacity:.72}
 .alookhor-mh-description:before{background:radial-gradient(circle at right center,var(--mh-gold) 0 2.5px,transparent 3px),linear-gradient(90deg,transparent,var(--mh-gold)) left center/calc(100% - 7px) 1px no-repeat;clip-path:polygon(0 44%,86% 44%,86% 20%,100% 50%,86% 80%,86% 56%,0 56%)}
 .alookhor-mh-description:after{background:radial-gradient(circle at left center,var(--mh-gold) 0 2.5px,transparent 3px),linear-gradient(90deg,var(--mh-gold),transparent) right center/calc(100% - 7px) 1px no-repeat;clip-path:polygon(100% 44%,14% 44%,14% 20%,0 50%,14% 80%,14% 56%,100% 56%)}
 @media(max-width:767px){.alookhor-mh-description{gap:6px!important}.alookhor-mh-description:before,.alookhor-mh-description:after{min-width:17px;max-width:30px;height:7px}}
 
-/* v3.10.150 — independent mobile Hero composition (not a scaled desktop layout). */
+/* v3.10.151 — independent mobile Hero composition (not a scaled desktop layout). */
 @media(max-width:767px){
  html body .alookhor-mh{width:100vw!important;max-width:100vw!important;margin:0 calc(50% - 50vw)!important;padding:0 8px 12px!important;overflow:hidden!important;background:var(--mh-surface,#3A0D5C)!important}
  html body .alookhor-mh-shell{width:100%!important;max-width:none!important;height:clamp(430px,132vw,560px)!important;min-height:430px!important;max-height:560px!important;margin:0!important;border-radius:min(var(--mh-radius),22px)!important;overflow:hidden!important}
@@ -144,7 +144,7 @@ body.alookhor-mh-hide-legacy .alookhor-hero-slider-wrapper{display:none!importan
 @media(max-width:374px){html body .alookhor-mh-shell{height:470px!important;min-height:470px!important}html body .alookhor-mh-content{top:75px!important;left:37px!important;width:72%!important}html body .alookhor-mh-content h2{font-size:27px!important}html body .alookhor-mh-description{font-size:10.5px!important}html body .alookhor-mh-feature b{font-size:8.5px!important}}
 @media(max-width:767px){html body .alookhor-mh-cta.is-secondary{display:none!important}}
 
-/* v3.10.150 — compact corner glass card for mobile Hero. */
+/* v3.10.151 — compact corner glass card for mobile Hero. */
 @media(max-width:767px){
  html body .alookhor-mh-shell{height:clamp(390px,112vw,470px)!important;min-height:390px!important;max-height:470px!important}
  html body .alookhor-mh-content{top:auto!important;right:auto!important;left:16px!important;bottom:46px!important;width:min(64%,245px)!important;max-width:245px!important;height:auto!important;padding:13px 14px!important;display:flex!important;align-items:flex-start!important;justify-content:flex-start!important;border:1px solid color-mix(in srgb,var(--mh-gold) 30%,rgba(255,255,255,.16))!important;border-radius:16px!important;background:rgba(var(--mh-surface-rgb,58,13,92),calc(var(--mh-panel-alpha,.34) + .08))!important;-webkit-backdrop-filter:blur(var(--mh-panel-blur,18px)) saturate(135%)!important;backdrop-filter:blur(var(--mh-panel-blur,18px)) saturate(135%)!important;box-shadow:0 12px 30px rgba(28,16,37,.3),inset 0 1px rgba(255,255,255,.08)!important}
@@ -158,3 +158,13 @@ body.alookhor-mh-hide-legacy .alookhor-hero-slider-wrapper{display:none!importan
  html body .alookhor-mh .alookhor-mh-arrow{top:46%!important}
 }
 @media(max-width:374px){html body .alookhor-mh-shell{height:400px!important;min-height:400px!important}html body .alookhor-mh-content{left:12px!important;bottom:42px!important;width:min(68%,220px)!important;padding:11px 12px!important}html body .alookhor-mh-content h2{font-size:21px!important}}
+
+/* v3.10.151 — clean mobile photography and centered compact glass copy. */
+@media(max-width:767px){
+ html body .alookhor-mh-shade{background:transparent!important;display:none!important}
+ html body .alookhor-mh-media img,html body .alookhor-mh-slide.is-image-flipped .alookhor-mh-media img,html body .alookhor-mh[data-ken-burns="1"] .alookhor-mh-slide.is-active .alookhor-mh-media img,html body .alookhor-mh[data-ken-burns="1"] .alookhor-mh-slide.is-active.is-image-flipped .alookhor-mh-media img{filter:saturate(1.02) contrast(1.01) brightness(.98)!important}
+ html body .alookhor-mh-content{align-items:center!important;text-align:center!important}
+ html body .alookhor-mh-content h2,html body .alookhor-mh-content h2 strong,html body .alookhor-mh-description{text-align:center!important}
+ html body .alookhor-mh-actions{justify-items:center!important}
+ html body .alookhor-mh-cta.is-primary{justify-content:center!important;text-align:center!important}
+}

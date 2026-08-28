@@ -1,16 +1,16 @@
 {
-  "version": "3.10.150",
-  "previous": "3.10.149",
+  "version": "3.10.151",
+  "previous": "3.10.150",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "فشرده‌سازی پنل موبایل Hero، حذف ویژگی‌ها و اصلاح جهت فلش‌ها.",
+  "description": "حذف Gradient بنفش روی تصویر Hero موبایل و مرکزچین‌کردن کارت نوشته.",
   "changelog": [
     {
-      "tag": "COMPACT MOBILE HERO",
-      "title": "کارت شیشه‌ای کوچک گوشه اسلایدر",
-      "desc": "پنل متن کوچک و شیشه‌ای در گوشه چپ پایین، عنوان 21–28px، حذف ویژگی‌ها و اصلاح کامل جهت فلش‌های RTL."
+      "tag": "CLEAN MOBILE HERO",
+      "title": "عکس شفاف و متن مرکزچین موبایل",
+      "desc": "لایه Shade/Gradient بنفش موبایل حذف، روشنایی تصویر بازیابی و عنوان، Highlight، توضیح و CTA داخل کارت شیشه‌ای مرکزچین شدند."
     }
   ],
   "project": "ALOOKHOR",
