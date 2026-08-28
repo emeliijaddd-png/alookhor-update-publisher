@@ -4,7 +4,7 @@ Tags: control center, luxury, alookhor, admin, dashboard
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 3.10.151
+Stable tag: 3.10.152
 License: Private
 License URI: https://alookhor.ir
 
@@ -49,6 +49,9 @@ License URI: https://alookhor.ir
 
 = 3.10.137 =
 * افزودن زیرخط طلایی متحرک Hover/Focus به منوی اصلی
+
+= 3.10.152 =
+* اصلاح ترتیب هدر موبایل: لوگو و همبرگری سمت راست، ابزارها سمت چپ
 
 = 3.10.151 =
 * حذف Gradient بنفش روی عکس موبایل و مرکزچین‌کردن متن کارت Hero

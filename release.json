@@ -1,16 +1,16 @@
 {
-  "version": "3.10.151",
-  "previous": "3.10.150",
+  "version": "3.10.152",
+  "previous": "3.10.151",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "حذف Gradient بنفش روی تصویر Hero موبایل و مرکزچین‌کردن کارت نوشته.",
+  "description": "اصلاح قطعی ترتیب RTL هدر موبایل: لوگو و همبرگری در سمت راست.",
   "changelog": [
     {
-      "tag": "CLEAN MOBILE HERO",
-      "title": "عکس شفاف و متن مرکزچین موبایل",
-      "desc": "لایه Shade/Gradient بنفش موبایل حذف، روشنایی تصویر بازیابی و عنوان، Highlight، توضیح و CTA داخل کارت شیشه‌ای مرکزچین شدند."
+      "tag": "MOBILE HEADER ORDER",
+      "title": "لوگو و همبرگری در سمت راست",
+      "desc": "Grid مبهم حذف و Flex RTL قطعی اعمال شد؛ ترتیب Logo → Hamburger → Tools در همه عرض‌های موبایل ثابت است."
     }
   ],
   "project": "ALOOKHOR",

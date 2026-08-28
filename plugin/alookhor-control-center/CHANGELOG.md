@@ -1,5 +1,11 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.152 — 2026-08-28 — Deterministic RTL Mobile Header Order
+- ROOT CAUSE: `direction:rtl` ترتیب نام‌گذاری Grid Areaها را در مرورگر به‌صورت معکوس تفسیر و لوگو را به چپ منتقل می‌کرد.
+- FLEX RTL: Grid حذف و Flex RTL قطعی جایگزین شد.
+- ORDER: لوگو در راست، همبرگری بلافاصله کنار آن و ابزارهای جستجو/سبد/حساب در فضای چپ قرار گرفتند.
+- SMALL MOBILE: عرض لوگو و همبرگری زیر 360px مستقل و بدون Overflow تنظیم شد.
+
 ## v3.10.151 — 2026-08-28 — Clean Mobile Hero Photography + Centered Copy
 - IMAGE: Shade و Gradient بنفش روی تصویر موبایل کاملاً حذف شد؛ Brightness به 98٪ بازگشت.
 - NO DOUBLE SHADOW: تنها کارت Glass زمینه متن را تأمین می‌کند و سایه دوم روی عکس وجود ندارد.

@@ -981,13 +981,13 @@ body #akx-header .akx-nav>ul.akx-indicator-ready>li.akx-active>a:after{display:n
 @media(max-width:860px){body #akx-header .akx-nav>ul:after{display:none!important}}
 @media(prefers-reduced-motion:reduce){body #akx-header .akx-nav>ul.akx-indicator-ready:after{transition:none!important}}
 
-/* v3.10.151 — lock every desktop navigation item to one optical baseline. */
+/* v3.10.152 — lock every desktop navigation item to one optical baseline. */
 body #akx-header .akx-nav,body #akx-header .akx-nav>ul,body #akx-header .akx-nav>ul>li{align-items:center!important}
 body #akx-header .akx-nav>ul>li{display:flex!important;height:42px!important;margin:0!important;padding:0!important;top:auto!important;bottom:auto!important;transform:none!important;vertical-align:middle!important}
 body #akx-header .akx-nav>ul>li>a{display:flex!important;align-items:center!important;justify-content:center!important;height:42px!important;min-height:42px!important;margin:0!important;padding-top:0!important;padding-bottom:0!important;line-height:1!important;top:auto!important;bottom:auto!important;transform:none!important;vertical-align:middle!important}
 body #akx-header .akx-nav>ul>li:last-child,body #akx-header .akx-nav>ul>li:last-child>a{margin-top:0!important;margin-bottom:0!important}
 
-/* v3.10.151 — mobile-first Header UX and accessible drawer. */
+/* v3.10.152 — mobile-first Header UX and accessible drawer. */
 html.akx-mobile-menu-open,body.akx-mobile-menu-open{overflow:hidden!important;overscroll-behavior:none!important}
 @media(max-width:860px){
  body #akx-header .akx-topbar{display:none!important}
@@ -1017,3 +1017,13 @@ html.akx-mobile-menu-open,body.akx-mobile-menu-open{overflow:hidden!important;ov
 }
 @media(max-width:360px){body #akx-header .akx-nav-capsule{grid-template-columns:minmax(0,1fr) 46px 66px!important}body #akx-header .akx-logo{width:66px!important}body #akx-header .akx-logo img{width:58px!important}body #akx-header .akx-tools{gap:3px!important;padding-right:2px!important}body #akx-header .akx-tools .akx-circle-btn{width:38px!important;min-width:38px!important;height:38px!important;min-height:38px!important}}
 @media(prefers-reduced-motion:reduce){.akx-mob-drawer{transition:none!important}}
+
+/* v3.10.152 — deterministic RTL mobile order: logo and hamburger stay on the right. */
+@media(max-width:860px){
+ body #akx-header .akx-nav-capsule{display:flex!important;flex-direction:row!important;direction:rtl!important;grid-template-columns:none!important;grid-template-areas:none!important;justify-content:flex-start!important;align-items:center!important}
+ body #akx-header .akx-logo{order:1!important;grid-area:auto!important;flex:0 0 72px!important;border-right:0!important;border-left:1px solid color-mix(in srgb,var(--akx-gold) 18%,transparent)!important}
+ body #akx-header .akx-menu-button{order:2!important;grid-area:auto!important;flex:0 0 44px!important}
+ body #akx-header .akx-tools{order:3!important;grid-area:auto!important;flex:1 1 auto!important;direction:ltr!important;justify-content:flex-start!important;margin:0!important;margin-right:auto!important;padding:0!important;min-width:0!important}
+ body #akx-header .akx-nav{order:4!important}
+}
+@media(max-width:360px){body #akx-header .akx-logo{flex-basis:64px!important;width:64px!important}body #akx-header .akx-menu-button{flex-basis:42px!important;width:42px!important;min-width:42px!important}}
