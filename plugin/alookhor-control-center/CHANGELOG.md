@@ -1,5 +1,12 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.156 — 2026-08-28 — Why ALOOKHOR Visual Composition V2
+- VISUAL: تصویر بزرگ محصول در ستون چپ با Crop حرفه‌ای، Overlay پایین و Badge شیشه‌ای برند اضافه شد.
+- CONTENT: Header و متن معرفی در ستون راست و چهار کارت شماره‌دار 01–04 با آیکن‌های 92px پیاده شد.
+- STATS: نوار پایین با چهار آیکن مستقل، اعداد بزرگ و Dividerهای عمودی مطابق مرجع بازطراحی شد.
+- BOUTIQUE: تصویر Media Library، عنوان/متن Badge، آیکن‌های آمار و تمام محتوای قبلی قابل ویرایش شدند.
+- RESPONSIVE: Tablet دو کارت و Mobile تصویر/محتوا Stack، کارت‌های 2/1 ستونه و آمار 2×2 شدند.
+
 ## v3.10.155 — 2026-08-28 — Pristine Hero Photography
 - SHADE: لایه `.alookhor-mh-shade` در Desktop و Mobile کاملاً حذف شد.
 - FILTERS: تمام Filterهای Brightness، Saturation و Contrast اجباری از تصویر برداشته شدند.

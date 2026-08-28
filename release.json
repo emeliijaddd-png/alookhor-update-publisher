@@ -1,16 +1,16 @@
 {
-  "version": "3.10.155",
-  "previous": "3.10.154",
+  "version": "3.10.156",
+  "previous": "3.10.155",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "حذف کامل Gradient و هاله بنفش از تصویر Hero در دسکتاپ و موبایل.",
+  "description": "بازطراحی کامل بخش چرا آلوخور مطابق ترکیب تصویری لوکس مرجع.",
   "changelog": [
     {
-      "tag": "PRISTINE HERO IMAGE",
-      "title": "نمایش عکس اصلی بدون هاله رنگی",
-      "desc": "لایه Shade در همه Viewportها حذف و تمام Filterهای brightness/saturation/contrast از تصویر اصلی برداشته شد."
+      "tag": "WHY ALOOKHOR V2",
+      "title": "چرا آلوخور تصویری و کامل",
+      "desc": "تصویر بزرگ سمت چپ، نشان برند، Header سمت راست، ۴ کارت شماره‌دار، آیکن‌های بزرگ و نوار آمار آیکن‌دار با مدیریت کامل بوتیک اجرا شد."
     }
   ],
   "project": "ALOOKHOR",
