@@ -1,16 +1,16 @@
 {
-  "version": "3.10.152",
-  "previous": "3.10.151",
+  "version": "3.10.153",
+  "previous": "3.10.152",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "اصلاح قطعی ترتیب RTL هدر موبایل: لوگو و همبرگری در سمت راست.",
+  "description": "بازطراحی هویت عنوان دسته‌بندی با Kicker انگلیسی و تیتر سفید نورانی.",
   "changelog": [
     {
-      "tag": "MOBILE HEADER ORDER",
-      "title": "لوگو و همبرگری در سمت راست",
-      "desc": "Grid مبهم حذف و Flex RTL قطعی اعمال شد؛ ترتیب Logo → Hamburger → Tools در همه عرض‌های موبایل ثابت است."
+      "tag": "LUMINOUS CATEGORY IDENTITY",
+      "title": "محصولات منتخب آلوخور نورانی",
+      "desc": "Kicker انگلیسی، عنوان بزرگ سفید 48–72px، حذف عنوان قدیمی و زیرعنوان، Halo سفید/طلایی و مقیاس مستقل موبایل اجرا شد."
     }
   ],
   "project": "ALOOKHOR",

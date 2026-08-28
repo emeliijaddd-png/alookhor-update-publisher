@@ -2,7 +2,7 @@
 // UI/state remain modular; version discovery and installation are delegated to WordPress.
 
 const runtimeConfig = window.ALOOKHOR_CC || {};
-const runtimeVersion = String(runtimeConfig.version || '3.10.152');
+const runtimeVersion = String(runtimeConfig.version || '3.10.153');
 
 function normalizeResult(data = {}) {
   const current = String(data.current || runtimeVersion);
@@ -56,6 +56,7 @@ export const Updater = {
   lastCheck: null,
   changelog: [
     { tag: 'NAV INDICATOR', title: 'v3.10.137 — زیرخط متحرک منو', desc: 'نشانگر طلایی با Hover و Focus بین لینک‌ها حرکت و به صفحه فعال بازمی‌گردد.' },
+    { tag: 'CATEGORY IDENTITY', title: 'v3.10.153 — عنوان نورانی محصولات منتخب', desc: 'Kicker انگلیسی و عنوان بزرگ سفید Haloدار جایگزین عنوان قدیمی شد.' },
     { tag: 'MOBILE ORDER', title: 'v3.10.152 — ترتیب صحیح هدر موبایل', desc: 'لوگو و همبرگری در سمت راست و ابزارها در سمت چپ ثابت شدند.' },
     { tag: 'CLEAN HERO', title: 'v3.10.151 — عکس شفاف و متن مرکزچین', desc: 'Gradient بنفش موبایل حذف و تمام محتوای کارت Glass مرکزچین شد.' },
     { tag: 'COMPACT HERO', title: 'v3.10.150 — کارت کوچک شیشه‌ای موبایل', desc: 'متن کوچک، ویژگی‌ها مخفی و جهت فلش‌های اسلایدر اصلاح شد.' },

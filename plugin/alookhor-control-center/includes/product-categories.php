@@ -6,8 +6,8 @@ function alookhor_cc_category_defaults(){
     return [
         'enabled'=>true,'hide_legacy'=>true,'hide_empty'=>false,'parent_only'=>true,
         'selected_ids'=>[38,39,40,41],'limit'=>8,'orderby'=>'include','order'=>'ASC',
-        'kicker'=>'دسته‌بندی محصولات','title'=>'محصولات طبیعی، کیفیت صادراتی',
-        'subtitle'=>'انتخاب مستقیم از باغ‌های خراسان، آماده ارسال به سراسر جهان',
+        'kicker'=>'ALOOKHOR PRODUCT CATEGORIES','title'=>'محصولات منتخب آلوخور',
+        'subtitle'=>'',
         'button_text'=>'مشاهده محصولات','show_description'=>true,'show_count'=>false,
         'show_icons'=>true,'show_arrows'=>true,'show_dots'=>true,'autoplay'=>true,
         'autoplay_interval'=>5000,'desktop_cards'=>4,'desktop_gap'=>18,'image_height'=>285,
@@ -26,7 +26,12 @@ function alookhor_cc_category_defaults(){
 function alookhor_cc_get_category_settings(){
     $main=alookhor_cc_get_settings();
     $saved=is_array($main['category_settings']??null)?$main['category_settings']:[];
-    return apply_filters('alookhor_cc_category_settings',array_replace_recursive(alookhor_cc_category_defaults(),$saved));
+    $settings=array_replace_recursive(alookhor_cc_category_defaults(),$saved);
+    // انتقال خودکار عنوان قدیمی به هویت Editorial جدید؛ مقادیر سفارشی دیگر حفظ می‌شوند.
+    if(in_array(trim((string)($settings['kicker']??'')),['دسته‌بندی محصولات','دسته بندی محصولات'],true))$settings['kicker']='ALOOKHOR PRODUCT CATEGORIES';
+    if(trim((string)($settings['title']??''))==='محصولات طبیعی، کیفیت صادراتی')$settings['title']='محصولات منتخب آلوخور';
+    if(trim((string)($settings['subtitle']??''))==='انتخاب مستقیم از باغ‌های خراسان، آماده ارسال به سراسر جهان')$settings['subtitle']='';
+    return apply_filters('alookhor_cc_category_settings',$settings);
 }
 
 function alookhor_cc_category_terms($settings=null){

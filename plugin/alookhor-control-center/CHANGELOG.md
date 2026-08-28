@@ -1,5 +1,12 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.153 — 2026-08-28 — Luminous Category Editorial Identity
+- KICKER: «دسته‌بندی محصولات» به `ALOOKHOR PRODUCT CATEGORIES` انگلیسی، کوچک و طلایی تبدیل شد.
+- TITLE: عنوان قدیمی حذف و «محصولات منتخب آلوخور» با اندازه 48–72px، وزن 900 و رنگ سفید جایگزین شد.
+- SUBTITLE: زیرعنوان قدیمی حذف و فضای آن نیز Collapse شد.
+- HALO: Glow سفید چندلایه با انعکاس بسیار محدود طلایی و Pulse آرام اضافه شد.
+- MOBILE: عنوان 32–42px و Kicker 9px با فاصله‌گذاری مستقل اجرا شد.
+
 ## v3.10.152 — 2026-08-28 — Deterministic RTL Mobile Header Order
 - ROOT CAUSE: `direction:rtl` ترتیب نام‌گذاری Grid Areaها را در مرورگر به‌صورت معکوس تفسیر و لوگو را به چپ منتقل می‌کرد.
 - FLEX RTL: Grid حذف و Flex RTL قطعی جایگزین شد.
