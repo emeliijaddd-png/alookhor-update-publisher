@@ -1,16 +1,16 @@
 {
-  "version": "3.10.154",
-  "previous": "3.10.153",
+  "version": "3.10.155",
+  "previous": "3.10.154",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "اصلاح عنوان بخش به دسته‌بندی محصولات و کاهش اندازه فونت.",
+  "description": "حذف کامل Gradient و هاله بنفش از تصویر Hero در دسکتاپ و موبایل.",
   "changelog": [
     {
-      "tag": "CATEGORY TITLE CORRECTION",
-      "title": "عنوان صحیح دسته‌بندی محصولات",
-      "desc": "محصولات منتخب آلوخور حذف، دسته‌بندی محصولات بازگردانی و فونت دسکتاپ/موبایل کوچک‌تر شد."
+      "tag": "PRISTINE HERO IMAGE",
+      "title": "نمایش عکس اصلی بدون هاله رنگی",
+      "desc": "لایه Shade در همه Viewportها حذف و تمام Filterهای brightness/saturation/contrast از تصویر اصلی برداشته شد."
     }
   ],
   "project": "ALOOKHOR",

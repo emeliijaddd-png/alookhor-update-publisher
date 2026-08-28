@@ -1,5 +1,11 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.155 — 2026-08-28 — Pristine Hero Photography
+- SHADE: لایه `.alookhor-mh-shade` در Desktop و Mobile کاملاً حذف شد.
+- FILTERS: تمام Filterهای Brightness، Saturation و Contrast اجباری از تصویر برداشته شدند.
+- RESULT: رنگ و نور اصلی فایل تصویر بدون هاله بنفش یا سایه اضافی نمایش داده می‌شود.
+- COPY: کارت شیشه‌ای نوشته مستقل باقی ماند و خوانایی متن را بدون دستکاری کل عکس تأمین می‌کند.
+
 ## v3.10.154 — 2026-08-28 — Category Title Correction
 - COPY: «محصولات منتخب آلوخور» حذف و عنوان صحیح «دسته‌بندی محصولات» بازگردانی شد.
 - SCALE: اندازه عنوان دسکتاپ از 48–72px به 38–54px کاهش یافت.
