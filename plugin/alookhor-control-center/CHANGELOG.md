@@ -1,5 +1,10 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.144 — 2026-08-27 — Desktop Navigation Baseline Alignment
+- ROOT CAUSE: Rule قالب روی آخرین `li` منو Margin/Vertical offset متفاوت اعمال می‌کرد و «تماس با ما» پایین‌تر دیده می‌شد.
+- LOCK: Nav، UL و LI روی `align-items:center` و تمام LI/Aها روی ارتفاع 42px و `line-height:1` قفل شدند.
+- RESET: Margin، Top/Bottom، Transform و Vertical Align آخرین آیتم صراحتاً Reset شد.
+
 ## v3.10.143 — 2026-08-27 — Newsletter Discount Card Matches App Banner
 - FOOTPRINT: بخش خبرنامه/تخفیفات داخل Card مرکزی با عرض 1380px و حداقل ارتفاع 104px قرار گرفت.
 - CONSISTENCY: Padding 20/38، Border طلایی ظریف، Radius تنظیم‌شده و Shadow بنفش مطابق بنر اپلیکیشن شد.

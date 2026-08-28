@@ -1,16 +1,16 @@
 {
-  "version": "3.10.143",
-  "previous": "3.10.142",
+  "version": "3.10.144",
+  "previous": "3.10.143",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "قرارگیری بخش خبرنامه و تخفیفات داخل کارت لوکس هم‌اندازه بنر اپلیکیشن.",
+  "description": "هم‌ترازسازی دقیق گزینه تماس با ما و تمام لینک‌های منوی اصلی.",
   "changelog": [
     {
-      "tag": "DISCOUNT CARD",
-      "title": "کادر لوکس خبرنامه و تخفیفات",
-      "desc": "کادر داخلی 1380px، ارتفاع پایه 104px، Padding، Border طلایی، Radius و Shadow مطابق کارت اپلیکیشن شد."
+      "tag": "NAV BASELINE",
+      "title": "هم‌ترازی تمام گزینه‌های منو",
+      "desc": "ارتفاع، Flex alignment، line-height، margin و transform تمام li/aهای Desktop روی یک Baseline قفل شد."
     }
   ],
   "project": "ALOOKHOR",
