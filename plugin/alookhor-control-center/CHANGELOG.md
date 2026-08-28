@@ -1,5 +1,12 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.158 — 2026-08-28 — Why ALOOKHOR Mobile Portrait Composition
+- TOP: تصویر در 42٪ چپ و Header/Story در 58٪ راست، مطابق Composition مرجع قرار گرفت.
+- CARDS: چهار کارت در عرض 521–767px و دو کارت در موبایل کوچک نمایش داده می‌شوند.
+- STATS: نوار آمار ۴ ستونه در Portrait بزرگ و ۲×۲ در عرض زیر 520px شد.
+- DETAILS: Badge تصویر در موبایل حذف، Dots تزئینی، آیکن/شماره و Typography مستقل اضافه شد.
+- UX: در 320px هیچ Overflow افقی و متن فشرده زیر 8px وجود ندارد.
+
 ## v3.10.157 — 2026-08-28 — Why ALOOKHOR Rich Purple Art Direction
 - SECTION: ترکیب دو Radial بنفش/طلایی و Linear عمیق، عمق پس‌زمینه مرجع را بازسازی کرد.
 - CARDS: گرادینت `Card → Brand Purple → Deep Purple` با Inner light ظریف اعمال شد.
