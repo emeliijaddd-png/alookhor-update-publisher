@@ -1,16 +1,16 @@
 {
-  "version": "3.10.144",
-  "previous": "3.10.143",
+  "version": "3.10.145",
+  "previous": "3.10.144",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "هم‌ترازسازی دقیق گزینه تماس با ما و تمام لینک‌های منوی اصلی.",
+  "description": "بازطراحی چیدمان و تایپوگرافی نوشته‌های اسلایدر Hero مطابق نمونه‌های تأییدشده.",
   "changelog": [
     {
-      "tag": "NAV BASELINE",
-      "title": "هم‌ترازی تمام گزینه‌های منو",
-      "desc": "ارتفاع، Flex alignment، line-height، margin و transform تمام li/aهای Desktop روی یک Baseline قفل شد."
+      "tag": "HERO EDITORIAL TYPE",
+      "title": "تایپوگرافی Editorial اسلایدر",
+      "desc": "عنوان اصلی و طلایی مرکزچین، بزرگ، Vazirmatn 900، توضیح خوانا و چیدمان متوازن پنل برای Desktop/Mobile شد."
     }
   ],
   "project": "ALOOKHOR",

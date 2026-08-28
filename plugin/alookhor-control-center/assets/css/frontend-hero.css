@@ -95,3 +95,14 @@ body.alookhor-mh-hide-legacy .alookhor-hero-slider-wrapper{display:none!importan
 .alookhor-mh-content{background:linear-gradient(145deg,rgba(var(--mh-surface-rgb),var(--mh-panel-alpha,.34)),rgba(var(--mh-surface-rgb),calc(var(--mh-panel-alpha,.34) + .08)))!important}
 .alookhor-mh-cta.is-secondary{background:rgba(var(--mh-surface-rgb),.22)!important}
 @media(max-width:767px){.alookhor-mh{background:var(--mh-surface)!important}.alookhor-mh-shade{background:linear-gradient(90deg,rgba(var(--mh-surface-rgb),.02),rgba(var(--mh-surface-rgb),.3))!important}.alookhor-mh-content{background:rgba(var(--mh-surface-rgb),var(--mh-panel-alpha,.34))!important}}
+
+/* v3.10.145 — editorial Persian hero typography matching approved references. */
+.alookhor-mh-content{text-align:center!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important}
+.alookhor-mh-kicker{align-self:stretch!important;justify-content:center!important;margin-bottom:12px!important;font-family:Vazirmatn,IRANSansX,Tahoma,sans-serif!important;font-size:clamp(12px,.9vw,16px)!important;font-weight:700!important;line-height:1.8!important;color:var(--mh-gold)!important}
+.alookhor-mh-kicker:after{content:"";width:36px;height:1px;background:linear-gradient(90deg,var(--mh-gold),transparent)}
+.alookhor-mh-content h2{max-width:100%!important;margin:0 auto!important;font-family:Vazirmatn,IRANSansX,Tahoma,sans-serif!important;font-size:clamp(48px,4.25vw,76px)!important;font-weight:900!important;line-height:1.14!important;letter-spacing:-.045em!important;text-align:center!important;white-space:nowrap!important;color:var(--mh-text)!important;text-wrap:balance}
+.alookhor-mh-content h2 strong{display:block!important;margin-top:2px!important;font-size:.82em!important;font-weight:900!important;line-height:1.18!important;color:var(--mh-gold)!important;white-space:nowrap!important}
+.alookhor-mh-description{max-width:640px!important;margin:17px auto 0!important;font-family:Vazirmatn,IRANSX,Tahoma,sans-serif!important;font-size:clamp(16px,1.18vw,22px)!important;font-weight:500!important;line-height:1.9!important;text-align:center!important;color:var(--mh-muted)!important}
+.alookhor-mh-features{width:100%!important}.alookhor-mh-actions{justify-content:center!important}
+@media(max-width:1200px){.alookhor-mh-content h2{font-size:clamp(38px,4.6vw,58px)!important}}
+@media(max-width:767px){.alookhor-mh-content{align-items:center!important;text-align:center!important}.alookhor-mh-content h2{font-size:clamp(26px,7.4vw,34px)!important;line-height:1.18!important;white-space:normal!important;letter-spacing:-.035em!important}.alookhor-mh-content h2 strong{font-size:.86em!important;white-space:normal!important}.alookhor-mh-description{margin-top:9px!important;font-size:11px!important;line-height:1.7!important;text-align:center!important}.alookhor-mh-actions{width:100%!important;justify-content:center!important}}

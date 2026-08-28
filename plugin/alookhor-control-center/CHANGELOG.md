@@ -1,5 +1,11 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.145 — 2026-08-28 — Editorial Persian Hero Typography
+- ALIGNMENT: تمام محتوای پنل Hero مرکزچین و Composition عنوان/توضیح/ویژگی/CTA متوازن شد.
+- TITLE: عنوان اصلی Vazirmatn وزن 900 با اندازه 48–76px و بخش Highlight طلایی در خط مستقل تنظیم شد.
+- DESCRIPTION: توضیح با وزن 500، اندازه 16–22px، Line-height 1.9 و عرض خوانای 640px تنظیم شد.
+- MOBILE: عنوان 26–34px، Wrap کنترل‌شده و CTA/متن مستقل برای عرض زیر 768px پیاده شد.
+
 ## v3.10.144 — 2026-08-27 — Desktop Navigation Baseline Alignment
 - ROOT CAUSE: Rule قالب روی آخرین `li` منو Margin/Vertical offset متفاوت اعمال می‌کرد و «تماس با ما» پایین‌تر دیده می‌شد.
 - LOCK: Nav، UL و LI روی `align-items:center` و تمام LI/Aها روی ارتفاع 42px و `line-height:1` قفل شدند.

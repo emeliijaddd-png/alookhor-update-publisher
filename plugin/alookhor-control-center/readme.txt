@@ -4,7 +4,7 @@ Tags: control center, luxury, alookhor, admin, dashboard
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 3.10.144
+Stable tag: 3.10.145
 License: Private
 License URI: https://alookhor.ir
 
@@ -49,6 +49,9 @@ License URI: https://alookhor.ir
 
 = 3.10.137 =
 * افزودن زیرخط طلایی متحرک Hover/Focus به منوی اصلی
+
+= 3.10.145 =
+* بازطراحی چیدمان و تایپوگرافی متن اسلایدر Hero مطابق نمونه Editorial فارسی
 
 = 3.10.144 =
 * هم‌ترازسازی دقیق گزینه تماس با ما و تمام لینک‌های منوی اصلی
