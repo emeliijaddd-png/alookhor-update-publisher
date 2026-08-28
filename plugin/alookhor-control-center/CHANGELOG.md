@@ -1,5 +1,11 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.141 — 2026-08-27 — Standards Elementor Rendering Fix
+- ROOT CAUSE: Guard رفع خطای 500، Inline CSS را در AJAX حذف می‌کرد و Elementor Editor در بعضی رندرها Handle فرانت را دریافت نمی‌کرد؛ خروجی خام دیده می‌شد.
+- LIGHTWEIGHT LINK: در Editor/AJAX فقط یک `<link>` کوچک و نسخه‌دار همراه Widget چاپ می‌شود؛ Stylesheet کامل داخل Response تکرار نمی‌شود.
+- WIDTH: Container مطابق مرجع روی 1200px استاندارد شد.
+- SAFE: مسیر Live، Cache و Guard جلوگیری از HTTP 500 دست‌نخورده باقی ماند.
+
 ## v3.10.140 — 2026-08-27 — International Standards Section
 - SHORTCODE: `[alookhor_international_standards]` اضافه شد.
 - CARDS: شش کارت Glass برای ISO 9001، HACCP، ORGANIC، HALAL، FDA و GMP با آیکن Line ساخته شد.

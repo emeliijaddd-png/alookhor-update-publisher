@@ -3,7 +3,7 @@
 > این سند از روی فایل‌های واقعی Repository تولید می‌شود. Source اصلی همچنان فایل‌های اجرایی است؛ Snapshotهای کامل زیر برای بازیابی، ممیزی و انتقال دانش نگهداری می‌شوند.
 
 - **Registry version:** `1.0.0`
-- **Plugin/source version:** `3.10.140`
+- **Plugin/source version:** `3.10.141`
 - **Generated:** `2026-08-14`
 - **Repository:** `alookhor-update-publisher`
 - **Production:** `https://alookhor.ir`
@@ -13,8 +13,8 @@
 
 ## Current Project State
 
-- CURRENT VERSION: `3.10.140`
-- LAST FUNCTIONAL CHANGE: افزودن بخش استانداردهای بین‌المللی با شش کارت شیشه‌ای، آمار و انیمیشن لوکس.
+- CURRENT VERSION: `3.10.141`
+- LAST FUNCTIONAL CHANGE: رفع نمایش خراب شورت‌کد استانداردها در Elementor با بارگذاری سبک CSS مخصوص Editor.
 - ACTIVE DESIGN: Luxury Black/Gold; actual component colors remain controlled by saved WordPress settings and existing module defaults.
 - ACTIVE SHORTCODES: `[alookhor_portal_header]`, `[alookhor_managed_categories]`, `[alookhor_managed_hero]`, `[alookhor_managed_features]`.
 - ACTIVE PANELS: Main ALOOKHOR Control Center and Header/Top Bar submenu.
@@ -27,8 +27,8 @@
 ```text
 PROJECT: ALOOKHOR
 AREA: Boutique Header Settings / Admin Menu Cleanup
-CURRENT VERSION: 3.10.140
-CHANGE: افزودن بخش استانداردهای بین‌المللی با شش کارت شیشه‌ای، آمار و انیمیشن لوکس.
+CURRENT VERSION: 3.10.141
+CHANGE: رفع نمایش خراب شورت‌کد استانداردها در Elementor با بارگذاری سبک CSS مخصوص Editor.
 REASON: نسخه 3.10.65 (فرم بوتیک) هرگز منتشر نشد چون CI assertion های قدیمی مانع Build شد؛ علاوه بر رفع آن، دکمه ذخیره فرم به دلیل selector اشتباه اصلاً کار نمی‌کرد و مالک پاکسازی منوهای تکراری هدر را درخواست کرده بود.
 FILES: plugin/alookhor-control-center/assets/css/frontend-header-akx.css; plugin/alookhor-control-center/assets/js/modules/settings.js; plugin/alookhor-control-center/includes/shortcode-header.php; plugin/alookhor-control-center/includes/ajax.php; plugin/alookhor-control-center/alookhor-control-center.php; plugin/alookhor-control-center/assets/js/app.js; plugin/alookhor-control-center/assets/js/core/updateSystem.js; plugin/alookhor-control-center/assets/js/modules/dashboard.js; plugin/alookhor-control-center/templates/admin-control-center.php; plugin/alookhor-control-center/config/site.json; plugin/alookhor-control-center/readme.txt; plugin/alookhor-control-center/CHANGELOG.md; release.json; plugin/alookhor-control-center/includes/hero.php; plugin/alookhor-control-center/includes/sort-center.php; plugin/alookhor-control-center/assets/css/frontend-sort-center.css; plugin/alookhor-control-center/assets/js/frontend-sort-center.js; plugin/alookhor-control-center/includes/shortcode-export-banner.php; plugin/alookhor-control-center/includes/admin-export-banner.php; plugin/alookhor-control-center/assets/css/frontend-export-banner.css; plugin/alookhor-control-center/assets/js/frontend-export-banner.js; plugin/alookhor-control-center/includes/admin.php; plugin/alookhor-control-center/includes/site-features.php; plugin/alookhor-control-center/assets/css/frontend-features.css; plugin/alookhor-control-center/assets/js/frontend-features.js; plugin/alookhor-control-center/includes/app-banner.php; plugin/alookhor-control-center/assets/css/frontend-app-banner.css; plugin/alookhor-control-center/includes/featured-products.php; plugin/alookhor-control-center/assets/css/frontend-featured-products.css; plugin/alookhor-control-center/assets/js/frontend-featured-products.js; plugin/alookhor-control-center/includes/campaign-slider.php; plugin/alookhor-control-center/assets/css/frontend-campaign-slider.css; plugin/alookhor-control-center/assets/js/frontend-campaign-slider.js; plugin/alookhor-control-center/includes/bestselling-products.php; plugin/alookhor-control-center/assets/css/frontend-bestsellers.css; plugin/alookhor-control-center/assets/js/frontend-bestsellers.js; plugin/alookhor-control-center/includes/newsletter.php; plugin/alookhor-control-center/assets/css/frontend-newsletter.css; plugin/alookhor-control-center/assets/js/frontend-newsletter.js; plugin/alookhor-control-center/includes/magazine.php; plugin/alookhor-control-center/assets/css/frontend-magazine.css; plugin/alookhor-control-center/assets/js/frontend-magazine.js; scripts/wordpress_release_test.py; plugin/alookhor-control-center/assets/css/frontend-managed-layout.css; plugin/alookhor-control-center/assets/js/frontend-managed-layout.js; plugin/alookhor-control-center/assets/fonts/vazirmatn-arabic-wght-normal.woff2; plugin/alookhor-control-center/assets/fonts/vazirmatn-latin-wght-normal.woff2; plugin/alookhor-control-center/assets/css/frontend-footer.css; plugin/alookhor-control-center/assets/css/frontend-design-system.css; docs/MASTER_DESIGN_DIRECTIVE.md; plugin/alookhor-control-center/includes/why-alookhor.php; plugin/alookhor-control-center/assets/css/frontend-why-alookhor.css; plugin/alookhor-control-center/includes/footer.php; plugin/alookhor-control-center/includes/product-categories.php; plugin/alookhor-control-center/assets/js/frontend-why-alookhor.js; plugin/alookhor-control-center/includes/international-standards.php; plugin/alookhor-control-center/assets/css/frontend-international-standards.css; plugin/alookhor-control-center/assets/js/frontend-international-standards.js
 STATUS: SOURCE READY — deployment status must be verified separately.
@@ -38,34 +38,34 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 
 | ID | Type | Name | File | Used In | Version | Status |
 |---|---|---|---|---|---:|---|
-| SC-001 | Shortcode | `[alookhor_portal_header]` | `includes/shortcode-header.php` | Elementor Header Shortcode widget; exact template ID unavailable | 3.10.140 | Active / compatibility-preserving |
-| SC-002 | Shortcode | `[alookhor_managed_categories]` | `includes/product-categories.php` | Home page → Elementor Shortcode widget | 3.10.140 | Active |
-| SC-003 | Shortcode | `[alookhor_managed_hero]` | `includes/hero.php` | Home Elementor Shortcode widget / automatic Legacy-root replacement | 3.10.140 | Active |
-| SC-004 | Shortcode | `[alookhor_managed_features]` | `includes/site-features.php` | Home Elementor HTML widget / automatic Legacy-root replacement | 3.10.140 | Active |
+| SC-001 | Shortcode | `[alookhor_portal_header]` | `includes/shortcode-header.php` | Elementor Header Shortcode widget; exact template ID unavailable | 3.10.141 | Active / compatibility-preserving |
+| SC-002 | Shortcode | `[alookhor_managed_categories]` | `includes/product-categories.php` | Home page → Elementor Shortcode widget | 3.10.141 | Active |
+| SC-003 | Shortcode | `[alookhor_managed_hero]` | `includes/hero.php` | Home Elementor Shortcode widget / automatic Legacy-root replacement | 3.10.141 | Active |
+| SC-004 | Shortcode | `[alookhor_managed_features]` | `includes/site-features.php` | Home Elementor HTML widget / automatic Legacy-root replacement | 3.10.141 | Active |
 | SC-EXT-001 | External shortcode | `[alookhor_categories_carousel]` | External plugin source unavailable | Former Home showcase | External | Replaced on Home / do not reconstruct |
-| PN-001 | Admin panel | ALOOKHOR Control Center | `includes/admin.php` | WP Admin top-level menu | 3.10.140 | Active |
-| PN-002 | Admin panel | Header & Top Bar | `includes/admin.php` | WP Admin submenu | 3.10.140 | Active mirror |
-| MOD-001 | Managed module | WooCommerce Categories | `includes/product-categories.php` | Home / Elementor / REST | 3.10.140 | Active |
-| MOD-002 | Managed module | Responsive Footer | `includes/footer.php` | Frontend footer / REST | 3.10.140 | Active |
-| MOD-003 | Managed module | Four-slide Hero | `includes/hero.php` | Home / Elementor / REST | 3.10.140 | Active |
-| MOD-004 | Managed module | Four-card Site Features | `includes/site-features.php` | Home / Elementor / REST | 3.10.140 | Active |
-| API-001 | REST API | `alookhor-cc/v1` | `includes/rest-api.php` | Public state + authenticated updater | 3.10.140 | Active |
-| UPD-001 | Updater | Private native updater | `includes/updater.php` | Control Center + GitHub Actions | 3.10.140 | Active |
-| CFG-001 | WordPress state | Main settings | `alookhor_cc_settings` | All managed modules | 3.10.140 | Active |
-| CFG-002 | WordPress state | Header settings | `alookhor_header_settings` | Header and Top Bar | 3.10.140 | Active |
-| CSS-001 | CSS | Managed Header | `assets/css/frontend-header.css` | `[alookhor_portal_header]` fallback renderer | 3.10.140 | Active |
-| JS-001 | JavaScript | Managed Header runtime | `assets/js/frontend-header.js` | `[alookhor_portal_header]` fallback renderer | 3.10.140 | Active |
-| JS-002 | JavaScript | Legacy Top Bar manager | `assets/js/frontend-topbar-manager.js` | Preserved legacy header provider | 3.10.140 | Active when legacy provider exists |
-| CSS-002 | CSS | WooCommerce Categories | `assets/css/frontend-categories.css` | `[alookhor_managed_categories]` | 3.10.140 | Active |
-| JS-003 | JavaScript | Categories carousel | `assets/js/frontend-categories.js` | `[alookhor_managed_categories]` | 3.10.140 | Active |
-| CSS-003 | CSS | Managed Footer | `assets/css/frontend-footer.css` | Managed Footer module | 3.10.140 | Active |
-| JS-004 | JavaScript | Managed Footer | `assets/js/frontend-footer.js` | Managed Footer module | 3.10.140 | Active |
-| CSS-004 | CSS | Control Center UI | `assets/css/luxury.css` | WP Admin ALOOKHOR pages | 3.10.140 | Active |
-| JS-005 | JavaScript | Control Center app | `assets/js/app.js` + modules | WP Admin ALOOKHOR pages | 3.10.140 | Active |
-| CSS-005 | CSS | Managed Hero | `assets/css/frontend-hero.css` | `[alookhor_managed_hero]` / automatic Home replacement | 3.10.140 | Active |
-| JS-006 | JavaScript | Managed Hero runtime | `assets/js/frontend-hero.js` | Four-slide replacement, controls and REST refresh | 3.10.140 | Active |
-| CSS-006 | CSS | Managed Site Features | `assets/css/frontend-features.css` | `[alookhor_managed_features]` / automatic Home replacement | 3.10.140 | Active |
-| JS-007 | JavaScript | Managed Site Features runtime | `assets/js/frontend-features.js` | Four-card replacement and REST refresh | 3.10.140 | Active |
+| PN-001 | Admin panel | ALOOKHOR Control Center | `includes/admin.php` | WP Admin top-level menu | 3.10.141 | Active |
+| PN-002 | Admin panel | Header & Top Bar | `includes/admin.php` | WP Admin submenu | 3.10.141 | Active mirror |
+| MOD-001 | Managed module | WooCommerce Categories | `includes/product-categories.php` | Home / Elementor / REST | 3.10.141 | Active |
+| MOD-002 | Managed module | Responsive Footer | `includes/footer.php` | Frontend footer / REST | 3.10.141 | Active |
+| MOD-003 | Managed module | Four-slide Hero | `includes/hero.php` | Home / Elementor / REST | 3.10.141 | Active |
+| MOD-004 | Managed module | Four-card Site Features | `includes/site-features.php` | Home / Elementor / REST | 3.10.141 | Active |
+| API-001 | REST API | `alookhor-cc/v1` | `includes/rest-api.php` | Public state + authenticated updater | 3.10.141 | Active |
+| UPD-001 | Updater | Private native updater | `includes/updater.php` | Control Center + GitHub Actions | 3.10.141 | Active |
+| CFG-001 | WordPress state | Main settings | `alookhor_cc_settings` | All managed modules | 3.10.141 | Active |
+| CFG-002 | WordPress state | Header settings | `alookhor_header_settings` | Header and Top Bar | 3.10.141 | Active |
+| CSS-001 | CSS | Managed Header | `assets/css/frontend-header.css` | `[alookhor_portal_header]` fallback renderer | 3.10.141 | Active |
+| JS-001 | JavaScript | Managed Header runtime | `assets/js/frontend-header.js` | `[alookhor_portal_header]` fallback renderer | 3.10.141 | Active |
+| JS-002 | JavaScript | Legacy Top Bar manager | `assets/js/frontend-topbar-manager.js` | Preserved legacy header provider | 3.10.141 | Active when legacy provider exists |
+| CSS-002 | CSS | WooCommerce Categories | `assets/css/frontend-categories.css` | `[alookhor_managed_categories]` | 3.10.141 | Active |
+| JS-003 | JavaScript | Categories carousel | `assets/js/frontend-categories.js` | `[alookhor_managed_categories]` | 3.10.141 | Active |
+| CSS-003 | CSS | Managed Footer | `assets/css/frontend-footer.css` | Managed Footer module | 3.10.141 | Active |
+| JS-004 | JavaScript | Managed Footer | `assets/js/frontend-footer.js` | Managed Footer module | 3.10.141 | Active |
+| CSS-004 | CSS | Control Center UI | `assets/css/luxury.css` | WP Admin ALOOKHOR pages | 3.10.141 | Active |
+| JS-005 | JavaScript | Control Center app | `assets/js/app.js` + modules | WP Admin ALOOKHOR pages | 3.10.141 | Active |
+| CSS-005 | CSS | Managed Hero | `assets/css/frontend-hero.css` | `[alookhor_managed_hero]` / automatic Home replacement | 3.10.141 | Active |
+| JS-006 | JavaScript | Managed Hero runtime | `assets/js/frontend-hero.js` | Four-slide replacement, controls and REST refresh | 3.10.141 | Active |
+| CSS-006 | CSS | Managed Site Features | `assets/css/frontend-features.css` | `[alookhor_managed_features]` / automatic Home replacement | 3.10.141 | Active |
+| JS-007 | JavaScript | Managed Site Features runtime | `assets/js/frontend-features.js` | Four-card replacement and REST refresh | 3.10.141 | Active |
 
 ## SC-001 — Portal Header
 
@@ -200,7 +200,7 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 |---|---:|---|
 | `.github/workflows/publish.yml` | 535 | `ea2a747b9787cb39313702fd50fd8940891a2ed64de3acac6c4e5d69912dec3d` |
 | `ops/wordpress-ci-bootstrap.php` | 215 | `409c23f2be99c6651b0e75dc877c91c884534e6b16f9985c177cf65d14fd4c95` |
-| `plugin/alookhor-control-center/alookhor-control-center.php` | 426 | `5a4970325ff7f1afa5cd6541dc80c220621cafda2fc94aca4eb8eb6795c7460d` |
+| `plugin/alookhor-control-center/alookhor-control-center.php` | 426 | `a3e192fecc5a7c1e6433f59a9c3a51c2af412c439581ffa17b2af218a5205594` |
 | `plugin/alookhor-control-center/assets/css/frontend-app-banner.css` | 1 | `244970e53ef04849a0a52d3930427bc7be986c818a258efcfb9afbd16b187898` |
 | `plugin/alookhor-control-center/assets/css/frontend-bestsellers.css` | 24 | `cf27fd12f8c8d7ebff96e50093e77e9d43cad86f88944a9ee983fd47a622184d` |
 | `plugin/alookhor-control-center/assets/css/frontend-campaign-slider.css` | 3 | `ecc9c29395e69d8a3b591a62d264737328e02c9286f340f2ed51b68dead9f391` |
@@ -215,7 +215,7 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 | `plugin/alookhor-control-center/assets/css/frontend-header-scroll.css` | 103 | `02fedf9f0c8feaf668ce3020d870ea9808690d71f0a30de1d2211610bed0ed0b` |
 | `plugin/alookhor-control-center/assets/css/frontend-header.css` | 357 | `261de9ba7f2385d39b5e706e8c6d85a357c3e77af8df809b05a6275c513caa1b` |
 | `plugin/alookhor-control-center/assets/css/frontend-hero.css` | 97 | `9b19e2c16aeffeb87f89b8c8644a845de90f729016c792d142a2e467d2b7a39c` |
-| `plugin/alookhor-control-center/assets/css/frontend-international-standards.css` | 1 | `532aa4f23c75e1a05f7178ac194c1f307ebada15c325dbb8737cd43b28aef449` |
+| `plugin/alookhor-control-center/assets/css/frontend-international-standards.css` | 1 | `8bda15966109e7291d9e3903d07ea1364ee1609d808691f22530683b37d62366` |
 | `plugin/alookhor-control-center/assets/css/frontend-magazine.css` | 3 | `506927291547c597b5cb9a56cf350932623dc3277783309ce624fa26f3af3b50` |
 | `plugin/alookhor-control-center/assets/css/frontend-managed-layout.css` | 29 | `215444c878e19ed0cfd336484ef1d1baec7eb2f71069daf3a26a3742a800c903` |
 | `plugin/alookhor-control-center/assets/css/frontend-newsletter.css` | 1 | `23a40d4bddfa50dacae00285a966e644013f17044c1322b2982c45f1e735f05c` |
@@ -223,10 +223,10 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 | `plugin/alookhor-control-center/assets/css/frontend-why-alookhor.css` | 7 | `8dd6fa27e1cddaeb8c4a9bed00792cb7629b232fea3d1edb9adff0fd9c6b1aea` |
 | `plugin/alookhor-control-center/assets/css/luxury.css` | 564 | `eef0550c9d8b090dbe799d9a969518207519fdb585c9701e2d897a507e669f8f` |
 | `plugin/alookhor-control-center/assets/js/admin-wp.js` | 84 | `b8ff32723f2f46dc44add19fdc441eec1c611f5229ce7e13ac8b773457be6afc` |
-| `plugin/alookhor-control-center/assets/js/app.js` | 325 | `12318ff21c342cce5d8419e5b6b3d5e272b2780ea629a23b564f15a6818b0305` |
+| `plugin/alookhor-control-center/assets/js/app.js` | 325 | `78972b72c1270f5de5c95c8aa82a234d6cf136e2e3a84b0229a39298a75d6c7e` |
 | `plugin/alookhor-control-center/assets/js/core/config.js` | 199 | `1c89b0d0d8121bce7fc7097f9d1974eb1e38d1ec7f6b0f6f6d5244ab60ea1e85` |
 | `plugin/alookhor-control-center/assets/js/core/responsive.js` | 52 | `0848ef0deef9aaa532581904c4adab9b45cbe8445a99fbeb71f92d358a1aa724` |
-| `plugin/alookhor-control-center/assets/js/core/updateSystem.js` | 252 | `a5a9a976a5721d801f8b40d0851660eede9ec364a1745061e5bf9fcd54b7efbf` |
+| `plugin/alookhor-control-center/assets/js/core/updateSystem.js` | 253 | `f007c2ac676c2cb3833e3628a4d48b0095075cfebb62ed69c06b4ce0d622c554` |
 | `plugin/alookhor-control-center/assets/js/frontend-bestsellers.js` | 1 | `df2ac32d9938f428c20f972f6c45ae7570e8773d821649f45a09daed6cc227a8` |
 | `plugin/alookhor-control-center/assets/js/frontend-campaign-slider.js` | 1 | `8587fd3b404a8662b983444799b0bfd05de848f7c0596c886f2ea1b0748c9dcc` |
 | `plugin/alookhor-control-center/assets/js/frontend-categories.js` | 27 | `7ba1a1a1be8b22afcbdecbc95428d62e140b32519d944a04a7f9be057d9d11ee` |
@@ -245,12 +245,12 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 | `plugin/alookhor-control-center/assets/js/frontend-topbar-manager.js` | 464 | `45980b0d4bcdf219ecb7665bbad95e69c874400047a12b526b7a0248231d0aa9` |
 | `plugin/alookhor-control-center/assets/js/frontend-why-alookhor.js` | 1 | `56302efb357de366650abbfe9f80c9439772e63a5ad1f637fac65beb8de13155` |
 | `plugin/alookhor-control-center/assets/js/modules/analytics.js` | 21 | `5e35bdba45de5750af08d6cfea337fd7a6eb8cc852ef1c955ee5ba1e7a56bf0c` |
-| `plugin/alookhor-control-center/assets/js/modules/dashboard.js` | 173 | `4adb42d5bd5b82d32c656a33b4d4e630ce3e72062666e8b4b42145d07939d158` |
+| `plugin/alookhor-control-center/assets/js/modules/dashboard.js` | 173 | `38710bf1b977d0b49a69019b5df075f14fd5ea27f88f6fb19353ac117de8669d` |
 | `plugin/alookhor-control-center/assets/js/modules/inventory.js` | 30 | `e1c39f880a1e7985fa8ea64b07ec72ce69c416165fb514ad9fb7d9f8e8e93723` |
 | `plugin/alookhor-control-center/assets/js/modules/orders.js` | 19 | `0ccd8376c69ba37fb50d3261f002789488042e17a0b1b37539bab86abda374eb` |
-| `plugin/alookhor-control-center/assets/js/modules/settings.js` | 787 | `d900b5e3b87f3a8df7c08327d6eb1242b0f85f7959eccf3db1ac307854d098e2` |
+| `plugin/alookhor-control-center/assets/js/modules/settings.js` | 787 | `57f72ee7035e70b8c46dff563d84a97a0cf4da77940509bf670ff9645f42cf16` |
 | `plugin/alookhor-control-center/assets/js/modules/users.js` | 20 | `6fb96546faf00ea831ace016d09b10f903a501db647bae20d0f570034ac36946` |
-| `plugin/alookhor-control-center/config/site.json` | 328 | `e527837b1dbe620f87c837ef83e76dd19c989e406e67537477d0b82e208eadf9` |
+| `plugin/alookhor-control-center/config/site.json` | 328 | `0ad3a3ce07f2ece807fb46b4668de77f6b70c47674e697d3f6d5d6d0bc709258` |
 | `plugin/alookhor-control-center/includes/admin-export-banner.php` | 180 | `fff84102b3dc84cb69c7318312395993a8adf6255a5d7f056d4c7bf7dce8e1b2` |
 | `plugin/alookhor-control-center/includes/admin.php` | 101 | `419d9b5b5ac6fcba56fd9657a6b4669e79e0c22026eebe880012c7913693f1cc` |
 | `plugin/alookhor-control-center/includes/ajax.php` | 425 | `2fb7bb38b406269be1ad30c2deaa8c7f00439ae913b6d05e0f5da4b9e80528bf` |
@@ -260,7 +260,7 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 | `plugin/alookhor-control-center/includes/featured-products.php` | 22 | `5b11934474373e394479f0b579688d6fd8fd16eeb6cde120738a0ca8daf363b7` |
 | `plugin/alookhor-control-center/includes/footer.php` | 282 | `7553bf1b0282e5c5d21b53ca527c446dcbe4f2663de5f615fc08286ea37e38ae` |
 | `plugin/alookhor-control-center/includes/hero.php` | 247 | `24c8523e0370efa148a3bdb62256ddf1432cf0f1ac4261a14ce149107f3ebdb1` |
-| `plugin/alookhor-control-center/includes/international-standards.php` | 11 | `4b9bbaed468a61d00036590ecbb133b6dd210cfb00949ea6ebc870243f07703c` |
+| `plugin/alookhor-control-center/includes/international-standards.php` | 11 | `5478057d03b7090966399a0518a99b345930b36d4382faca88701c9e35a830b2` |
 | `plugin/alookhor-control-center/includes/magazine.php` | 11 | `6b2bb5f4bcda9f078d3cc35423eca453b95527ba7ad9c73ca0c9e05cbd945c23` |
 | `plugin/alookhor-control-center/includes/newsletter.php` | 11 | `c164526a1deccb24ff8211e439b73ad6dda497cc3064c5e3f5d5c1fc01797321` |
 | `plugin/alookhor-control-center/includes/product-categories.php` | 94 | `1dca3ab5c602c395f6fec87b25e3b9f3c94266e29fe9acd56a2309eae48062ea` |
@@ -271,7 +271,7 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 | `plugin/alookhor-control-center/includes/sort-center.php` | 59 | `4b9a005082efdc648d8ce485d2f571cb2f4103d3ac5dcfcd115bfe5e105d16b7` |
 | `plugin/alookhor-control-center/includes/updater.php` | 392 | `a715756bd9c6b1228f25a03e8c253b7bb661fc53684f3aacbf57928486eb76d3` |
 | `plugin/alookhor-control-center/includes/why-alookhor.php` | 22 | `4bf5bd8c6369ccf6943940f133fa0332194144d966d265b97dcada04965bc309` |
-| `plugin/alookhor-control-center/templates/admin-control-center.php` | 387 | `d4ca221328516d7da1c7abd816efea692e82e81ceffeaeefaebc240ba5c9ff3a` |
+| `plugin/alookhor-control-center/templates/admin-control-center.php` | 387 | `461a9d44560376c121ee64e76e912665083b68ccf0aa3061790be8dad5909143` |
 | `plugin/alookhor-control-center/uninstall.php` | 6 | `d69282a9ab7c0865b6c60e6fca272d0859433e9c8730754fb2995295209ff84c` |
 | `scripts/build_release.py` | 113 | `7d54cb088e271f83a724467786b6c72377157df57b73699d12d64f1d3ddcb82a` |
 | `scripts/generate_code_registry.py` | 293 | `cc820adb6cd74358acfe6eea9bcc5206a2262b91a53e053cc0794c47fec3026a` |
@@ -1051,7 +1051,7 @@ add_action('rest_api_init', function(){
  * Plugin Name: ALOOKHOR Control Center
  * Plugin URI: https://alookhor.ir
  * Description: کنترل سنتر لوکس و ماژولار آلوخور — مدیریت کامل سایت (هدر، اسلایدر، سورت، محصولات، مشتریان VIP، مالی، آنالیتیکس) با آپدیت آنی بدون رفرش. تمام تنظیمات چت قبلی + شورت‌کد [alookhor_portal_header] اینجا مدیریت می‌شود.
- * Version: 3.10.140
+ * Version: 3.10.141
  * Author: ALOOKHOR Team — Luxury Modular
  * Author URI: https://alookhor.ir
  * Update URI: https://alookhor.ir/alookhor-control-center
@@ -1064,8 +1064,8 @@ add_action('rest_api_init', function(){
 
 if (!defined('ABSPATH')) exit;
 
-define('ALOOKHOR_CC_VERSION', '3.10.140');
-define('ALOOKHOR_CC_BUILD', '3.10.140');
+define('ALOOKHOR_CC_VERSION', '3.10.141');
+define('ALOOKHOR_CC_BUILD', '3.10.141');
 define('ALOOKHOR_CC_FILE', __FILE__);
 define('ALOOKHOR_CC_DIR', plugin_dir_path(__FILE__));
 define('ALOOKHOR_CC_URL', plugin_dir_url(__FILE__));
@@ -3831,7 +3831,7 @@ body.alookhor-mh-hide-legacy .alookhor-hero-slider-wrapper{display:none!importan
 ## Source Snapshot — `plugin/alookhor-control-center/assets/css/frontend-international-standards.css`
 
 ````css
-.alookhor-standards,.alookhor-standards *{box-sizing:border-box}.alookhor-standards{width:100vw;max-width:100vw;margin:0 calc(50% - 50vw);padding:62px 20px;background:var(--ast-bg);color:var(--ast-text);font-family:Vazirmatn,IRANSansX,Tahoma,sans-serif;overflow:hidden}.ast-inner{width:min(1380px,100%);margin:auto}.ast-inner>header{max-width:900px;margin:0 auto 40px;display:flex;flex-direction:column;align-items:center;text-align:center}.ast-inner header>span{color:var(--ast-gold);font-size:20px;animation:ast-crown 4s ease-in-out infinite}.ast-inner header>small{color:var(--ast-gold);font:700 10px Arial;letter-spacing:2px}.ast-inner h2{margin:10px 0!important;color:var(--ast-text)!important;font-size:clamp(29px,3vw,42px)!important}.ast-inner header>div{width:100%;display:flex;align-items:center;justify-content:center;gap:11px}.ast-inner header i{width:80px;height:1px;background:linear-gradient(90deg,transparent,var(--ast-gold))}.ast-inner header i:last-of-type{transform:scaleX(-1)}.ast-inner header b{color:var(--ast-gold);font-size:8px}.ast-inner header p{margin:0!important;color:var(--ast-muted)!important;font-size:13px!important;line-height:1.9!important}.ast-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:18px}.ast-grid article{min-width:0;min-height:205px;padding:23px 14px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;border:1px solid color-mix(in srgb,var(--ast-gold) 25%,transparent);border-radius:var(--ast-radius);background:color-mix(in srgb,var(--ast-card) 58%,transparent);backdrop-filter:blur(25px) saturate(145%);box-shadow:0 12px 28px rgba(28,16,37,.3),inset 0 1px rgba(255,255,255,.06);transition:.45s cubic-bezier(.25,.8,.25,1)}.ast-grid article:hover{transform:translateY(-10px) scale(1.035);border-color:color-mix(in srgb,var(--ast-gold) 65%,transparent);box-shadow:0 18px 36px color-mix(in srgb,var(--ast-gold) 18%,rgba(28,16,37,.3)),0 0 17px color-mix(in srgb,var(--ast-gold) 12%,transparent)}.ast-grid article>i{width:50px;height:50px;display:grid;place-items:center;border:1px solid color-mix(in srgb,var(--ast-gold) 38%,transparent);border-radius:50%;background:linear-gradient(135deg,color-mix(in srgb,var(--ast-gold) 15%,transparent),color-mix(in srgb,var(--ast-gold) 4%,transparent));color:var(--ast-gold);font-style:normal;transition:.45s}.ast-grid article:hover>i{transform:rotate(10deg) scale(1.1);color:#F5D76E;filter:drop-shadow(0 0 8px color-mix(in srgb,var(--ast-gold) 55%,transparent))}.ast-grid svg{width:23px;height:23px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.ast-grid h3{margin:14px 0 8px!important;color:var(--ast-text)!important;font:800 16px Georgia,serif!important}.ast-grid p{margin:0!important;color:var(--ast-muted)!important;font-size:11px!important;line-height:1.8!important}.ast-stats{margin-top:44px;padding-top:38px;display:grid;grid-template-columns:repeat(4,1fr);gap:15px;border-top:1px solid color-mix(in srgb,var(--ast-gold) 16%,transparent)}.ast-stats span{display:grid;place-items:center;gap:7px}.ast-stats b{color:var(--ast-gold);font-size:27px;font-weight:900;text-shadow:0 0 12px color-mix(in srgb,var(--ast-gold) 28%,transparent)}.ast-stats small{color:var(--ast-muted);font-size:12px}.ast-will-reveal .ast-grid article,.ast-will-reveal .ast-stats{opacity:0;transform:translateY(18px)}.ast-will-reveal.ast-visible .ast-grid article,.ast-will-reveal.ast-visible .ast-stats{opacity:1;transform:none;transition:opacity .65s ease,transform .65s ease}.ast-will-reveal.ast-visible .ast-grid article:nth-child(2){transition-delay:.07s}.ast-will-reveal.ast-visible .ast-grid article:nth-child(3){transition-delay:.14s}.ast-will-reveal.ast-visible .ast-grid article:nth-child(4){transition-delay:.21s}.ast-will-reveal.ast-visible .ast-grid article:nth-child(5){transition-delay:.28s}.ast-will-reveal.ast-visible .ast-grid article:nth-child(6){transition-delay:.35s}.ast-will-reveal.ast-visible .ast-stats{transition-delay:.4s}@keyframes ast-crown{50%{transform:translateY(-3px);filter:drop-shadow(0 0 9px var(--ast-gold))}}@media(max-width:1100px){.ast-grid{grid-template-columns:repeat(3,1fr)}}@media(max-width:650px){.alookhor-standards{padding:42px 10px}.ast-grid{grid-template-columns:repeat(2,1fr);gap:9px}.ast-grid article{min-height:185px;padding:18px 9px}.ast-stats{grid-template-columns:repeat(2,1fr);gap:20px}.ast-inner header i{width:28px}.ast-inner header p{font-size:11px!important}.ast-stats b{font-size:22px}}@media(prefers-reduced-motion:reduce){.ast-inner header>span{animation:none}.ast-will-reveal .ast-grid article,.ast-will-reveal .ast-stats{opacity:1;transform:none;transition:none!important}.ast-grid article{transition:none}}
+.alookhor-standards,.alookhor-standards *{box-sizing:border-box}.alookhor-standards{width:100vw;max-width:100vw;margin:0 calc(50% - 50vw);padding:62px 20px;background:var(--ast-bg);color:var(--ast-text);font-family:Vazirmatn,IRANSansX,Tahoma,sans-serif;overflow:hidden}.ast-inner{width:min(1200px,100%);margin:auto}.ast-inner>header{max-width:900px;margin:0 auto 40px;display:flex;flex-direction:column;align-items:center;text-align:center}.ast-inner header>span{color:var(--ast-gold);font-size:20px;animation:ast-crown 4s ease-in-out infinite}.ast-inner header>small{color:var(--ast-gold);font:700 10px Arial;letter-spacing:2px}.ast-inner h2{margin:10px 0!important;color:var(--ast-text)!important;font-size:clamp(29px,3vw,42px)!important}.ast-inner header>div{width:100%;display:flex;align-items:center;justify-content:center;gap:11px}.ast-inner header i{width:80px;height:1px;background:linear-gradient(90deg,transparent,var(--ast-gold))}.ast-inner header i:last-of-type{transform:scaleX(-1)}.ast-inner header b{color:var(--ast-gold);font-size:8px}.ast-inner header p{margin:0!important;color:var(--ast-muted)!important;font-size:13px!important;line-height:1.9!important}.ast-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:18px}.ast-grid article{min-width:0;min-height:205px;padding:23px 14px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;border:1px solid color-mix(in srgb,var(--ast-gold) 25%,transparent);border-radius:var(--ast-radius);background:color-mix(in srgb,var(--ast-card) 58%,transparent);backdrop-filter:blur(25px) saturate(145%);box-shadow:0 12px 28px rgba(28,16,37,.3),inset 0 1px rgba(255,255,255,.06);transition:.45s cubic-bezier(.25,.8,.25,1)}.ast-grid article:hover{transform:translateY(-10px) scale(1.035);border-color:color-mix(in srgb,var(--ast-gold) 65%,transparent);box-shadow:0 18px 36px color-mix(in srgb,var(--ast-gold) 18%,rgba(28,16,37,.3)),0 0 17px color-mix(in srgb,var(--ast-gold) 12%,transparent)}.ast-grid article>i{width:50px;height:50px;display:grid;place-items:center;border:1px solid color-mix(in srgb,var(--ast-gold) 38%,transparent);border-radius:50%;background:linear-gradient(135deg,color-mix(in srgb,var(--ast-gold) 15%,transparent),color-mix(in srgb,var(--ast-gold) 4%,transparent));color:var(--ast-gold);font-style:normal;transition:.45s}.ast-grid article:hover>i{transform:rotate(10deg) scale(1.1);color:#F5D76E;filter:drop-shadow(0 0 8px color-mix(in srgb,var(--ast-gold) 55%,transparent))}.ast-grid svg{width:23px;height:23px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.ast-grid h3{margin:14px 0 8px!important;color:var(--ast-text)!important;font:800 16px Georgia,serif!important}.ast-grid p{margin:0!important;color:var(--ast-muted)!important;font-size:11px!important;line-height:1.8!important}.ast-stats{margin-top:44px;padding-top:38px;display:grid;grid-template-columns:repeat(4,1fr);gap:15px;border-top:1px solid color-mix(in srgb,var(--ast-gold) 16%,transparent)}.ast-stats span{display:grid;place-items:center;gap:7px}.ast-stats b{color:var(--ast-gold);font-size:27px;font-weight:900;text-shadow:0 0 12px color-mix(in srgb,var(--ast-gold) 28%,transparent)}.ast-stats small{color:var(--ast-muted);font-size:12px}.ast-will-reveal .ast-grid article,.ast-will-reveal .ast-stats{opacity:0;transform:translateY(18px)}.ast-will-reveal.ast-visible .ast-grid article,.ast-will-reveal.ast-visible .ast-stats{opacity:1;transform:none;transition:opacity .65s ease,transform .65s ease}.ast-will-reveal.ast-visible .ast-grid article:nth-child(2){transition-delay:.07s}.ast-will-reveal.ast-visible .ast-grid article:nth-child(3){transition-delay:.14s}.ast-will-reveal.ast-visible .ast-grid article:nth-child(4){transition-delay:.21s}.ast-will-reveal.ast-visible .ast-grid article:nth-child(5){transition-delay:.28s}.ast-will-reveal.ast-visible .ast-grid article:nth-child(6){transition-delay:.35s}.ast-will-reveal.ast-visible .ast-stats{transition-delay:.4s}@keyframes ast-crown{50%{transform:translateY(-3px);filter:drop-shadow(0 0 9px var(--ast-gold))}}@media(max-width:1100px){.ast-grid{grid-template-columns:repeat(3,1fr)}}@media(max-width:650px){.alookhor-standards{padding:42px 10px}.ast-grid{grid-template-columns:repeat(2,1fr);gap:9px}.ast-grid article{min-height:185px;padding:18px 9px}.ast-stats{grid-template-columns:repeat(2,1fr);gap:20px}.ast-inner header i{width:28px}.ast-inner header p{font-size:11px!important}.ast-stats b{font-size:22px}}@media(prefers-reduced-motion:reduce){.ast-inner header>span{animation:none}.ast-will-reveal .ast-grid article,.ast-will-reveal .ast-stats{opacity:1;transform:none;transition:none!important}.ast-grid article{transition:none}}
 ````
 
 ## Source Snapshot — `plugin/alookhor-control-center/assets/css/frontend-magazine.css`
@@ -4564,15 +4564,15 @@ tr:last-child td{border-bottom:0}
 
 ````javascript
 // Release query prevents stale ES Modules after a WordPress-native update.
-import { initResponsive } from './core/responsive.js?v=3.10.140';
-import { initUpdater, Updater } from './core/updateSystem.js?v=3.10.140';
-import { Config } from './core/config.js?v=3.10.140';
-import { dashboardModule } from './modules/dashboard.js?v=3.10.140';
-import { inventoryModule } from './modules/inventory.js?v=3.10.140';
-import { ordersModule } from './modules/orders.js?v=3.10.140';
-import { usersModule } from './modules/users.js?v=3.10.140';
-import { analyticsModule } from './modules/analytics.js?v=3.10.140';
-import { settingsModule } from './modules/settings.js?v=3.10.140';
+import { initResponsive } from './core/responsive.js?v=3.10.141';
+import { initUpdater, Updater } from './core/updateSystem.js?v=3.10.141';
+import { Config } from './core/config.js?v=3.10.141';
+import { dashboardModule } from './modules/dashboard.js?v=3.10.141';
+import { inventoryModule } from './modules/inventory.js?v=3.10.141';
+import { ordersModule } from './modules/orders.js?v=3.10.141';
+import { usersModule } from './modules/users.js?v=3.10.141';
+import { analyticsModule } from './modules/analytics.js?v=3.10.141';
+import { settingsModule } from './modules/settings.js?v=3.10.141';
 
 const modules = {
   dashboard: dashboardModule,
@@ -5158,7 +5158,7 @@ export function initResponsive() {
 // UI/state remain modular; version discovery and installation are delegated to WordPress.
 
 const runtimeConfig = window.ALOOKHOR_CC || {};
-const runtimeVersion = String(runtimeConfig.version || '3.10.140');
+const runtimeVersion = String(runtimeConfig.version || '3.10.141');
 
 function normalizeResult(data = {}) {
   const current = String(data.current || runtimeVersion);
@@ -5212,6 +5212,7 @@ export const Updater = {
   lastCheck: null,
   changelog: [
     { tag: 'NAV INDICATOR', title: 'v3.10.137 — زیرخط متحرک منو', desc: 'نشانگر طلایی با Hover و Focus بین لینک‌ها حرکت و به صفحه فعال بازمی‌گردد.' },
+    { tag: 'STANDARDS FIX', title: 'v3.10.141 — رفع نمایش استانداردها در Elementor', desc: 'CSS نسخه‌دار و سبک مستقیماً در Editor بارگذاری شد، بدون بازگشت خطای 500.' },
     { tag: 'STANDARDS', title: 'v3.10.140 — استانداردهای بین‌المللی', desc: 'شش کارت شیشه‌ای، چهار شمارنده و تنظیمات کامل بوتیک اضافه شد.' },
     { tag: 'WHY COMPLETE', title: 'v3.10.139 — محتوای کامل چرا آلوخور', desc: 'تمام متن‌ها، آمار، رنگ‌ها و ترکیب بصری مطابق مرجع اضافه و در بوتیک قابل ویرایش شد.' },
     { tag: 'WHY MOTION', title: 'v3.10.136 — چرا آلوخور شیشه‌ای و متحرک', desc: 'Glass، Shine، Hover، Reveal مرحله‌ای و شمارنده پویا اضافه شد.' },
@@ -6724,7 +6725,7 @@ export const analyticsModule = {
 ## Source Snapshot — `plugin/alookhor-control-center/assets/js/modules/dashboard.js`
 
 ````javascript
-import { Config } from '../core/config.js?v=3.10.140';
+import { Config } from '../core/config.js?v=3.10.141';
 
 const escapeHTML = value => String(value ?? '').replace(/[&<>'"]/g, char => ({
   '&':'&amp;', '<':'&lt;', '>':'&gt;', "'":'&#039;', '"':'&quot;'
@@ -6961,7 +6962,7 @@ export const ordersModule = {
 ## Source Snapshot — `plugin/alookhor-control-center/assets/js/modules/settings.js`
 
 ````javascript
-import { Config } from '../core/config.js?v=3.10.140';
+import { Config } from '../core/config.js?v=3.10.141';
 
 const escapeAttr = value => String(value ?? '').replace(/[&<>'"]/g, char => ({
   '&':'&amp;', '<':'&lt;', '>':'&gt;', "'":'&#039;', '"':'&quot;'
@@ -7972,7 +7973,7 @@ export const usersModule = {
   },
   "updated_at": "2026-08-10T16:20:00Z",
   "updated_by": "AI Assistant — recovered from previous chat",
-  "version": "3.10.140",
+  "version": "3.10.141",
   "hero_settings": {
     "enabled": true,
     "hide_legacy": true,
@@ -9477,7 +9478,7 @@ function alookhor_cc_standards_defaults(){return ['enabled'=>true,'eyebrow'=>'TR
  ['value'=>'98%','label'=>'رضایت مشتریان صادراتی'],['value'=>'+15','label'=>'سال سابقه و اعتبار تجاری'],['value'=>'+25','label'=>'کشورهای هدف صادرات'],['value'=>'100%','label'=>'تضمین ارگانیک و سورت بار']]];}
 function alookhor_cc_get_standards_settings(){$state=alookhor_cc_get_settings();$saved=is_array($state['standards_settings']??null)?$state['standards_settings']:[];return array_replace_recursive(alookhor_cc_standards_defaults(),$saved);}
 function alookhor_cc_standard_icon($name){$p=['shield'=>'<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/>','info'=>'<circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7h.01"/>','organic'=>'<path d="M12 21V10M12 16c-6 0-9-4-9-9 6 0 9 4 9 9Zm0-4c0-6 4-9 9-9 0 6-4 9-9 9Z"/>','halal'=>'<path d="M18 3a9 9 0 1 0 3 15A8 8 0 1 1 18 3Z"/><path d="m8 12 2 2 5-5"/>','document'=>'<path d="M6 2h9l4 4v16H6zM14 2v5h5M9 12h6M9 16h6"/>'];return '<svg viewBox="0 0 24 24">'.($p[$name]??$p['shield']).'</svg>';}
-function alookhor_cc_standards_shortcode(){$s=alookhor_cc_get_standards_settings();if(empty($s['enabled']))return '';$c=[];foreach(['background','card','gold','text','muted'] as $k)$c[$k]=sanitize_hex_color($s[$k]??'')?:alookhor_cc_standards_defaults()[$k];ob_start();static $style=false;if(!$style&&alookhor_cc_should_inline_shortcode_css()){$style=true;$f=ALOOKHOR_CC_DIR.'assets/css/frontend-international-standards.css';if(file_exists($f))echo '<style id="alookhor-standards-inline">'.file_get_contents($f).'</style>';}?>
+function alookhor_cc_standards_shortcode(){$s=alookhor_cc_get_standards_settings();if(empty($s['enabled']))return '';$c=[];foreach(['background','card','gold','text','muted'] as $k)$c[$k]=sanitize_hex_color($s[$k]??'')?:alookhor_cc_standards_defaults()[$k];ob_start();static $style=false;if(!$style){$style=true;$f=ALOOKHOR_CC_DIR.'assets/css/frontend-international-standards.css';if(alookhor_cc_should_inline_shortcode_css()&&file_exists($f))echo '<style id="alookhor-standards-inline">'.file_get_contents($f).'</style>';elseif(wp_doing_ajax()||is_admin())echo '<link rel="stylesheet" id="alookhor-standards-editor-css" href="'.esc_url(ALOOKHOR_CC_URL.'assets/css/frontend-international-standards.css?ver='.ALOOKHOR_CC_BUILD).'">';}?>
 <section class="alookhor-standards" dir="rtl" style="--ast-bg:<?php echo esc_attr($c['background']);?>;--ast-card:<?php echo esc_attr($c['card']);?>;--ast-gold:<?php echo esc_attr($c['gold']);?>;--ast-text:<?php echo esc_attr($c['text']);?>;--ast-muted:<?php echo esc_attr($c['muted']);?>;--ast-radius:<?php echo max(12,min(32,absint($s['radius'])));?>px"><div class="ast-inner"><header><span>♛</span><small><?php echo esc_html($s['eyebrow']);?></small><h2><?php echo esc_html($s['title']);?></h2><div><i></i><b>✦</b><p><?php echo esc_html($s['subtitle']);?></p><b>✦</b><i></i></div></header><div class="ast-grid"><?php foreach((array)$s['items'] as $item):?><article><i><?php echo alookhor_cc_standard_icon($item['icon']??'shield');?></i><h3><?php echo esc_html($item['title']??'');?></h3><p><?php echo esc_html($item['description']??'');?></p></article><?php endforeach;?></div><div class="ast-stats"><?php foreach((array)$s['stats'] as $stat):if(empty($stat['value']))continue;?><span><b><?php echo esc_html($stat['value']);?></b><small><?php echo esc_html($stat['label']??'');?></small></span><?php endforeach;?></div></div></section><?php return ob_get_clean();}
 add_shortcode('alookhor_international_standards','alookhor_cc_standards_shortcode');add_action('wp_enqueue_scripts',function(){wp_enqueue_style('alookhor-cc-standards',ALOOKHOR_CC_URL.'assets/css/frontend-international-standards.css',[],ALOOKHOR_CC_BUILD);wp_enqueue_script('alookhor-cc-standards',ALOOKHOR_CC_URL.'assets/js/frontend-international-standards.js',[],ALOOKHOR_CC_BUILD,true);});
 ````
@@ -11198,7 +11199,7 @@ add_shortcode('alookhor_why_alookhor','alookhor_cc_why_shortcode');add_shortcode
       <div class="header-actions">
         <div class="version-badge" title="نسخه فعلی">
           <span style="width:6px; height:6px; border-radius:50%; background:#3DD68C; box-shadow:0 0 0 4px rgba(61,214,140,0.15); display:inline-block"></span>
-          <span id="headerVersion">v3.10.140</span>
+          <span id="headerVersion">v3.10.141</span>
           <span style="opacity:0.5">•</span>
           <span id="bpIndicator" style="font-family:monospace; font-size:11px">—</span>
         </div>
@@ -11378,7 +11379,7 @@ add_shortcode('alookhor_why_alookhor','alookhor_cc_why_shortcode');add_shortcode
           <span style="margin-right:auto; font-size:10px; background:var(--gold); color:#1A1206; font-weight:800; padding:2px 7px; border-radius:999px">PRO</span>
         </div>
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:10px">
-          <div style="background:rgba(255,255,255,0.04); border:1px solid var(--gold-border); border-radius:10px; padding:8px; text-align:center"><div style="font-size:11px; color:var(--text-faint)">نسخه</div><b id="versionBadgeText" style="font-family:monospace; font-size:12px; color:var(--text-primary)">v3.10.140</b></div>
+          <div style="background:rgba(255,255,255,0.04); border:1px solid var(--gold-border); border-radius:10px; padding:8px; text-align:center"><div style="font-size:11px; color:var(--text-faint)">نسخه</div><b id="versionBadgeText" style="font-family:monospace; font-size:12px; color:var(--text-primary)">v3.10.141</b></div>
           <div style="background:rgba(255,255,255,0.04); border:1px solid var(--gold-border); border-radius:10px; padding:8px; text-align:center"><div style="font-size:11px; color:var(--text-faint)">ماژول</div><b style="font-size:12px; color:var(--gold-soft)">۱۹ فعال</b></div>
         </div>
         <div style="height:6px; background:rgba(255,255,255,0.06); border-radius:999px; overflow:hidden; margin-top:10px"><div style="width:100%; height:100%; background:linear-gradient(90deg,#C9A86A,#E8D5B5)"></div></div>
@@ -11453,7 +11454,7 @@ add_shortcode('alookhor_why_alookhor','alookhor_cc_why_shortcode');add_shortcode
 
       <!-- Footer luxury -->
       <div style="margin-top:18px; padding:14px 16px; display:flex; flex-wrap:wrap; gap:10px; justify-content:space-between; align-items:center; background:rgba(255,255,255,0.02); border:1px solid var(--gold-border); border-radius:14px; font-size:12px; color:var(--text-muted)">
-        <span>© 2026 ALOOKHOR — Control Center v3.10.140 • <span id="pageTitle" style="color:var(--gold-soft); font-weight:700">داشبورد</span> • معماری ماژولار حفظ شد</span>
+        <span>© 2026 ALOOKHOR — Control Center v3.10.141 • <span id="pageTitle" style="color:var(--gold-soft); font-weight:700">داشبورد</span> • معماری ماژولار حفظ شد</span>
         <span style="display:flex; gap:8px; align-items:center">
           <span style="width:7px; height:7px; border-radius:50%; background:#3DD68C; display:inline-block"></span> سیستم پایدار
           <span style="opacity:0.4">|</span> <a href="<?php echo esc_url(ALOOKHOR_CC_URL . 'docs/PROJECT_MEMORY.md'); ?>" target="_blank" rel="noopener" style="color:var(--gold-soft); text-decoration:underline; text-underline-offset:3px">حافظه پروژه</a>
@@ -11472,7 +11473,7 @@ add_shortcode('alookhor_why_alookhor','alookhor_cc_why_shortcode');add_shortcode
           </div>
           <div>
             <h3>Update Center</h3>
-            <div style="font-size:12px; color:var(--text-muted); margin-top:2px" id="modalVersion">v3.10.140 — به‌روز</div>
+            <div style="font-size:12px; color:var(--text-muted); margin-top:2px" id="modalVersion">v3.10.141 — به‌روز</div>
           </div>
         </div>
         <button class="icon-btn" id="btnCloseModal" style="width:34px; height:34px">✕</button>

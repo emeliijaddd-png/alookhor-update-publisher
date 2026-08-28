@@ -1,16 +1,16 @@
 {
-  "version": "3.10.140",
-  "previous": "3.10.139",
+  "version": "3.10.141",
+  "previous": "3.10.140",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "افزودن بخش استانداردهای بین‌المللی با شش کارت شیشه‌ای، آمار و انیمیشن لوکس.",
+  "description": "رفع نمایش خراب شورت‌کد استانداردها در Elementor با بارگذاری سبک CSS مخصوص Editor.",
   "changelog": [
     {
-      "tag": "INTERNATIONAL STANDARDS",
-      "title": "استانداردهای بین‌المللی کیفیت",
-      "desc": "[alookhor_international_standards] با ۶ کارت، ۴ شمارنده، Glass، Hover، Reveal و تنظیمات کامل بوتیک اضافه شد."
+      "tag": "STANDARDS EDITOR FIX",
+      "title": "نمایش صحیح استانداردها در Elementor",
+      "desc": "در AJAX المنتور به‌جای Inline CSS سنگین، لینک نسخه‌دار stylesheet فقط یک‌بار همراه Widget بارگذاری می‌شود؛ Live و Save بدون 500 حفظ می‌شوند."
     }
   ],
   "project": "ALOOKHOR",
