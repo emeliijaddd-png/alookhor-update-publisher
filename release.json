@@ -1,16 +1,16 @@
 {
-  "version": "3.10.141",
-  "previous": "3.10.140",
+  "version": "3.10.142",
+  "previous": "3.10.141",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "رفع نمایش خراب شورت‌کد استانداردها در Elementor با بارگذاری سبک CSS مخصوص Editor.",
+  "description": "اصلاح جهت نمایش شماره‌های واتساپ و جایگزینی حرف آ با لوگوی رسمی در بنر صادراتی.",
   "changelog": [
     {
-      "tag": "STANDARDS EDITOR FIX",
-      "title": "نمایش صحیح استانداردها در Elementor",
-      "desc": "در AJAX المنتور به‌جای Inline CSS سنگین، لینک نسخه‌دار stylesheet فقط یک‌بار همراه Widget بارگذاری می‌شود؛ Live و Save بدون 500 حفظ می‌شوند."
+      "tag": "EXPORT CONTACT FIX",
+      "title": "شماره صحیح و لوگوی رسمی بنر صادراتی",
+      "desc": "شماره‌ها با LTR/Unicode isolate نمایش داده می‌شوند و در نبود لوگوی اختصاصی، LOGO2 رسمی هدر جایگزین حرف آ می‌شود."
     }
   ],
   "project": "ALOOKHOR",

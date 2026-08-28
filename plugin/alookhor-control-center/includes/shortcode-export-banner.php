@@ -110,6 +110,14 @@ function alookhor_cc_export_banner_markup($settings = null){
 
     $background = alookhor_cc_export_banner_image_url($s['background_image_id'], $s['background_image_url']);
     $logo = alookhor_cc_export_banner_image_url($s['logo_id'], $s['logo_url']);
+    // اگر لوگوی اختصاصی بنر انتخاب نشده، لوگوی رسمی ذخیره‌شده هدر استفاده شود؛
+    // حرف «آ» فقط fallback نهایی در نبود هر دو منبع است.
+    if (!$logo) {
+        $header_settings = get_option(ALOOKHOR_CC_HEADER_OPTION, []);
+        if (is_array($header_settings) && !empty($header_settings['top_logo_url'])) {
+            $logo = esc_url_raw($header_settings['top_logo_url']);
+        }
+    }
 
     $site = function_exists('alookhor_cc_get_settings') ? alookhor_cc_get_settings() : [];
     $logo_letter = is_array($site['site'] ?? null) && !empty($site['site']['logoLetter']) ? $site['site']['logoLetter'] : 'آ';

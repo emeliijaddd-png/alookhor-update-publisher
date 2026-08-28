@@ -1,5 +1,11 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.142 — 2026-08-27 — Export Banner Phone Direction + Official Logo
+- PHONE BIDI: شماره‌های واتساپ با `direction:ltr` و `unicode-bidi:isolate` از محیط RTL جدا شدند؛ ترتیب ارقام و گروه‌ها صحیح است.
+- LOGO FALLBACK: اگر لوگوی اختصاصی بنر خالی باشد، `top_logo_url` رسمی هدر (LOGO2) خودکار استفاده می‌شود.
+- LETTER: حرف «آ» فقط fallback نهایی در نبود هر دو لوگوی اختصاصی و رسمی است.
+- FIT: اندازه و Object Fit لوگوی رسمی داخل حلقه مرکزی اصلاح شد.
+
 ## v3.10.141 — 2026-08-27 — Standards Elementor Rendering Fix
 - ROOT CAUSE: Guard رفع خطای 500، Inline CSS را در AJAX حذف می‌کرد و Elementor Editor در بعضی رندرها Handle فرانت را دریافت نمی‌کرد؛ خروجی خام دیده می‌شد.
 - LIGHTWEIGHT LINK: در Editor/AJAX فقط یک `<link>` کوچک و نسخه‌دار همراه Widget چاپ می‌شود؛ Stylesheet کامل داخل Response تکرار نمی‌شود.
