@@ -1,4 +1,4 @@
-import { Config } from '../core/config.js?v=3.10.153';
+import { Config } from '../core/config.js?v=3.10.154';
 
 const escapeAttr = value => String(value ?? '').replace(/[&<>'"]/g, char => ({
   '&':'&amp;', '<':'&lt;', '>':'&gt;', "'":'&#039;', '"':'&quot;'
@@ -73,12 +73,12 @@ export const settingsModule = {
     }, cfg.footer_settings || {});
     cfg.category_settings = Object.assign({
       enabled:true, hide_legacy:true, hide_empty:false, parent_only:true, selected_ids:[38,39,40,41], limit:8, orderby:'include', order:'ASC',
-      kicker:'ALOOKHOR PRODUCT CATEGORIES', title:'محصولات منتخب آلوخور', subtitle:'', button_text:'مشاهده محصولات',
+      kicker:'ALOOKHOR PRODUCT CATEGORIES', title:'دسته‌بندی محصولات', subtitle:'', button_text:'مشاهده محصولات',
       show_description:true, show_count:false, show_icons:true, show_arrows:true, show_dots:true, autoplay:true, autoplay_interval:5000,
       desktop_cards:4, desktop_gap:18, image_height:285, mobile_card_width:84, mobile_gap:14, mobile_image_height:225, mobile_radius:18, mobile_peek:8, section_background:'#090610', card_background:'#0D0916', gold:'#D4A436', text:'#F7F2EA', muted:'#B8B0BD', border:'#6F5426', button_background:'#120B1C', overrides:{}
     }, cfg.category_settings || {});
     if(['دسته‌بندی محصولات','دسته بندی محصولات'].includes(String(cfg.category_settings.kicker||'').trim()))cfg.category_settings.kicker='ALOOKHOR PRODUCT CATEGORIES';
-    if(String(cfg.category_settings.title||'').trim()==='محصولات طبیعی، کیفیت صادراتی')cfg.category_settings.title='محصولات منتخب آلوخور';
+    if(['محصولات طبیعی، کیفیت صادراتی','محصولات منتخب آلوخور'].includes(String(cfg.category_settings.title||'').trim()))cfg.category_settings.title='دسته‌بندی محصولات';
     if(String(cfg.category_settings.subtitle||'').trim()==='انتخاب مستقیم از باغ‌های خراسان، آماده ارسال به سراسر جهان')cfg.category_settings.subtitle='';
     const heroBase=`${String(window.ALOOKHOR_CC?.home_url||'/').replace(/\/$/,'')}/wp-content/plugins/alookhor-categories-manager/images/`;
     const heroSlideDefaults=[

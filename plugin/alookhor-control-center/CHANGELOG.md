@@ -1,5 +1,11 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.154 — 2026-08-28 — Category Title Correction
+- COPY: «محصولات منتخب آلوخور» حذف و عنوان صحیح «دسته‌بندی محصولات» بازگردانی شد.
+- SCALE: اندازه عنوان دسکتاپ از 48–72px به 38–54px کاهش یافت.
+- MOBILE: اندازه عنوان به 28–35px محدود شد.
+- MIGRATION: هر دو عنوان قدیمی به‌صورت خودکار به متن صحیح منتقل می‌شوند.
+
 ## v3.10.153 — 2026-08-28 — Luminous Category Editorial Identity
 - KICKER: «دسته‌بندی محصولات» به `ALOOKHOR PRODUCT CATEGORIES` انگلیسی، کوچک و طلایی تبدیل شد.
 - TITLE: عنوان قدیمی حذف و «محصولات منتخب آلوخور» با اندازه 48–72px، وزن 900 و رنگ سفید جایگزین شد.

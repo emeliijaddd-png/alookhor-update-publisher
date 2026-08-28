@@ -1,13 +1,13 @@
 // Release query prevents stale ES Modules after a WordPress-native update.
-import { initResponsive } from './core/responsive.js?v=3.10.153';
-import { initUpdater, Updater } from './core/updateSystem.js?v=3.10.153';
-import { Config } from './core/config.js?v=3.10.153';
-import { dashboardModule } from './modules/dashboard.js?v=3.10.153';
-import { inventoryModule } from './modules/inventory.js?v=3.10.153';
-import { ordersModule } from './modules/orders.js?v=3.10.153';
-import { usersModule } from './modules/users.js?v=3.10.153';
-import { analyticsModule } from './modules/analytics.js?v=3.10.153';
-import { settingsModule } from './modules/settings.js?v=3.10.153';
+import { initResponsive } from './core/responsive.js?v=3.10.154';
+import { initUpdater, Updater } from './core/updateSystem.js?v=3.10.154';
+import { Config } from './core/config.js?v=3.10.154';
+import { dashboardModule } from './modules/dashboard.js?v=3.10.154';
+import { inventoryModule } from './modules/inventory.js?v=3.10.154';
+import { ordersModule } from './modules/orders.js?v=3.10.154';
+import { usersModule } from './modules/users.js?v=3.10.154';
+import { analyticsModule } from './modules/analytics.js?v=3.10.154';
+import { settingsModule } from './modules/settings.js?v=3.10.154';
 
 const modules = {
   dashboard: dashboardModule,

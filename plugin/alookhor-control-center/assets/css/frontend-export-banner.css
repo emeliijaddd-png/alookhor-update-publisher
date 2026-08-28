@@ -311,6 +311,6 @@
   .alookhor-xb.will-animate.is-visible{transition:none}
 }
 
-/* v3.10.153 — stable phone bidi and official logo fallback presentation. */
+/* v3.10.154 — stable phone bidi and official logo fallback presentation. */
 .alookhor-xb-wa>span{direction:ltr!important;unicode-bidi:isolate!important;text-align:left!important;display:inline-block!important;font-variant-numeric:tabular-nums!important;letter-spacing:.035em!important}
 .alookhor-xb-logo-ring img{width:86%!important;height:86%!important;max-width:100%!important;max-height:100%!important;object-fit:contain!important;filter:drop-shadow(0 5px 12px rgba(22,9,31,.35))}
