@@ -1,16 +1,16 @@
 {
-  "version": "3.10.145",
-  "previous": "3.10.144",
+  "version": "3.10.146",
+  "previous": "3.10.145",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "بازطراحی چیدمان و تایپوگرافی نوشته‌های اسلایدر Hero مطابق نمونه‌های تأییدشده.",
+  "description": "افزودن دو جداکننده فلش‌دار طلایی به توضیحات Hero و پشتیبانی متن چندخطی.",
   "changelog": [
     {
-      "tag": "HERO EDITORIAL TYPE",
-      "title": "تایپوگرافی Editorial اسلایدر",
-      "desc": "عنوان اصلی و طلایی مرکزچین، بزرگ، Vazirmatn 900، توضیح خوانا و چیدمان متوازن پنل برای Desktop/Mobile شد."
+      "tag": "HERO DESCRIPTION DIVIDER",
+      "title": "جداکننده طلایی توضیحات اسلایدر",
+      "desc": "دو خط طلایی جهت‌دار با نقطه مرکزی دو طرف توضیح اضافه و newlineهای متن بوتیک به خطوط واقعی تبدیل شدند."
     }
   ],
   "project": "ALOOKHOR",

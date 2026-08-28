@@ -1,5 +1,10 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.146 — 2026-08-28 — Hero Description Gold Arrow Dividers
+- DIVIDERS: دو خط طلایی باریک و جهت‌دار با نقطه انتهایی دو طرف توضیح Hero اضافه شد.
+- MULTILINE: خط جدید واردشده در textarea توضیح هر اسلاید با `nl2br` به خط واقعی در Frontend تبدیل می‌شود.
+- RESPONSIVE: طول Divider در موبایل کوتاه و متناسب می‌شود تا متن فشرده نشود.
+
 ## v3.10.145 — 2026-08-28 — Editorial Persian Hero Typography
 - ALIGNMENT: تمام محتوای پنل Hero مرکزچین و Composition عنوان/توضیح/ویژگی/CTA متوازن شد.
 - TITLE: عنوان اصلی Vazirmatn وزن 900 با اندازه 48–76px و بخش Highlight طلایی در خط مستقل تنظیم شد.
