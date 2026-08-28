@@ -1,5 +1,12 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.147 — 2026-08-28 — Luminous Category Heading Hierarchy
+- KICKER: «دسته‌بندی محصولات» به 17–22px، وزن 800 و Glow طلایی چندلایه ارتقا یافت.
+- TITLE: عنوان اصلی «محصولات طبیعی...» به 34–46px کاهش یافت تا Hierarchy متوازن و حرفه‌ای شود.
+- SUBTITLE: اندازه 15–19px، وزن 500 و Line-height 1.9 برای خوانایی بهتر اعمال شد.
+- MOTION: Pulse نوری بسیار آرام 3.8s با رعایت Reduced Motion اضافه شد.
+- MOBILE: مقیاس مستقل 15px/27–34px برای Kicker/Title اجرا شد.
+
 ## v3.10.146 — 2026-08-28 — Hero Description Gold Arrow Dividers
 - DIVIDERS: دو خط طلایی باریک و جهت‌دار با نقطه انتهایی دو طرف توضیح Hero اضافه شد.
 - MULTILINE: خط جدید واردشده در textarea توضیح هر اسلاید با `nl2br` به خط واقعی در Frontend تبدیل می‌شود.

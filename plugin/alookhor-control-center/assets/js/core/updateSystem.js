@@ -2,7 +2,7 @@
 // UI/state remain modular; version discovery and installation are delegated to WordPress.
 
 const runtimeConfig = window.ALOOKHOR_CC || {};
-const runtimeVersion = String(runtimeConfig.version || '3.10.146');
+const runtimeVersion = String(runtimeConfig.version || '3.10.147');
 
 function normalizeResult(data = {}) {
   const current = String(data.current || runtimeVersion);
@@ -56,6 +56,7 @@ export const Updater = {
   lastCheck: null,
   changelog: [
     { tag: 'NAV INDICATOR', title: 'v3.10.137 — زیرخط متحرک منو', desc: 'نشانگر طلایی با Hover و Focus بین لینک‌ها حرکت و به صفحه فعال بازمی‌گردد.' },
+    { tag: 'CATEGORY TYPE', title: 'v3.10.147 — عنوان نورانی دسته‌بندی', desc: 'کیکر بزرگ‌تر و Glowدار و عنوان اصلی کوچک‌تر و متوازن شد.' },
     { tag: 'HERO DIVIDER', title: 'v3.10.146 — جداکننده طلایی توضیحات', desc: 'دو فلش خطی طلایی و نمایش چندخطی توضیحات Hero اضافه شد.' },
     { tag: 'HERO TYPE', title: 'v3.10.145 — تایپوگرافی Editorial اسلایدر', desc: 'عنوان، Highlight، توضیح و CTAهای Hero با چیدمان حرفه‌ای فارسی بازطراحی شدند.' },
     { tag: 'NAV ALIGN', title: 'v3.10.144 — هم‌ترازی منوی اصلی', desc: 'تمام گزینه‌ها از جمله تماس با ما روی یک Baseline دقیق قرار گرفتند.' },
