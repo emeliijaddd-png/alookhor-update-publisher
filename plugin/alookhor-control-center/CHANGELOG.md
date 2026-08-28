@@ -1,5 +1,12 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.157 — 2026-08-28 — Why ALOOKHOR Rich Purple Art Direction
+- SECTION: ترکیب دو Radial بنفش/طلایی و Linear عمیق، عمق پس‌زمینه مرجع را بازسازی کرد.
+- CARDS: گرادینت `Card → Brand Purple → Deep Purple` با Inner light ظریف اعمال شد.
+- ICONS: حلقه‌ها Surface بنفش چندلایه و Glow بسیار محدود طلایی گرفتند.
+- VISUAL/STAT: Overlay تصویر، Badge برند و نوار آمار با همان زبان گرادینتی یکپارچه شدند.
+- SETTINGS: رنگ‌های انتخابی بوتیک همچنان Base اصلی تمام گرادینت‌ها هستند.
+
 ## v3.10.156 — 2026-08-28 — Why ALOOKHOR Visual Composition V2
 - VISUAL: تصویر بزرگ محصول در ستون چپ با Crop حرفه‌ای، Overlay پایین و Badge شیشه‌ای برند اضافه شد.
 - CONTENT: Header و متن معرفی در ستون راست و چهار کارت شماره‌دار 01–04 با آیکن‌های 92px پیاده شد.

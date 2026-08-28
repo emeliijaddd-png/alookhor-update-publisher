@@ -2,7 +2,7 @@
 // UI/state remain modular; version discovery and installation are delegated to WordPress.
 
 const runtimeConfig = window.ALOOKHOR_CC || {};
-const runtimeVersion = String(runtimeConfig.version || '3.10.156');
+const runtimeVersion = String(runtimeConfig.version || '3.10.157');
 
 function normalizeResult(data = {}) {
   const current = String(data.current || runtimeVersion);
@@ -56,6 +56,7 @@ export const Updater = {
   lastCheck: null,
   changelog: [
     { tag: 'NAV INDICATOR', title: 'v3.10.137 — زیرخط متحرک منو', desc: 'نشانگر طلایی با Hover و Focus بین لینک‌ها حرکت و به صفحه فعال بازمی‌گردد.' },
+    { tag: 'WHY PURPLE', title: 'v3.10.157 — گرادینت بنفش چرا آلوخور', desc: 'پس‌زمینه، کارت‌ها، آیکن‌ها، Badge و آمار با عمق بنفش چندلایه اجرا شدند.' },
     { tag: 'WHY V2', title: 'v3.10.156 — چرا آلوخور تصویری', desc: 'تصویر بزرگ، Badge برند، کارت‌های شماره‌دار و نوار آمار آیکن‌دار مطابق مرجع اجرا شد.' },
     { tag: 'PRISTINE HERO', title: 'v3.10.155 — تصویر Hero بدون هاله', desc: 'Gradient بنفش و تمام Filterهای اجباری از عکس اسلایدر حذف شدند.' },
     { tag: 'CATEGORY TITLE', title: 'v3.10.154 — عنوان صحیح دسته‌بندی محصولات', desc: 'عنوان قبلی بازگردانی و اندازه فونت متعادل‌تر شد.' },

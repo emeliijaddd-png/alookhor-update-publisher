@@ -4,7 +4,7 @@ Tags: control center, luxury, alookhor, admin, dashboard
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 3.10.156
+Stable tag: 3.10.157
 License: Private
 License URI: https://alookhor.ir
 
@@ -49,6 +49,9 @@ License URI: https://alookhor.ir
 
 = 3.10.137 =
 * افزودن زیرخط طلایی متحرک Hover/Focus به منوی اصلی
+
+= 3.10.157 =
+* افزودن گرادینت بنفش چندلایه و لوکس به تمام سطوح «چرا آلوخور»
 
 = 3.10.156 =
 * بازطراحی صفر تا صد «چرا آلوخور» با تصویر بزرگ، Badge، کارت‌های شماره‌دار و آمار آیکن‌دار
