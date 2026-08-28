@@ -2,7 +2,7 @@
 // UI/state remain modular; version discovery and installation are delegated to WordPress.
 
 const runtimeConfig = window.ALOOKHOR_CC || {};
-const runtimeVersion = String(runtimeConfig.version || '3.10.149');
+const runtimeVersion = String(runtimeConfig.version || '3.10.150');
 
 function normalizeResult(data = {}) {
   const current = String(data.current || runtimeVersion);
@@ -56,6 +56,7 @@ export const Updater = {
   lastCheck: null,
   changelog: [
     { tag: 'NAV INDICATOR', title: 'v3.10.137 — زیرخط متحرک منو', desc: 'نشانگر طلایی با Hover و Focus بین لینک‌ها حرکت و به صفحه فعال بازمی‌گردد.' },
+    { tag: 'COMPACT HERO', title: 'v3.10.150 — کارت کوچک شیشه‌ای موبایل', desc: 'متن کوچک، ویژگی‌ها مخفی و جهت فلش‌های اسلایدر اصلاح شد.' },
     { tag: 'MOBILE HERO', title: 'v3.10.149 — Hero حرفه‌ای موبایل', desc: 'تصویر Cover، متن خوانا، CTA لمسی و کنترل‌های استاندارد بدون Overflow اجرا شد.' },
     { tag: 'MOBILE HEADER', title: 'v3.10.148 — هدر موبایل حرفه‌ای', desc: 'چیدمان مستقل، Touch target استاندارد و Drawer دسترس‌پذیر بدون Overflow اجرا شد.' },
     { tag: 'CATEGORY TYPE', title: 'v3.10.147 — عنوان نورانی دسته‌بندی', desc: 'کیکر بزرگ‌تر و Glowدار و عنوان اصلی کوچک‌تر و متوازن شد.' },

@@ -1,5 +1,12 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.150 — 2026-08-28 — Compact Mobile Hero Glass Card
+- COMPACT CARD: محتوای Hero در کارت شیشه‌ای 245px گوشه چپ پایین قرار گرفت؛ ارتفاع اسلایدر به 390–470px کاهش یافت.
+- TYPE: عنوان از 27–38px به 21–28px کاهش و Kicker در موبایل حذف شد.
+- FEATURES: چهار ویژگی فقط در موبایل مخفی شدند تا عکس و CTA فضای کافی داشته باشند.
+- ARROWS: جهت SVG فلش قبلی/بعدی برای منطق RTL اصلاح شد.
+- SMALL MOBILE: کارت 220px و ارتفاع 400px برای عرض زیر 375px تنظیم شد.
+
 ## v3.10.149 — 2026-08-28 — Mobile Hero UX Phase
 - INDEPENDENT COMPOSITION: Hero موبایل مستقل از Desktop با ارتفاع 430–560px و بدون Overflow بازطراحی شد.
 - IMAGE: `object-fit:cover` و Focus 64٪، نوارهای خالی و تصویر باریک کنار پنل را حذف کرد.

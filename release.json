@@ -1,16 +1,16 @@
 {
-  "version": "3.10.149",
-  "previous": "3.10.148",
+  "version": "3.10.150",
+  "previous": "3.10.149",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "فاز دوم Mobile UX: بازطراحی مستقل اسلایدر Hero برای موبایل.",
+  "description": "فشرده‌سازی پنل موبایل Hero، حذف ویژگی‌ها و اصلاح جهت فلش‌ها.",
   "changelog": [
     {
-      "tag": "MOBILE HERO UX",
-      "title": "Hero موبایل مستقل و حرفه‌ای",
-      "desc": "تصویر Cover بدون نوار خالی، Gradient خوانا، پنل بدون Overflow، تایپوگرافی 27–38px، ویژگی‌های 2×2، CTA لمسی و کنترل‌های 44px اجرا شد."
+      "tag": "COMPACT MOBILE HERO",
+      "title": "کارت شیشه‌ای کوچک گوشه اسلایدر",
+      "desc": "پنل متن کوچک و شیشه‌ای در گوشه چپ پایین، عنوان 21–28px، حذف ویژگی‌ها و اصلاح کامل جهت فلش‌های RTL."
     }
   ],
   "project": "ALOOKHOR",

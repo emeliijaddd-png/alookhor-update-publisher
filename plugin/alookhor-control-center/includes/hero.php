@@ -185,8 +185,8 @@ function alookhor_cc_hero_markup($settings=null){
           <?php endforeach; ?>
         </div>
         <?php if(!empty($s['show_arrows'])): ?>
-        <button type="button" class="alookhor-mh-arrow is-prev" aria-label="اسلاید قبلی"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg></button>
-        <button type="button" class="alookhor-mh-arrow is-next" aria-label="اسلاید بعدی"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></button>
+        <button type="button" class="alookhor-mh-arrow is-prev" aria-label="اسلاید قبلی"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></button>
+        <button type="button" class="alookhor-mh-arrow is-next" aria-label="اسلاید بعدی"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg></button>
         <?php endif; ?>
         <?php if(!empty($s['show_dots'])): ?><div class="alookhor-mh-dots" role="tablist" aria-label="انتخاب اسلاید"><?php for($i=0;$i<4;$i++): ?><button type="button" role="tab" data-slide="<?php echo esc_attr($i); ?>" class="<?php echo $i===0?'is-active':''; ?>" aria-selected="<?php echo $i===0?'true':'false'; ?>" aria-label="اسلاید <?php echo esc_attr($i+1); ?>"></button><?php endfor; ?></div><?php endif; ?>
         <span class="alookhor-mh-status screen-reader-text" aria-live="polite"></span>
