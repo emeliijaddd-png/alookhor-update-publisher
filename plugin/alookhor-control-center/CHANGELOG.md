@@ -1,5 +1,13 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.149 — 2026-08-28 — Mobile Hero UX Phase
+- INDEPENDENT COMPOSITION: Hero موبایل مستقل از Desktop با ارتفاع 430–560px و بدون Overflow بازطراحی شد.
+- IMAGE: `object-fit:cover` و Focus 64٪، نوارهای خالی و تصویر باریک کنار پنل را حذف کرد.
+- READABILITY: Gradient بنفش جهت‌دار جای پنل حجیم را گرفت؛ متن روی تصویر خوانا و خود عکس همچنان غالب است.
+- CONTENT: عنوان 27–38px، توضیح 11.5px، ویژگی‌های 2×2 و یک CTA اصلی 42px اجرا شد.
+- TOUCH: فلش‌های 44px، Dots قابل‌دید و فاصله امن از Header پیاده شد.
+- SMALL MOBILE: Override مستقل زیر 375px اضافه شد.
+
 ## v3.10.148 — 2026-08-28 — Mobile Header UX Phase
 - LAYOUT: کپسول موبایل به Grid مستقل Logo/Menu/Tools تبدیل و Overflow در عرض 320px حذف شد.
 - TOUCH: تمام دکمه‌های اصلی، Close، Submenu و Footer Drawer حداقل 44–48px شدند.

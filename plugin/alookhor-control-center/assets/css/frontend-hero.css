@@ -96,7 +96,7 @@ body.alookhor-mh-hide-legacy .alookhor-hero-slider-wrapper{display:none!importan
 .alookhor-mh-cta.is-secondary{background:rgba(var(--mh-surface-rgb),.22)!important}
 @media(max-width:767px){.alookhor-mh{background:var(--mh-surface)!important}.alookhor-mh-shade{background:linear-gradient(90deg,rgba(var(--mh-surface-rgb),.02),rgba(var(--mh-surface-rgb),.3))!important}.alookhor-mh-content{background:rgba(var(--mh-surface-rgb),var(--mh-panel-alpha,.34))!important}}
 
-/* v3.10.148 — editorial Persian hero typography matching approved references. */
+/* v3.10.149 — editorial Persian hero typography matching approved references. */
 .alookhor-mh-content{text-align:center!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important}
 .alookhor-mh-kicker{align-self:stretch!important;justify-content:center!important;margin-bottom:12px!important;font-family:Vazirmatn,IRANSansX,Tahoma,sans-serif!important;font-size:clamp(12px,.9vw,16px)!important;font-weight:700!important;line-height:1.8!important;color:var(--mh-gold)!important}
 .alookhor-mh-kicker:after{content:"";width:36px;height:1px;background:linear-gradient(90deg,var(--mh-gold),transparent)}
@@ -107,9 +107,39 @@ body.alookhor-mh-hide-legacy .alookhor-hero-slider-wrapper{display:none!importan
 @media(max-width:1200px){.alookhor-mh-content h2{font-size:clamp(38px,4.6vw,58px)!important}}
 @media(max-width:767px){.alookhor-mh-content{align-items:center!important;text-align:center!important}.alookhor-mh-content h2{font-size:clamp(26px,7.4vw,34px)!important;line-height:1.18!important;white-space:normal!important;letter-spacing:-.035em!important}.alookhor-mh-content h2 strong{font-size:.86em!important;white-space:normal!important}.alookhor-mh-description{margin-top:9px!important;font-size:11px!important;line-height:1.7!important;text-align:center!important}.alookhor-mh-actions{width:100%!important;justify-content:center!important}}
 
-/* v3.10.148 — editorial description divider with two fine gold arrow-lines. */
+/* v3.10.149 — editorial description divider with two fine gold arrow-lines. */
 .alookhor-mh-description{width:100%!important;display:flex!important;align-items:center!important;justify-content:center!important;gap:13px!important;text-wrap:balance}
 .alookhor-mh-description:before,.alookhor-mh-description:after{content:"";display:block;flex:1 1 58px;max-width:78px;min-width:32px;height:9px;opacity:.72}
 .alookhor-mh-description:before{background:radial-gradient(circle at right center,var(--mh-gold) 0 2.5px,transparent 3px),linear-gradient(90deg,transparent,var(--mh-gold)) left center/calc(100% - 7px) 1px no-repeat;clip-path:polygon(0 44%,86% 44%,86% 20%,100% 50%,86% 80%,86% 56%,0 56%)}
 .alookhor-mh-description:after{background:radial-gradient(circle at left center,var(--mh-gold) 0 2.5px,transparent 3px),linear-gradient(90deg,var(--mh-gold),transparent) right center/calc(100% - 7px) 1px no-repeat;clip-path:polygon(100% 44%,14% 44%,14% 20%,0 50%,14% 80%,14% 56%,100% 56%)}
 @media(max-width:767px){.alookhor-mh-description{gap:6px!important}.alookhor-mh-description:before,.alookhor-mh-description:after{min-width:17px;max-width:30px;height:7px}}
+
+/* v3.10.149 — independent mobile Hero composition (not a scaled desktop layout). */
+@media(max-width:767px){
+ html body .alookhor-mh{width:100vw!important;max-width:100vw!important;margin:0 calc(50% - 50vw)!important;padding:0 8px 12px!important;overflow:hidden!important;background:var(--mh-surface,#3A0D5C)!important}
+ html body .alookhor-mh-shell{width:100%!important;max-width:none!important;height:clamp(430px,132vw,560px)!important;min-height:430px!important;max-height:560px!important;margin:0!important;border-radius:min(var(--mh-radius),22px)!important;overflow:hidden!important}
+ html body .alookhor-mh-media img,html body .alookhor-mh-slide.is-image-flipped .alookhor-mh-media img,html body .alookhor-mh[data-ken-burns="1"] .alookhor-mh-slide.is-active .alookhor-mh-media img,html body .alookhor-mh[data-ken-burns="1"] .alookhor-mh-slide.is-active.is-image-flipped .alookhor-mh-media img{width:100%!important;height:100%!important;object-fit:cover!important;object-position:64% center!important;transform:none!important;filter:saturate(1.02) contrast(1.02) brightness(.82)!important}
+ html body .alookhor-mh-shade{background:linear-gradient(90deg,rgba(var(--mh-surface-rgb,58,13,92),.9) 0%,rgba(var(--mh-surface-rgb,58,13,92),.76) 42%,rgba(var(--mh-surface-rgb,58,13,92),.2) 78%,rgba(var(--mh-surface-rgb,58,13,92),.06) 100%),linear-gradient(180deg,rgba(28,16,37,.18),transparent 55%,rgba(28,16,37,.42))!important}
+ html body .alookhor-mh-content{top:82px!important;right:auto!important;left:42px!important;bottom:45px!important;width:min(68%,280px)!important;max-width:280px!important;height:auto!important;padding:0!important;transform:none!important;display:flex!important;align-items:flex-start!important;justify-content:center!important;text-align:right!important;border:0!important;border-radius:0!important;background:transparent!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;box-shadow:none!important;overflow:visible!important}
+ html body .alookhor-mh-content:before{display:none!important}
+ html body .alookhor-mh-kicker{display:flex!important;align-self:flex-start!important;justify-content:flex-start!important;margin:0 0 7px!important;font-size:10px!important;line-height:1.5!important;text-align:right!important}
+ html body .alookhor-mh-kicker:before,html body .alookhor-mh-kicker:after{width:20px!important}
+ html body .alookhor-mh-content h2{width:100%!important;margin:0!important;font-size:clamp(27px,9.2vw,38px)!important;line-height:1.12!important;letter-spacing:-.035em!important;text-align:right!important;white-space:normal!important;text-wrap:balance!important}
+ html body .alookhor-mh-content h2 strong{margin-top:3px!important;font-size:.86em!important;line-height:1.18!important;text-align:right!important;white-space:normal!important}
+ html body .alookhor-mh-description{width:100%!important;margin:9px 0 0!important;display:block!important;font-size:11.5px!important;font-weight:500!important;line-height:1.75!important;text-align:right!important;color:var(--mh-text,#FFFFFF)!important}
+ html body .alookhor-mh-description:before,html body .alookhor-mh-description:after{display:none!important}
+ html body .alookhor-mh-features{width:100%!important;margin-top:12px!important;display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:4px 7px!important;border:0!important}
+ html body .alookhor-mh-feature{min-height:43px!important;padding:4px 0!important;display:flex!important;align-items:center!important;justify-content:flex-start!important;gap:6px!important;text-align:right!important;border:0!important}
+ html body .alookhor-mh-feature:after{display:none!important}
+ html body .alookhor-mh-feature svg{width:21px!important;height:21px!important;flex:0 0 21px!important}
+ html body .alookhor-mh-feature b{font-size:9px!important;line-height:1.35!important;white-space:normal!important}
+ html body .alookhor-mh-actions{width:100%!important;margin-top:12px!important;display:grid!important;grid-template-columns:1fr!important;gap:7px!important;justify-content:stretch!important}
+ html body .alookhor-mh-cta{width:100%!important;min-width:0!important;min-height:42px!important;padding:0 12px!important;border-radius:10px!important;font-size:11px!important;white-space:nowrap!important}
+ html body .alookhor-mh .alookhor-mh-arrow{top:52%!important;width:44px!important;min-width:44px!important;max-width:44px!important;height:44px!important;min-height:44px!important;max-height:44px!important;background:rgba(28,16,37,.72)!important;border-color:rgba(212,175,55,.32)!important}
+ html body .alookhor-mh .alookhor-mh-arrow.is-prev{right:5px!important}.alookhor-mh .alookhor-mh-arrow.is-next{left:5px!important}
+ html body .alookhor-mh-dots{bottom:10px!important;gap:6px!important}
+ html body .alookhor-mh-dots button{width:9px!important;min-width:9px!important;max-width:9px!important;height:9px!important;min-height:9px!important;max-height:9px!important}
+ html body .alookhor-mh-dots button.is-active{width:30px!important;min-width:30px!important;max-width:30px!important}
+}
+@media(max-width:374px){html body .alookhor-mh-shell{height:470px!important;min-height:470px!important}html body .alookhor-mh-content{top:75px!important;left:37px!important;width:72%!important}html body .alookhor-mh-content h2{font-size:27px!important}html body .alookhor-mh-description{font-size:10.5px!important}html body .alookhor-mh-feature b{font-size:8.5px!important}}
+@media(max-width:767px){html body .alookhor-mh-cta.is-secondary{display:none!important}}
