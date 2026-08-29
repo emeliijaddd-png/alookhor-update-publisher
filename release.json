@@ -1,16 +1,16 @@
 {
-  "version": "3.10.161",
-  "previous": "3.10.160",
+  "version": "3.10.162",
+  "previous": "3.10.161",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "بازطراحی کامل استانداردهای بین‌المللی مطابق مرجع با کارت‌های Glass و آمار آیکن‌دار.",
+  "description": "بازطراحی مستقل موبایل استانداردهای بین‌المللی مطابق مرجع Portrait.",
   "changelog": [
     {
-      "tag": "STANDARDS V2",
-      "title": "استانداردهای بین‌المللی لوکس V2",
-      "desc": "عنوان دو‌رنگ، ۶ کارت بلند Glass، آیکن/Divider، نوار ۴ آمار آیکن‌دار، Reveal/Counter و Responsive 6/3/2/1 اجرا شد."
+      "tag": "STANDARDS MOBILE",
+      "title": "استانداردهای بین‌المللی در موبایل",
+      "desc": "سه کارت در Portrait، دو کارت در موبایل کوچک، آمار 2×2 و کارت اعتماد تصویری پایین با تنظیمات بوتیک اجرا شد."
     }
   ],
   "project": "ALOOKHOR",

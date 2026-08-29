@@ -2,7 +2,7 @@
 // UI/state remain modular; version discovery and installation are delegated to WordPress.
 
 const runtimeConfig = window.ALOOKHOR_CC || {};
-const runtimeVersion = String(runtimeConfig.version || '3.10.161');
+const runtimeVersion = String(runtimeConfig.version || '3.10.162');
 
 function normalizeResult(data = {}) {
   const current = String(data.current || runtimeVersion);
@@ -55,10 +55,11 @@ export const Updater = {
   latest: runtimeVersion,
   lastCheck: null,
   changelog: [
-    { tag: 'STANDARDS V2', title: 'v3.10.161 — استانداردهای بین‌المللی لوکس', desc: 'شش کارت Glass، آمار آیکن‌دار و Responsive کامل اجرا شد.' },
-    { tag: 'SORT CENTER V2', title: 'v3.10.161 — مرکز سورت لوکس', desc: 'اسلایدر، Glass، آمار، دو CTA و Mobile UX کامل اجرا شد.' },
+    { tag: 'STANDARDS MOBILE', title: 'v3.10.162 — استانداردها در موبایل', desc: 'چیدمان Portrait، آمار 2×2 و کارت اعتماد تصویری اجرا شد.' },
+    { tag: 'STANDARDS V2', title: 'v3.10.162 — استانداردهای بین‌المللی لوکس', desc: 'شش کارت Glass، آمار آیکن‌دار و Responsive کامل اجرا شد.' },
+    { tag: 'SORT CENTER V2', title: 'v3.10.162 — مرکز سورت لوکس', desc: 'اسلایدر، Glass، آمار، دو CTA و Mobile UX کامل اجرا شد.' },
     { tag: 'NAV INDICATOR', title: 'v3.10.137 — زیرخط متحرک منو', desc: 'نشانگر طلایی با Hover و Focus بین لینک‌ها حرکت و به صفحه فعال بازمی‌گردد.' },
-    { tag: 'WHY CLEANUP', title: 'v3.10.161 — اصلاح متن و نقاط موبایل', desc: 'توضیح دسکتاپ تک‌خطی و نقاط تزئینی موبایل حذف شدند.' },
+    { tag: 'WHY CLEANUP', title: 'v3.10.162 — اصلاح متن و نقاط موبایل', desc: 'توضیح دسکتاپ تک‌خطی و نقاط تزئینی موبایل حذف شدند.' },
     { tag: 'WHY MOBILE', title: 'v3.10.158 — چرا آلوخور در موبایل', desc: 'ترکیب تصویر/عنوان، کارت‌ها و آمار برای Portrait مستقل بازطراحی شد.' },
     { tag: 'WHY PURPLE', title: 'v3.10.157 — گرادینت بنفش چرا آلوخور', desc: 'پس‌زمینه، کارت‌ها، آیکن‌ها، Badge و آمار با عمق بنفش چندلایه اجرا شدند.' },
     { tag: 'WHY V2', title: 'v3.10.156 — چرا آلوخور تصویری', desc: 'تصویر بزرگ، Badge برند، کارت‌های شماره‌دار و نوار آمار آیکن‌دار مطابق مرجع اجرا شد.' },
