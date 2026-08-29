@@ -1,16 +1,16 @@
 {
-  "version": "3.10.164",
-  "previous": "3.10.163",
+  "version": "3.10.165",
+  "previous": "3.10.164",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "بازطراحی حرفه‌ای اسلایدر کمپین در موبایل با قاب نورانی، Glass و تعامل لمسی.",
+  "description": "تبدیل کارت متن کمپین موبایل به نوار باریک شیشه‌ای تمام‌عرض پایین اسلاید.",
   "changelog": [
     {
-      "tag": "CAMPAIGN MOBILE V2",
-      "title": "کمپین موبایل لوکس و اسلایدی",
-      "desc": "تا ۶ بنر، قاب نورانی، کارت Glass، Swipe، Keyboard، Loop، Autoplay، Touch 44px و Responsive مستقل اجرا شد."
+      "tag": "CAMPAIGN GLASS BAR",
+      "title": "نوار شیشه‌ای پایین بنر موبایل",
+      "desc": "کادر شناور حذف و عنوان/توضیح/CTA داخل نوار Glass تمام‌عرض 86–92px پایین تصویر چیدمان شدند."
     }
   ],
   "project": "ALOOKHOR",
