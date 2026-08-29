@@ -1,16 +1,16 @@
 {
-  "version": "3.10.165",
-  "previous": "3.10.164",
+  "version": "3.10.166",
+  "previous": "3.10.165",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "تبدیل کارت متن کمپین موبایل به نوار باریک شیشه‌ای تمام‌عرض پایین اسلاید.",
+  "description": "حذف کارت شناور کمپین در تمام نمایشگرها و انتقال محتوا به نوار شیشه‌ای پایین.",
   "changelog": [
     {
-      "tag": "CAMPAIGN GLASS BAR",
-      "title": "نوار شیشه‌ای پایین بنر موبایل",
-      "desc": "کادر شناور حذف و عنوان/توضیح/CTA داخل نوار Glass تمام‌عرض 86–92px پایین تصویر چیدمان شدند."
+      "tag": "CAMPAIGN BOTTOM RAIL",
+      "title": "حذف کامل کارت شناور کمپین",
+      "desc": "در Desktop/Tablet/Mobile محتوا فقط داخل نوار Glass تمام‌عرض پایین تصویر نمایش داده می‌شود."
     }
   ],
   "project": "ALOOKHOR",

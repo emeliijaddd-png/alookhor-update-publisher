@@ -173,7 +173,7 @@ body.alookhor-mh-hide-legacy .alookhor-hero-slider-wrapper{display:none!importan
 html body .alookhor-mh-shade{display:none!important;background:none!important;opacity:0!important}
 html body .alookhor-mh-media img,html body .alookhor-mh-slide.is-image-flipped .alookhor-mh-media img,html body .alookhor-mh[data-ken-burns="1"] .alookhor-mh-slide.is-active .alookhor-mh-media img,html body .alookhor-mh[data-ken-burns="1"] .alookhor-mh-slide.is-active.is-image-flipped .alookhor-mh-media img{filter:none!important}
 
-/* v3.10.165 — circular-gallery inspired 3D horizontal transition, native WordPress runtime. */
+/* v3.10.166 — circular-gallery inspired 3D horizontal transition, native WordPress runtime. */
 .alookhor-mh-shell{perspective:1800px!important;perspective-origin:50% 48%!important}
 .alookhor-mh-slides{transform-style:preserve-3d!important;overflow:hidden!important}
 .alookhor-mh-slide{display:block!important;visibility:visible!important;opacity:0!important;transform:translate3d(9%,0,-110px) rotateY(-7deg) scale(.985)!important;transform-origin:center left!important;transform-style:preserve-3d!important;backface-visibility:hidden!important;pointer-events:none!important;transition:transform .78s cubic-bezier(.22,.78,.22,1),opacity .68s ease!important;will-change:transform,opacity!important}

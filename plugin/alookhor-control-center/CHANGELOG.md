@@ -1,40 +1,46 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
-## v3.10.165 — 2026-08-29 — Campaign Mobile Bottom Glass Bar
+## v3.10.166 — 2026-08-29 — Campaign Bottom Glass Rail All Viewports
+- ROOT CAUSE: نسخه 3.10.165 کارت را فقط در Breakpoint موبایل حذف کرده بود؛ تصویر ارسالی Desktop بود.
+- GLOBAL: کارت شناور در Desktop، Tablet و Mobile کاملاً حذف شد.
+- GLASS RAIL: عنوان، توضیح و CTA در نوار شیشه‌ای تمام‌عرض 108px پایین تصویر قرار گرفتند.
+- CONTROLS: Dots بالای نوار و فلش‌ها در مرکز تصویر باقی ماندند.
+
+## v3.10.166 — 2026-08-29 — Campaign Mobile Bottom Glass Bar
 - STRUCTURE: کارت شناور سمت راست در موبایل کاملاً حذف شد.
 - GLASS BAR: محتوا داخل نوار شیشه‌ای باریک 86–92px و تمام‌عرض در پایین اسلاید قرار گرفت.
 - LAYOUT: عنوان/توضیح در راست و CTA لمسی در چپ نوار چیدمان شدند؛ Kicker موبایل مخفی شد.
 - CONTROLS: Dots بالای نوار قرار گرفتند و فلش‌ها از محتوا فاصله امن دارند.
 
-## v3.10.165 — 2026-08-29 — Campaign Slider Mobile V2
+## v3.10.166 — 2026-08-29 — Campaign Slider Mobile V2
 - MOBILE CARD: محتوای هر بنر در کارت Glass کوچک پایین تصویر و بدون پوشاندن سوژه قرار گرفت.
 - FRAME: قاب دوخطی طلایی با Glow تنفسی 4.5s به کل اسلایدر اضافه شد.
 - GESTURES: Swipe افقی، Keyboard، Home/End، Focus pause و Visibility pause پیاده شد.
 - CONTROLS: فلش‌های RTL اصلاح و Touch target 44px و Dots حداقل 12px شدند.
 - BOUTIQUE: شش تصویر و تمام متن/CTAهای مستقل موجود همچنان از بوتیک مدیریت می‌شوند.
 
-## v3.10.165 — 2026-08-29 — Hero Circular-inspired 3D Transition
+## v3.10.166 — 2026-08-29 — Hero Circular-inspired 3D Transition
 - ADAPTATION: منطق Circular Gallery به Runtime سبک Vanilla JS مخصوص WordPress تبدیل شد؛ React/Tailwind به افزونه تحمیل نشد.
 - 3D MOTION: Perspective 1800px، RotateY و Depth برای ورود/خروج افقی اسلایدهای تمام‌عرض اجرا شد.
 - STATES: Before/After/Far/Active برای حرکت روان و Loop دائمی اضافه شد.
 - RESPONSIVE: زاویه و عمق در موبایل کاهش یافت و Swipe/Keyboard/Autoplay قبلی حفظ شد.
 - ACCESSIBILITY: در Reduced Motion تمام Transform و Transition سه‌بعدی غیرفعال می‌شوند.
 
-## v3.10.165 — 2026-08-29 — International Standards Mobile Portrait
+## v3.10.166 — 2026-08-29 — International Standards Mobile Portrait
 - PORTRAIT: سه کارت در عرض 421–767px و دو کارت در عرض زیر 420px مطابق مرجع اجرا شد.
 - STATS: نوار آمار 2×2 با آیکن، عدد و عنوان مستقل بازطراحی شد.
 - TRUST CTA: کارت تصویری «اعتماد شما سرمایه ماست» در پایین موبایل اضافه شد.
 - BOUTIQUE: عنوان، متن و تصویر کارت اعتماد موبایل قابل مدیریت هستند.
 - UX: اندازه متن، Touch spacing و Gradient موبایل مستقل بهینه شد.
 
-## v3.10.165 — 2026-08-29 — International Standards V2
+## v3.10.166 — 2026-08-29 — International Standards V2
 - HEADER: عنوان دو‌رنگ سفید/طلایی، تاج و Divider مطابق مرجع اجرا شد.
 - CARDS: شش کارت بلند Glass با حلقه آیکن، Divider، Shine و Hover لوکس ساخته شد.
 - STATS: چهار آمار آیکن‌دار در نوار گرادینتی و شمارنده متحرک پیاده شد.
 - BOUTIQUE: بخش طلایی عنوان و آیکن هر آمار به کنترل‌های کامل قبلی اضافه شد.
 - RESPONSIVE: چیدمان 6/3/2/1 برای Desktop/Tablet/Mobile/Small Mobile اجرا شد.
 
-## v3.10.165 — 2026-08-28 — Sorting & Packaging Center V2
+## v3.10.166 — 2026-08-28 — Sorting & Packaging Center V2
 - COMPOSITION: متن/محصولات/مزیت‌ها در چپ و اسلایدر تصویر بزرگ در راست مطابق مرجع اجرا شد.
 - MEDIA: شش تصویر، Badge صادرات +50، Caption، فلش، Dots و Crossfade/Zoom ظریف حفظ شد.
 - GLASS: چهار کارت Glass با Blur، Shine، Hover و نور متحرک آیکن‌ها ساخته شد.
@@ -42,7 +48,7 @@
 - MOBILE UX: Stack تصویر/محتوا، Swipe، Keyboard، Touch 44px و آمار/مزیت 2×2 پیاده شد.
 - BOUTIQUE: تمام متن‌ها، دکمه‌ها، Badge، مزیت‌ها، آمار، تصاویر و رنگ‌ها قابل مدیریت‌اند.
 
-## v3.10.165 — 2026-08-28 — Why ALOOKHOR Responsive Cleanup
+## v3.10.166 — 2026-08-28 — Why ALOOKHOR Responsive Cleanup
 - DESKTOP: محدودیت 650px متن معرفی برداشته و در عرض بالای 1150px متن در یک خط کامل نمایش داده می‌شود.
 - MOBILE: نقاط تزئینی شبیه Pagination به‌طور کامل حذف شدند.
 - WRAP: در Tablet/Mobile شکستن طبیعی متن حفظ شد تا Overflow ایجاد نشود.
