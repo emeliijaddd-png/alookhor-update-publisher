@@ -1,6 +1,14 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
-## v3.10.159 — 2026-08-28 — Why ALOOKHOR Responsive Cleanup
+## v3.10.160 — 2026-08-28 — Sorting & Packaging Center V2
+- COMPOSITION: متن/محصولات/مزیت‌ها در چپ و اسلایدر تصویر بزرگ در راست مطابق مرجع اجرا شد.
+- MEDIA: شش تصویر، Badge صادرات +50، Caption، فلش، Dots و Crossfade/Zoom ظریف حفظ شد.
+- GLASS: چهار کارت Glass با Blur، Shine، Hover و نور متحرک آیکن‌ها ساخته شد.
+- ACTIONS/STATS: دو CTA مستقل و نوار چهار آمار آیکن‌دار اضافه شد.
+- MOBILE UX: Stack تصویر/محتوا، Swipe، Keyboard، Touch 44px و آمار/مزیت 2×2 پیاده شد.
+- BOUTIQUE: تمام متن‌ها، دکمه‌ها، Badge، مزیت‌ها، آمار، تصاویر و رنگ‌ها قابل مدیریت‌اند.
+
+## v3.10.160 — 2026-08-28 — Why ALOOKHOR Responsive Cleanup
 - DESKTOP: محدودیت 650px متن معرفی برداشته و در عرض بالای 1150px متن در یک خط کامل نمایش داده می‌شود.
 - MOBILE: نقاط تزئینی شبیه Pagination به‌طور کامل حذف شدند.
 - WRAP: در Tablet/Mobile شکستن طبیعی متن حفظ شد تا Overflow ایجاد نشود.

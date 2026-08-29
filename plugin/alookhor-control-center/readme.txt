@@ -4,7 +4,7 @@ Tags: control center, luxury, alookhor, admin, dashboard
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 3.10.159
+Stable tag: 3.10.160
 License: Private
 License URI: https://alookhor.ir
 
@@ -47,10 +47,13 @@ License URI: https://alookhor.ir
 
 == Changelog ==
 
+= 3.10.160 =
+* بازطراحی کامل مرکز سورت با اسلایدر، Glass، آمار، CTA و Mobile UX
+
 = 3.10.137 =
 * افزودن زیرخط طلایی متحرک Hover/Focus به منوی اصلی
 
-= 3.10.159 =
+= 3.10.160 =
 * تک‌خطی‌شدن توضیح دسکتاپ و حذف نقاط تزئینی موبایل «چرا آلوخور»
 
 = 3.10.158 =

@@ -1,16 +1,16 @@
 {
-  "version": "3.10.159",
-  "previous": "3.10.158",
+  "version": "3.10.160",
+  "previous": "3.10.159",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "اصلاح خط توضیح دسکتاپ و حذف نقاط تزئینی موبایل بخش چرا آلوخور.",
+  "description": "بازطراحی کامل مرکز سورت و بسته‌بندی با اسلایدر، Glassmorphism، آمار و Mobile UX.",
   "changelog": [
     {
-      "tag": "WHY RESPONSIVE CLEANUP",
-      "title": "توضیح تک‌خطی و موبایل بدون نقاط",
-      "desc": "متن معرفی در دسکتاپ یک خط کامل و Dots تزئینی در موبایل حذف شدند؛ Wrap موبایل حفظ شد."
+      "tag": "SORT CENTER V2",
+      "title": "مرکز سورت و بسته‌بندی لوکس",
+      "desc": "تصویر اسلایدی، نشان صادرات، عنوان دو‌رنگ، محصولات، ۴ کارت Glass، دو CTA، نوار آمار، Swipe/Keyboard/Loop و Responsive مستقل اضافه شد."
     }
   ],
   "project": "ALOOKHOR",
