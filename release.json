@@ -1,16 +1,16 @@
 {
-  "version": "3.10.160",
-  "previous": "3.10.159",
+  "version": "3.10.161",
+  "previous": "3.10.160",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "بازطراحی کامل مرکز سورت و بسته‌بندی با اسلایدر، Glassmorphism، آمار و Mobile UX.",
+  "description": "بازطراحی کامل استانداردهای بین‌المللی مطابق مرجع با کارت‌های Glass و آمار آیکن‌دار.",
   "changelog": [
     {
-      "tag": "SORT CENTER V2",
-      "title": "مرکز سورت و بسته‌بندی لوکس",
-      "desc": "تصویر اسلایدی، نشان صادرات، عنوان دو‌رنگ، محصولات، ۴ کارت Glass، دو CTA، نوار آمار، Swipe/Keyboard/Loop و Responsive مستقل اضافه شد."
+      "tag": "STANDARDS V2",
+      "title": "استانداردهای بین‌المللی لوکس V2",
+      "desc": "عنوان دو‌رنگ، ۶ کارت بلند Glass، آیکن/Divider، نوار ۴ آمار آیکن‌دار، Reveal/Counter و Responsive 6/3/2/1 اجرا شد."
     }
   ],
   "project": "ALOOKHOR",
