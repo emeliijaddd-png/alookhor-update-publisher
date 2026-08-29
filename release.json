@@ -1,16 +1,16 @@
 {
-  "version": "3.10.163",
-  "previous": "3.10.162",
+  "version": "3.10.164",
+  "previous": "3.10.163",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "افزودن انتقال افقی سه‌بعدی الهام‌گرفته از Circular Gallery به اسلایدر Hero.",
+  "description": "بازطراحی حرفه‌ای اسلایدر کمپین در موبایل با قاب نورانی، Glass و تعامل لمسی.",
   "changelog": [
     {
-      "tag": "HERO 3D GALLERY",
-      "title": "انتقال افقی سه‌بعدی Hero",
-      "desc": "اسلایدهای بزرگ و افقی با Perspective، RotateY، Depth، Swipe/Keyboard/Autoplay و Reduced Motion اجرا شدند؛ تصاویر همچنان از بوتیک مدیریت می‌شوند."
+      "tag": "CAMPAIGN MOBILE V2",
+      "title": "کمپین موبایل لوکس و اسلایدی",
+      "desc": "تا ۶ بنر، قاب نورانی، کارت Glass، Swipe، Keyboard، Loop، Autoplay، Touch 44px و Responsive مستقل اجرا شد."
     }
   ],
   "project": "ALOOKHOR",
