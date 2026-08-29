@@ -1,16 +1,16 @@
 {
-  "version": "3.10.162",
-  "previous": "3.10.161",
+  "version": "3.10.163",
+  "previous": "3.10.162",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "بازطراحی مستقل موبایل استانداردهای بین‌المللی مطابق مرجع Portrait.",
+  "description": "افزودن انتقال افقی سه‌بعدی الهام‌گرفته از Circular Gallery به اسلایدر Hero.",
   "changelog": [
     {
-      "tag": "STANDARDS MOBILE",
-      "title": "استانداردهای بین‌المللی در موبایل",
-      "desc": "سه کارت در Portrait، دو کارت در موبایل کوچک، آمار 2×2 و کارت اعتماد تصویری پایین با تنظیمات بوتیک اجرا شد."
+      "tag": "HERO 3D GALLERY",
+      "title": "انتقال افقی سه‌بعدی Hero",
+      "desc": "اسلایدهای بزرگ و افقی با Perspective، RotateY، Depth، Swipe/Keyboard/Autoplay و Reduced Motion اجرا شدند؛ تصاویر همچنان از بوتیک مدیریت می‌شوند."
     }
   ],
   "project": "ALOOKHOR",
@@ -74,6 +74,8 @@
     "plugin/alookhor-control-center/assets/js/frontend-why-alookhor.js",
     "plugin/alookhor-control-center/includes/international-standards.php",
     "plugin/alookhor-control-center/assets/css/frontend-international-standards.css",
-    "plugin/alookhor-control-center/assets/js/frontend-international-standards.js"
+    "plugin/alookhor-control-center/assets/js/frontend-international-standards.js",
+    "plugin/alookhor-control-center/assets/css/frontend-hero.css",
+    "plugin/alookhor-control-center/assets/js/frontend-hero.js"
   ]
 }

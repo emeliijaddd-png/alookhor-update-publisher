@@ -172,3 +172,15 @@ body.alookhor-mh-hide-legacy .alookhor-hero-slider-wrapper{display:none!importan
 /* v3.10.155 — pristine Hero photography: no colour wash or purple shade on any viewport. */
 html body .alookhor-mh-shade{display:none!important;background:none!important;opacity:0!important}
 html body .alookhor-mh-media img,html body .alookhor-mh-slide.is-image-flipped .alookhor-mh-media img,html body .alookhor-mh[data-ken-burns="1"] .alookhor-mh-slide.is-active .alookhor-mh-media img,html body .alookhor-mh[data-ken-burns="1"] .alookhor-mh-slide.is-active.is-image-flipped .alookhor-mh-media img{filter:none!important}
+
+/* v3.10.163 — circular-gallery inspired 3D horizontal transition, native WordPress runtime. */
+.alookhor-mh-shell{perspective:1800px!important;perspective-origin:50% 48%!important}
+.alookhor-mh-slides{transform-style:preserve-3d!important;overflow:hidden!important}
+.alookhor-mh-slide{display:block!important;visibility:visible!important;opacity:0!important;transform:translate3d(9%,0,-110px) rotateY(-7deg) scale(.985)!important;transform-origin:center left!important;transform-style:preserve-3d!important;backface-visibility:hidden!important;pointer-events:none!important;transition:transform .78s cubic-bezier(.22,.78,.22,1),opacity .68s ease!important;will-change:transform,opacity!important}
+.alookhor-mh-slide.is-before{z-index:1!important;opacity:0!important;transform:translate3d(-9%,0,-110px) rotateY(7deg) scale(.985)!important;transform-origin:center right!important}
+.alookhor-mh-slide.is-after{z-index:1!important;opacity:0!important;transform:translate3d(9%,0,-110px) rotateY(-7deg) scale(.985)!important;transform-origin:center left!important}
+.alookhor-mh-slide.is-far{z-index:0!important;opacity:0!important;transform:translate3d(0,0,-220px) scale(.96)!important}
+.alookhor-mh-slide.is-active{z-index:3!important;opacity:1!important;visibility:visible!important;transform:translate3d(0,0,0) rotateY(0) scale(1)!important;pointer-events:auto!important}
+.alookhor-mh-slide.is-active .alookhor-mh-media,.alookhor-mh-slide.is-active .alookhor-mh-content{backface-visibility:hidden!important}
+@media(max-width:767px){.alookhor-mh-shell{perspective:1200px!important}.alookhor-mh-slide{transform:translate3d(7%,0,-70px) rotateY(-5deg) scale(.99)!important}.alookhor-mh-slide.is-before{transform:translate3d(-7%,0,-70px) rotateY(5deg) scale(.99)!important}.alookhor-mh-slide.is-after{transform:translate3d(7%,0,-70px) rotateY(-5deg) scale(.99)!important}.alookhor-mh-slide.is-active{transform:translate3d(0,0,0) rotateY(0) scale(1)!important}}
+@media(prefers-reduced-motion:reduce){.alookhor-mh-slide,.alookhor-mh-slide.is-before,.alookhor-mh-slide.is-after,.alookhor-mh-slide.is-far,.alookhor-mh-slide.is-active{transition:none!important;transform:none!important}}
