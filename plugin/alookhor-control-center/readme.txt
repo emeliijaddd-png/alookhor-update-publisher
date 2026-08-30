@@ -4,7 +4,7 @@ Tags: control center, luxury, alookhor, admin, dashboard
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 3.10.168
+Stable tag: 3.10.169
 License: Private
 License URI: https://alookhor.ir
 
@@ -46,6 +46,12 @@ License URI: https://alookhor.ir
 در `config/site.json` و `wp_options: alookhor_cc_settings` — همان حافظه واقعی که در چت قبلی ویرایش می‌شد.
 
 == Changelog ==
+
+= 3.10.169 =
+
+* برگه انتشار‌یافته واقعی با اسلاگ contact ساخته شد تا مسیر قدیمی هرگز ۴۰۴ یا ژاپنی سرو نشود (برگه قفل‌شده روی اسلاگ با پشتیبان نسخه‌دار حذف می‌شود).
+* ریدایرکت ۳۰۱ دائمی به init زودهنگام منتقل شد تا قبل از هر short-circuit تم/۴۰۴ اجرا شود؛ template_redirect به‌عنوان پشتیبان ماند.
+* کش‌های شناخته‌شده (Rocket، W3TC، WP Super Cache، SiteGround، LiteSpeed) یک‌بار در پایان مهاجرت پاکسازی شدند.
 
 = 3.10.168 =
 

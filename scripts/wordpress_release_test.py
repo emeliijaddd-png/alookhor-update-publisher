@@ -383,15 +383,18 @@ try:
         report['checks']['contact_endpoint']=(str(contact.get('version'))==TARGET and contact.get('enabled') is True and int(contact.get('page_id',0))>0 and 'id="alookhor-contact-page"' in contact_html and 'alookhor-acp-form' in contact_html and 'alookhor-acp-faq' in contact_html and '--acp-gold:#' in contact_html)
         report['checks']['contact_no_store']='no-store' in contact_cache.lower()
         report['checks']['contact_no_cjk']=not cjk.search(contact_html)
-        report['checks']['contact_schema']=str(contact.get('schema',''))=='2'
+        report['checks']['contact_schema']=str(contact.get('schema',''))=='3'
         report['checks']['contact_site_name']=str(contact.get('site_name',''))!='دمو کلاسیک'
+        legacy_info=contact.get('legacy') or {}
+        report['checks']['contact_legacy_alias']=(int(legacy_info.get('id',0) or 0)>0 and legacy_info.get('content_is_shortcode') is True)
         try:
             legacy_live_url=BASE+'/contact/?alookhor_ci_verify='+TARGET.replace('.','')
             with urlopen(Request(legacy_live_url,headers={'User-Agent':'ALOOKHOR-GitHub-Publisher/1.0'}),timeout=30) as response:
                 legacy_final=str(response.geturl() or '');legacy_html=response.read().decode(errors='replace')
             report['checks']['contact_legacy_resolves']=('alookhor-contact-page' in legacy_html or '%d8%aa%d9%85%d8%a7%d8%b3' in legacy_final.lower() or not cjk.search(legacy_html))
         except HTTPError as legacy_error:
-            report['checks']['contact_legacy_resolves']=legacy_error.code==404
+            report['checks']['contact_legacy_resolves']=(legacy_error.code==404 or legacy_error.code==301)
+            report['contact_legacy_http']=legacy_error.code
 
     failed = [name for name, passed in report['checks'].items() if passed is not True]
     report['ok'] = not failed

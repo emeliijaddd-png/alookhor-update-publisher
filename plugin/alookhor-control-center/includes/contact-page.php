@@ -88,36 +88,48 @@ add_action('init',function(){register_post_type('alookhor_contact',['labels'=>['
 function alookhor_cc_is_contact_page(){if(!function_exists('is_page')||!is_page())return false;$id=(int)get_queried_object_id();if(!$id)return false;$ids=array_filter([(int)get_option('alookhor_contact_page_id',0),(int)get_option('alookhor_contact_legacy_page_id',0)]);$slug=get_post_field('post_name',$id);return in_array($id,$ids,true)||in_array($slug,['تماس-با-ما','contact'],true);}
 
 /**
- * Schema v2 — professional Persian contact page everywhere.
+ * Schema v3 — the Persian page everywhere, /contact/ included.
  * 1) Main Persian page carries the managed shortcode (content forced, Elementor demo data removed).
- * 2) The obsolete Japanese/legacy demo page (/contact/) is captured with a reversible backup and
- *    replaced by the managed shortcode, so every uncached render is Persian; template_redirect
- *    keeps the 301 to the canonical Persian page.
+ * 2) A real published alias page is guaranteed at slug `contact` carrying the same shortcode, so the
+ *    legacy Japanese URL can never 404 again; any non-published page holding that slug is backed up
+ *    (versioned option) and removed first. template_redirect then keeps /contact/ as a 301 to the
+ *    canonical Persian page, and an early init guard catches it before theme/404 short-circuits.
  * 3) The Woodmart "دمو کلاسیک" leftover site title is restored to the brand name.
+ * 4) Known page-cache layers are politely purged once, so stale demo HTML dies immediately.
  */
 add_action('init',function(){
- if(get_option('alookhor_contact_page_schema')==='2')return;
+ if(get_option('alookhor_contact_page_schema')==='3')return;
  $backup=function($page,$extra=[]){if(!$page||get_post_meta($page->ID,'_alookhor_contact_backup',true))return;update_post_meta($page->ID,'_alookhor_contact_backup',array_merge(['content'=>$page->post_content,'title'=>$page->post_title,'slug'=>$page->post_name,'elementor_data'=>get_post_meta($page->ID,'_elementor_data',true),'saved_at'=>current_time('mysql')],$extra));};
  $strip=function($page){delete_post_meta($page->ID,'_elementor_data');delete_post_meta($page->ID,'_elementor_edit_mode');delete_post_meta($page->ID,'_elementor_template_type');delete_post_meta($page->ID,'_elementor_version');};
- $adopt=function($page)use($backup,$strip){$backup($page);wp_update_post(['ID'=>$page->ID,'post_content'=>'[alookhor_contact_page]']);$strip($page);return $page;};
+ $adopt=function($page)use($backup,$strip){$backup($page);if(trim((string)$page->post_content)!=='[alookhor_contact_page]')wp_update_post(['ID'=>$page->ID,'post_content'=>'[alookhor_contact_page]']);$strip($page);return $page;};
  $page=get_page_by_path('تماس-با-ما',OBJECT,'page');if(!$page)$page=get_page_by_title('تماس با ما',OBJECT,'page');
  if(!$page){$id=wp_insert_post(['post_type'=>'page','post_status'=>'publish','post_title'=>'تماس با ما','post_name'=>'تماس-با-ما','post_content'=>'[alookhor_contact_page]']);$page=$id?get_post($id):null;}
- if($page){$adopt($page);wp_update_post(['ID'=>$page->ID,'post_title'=>'تماس با ما']);update_option('alookhor_contact_page_id',(int)$page->ID,false);}
- $legacy=get_page_by_path('contact',OBJECT,'page');
- if(!$legacy)foreach(['お問い合わせ','Contact','تماس با ما']as $t){$legacy=get_page_by_title($t,OBJECT,'page');if($legacy)break;}
- if($legacy&&(!$page||$legacy->ID!==$page->ID)){
-  $backup($legacy,['kind'=>'legacy_contact']);
-  wp_update_post(['ID'=>$legacy->ID,'post_content'=>'[alookhor_contact_page]']);
-  $strip($legacy);
-  update_option('alookhor_contact_legacy_page_id',(int)$legacy->ID,false);
+ if($page){$adopt($page);if($page->post_title!=='تماس با ما')wp_update_post(['ID'=>$page->ID,'post_title'=>'تماس با ما']);update_option('alookhor_contact_page_id',(int)$page->ID,false);}
+ /* guarantee a real page at /contact/ */
+ $alias=get_page_by_path('contact',OBJECT,'page');
+ if(!$alias){
+  $holders=get_posts(['post_type'=>'page','post_name__in'=>['contact'],'post_status'=>['trash','draft','pending','private','auto-draft'],'numberposts'=>1]);
+  foreach($holders as $holder){update_option('alookhor_contact_legacy_removed',[ 'id'=>$holder->ID,'title'=>$holder->post_title,'slug'=>$holder->post_name,'content'=>$holder->post_content,'elementor_data'=>get_post_meta($holder->ID,'_elementor_data',true),'saved_at'=>current_time('mysql')],false);wp_delete_post($holder->ID,true);}
+  $alias_id=wp_insert_post(['post_type'=>'page','post_status'=>'publish','post_title'=>'تماس با ما (مسیر قدیمی)','post_name'=>'contact','post_content'=>'[alookhor_contact_page]']);
+  $alias=$alias_id?get_post($alias_id):null;
  }
+ if($alias&&(!$page||$alias->ID!==$page->ID)){$backup($alias,['kind'=>'legacy_contact']);if(trim((string)$alias->post_content)!=='[alookhor_contact_page]')wp_update_post(['ID'=>$alias->ID,'post_content'=>'[alookhor_contact_page]']);$strip($alias);}
+ if($alias)update_option('alookhor_contact_legacy_page_id',(int)$alias->ID,false);
  if(trim((string)get_option('blogname'))==='دمو کلاسیک')update_option('blogname','آلوخور');
- update_option('alookhor_contact_page_schema','2',false);
+ /* one-time polite cache purge so stale demo/404 entries die now */
+ if(function_exists('rocket_clean_domain'))rocket_clean_domain();
+ if(function_exists('w3tc_flush_all'))w3tc_flush_all();
+ if(function_exists('wp_cache_clear_cache'))wp_cache_clear_cache();
+ if(function_exists('sg_cachepress_purge_everything'))sg_cachepress_purge_everything();
+ if(defined('LSCWP_DIR'))do_action('litespeed_purge_all');
+ update_option('alookhor_contact_page_schema','3',false);
 },40);
 
 add_filter('nav_menu_link_attributes',function($atts,$item){$label=wp_strip_all_tags($item->title??'');$href=(string)($atts['href']??'');if(str_contains($label,'تماس با ما')||str_contains($label,'お問い合わせ')||preg_match('~/contact/?$~i',$href)||str_contains($href,'تماس-با-ما'))$atts['href']=alookhor_cc_contact_url();return $atts;},20,2);
 
-add_action('template_redirect',function(){if(is_admin())return;$path=trim((string)wp_parse_url($_SERVER['REQUEST_URI']??'/',PHP_URL_PATH),'/');if($path!==''&&preg_match('~^contact/?$~i',$path)){wp_safe_redirect(alookhor_cc_contact_url(),301);exit;}});
+add_action('init',function(){if(is_admin()||(defined('REST_REQUEST')&&REST_REQUEST)||defined('DOING_CRON'))return;$path=trim((string)wp_parse_url($_SERVER['REQUEST_URI']??'/',PHP_URL_PATH),'/');if($path!==''&&preg_match('~^contact/?$~i',$path)){nocache_headers();wp_safe_redirect(alookhor_cc_contact_url(),301);exit;}},1);
+
+add_action('template_redirect',function(){if(is_admin())return;$path=trim((string)wp_parse_url($_SERVER['REQUEST_URI']??'/',PHP_URL_PATH),'/');if($path!==''&&preg_match('~^contact/?$~i',$path)){nocache_headers();wp_safe_redirect(alookhor_cc_contact_url(),301);exit;}});
 
 add_filter('pre_get_document_title',function($title){return alookhor_cc_is_contact_page()?'تماس با ما | آلوخور':$title;},20);
 add_filter('document_title_parts',function($parts){if(!alookhor_cc_is_contact_page())return $parts;$parts['title']='تماس با ما';$parts['site']='آلوخور';unset($parts['tagline'],$parts['page']);return $parts;},20);

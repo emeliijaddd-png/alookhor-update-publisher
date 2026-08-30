@@ -2,7 +2,7 @@
 // UI/state remain modular; version discovery and installation are delegated to WordPress.
 
 const runtimeConfig = window.ALOOKHOR_CC || {};
-const runtimeVersion = String(runtimeConfig.version || '3.10.168');
+const runtimeVersion = String(runtimeConfig.version || '3.10.169');
 
 function normalizeResult(data = {}) {
   const current = String(data.current || runtimeVersion);
@@ -55,6 +55,7 @@ export const Updater = {
   latest: runtimeVersion,
   lastCheck: null,
   changelog: [
+    { tag: 'CONTACT V3', title: 'v3.10.169 — قطعی‌سازی مسیر تماس', desc: 'صفحه واقعی در /contact/ ساخته شد، ریدایرکت ۳۰۱ زودهنگام اجرا و کش‌های کهنه دمو پاک شدند.' },
     { tag: 'CONTACT V2', title: 'v3.10.168 — تماس با ما حرفه‌ای نسخه ۲', desc: 'بازطراحی لوکس کامل، کارت‌های تماس سریع، آکاردئون پرسش‌های پرتکرار، حذف صفحه ژاپنی قدیمی و عنوان دمو کلاسیک.' },
     { tag: 'CONTACT PAGE', title: 'v3.10.167 — تماس با ما حرفه‌ای', desc: 'فرم امن، اطلاعات واقعی و اتصال خودکار تمام لینک‌های تماس اضافه شد.' },
     { tag: 'CAMPAIGN RAIL', title: 'v3.10.167 — حذف کامل کارت کمپین', desc: 'محتوا در همه نمایشگرها فقط داخل نوار شیشه‌ای پایین است.' },
