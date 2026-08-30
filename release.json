@@ -1,16 +1,16 @@
 {
-  "version": "3.10.166",
-  "previous": "3.10.165",
+  "version": "3.10.167",
+  "previous": "3.10.166",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "حذف کارت شناور کمپین در تمام نمایشگرها و انتقال محتوا به نوار شیشه‌ای پایین.",
+  "description": "ساخت برگه حرفه‌ای تماس با ما، فرم امن و اتصال خودکار تمام لینک‌های تماس.",
   "changelog": [
     {
-      "tag": "CAMPAIGN BOTTOM RAIL",
-      "title": "حذف کامل کارت شناور کمپین",
-      "desc": "در Desktop/Tablet/Mobile محتوا فقط داخل نوار Glass تمام‌عرض پایین تصویر نمایش داده می‌شود."
+      "tag": "CONTACT PAGE",
+      "title": "برگه حرفه‌ای تماس با ما",
+      "desc": "صفحه فارسی، فرم AJAX امن، اطلاعات واقعی، واتساپ، ذخیره پیام، اعلان ایمیل، مهاجرت نسخه پشتیبان‌دار و اصلاح لینک‌ها اضافه شد."
     }
   ],
   "project": "ALOOKHOR",
@@ -76,6 +76,9 @@
     "plugin/alookhor-control-center/assets/css/frontend-international-standards.css",
     "plugin/alookhor-control-center/assets/js/frontend-international-standards.js",
     "plugin/alookhor-control-center/assets/css/frontend-hero.css",
-    "plugin/alookhor-control-center/assets/js/frontend-hero.js"
+    "plugin/alookhor-control-center/assets/js/frontend-hero.js",
+    "plugin/alookhor-control-center/includes/contact-page.php",
+    "plugin/alookhor-control-center/assets/css/frontend-contact-page.css",
+    "plugin/alookhor-control-center/assets/js/frontend-contact-page.js"
   ]
 }

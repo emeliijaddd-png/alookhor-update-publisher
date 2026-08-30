@@ -3,7 +3,7 @@
  * Plugin Name: ALOOKHOR Control Center
  * Plugin URI: https://alookhor.ir
  * Description: کنترل سنتر لوکس و ماژولار آلوخور — مدیریت کامل سایت (هدر، اسلایدر، سورت، محصولات، مشتریان VIP، مالی، آنالیتیکس) با آپدیت آنی بدون رفرش. تمام تنظیمات چت قبلی + شورت‌کد [alookhor_portal_header] اینجا مدیریت می‌شود.
- * Version: 3.10.166
+ * Version: 3.10.167
  * Author: ALOOKHOR Team — Luxury Modular
  * Author URI: https://alookhor.ir
  * Update URI: https://alookhor.ir/alookhor-control-center
@@ -16,8 +16,8 @@
 
 if (!defined('ABSPATH')) exit;
 
-define('ALOOKHOR_CC_VERSION', '3.10.166');
-define('ALOOKHOR_CC_BUILD', '3.10.166');
+define('ALOOKHOR_CC_VERSION', '3.10.167');
+define('ALOOKHOR_CC_BUILD', '3.10.167');
 define('ALOOKHOR_CC_FILE', __FILE__);
 define('ALOOKHOR_CC_DIR', plugin_dir_path(__FILE__));
 define('ALOOKHOR_CC_URL', plugin_dir_url(__FILE__));
@@ -79,6 +79,7 @@ require_once ALOOKHOR_CC_DIR . 'includes/newsletter.php';
 require_once ALOOKHOR_CC_DIR . 'includes/magazine.php';
 require_once ALOOKHOR_CC_DIR . 'includes/why-alookhor.php';
 require_once ALOOKHOR_CC_DIR . 'includes/international-standards.php';
+require_once ALOOKHOR_CC_DIR . 'includes/contact-page.php';
 require_once ALOOKHOR_CC_DIR . 'includes/shortcode-export-banner.php';
 require_once ALOOKHOR_CC_DIR . 'includes/admin-export-banner.php';
 // v3.10.66: admin-header-manager.php حذف شد — تنظیمات هدر AKX داخل مدیریت بوتیک است.
