@@ -373,6 +373,26 @@ try:
         report['checks']['feature_palette']=all(token in feature_html for token in ['--sf-bg:#0D0510','--sf-card:#1C1024','--sf-glass:rgba(33,20,38,.75)','--sf-gold:#D49A2E','--sf-gold-light:#E8B84A','--sf-text:#F5F3F0','--sf-muted:#C8C2C9'])
         report['checks']['feature_homepage']=('alookhor-managed-features-template' in homepage and 'frontend-features.js' in homepage and 'alookhor-sf-hide-legacy' in homepage)
 
+    if tuple(map(int,TARGET.split('.'))) >= (3,10,168):
+        contact_url=BASE+'/wp-json/alookhor-cc/v1/contact?release_test='+TARGET.replace('.','')
+        with urlopen(Request(contact_url,headers={'Accept':'application/json','Cache-Control':'no-cache','User-Agent':'ALOOKHOR-GitHub-Publisher/1.0'}),timeout=30) as response:
+            contact=json.load(response);contact_cache=response.headers.get('Cache-Control','')
+        contact_html=str(contact.get('html',''))
+        report['contact']={'version':contact.get('version'),'enabled':contact.get('enabled'),'page_id':contact.get('page_id'),'page_url':contact.get('page_url'),'schema':contact.get('schema'),'site_name':contact.get('site_name'),'html_length':len(contact_html)}
+        cjk=re.compile('[\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff]')
+        report['checks']['contact_endpoint']=(str(contact.get('version'))==TARGET and contact.get('enabled') is True and int(contact.get('page_id',0))>0 and 'id="alookhor-contact-page"' in contact_html and 'alookhor-acp-form' in contact_html and 'alookhor-acp-faq' in contact_html and '--acp-gold:#' in contact_html)
+        report['checks']['contact_no_store']='no-store' in contact_cache.lower()
+        report['checks']['contact_no_cjk']=not cjk.search(contact_html)
+        report['checks']['contact_schema']=str(contact.get('schema',''))=='2'
+        report['checks']['contact_site_name']=str(contact.get('site_name',''))!='دمو کلاسیک'
+        try:
+            legacy_live_url=BASE+'/contact/?alookhor_ci_verify='+TARGET.replace('.','')
+            with urlopen(Request(legacy_live_url,headers={'User-Agent':'ALOOKHOR-GitHub-Publisher/1.0'}),timeout=30) as response:
+                legacy_final=str(response.geturl() or '');legacy_html=response.read().decode(errors='replace')
+            report['checks']['contact_legacy_resolves']=('alookhor-contact-page' in legacy_html or '%d8%aa%d9%85%d8%a7%d8%b3' in legacy_final.lower() or not cjk.search(legacy_html))
+        except HTTPError as legacy_error:
+            report['checks']['contact_legacy_resolves']=legacy_error.code==404
+
     failed = [name for name, passed in report['checks'].items() if passed is not True]
     report['ok'] = not failed
     report['failed_checks'] = failed

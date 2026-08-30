@@ -4,7 +4,7 @@ Tags: control center, luxury, alookhor, admin, dashboard
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 3.10.167
+Stable tag: 3.10.168
 License: Private
 License URI: https://alookhor.ir
 
@@ -46,6 +46,14 @@ License URI: https://alookhor.ir
 در `config/site.json` و `wp_options: alookhor_cc_settings` — همان حافظه واقعی که در چت قبلی ویرایش می‌شد.
 
 == Changelog ==
+
+= 3.10.168 =
+
+* بازطراحی کامل حرفه‌ای صفحه تماس با ما (نسخه ۲): کارت‌های تماس سریع، پنل اطلاعات، فرم با اعتبارسنجی زنده و پرسش‌های پرتکرار.
+* صفحه ژاپنی قدیمی /contact/ با پشتیبان‌گذاری برگشت‌پذیر به ماژول فارسی مهاجرت و مسیر آن ۳۰۱ به صفحه رسمی هدایت می‌شود.
+* عنوان «دمو کلاسیک» باقی‌مانده از دمو قالب به نام برند «آلوخور» اصلاح و عنوان و متای سئوی صفحه تماس اضافه شد.
+* رنگ طلایی صفحه به‌صورت زنده از تنظیمات هدر مالک خوانده می‌شود.
+* Endpoint استاندارد /wp-json/alookhor-cc/v1/contact برای پایش انتشار اضافه شد.
 
 = 3.10.167 =
 * برگه حرفه‌ای تماس با فرم امن و اتصال خودکار تمام لینک‌های تماس

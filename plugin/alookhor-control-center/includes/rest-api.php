@@ -188,6 +188,31 @@ add_action('rest_api_init', function(){
         },
     ]);
 
+    register_rest_route('alookhor-cc/v1', '/contact', [
+        'methods' => WP_REST_Server::READABLE,
+        'permission_callback' => '__return_true',
+        'callback' => function(){
+            $page_id=(int)get_option('alookhor_contact_page_id',0);
+            $page=$page_id?get_post($page_id):null;
+            $legacy_id=(int)get_option('alookhor_contact_legacy_page_id',0);
+            $legacy=$legacy_id?get_post($legacy_id):null;
+            $settings=alookhor_cc_contact_settings();
+            $response=rest_ensure_response([
+                'version'=>ALOOKHOR_CC_VERSION,
+                'enabled'=>($page&&$page->post_status==='publish'),
+                'page_id'=>$page_id,
+                'page_url'=>alookhor_cc_contact_url(),
+                'schema'=>(string)get_option('alookhor_contact_page_schema',''),
+                'site_name'=>(string)get_option('blogname'),
+                'settings'=>['phone'=>$settings['phone'],'email'=>$settings['email'],'whatsapp'=>$settings['whatsapp'],'address'=>$settings['address'],'hours_week'=>$settings['hours_week'],'hours_friday'=>$settings['hours_friday'],'gold'=>$settings['gold']],
+                'html'=>alookhor_cc_contact_markup(),
+                'legacy'=>['id'=>$legacy_id,'status'=>$legacy?$legacy->post_status:'','content_is_shortcode'=>($legacy&&trim((string)$legacy->post_content)==='[alookhor_contact_page]')],
+            ]);
+            $response->header('Cache-Control','no-store, no-cache, must-revalidate, max-age=0');
+            return $response;
+        },
+    ]);
+
     register_rest_route('alookhor-cc/v1', '/product-categories', [
         'methods' => WP_REST_Server::READABLE,
         'permission_callback' => '__return_true',
