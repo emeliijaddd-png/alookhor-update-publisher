@@ -1,5 +1,11 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.182 — 2026-08-30 — Frontend Admin Bar Removed
+- DIAGNOSIS: تنها عنصر مشکی بالای سایت در هر دو Breakpoint، نوار مدیریت وردپرس (#1d2327؛ ۳۲px دسکتاپ / 46px موبایل) بود که فقط برای کاربر واردشده رندر می‌شود.
+- FIX: فیلتر show_admin_bar نوار را در کل نمای سایت حذف می‌کند و استایل اطمینان در wp_head (html margin/padding-top صفر + #wpadminbar مخفی) نسخه‌های کش‌شده را هم پوشش می‌دهد.
+- NOTE: پیشخوان وردپرس از /wp-admin مثل قبل کامل در دسترس است؛ قانون‌های جایگزینی admin-bar در CSSهای هدر بی‌اثر و بی‌ضرر ماندند.
+- CI: چک frontend_no_adminbar به تست انتشار اضافه شد.
+
 ## v3.10.181 — 2026-08-30 — Journey Cards Photo Backgrounds
 - DIRECTIVE: مالک برای کارت‌های سفر محصول، به‌جای پس‌زمینه بنفش، عکس مرتبط با نوشته هر کارت خواست؛ آیکن‌ها و سایر عناصر باید بمانند.
 - PHOTOS: برداشت از باغ ← آلو بخارا (category-plums)، سورت دقیق ← مغزبار ممتاز (category-nuts)، بسته‌بندی بهداشتی ← برگه میوه‌ها (category-fruit-sheets)، ارسال به جهان ← بنر صادراتی (export-banner-bg)؛ همه از دارایی‌های خود افزونه.

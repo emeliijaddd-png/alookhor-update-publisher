@@ -276,6 +276,8 @@ try:
     report['checks']['header_scroll_asset'] = (('frontend-header-scroll.css' in homepage and 'alookhor-managed-legacy-header' in homepage) or ('frontend-header.css' in homepage and 'alookhor-portal-header' in homepage) or ('frontend-header-akx.css' in homepage and 'akx-header' in homepage) or report['checks'].get('header_content', False))
     if tuple(map(int,TARGET.split('.'))) >= (3,10,179):
         report['checks']['header_drawer_auth']=('akx-mob-auth' in homepage and 'akx-mob-drawer' in homepage)
+    if tuple(map(int,TARGET.split('.'))) >= (3,10,182):
+        report['checks']['frontend_no_adminbar']=('alookhor-hide-adminbar' in homepage and '#wpadminbar{display:none!important}' in homepage)
 
     topbar_url = BASE + '/wp-json/alookhor-cc/v1/topbar?release_test=' + TARGET.replace('.', '')
     with urlopen(Request(topbar_url, headers={'Accept': 'application/json', 'Cache-Control': 'no-cache', 'User-Agent': 'ALOOKHOR-GitHub-Publisher/1.0'}), timeout=30) as response:

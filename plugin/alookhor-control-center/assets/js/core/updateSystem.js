@@ -2,7 +2,7 @@
 // UI/state remain modular; version discovery and installation are delegated to WordPress.
 
 const runtimeConfig = window.ALOOKHOR_CC || {};
-const runtimeVersion = String(runtimeConfig.version || '3.10.181');
+const runtimeVersion = String(runtimeConfig.version || '3.10.182');
 
 function normalizeResult(data = {}) {
   const current = String(data.current || runtimeVersion);
@@ -55,6 +55,7 @@ export const Updater = {
   latest: runtimeVersion,
   lastCheck: null,
   changelog: [
+    { tag: 'HEADER', title: 'v3.10.182 — حذف نوار مشکی بالای سایت', desc: 'نوار مدیریت وردپرس که برای کاربر واردشده بالای سایت دیده می‌شد در نمای سایت مخفی شد.' },
     { tag: 'ABOUT', title: 'v3.10.181 — عکس پس‌زمینه کارت‌های سفر', desc: 'کارت‌های «از باغ تا خانه شما» به‌جای بنفش، عکس مرتبط خود را دارند؛ آیکن‌ها و اعداد ماندند.' },
     { tag: 'HEADER', title: 'v3.10.180 — آیکن بستن طلایی مقاوم', desc: 'آیکن بستن دراور موبایل با CSS خالص بازطراحی شد تا هرگز توسط قالب خراب نشود.' },
     { tag: 'HEADER', title: 'v3.10.179 — دراور باریک‌تر و خروج از حساب', desc: 'عرض منوی کناری موبایل کمتر شد و دکمه طلایی خروج/ورود به دراور اضافه شد.' },
