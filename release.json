@@ -1,21 +1,21 @@
 {
-  "version": "3.10.173",
-  "previous": "3.10.172",
+  "version": "3.10.174",
+  "previous": "3.10.173",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "اصلاح چک‌های انتشار صفحه درباره ما (schema نسخه ۲ و مقاوم‌سازی شبکه).",
+  "description": "رفع ساخت نشانی فارسی قدیمی درباره ما در تست انتشار.",
   "changelog": [
     {
       "tag": "PIPELINE",
-      "title": "اصلاح چک‌های انتشار درباره ما",
-      "desc": "انتظار schema به نسخه ۲ به‌روز و چک‌های زنده مسیرهای درباره ما در برابر خطاهای شبکه مقاوم شدند."
+      "title": "رفع URL تست مسیر قدیمی",
+      "desc": "نشانی فارسی «درباره-ما» به‌صورت percent-encoded مستقیم ساخته می‌شود تا وابستگی به quote برداشته شود."
     }
   ],
   "project": "ALOOKHOR",
   "area": "Boutique Header Settings / Admin Menu Cleanup",
-  "reason": "چک about_schema هنوز نسخه ۱ را انتظار داشت و چک مسیر فارسی روی خطای شبکه کرش می‌کرد.",
+  "reason": "چک about_legacy_resolves به quote بدون import اشاره داشت و با NameError شکست می‌خورد.",
   "files": [
     "plugin/alookhor-control-center/assets/css/frontend-header-akx.css",
     "plugin/alookhor-control-center/assets/js/modules/settings.js",

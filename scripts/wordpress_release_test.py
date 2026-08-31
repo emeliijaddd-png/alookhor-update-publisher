@@ -415,7 +415,7 @@ try:
             report['checks']['about_live']=False
             report['about_live_error']=str(about_error)[:160]
         try:
-            legacy_about_url=BASE+'/'+quote('درباره-ما')+'/?release_test='+TARGET.replace('.','')
+            legacy_about_url=BASE+'/%d8%af%d8%b1%d8%a8%d8%a7%d8%b1%d9%87-%d9%85%d8%a7/?release_test='+TARGET.replace('.','')
             with urlopen(Request(legacy_about_url,headers={'User-Agent':'ALOOKHOR-GitHub-Publisher/1.0'}),timeout=30) as response:
                 legacy_about_final=str(response.geturl() or '');legacy_about_html=response.read().decode(errors='replace')
             report['checks']['about_legacy_resolves']=(('alookhor-about-page' in legacy_about_html and not cjk.search(legacy_about_html)) or ('/about' in legacy_about_final.lower()))

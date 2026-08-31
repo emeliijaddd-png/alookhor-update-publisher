@@ -1,5 +1,8 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.174 — 2026-08-30 — About Legacy URL Fix
+- FIX: چک about_legacy_resolves به quote بدون import وابسته بود و با NameError شکست می‌خورد؛ نشانی فارسی به‌صورت percent-encoded مستقیم ساخته می‌شود.
+
 ## v3.10.173 — 2026-08-30 — About Release Checks Fix
 - FIX: چک about_schema در تست انتشار هنوز schema نسخه ۱ را انتظار داشت؛ به نسخه ۲ (اسلاگ about) به‌روز شد.
 - HARDENING: چک‌های زنده /about/ و مسیر فارسی قدیمی با except عمومی در برابر خطاهای شبکه مقاوم شدند تا اجرای گام انتشار شکست نخورد.

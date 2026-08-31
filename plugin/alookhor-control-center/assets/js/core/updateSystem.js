@@ -2,7 +2,7 @@
 // UI/state remain modular; version discovery and installation are delegated to WordPress.
 
 const runtimeConfig = window.ALOOKHOR_CC || {};
-const runtimeVersion = String(runtimeConfig.version || '3.10.173');
+const runtimeVersion = String(runtimeConfig.version || '3.10.174');
 
 function normalizeResult(data = {}) {
   const current = String(data.current || runtimeVersion);
@@ -55,6 +55,7 @@ export const Updater = {
   latest: runtimeVersion,
   lastCheck: null,
   changelog: [
+    { tag: 'PIPELINE', title: 'v3.10.174 — رفع URL مسیر قدیمی درباره ما در تست', desc: 'نشانی فارسی قدیمی به‌صورت percent-encoded مستقیم ساخته می‌شود.' },
     { tag: 'PIPELINE', title: 'v3.10.173 — اصلاح چک‌های انتشار درباره ما', desc: 'انتظار schema نسخه ۲ و مقاوم‌سازی چک‌های زنده مسیرهای درباره ما.' },
     { tag: 'PIPELINE', title: 'v3.10.172 — رفع پایداری خط انتشار', desc: 'گزارش تست انتشار فشرده شد تا نوشتن شاخه وضعیت انتشار دیگر شکست نخورد.' },
     { tag: 'ABOUT SLUG', title: 'v3.10.171 — قطعی‌سازی مسیر درباره ما', desc: 'اسلاگ صفحه به about بازگردانده شد و هر دو مسیر قدیمی با گارد ضدحلقه هدایت می‌شوند.' },
