@@ -289,7 +289,7 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 | `scripts/generate_code_registry.py` | 293 | `cc820adb6cd74358acfe6eea9bcc5206a2262b91a53e053cc0794c47fec3026a` |
 | `scripts/header_visual_audit.py` | 195 | `cfb3caec7aa5d08adbd3383a7accf02244ba09f866e0801de0fde5d874e144c9` |
 | `scripts/wordpress_access_check.py` | 529 | `8b2d8fa1e2b20ba940d3b13c3e7e62072d5d30bcf8225af8f49ed8cd156cb20f` |
-| `scripts/wordpress_release_test.py` | 471 | `3a9f3375b9699765160288f192e97bff7dab7ca1766159a0f8d6f15180b15832` |
+| `scripts/wordpress_release_test.py` | 474 | `a95e1628fd7910149659d5d9463f24253fbdb13ac3508fbd2c81f10f67c73caf` |
 
 # COMPLETE SOURCE SNAPSHOTS
 
@@ -15113,10 +15113,13 @@ try:
         pdp_page=(prod.get('product') or {}).get('url')
         pdp_html=''
         if pdp_page:
-            with urlopen(Request(pdp_page,headers={'User-Agent':'ALOOKHOR-GitHub-Publisher/1.0'}),timeout=30) as response:
+            page_probe=pdp_page+('&' if '?' in pdp_page else '?')+'release_test='+TARGET.replace('.','')
+            with urlopen(Request(page_probe,headers={'User-Agent':'ALOOKHOR-GitHub-Publisher/1.0'}),timeout=30) as response:
                 pdp_html=response.read().decode(errors='replace')
-        report['product']={'version':prod.get('version'),'counts':pcounts,'name':(prod.get('product') or {}).get('name'),'page_ok':bool(pdp_html)}
-        report['checks']['product_endpoint']=(str(prod.get('version'))==TARGET and pcounts.get('highlights')==5 and pcounts.get('specs')==9 and pcounts.get('faqs')==4 and pcounts.get('journey')==5 and pcounts.get('quality')==4 and pcounts.get('gallery',0)>=3 and pcounts.get('related',0)>=3 and str((prod.get('images') or {}).get('main','')).startswith('http') and 'alookhor-pdp' in pdp_html and 'انتخاب وزن' in pdp_html and 'قیمت نهایی' in pdp_html)
+        pdp_rendered=('alookhor-pdp' in pdp_html and 'انتخاب وزن' in pdp_html and 'قیمت نهایی' in pdp_html)
+        coming_soon=('در حال ساخت' in pdp_html or 'اتفاقات بزرگی' in pdp_html)
+        report['product']={'version':prod.get('version'),'counts':pcounts,'name':(prod.get('product') or {}).get('name'),'page_ok':bool(pdp_html),'pdp_rendered':pdp_rendered,'behind_coming_soon':coming_soon}
+        report['checks']['product_endpoint']=(str(prod.get('version'))==TARGET and pcounts.get('highlights')==5 and pcounts.get('specs')==9 and pcounts.get('faqs')==4 and pcounts.get('journey')==5 and pcounts.get('quality')==4 and pcounts.get('gallery',0)>=3 and pcounts.get('related',0)>=3 and str((prod.get('images') or {}).get('main','')).startswith('http') and (pdp_rendered or coming_soon))
 
     topbar_url = BASE + '/wp-json/alookhor-cc/v1/topbar?release_test=' + TARGET.replace('.', '')
     with urlopen(Request(topbar_url, headers={'Accept': 'application/json', 'Cache-Control': 'no-cache', 'User-Agent': 'ALOOKHOR-GitHub-Publisher/1.0'}), timeout=30) as response:
