@@ -405,23 +405,23 @@ try:
         report['checks']['about_endpoint']=(str(about.get('version'))==TARGET and about.get('enabled') is True and int(about.get('page_id',0))>0 and str(about.get('slug',''))=='about' and 'id="alookhor-about-page"' in about_html and 'ab-journey' in about_html and 'ab-values' in about_html and 'ab-export' in about_html and '--ab-gold:#' in about_html)
         report['checks']['about_no_store']='no-store' in about_cache.lower()
         report['checks']['about_no_cjk']=not cjk.search(about_html)
-        report['checks']['about_schema']=str(about.get('schema',''))=='1'
+        report['checks']['about_schema']=str(about.get('schema',''))=='2'
         try:
             about_live_url=BASE+'/about/?release_test='+TARGET.replace('.','')
             with urlopen(Request(about_live_url,headers={'User-Agent':'ALOOKHOR-GitHub-Publisher/1.0'}),timeout=30) as response:
                 about_live=response.read().decode(errors='replace')
             report['checks']['about_live']=('alookhor-about-page' in about_live and not cjk.search(about_live))
-        except HTTPError as about_error:
+        except Exception as about_error:
             report['checks']['about_live']=False
-            report['about_live_http']=about_error.code
+            report['about_live_error']=str(about_error)[:160]
         try:
             legacy_about_url=BASE+'/'+quote('درباره-ما')+'/?release_test='+TARGET.replace('.','')
             with urlopen(Request(legacy_about_url,headers={'User-Agent':'ALOOKHOR-GitHub-Publisher/1.0'}),timeout=30) as response:
                 legacy_about_final=str(response.geturl() or '');legacy_about_html=response.read().decode(errors='replace')
             report['checks']['about_legacy_resolves']=(('alookhor-about-page' in legacy_about_html and not cjk.search(legacy_about_html)) or ('/about' in legacy_about_final.lower()))
-        except HTTPError as legacy_about_error:
+        except Exception as legacy_about_error:
             report['checks']['about_legacy_resolves']=False
-            report['about_legacy_http']=legacy_about_error.code
+            report['about_legacy_error']=str(legacy_about_error)[:160]
 
     failed = [name for name, passed in report['checks'].items() if passed is not True]
     report['ok'] = not failed

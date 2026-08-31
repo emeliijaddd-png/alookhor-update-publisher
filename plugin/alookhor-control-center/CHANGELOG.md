@@ -1,5 +1,9 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.173 — 2026-08-30 — About Release Checks Fix
+- FIX: چک about_schema در تست انتشار هنوز schema نسخه ۱ را انتظار داشت؛ به نسخه ۲ (اسلاگ about) به‌روز شد.
+- HARDENING: چک‌های زنده /about/ و مسیر فارسی قدیمی با except عمومی در برابر خطاهای شبکه مقاوم شدند تا اجرای گام انتشار شکست نخورد.
+
 ## v3.10.172 — 2026-08-30 — Release Pipeline Reliability
 - ROOT CAUSE: گزارش indent-دار تست انتشار از سقف clean() با ۱۲۰۰۰ کاراکتر عبور کرد؛ json.loads روی متن دم‌بریده کرش می‌کرد و گام Write sanitized publisher status branch در انتشارهای 3.10.170 و 3.10.171 شکست می‌خورد.
 - FIX: خروجی فایل گزارش و چاپ آن در scripts/wordpress_release_test.py با separators فشرده شد؛ اندازه گزارش با حاشیه امن زیر سقف می‌ماند.

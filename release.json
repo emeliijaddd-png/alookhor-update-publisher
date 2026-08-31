@@ -1,21 +1,21 @@
 {
-  "version": "3.10.172",
-  "previous": "3.10.171",
+  "version": "3.10.173",
+  "previous": "3.10.172",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "فشرده‌سازی گزارش تست انتشار برای رفع شکست نوشتن شاخه وضعیت انتشار.",
+  "description": "اصلاح چک‌های انتشار صفحه درباره ما (schema نسخه ۲ و مقاوم‌سازی شبکه).",
   "changelog": [
     {
       "tag": "PIPELINE",
-      "title": "رفع پایداری خط انتشار",
-      "desc": "گزارش JSON تست انتشار فشرده شد؛ اندازه آن از سقف ۱۲هزار کاراکتری خواندهشده در workflow عبور نمی‌کند و نوشتن شاخه publisher-status سلامت می‌ماند."
+      "title": "اصلاح چک‌های انتشار درباره ما",
+      "desc": "انتظار schema به نسخه ۲ به‌روز و چک‌های زنده مسیرهای درباره ما در برابر خطاهای شبکه مقاوم شدند."
     }
   ],
   "project": "ALOOKHOR",
   "area": "Boutique Header Settings / Admin Menu Cleanup",
-  "reason": "گزارش indent-دار نسخه‌های اخیر از سقف ۱۲۰۰۰ کاراکتر عبور کرد، json.loads روی متن بریده کرش می‌کرد و گام Write sanitized publisher status branch با شکست مواجه می‌شد.",
+  "reason": "چک about_schema هنوز نسخه ۱ را انتظار داشت و چک مسیر فارسی روی خطای شبکه کرش می‌کرد.",
   "files": [
     "plugin/alookhor-control-center/assets/css/frontend-header-akx.css",
     "plugin/alookhor-control-center/assets/js/modules/settings.js",
