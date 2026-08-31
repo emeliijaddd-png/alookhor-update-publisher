@@ -1,21 +1,21 @@
 {
-  "version": "3.10.169",
-  "previous": "3.10.168",
+  "version": "3.10.170",
+  "previous": "3.10.169",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "قطعی‌سازی مسیر /contact/ با صفحه واقعی، ریدایرکت زودهنگام و پاکسازی کش.",
+  "description": "ساخت برگه لوکس درباره ما با داستان برند، آمار، سفر محصول، ارزش‌ها و بخش همکاری.",
   "changelog": [
     {
-      "tag": "CONTACT V3",
-      "title": "قطعی‌سازی مسیر تماس",
-      "desc": "صفحه انتشار‌یافته با اسلاگ contact ساخته شد تا مسیر قدیمی هرگز ۴۰۴ یا ژاپنی نشود؛ ریدایرکت ۳۰۱ در init اجرا و کش‌های شناخته‌شده یک‌بار پاکسازی شدند."
+      "tag": "ABOUT PAGE",
+      "title": "برگه لوکس درباره ما",
+      "desc": "صفحه درباره ما با طراحی لوکس، انیمیشن ورود، آمار برند، مسیر از باغ تا خانه، ارزش‌ها و CTA همکاری ساخته شد؛ منوی قبلی که به ۴۰۴ می‌رفت اصلاح و endpoint پایش اضافه شد."
     }
   ],
   "project": "ALOOKHOR",
   "area": "Boutique Header Settings / Admin Menu Cleanup",
-  "reason": "پس از انتشار 3.10.168 مشخص شد برای /contact/ هیچ برگه‌ای در وردپرس وجود ندارد و لایه کش نسخه کهنه ژاپنی/۴۰۴ ساده سرو می‌کرد؛ لذا مسیر با برگه واقعی + ۳۰۱ زودهنگام + purge قطعی شد.",
+  "reason": "منوی «درباره ما» به /about/ می‌رفت که در وردپرس ۴۰۴ بود و صفحه‌ای وجود نداشت؛ مالک صفحه حرفه‌ای، لوکس و جذاب بدون محتوای دمو خواست.",
   "files": [
     "plugin/alookhor-control-center/assets/css/frontend-header-akx.css",
     "plugin/alookhor-control-center/assets/js/modules/settings.js",
@@ -79,6 +79,9 @@
     "plugin/alookhor-control-center/assets/js/frontend-hero.js",
     "plugin/alookhor-control-center/includes/contact-page.php",
     "plugin/alookhor-control-center/assets/css/frontend-contact-page.css",
-    "plugin/alookhor-control-center/assets/js/frontend-contact-page.js"
+    "plugin/alookhor-control-center/assets/js/frontend-contact-page.js",
+    "plugin/alookhor-control-center/includes/about-page.php",
+    "plugin/alookhor-control-center/assets/css/frontend-about-page.css",
+    "plugin/alookhor-control-center/assets/js/frontend-about-page.js"
   ]
 }

@@ -4,7 +4,7 @@ Tags: control center, luxury, alookhor, admin, dashboard
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 3.10.169
+Stable tag: 3.10.170
 License: Private
 License URI: https://alookhor.ir
 
@@ -46,6 +46,13 @@ License URI: https://alookhor.ir
 در `config/site.json` و `wp_options: alookhor_cc_settings` — همان حافظه واقعی که در چت قبلی ویرایش می‌شد.
 
 == Changelog ==
+
+= 3.10.170 =
+
+* برگه لوکس «درباره ما» با شورت‌کد [alookhor_about_page] ساخته شد: داستان برند، آمار، مسیر «از باغ تا خانه شما»، ارزش‌ها و بخش همکاری با CTA.
+* منوی «درباره ما» که به /about/ و صفحه ۴۰۴ می‌رفت اصلاح شد؛ برگه انتشار‌یافته با اسلاگ about تضمین می‌شود و صفحات دموی هم‌نام با پشتیبان برگشت‌پذیر به ماژول مهاجرت می‌کنند.
+* عنوان و متای سئو/OG اختصاصی، انیمیشن ورود سبک با IntersectionObserver و پشتیبانی prefers-reduced-motion اضافه شد.
+* Endpoint عمومی /wp-json/alookhor-cc/v1/about با HTML رندرشده برای پایش انتشار اضافه شد.
 
 = 3.10.169 =
 

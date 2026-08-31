@@ -213,6 +213,29 @@ add_action('rest_api_init', function(){
         },
     ]);
 
+    register_rest_route('alookhor-cc/v1', '/about', [
+        'methods' => WP_REST_Server::READABLE,
+        'permission_callback' => '__return_true',
+        'callback' => function(){
+            $page_id=(int)get_option('alookhor_about_page_id',0);
+            $page=$page_id?get_post($page_id):null;
+            $settings=alookhor_cc_about_settings();
+            $response=rest_ensure_response([
+                'version'=>ALOOKHOR_CC_VERSION,
+                'enabled'=>($page&&$page->post_status==='publish'),
+                'page_id'=>$page_id,
+                'page_url'=>alookhor_cc_about_url(),
+                'slug'=>$page?$page->post_name:'',
+                'schema'=>(string)get_option('alookhor_about_page_schema',''),
+                'site_name'=>(string)get_option('blogname'),
+                'settings'=>['address'=>$settings['address'],'gold'=>$settings['gold']],
+                'html'=>alookhor_cc_about_markup(),
+            ]);
+            $response->header('Cache-Control','no-store, no-cache, must-revalidate, max-age=0');
+            return $response;
+        },
+    ]);
+
     register_rest_route('alookhor-cc/v1', '/product-categories', [
         'methods' => WP_REST_Server::READABLE,
         'permission_callback' => '__return_true',
