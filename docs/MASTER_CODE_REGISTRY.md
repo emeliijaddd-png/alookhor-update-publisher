@@ -257,7 +257,7 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 | `plugin/alookhor-control-center/config/site.json` | 328 | `7e37f39ce669e83010391909510674fd8f709a1fbbea0039f34648432f98ebde` |
 | `plugin/alookhor-control-center/includes/about-page.php` | 161 | `c6550866eeb1d48ff70085c42b84ec251afb3ce764b0b005c0c80a9751ae266b` |
 | `plugin/alookhor-control-center/includes/admin-export-banner.php` | 180 | `fff84102b3dc84cb69c7318312395993a8adf6255a5d7f056d4c7bf7dce8e1b2` |
-| `plugin/alookhor-control-center/includes/admin-pages.php` | 210 | `91e26d8bb8d216d929ff40a0a46669777ab4a026d9724725d7e2542057999535` |
+| `plugin/alookhor-control-center/includes/admin-pages.php` | 210 | `6cf25d85284e99d73dbfade4504c8fa4d3e98e1ddbc2d6cc5fcd8845e2edb4e1` |
 | `plugin/alookhor-control-center/includes/admin.php` | 101 | `419d9b5b5ac6fcba56fd9657a6b4669e79e0c22026eebe880012c7913693f1cc` |
 | `plugin/alookhor-control-center/includes/ajax.php` | 425 | `2fb7bb38b406269be1ad30c2deaa8c7f00439ae913b6d05e0f5da4b9e80528bf` |
 | `plugin/alookhor-control-center/includes/app-banner.php` | 31 | `2ec9a950fa6d9fa713789c9ad91dd09aacbdb26605f82a8c1134876e5d2f9c40` |
@@ -9126,8 +9126,8 @@ add_action('wp_ajax_alookhor_cc_save_pages',function(){
  if(!current_user_can('manage_options'))wp_send_json_error('دسترسی ندارید');
  $raw=json_decode((string)wp_unslash($_POST['pages']??''),true);
  if(!is_array($raw))wp_send_json_error('payload نامعتبر');
- $txt=function($value){return sanitize_text_field((string)$value)};
- $url=function($value){return esc_url_raw((string)$value)};
+ $txt=function($value){return sanitize_text_field((string)$value);};
+ $url=function($value){return esc_url_raw((string)$value);};
  $d=alookhor_cc_pages_defaults();
  $c=$raw['contact']??[];$a=$raw['about']??[];
  $out=['contact'=>[

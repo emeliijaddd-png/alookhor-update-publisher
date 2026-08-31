@@ -169,8 +169,8 @@ add_action('wp_ajax_alookhor_cc_save_pages',function(){
  if(!current_user_can('manage_options'))wp_send_json_error('دسترسی ندارید');
  $raw=json_decode((string)wp_unslash($_POST['pages']??''),true);
  if(!is_array($raw))wp_send_json_error('payload نامعتبر');
- $txt=function($value){return sanitize_text_field((string)$value)};
- $url=function($value){return esc_url_raw((string)$value)};
+ $txt=function($value){return sanitize_text_field((string)$value);};
+ $url=function($value){return esc_url_raw((string)$value);};
  $d=alookhor_cc_pages_defaults();
  $c=$raw['contact']??[];$a=$raw['about']??[];
  $out=['contact'=>[
