@@ -2,7 +2,7 @@
 // UI/state remain modular; version discovery and installation are delegated to WordPress.
 
 const runtimeConfig = window.ALOOKHOR_CC || {};
-const runtimeVersion = String(runtimeConfig.version || '3.10.185');
+const runtimeVersion = String(runtimeConfig.version || '3.10.186');
 
 function normalizeResult(data = {}) {
   const current = String(data.current || runtimeVersion);
@@ -55,6 +55,7 @@ export const Updater = {
   latest: runtimeVersion,
   lastCheck: null,
   changelog: [
+    { tag: 'CACHE', title: 'v3.10.186 — پاک‌سازی کامل کش', desc: 'پاک‌سازی همه افزونه‌های کش صفحه رایج (WP Rocket، SiteGround، WP Fastest Cache، WP Super Cache و…) بعد از هر آپدیت تا بازدیدکننده‌های مرورری همیشه HTML جدید ببینند.' },
     { tag: 'PDP2', title: 'v3.10.185 — صفحه محصول شیشه‌ای', desc: 'رندر تضمینی صفحه محصول (دو مسیر قالب + هوک ووکامرس)، طراحی Glass لوکس با نئون کنترل‌شده بنفش/طلایی، گالری قاب‌دار، پنل خرید شیشه‌ای با قیمت درشت و CTA طلایی، نوار اعتماد، داستان ادیتوریال، مشخصات، چرا آلوخور، بنر برند، محصولات پیشنهادی، دیدگاه‌های واقعی و سوالات متداول.' },
     { tag: 'PDP', title: 'v3.10.184 — صفحه محصول لوکس', desc: 'بازطراحی کامل صفحه تکی محصول: گالری با بزرگ‌نمایی، پنل خرید (وزن، قیمت نهایی، موجودی، تعداد)، کارت ارسال، چرا این محصول، از باغ تا بسته، داستان و کیفیت، مشخصات، هدیه، عمده و صادرات، پرسش‌ها، داشبورد دیدگاه‌ها، محصولات مشابه و «همراه این محصول» — همه با داده واقعی ووکامرس.' },
     { tag: 'PAGES', title: 'v3.10.183 — مدیریت برگه‌ها', desc: 'منوی جدید مدیریت برگه‌ها: ویرایش متن‌ها و عکس‌های صفحات تماس و درباره ما با انتخاب از رسانه.' },

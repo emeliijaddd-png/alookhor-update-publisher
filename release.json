@@ -1,12 +1,17 @@
 {
-  "version": "3.10.185",
-  "previous": "3.10.184",
+  "version": "3.10.186",
+  "previous": "3.10.185",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "صفحه محصول شیشه‌ای لوکس با رندر تضمینی دو‌مسیری و داده واقعی ووکامرس.",
+  "description": "پاک‌سازی کامل کش صفحه بعد از آپدیت تا صفحه محصول جدید برای همه دیده شود.",
   "changelog": [
+    {
+      "tag": "CACHE",
+      "title": "پاک‌سازی کامل کش",
+      "desc": "بعد از هر آپدیت، کش همه افزونه‌های کش صفحه رایج (WP Rocket، SiteGround، WP Fastest Cache، WP Super Cache و…) پاک می‌شود تا HTML جدید برای همه بازدیدکنندگان نمایش داده شود."
+    },
     {
       "tag": "PDP2",
       "title": "صفحه محصول شیشه‌ای — رندر تضمینی",
@@ -25,7 +30,7 @@
   ],
   "project": "ALOOKHOR",
   "area": "Boutique Header Settings / Admin Menu Cleanup",
-  "reason": "مالک صفحه محصول جدید را ندید (قالب‌ساز تم بر template_include غلبه کرده بود) و بریف طراحی Glass لوکس جدید داد.",
+  "reason": "کش صفحهٔ قدیمی برای کاربران مرورگری HTML پیش از آپدیت را نشان می‌داد (بات‌ها رندر تازه می‌گرفتند).",
   "files": [
     "docs/MASTER_DESIGN_DIRECTIVE.md",
     "plugin/alookhor-control-center/CHANGELOG.md",
