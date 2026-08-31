@@ -1,5 +1,9 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.175 — 2026-08-30 — About Legacy Redirect Decode
+- ROOT CAUSE: REQUEST_URI برای مسیرهای فارسی به‌صورت percent-encoded نگه داشته می‌شود و مقایسه مستقیم با رشته فارسی هرگز برابر نمی‌شد؛ /درباره-ما/ به ۴۰۴ وردپرس می‌رسید.
+- FIX: مسیر درخواست پیش از مقایسه با rawurldecode رمزگشایی می‌شود و /درباره-ما/ با ۳۰۱ به /about/ هدایت می‌شود.
+
 ## v3.10.174 — 2026-08-30 — About Legacy URL Fix
 - FIX: چک about_legacy_resolves به quote بدون import وابسته بود و با NameError شکست می‌خورد؛ نشانی فارسی به‌صورت percent-encoded مستقیم ساخته می‌شود.
 

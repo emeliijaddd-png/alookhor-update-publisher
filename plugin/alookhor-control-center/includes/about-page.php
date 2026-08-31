@@ -158,7 +158,7 @@ add_action('init',function(){
  update_option('alookhor_about_page_schema','2',false);
 },41);
 
-add_action('init',function(){if(is_admin()||(defined('REST_REQUEST')&&REST_REQUEST)||defined('DOING_CRON'))return;$path=trim((string)wp_parse_url($_SERVER['REQUEST_URI']??'/',PHP_URL_PATH),'/');if($path!=='about'&&$path!=='درباره-ما')return;$target=alookhor_cc_about_url();$target_path=trim((string)wp_parse_url($target,PHP_URL_PATH),'/');if($target_path===''||$target_path===$path)return;nocache_headers();wp_safe_redirect($target,301);exit;},1);
+add_action('init',function(){if(is_admin()||(defined('REST_REQUEST')&&REST_REQUEST)||defined('DOING_CRON'))return;$path=trim((string)wp_parse_url(rawurldecode((string)($_SERVER['REQUEST_URI']??'/')),PHP_URL_PATH),'/');if($path!=='about'&&$path!=='درباره-ما')return;$target=alookhor_cc_about_url();$target_path=trim((string)wp_parse_url($target,PHP_URL_PATH),'/');if($target_path===''||$target_path===$path)return;nocache_headers();wp_safe_redirect($target,301);exit;},1);
 
 add_filter('pre_get_document_title',function($title){return alookhor_cc_is_about_page()?'درباره ما | آلوخور':$title;},20);
 add_filter('document_title_parts',function($parts){if(!alookhor_cc_is_about_page())return $parts;$parts['title']='درباره ما';$parts['site']='آلوخور';unset($parts['tagline'],$parts['page']);return $parts;},20);

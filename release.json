@@ -1,21 +1,21 @@
 {
-  "version": "3.10.174",
-  "previous": "3.10.173",
+  "version": "3.10.175",
+  "previous": "3.10.174",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "رفع ساخت نشانی فارسی قدیمی درباره ما در تست انتشار.",
+  "description": "decode مسیر درخواست در ریدایرکت درباره ما برای هدایت /درباره-ما/.",
   "changelog": [
     {
-      "tag": "PIPELINE",
-      "title": "رفع URL تست مسیر قدیمی",
-      "desc": "نشانی فارسی «درباره-ما» به‌صورت percent-encoded مستقیم ساخته می‌شود تا وابستگی به quote برداشته شود."
+      "tag": "ABOUT SLUG",
+      "title": "ریدایرکت مسیر فارسی درباره ما",
+      "desc": "مسیر درخواست پیش از مقایسه با rawurldecode رمزگشایی می‌شود تا نسخه percent-encoded آدرس فارسی قدیمی هم به صفحه درباره ما هدایت شود."
     }
   ],
   "project": "ALOOKHOR",
   "area": "Boutique Header Settings / Admin Menu Cleanup",
-  "reason": "چک about_legacy_resolves به quote بدون import اشاره داشت و با NameError شکست می‌خورد.",
+  "reason": "REQUEST_URI برای مسیرهای فارسی percent-encoded است و مقایسه مستقیم با رشته فارسی هرگز برابر نمی‌شد؛ در نتیجه /درباره-ما/ به ۴۰۴ وردپرس می‌رسید.",
   "files": [
     "plugin/alookhor-control-center/assets/css/frontend-header-akx.css",
     "plugin/alookhor-control-center/assets/js/modules/settings.js",
