@@ -24,7 +24,6 @@ body.alookhor-contact-body .page-title,body.alookhor-contact-body .entry-title,b
 @media(max-width:600px){.alookhor-acp{padding:36px 10px 24px}.acp-hero{margin-bottom:28px}.acp-hero h1{font-size:30px!important}.acp-hero p{font-size:12.5px!important}.acp-chips li{padding:8px 12px;font-size:11px}.acp-quick{grid-template-columns:1fr;gap:10px}.acp-qcard{min-height:76px;padding:13px;grid-template-columns:44px 1fr}.acp-info,.acp-form,.acp-faq{padding:20px 15px;border-radius:19px}.acp-info h2,.acp-form h2{font-size:21px!important}.acp-grid{grid-template-columns:1fr;gap:11px}.acp-full{grid-column:auto}.acp-grid input,.acp-grid select{height:50px;font-size:16px}.acp-faq>header h2{font-size:19px!important}.acp-faq-item summary{font-size:12.5px;min-height:52px;padding:12px 13px}}
 @media(prefers-reduced-motion:reduce){.alookhor-acp *{animation:none!important;transition:none!important}}
 /* v3.10.176 — animated accent icons + google map */
-i.t-wa{--acc:#3ED598;--acc-soft:rgba(62,213,152,.22)}i.t-email{--acc:#5EC8F8;--acc-soft:rgba(94,200,248,.2)}i.t-pin{--acc:#FF8A7A;--acc-soft:rgba(255,138,122,.2)}i.t-clock{--acc:#B78CF2;--acc-soft:rgba(183,140,242,.2)}i.t-bolt{--acc:#F5D76E;--acc-soft:rgba(245,215,110,.2)}i.t-box{--acc:#6FE3C1;--acc-soft:rgba(111,227,193,.2)}
 .acp-quick .acp-qcard:nth-child(2) i{animation-delay:.45s}.acp-quick .acp-qcard:nth-child(3) i{animation-delay:.9s}.acp-quick .acp-qcard:nth-child(4) i{animation-delay:1.35s}
 @keyframes acp-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
 @keyframes acp-ring{0%{opacity:.75;transform:scale(1)}70%{opacity:0;transform:scale(1.55)}100%{opacity:0;transform:scale(1.55)}}
@@ -34,7 +33,7 @@ i.t-wa{--acc:#3ED598;--acc-soft:rgba(62,213,152,.22)}i.t-email{--acc:#5EC8F8;--a
 .acp-map>header span{color:var(--acp-gold);font:700 10px Arial,Helvetica,sans-serif;letter-spacing:3px}
 .acp-map>header h2{margin:7px 0 10px!important;color:var(--acp-text)!important;font-size:23px!important;font-weight:800!important}
 .acp-map>header p{margin:0!important;display:flex;align-items:center;justify-content:center;gap:8px;color:var(--acp-muted)!important;font-size:12.5px!important;line-height:1.9!important}
-.acp-map>header p i{--acc:#FF8A7A;--acc-soft:rgba(255,138,122,.2);flex:0 0 auto;width:22px;height:22px;display:inline-grid;place-items:center;border:1px solid var(--acc);border-radius:50%;color:var(--acc);font-style:normal}
+.acp-map>header p i{flex:0 0 auto;width:22px;height:22px;display:inline-grid;place-items:center;border:1px solid var(--acc);border-radius:50%;color:var(--acc);font-style:normal}
 .acp-map svg{fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
 .acp-map>header p svg{width:13px;height:13px}
 .acp-map-frame{position:relative;aspect-ratio:16/7;border:1px solid var(--acp-line2);border-radius:20px;overflow:hidden;background:#0D0510;box-shadow:0 24px 55px rgba(13,5,16,.5)}
@@ -46,3 +45,10 @@ i.t-wa{--acc:#3ED598;--acc-soft:rgba(62,213,152,.22)}i.t-email{--acc:#5EC8F8;--a
 .acp-map-cta svg{width:17px;height:17px}
 @media(max-width:900px){.acp-map{padding:24px}.acp-map-frame{aspect-ratio:4/3;min-height:340px}}
 @media(max-width:600px){.acp-map{padding:20px 15px;border-radius:19px}.acp-map-frame{border-radius:16px;aspect-ratio:1/1;min-height:300px}.acp-map-cta{width:100%}}
+/* v3.10.177 — unified luminous gold icons (owner directive) */
+.alookhor-acp .acp-qcard i,.alookhor-acp .acp-hours i,.alookhor-acp .acp-map>header p i{--acc:var(--acp-gold-light);--acc-soft:rgba(245,215,110,.26);border-color:rgba(212,175,55,.65);background:radial-gradient(circle at 32% 28%,rgba(245,215,110,.36),rgba(212,175,55,.1) 58%,rgba(255,255,255,.02) 76%);color:var(--acp-gold-light);box-shadow:0 8px 24px rgba(212,175,55,.3),inset 0 0 16px rgba(245,215,110,.22);animation:acp-float 3.8s ease-in-out infinite,acp-glow 3s ease-in-out infinite}
+.alookhor-acp .acp-qcard i.is-wa{--acc:var(--acp-gold-light);--acc-soft:rgba(245,215,110,.26);color:var(--acp-gold-light);border-color:rgba(212,175,55,.65)}
+.alookhor-acp .acp-qcard i:after,.alookhor-acp .acp-hours i:after{border-color:rgba(245,215,110,.85)}
+.alookhor-acp .acp-qcard svg,.alookhor-acp .acp-hours svg,.alookhor-acp .acp-wa svg{stroke-width:1.9;filter:drop-shadow(0 0 5px rgba(245,215,110,.65)) drop-shadow(0 0 13px rgba(212,175,55,.38))}
+a.acp-qcard:hover i,.acp-hours li:hover i{box-shadow:0 12px 36px rgba(245,215,110,.52),inset 0 0 24px rgba(245,215,110,.36)}
+@keyframes acp-glow{0%,100%{box-shadow:0 8px 24px rgba(212,175,55,.3),inset 0 0 16px rgba(245,215,110,.22)}50%{box-shadow:0 10px 34px rgba(245,215,110,.5),inset 0 0 24px rgba(245,215,110,.36)}}

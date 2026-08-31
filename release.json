@@ -1,21 +1,21 @@
 {
-  "version": "3.10.176",
-  "previous": "3.10.175",
+  "version": "3.10.177",
+  "previous": "3.10.176",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "آیکن‌های متحراک رنگی و نقشه گوگل موقعیت خور نیشابور در صفحه تماس.",
+  "description": "یکدست‌سازی طلایی و نورانی همه آیکن‌های صفحه تماس.",
   "changelog": [
     {
-      "tag": "CONTACT V4",
-      "title": "آیکن‌های متحرک و نقشه گوگل",
-      "desc": "آیکن‌های کارت‌های تماس و ساعات کاری با رنگ اختصاصی، شنا آرام و پالس حلقه؛ بخش نقشه گوگل با قاب لوکس، بارگذاری تنبل و دکمه مسیریابی مستقیم به خور نیشابور اضافه شد."
+      "tag": "CONTACT V5",
+      "title": "آیکن‌های طلایی نورانی",
+      "desc": "همه آیکن‌ها طلایی یکدست شدند با درخشش تنفسی (acp-glow)، هاله دو لایه drop-shadow، حلقه پالس طلایی و شنا آرام؛ رنگ‌های چندرنگ قبلی حذف شدند."
     }
   ],
   "project": "ALOOKHOR",
   "area": "Boutique Header Settings / Admin Menu Cleanup",
-  "reason": "مالک آیکن‌های ساده طلایی را مناسب ندانست و رنگ جذاب با انیمیشن خواست؛ همچنین نقشه گوگل برای نشانی مستقیم در شهر خور نیشابور درخواست شد.",
+  "reason": "مالک پس از دیدن نسخه رنگی، آیکن‌های طلایی نورانی یکدست را خواست.",
   "files": [
     "plugin/alookhor-control-center/assets/css/frontend-header-akx.css",
     "plugin/alookhor-control-center/assets/js/modules/settings.js",
