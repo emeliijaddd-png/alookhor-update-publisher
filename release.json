@@ -1,21 +1,21 @@
 {
-  "version": "3.10.175",
-  "previous": "3.10.174",
+  "version": "3.10.176",
+  "previous": "3.10.175",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "decode مسیر درخواست در ریدایرکت درباره ما برای هدایت /درباره-ما/.",
+  "description": "آیکن‌های متحراک رنگی و نقشه گوگل موقعیت خور نیشابور در صفحه تماس.",
   "changelog": [
     {
-      "tag": "ABOUT SLUG",
-      "title": "ریدایرکت مسیر فارسی درباره ما",
-      "desc": "مسیر درخواست پیش از مقایسه با rawurldecode رمزگشایی می‌شود تا نسخه percent-encoded آدرس فارسی قدیمی هم به صفحه درباره ما هدایت شود."
+      "tag": "CONTACT V4",
+      "title": "آیکن‌های متحرک و نقشه گوگل",
+      "desc": "آیکن‌های کارت‌های تماس و ساعات کاری با رنگ اختصاصی، شنا آرام و پالس حلقه؛ بخش نقشه گوگل با قاب لوکس، بارگذاری تنبل و دکمه مسیریابی مستقیم به خور نیشابور اضافه شد."
     }
   ],
   "project": "ALOOKHOR",
   "area": "Boutique Header Settings / Admin Menu Cleanup",
-  "reason": "REQUEST_URI برای مسیرهای فارسی percent-encoded است و مقایسه مستقیم با رشته فارسی هرگز برابر نمی‌شد؛ در نتیجه /درباره-ما/ به ۴۰۴ وردپرس می‌رسید.",
+  "reason": "مالک آیکن‌های ساده طلایی را مناسب ندانست و رنگ جذاب با انیمیشن خواست؛ همچنین نقشه گوگل برای نشانی مستقیم در شهر خور نیشابور درخواست شد.",
   "files": [
     "plugin/alookhor-control-center/assets/css/frontend-header-akx.css",
     "plugin/alookhor-control-center/assets/js/modules/settings.js",

@@ -4,7 +4,7 @@ Tags: control center, luxury, alookhor, admin, dashboard
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 3.10.175
+Stable tag: 3.10.176
 License: Private
 License URI: https://alookhor.ir
 
@@ -46,6 +46,11 @@ License URI: https://alookhor.ir
 در `config/site.json` و `wp_options: alookhor_cc_settings` — همان حافظه واقعی که در چت قبلی ویرایش می‌شد.
 
 == Changelog ==
+
+= 3.10.176 =
+
+* آیکن‌های کارت‌های تماس و ساعات کاری رنگ اختصاصی (طلایی، سبز واتساپ، آبی ایمیل، مرجانی نشانی، بنفش ساعت، سبزتی‌نایی فعالیت) با انیمیشن شنا آرام، پالس حلقه و درخشش هاور گرفتند.
+* بخش نقشه گوگل با قاب لوکس طلایی، بارگذاری تنبل و دکمه «مسیریابی مستقیم در گوگل‌مپ» برای موقعیت خور نیشابور اضافه شد.
 
 = 3.10.175 =
 

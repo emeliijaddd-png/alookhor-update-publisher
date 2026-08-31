@@ -385,6 +385,9 @@ try:
         report['checks']['contact_no_cjk']=not cjk.search(contact_html)
         report['checks']['contact_schema']=str(contact.get('schema',''))=='3'
         report['checks']['contact_site_name']=str(contact.get('site_name',''))!='دمو کلاسیک'
+        if tuple(map(int,TARGET.split('.'))) >= (3,10,176):
+            report['checks']['contact_map']=('acp-map-frame' in contact_html and 'maps.google' in contact_html and '/dir/?api=1' in contact_html and 'output=embed' in contact_html)
+            report['checks']['contact_icon_accents']=all(token in contact_html for token in ['t-phone','t-wa','t-email','t-pin','t-clock'])
         legacy_info=contact.get('legacy') or {}
         report['checks']['contact_legacy_alias']=(int(legacy_info.get('id',0) or 0)>0 and legacy_info.get('content_is_shortcode') is True)
         try:

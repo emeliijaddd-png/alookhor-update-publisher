@@ -16,7 +16,7 @@ function alookhor_cc_contact_icon($name){$p=['phone'=>'<path d="M6.6 2.8 9.4 2c.
 function alookhor_cc_contact_faq(){return [['q'=>'چطور سفارش خود را ثبت کنم؟','a'=>'از طریق فرم همین صفحه، تماس تلفنی یا واتساپ با ما در ارتباط باشید؛ کافی است موضوع «خرید محصول» را انتخاب کنید تا کارشناسان آلوخور راهنمایی‌تان کنند.'],['q'=>'برای خرید عمده یا صادرات چه مسیری دارید؟','a'=>'در فرم، موضوع «سفارش عمده» یا «صادرات» را انتخاب کنید تا تیم بازرگانی آلوخور مستقیماً برای شرایط همکاری، قیمت و ظرفیت تأمین با شما صحبت کند.'],['q'=>'سفارشم را چطور پیگیری کنم؟','a'=>'موضوع «پیگیری سفارش» را انتخاب کنید و شماره تماس خود را بنویسید؛ وضعیت آماده‌سازی و ارسال سفارش شما در سریع‌ترین زمان اعلام می‌شود.'],['q'=>'پاسخ‌گویی در چه ساعاتی است؟','a'=>'در ساعات کاری ذکرشده در همین صفحه پاسخ می‌دهیم؛ پیام‌های ثبت‌شده خارج از ساعات کاری به‌ترتیب و در ابتدای روز کاری بعدی بررسی می‌شوند.'],['q'=>'با اطلاعاتی که در فرم وارد می‌کنم چه می‌شود؟','a'=>'اطلاعات شما فقط برای پاسخ‌گویی به همین درخواست استفاده می‌شود، در اختیار هیچ شخص ثالثی قرار نمی‌گیرد و پس از پایان مکالمه حذف می‌شود.']];}
 
 function alookhor_cc_contact_markup(){
- $c=alookhor_cc_contact_settings();$phone_href=preg_replace('/[^0-9+]/','',(string)$c['phone']);$wa=preg_replace('/\D+/','',(string)$c['whatsapp']);
+ $c=alookhor_cc_contact_settings();$phone_href=preg_replace('/[^0-9+]/','',(string)$c['phone']);$wa=preg_replace('/\D+/','',(string)$c['whatsapp']);$map_q=trim((string)$c['address']).'، ایران';
  ob_start();?>
 <section id="alookhor-contact-page" class="alookhor-acp" dir="rtl" style="--acp-gold:<?php echo esc_attr($c['gold']);?>">
  <div class="acp-inner">
@@ -31,10 +31,10 @@ function alookhor_cc_contact_markup(){
    </ul>
   </header>
   <div class="acp-quick">
-   <?php if($c['phone']):?><a class="acp-qcard" href="tel:<?php echo esc_attr($phone_href);?>"><i><?php echo alookhor_cc_contact_icon('phone');?></i><span><small>تماس مستقیم</small><b dir="ltr"><?php echo esc_html($c['phone']);?></b></span></a><?php endif;?>
-   <?php if($wa):?><a class="acp-qcard" href="https://wa.me/<?php echo esc_attr($wa);?>" target="_blank" rel="noopener"><i class="is-wa"><?php echo alookhor_cc_contact_icon('whatsapp');?></i><span><small>گفت‌وگوی فوری</small><b>واتساپ آلوخور</b></span></a><?php endif;?>
-   <?php if($c['email']):?><a class="acp-qcard" href="mailto:<?php echo esc_attr($c['email']);?>"><i><?php echo alookhor_cc_contact_icon('email');?></i><span><small>ایمیل</small><b dir="ltr"><?php echo esc_html($c['email']);?></b></span></a><?php endif;?>
-   <div class="acp-qcard"><i><?php echo alookhor_cc_contact_icon('pin');?></i><span><small>نشانی</small><b><?php echo esc_html($c['address']);?></b></span></div>
+   <?php if($c['phone']):?><a class="acp-qcard" href="tel:<?php echo esc_attr($phone_href);?>"><i class="t-phone"><?php echo alookhor_cc_contact_icon('phone');?></i><span><small>تماس مستقیم</small><b dir="ltr"><?php echo esc_html($c['phone']);?></b></span></a><?php endif;?>
+   <?php if($wa):?><a class="acp-qcard" href="https://wa.me/<?php echo esc_attr($wa);?>" target="_blank" rel="noopener"><i class="is-wa t-wa"><?php echo alookhor_cc_contact_icon('whatsapp');?></i><span><small>گفت‌وگوی فوری</small><b>واتساپ آلوخور</b></span></a><?php endif;?>
+   <?php if($c['email']):?><a class="acp-qcard" href="mailto:<?php echo esc_attr($c['email']);?>"><i class="t-email"><?php echo alookhor_cc_contact_icon('email');?></i><span><small>ایمیل</small><b dir="ltr"><?php echo esc_html($c['email']);?></b></span></a><?php endif;?>
+   <div class="acp-qcard"><i class="t-pin"><?php echo alookhor_cc_contact_icon('pin');?></i><span><small>نشانی</small><b><?php echo esc_html($c['address']);?></b></span></div>
   </div>
   <div class="acp-layout">
    <aside class="acp-info">
@@ -42,9 +42,9 @@ function alookhor_cc_contact_markup(){
     <h2>راه‌های ارتباط مستقیم</h2>
     <p>برای دریافت مشاوره تخصصی، استعلام قیمت و پیگیری سفارش، مسیر مناسب را انتخاب کنید.</p>
     <ul class="acp-hours">
-     <li><i><?php echo alookhor_cc_contact_icon('clock');?></i><span><small>ساعت پاسخ‌گویی</small><b><?php echo esc_html($c['hours_week']);?></b></span></li>
-     <li><i><?php echo alookhor_cc_contact_icon('bolt');?></i><span><small>جمعه‌ها</small><b><?php echo esc_html($c['hours_friday']);?></b></span></li>
-     <li><i><?php echo alookhor_cc_contact_icon('box');?></i><span><small>حوزه فعالیت</small><b>تولید، بسته‌بندی و صادرات خشکبار</b></span></li>
+     <li><i class="t-clock"><?php echo alookhor_cc_contact_icon('clock');?></i><span><small>ساعت پاسخ‌گویی</small><b><?php echo esc_html($c['hours_week']);?></b></span></li>
+     <li><i class="t-bolt"><?php echo alookhor_cc_contact_icon('bolt');?></i><span><small>جمعه‌ها</small><b><?php echo esc_html($c['hours_friday']);?></b></span></li>
+     <li><i class="t-box"><?php echo alookhor_cc_contact_icon('box');?></i><span><small>حوزه فعالیت</small><b>تولید، بسته‌بندی و صادرات خشکبار</b></span></li>
     </ul>
     <?php if($wa):?><a class="acp-wa" href="https://wa.me/<?php echo esc_attr($wa);?>" target="_blank" rel="noopener"><?php echo alookhor_cc_contact_icon('whatsapp');?><span>شروع گفت‌وگو در واتساپ</span></a><?php endif;?>
     <p class="acp-privacy"><?php echo alookhor_cc_contact_icon('shield');?><span>اطلاعات شما محفوظ است و فقط برای پاسخ‌گویی به درخواست استفاده می‌شود.</span></p>
@@ -65,6 +65,13 @@ function alookhor_cc_contact_markup(){
     <input type="hidden" name="nonce" value="<?php echo esc_attr(wp_create_nonce('alookhor_contact'));?>">
    </form>
   </div>
+  <section class="alookhor-acp-map acp-map">
+   <header><span>OUR LOCATION</span><h2>ما را روی نقشه ببینید</h2><p><i class="t-pin"><?php echo alookhor_cc_contact_icon('pin');?></i><span><?php echo esc_html($c['address']);?> — روی نقشه، موقعیت دقیق خور نیشابور</span></p></header>
+   <div class="acp-map-frame">
+    <iframe src="https://maps.google.com/maps?q=<?php echo rawurlencode($map_q);?>&amp;hl=fa&amp;z=13&amp;region=ir&amp;output=embed" title="نقشه موقعیت آلوخور — خور نیشابور" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+   </div>
+   <a class="acp-map-cta" href="https://www.google.com/maps/dir/?api=1&amp;destination=<?php echo rawurlencode($map_q);?>" target="_blank" rel="noopener"><i class="t-pin"><?php echo alookhor_cc_contact_icon('pin');?></i><span>مسیریابی مستقیم در گوگل‌مپ</span></a>
+  </section>
   <section class="alookhor-acp-faq acp-faq">
    <header><span>FAQ</span><h2>پرسش‌های پرتکرار</h2></header>
    <div class="acp-faq-list">
