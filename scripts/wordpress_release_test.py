@@ -414,6 +414,14 @@ try:
         except HTTPError as about_error:
             report['checks']['about_live']=False
             report['about_live_http']=about_error.code
+        try:
+            legacy_about_url=BASE+'/'+quote('درباره-ما')+'/?release_test='+TARGET.replace('.','')
+            with urlopen(Request(legacy_about_url,headers={'User-Agent':'ALOOKHOR-GitHub-Publisher/1.0'}),timeout=30) as response:
+                legacy_about_final=str(response.geturl() or '');legacy_about_html=response.read().decode(errors='replace')
+            report['checks']['about_legacy_resolves']=(('alookhor-about-page' in legacy_about_html and not cjk.search(legacy_about_html)) or ('/about' in legacy_about_final.lower()))
+        except HTTPError as legacy_about_error:
+            report['checks']['about_legacy_resolves']=False
+            report['about_legacy_http']=legacy_about_error.code
 
     failed = [name for name, passed in report['checks'].items() if passed is not True]
     report['ok'] = not failed

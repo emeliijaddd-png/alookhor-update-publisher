@@ -2,7 +2,7 @@
 // UI/state remain modular; version discovery and installation are delegated to WordPress.
 
 const runtimeConfig = window.ALOOKHOR_CC || {};
-const runtimeVersion = String(runtimeConfig.version || '3.10.170');
+const runtimeVersion = String(runtimeConfig.version || '3.10.171');
 
 function normalizeResult(data = {}) {
   const current = String(data.current || runtimeVersion);
@@ -55,6 +55,7 @@ export const Updater = {
   latest: runtimeVersion,
   lastCheck: null,
   changelog: [
+    { tag: 'ABOUT SLUG', title: 'v3.10.171 — قطعی‌سازی مسیر درباره ما', desc: 'اسلاگ صفحه به about بازگردانده شد و هر دو مسیر قدیمی با گارد ضدحلقه هدایت می‌شوند.' },
     { tag: 'ABOUT PAGE', title: 'v3.10.170 — درباره ما لوکس', desc: 'صفحه داستان آلوخور با آمار، مسیر از باغ تا خانه، ارزش‌ها و بخش همکاری ساخته شد.' },
     { tag: 'CONTACT V3', title: 'v3.10.169 — قطعی‌سازی مسیر تماس', desc: 'صفحه واقعی در /contact/ ساخته شد، ریدایرکت ۳۰۱ زودهنگام اجرا و کش‌های کهنه دمو پاک شدند.' },
     { tag: 'CONTACT V2', title: 'v3.10.168 — تماس با ما حرفه‌ای نسخه ۲', desc: 'بازطراحی لوکس کامل، کارت‌های تماس سریع، آکاردئون پرسش‌های پرتکرار، حذف صفحه ژاپنی قدیمی و عنوان دمو کلاسیک.' },

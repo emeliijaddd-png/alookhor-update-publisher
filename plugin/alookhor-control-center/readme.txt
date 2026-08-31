@@ -4,7 +4,7 @@ Tags: control center, luxury, alookhor, admin, dashboard
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 3.10.170
+Stable tag: 3.10.171
 License: Private
 License URI: https://alookhor.ir
 
@@ -46,6 +46,11 @@ License URI: https://alookhor.ir
 در `config/site.json` و `wp_options: alookhor_cc_settings` — همان حافظه واقعی که در چت قبلی ویرایش می‌شد.
 
 == Changelog ==
+
+= 3.10.171 =
+
+* اسلاگ صفحه «درباره ما» قطعیاً روی about (هدف منوی اصلی) تنظیم می‌شود؛ صفحه قفل‌کننده اسلاگ با پشتیبان نسخه‌دار آزاد و حذف می‌شود.
+* هر دو مسیر قدیمی (about و درباره-ما) با گارد ضدحلقه به نشانی canonical هدایت می‌شوند؛ ریدایرکت به خودش هرگز رخ نمی‌دهد.
 
 = 3.10.170 =
 

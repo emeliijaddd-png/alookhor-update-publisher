@@ -1,21 +1,21 @@
 {
-  "version": "3.10.170",
-  "previous": "3.10.169",
+  "version": "3.10.171",
+  "previous": "3.10.170",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "ساخت برگه لوکس درباره ما با داستان برند، آمار، سفر محصول، ارزش‌ها و بخش همکاری.",
+  "description": "قطعی‌سازی اسلاگ صفحه درباره ما روی about و ریدایرکت ضدحلقه مسیرهای قدیمی.",
   "changelog": [
     {
-      "tag": "ABOUT PAGE",
-      "title": "برگه لوکس درباره ما",
-      "desc": "صفحه درباره ما با طراحی لوکس، انیمیشن ورود، آمار برند، مسیر از باغ تا خانه، ارزش‌ها و CTA همکاری ساخته شد؛ منوی قبلی که به ۴۰۴ می‌رفت اصلاح و endpoint پایش اضافه شد."
+      "tag": "ABOUT SLUG",
+      "title": "قطعی‌سازی مسیر درباره ما",
+      "desc": "اسلاگ صفحه مدیریت‌شده به about اجباری شد، قفل‌کننده اسلاگ با پشتیبان نسخه‌دار آزاد می‌شود و هر دو مسیر قدیمی loop-safe هدایت می‌شوند."
     }
   ],
   "project": "ALOOKHOR",
   "area": "Boutique Header Settings / Admin Menu Cleanup",
-  "reason": "منوی «درباره ما» به /about/ می‌رفت که در وردپرس ۴۰۴ بود و صفحه‌ای وجود نداشت؛ مالک صفحه حرفه‌ای، لوکس و جذاب بدون محتوای دمو خواست.",
+  "reason": "در 3.10.170 مهاجرت صفحه موجود با اسلاگ «درباره-ما» را نگه داشت؛ منوی اصلی به /about/ می‌رفت که ۴۰۴ می‌ماند.",
   "files": [
     "plugin/alookhor-control-center/assets/css/frontend-header-akx.css",
     "plugin/alookhor-control-center/assets/js/modules/settings.js",

@@ -2,7 +2,7 @@
 /** Luxury about page — [alookhor_about_page]. */
 if(!defined('ABSPATH'))exit;
 
-function alookhor_cc_about_url(){static $url=null;if($url!==null)return $url;$page=get_page_by_path('about',OBJECT,'page');if(!$page){$page=get_page_by_path('درباره-ما',OBJECT,'page');}if(!$page)$page=get_page_by_title('درباره ما',OBJECT,'page');$url=$page?get_permalink($page):home_url('/about/');return $url;}
+function alookhor_cc_about_url(){static $url=null;if($url!==null)return $url;$id=(int)get_option('alookhor_about_page_id',0);$page=$id?get_post($id):null;if(!$page)$page=get_page_by_path('about',OBJECT,'page');if(!$page){$page=get_page_by_path('درباره-ما',OBJECT,'page');}if(!$page)$page=get_page_by_title('درباره ما',OBJECT,'page');$url=$page?get_permalink($page):home_url('/about/');return $url;}
 
 function alookhor_cc_about_settings(){
  $header=function_exists('alookhor_cc_front_header_settings')?alookhor_cc_front_header_settings():[];
@@ -124,7 +124,41 @@ add_action('init',function(){
 
 add_filter('nav_menu_link_attributes',function($atts,$item){$label=wp_strip_all_tags($item->title??'');$href=(string)($atts['href']??'');$path=trim((string)wp_parse_url($href,PHP_URL_PATH),'/');if(str_contains($label,'درباره ما')||str_contains($label,'درباره آلوخور')||$path==='about'||$path==='درباره-ما')$atts['href']=alookhor_cc_about_url();return $atts;},20,2);
 
-add_action('init',function(){if(is_admin()||(defined('REST_REQUEST')&&REST_REQUEST)||defined('DOING_CRON'))return;$path=trim((string)wp_parse_url($_SERVER['REQUEST_URI']??'/',PHP_URL_PATH),'/');if($path==='درباره-ما'){nocache_headers();wp_safe_redirect(alookhor_cc_about_url(),301);exit;}},1);
+/**
+ * Schema v2 — canonical slug `about` (the menu target), loop-safe redirects.
+ * v1 adopted the demo page but its slug stayed «درباره-ما», so /about/ (the menu link) kept 404ing.
+ * The managed page is now forced onto slug `about`: any other page holding the slug is captured
+ * with a versioned option backup and removed first. Both legacy paths redirect loop-safely.
+ */
+add_action('init',function(){
+ if(get_option('alookhor_about_page_schema')==='2')return;
+ $page_id=(int)get_option('alookhor_about_page_id',0);
+ $page=$page_id?get_post($page_id):null;
+ if(!$page)$page=get_page_by_path('about',OBJECT,'page');
+ if(!$page)$page=get_page_by_path('درباره-ما',OBJECT,'page');
+ if(!$page)$page=get_page_by_title('درباره ما',OBJECT,'page');
+ if(!$page){$id=wp_insert_post(['post_type'=>'page','post_status'=>'publish','post_title'=>'درباره ما','post_name'=>'about','post_content'=>'[alookhor_about_page]']);$page=$id?get_post($id):null;}
+ if(!$page)return;
+ /* free the `about` slug if a different page holds it */
+ $holder=get_page_by_path('about',OBJECT,'page');
+ if($holder&&$holder->ID!==$page->ID){
+  update_option('alookhor_about_slug_holder',['id'=>$holder->ID,'title'=>$holder->post_title,'slug'=>$holder->post_name,'content'=>$holder->post_content,'elementor_data'=>get_post_meta($holder->ID,'_elementor_data',true),'saved_at'=>current_time('mysql')],false);
+  wp_delete_post($holder->ID,true);
+ }
+ $update=['ID'=>$page->ID,'post_status'=>'publish','post_title'=>'درباره ما','post_content'=>'[alookhor_about_page]'];
+ if($page->post_name!=='about'){$update['post_name']='about';update_option('rewrite_rules','');}
+ wp_update_post($update);
+ delete_post_meta($page->ID,'_elementor_data');delete_post_meta($page->ID,'_elementor_edit_mode');delete_post_meta($page->ID,'_elementor_template_type');delete_post_meta($page->ID,'_elementor_version');
+ update_option('alookhor_about_page_id',(int)$page->ID,false);
+ if(function_exists('rocket_clean_domain'))rocket_clean_domain();
+ if(function_exists('w3tc_flush_all'))w3tc_flush_all();
+ if(function_exists('wp_cache_clear_cache'))wp_cache_clear_cache();
+ if(function_exists('sg_cachepress_purge_everything'))sg_cachepress_purge_everything();
+ if(defined('LSCWP_DIR'))do_action('litespeed_purge_all');
+ update_option('alookhor_about_page_schema','2',false);
+},41);
+
+add_action('init',function(){if(is_admin()||(defined('REST_REQUEST')&&REST_REQUEST)||defined('DOING_CRON'))return;$path=trim((string)wp_parse_url($_SERVER['REQUEST_URI']??'/',PHP_URL_PATH),'/');if($path!=='about'&&$path!=='درباره-ما')return;$target=alookhor_cc_about_url();$target_path=trim((string)wp_parse_url($target,PHP_URL_PATH),'/');if($target_path===''||$target_path===$path)return;nocache_headers();wp_safe_redirect($target,301);exit;},1);
 
 add_filter('pre_get_document_title',function($title){return alookhor_cc_is_about_page()?'درباره ما | آلوخور':$title;},20);
 add_filter('document_title_parts',function($parts){if(!alookhor_cc_is_about_page())return $parts;$parts['title']='درباره ما';$parts['site']='آلوخور';unset($parts['tagline'],$parts['page']);return $parts;},20);
