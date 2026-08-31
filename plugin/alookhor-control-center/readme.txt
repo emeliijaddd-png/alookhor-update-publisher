@@ -4,7 +4,7 @@ Tags: control center, luxury, alookhor, admin, dashboard
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 3.10.178
+Stable tag: 3.10.179
 License: Private
 License URI: https://alookhor.ir
 
@@ -46,6 +46,11 @@ License URI: https://alookhor.ir
 در `config/site.json` و `wp_options: alookhor_cc_settings` — همان حافظه واقعی که در چت قبلی ویرایش می‌شد.
 
 == Changelog ==
+
+= 3.10.179 =
+
+* عرض منوی کناری موبایل از ۹۰vw/۳۶۰px به حداکثر ۳۰۰px (۸۰vw) کاهش یافت.
+* دکمه تمام‌عرض طلایی «خروج از حساب» برای کاربران واردشده و «ورود به حساب» برای مهمانان با آیکن SVG نورانی به پایین دراور اضافه شد.
 
 = 3.10.178 =
 

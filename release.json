@@ -1,21 +1,21 @@
 {
-  "version": "3.10.178",
-  "previous": "3.10.177",
+  "version": "3.10.179",
+  "previous": "3.10.178",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "طلایی صریح کردن خطوط خود آیکن‌های صفحه تماس که مشکی رندر می‌شدند.",
+  "description": "کاهش عرض منوی کناری موبایل و افزودن دکمه خروج/ورود طلایی به دراور.",
   "changelog": [
     {
-      "tag": "CONTACT V6",
-      "title": "گلیف طلایی آیکن‌ها",
-      "desc": "SVG آیکن‌های کارت‌های تماس قانون stroke نداشتند و با fill مشکی پیش‌فرض رندر می‌شدند؛ حالا صریحاً fill:none و stroke طلایی روشن با درخشش دارند. واتساپ، حریم خصوصی و چیپ‌ها هم طلایی یکدست شدند."
+      "tag": "HEADER",
+      "title": "دراور باریک‌تر و خروج از حساب",
+      "desc": "عرض دراور موبایل از ۹۰vw به حداکثر ۳۰۰px (۸۰vw) کاهش یافت؛ دکمه تمام‌عرض طلایی «خروج از حساب» برای کاربران واردشده و «ورود به حساب» برای مهمانان با آیکن SVG نورانی اضافه شد."
     }
   ],
   "project": "ALOOKHOR",
   "area": "Boutique Header Settings / Admin Menu Cleanup",
-  "reason": "SVGهای داخل کارت‌های تماس هیچ قانون stroke/fill نداشتند؛ مرورگر را با fill مشکی پیش‌فرض می‌کشید و مالک مشکی بودن عکس تلفن را گزارش کرد.",
+  "reason": "مالک عرض زیاد منوی کناری در موبایل را گزارش کرد و نبود آیکن خروج را مشخص کرد.",
   "files": [
     "plugin/alookhor-control-center/assets/css/frontend-header-akx.css",
     "plugin/alookhor-control-center/assets/js/modules/settings.js",

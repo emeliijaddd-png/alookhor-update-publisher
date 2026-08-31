@@ -590,8 +590,8 @@ body #akx-header .akx-search-panel button {
   position: fixed;
   top: 0;
   right: -340px;
-  width: 320px;
-  max-width: 88vw;
+  width: 300px;
+  max-width: 82vw;
   height: 100vh;
   background: linear-gradient(180deg, #150826 0%, #0d0218 100%);
   z-index: 9999999;
@@ -1005,7 +1005,7 @@ html.akx-mobile-menu-open,body.akx-mobile-menu-open{overflow:hidden!important;ov
  body #akx-header .akx-tools .akx-circle-btn svg{width:18px!important;height:18px!important}
  body #akx-header .akx-search-panel{position:fixed!important;top:72px!important;right:10px!important;left:10px!important;width:auto!important;max-width:none!important}
  .akx-mob-backdrop{background:rgba(28,16,37,.72)!important;-webkit-backdrop-filter:blur(8px)!important;backdrop-filter:blur(8px)!important}
- .akx-mob-drawer{top:0!important;right:0!important;width:min(360px,90vw)!important;max-width:90vw!important;height:100dvh!important;padding:max(18px,env(safe-area-inset-top)) 16px max(16px,env(safe-area-inset-bottom))!important;background:linear-gradient(180deg,#1C1025,#1D1126)!important;border-left:1px solid rgba(212,175,55,.24)!important;box-shadow:-14px 0 38px rgba(28,16,37,.45)!important;transform:translateX(105%)!important;transition:transform .34s cubic-bezier(.22,.8,.3,1)!important;visibility:hidden!important}
+ .akx-mob-drawer{top:0!important;right:0!important;width:min(300px,80vw)!important;max-width:80vw!important;height:100dvh!important;padding:max(18px,env(safe-area-inset-top)) 16px max(16px,env(safe-area-inset-bottom))!important;background:linear-gradient(180deg,#1C1025,#1D1126)!important;border-left:1px solid rgba(212,175,55,.24)!important;box-shadow:-14px 0 38px rgba(28,16,37,.45)!important;transform:translateX(105%)!important;transition:transform .34s cubic-bezier(.22,.8,.3,1)!important;visibility:hidden!important}
  .akx-mob-drawer.is-open{right:0!important;transform:translateX(0)!important;visibility:visible!important}
  .akx-mob-close{width:44px!important;height:44px!important;border:1px solid rgba(212,175,55,.2)!important;background:#26213D!important;color:#E5E5E5!important}
  .akx-mob-brand-badge{background:#26213D!important;color:#D4AF37!important;box-shadow:none!important;border:1px solid rgba(212,175,55,.25)!important}
@@ -1027,3 +1027,11 @@ html.akx-mobile-menu-open,body.akx-mobile-menu-open{overflow:hidden!important;ov
  body #akx-header .akx-nav{order:4!important}
 }
 @media(max-width:360px){body #akx-header .akx-logo{flex-basis:64px!important;width:64px!important}body #akx-header .akx-menu-button{flex-basis:42px!important;width:42px!important;min-width:42px!important}}
+
+/* v3.10.179 — narrower mobile drawer + gold logout/login entry (owner directive) */
+.akx-mob-footer{flex-wrap:wrap}
+.akx-mob-footer a{padding:11px 8px}
+.akx-mob-auth{flex:1 0 100%!important;min-height:48px;border:1px solid rgba(212,175,55,.42)!important;background:linear-gradient(135deg,rgba(212,175,55,.14),rgba(38,33,61,.6))!important;color:#F5D76E!important;font-weight:800}
+.akx-mob-auth:hover{border-color:rgba(245,215,110,.75)!important;box-shadow:0 8px 22px rgba(212,175,55,.22)}
+.akx-foot-ic-svg{display:inline-grid;place-items:center;color:#F5D76E}
+.akx-foot-ic-svg svg{width:19px;height:19px;fill:none!important;stroke:currentColor!important;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 5px rgba(245,215,110,.6)) drop-shadow(0 0 12px rgba(212,175,55,.35))}

@@ -335,6 +335,11 @@ function alookhor_cc_render_akx_header() {
         <div class="akx-mob-footer">
           <a href="<?php echo $account_url; ?>"><span class="akx-foot-ic">👤</span><span>حساب من</span></a>
           <a href="<?php echo $cart_url; ?>"><span class="akx-foot-ic">🛒</span><span>سبد خرید</span></a>
+          <?php if (is_user_logged_in()) : ?>
+          <a class="akx-mob-auth is-logout" href="<?php echo esc_url(wp_logout_url($home_url)); ?>"><span class="akx-foot-ic akx-foot-ic-svg" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M15 4h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-3"/><path d="m10 17-5-5 5-5"/><path d="M5 12h11"/></svg></span><span>خروج از حساب</span></a>
+          <?php else : ?>
+          <a class="akx-mob-auth is-login" href="<?php echo $account_url; ?>"><span class="akx-foot-ic akx-foot-ic-svg" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M15 4h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-3"/><path d="m10 7 5 5-5 5"/><path d="M15 12H4"/></svg></span><span>ورود به حساب</span></a>
+          <?php endif; ?>
         </div>
 
       </div>
