@@ -23,3 +23,15 @@ body.alookhor-about-body .page-title,body.alookhor-about-body .entry-title,body.
 @media(max-width:900px){.alookhor-ab{padding:46px 14px 30px}.ab-story{grid-template-columns:1fr}.ab-media img{height:320px}.ab-journey,.ab-export{padding:24px;border-radius:22px}}
 @media(max-width:600px){.alookhor-ab{padding:36px 10px 24px}.ab-hero{margin-bottom:30px}.ab-hero h1{font-size:31px!important}.ab-hero>p{font-size:12.5px!important}.ab-chips li{padding:8px 12px;font-size:11px}.ab-media{padding:10px}.ab-media img{height:250px;border-radius:20px}.ab-badge{left:2px;bottom:16px;padding:8px 12px;font-size:11px}.ab-body p{font-size:12.5px!important}.ab-stats{grid-template-columns:1fr 1fr;gap:10px}.ab-stat{padding:16px 10px}.ab-stat b{font-size:14px}.ab-steps{grid-template-columns:1fr}.ab-values-grid{grid-template-columns:1fr}.ab-export{padding:26px 16px}.ab-cta{width:100%}.ab-foot{font-size:11.5px}}
 @media(prefers-reduced-motion:reduce){.alookhor-ab *{animation:none!important;transition:none!important}.ab-reveal{opacity:1;transform:none}}
+/* v3.10.181 — journey cards with photo backgrounds (owner directive: keep icons, replace purple) */
+.ab-steps li{position:relative;background-size:cover;background-position:center;background-color:#1C1025}
+.ab-steps li:nth-child(1){background-image:url('../images/category-plums.jpg')}
+.ab-steps li:nth-child(2){background-image:url('../images/category-nuts.jpg')}
+.ab-steps li:nth-child(3){background-image:url('../images/category-fruit-sheets.jpg')}
+.ab-steps li:nth-child(4){background-image:url('../images/export-banner-bg.jpg')}
+.ab-steps li:after{content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(180deg,rgba(22,11,28,.58),rgba(15,6,19,.86));z-index:0}
+.ab-steps li>*{position:relative;z-index:1}
+.ab-steps li:before{z-index:2}
+.ab-steps i{background:rgba(13,5,16,.78)!important;backdrop-filter:blur(5px);border-color:rgba(212,175,55,.55)}
+.ab-steps b,.ab-steps span{text-shadow:0 1px 10px rgba(13,5,16,.85)}
+.ab-steps span{color:#E5E5E5!important}
