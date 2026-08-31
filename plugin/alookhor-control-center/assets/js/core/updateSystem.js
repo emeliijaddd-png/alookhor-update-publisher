@@ -2,7 +2,7 @@
 // UI/state remain modular; version discovery and installation are delegated to WordPress.
 
 const runtimeConfig = window.ALOOKHOR_CC || {};
-const runtimeVersion = String(runtimeConfig.version || '3.10.177');
+const runtimeVersion = String(runtimeConfig.version || '3.10.178');
 
 function normalizeResult(data = {}) {
   const current = String(data.current || runtimeVersion);
@@ -55,6 +55,7 @@ export const Updater = {
   latest: runtimeVersion,
   lastCheck: null,
   changelog: [
+    { tag: 'CONTACT V6', title: 'v3.10.178 — گلیف طلایی آیکن‌ها', desc: 'خطوط خود آیکن‌ها که به‌اشتباه مشکی رندر می‌شدند صریحاً طلایی درخشان شدند.' },
     { tag: 'CONTACT V5', title: 'v3.10.177 — آیکن‌های طلایی نورانی', desc: 'همه آیکن‌های صفحه تماس طلایی یکدست با درخشش تنفسی و هاله نور شدند.' },
     { tag: 'CONTACT V4', title: 'v3.10.176 — آیکن‌های متحرک و نقشه گوگل', desc: 'آیکن‌های رنگی با انیمیشن شنا و پالس + نقشه گوگل خور نیشابور با مسیریابی مستقیم.' },
     { tag: 'ABOUT SLUG', title: 'v3.10.175 — ریدایرکت مسیر فارسی درباره ما', desc: 'مسیر درخواست پیش از مقایسه decode می‌شود تا /درباره-ما/ به صفحه درباره ما هدایت شود.' },

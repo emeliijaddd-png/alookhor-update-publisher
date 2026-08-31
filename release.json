@@ -1,21 +1,21 @@
 {
-  "version": "3.10.177",
-  "previous": "3.10.176",
+  "version": "3.10.178",
+  "previous": "3.10.177",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "یکدست‌سازی طلایی و نورانی همه آیکن‌های صفحه تماس.",
+  "description": "طلایی صریح کردن خطوط خود آیکن‌های صفحه تماس که مشکی رندر می‌شدند.",
   "changelog": [
     {
-      "tag": "CONTACT V5",
-      "title": "آیکن‌های طلایی نورانی",
-      "desc": "همه آیکن‌ها طلایی یکدست شدند با درخشش تنفسی (acp-glow)، هاله دو لایه drop-shadow، حلقه پالس طلایی و شنا آرام؛ رنگ‌های چندرنگ قبلی حذف شدند."
+      "tag": "CONTACT V6",
+      "title": "گلیف طلایی آیکن‌ها",
+      "desc": "SVG آیکن‌های کارت‌های تماس قانون stroke نداشتند و با fill مشکی پیش‌فرض رندر می‌شدند؛ حالا صریحاً fill:none و stroke طلایی روشن با درخشش دارند. واتساپ، حریم خصوصی و چیپ‌ها هم طلایی یکدست شدند."
     }
   ],
   "project": "ALOOKHOR",
   "area": "Boutique Header Settings / Admin Menu Cleanup",
-  "reason": "مالک پس از دیدن نسخه رنگی، آیکن‌های طلایی نورانی یکدست را خواست.",
+  "reason": "SVGهای داخل کارت‌های تماس هیچ قانون stroke/fill نداشتند؛ مرورگر را با fill مشکی پیش‌فرض می‌کشید و مالک مشکی بودن عکس تلفن را گزارش کرد.",
   "files": [
     "plugin/alookhor-control-center/assets/css/frontend-header-akx.css",
     "plugin/alookhor-control-center/assets/js/modules/settings.js",

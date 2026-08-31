@@ -4,7 +4,7 @@ Tags: control center, luxury, alookhor, admin, dashboard
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 3.10.177
+Stable tag: 3.10.178
 License: Private
 License URI: https://alookhor.ir
 
@@ -46,6 +46,11 @@ License URI: https://alookhor.ir
 در `config/site.json` و `wp_options: alookhor_cc_settings` — همان حافظه واقعی که در چت قبلی ویرایش می‌شد.
 
 == Changelog ==
+
+= 3.10.178 =
+
+* خطوط خود آیکن‌های کارت‌های تماس که با پیش‌فرض مشکی رندر می‌شدند صریحاً طلایی روشن با درخشش شدند (fill:none + stroke طلایی).
+* آیکن واتساپ، سپر حریم خصوصی و چیپ‌های بالای صفحه نیز طلایی یکدست شدند.
 
 = 3.10.177 =
 

@@ -52,3 +52,10 @@ body.alookhor-contact-body .page-title,body.alookhor-contact-body .entry-title,b
 .alookhor-acp .acp-qcard svg,.alookhor-acp .acp-hours svg,.alookhor-acp .acp-wa svg{stroke-width:1.9;filter:drop-shadow(0 0 5px rgba(245,215,110,.65)) drop-shadow(0 0 13px rgba(212,175,55,.38))}
 a.acp-qcard:hover i,.acp-hours li:hover i{box-shadow:0 12px 36px rgba(245,215,110,.52),inset 0 0 24px rgba(245,215,110,.36)}
 @keyframes acp-glow{0%,100%{box-shadow:0 8px 24px rgba(212,175,55,.3),inset 0 0 16px rgba(245,215,110,.22)}50%{box-shadow:0 10px 34px rgba(245,215,110,.5),inset 0 0 24px rgba(245,215,110,.36)}}
+/* v3.10.178 — GOLD GLYPHS: icon strokes explicitly gold (were defaulting to black) */
+.alookhor-acp .acp-qcard i svg,.alookhor-acp .acp-hours i svg,.alookhor-acp .acp-map>header p svg{fill:none!important;stroke:var(--acp-gold-light)!important;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.alookhor-acp .acp-wa{color:var(--acp-gold-light)!important;border-color:rgba(212,175,55,.5)!important;background:linear-gradient(135deg,rgba(212,175,55,.16),rgba(28,16,37,.5))!important}
+.alookhor-acp .acp-wa svg{fill:none!important;stroke:var(--acp-gold-light)!important;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 5px rgba(245,215,110,.65)) drop-shadow(0 0 13px rgba(212,175,55,.38))}
+.alookhor-acp .acp-privacy svg{fill:none!important;stroke:var(--acp-gold)!important;filter:drop-shadow(0 0 4px rgba(245,215,110,.5))}
+.alookhor-acp .acp-chips svg{stroke:var(--acp-gold-light)!important}
+.alookhor-acp .acp-map-cta svg{fill:none!important;stroke:currentColor!important;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
