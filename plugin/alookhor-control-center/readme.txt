@@ -4,7 +4,7 @@ Tags: control center, luxury, alookhor, admin, dashboard
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 3.10.186
+Stable tag: 3.10.187
 License: Private
 License URI: https://alookhor.ir
 
@@ -46,6 +46,10 @@ License URI: https://alookhor.ir
 در `config/site.json` و `wp_options: alookhor_cc_settings` — همان حافظه واقعی که در چت قبلی ویرایش می‌شد.
 
 == Changelog ==
+
+= 3.10.187 =
+
+* بهبود: آزمون تشخیصی CI — صفحه محصول علاوه بر UA ربات، با UA مرورگر دسکتاپ و موبایل هم گرفته و نتیجه رندر در گزارش انتشار ثبت می‌شود.
 
 = 3.10.186 =
 

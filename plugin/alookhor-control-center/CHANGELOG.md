@@ -1,5 +1,8 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.187 — 2026-08-31 — PDP UA diagnostics
+- CI: گزارش انتشار محصول حالا نتیجهٔ رندر PDP را برای سه UA (ربات ناشر، مرورگر دسکتاپ، مرورگر موبایل) ثبت می‌کند تا لایهٔ مسئول نمایش نسخهٔ قدیمی برای بازدیدکنندگان مرورگری دقیق شناسایی شود.
+
 ## v3.10.186 — 2026-08-31 — Full page-cache purge after update
 - CACHE: پاک‌سازی بعد از آپدیت حالا WP Rocket (rocket_clean_domain)، SiteGround (sg_cachepress_purge_everything)، WP Fastest Cache (wpfc_clear_cache)، WP Super Cache (wp_cache_clear_cache) و W3TC را هم پوشش می‌دهد.
 - WHY: کش صفحهٔ قدیمی برای بازدیدکنندگان مرورگری، HTML پیش از آپدیت (صفحه محصول قدیمی/پرده به‌زودی) را نشان می‌داد؛ درخواست‌های بات از کش رد می‌شدند و نسخهٔ جدید می‌گرفتند — همین واریانس کش بود.

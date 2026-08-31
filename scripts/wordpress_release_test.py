@@ -306,6 +306,13 @@ try:
             pdp_auth_html=response.read().decode(errors='replace')
         report['product']['auth_render']=('alookhor-pdp' in pdp_auth_html)
         report['checks']['pdp_renders_authenticated']=('alookhor-pdp' in pdp_auth_html and 'قیمت نهایی' in pdp_auth_html and 'افزودن به سبد خرید' in pdp_auth_html)
+        for label,ua in [('desktop_browser','Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36'),('mobile_browser','Mozilla/5.0 (iPhone; CPU iPhone OS 17_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.5 Mobile/15E148 Safari/604.1')]:
+            try:
+                with urlopen(Request(auth_page_probe.replace('pdp_auth=1','ua='+label),headers={'User-Agent':ua,'Accept':'text/html,application/xhtml+xml'},),timeout=30) as response:
+                    ua_html=response.read().decode(errors='replace')
+                report['product'][label]=('alookhor-pdp' in ua_html)
+            except Exception as error:
+                report['product'][label]='error: '+str(error)[:120]
 
     topbar_url = BASE + '/wp-json/alookhor-cc/v1/topbar?release_test=' + TARGET.replace('.', '')
     with urlopen(Request(topbar_url, headers={'Accept': 'application/json', 'Cache-Control': 'no-cache', 'User-Agent': 'ALOOKHOR-GitHub-Publisher/1.0'}), timeout=30) as response:
