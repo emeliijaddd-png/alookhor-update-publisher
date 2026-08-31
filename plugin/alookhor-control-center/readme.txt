@@ -4,7 +4,7 @@ Tags: control center, luxury, alookhor, admin, dashboard
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 3.10.182
+Stable tag: 3.10.183
 License: Private
 License URI: https://alookhor.ir
 
@@ -46,6 +46,11 @@ License URI: https://alookhor.ir
 در `config/site.json` و `wp_options: alookhor_cc_settings` — همان حافظه واقعی که در چت قبلی ویرایش می‌شد.
 
 == Changelog ==
+
+= 3.10.183 =
+
+* منوی جدید «مدیریت برگه‌ها» در ALOOKHOR Center: ویرایش متن‌ها (عنوان‌ها، معرفی، پرسش‌های پرتکرار، داستان، آمار، سفر محصول، ارزش‌ها، همکاری، امضا) و تصاویر (داستان و چهار کارت سفر) برگه‌های تماس با ما و درباره ما.
+* انتخاب عکس از رسانه وردپرس، بازنشانی به پیش‌فرض و ذخیره واقعی در دیتابیس؛ endpoint پایش /pages و چک انتشار pages_endpoint اضافه شد.
 
 = 3.10.182 =
 

@@ -13,17 +13,17 @@ function alookhor_cc_contact_settings(){
 
 function alookhor_cc_contact_icon($name){$p=['phone'=>'<path d="M6.6 2.8 9.4 2c.6-.2 1.2.1 1.4.7L12 5.9c.2.5 0 1-.4 1.3L10 8.4c.9 1.9 2.5 3.5 4.4 4.4l1.2-1.6c.3-.4.8-.6 1.3-.4l3.2 1.2c.6.2.9.8.7 1.4l-.8 2.8c-.2.6-.7 1-1.4 1C10 17.2 4.8 11.9 4.8 4.2c0-.7.4-1.2 1.1-1.4Z"/>','email'=>'<path d="M3 5h18v14H3zM3 7l9 6 9-6"/>','pin'=>'<path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/>','clock'=>'<circle cx="12" cy="12" r="9"/><path d="M12 7v6l4 2"/>','whatsapp'=>'<circle cx="12" cy="12" r="9"/><path d="M8 18 5 19l1-3a7 7 0 1 1 2 2Z"/><path d="M9 9.5c.5 2.5 3 5 5.5 5.5l1-1.5-2-1-1 .5c-.8-.5-1.5-1.2-2-2l.5-1-1-2Z"/>','send'=>'<path d="m22 2-7 20-4-9-9-4 20-7Z"/><path d="M22 2 11 13"/>','shield'=>'<path d="M12 3 5 6v5c0 4.5 3 8.5 7 10 4-1.5 7-5.5 7-10V6l-7-3Z"/><path d="m9 12 2 2 4-4"/>','chat'=>'<path d="M21 12a8 8 0 0 1-8 8H4l2-3a8 8 0 1 1 15-5Z"/><path d="M9 11h6M9 14h4"/>','box'=>'<path d="m12 3 8 4.5v9L12 21l-8-4.5v-9L12 3Z"/><path d="M4 7.5 12 12l8-4.5M12 12v9"/>','globe'=>'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 4 5.5 4 9s-1.5 6.5-4 9c-2.5-2.5-4-5.5-4-9s1.5-6.5 4-9Z"/>','chevron'=>'<path d="m6 9 6 6 6-6"/>','bolt'=>'<path d="M13 2 4 14h6l-1 8 9-12h-6l1-8Z"/>'];return '<svg viewBox="0 0 24 24" aria-hidden="true">'.($p[$name]??$p['send']).'</svg>';}
 
-function alookhor_cc_contact_faq(){return [['q'=>'چطور سفارش خود را ثبت کنم؟','a'=>'از طریق فرم همین صفحه، تماس تلفنی یا واتساپ با ما در ارتباط باشید؛ کافی است موضوع «خرید محصول» را انتخاب کنید تا کارشناسان آلوخور راهنمایی‌تان کنند.'],['q'=>'برای خرید عمده یا صادرات چه مسیری دارید؟','a'=>'در فرم، موضوع «سفارش عمده» یا «صادرات» را انتخاب کنید تا تیم بازرگانی آلوخور مستقیماً برای شرایط همکاری، قیمت و ظرفیت تأمین با شما صحبت کند.'],['q'=>'سفارشم را چطور پیگیری کنم؟','a'=>'موضوع «پیگیری سفارش» را انتخاب کنید و شماره تماس خود را بنویسید؛ وضعیت آماده‌سازی و ارسال سفارش شما در سریع‌ترین زمان اعلام می‌شود.'],['q'=>'پاسخ‌گویی در چه ساعاتی است؟','a'=>'در ساعات کاری ذکرشده در همین صفحه پاسخ می‌دهیم؛ پیام‌های ثبت‌شده خارج از ساعات کاری به‌ترتیب و در ابتدای روز کاری بعدی بررسی می‌شوند.'],['q'=>'با اطلاعاتی که در فرم وارد می‌کنم چه می‌شود؟','a'=>'اطلاعات شما فقط برای پاسخ‌گویی به همین درخواست استفاده می‌شود، در اختیار هیچ شخص ثالثی قرار نمی‌گیرد و پس از پایان مکالمه حذف می‌شود.']];}
+function alookhor_cc_contact_faq(){return alookhor_cc_get_pages_settings()['contact']['faqs'];}
 
 function alookhor_cc_contact_markup(){
- $c=alookhor_cc_contact_settings();$phone_href=preg_replace('/[^0-9+]/','',(string)$c['phone']);$wa=preg_replace('/\D+/','',(string)$c['whatsapp']);$map_q=trim((string)$c['address']).'، ایران';
+ $c=alookhor_cc_contact_settings();$phone_href=preg_replace('/[^0-9+]/','',(string)$c['phone']);$wa=preg_replace('/\D+/','',(string)$c['whatsapp']);$map_q=trim((string)$c['address']).'، ایران';$pg=alookhor_cc_get_pages_settings()['contact'];
  ob_start();?>
 <section id="alookhor-contact-page" class="alookhor-acp" dir="rtl" style="--acp-gold:<?php echo esc_attr($c['gold']);?>">
  <div class="acp-inner">
   <header class="acp-hero">
-   <span class="acp-kicker">CONTACT • ALOOKHOR</span>
-   <h1>با <b>آلوخور</b> در ارتباط باشید</h1>
-   <p>برای خرید محصول، سفارش عمده، صادرات یا پشتیبانی پیام بفرستید؛ تیم آلوخور در سریع‌ترین زمان پاسخ می‌دهد.</p>
+   <span class="acp-kicker"><?php echo esc_html($pg['kicker']);?></span>
+   <h1><?php echo alookhor_cc_goldify($pg['title']);?></h1>
+   <p><?php echo esc_html($pg['intro']);?></p>
    <ul class="acp-chips">
     <li><?php echo alookhor_cc_contact_icon('chat');?><span>پشتیبانی تلفنی و واتساپ</span></li>
     <li><?php echo alookhor_cc_contact_icon('clock');?><span>پاسخ‌گویی در ساعات کاری</span></li>

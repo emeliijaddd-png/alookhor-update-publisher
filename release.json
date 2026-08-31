@@ -1,21 +1,21 @@
 {
-  "version": "3.10.182",
-  "previous": "3.10.181",
+  "version": "3.10.183",
+  "previous": "3.10.182",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "مخفی‌سازی نوار مدیریت وردپرس در نمای سایت (نوار مشکی بالای صفحه).",
+  "description": "منوی جدید «مدیریت برگه‌ها» برای ویرایش متن‌ها و تصاویر برگه‌های مدیریت‌شده.",
   "changelog": [
     {
-      "tag": "HEADER",
-      "title": "حذف نوار مشکی بالای سایت",
-      "desc": "نوار مدیریت وردپرس (#1d2327 تقریباً مشکی؛ ۳۲px دسکتاپ / 46px موبایل) که فقط برای کاربر واردشده در هر دو حالت دیده می‌شد با فیلتر show_admin_bar و CSS اطمینان در wp_head مخفی شد؛ پیشخوان wp-admin دست‌نخورده ماند."
+      "tag": "PAGES",
+      "title": "مدیریت برگه‌ها",
+      "desc": "منوی جدید در ALOOKHOR Center برای ویرایش کامل متن‌ها و تصاویر برگه‌های تماس با ما و درباره ما (kicker، عنوان‌ها، معرفی، پرسش‌های پرتکرار، داستان، آمار، سفر محصول، ارزش‌ها، همکاری و امضا) با انتخاب عکس از رسانه وردپرس و ذخیره واقعی؛ معماری برای افزودن برگه‌های مدیریت‌شده آینده آماده شد."
     }
   ],
   "project": "ALOOKHOR",
   "area": "Boutique Header Settings / Admin Menu Cleanup",
-  "reason": "مالک نوار مشکی بالای سایت را در موبایل و دسکتاپ گزارش کرد؛ تنها عنصر مشکی بالای صفحه نوار مدیریت وردپرس است که برای بازدیدکننده عادی رندر نمی‌شود.",
+  "reason": "مالک خواست همه برگه‌های مدیریت‌شده از این به بعد از یک بخش اختصاصی در مدیریت ویرایش شوند (متن و عکس) بدون نیاز به کد.",
   "files": [
     "plugin/alookhor-control-center/assets/css/frontend-header-akx.css",
     "plugin/alookhor-control-center/assets/js/modules/settings.js",
@@ -82,6 +82,8 @@
     "plugin/alookhor-control-center/assets/js/frontend-contact-page.js",
     "plugin/alookhor-control-center/includes/about-page.php",
     "plugin/alookhor-control-center/assets/css/frontend-about-page.css",
-    "plugin/alookhor-control-center/assets/js/frontend-about-page.js"
+    "plugin/alookhor-control-center/assets/js/frontend-about-page.js",
+    "plugin/alookhor-control-center/includes/pages-settings.php",
+    "plugin/alookhor-control-center/includes/admin-pages.php"
   ]
 }

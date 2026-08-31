@@ -1,5 +1,11 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.183 — 2026-08-30 — Pages Management Panel
+- PANEL: منوی جدید «مدیریت برگه‌ها» (alookhor-cc-pages) در ALOOKHOR Center با ظاهر لوکس هم‌خانواده پنل؛ تمام متن‌های برگه‌های تماس با ما و درباره ما قابل ویرایش شد.
+- MEDIA: انتخابگر تصویر وردپرس برای عکس داستان و چهار کارت سفر محصول + دکمه بازنشانی پیش‌فرض.
+- STORAGE: تنظیمات در option alookhor_pages_settings با sanitization کامل (متن، URL، ساختار ثابت ۵ پرسش / ۴×۴ بخش) ذخیره و در رندر برگه‌ها با escape امن (esc_html + طلایی‌سازی خودکار واژه آلوخور) اعمال می‌شود؛ پیش‌فرض‌ها عیناً مقادیر فعلی سایت‌اند.
+- API: endpoint عمومی /wp-json/alookhor-cc/v1/pages و چک انتشار pages_endpoint.
+
 ## v3.10.182 — 2026-08-30 — Frontend Admin Bar Removed
 - DIAGNOSIS: تنها عنصر مشکی بالای سایت در هر دو Breakpoint، نوار مدیریت وردپرس (#1d2327؛ ۳۲px دسکتاپ / 46px موبایل) بود که فقط برای کاربر واردشده رندر می‌شود.
 - FIX: فیلتر show_admin_bar نوار را در کل نمای سایت حذف می‌کند و استایل اطمینان در wp_head (html margin/padding-top صفر + #wpadminbar مخفی) نسخه‌های کش‌شده را هم پوشش می‌دهد.

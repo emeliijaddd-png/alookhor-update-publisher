@@ -278,6 +278,13 @@ try:
         report['checks']['header_drawer_auth']=('akx-mob-auth' in homepage and 'akx-mob-drawer' in homepage)
     if tuple(map(int,TARGET.split('.'))) >= (3,10,182):
         report['checks']['frontend_no_adminbar']=('alookhor-hide-adminbar' in homepage and '#wpadminbar{display:none!important}' in homepage)
+    if tuple(map(int,TARGET.split('.'))) >= (3,10,183):
+        pages_url=BASE+'/wp-json/alookhor-cc/v1/pages?release_test='+TARGET.replace('.','')
+        with urlopen(Request(pages_url,headers={'Accept':'application/json','Cache-Control':'no-cache','User-Agent':'ALOOKHOR-GitHub-Publisher/1.0'}),timeout=30) as response:
+            pages=json.load(response)
+        counts=pages.get('counts') or {}
+        report['pages']={'version':pages.get('version'),'counts':counts}
+        report['checks']['pages_endpoint']=(str(pages.get('version'))==TARGET and counts.get('faqs')==5 and counts.get('stats')==4 and counts.get('steps')==4 and counts.get('values')==4 and counts.get('step_images')==4 and all(str(u).startswith('http') for u in (pages.get('images') or {}).get('steps',[])))
 
     topbar_url = BASE + '/wp-json/alookhor-cc/v1/topbar?release_test=' + TARGET.replace('.', '')
     with urlopen(Request(topbar_url, headers={'Accept': 'application/json', 'Cache-Control': 'no-cache', 'User-Agent': 'ALOOKHOR-GitHub-Publisher/1.0'}), timeout=30) as response:

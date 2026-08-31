@@ -236,6 +236,22 @@ add_action('rest_api_init', function(){
         },
     ]);
 
+    register_rest_route('alookhor-cc/v1', '/pages', [
+        'methods' => WP_REST_Server::READABLE,
+        'permission_callback' => '__return_true',
+        'callback' => function(){
+            $p=alookhor_cc_get_pages_settings();
+            $response=rest_ensure_response([
+                'version'=>ALOOKHOR_CC_VERSION,
+                'ok'=>true,
+                'counts'=>['faqs'=>count($p['contact']['faqs']),'stats'=>count($p['about']['stats']),'steps'=>count($p['about']['steps']),'values'=>count($p['about']['values']),'step_images'=>count($p['about']['step_images'])],
+                'images'=>['story'=>$p['about']['story_image'],'steps'=>$p['about']['step_images']],
+            ]);
+            $response->header('Cache-Control','no-store, no-cache, must-revalidate, max-age=0');
+            return $response;
+        },
+    ]);
+
     register_rest_route('alookhor-cc/v1', '/product-categories', [
         'methods' => WP_REST_Server::READABLE,
         'permission_callback' => '__return_true',

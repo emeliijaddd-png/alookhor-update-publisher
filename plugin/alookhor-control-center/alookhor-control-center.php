@@ -3,7 +3,7 @@
  * Plugin Name: ALOOKHOR Control Center
  * Plugin URI: https://alookhor.ir
  * Description: کنترل سنتر لوکس و ماژولار آلوخور — مدیریت کامل سایت (هدر، اسلایدر، سورت، محصولات، مشتریان VIP، مالی، آنالیتیکس) با آپدیت آنی بدون رفرش. تمام تنظیمات چت قبلی + شورت‌کد [alookhor_portal_header] اینجا مدیریت می‌شود.
- * Version: 3.10.182
+ * Version: 3.10.183
  * Author: ALOOKHOR Team — Luxury Modular
  * Author URI: https://alookhor.ir
  * Update URI: https://alookhor.ir/alookhor-control-center
@@ -16,8 +16,8 @@
 
 if (!defined('ABSPATH')) exit;
 
-define('ALOOKHOR_CC_VERSION', '3.10.182');
-define('ALOOKHOR_CC_BUILD', '3.10.182');
+define('ALOOKHOR_CC_VERSION', '3.10.183');
+define('ALOOKHOR_CC_BUILD', '3.10.183');
 define('ALOOKHOR_CC_FILE', __FILE__);
 define('ALOOKHOR_CC_DIR', plugin_dir_path(__FILE__));
 define('ALOOKHOR_CC_URL', plugin_dir_url(__FILE__));
@@ -81,10 +81,12 @@ require_once ALOOKHOR_CC_DIR . 'includes/why-alookhor.php';
 require_once ALOOKHOR_CC_DIR . 'includes/international-standards.php';
 require_once ALOOKHOR_CC_DIR . 'includes/contact-page.php';
 require_once ALOOKHOR_CC_DIR . 'includes/about-page.php';
+require_once ALOOKHOR_CC_DIR . 'includes/pages-settings.php';
+require_once ALOOKHOR_CC_DIR . 'includes/admin-pages.php';
 require_once ALOOKHOR_CC_DIR . 'includes/shortcode-export-banner.php';
 require_once ALOOKHOR_CC_DIR . 'includes/admin-export-banner.php';
 
-/* v3.10.182 — hide the WP admin bar on the frontend (owner: unwanted near-black bar on top, mobile+desktop).
+/* v3.10.183 — hide the WP admin bar on the frontend (owner: unwanted near-black bar on top, mobile+desktop).
    The dashboard stays fully reachable via wp-admin; only the frontend strip is removed. */
 add_filter('show_admin_bar', '__return_false');
 add_action('wp_head', function(){echo '<style id="alookhor-hide-adminbar">html{margin-top:0!important;padding-top:0!important}#wpadminbar{display:none!important}</style>'."\n";}, 5);
