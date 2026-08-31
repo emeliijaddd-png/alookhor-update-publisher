@@ -1035,3 +1035,12 @@ html.akx-mobile-menu-open,body.akx-mobile-menu-open{overflow:hidden!important;ov
 .akx-mob-auth:hover{border-color:rgba(245,215,110,.75)!important;box-shadow:0 8px 22px rgba(212,175,55,.22)}
 .akx-foot-ic-svg{display:inline-grid;place-items:center;color:#F5D76E}
 .akx-foot-ic-svg svg{width:19px;height:19px;fill:none!important;stroke:currentColor!important;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 5px rgba(245,215,110,.6)) drop-shadow(0 0 12px rgba(212,175,55,.35))}
+/* v3.10.180 — theme-proof luminous gold close icon (pure CSS X, replaces fragile SVG) */
+.akx-mob-close{position:relative;overflow:hidden;border:1px solid rgba(212,175,55,.5)!important;background:#26213D!important;color:#F5D76E!important}
+.akx-mob-close svg{display:none!important}
+.akx-mob-close:before,.akx-mob-close:after{content:"";position:absolute;top:50%;left:50%;width:16px;height:2.4px;border-radius:3px;background:linear-gradient(180deg,#F5D76E,#D4AF37);box-shadow:0 0 6px rgba(245,215,110,.55),0 0 14px rgba(212,175,55,.3);transform:translate(-50%,-50%) rotate(45deg);transition:box-shadow .25s,transform .2s}
+.akx-mob-close:after{transform:translate(-50%,-50%) rotate(-45deg)}
+.akx-mob-close:hover:before,.akx-mob-close:hover:after{box-shadow:0 0 9px rgba(245,215,110,.85),0 0 18px rgba(212,175,55,.5)}
+.akx-mob-close:active:before{transform:translate(-50%,-50%) rotate(45deg) scale(.86)}
+.akx-mob-close:active:after{transform:translate(-50%,-50%) rotate(-45deg) scale(.86)}
+@media(prefers-reduced-motion:reduce){.akx-mob-close:before,.akx-mob-close:after{transition:none}}
