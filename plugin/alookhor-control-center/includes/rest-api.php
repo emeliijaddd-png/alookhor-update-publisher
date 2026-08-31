@@ -264,7 +264,7 @@ add_action('rest_api_init', function(){
                 'version'=>ALOOKHOR_CC_VERSION,
                 'ok'=>true,
                 'product'=>['id'=>$d['id'],'name'=>$d['name'],'url'=>get_permalink($d['id'])],
-                'counts'=>['highlights'=>count($d['highlights']),'specs'=>count($d['specs']),'faqs'=>count($d['faqs']),'journey'=>count($d['journey']),'quality'=>count($d['quality']),'gallery'=>count($d['slides']),'related'=>count($d['related'])],
+                'counts'=>['highlights'=>count($d['feats']),'specs'=>count($d['specs']),'faqs'=>count($d['faqs']),'why'=>count($d['why']),'gallery'=>count($d['slides']),'related'=>count($d['related'])],
                 'images'=>['main'=>$d['slides'][0]['src']??'','gallery'=>array_map(fn($s)=>$s['src'],$d['slides'])],
             ]);
             $response->header('Cache-Control','no-store, no-cache, must-revalidate, max-age=0');
