@@ -252,6 +252,26 @@ add_action('rest_api_init', function(){
         },
     ]);
 
+    register_rest_route('alookhor-cc/v1', '/product', [
+        'methods' => WP_REST_Server::READABLE,
+        'permission_callback' => '__return_true',
+        'callback' => function($request){
+            if(!function_exists('alookhor_cc_pdp_product'))return rest_ensure_response(['version'=>ALOOKHOR_CC_VERSION,'ok'=>false]);
+            $product=alookhor_cc_pdp_product(sanitize_text_field((string)$request->get_param('slug')));
+            if(!$product)return new WP_Error('alookhor_no_product','محصولی برای نمایش یافت نشد',['status'=>404]);
+            $d=alookhor_cc_pdp_data($product);
+            $response=rest_ensure_response([
+                'version'=>ALOOKHOR_CC_VERSION,
+                'ok'=>true,
+                'product'=>['id'=>$d['id'],'name'=>$d['name'],'url'=>get_permalink($d['id'])],
+                'counts'=>['highlights'=>count($d['highlights']),'specs'=>count($d['specs']),'faqs'=>count($d['faqs']),'journey'=>count($d['journey']),'quality'=>count($d['quality']),'gallery'=>count($d['slides']),'related'=>count($d['related'])],
+                'images'=>['main'=>$d['slides'][0]['src']??'','gallery'=>array_map(fn($s)=>$s['src'],$d['slides'])],
+            ]);
+            $response->header('Cache-Control','no-store, no-cache, must-revalidate, max-age=0');
+            return $response;
+        },
+    ]);
+
     register_rest_route('alookhor-cc/v1', '/product-categories', [
         'methods' => WP_REST_Server::READABLE,
         'permission_callback' => '__return_true',

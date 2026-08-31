@@ -285,6 +285,18 @@ try:
         counts=pages.get('counts') or {}
         report['pages']={'version':pages.get('version'),'counts':counts}
         report['checks']['pages_endpoint']=(str(pages.get('version'))==TARGET and counts.get('faqs')==5 and counts.get('stats')==4 and counts.get('steps')==4 and counts.get('values')==4 and counts.get('step_images')==4 and all(str(u).startswith('http') for u in (pages.get('images') or {}).get('steps',[])))
+    if tuple(map(int,TARGET.split('.'))) >= (3,10,184):
+        product_url=BASE+'/wp-json/alookhor-cc/v1/product?release_test='+TARGET.replace('.','')
+        with urlopen(Request(product_url,headers={'Accept':'application/json','Cache-Control':'no-cache','User-Agent':'ALOOKHOR-GitHub-Publisher/1.0'}),timeout=30) as response:
+            prod=json.load(response)
+        pcounts=prod.get('counts') or {}
+        pdp_page=(prod.get('product') or {}).get('url')
+        pdp_html=''
+        if pdp_page:
+            with urlopen(Request(pdp_page,headers={'User-Agent':'ALOOKHOR-GitHub-Publisher/1.0'}),timeout=30) as response:
+                pdp_html=response.read().decode(errors='replace')
+        report['product']={'version':prod.get('version'),'counts':pcounts,'name':(prod.get('product') or {}).get('name'),'page_ok':bool(pdp_html)}
+        report['checks']['product_endpoint']=(str(prod.get('version'))==TARGET and pcounts.get('highlights')==5 and pcounts.get('specs')==9 and pcounts.get('faqs')==4 and pcounts.get('journey')==5 and pcounts.get('quality')==4 and pcounts.get('gallery',0)>=3 and pcounts.get('related',0)>=3 and str((prod.get('images') or {}).get('main','')).startswith('http') and 'alookhor-pdp' in pdp_html and 'انتخاب وزن' in pdp_html and 'قیمت نهایی' in pdp_html)
 
     topbar_url = BASE + '/wp-json/alookhor-cc/v1/topbar?release_test=' + TARGET.replace('.', '')
     with urlopen(Request(topbar_url, headers={'Accept': 'application/json', 'Cache-Control': 'no-cache', 'User-Agent': 'ALOOKHOR-GitHub-Publisher/1.0'}), timeout=30) as response:
