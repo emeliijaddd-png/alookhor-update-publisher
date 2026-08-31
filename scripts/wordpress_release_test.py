@@ -436,10 +436,10 @@ except Exception as error:
         'probes': AUTH_PROBES,
         'diagnostics': LAST_DIAGNOSTICS,
     }
-    REPORT_PATH.write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n')
-    print(json.dumps(report, ensure_ascii=False, indent=2))
+    REPORT_PATH.write_text(json.dumps(report, ensure_ascii=False, separators=(',', ':')) + '\n')
+    print(json.dumps(report, ensure_ascii=False, separators=(',', ':')))
     raise
 else:
     report['auth'] = {'variant': _AUTH_RESOLVED['variant'] or 'unresolved'}
-    REPORT_PATH.write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n')
-    print(json.dumps(report, ensure_ascii=False, indent=2))
+    REPORT_PATH.write_text(json.dumps(report, ensure_ascii=False, separators=(',', ':')) + '\n')
+    print(json.dumps(report, ensure_ascii=False, separators=(',', ':')))

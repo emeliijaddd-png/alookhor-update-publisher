@@ -1,5 +1,9 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.172 — 2026-08-30 — Release Pipeline Reliability
+- ROOT CAUSE: گزارش indent-دار تست انتشار از سقف clean() با ۱۲۰۰۰ کاراکتر عبور کرد؛ json.loads روی متن دم‌بریده کرش می‌کرد و گام Write sanitized publisher status branch در انتشارهای 3.10.170 و 3.10.171 شکست می‌خورد.
+- FIX: خروجی فایل گزارش و چاپ آن در scripts/wordpress_release_test.py با separators فشرده شد؛ اندازه گزارش با حاشیه امن زیر سقف می‌ماند.
+
 ## v3.10.171 — 2026-08-30 — About Slug Hardening
 - ROOT CAUSE: در 3.10.170 مهاجرت، صفحه موجود با اسلاگ «درباره-ما» را برگزید و نگه داشت؛ در نتیجه /درباره-ما/ رندر می‌شد ولی منوی اصلی به /about/ می‌رفت که ۴۰۴ می‌ماند.
 - CANONICAL SLUG: مهاجرت نسخه ۲ اسلاگ صفحه مدیریت‌شده را قطعیاً روی about تنظیم می‌کند؛ اگر صفحه دیگری اسلاگ را نگه داشته باشد، ابتدا با پشتیبان در option نسخه‌دار آزاد و حذف می‌شود.
