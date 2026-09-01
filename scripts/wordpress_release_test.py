@@ -33,9 +33,9 @@ def _temp_fetch_reference_image():
         if img is None:
             raise RuntimeError('no PIL')
         _FULL_W, _FULL_H = img.size
-        img = img.crop((0, 0, _FULL_W, _FULL_H // 2))
+        img = img.crop((0, _FULL_H // 2, _FULL_W, _FULL_H))
         W, H = img.size
-        print('ALOOKHOR-REF-DIM', _FULL_W, _FULL_H, 'HALF-TOP', W, H)
+        print('ALOOKHOR-REF-DIM', _FULL_W, _FULL_H, 'HALF-BOT', W, H)
         from io import BytesIO
         import base64 as _b64
         best = None

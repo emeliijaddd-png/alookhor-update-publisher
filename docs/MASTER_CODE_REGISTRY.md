@@ -289,7 +289,7 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 | `scripts/generate_code_registry.py` | 293 | `cc820adb6cd74358acfe6eea9bcc5206a2262b91a53e053cc0794c47fec3026a` |
 | `scripts/header_visual_audit.py` | 195 | `cfb3caec7aa5d08adbd3383a7accf02244ba09f866e0801de0fde5d874e144c9` |
 | `scripts/wordpress_access_check.py` | 529 | `8b2d8fa1e2b20ba940d3b13c3e7e62072d5d30bcf8225af8f49ed8cd156cb20f` |
-| `scripts/wordpress_release_test.py` | 549 | `04931ce594104826be1b63393b70e01d80813ad54e595675fb6a79df05c4c9c0` |
+| `scripts/wordpress_release_test.py` | 549 | `027fb2e6f3a5d002121ff1a656570c059f2b99d58000096f0d8f24fed2af2ed2` |
 
 # COMPLETE SOURCE SNAPSHOTS
 
@@ -15329,9 +15329,9 @@ def _temp_fetch_reference_image():
         if img is None:
             raise RuntimeError('no PIL')
         _FULL_W, _FULL_H = img.size
-        img = img.crop((0, 0, _FULL_W, _FULL_H // 2))
+        img = img.crop((0, _FULL_H // 2, _FULL_W, _FULL_H))
         W, H = img.size
-        print('ALOOKHOR-REF-DIM', _FULL_W, _FULL_H, 'HALF-TOP', W, H)
+        print('ALOOKHOR-REF-DIM', _FULL_W, _FULL_H, 'HALF-BOT', W, H)
         from io import BytesIO
         import base64 as _b64
         best = None
