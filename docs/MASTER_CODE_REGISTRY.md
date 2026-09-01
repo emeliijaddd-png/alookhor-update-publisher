@@ -289,7 +289,7 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 | `scripts/generate_code_registry.py` | 293 | `cc820adb6cd74358acfe6eea9bcc5206a2262b91a53e053cc0794c47fec3026a` |
 | `scripts/header_visual_audit.py` | 315 | `125cf34405f1decd7e0b53689d70fc89b2e5d9fcc5336e7f2140fc13433c86ba` |
 | `scripts/wordpress_access_check.py` | 529 | `8b2d8fa1e2b20ba940d3b13c3e7e62072d5d30bcf8225af8f49ed8cd156cb20f` |
-| `scripts/wordpress_release_test.py` | 499 | `643a4a7488632707af2a15d594fa501b17d6c212549743f54230ebc65881b87f` |
+| `scripts/wordpress_release_test.py` | 596 | `9da3fd53fc15143bac4ec2f0db349a781bb36d9b422c07a1321d9f3a892c7963` |
 
 # COMPLETE SOURCE SNAPSHOTS
 
@@ -15824,6 +15824,95 @@ def get_pre_update_status():
             raise RuntimeError(f'No authenticated ALOOKHOR status endpoint. Native: {native_error}; Bootstrap: {bootstrap_error}')
 
 
+def _pdp_browser_audit() -> dict:
+    """Informational live render audit of the product page (real Chrome via Selenium).
+    Never raises; result lands in the report under 'pdp_browser_audit'."""
+    import subprocess, sys, time as _time
+    result = {'views': {}}
+    driver = None
+    try:
+        subprocess.run([sys.executable, '-m', 'pip', 'install', '--quiet', 'selenium'],
+                       capture_output=True, timeout=240)
+        from selenium import webdriver
+        from selenium.webdriver.chrome.options import Options as _Options
+        from selenium.webdriver.support.ui import WebDriverWait as _Wait
+        pdp_js = r"""
+const one=s=>document.querySelector(s);
+const rect=e=>e?Object.fromEntries(['top','bottom','left','width','height'].map(k=>[k,Math.round(e.getBoundingClientRect()[k]*10)/10])):null;
+const akx=one('#akx-header'), mainbar=one('#akx-header .akx-mainbar'), topbar=one('#akx-header .akx-topbar,#akx-header .akx-top-bar');
+const alp=one('.alookhor-alp'), band=one('.alp-hero-band'), gal=one('.alp-gallery'), info=one('.alp-info'), stage=one('.alp-stage');
+const themeHeader=one('.whb-header, header.site-header, header#header');
+let pdpVersion=null; const w=document.createTreeWalker(document.documentElement,NodeFilter.SHOW_COMMENT); let n;
+while((n=w.nextNode())){const m=/ALOOKHOR-PDP\s+v([\d.]+)/.exec(n.nodeValue||''); if(m){pdpVersion=m[1];break;}}
+let cssHref=null; for(const sh of document.styleSheets){ if(sh.href&&sh.href.includes('frontend-product')){cssHref=sh.href;break;} }
+const parts=[akx,topbar,mainbar].filter(Boolean);
+const headerBottom=parts.length?Math.max(...parts.map(e=>e.getBoundingClientRect().bottom)):0;
+const g=e=>e?Math.round((e.getBoundingClientRect().top-headerBottom)*10)/10:null;
+return {viewport:{width:innerWidth,height:innerHeight},pdpVersion,
+ akx:rect(akx),topbar:rect(topbar),mainbar:rect(mainbar),theme_header:rect(themeHeader),
+ mainbar_position:mainbar?getComputedStyle(mainbar).position:null,
+ mainbar_stuck:mainbar?mainbar.classList.contains('is-stuck'):null,
+ alp:rect(alp),alp_padding_top:alp?getComputedStyle(alp).paddingTop:null,
+ band:rect(band),gallery:rect(gal),info:rect(info),stage:rect(stage),
+ gap_alp_below_header:g(alp),gap_band_below_header:g(band),gap_gallery_below_header:g(gal),gap_info_below_header:g(info),
+ cssHref,scrollY:scrollY,scrollW:document.documentElement.scrollWidth,body_classes:document.body.className};
+"""
+        product = None
+        try:
+            with urlopen(Request(BASE + '/wp-json/alookhor-cc/v1/product',
+                                 headers={'Accept': 'application/json', 'User-Agent': 'ALOOKHOR-GitHub-Publisher/1.0'}),
+                         timeout=30) as response:
+                product = json.load(response)
+        except Exception as api_error:
+            result['api_error'] = str(api_error)[:160]
+        url = (product or {}).get('product', {}).get('url') or (BASE + '/product/%d8%a7%d9%84%d8%a8%d8%a7%d9%84%d9%88-%d8%ae%d8%b4%da%a9/')
+        result['api_version'] = (product or {}).get('version')
+        result['url'] = url
+        for label, width, height in (('desktop', 1614, 900), ('mobile', 390, 844)):
+            view = {}
+            try:
+                options = _Options()
+                for arg in ('--headless=new', '--no-sandbox', '--disable-dev-shm-usage', '--disable-gpu',
+                            '--window-size=%d,%d' % (width, height), '--hide-scrollbars', '--force-device-scale-factor=1'):
+                    options.add_argument(arg)
+                driver = webdriver.Chrome(options=options)
+                driver.set_window_size(width, height)
+                driver.get(url + ('&' if '?' in url else '?') + 'pdp_audit=' + TARGET.replace('.', ''))
+                _Wait(driver, 40).until(lambda d: d.execute_script("return !!document.querySelector('.alookhor-alp')"))
+                _time.sleep(4)
+                before = driver.execute_script(pdp_js)
+                css = {}
+                href = before.get('cssHref')
+                if href:
+                    try:
+                        fresh = href + ('&' if '?' in href else '?') + 'fresh=' + str(int(_time.time()))
+                        with urlopen(Request(fresh, headers={'User-Agent': 'ALOOKHOR-GitHub-Publisher/1.0'}), timeout=30) as response:
+                            txt = response.read().decode(errors='replace')
+                        css = {'has_206_breathing_room': 'BREATHING ROOM' in txt,
+                               'has_205_render_fixes': 'RENDER-TESTED FIXES' in txt,
+                               'has_204_flush': 'FLUSH TO MENU' in txt,
+                               'length': len(txt)}
+                    except Exception as css_error:
+                        css = {'error': str(css_error)[:160]}
+                driver.execute_script('window.scrollTo(0, 500)')
+                _time.sleep(1.2)
+                after = driver.execute_script(pdp_js)
+                view = {'before': before, 'after': after, 'css': css}
+            except Exception as view_error:
+                view = {'error': ('%s: %s' % (type(view_error).__name__, view_error))[:240]}
+            finally:
+                if driver is not None:
+                    try:
+                        driver.quit()
+                    except Exception:
+                        pass
+                driver = None
+            result['views'][label] = view
+    except Exception as setup_error:
+        result['setup_error'] = ('%s: %s' % (type(setup_error).__name__, setup_error))[:240]
+    return result
+
+
 report = {'target': TARGET, 'base_url': BASE, 'checks': {}}
 try:
     source, before = get_pre_update_status()
@@ -16142,11 +16231,19 @@ except Exception as error:
         'probes': AUTH_PROBES,
         'diagnostics': LAST_DIAGNOSTICS,
     }
+    try:
+        report['pdp_browser_audit'] = _pdp_browser_audit()
+    except Exception as _pdp_err:
+        report['pdp_browser_audit'] = {'error': str(_pdp_err)[:200]}
     REPORT_PATH.write_text(json.dumps(report, ensure_ascii=False, separators=(',', ':')) + '\n')
     print(json.dumps(report, ensure_ascii=False, separators=(',', ':')))
     raise
 else:
     report['auth'] = {'variant': _AUTH_RESOLVED['variant'] or 'unresolved'}
+    try:
+        report['pdp_browser_audit'] = _pdp_browser_audit()
+    except Exception as _pdp_err:
+        report['pdp_browser_audit'] = {'error': str(_pdp_err)[:200]}
     REPORT_PATH.write_text(json.dumps(report, ensure_ascii=False, separators=(',', ':')) + '\n')
     print(json.dumps(report, ensure_ascii=False, separators=(',', ':')))
 ````
