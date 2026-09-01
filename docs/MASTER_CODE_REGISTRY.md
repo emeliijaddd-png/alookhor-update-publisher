@@ -289,7 +289,7 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 | `scripts/generate_code_registry.py` | 293 | `cc820adb6cd74358acfe6eea9bcc5206a2262b91a53e053cc0794c47fec3026a` |
 | `scripts/header_visual_audit.py` | 195 | `cfb3caec7aa5d08adbd3383a7accf02244ba09f866e0801de0fde5d874e144c9` |
 | `scripts/wordpress_access_check.py` | 529 | `8b2d8fa1e2b20ba940d3b13c3e7e62072d5d30bcf8225af8f49ed8cd156cb20f` |
-| `scripts/wordpress_release_test.py` | 626 | `7af4895356d4e6e576f8518195fc99ec0e9fefe636d53e8610b9228fa50d762d` |
+| `scripts/wordpress_release_test.py` | 649 | `855868838d29be812e2c54ec69ba9a9b8586bf44e1531c28db4e065ff42f846c` |
 
 # COMPLETE SOURCE SNAPSHOTS
 
@@ -15187,30 +15187,73 @@ import time
 
 # --- TEMP BLOCK (remove after reference image extraction) --------------------
 def _temp_fetch_reference_image():
-    """One-off: analyze the owner HERO reference mockup on the runner (full
-    colors): hex row strips + blobs + row classes + class map + quantized PNG
-    ladder, echoed into the publisher status log. No effect on checks."""
-    import subprocess
+    """One-off: analyze the owner HERO reference mockup with a pure-stdlib PNG
+    decoder (no PIL dependency): hex strips + row classes + blobs + class map,
+    echoed into the publisher status log. No effect on checks."""
+    import struct, zlib
     try:
         url = 'https://www.picofile.com/f/MtRhedLpiu/ChatGPT-Image-Sep-1-2026-02-00-12-PM.png'
         req = Request(url, headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'})
         data = urlopen(req, timeout=120).read()
-        for cmd in ([sys.executable, '-m', 'pip', 'install', '--quiet', '--break-system-packages', 'pillow'],
-                    [sys.executable, '-m', 'pip', 'install', '--quiet', '--user', 'pillow'],
-                    ['sudo', 'apt-get', 'install', '-y', '-qq', 'python3-pil']):
-            subprocess.run(cmd, check=False, capture_output=True, timeout=300)
-            try:
-                from PIL import Image
-                from io import BytesIO
-                img = Image.open(BytesIO(data)).convert('RGB')
-                break
-            except Exception:
-                img = None
-        if img is None:
-            raise RuntimeError('no PIL')
-        W, H = img.size
-        print('ALOOKHOR-REF-DIM', W, H, len(data))
-        px = img.load()
+        pos = 8; idat = bytearray(); meta = {}
+        while pos + 8 <= len(data):
+            (ln,) = struct.unpack('>I', data[pos:pos + 4]); typ = data[pos + 4:pos + 8]
+            chunk = data[pos + 8:pos + 8 + ln]; pos += 12 + ln
+            meta[typ] = chunk
+            if typ == b'IDAT': idat += chunk
+            if typ == b'IEND': break
+        W, H, bd, ct = struct.unpack('>IIBB', meta[b'IHDR'][:10])
+        print('ALOOKHOR-REF-DIM', W, H, bd, ct, len(data))
+        ch = {0: 1, 2: 3, 3: 1, 4: 2, 6: 4}.get(ct)
+        if bd != 8 or ch is None:
+            raise ValueError('unsupported png bd=%s ct=%s' % (bd, ct))
+        raw = zlib.decompress(bytes(idat)); stride = W * ch
+        buf = bytearray(W * H * 3); prev = bytearray(stride); p = 0
+        for y in range(H):
+            f = raw[p]; p += 1
+            line = bytearray(raw[p:p + stride]); p += stride
+            if f == 1:
+                for i in range(ch, stride): line[i] = (line[i] + line[i - ch]) & 255
+            elif f == 2:
+                for i in range(stride): line[i] = (line[i] + prev[i]) & 255
+            elif f == 3:
+                for i in range(stride):
+                    a = line[i - ch] if i >= ch else 0
+                    line[i] = (line[i] + ((a + prev[i]) >> 1)) & 255
+            elif f == 4:
+                for i in range(stride):
+                    a = line[i - ch] if i >= ch else 0
+                    b = prev[i]; c = prev[i - ch] if i >= ch else 0
+                    pp = a + b - c
+                    pa = abs(pp - a); pb = abs(pp - b); pc = abs(pp - c)
+                    pr = a if (pa <= pb and pa <= pc) else (b if pb <= pc else c)
+                    line[i] = (line[i] + pr) & 255
+            if ch == 3:
+                buf[y * stride * 3:(y + 1) * stride * 3] = line
+            elif ch == 4:
+                row = bytearray(stride * 3)
+                for i in range(W):
+                    j = i * 4; k = i * 3
+                    row[k] = line[j]; row[k + 1] = line[j + 1]; row[k + 2] = line[j + 2]
+                buf[y * stride * 3:(y + 1) * stride * 3] = row
+            elif ch == 1:
+                row = bytearray(stride * 3)
+                for i in range(W):
+                    v = line[i]; j = i * 3
+                    row[j] = row[j + 1] = row[j + 2] = v
+                buf[y * stride * 3:(y + 1) * stride * 3] = row
+            elif ch == 2:
+                row = bytearray(stride * 3)
+                for i in range(W):
+                    j = i * 2; k = i * 3
+                    row[k] = row[k + 1] = row[k + 2] = line[j]
+                buf[y * stride * 3:(y + 1) * stride * 3] = row
+            prev = line
+        buf = bytes(buf)
+
+        def get(x, y):
+            i = (y * W + x) * 3
+            return buf[i], buf[i + 1], buf[i + 2]
 
         def cls(r, g, b):
             lum = (r * 30 + g * 59 + b * 11) // 100
@@ -15230,7 +15273,6 @@ def _temp_fetch_reference_image():
                 return 'P'
             return '?'
 
-        # hex strips (true colors) — 200 rows
         strips = []
         rows_n = 200
         for i in range(rows_n):
@@ -15238,10 +15280,9 @@ def _temp_fetch_reference_image():
             n = rs = gs = bs = 0
             for y in range(y0, y1, max(1, (y1 - y0) // 6 or 1)):
                 for x in range(0, W, max(1, W // 90)):
-                    r, g, b = px[x, y]; rs += r; gs += g; bs += b; n += 1
+                    r, g, b = get(x, y); rs += r; gs += g; bs += b; n += 1
             strips.append('%02X%02X%02X' % (rs // n, gs // n, bs // n))
         print('ALOOKHOR-REF-STRIPS', ','.join(strips))
-
         ROWS, COLS = 56, 120
         grid = []
         for gy in range(ROWS):
@@ -15252,7 +15293,7 @@ def _temp_fetch_reference_image():
                 counts = {}
                 for y in range(y0, y1, max(1, (y1 - y0) // 3 or 1)):
                     for x in range(x0, x1, max(1, (x1 - x0) // 3 or 1)):
-                        r, g, b = px[x, y]
+                        r, g, b = get(x, y)
                         c = cls(r, g, b)
                         counts[c] = counts.get(c, 0) + 1
                 row += max(counts.items(), key=lambda kv: kv[1])[0]
@@ -15284,24 +15325,6 @@ def _temp_fetch_reference_image():
         for x0, y0, x1, y1, n in blobs[:12]:
             print('B x%d-%d(%.0f-%.0f%%) y%d-%d(%.0f-%.0f%%) cells=%d' % (
                 x0, x1, 100 * x0 / COLS, 100 * x1 / COLS, y0, y1, 100 * y0 / ROWS, 100 * y1 / ROWS, n))
-        # quantized PNG ladder (may be skipped)
-        from io import BytesIO
-        import base64 as _b64
-        best = None
-        for colors, width in ((8, 760), (8, 680), (6, 720), (6, 620), (8, 560), (4, 720),
-                              (4, 640), (6, 520), (4, 560), (3, 640), (2, 760), (4, 480), (2, 560), (2, 480)):
-            t = img if width >= W else img.resize((width, max(1, int(H * width / W))))
-            t = t.quantize(colors=colors)
-            buf = BytesIO(); t.save(buf, format='PNG', optimize=True)
-            if len(buf.getvalue()) <= 5200:
-                best = buf.getvalue(); break
-        if best:
-            b64 = _b64.b64encode(best).decode('ascii')
-            print('ALOOKHOR-REF-PNG-START', len(best))
-            for i in range(0, len(b64), 3600):
-                print('ALOOKHOR-REF-PNG ' + b64[i:i + 3600])
-            print('ALOOKHOR-REF-PNG-END')
-        # class map LAST (highest priority in the 12k tail)
         print('ALOOKHOR-REF-MAP-START')
         for i, row in enumerate(grid):
             print('M%02d %s' % (i, row))
