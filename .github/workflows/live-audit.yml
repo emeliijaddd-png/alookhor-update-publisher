@@ -1,0 +1,44 @@
+name: Live PDP Browser Audit
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install puppeteer
+        working-directory: scripts/live-audit
+        run: npm init -y >/dev/null && npm i puppeteer --no-audit --no-fund
+      - name: Run live audit
+        working-directory: scripts/live-audit
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          AUDIT_URL: https://alookhor.ir/product/%d8%a7%d9%84%d8%a8%d8%a7%d9%84%d9%88-%d8%ae%d8%b4%da%a9/
+        run: node audit.js
+      - name: Publish results
+        if: always()
+        working-directory: scripts/live-audit
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: |
+          mkdir -p /tmp/audit-out
+          cp results.json /tmp/audit-out/ 2>/dev/null || true
+          cp shot-*.png /tmp/audit-out/ 2>/dev/null || true
+          cd /tmp/audit-out
+          git init -b live-audit
+          git config user.name 'ALOOKHOR Audit Bot'
+          git config user.email 'audit@alookhor.ir'
+          git add -A
+          git commit -m "Live audit ${GITHUB_RUN_ID}"
+          git remote add origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          git push --force origin HEAD:live-audit
