@@ -77,16 +77,9 @@ def _temp_fetch_reference_image():
         print('ALOOKHOR-REF-ROWS')
         for gy in range(ROWS):
             row = grid[gy]
-            print('R%02d W%.2f K%.2f O%.2f G%.2f .%.2f P%.2f L%.2f' % (
-                gy, row.count('W') / COLS, row.count('K') / COLS, row.count('O') / COLS,
-                row.count('G') / COLS, row.count('.') / COLS, row.count('P') / COLS, row.count('L') / COLS))
-        # vertical edge profile per cell column (transitions) -> card gaps
-        print('ALOOKHOR-REF-COLS')
-        for gx in range(COLS):
-            col = ''.join(grid[gy][gx] for gy in range(ROWS))
-            print('C%03d W%.2f O%.2f G%.2f .%.2f K%.2f' % (
-                gx, col.count('W') / ROWS, col.count('O') / ROWS, col.count('G') / ROWS,
-                col.count('.') / ROWS, col.count('K') / ROWS))
+            print('R%02d W%02d K%02d O%02d G%02d .%02d P%02d L%02d' % (
+                gy, round(100*row.count('W')/COLS), round(100*row.count('K')/COLS), round(100*row.count('O')/COLS),
+                round(100*row.count('G')/COLS), round(100*row.count('.')/COLS), round(100*row.count('P')/COLS), round(100*row.count('L')/COLS)))
         # photo blobs (connected components of O cells, 8-neighbour)
         seen = [[False] * COLS for _ in range(ROWS)]
         blobs = []

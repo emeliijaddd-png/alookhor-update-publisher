@@ -289,7 +289,7 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 | `scripts/generate_code_registry.py` | 293 | `cc820adb6cd74358acfe6eea9bcc5206a2262b91a53e053cc0794c47fec3026a` |
 | `scripts/header_visual_audit.py` | 195 | `cfb3caec7aa5d08adbd3383a7accf02244ba09f866e0801de0fde5d874e144c9` |
 | `scripts/wordpress_access_check.py` | 529 | `8b2d8fa1e2b20ba940d3b13c3e7e62072d5d30bcf8225af8f49ed8cd156cb20f` |
-| `scripts/wordpress_release_test.py` | 605 | `28e9e18436aee3a36c3787b0a81a4a5b8f677aac0416916f8adeb1f4b7c32aa6` |
+| `scripts/wordpress_release_test.py` | 598 | `3a1dd5fa4dea973dc60031093af86034016a3cfb14bc6f1c61a95965d7a30cf4` |
 
 # COMPLETE SOURCE SNAPSHOTS
 
@@ -15207,16 +15207,9 @@ def _temp_fetch_reference_image():
         print('ALOOKHOR-REF-ROWS')
         for gy in range(ROWS):
             row = grid[gy]
-            print('R%02d W%.2f K%.2f O%.2f G%.2f .%.2f P%.2f L%.2f' % (
-                gy, row.count('W') / COLS, row.count('K') / COLS, row.count('O') / COLS,
-                row.count('G') / COLS, row.count('.') / COLS, row.count('P') / COLS, row.count('L') / COLS))
-        # vertical edge profile per cell column (transitions) -> card gaps
-        print('ALOOKHOR-REF-COLS')
-        for gx in range(COLS):
-            col = ''.join(grid[gy][gx] for gy in range(ROWS))
-            print('C%03d W%.2f O%.2f G%.2f .%.2f K%.2f' % (
-                gx, col.count('W') / ROWS, col.count('O') / ROWS, col.count('G') / ROWS,
-                col.count('.') / ROWS, col.count('K') / ROWS))
+            print('R%02d W%02d K%02d O%02d G%02d .%02d P%02d L%02d' % (
+                gy, round(100*row.count('W')/COLS), round(100*row.count('K')/COLS), round(100*row.count('O')/COLS),
+                round(100*row.count('G')/COLS), round(100*row.count('.')/COLS), round(100*row.count('P')/COLS), round(100*row.count('L')/COLS)))
         # photo blobs (connected components of O cells, 8-neighbour)
         seen = [[False] * COLS for _ in range(ROWS)]
         blobs = []
