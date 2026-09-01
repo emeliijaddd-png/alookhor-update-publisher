@@ -245,9 +245,13 @@ function alookhor_cc_pdp_markup(){
    <li><?php echo alookhor_cc_pdp_icon('box');?><b>بسته‌بندی مطمئن</b><span>بسته‌بندی استاندارد</span></li>
    <li><?php echo alookhor_cc_pdp_icon('phone');?><b>پشتیبانی</b><span>پاسخ‌گویی قبل و بعد از خرید</span></li>
   </ul>
+ </div>
 
+ <div class="alp-dk alp-dk-main">
+  <div class="alp-inner">
   <section class="alp-desc" id="alp-desc">
    <header class="alp-shead"><span class="alp-eyebrow">معرفی محصول</span><h2>توضیحات محصول</h2></header>
+   <p class="alp-dk-sub">هر آنچه باید پیش از انتخاب این محصول آلوخور بدانید، از باغ تا بسته‌بندی.</p>
    <div class="alp-desc-grid">
     <div class="alp-desc-body">
      <?php if($d['desc']):?>
@@ -273,6 +277,7 @@ function alookhor_cc_pdp_markup(){
     <ul><?php foreach($d['why'] as $w):?><li><i><?php echo alookhor_cc_pdp_icon($w[0]);?></i><b><?php echo esc_html($w[1]);?></b><span><?php echo esc_html($w[2]);?></span></li><?php endforeach;?></ul>
    </section>
   </div>
+ </div>
  </div>
 
  <section class="alp-band alp-moment">
@@ -303,18 +308,24 @@ function alookhor_cc_pdp_markup(){
    </div>
   </section>
 
+ </div>
+ </div>
+
+ <div class="alp-dk alp-dk-qa">
+  <div class="alp-inner">
   <section class="alp-qa" id="alp-qa">
+   <p class="alp-dk-sub">پاسخ پرتکرارترین پرسش‌ها دربارهٔ خرید، ارسال و نگهداری محصول آلوخور.</p>
    <div class="alp-qa-grid">
     <aside class="alp-qa-side">
      <header class="alp-shead"><span class="alp-eyebrow">پرسش و پاسخ</span><h2>سوالات متداول</h2></header>
-     <p>پاسخ پرتکرارترین پرسش‌ها دربارهٔ خرید، ارسال و نگهداری محصول آلوخور این‌جا جمع شده است.</p>
-     <a class="alp-btn alp-btn-royal" href="<?php echo esc_url($contact);?>">تماس با پشتیبانی</a>
+     <a class="alp-btn alp-btn-gold" href="<?php echo esc_url($contact);?>">تماس با پشتیبانی</a>
     </aside>
     <div class="alp-qa-list">
      <?php foreach($d['faqs'] as $f):?><div class="alp-acc" data-acc><button type="button" class="alp-acc-t" data-acc-t><b><?php echo esc_html($f['q']);?></b><?php echo alookhor_cc_pdp_icon('chev');?></button><div class="alp-acc-b"><p><?php echo esc_html($f['a']);?></p></div></div><?php endforeach;?>
     </div>
    </div>
   </section>
+  </div>
  </div>
 
  <section class="alp-band alp-wholesale">

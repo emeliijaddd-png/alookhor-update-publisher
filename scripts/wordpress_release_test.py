@@ -9,87 +9,6 @@ import re
 import sys
 import time
 
-# --- TEMP BLOCK (remove after reference image extraction) --------------------
-def _temp_fetch_reference_image():
-    """One-off: ships the owner reference screenshot back through the publisher
-    status log (tail window ~12k chars): a compact fingerprint + (if it fits)
-    a heavily quantized PNG of the screenshot itself. No effect on checks."""
-    import subprocess
-    try:
-        url = 'https://alookhor.ir/wp-content/uploads/2026/08/Screenshot-2026-09-01-124844.png'
-        req = Request(url, headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'})
-        data = urlopen(req, timeout=90).read()
-
-        def load_image():
-            for cmd in ([sys.executable, '-m', 'pip', 'install', '--quiet', '--break-system-packages', 'pillow'],
-                        [sys.executable, '-m', 'pip', 'install', '--quiet', '--user', 'pillow'],
-                        ['sudo', 'apt-get', 'install', '-y', '-qq', 'python3-pil']):
-                subprocess.run(cmd, check=False, capture_output=True, timeout=300)
-                try:
-                    from PIL import Image
-                    from io import BytesIO
-                    return Image.open(BytesIO(data)).convert('RGB')
-                except Exception:
-                    continue
-            return None
-
-        img = load_image()
-        W, H = img.size
-        # fingerprint v2 (printed first; survives when thumbnail is skipped)
-        im = img.resize((min(W, 980), max(1, int(H * min(W, 980) / W))))
-        w, h = im.size
-        px = im.load()
-
-        def hexavg(x0, y0, x1, y1):
-            dx = max(1, (x1 - x0) // 110); dy = max(1, (y1 - y0) // 34)
-            n = rs = gs = bs = 0
-            for y in range(y0, y1, dy):
-                for x in range(x0, x1, dx):
-                    r, g, b = px[x, y]; rs += r; gs += g; bs += b; n += 1
-            return '%02X%02X%02X' % (rs // n, gs // n, bs // n) if n else '000000'
-
-        strips = []
-        rows = 300; sh = h / rows
-        for i in range(rows):
-            strips.append(hexavg(0, int(i * sh), w, int((i + 1) * sh) if i < rows - 1 else h))
-        grid = []
-        gr, gc = 64, 16
-        for gy in range(gr):
-            for gx in range(gc):
-                grid.append(hexavg(int(gx * w / gc), int(gy * h / gr),
-                                   int((gx + 1) * w / gc) if gx < gc - 1 else w,
-                                   int((gy + 1) * h / gr) if gy < gr - 1 else h))
-        fp = {'w': W, 'h': H,
-              'strips': ''.join(x + ',' for x in strips).rstrip(','),
-              'grid': ''.join(x + (',' if (i % gc) < gc - 1 else '|') for i, x in enumerate(grid))}
-        blob = __import__('json').dumps(fp, ensure_ascii=False, separators=(',', ':'))
-        parts = [blob[i:i + 2600] for i in range(0, len(blob), 2600)]
-        print('ALOOKHOR-REF-FP-START', len(blob), len(parts))
-        for i, part in enumerate(parts):
-            print('ALOOKHOR-REF-FP %d/%d %s' % (i + 1, len(parts), part))
-        print('ALOOKHOR-REF-FP-END')
-        # quantized thumbnail, printed LAST so the 12k tail keeps it when present
-        from io import BytesIO
-        import base64 as _b64
-        best = None
-        for colors, width in ((8, W), (6, W), (8, 560), (4, 560), (2, 480)):
-            t = img if width >= W else img.resize((width, max(1, int(H * width / W))))
-            t = t.quantize(colors=colors)
-            buf = BytesIO(); t.save(buf, format='PNG', optimize=True)
-            if len(buf.getvalue()) <= 8400:
-                best = buf.getvalue(); break
-        if best:
-            b64 = _b64.b64encode(best).decode('ascii')
-            print('ALOOKHOR-REF-PNG-START', len(best))
-            for i in range(0, len(b64), 3600):
-                print('ALOOKHOR-REF-PNG ' + b64[i:i + 3600])
-            print('ALOOKHOR-REF-PNG-END')
-        else:
-            print('ALOOKHOR-REF-PNG-SKIPPED too-big')
-    except Exception as error:
-        print('ALOOKHOR-REF-FAIL', repr(error)[:200])
-# --- END TEMP BLOCK -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
 ROOT = Path(__file__).resolve().parents[1]
 TARGET = str(json.loads((ROOT / 'release.json').read_text())['version'])
 BASE = os.environ['WP_BASE_URL'].strip().rstrip('/')
@@ -573,10 +492,8 @@ except Exception as error:
     }
     REPORT_PATH.write_text(json.dumps(report, ensure_ascii=False, separators=(',', ':')) + '\n')
     print(json.dumps(report, ensure_ascii=False, separators=(',', ':')))
-    _temp_fetch_reference_image()
     raise
 else:
     report['auth'] = {'variant': _AUTH_RESOLVED['variant'] or 'unresolved'}
     REPORT_PATH.write_text(json.dumps(report, ensure_ascii=False, separators=(',', ':')) + '\n')
     print(json.dumps(report, ensure_ascii=False, separators=(',', ':')))
-    _temp_fetch_reference_image()
