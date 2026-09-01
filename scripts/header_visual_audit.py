@@ -266,4 +266,50 @@ for label, width, height in (('desktop', 1614, 900), ('mobile', 390, 844)):
 
 OUT.write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
 print(json.dumps(report,ensure_ascii=False,indent=2))
+
+# Publish PDP audit to a dedicated branch (deploy's later push overwrites publisher-status)
+def _publish_pdp_branch() -> None:
+    import base64, subprocess, urllib.request
+    token = os.environ.get('GH_TOKEN') or ''
+    repo = os.environ.get('GITHUB_REPOSITORY') or ''
+    if not token or not repo or 'pdp' not in report:
+        return
+    try:
+        api = f'https://api.github.com/repos/{repo}/contents'
+        def upsert(path: str, content: bytes, message: str) -> None:
+            req = urllib.request.Request(f'{api}/{path}?ref=pdp-audit', headers={'Authorization': f'token {token}', 'Accept': 'application/vnd.github+json'})
+            sha = None
+            try:
+                with urllib.request.urlopen(req, timeout=30) as response:
+                    sha = json.loads(response.read().decode()).get('sha')
+            except Exception:
+                pass
+            body = json.dumps({'message': message, 'branch': 'pdp-audit', 'content': base64.b64encode(content).decode()}).encode()
+            method = 'PUT'
+            req = urllib.request.Request(f'{api}/{path}', data=body, method=method, headers={'Authorization': f'token {token}', 'Accept': 'application/vnd.github+json'})
+            urllib.request.urlopen(req, timeout=60).read()
+        # ensure branch exists (create from default branch head if missing)
+        try:
+            branch_req = urllib.request.Request(f'https://api.github.com/repos/{repo}/branches/pdp-audit', headers={'Authorization': f'token {token}', 'Accept': 'application/vnd.github+json'})
+            urllib.request.urlopen(branch_req, timeout=30).read()
+        except Exception:
+            head_req = urllib.request.Request(f'https://api.github.com/repos/{repo}/git/ref/heads/main', headers={'Authorization': f'token {token}', 'Accept': 'application/vnd.github+json'})
+            try:
+                with urllib.request.urlopen(head_req, timeout=30) as response:
+                    head = json.loads(response.read().decode())['object']['sha']
+                body = json.dumps({'ref': 'refs/heads/pdp-audit', 'sha': head}).encode()
+                req = urllib.request.Request(f'https://api.github.com/repos/{repo}/git/refs', data=body, method='POST', headers={'Authorization': f'token {token}', 'Accept': 'application/vnd.github+json'})
+                urllib.request.urlopen(req, timeout=30).read()
+            except Exception:
+                pass
+        pdp_payload = json.dumps({'created_at': report['created_at'], 'views': report.get('views', {}), 'pdp': report['pdp']}, ensure_ascii=False, indent=1).encode()
+        upsert('results.json', pdp_payload, 'PDP live audit (auto)')
+        for label in ('desktop', 'mobile'):
+            shot = SHOT_DIR / f'pdp-{label}-top.png'
+            if shot.exists():
+                upsert(f'pdp-{label}-top.png', shot.read_bytes(), f'PDP {label} screenshot (auto)')
+    except Exception as error:
+        print(f'pdp-branch publish failed: {type(error).__name__}: {error}')
+
+_publish_pdp_branch()
 if not report['ok']: raise SystemExit(1)

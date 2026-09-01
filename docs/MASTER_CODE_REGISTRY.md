@@ -287,7 +287,7 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 | `plugin/alookhor-control-center/uninstall.php` | 6 | `d69282a9ab7c0865b6c60e6fca272d0859433e9c8730754fb2995295209ff84c` |
 | `scripts/build_release.py` | 113 | `7d54cb088e271f83a724467786b6c72377157df57b73699d12d64f1d3ddcb82a` |
 | `scripts/generate_code_registry.py` | 293 | `cc820adb6cd74358acfe6eea9bcc5206a2262b91a53e053cc0794c47fec3026a` |
-| `scripts/header_visual_audit.py` | 269 | `142a40b5af493f69d590586088598f9114238cb800a30c0b021e785ada4013e5` |
+| `scripts/header_visual_audit.py` | 315 | `125cf34405f1decd7e0b53689d70fc89b2e5d9fcc5336e7f2140fc13433c86ba` |
 | `scripts/wordpress_access_check.py` | 529 | `8b2d8fa1e2b20ba940d3b13c3e7e62072d5d30bcf8225af8f49ed8cd156cb20f` |
 | `scripts/wordpress_release_test.py` | 499 | `643a4a7488632707af2a15d594fa501b17d6c212549743f54230ebc65881b87f` |
 
@@ -15064,6 +15064,52 @@ for label, width, height in (('desktop', 1614, 900), ('mobile', 390, 844)):
 
 OUT.write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
 print(json.dumps(report,ensure_ascii=False,indent=2))
+
+# Publish PDP audit to a dedicated branch (deploy's later push overwrites publisher-status)
+def _publish_pdp_branch() -> None:
+    import base64, subprocess, urllib.request
+    token = os.environ.get('GH_TOKEN') or ''
+    repo = os.environ.get('GITHUB_REPOSITORY') or ''
+    if not token or not repo or 'pdp' not in report:
+        return
+    try:
+        api = f'https://api.github.com/repos/{repo}/contents'
+        def upsert(path: str, content: bytes, message: str) -> None:
+            req = urllib.request.Request(f'{api}/{path}?ref=pdp-audit', headers={'Authorization': f'token {token}', 'Accept': 'application/vnd.github+json'})
+            sha = None
+            try:
+                with urllib.request.urlopen(req, timeout=30) as response:
+                    sha = json.loads(response.read().decode()).get('sha')
+            except Exception:
+                pass
+            body = json.dumps({'message': message, 'branch': 'pdp-audit', 'content': base64.b64encode(content).decode()}).encode()
+            method = 'PUT'
+            req = urllib.request.Request(f'{api}/{path}', data=body, method=method, headers={'Authorization': f'token {token}', 'Accept': 'application/vnd.github+json'})
+            urllib.request.urlopen(req, timeout=60).read()
+        # ensure branch exists (create from default branch head if missing)
+        try:
+            branch_req = urllib.request.Request(f'https://api.github.com/repos/{repo}/branches/pdp-audit', headers={'Authorization': f'token {token}', 'Accept': 'application/vnd.github+json'})
+            urllib.request.urlopen(branch_req, timeout=30).read()
+        except Exception:
+            head_req = urllib.request.Request(f'https://api.github.com/repos/{repo}/git/ref/heads/main', headers={'Authorization': f'token {token}', 'Accept': 'application/vnd.github+json'})
+            try:
+                with urllib.request.urlopen(head_req, timeout=30) as response:
+                    head = json.loads(response.read().decode())['object']['sha']
+                body = json.dumps({'ref': 'refs/heads/pdp-audit', 'sha': head}).encode()
+                req = urllib.request.Request(f'https://api.github.com/repos/{repo}/git/refs', data=body, method='POST', headers={'Authorization': f'token {token}', 'Accept': 'application/vnd.github+json'})
+                urllib.request.urlopen(req, timeout=30).read()
+            except Exception:
+                pass
+        pdp_payload = json.dumps({'created_at': report['created_at'], 'views': report.get('views', {}), 'pdp': report['pdp']}, ensure_ascii=False, indent=1).encode()
+        upsert('results.json', pdp_payload, 'PDP live audit (auto)')
+        for label in ('desktop', 'mobile'):
+            shot = SHOT_DIR / f'pdp-{label}-top.png'
+            if shot.exists():
+                upsert(f'pdp-{label}-top.png', shot.read_bytes(), f'PDP {label} screenshot (auto)')
+    except Exception as error:
+        print(f'pdp-branch publish failed: {type(error).__name__}: {error}')
+
+_publish_pdp_branch()
 if not report['ok']: raise SystemExit(1)
 ````
 
