@@ -3,19 +3,27 @@ const $=(s,r=document)=>r.querySelector(s);
 const $$=(s,r=document)=>Array.from(r.querySelectorAll(s));
 /* gallery */
 function gallery(){
- const main=$('#alpMain');if(!main)return;
- const badge=$('.alp-badge-shot b');
- $$('.alp-thumbs button').forEach(btn=>{
-  btn.addEventListener('click',()=>{
-   $$('.alp-thumbs button').forEach(b=>b.classList.remove('is-on'));
-   btn.classList.add('is-on');
-   main.src=btn.dataset.src||main.src;
-   const lb=$('[data-lb]');if(lb)lb.querySelector('img').src=btn.dataset.src||main.src;
-   if(badge&&btn.dataset.label)badge.textContent=btn.dataset.label;
-  const cap=$('[data-gal-label]');if(cap&&btn.dataset.label)cap.textContent=btn.dataset.label;
-   const wrap=main.closest('.alp-gallery');if(wrap)wrap.dataset.label=btn.dataset.label||'';
-  });
- });
+ const stage=$('#alpMain');if(!stage)return;
+ const thumbs=$$('.alp-thumbs button');if(!thumbs.length)return;
+ const num=$('[data-gal-num]'),lab=$('[data-gal-label]');
+ const fa=v=>String(v).replace(/\d/g,x=>'۰۱۲۳۴۵۶۷۸۹'[x]);
+ let idx=0;
+ const show=i=>{
+  idx=(i+thumbs.length)%thumbs.length;
+  const t=thumbs[idx];if(!t)return;
+  thumbs.forEach(b=>b.classList.remove('is-on'));t.classList.add('is-on');
+  const src=t.dataset.src||stage.getAttribute('src');
+  if(src&&src!==stage.getAttribute('src')){
+   stage.classList.add('is-changing');
+   setTimeout(()=>{stage.setAttribute('src',src);stage.classList.remove('is-changing')},170);
+  }
+  const lb=document.querySelector('[data-lb] img');if(lb)lb.setAttribute('src',src||'');
+  if(num)num.textContent=fa(idx+1);
+  if(lab&&t.dataset.label)lab.textContent=t.dataset.label;
+ };
+ thumbs.forEach((t,i)=>t.addEventListener('click',()=>show(i)));
+ $$('[data-gal-prev]').forEach(b=>b.addEventListener('click',()=>show(idx-1)));
+ $$('[data-gal-next]').forEach(b=>b.addEventListener('click',()=>show(idx+1)));
 }
 /* lightbox */
 function lightbox(){

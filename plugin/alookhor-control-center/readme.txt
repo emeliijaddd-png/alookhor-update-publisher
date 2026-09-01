@@ -4,7 +4,7 @@ Tags: control center, luxury, alookhor, admin, dashboard
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 3.10.193
+Stable tag: 3.10.194
 License: Private
 License URI: https://alookhor.ir
 
@@ -46,6 +46,10 @@ License URI: https://alookhor.ir
 در `config/site.json` و `wp_options: alookhor_cc_settings` — همان حافظه واقعی که در چت قبلی ویرایش می‌شد.
 
 == Changelog ==
+
+= 3.10.194 =
+
+* بهبود: بازسازی بخش هیرو صفحه محصول (گالری و پنل خرید) مطابق کد مرجع مالک — صحنهٔ شیشه‌ای ۶۵۰px با لبهٔ نئونی، درخشش و انعکاس محصول، فلش و شمارندهٔ گالری، پنل خرید با هایلایت‌های آیکونی و نوار قیمت جدید؛ رنگ‌بندی بنفش.
 
 = 3.10.193 =
 

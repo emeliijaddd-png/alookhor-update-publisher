@@ -163,60 +163,75 @@ function alookhor_cc_pdp_markup(){
 
   <div class="alp-hero">
    <div class="alp-info">
-    <?php if($d['first_cat']['name']):?><span class="alp-cat-badge"><?php echo alookhor_cc_pdp_icon('leaf');?><b><?php echo esc_html($d['first_cat']['name']);?></b></span><?php endif;?>
+    <span class="alp-info-glow" aria-hidden="true"></span>
+    <div class="alp-topmeta">
+     <?php if($d['first_cat']['name']):?><span class="alp-cat-badge"><?php echo alookhor_cc_pdp_icon('leaf');?><b><?php echo esc_html($d['first_cat']['name']);?></b></span><?php endif;?>
+     <div class="alp-qacts">
+      <button type="button" class="alp-qact" data-wish data-tooltip="علاقه‌مندی" aria-label="افزودن به علاقه‌مندی"><?php echo alookhor_cc_pdp_icon('heart');?></button>
+      <button type="button" class="alp-qact" data-share data-tooltip="اشتراک‌گذاری" data-name="<?php echo esc_attr($d['name']);?>" data-url="<?php echo esc_url(get_permalink($d['id']));?>" aria-label="اشتراک‌گذاری"><?php echo alookhor_cc_pdp_icon('share');?></button>
+     </div>
+    </div>
     <h1><?php echo alookhor_cc_pdp_gold($d['name']);?></h1>
+    <p class="alp-sub"><?php if($d['short']):?><?php echo esc_html(wp_strip_all_tags($d['short']));?><?php else:?><?php echo esc_html($d['name']);?> از آلوهای منتخب خراسان تهیه و پس از انتخاب، فرآوری و کنترل کیفیت، با بسته‌بندی مناسب مصرف خانگی و هدیه عرضه می‌شود.<?php endif;?></p>
     <div class="alp-rate">
      <?php if($d['reviews']>0):?>
-      <span class="alp-stars"><?php echo $stars(5);?></span><b><?php echo esc_html(number_format_i18n($d['rating'],1));?></b>
+      <span class="alp-stars"><?php for($i=1;$i<=5;$i++)echo alookhor_cc_pdp_icon('star');?></span><b><?php echo esc_html(number_format_i18n($d['rating'],1));?></b>
       <a href="#alookhor-reviews"><?php echo esc_html(number_format_i18n($d['reviews']));?> دیدگاه</a>
      <?php else:?>
-      <span class="alp-stars alp-stars-off"><?php echo $stars(5,false);?></span>
+      <span class="alp-stars alp-stars-off"><?php for($i=1;$i<=5;$i++)echo alookhor_cc_pdp_icon('star');?></span>
       <a href="#alookhor-reviews">اولین دیدگاه را شما ثبت کنید</a>
      <?php endif;?>
     </div>
-    <p class="alp-sub"><?php if($d['short']):?><?php echo esc_html(wp_strip_all_tags($d['short']));?><?php else:?><?php echo esc_html($d['name']);?> از آلوهای منتخب خراسان تهیه و پس از انتخاب، فرآوری و کنترل کیفیت، با بسته‌بندی مناسب مصرف خانگی و هدیه عرضه می‌شود.<?php endif;?></p>
-    <ul class="alp-feats"><?php foreach($d['feats'] as $f):?><li><?php echo alookhor_cc_pdp_icon('check');?><span><?php echo esc_html($f[1]);?></span></li><?php endforeach;?></ul>
-
+    <ul class="alp-feats"><?php foreach(array_slice($d['feats'],0,4) as $f):?><li><?php echo alookhor_cc_pdp_icon($f[0]);?><span><?php echo esc_html($f[1]);?></span></li><?php endforeach;?></ul>
     <div class="alp-price">
-     <span class="alp-price-t">قیمت نهایی</span>
-     <div class="alp-price-row">
+     <div class="alp-price-w">
+      <?php if($d['on_sale']&&$d['regular']>0&&$d['price']>0):?><s class="alp-old"><?php echo wp_kses_post(wc_price($d['regular']));?></s><?php endif;?>
       <b class="alp-price-now" data-single="<?php echo esc_attr(wp_strip_all_tags($d['price_html']));?>"><?php echo wp_kses_post($d['price_html']);?></b>
-      <?php if($d['on_sale']&&$d['regular']>0&&$d['price']>0):?><s><?php echo wp_kses_post(wc_price($d['regular']));?></s><em class="alp-off-b">٪<?php echo esc_html(number_format_i18n($d['discount']));?> تخفیف</em><?php endif;?>
+      <small>هزینه ارسال در مرحله سفارش محاسبه می‌شود</small>
      </div>
-     <small>هزینه ارسال در مرحله سفارش محاسبه می‌شود</small>
+     <?php if($d['discount']>0):?><em class="alp-off-b">٪<?php echo esc_html(number_format_i18n($d['discount']));?> تخفیف</em><?php endif;?>
     </div>
-
     <div class="alp-pick">
-     <span class="alp-pick-t">وزن محصول</span>
+     <div class="alp-pick-h"><strong>وزن محصول</strong><span>با تغییر وزن، قیمت به‌روز می‌شود</span></div>
      <div class="alp-weights" role="radiogroup" aria-label="انتخاب وزن"><?php foreach($d['options'] as $oi=>$o):?><button type="button" role="radio" aria-checked="<?php echo $oi===0?'true':'false';?>" class="<?php echo $oi===0?'is-on':'';?>" data-vid="<?php echo esc_attr($o['id']);?>" data-price="<?php echo esc_attr($o['price_html']);?>"><?php echo esc_html($o['label']);?></button><?php endforeach;?></div>
     </div>
-
-    <p class="alp-stock alp-stock-<?php echo esc_attr($d['stock']);?>"><?php if($d['stock']==='in'):?><i></i><b>موجود در انبار</b><span>آماده ارسال</span><?php elseif($d['stock']==='low'):?><i></i><b>موجودی محدود</b><span>تعداد باقی‌مانده اندک است</span><?php else:?><i></i><b>ناموجود</b><span>برای زمان تأمین با پشتیبانی در تماس باشید</span><?php endif;?></p>
-
+    <div class="alp-stockrow">
+     <p class="alp-stock alp-stock-<?php echo esc_attr($d['stock']);?>"><?php if($d['stock']==='in'):?><i></i><b>موجود در انبار</b><span>آماده ارسال</span><?php elseif($d['stock']==='low'):?><i></i><b>موجودی محدود</b><span>تعداد باقی‌مانده اندک است</span><?php else:?><i></i><b>ناموجود</b><span>با پشتیبانی در تماس باشید</span><?php endif;?></p>
+     <span class="alp-ship-note">ارسال از انبار آلوخور</span>
+    </div>
     <?php if($d['purchasable']&&$d['stock']!=='out'):?>
     <div class="alp-buy">
      <span class="alp-qty"><button type="button" data-q="-" aria-label="کاهش تعداد"><?php echo alookhor_cc_pdp_icon('minus');?></button><b id="alpQty">1</b><button type="button" data-q="+" aria-label="افزایش تعداد"><?php echo alookhor_cc_pdp_icon('plus');?></button></span>
      <a class="alp-cta" id="alpAdd" href="<?php echo esc_url($d['add_url']);?>" data-base="<?php echo esc_attr($d['add_url']);?>"><?php echo alookhor_cc_pdp_icon('bag');?><span>افزودن به سبد خرید</span></a>
     </div>
-    <button type="button" class="alp-mini" data-wish><?php echo alookhor_cc_pdp_icon('heart');?><span>افزودن به علاقه‌مندی‌ها</span></button>
     <p class="alp-assure"><?php echo alookhor_cc_pdp_icon('shield');?><span>خرید شما با ضمانت اصالت و سلامت محصول انجام می‌شود.</span></p>
+    <div class="alp-after">
+     <a class="alp-sec" href="#alp-specs"><?php echo alookhor_cc_pdp_icon('sort');?><span>مشخصات محصول</span></a>
+     <a class="alp-sec" href="#alp-qa"><?php echo alookhor_cc_pdp_icon('chat');?><span>سوالات متداول</span></a>
+    </div>
     <?php endif;?>
    </div>
 
-   <figure class="alp-gallery" data-label="<?php echo esc_attr($main_slide['label']);?>">
+   <figure class="alp-gallery">
+    <span class="alp-amb1" aria-hidden="true"></span><span class="alp-amb2" aria-hidden="true"></span>
     <div class="alp-stage">
-     <img id="alpMain" src="<?php echo esc_url($main_slide['src']);?>" alt="<?php echo esc_attr($d['name']);?>">
-     <span class="alp-frame" aria-hidden="true"></span>
-     <?php if($d['on_sale']):?><span class="alp-flag"><?php echo alookhor_cc_pdp_icon('gem');?><b>پیشنهاد ویژه</b></span><?php elseif($d['featured']):?><span class="alp-flag"><?php echo alookhor_cc_pdp_icon('star');?><b>محصول منتخب</b></span><?php endif;?>
+     <span class="alp-ncorner-t" aria-hidden="true"></span><span class="alp-ncorner-b" aria-hidden="true"></span>
+     <span class="alp-pglow" aria-hidden="true"></span>
+     <div class="alp-stage-in"><img id="alpMain" src="<?php echo esc_url($main_slide['src']);?>" alt="<?php echo esc_attr($d['name']);?>"></div>
+     <span class="alp-reflect" aria-hidden="true"></span>
+     <?php if($d['on_sale']):?><span class="alp-flag"><i class="alp-dot" aria-hidden="true"></i><b>پیشنهاد ویژه</b></span><?php elseif($d['featured']):?><span class="alp-flag"><i class="alp-dot" aria-hidden="true"></i><b>محصول منتخب</b></span><?php endif;?>
      <?php if($d['discount']>0):?><span class="alp-off">٪<?php echo esc_html(number_format_i18n($d['discount']));?>−</span><?php endif;?>
-     <span class="alp-badge-shot"><?php echo alookhor_cc_pdp_icon('camera');?><b><?php echo esc_html($main_slide['label']);?></b></span>
      <span class="alp-float">
-      <button type="button" data-wish aria-label="افزودن به علاقه‌مندی"><?php echo alookhor_cc_pdp_icon('heart');?></button>
-      <button type="button" data-zoom aria-label="مشاهده بزرگ‌تر"><?php echo alookhor_cc_pdp_icon('zoom');?></button>
+      <button type="button" data-wish data-tooltip="علاقه‌مندی" aria-label="افزودن به علاقه‌مندی"><?php echo alookhor_cc_pdp_icon('heart');?></button>
+      <button type="button" data-zoom data-tooltip="مشاهده بزرگ‌تر" aria-label="مشاهده بزرگ‌تر"><?php echo alookhor_cc_pdp_icon('zoom');?></button>
      </span>
     </div>
-    <div class="alp-thumbs" role="tablist" aria-label="گالری تصاویر محصول"><?php foreach($d['slides'] as $si=>$s):?><button type="button" role="tab" class="<?php echo $si===0?'is-on':'';?>" data-src="<?php echo esc_url($s['src']);?>" data-label="<?php echo esc_attr($s['label']);?>" aria-label="<?php echo esc_attr($s['label']);?>"><img src="<?php echo esc_url($s['src']);?>" alt="<?php echo esc_attr($s['label']);?>" loading="lazy"></button><?php endforeach;?></div>
-    <figcaption class="alp-gal-cap"><span data-gal-label><?php echo esc_html($main_slide['label']);?></span></figcaption>
+    <div class="alp-gal-bottom">
+     <button type="button" class="alp-garrow" data-gal-prev aria-label="تصویر قبلی">‹</button>
+     <div class="alp-thumbs" role="tablist" aria-label="گالری تصاویر محصول"><?php foreach($d['slides'] as $si=>$s):?><button type="button" role="tab" class="<?php echo $si===0?'is-on':'';?>" data-src="<?php echo esc_url($s['src']);?>" data-label="<?php echo esc_attr($s['label']);?>" aria-label="<?php echo esc_attr($s['label']);?>"><img src="<?php echo esc_url($s['src']);?>" alt="<?php echo esc_attr($s['label']);?>" loading="lazy"></button><?php endforeach;?></div>
+     <button type="button" class="alp-garrow" data-gal-next aria-label="تصویر بعدی">›</button>
+    </div>
+    <figcaption class="alp-gcount"><b data-gal-num>۱</b><i aria-hidden="true"></i><span data-gal-label><?php echo esc_html($main_slide['label']);?></span></figcaption>
    </figure>
   </div>
 
@@ -240,7 +255,7 @@ function alookhor_cc_pdp_markup(){
   </section>
 
   <div class="alp-cols">
-   <section class="alp-specs">
+   <section class="alp-specs" id="alp-specs">
     <h2>مشخصات محصول</h2>
     <table><tbody><?php foreach($d['specs'] as $s):?><tr><th><?php echo esc_html($s[0]);?></th><td><?php echo esc_html($s[1]);?></td></tr><?php endforeach;?></tbody></table>
    </section>
@@ -279,7 +294,7 @@ function alookhor_cc_pdp_markup(){
    </div>
   </section>
 
-  <section class="alp-qa">
+  <section class="alp-qa" id="alp-qa">
    <h2>سوالات متداول</h2>
    <?php foreach($d['faqs'] as $f):?><div class="alp-acc" data-acc><button type="button" class="alp-acc-t" data-acc-t><b><?php echo esc_html($f['q']);?></b><?php echo alookhor_cc_pdp_icon('chev');?></button><div class="alp-acc-b"><p><?php echo esc_html($f['a']);?></p></div></div><?php endforeach;?>
   </section>

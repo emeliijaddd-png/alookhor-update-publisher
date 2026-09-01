@@ -275,3 +275,113 @@ body.alookhor-pdp-body .page-title,body.alookhor-pdp-body .entry-title,body.aloo
 }
 @media(prefers-reduced-motion:reduce){.alookhor-alp *{animation:none!important;transition:none!important}}
 .alookhor-alp :focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:6px}
+
+/* =========================================================
+   v3.10.194 — PRODUCT HERO rebuilt per owner reference code, in PURPLE (not white)
+   ========================================================= */
+.alookhor-alp .alp-hero{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);gap:30px;align-items:start;padding:6px 0 56px}
+/* — gallery (left column) — */
+.alookhor-alp .alp-gallery{position:relative;margin:0;min-width:0}
+.alookhor-alp .alp-amb1,.alookhor-alp .alp-amb2{position:absolute;border-radius:50%;filter:blur(55px);pointer-events:none;z-index:0}
+.alookhor-alp .alp-amb1{width:240px;height:240px;background:rgba(123,63,160,.35);top:100px;right:-80px}
+.alookhor-alp .alp-amb2{width:180px;height:180px;background:rgba(212,175,55,.22);bottom:80px;left:-50px}
+.alookhor-alp .alp-stage{height:650px;position:relative;overflow:hidden;border-radius:32px;background:linear-gradient(145deg,rgba(255,255,255,.09),rgba(255,255,255,.035));border:1px solid rgba(255,255,255,.16);box-shadow:0 25px 70px rgba(8,2,14,.5),inset 0 1px 0 rgba(255,255,255,.12);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);z-index:2}
+.alookhor-alp .alp-stage:before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;background:linear-gradient(135deg,rgba(212,175,55,.6),transparent 22%,transparent 72%,rgba(123,63,160,.6));-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;z-index:10}
+.alookhor-alp .alp-ncorner-t,.alookhor-alp .alp-ncorner-b{position:absolute;width:100px;height:100px;pointer-events:none}
+.alookhor-alp .alp-ncorner-t{top:0;left:0;border-top:1px solid rgba(123,63,160,.85);border-left:1px solid rgba(123,63,160,.85);border-top-left-radius:32px;box-shadow:-5px -5px 25px rgba(123,63,160,.25)}
+.alookhor-alp .alp-ncorner-b{bottom:0;right:0;border-bottom:1px solid rgba(212,175,55,.75);border-right:1px solid rgba(212,175,55,.75);border-bottom-right-radius:32px;box-shadow:5px 5px 25px rgba(212,175,55,.14)}
+.alookhor-alp .alp-pglow{position:absolute;width:55%;aspect-ratio:1;border-radius:50%;top:50%;left:50%;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(212,175,55,.2),rgba(123,63,160,.12) 42%,transparent 70%);filter:blur(8px);pointer-events:none}
+.alookhor-alp .alp-stage-in{position:absolute;inset:45px 30px 25px;display:flex;align-items:center;justify-content:center}
+.alookhor-alp .alp-stage img{position:relative;z-index:4;width:82%;height:82%;min-height:0;object-fit:contain;filter:drop-shadow(0 30px 30px rgba(5,1,10,.55));transition:transform .55s cubic-bezier(.2,.8,.2,1),opacity .18s ease}
+.alookhor-alp .alp-stage:hover .alp-stage-in img{transform:scale(1.035) translateY(-5px)}
+.alookhor-alp .alp-stage img.is-changing{opacity:0;transform:scale(.97)}
+.alookhor-alp .alp-reflect{position:absolute;bottom:30px;left:20%;right:20%;height:30px;background:radial-gradient(ellipse,rgba(3,0,6,.5),transparent 70%);filter:blur(12px);z-index:2;pointer-events:none}
+.alookhor-alp .alp-flag{top:22px;right:22px;gap:5px}
+.alookhor-alp .alp-dot{width:6px;height:6px;display:inline-block;border-radius:50%;background:var(--gold,#D4AF37);box-shadow:0 0 10px rgba(212,175,55,.8)}
+.alookhor-alp .alp-off{top:70px;left:22px}
+.alookhor-alp .alp-float{top:22px;bottom:auto;left:20px;flex-direction:column;gap:9px;z-index:20}
+.alookhor-alp .alp-float button{position:relative;width:44px;height:44px;border-radius:14px;border:1px solid rgba(255,255,255,.22);background:rgba(20,8,30,.66);color:var(--gold-2,#E8C766);backdrop-filter:blur(14px);cursor:pointer;display:grid;place-items:center;box-shadow:0 8px 25px rgba(5,1,10,.45);transition:.25s ease}
+.alookhor-alp .alp-float button:hover{transform:translateY(-2px);color:#D4AF37;border-color:rgba(212,175,55,.6)}
+.alookhor-alp .alp-float button::after{content:attr(data-tooltip);position:absolute;left:54px;white-space:nowrap;padding:6px 10px;border-radius:8px;color:#F6F1E9;background:rgba(20,8,30,.96);border:1px solid rgba(212,175,55,.35);font-size:10px;opacity:0;pointer-events:none;transform:translateX(-5px);transition:.2s}
+.alookhor-alp .alp-float button:hover::after{opacity:1;transform:translateX(0)}
+.alookhor-alp .alp-gal-bottom{position:relative;display:flex;align-items:center;justify-content:center;gap:12px;margin-top:15px}
+.alookhor-alp .alp-garrow{flex:0 0 38px;width:38px;height:38px;display:grid;place-items:center;border-radius:12px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.07);color:#EDE6F5;font-size:22px;line-height:1;cursor:pointer;backdrop-filter:blur(10px);transition:.2s}
+.alookhor-alp .alp-garrow:hover{color:#D4AF37;border-color:rgba(212,175,55,.55)}
+.alookhor-alp .alp-thumbs{display:flex;gap:10px;overflow-x:auto;scrollbar-width:none;margin:0}
+.alookhor-alp .alp-thumbs::-webkit-scrollbar{display:none}
+.alookhor-alp .alp-thumbs button{flex:0 0 82px;width:82px;height:82px;padding:4px;border-radius:17px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.06);backdrop-filter:blur(12px);cursor:pointer;opacity:.8;transition:.25s ease}
+.alookhor-alp .alp-thumbs button img{border-radius:12px}
+.alookhor-alp .alp-thumbs button:hover{transform:translateY(-3px);opacity:1}
+.alookhor-alp .alp-thumbs button.is-on{border:1.5px solid #D4AF37;opacity:1;box-shadow:0 8px 25px rgba(212,175,55,.2)}
+.alookhor-alp .alp-gcount{margin-top:10px;display:flex;align-items:center;justify-content:center;gap:8px;color:#A99BC0;font-size:11px}
+.alookhor-alp .alp-gcount b{color:#D4AF37;font-weight:800}
+.alookhor-alp .alp-gcount i{width:35px;height:1px;background:rgba(212,175,55,.35)}
+/* — info panel (right column) — */
+.alookhor-alp .alp-info{position:relative;padding:30px;border-radius:30px;background:linear-gradient(145deg,rgba(255,255,255,.085),rgba(255,255,255,.04));border:1px solid rgba(255,255,255,.15);box-shadow:0 25px 70px rgba(8,2,14,.42),inset 0 1px 0 rgba(255,255,255,.1);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);overflow:hidden}
+.alookhor-alp .alp-info-glow{position:absolute;width:180px;height:180px;top:-90px;left:-70px;border-radius:50%;background:rgba(123,63,160,.22);filter:blur(40px);pointer-events:none}
+.alookhor-alp .alp-topmeta{display:flex;align-items:center;justify-content:space-between;gap:15px}
+.alookhor-alp .alp-qacts{display:flex;gap:7px}
+.alookhor-alp .alp-qact{width:38px;height:38px;display:grid;place-items:center;border-radius:12px;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.06);color:#EDE6F5;cursor:pointer;transition:.25s ease}
+.alookhor-alp .alp-qact:hover,.alookhor-alp .alp-qact.is-on{color:#D4AF37;border-color:rgba(212,175,55,.6);background:rgba(212,175,55,.1)}
+.alookhor-alp .alp-info h1{letter-spacing:-.7px}
+.alookhor-alp .alp-feats{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin:20px 0 6px}
+.alookhor-alp .alp-feats li{min-height:72px;flex-direction:column;justify-content:center;align-items:center;gap:7px;padding:8px;text-align:center;border-radius:14px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.05);transition:.25s ease}
+.alookhor-alp .alp-feats li:hover{transform:translateY(-2px);border-color:rgba(212,175,55,.4)}
+.alookhor-alp .alp-feats svg{width:21px;height:21px;color:#D4AF37}
+.alookhor-alp .alp-feats span{font-size:9.5px;color:#C6BAD4;line-height:1.7}
+.alookhor-alp .alp-price{display:flex;align-items:center;justify-content:space-between;padding:18px 0;margin:14px 0 4px;border-radius:0;background:none;border-top:1px solid rgba(255,255,255,.12);border-bottom:1px solid rgba(255,255,255,.12);box-shadow:none}
+.alookhor-alp .alp-price:before{display:none}
+.alookhor-alp .alp-price-w{display:flex;flex-direction:column;gap:3px}
+.alookhor-alp .alp-old{color:#A99BC0;font-size:12.5px}
+.alookhor-alp .alp-price-now{font-size:clamp(26px,2.6vw,35px);font-weight:900;letter-spacing:-1px;color:#E8C766}
+.alookhor-alp .alp-price small{margin-top:4px;color:#A99BC0;font-size:10.5px}
+.alookhor-alp .alp-off-b{align-self:center}
+.alookhor-alp .alp-pick{margin-top:18px}
+.alookhor-alp .alp-pick-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.alookhor-alp .alp-pick-h strong{color:#E8C766;font-size:12.5px}
+.alookhor-alp .alp-pick-h span{color:#A99BC0;font-size:10.5px}
+.alookhor-alp .alp-weights{display:grid;grid-template-columns:repeat(auto-fit,minmax(96px,1fr));gap:7px}
+.alookhor-alp .alp-weights button{min-height:58px;padding:10px 8px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;border-radius:12px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.05);color:#E4DBEF;font-size:11px}
+.alookhor-alp .alp-weights button.is-on{border:1.5px solid #D4AF37;background:rgba(212,175,55,.12);box-shadow:0 7px 22px rgba(212,175,55,.14);color:#E8C766}
+.alookhor-alp .alp-stockrow{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:16px 0 0}
+.alookhor-alp .alp-stock{margin:0}
+.alookhor-alp .alp-ship-note{color:#D4AF37;font-size:10.5px;font-weight:700}
+.alookhor-alp .alp-buy{display:grid;grid-template-columns:105px 1fr;gap:10px;margin-top:16px}
+.alookhor-alp .alp-qty{height:58px;display:grid;grid-template-columns:32px 1fr 32px;align-items:center;text-align:center;border-radius:15px;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.06)}
+.alookhor-alp .alp-qty button{width:auto;height:auto}
+.alookhor-alp .alp-qty b{font-size:14px}
+.alookhor-alp .alp-cta{min-height:58px;height:58px;background:linear-gradient(135deg,#D4AF37,#E6C65B)}
+.alookhor-alp .alp-assure{justify-content:center;margin-top:13px!important;font-size:9.5px!important}
+.alookhor-alp .alp-after{display:flex;gap:8px;margin-top:15px}
+.alookhor-alp .alp-sec{flex:1;min-height:42px;display:inline-flex;align-items:center;justify-content:center;gap:7px;border:1px solid rgba(255,255,255,.15);border-radius:12px;background:rgba(255,255,255,.045);color:#C6BAD4;font-size:10.5px;font-weight:700;text-decoration:none!important;transition:.25s ease}
+.alookhor-alp .alp-sec:hover{color:#D4AF37;border-color:rgba(212,175,55,.5);background:rgba(212,175,55,.07)}
+.alookhor-alp .alp-sec svg{width:15px;height:15px}
+/* hero responsive */
+@media(max-width:1100px){
+ .alookhor-alp .alp-hero{grid-template-columns:1fr}
+ .alookhor-alp .alp-gallery,.alookhor-alp .alp-info{max-width:850px;width:100%;margin:0 auto}
+ .alookhor-alp .alp-gallery{order:-1}
+}
+@media(max-width:650px){
+ .alookhor-alp .alp-stage{height:430px;border-radius:24px}
+ .alookhor-alp .alp-stage-in{inset:45px 15px 15px}
+ .alookhor-alp .alp-stage img{width:90%;height:88%}
+ .alookhor-alp .alp-float button{width:40px;height:40px;border-radius:12px}
+ .alookhor-alp .alp-flag{top:15px;right:15px}
+ .alookhor-alp .alp-off{top:60px;left:15px}
+ .alookhor-alp .alp-thumbs button{flex-basis:67px;width:67px;height:67px}
+ .alookhor-alp .alp-garrow{display:none}
+ .alookhor-alp .alp-info{padding:22px 16px;border-radius:24px}
+ .alookhor-alp .alp-info h1{font-size:27px!important}
+ .alookhor-alp .alp-feats{grid-template-columns:repeat(2,1fr)}
+ .alookhor-alp .alp-weights{grid-template-columns:repeat(3,1fr)}
+ .alookhor-alp .alp-buy{grid-template-columns:88px 1fr}
+ .alookhor-alp .alp-cta{font-size:12px}
+ .alookhor-alp .alp-after{flex-direction:column}
+}
+@media(max-width:390px){
+ .alookhor-alp .alp-stage{height:390px}
+ .alookhor-alp .alp-info h1{font-size:24px!important}
+ .alookhor-alp .alp-price-now{font-size:30px}
+ .alookhor-alp .alp-weights{grid-template-columns:repeat(2,1fr)}
+}
