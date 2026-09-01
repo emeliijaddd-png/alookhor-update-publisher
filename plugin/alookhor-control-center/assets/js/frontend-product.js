@@ -12,6 +12,7 @@ function gallery(){
    main.src=btn.dataset.src||main.src;
    const lb=$('[data-lb]');if(lb)lb.querySelector('img').src=btn.dataset.src||main.src;
    if(badge&&btn.dataset.label)badge.textContent=btn.dataset.label;
+  const cap=$('[data-gal-label]');if(cap&&btn.dataset.label)cap.textContent=btn.dataset.label;
    const wrap=main.closest('.alp-gallery');if(wrap)wrap.dataset.label=btn.dataset.label||'';
   });
  });

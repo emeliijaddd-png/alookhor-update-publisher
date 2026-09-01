@@ -24,6 +24,7 @@ function alookhor_cc_pdp_icon($name){
   'sort'=>'<path d="M4 7h16M6 12h12M9 17h6"/>',
   'sun'=>'<circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.5 4.5l2.1 2.1M17.4 17.4l2.1 2.1M19.5 4.5l-2.1 2.1M6.6 17.4l-2.1 2.1"/>',
   'camera'=>'<path d="M4 8h3l2-3h6l2 3h3v12H4z"/><circle cx="12" cy="13" r="3.5"/>',
+  'phone'=>'<path d="M6.6 2.8 9.4 2c.6-.2 1.2.1 1.4.7L12 5.9c.2.5 0 1-.4 1.3L10 8.4c.9 1.9 2.5 3.5 4.4 4.4l1.2-1.6c.3-.4.8-.6 1.3-.4l3.2 1.2c.6.2.9.8.7 1.4l-.8 2.8c-.2.6-.7 1-1.4 1C10 17.2 4.8 11.9 4.8 4.2c0-.7.4-1.2 1.1-1.4Z"/>',
   'bag'=>'<path d="M6 8h12l-1 13H7L6 8Zm3 0V6a3 3 0 0 1 6 0v2"/>',
   'sprout'=>'<path d="M12 21v-8"/><path d="M12 13c0-4-3-6-8-6 0 5 3 7 8 6Z"/><path d="M12 13c0-4 3-6 8-6 0 5-3 7-8 6Z"/>',
  ];
@@ -123,7 +124,7 @@ function alookhor_cc_pdp_data($product){
   'rating_counts'=>[5=>(int)$product->get_rating_count(5),4=>(int)$product->get_rating_count(4),3=>(int)$product->get_rating_count(3),2=>(int)$product->get_rating_count(2),1=>(int)$product->get_rating_count(1)],
   'short'=>$product->get_short_description()?:'','cats'=>$cats,'first_cat'=>$first_cat,
   'slides'=>$slides,'options'=>$options,'related'=>$related,'reviews_list'=>$reviews,
-  'add_url'=>$product->add_to_cart_url(),'purchasable'=>$product->is_purchasable(),
+  'add_url'=>$product->add_to_cart_url(),'purchasable'=>$product->is_purchasable(),'featured'=>$product->is_featured(),
   'faqs'=>$faqs,'specs'=>$specs,'feats'=>$feats,'why'=>$why,'dried'=>$dried,
  ];
 }
@@ -206,6 +207,7 @@ function alookhor_cc_pdp_markup(){
     <div class="alp-stage">
      <img id="alpMain" src="<?php echo esc_url($main_slide['src']);?>" alt="<?php echo esc_attr($d['name']);?>">
      <span class="alp-frame" aria-hidden="true"></span>
+     <?php if($d['on_sale']):?><span class="alp-flag"><?php echo alookhor_cc_pdp_icon('gem');?><b>پیشنهاد ویژه</b></span><?php elseif($d['featured']):?><span class="alp-flag"><?php echo alookhor_cc_pdp_icon('star');?><b>محصول منتخب</b></span><?php endif;?>
      <?php if($d['discount']>0):?><span class="alp-off">٪<?php echo esc_html(number_format_i18n($d['discount']));?>−</span><?php endif;?>
      <span class="alp-badge-shot"><?php echo alookhor_cc_pdp_icon('camera');?><b><?php echo esc_html($main_slide['label']);?></b></span>
      <span class="alp-float">
@@ -214,6 +216,7 @@ function alookhor_cc_pdp_markup(){
      </span>
     </div>
     <div class="alp-thumbs" role="tablist" aria-label="گالری تصاویر محصول"><?php foreach($d['slides'] as $si=>$s):?><button type="button" role="tab" class="<?php echo $si===0?'is-on':'';?>" data-src="<?php echo esc_url($s['src']);?>" data-label="<?php echo esc_attr($s['label']);?>" aria-label="<?php echo esc_attr($s['label']);?>"><img src="<?php echo esc_url($s['src']);?>" alt="<?php echo esc_attr($s['label']);?>" loading="lazy"></button><?php endforeach;?></div>
+    <figcaption class="alp-gal-cap"><span data-gal-label><?php echo esc_html($main_slide['label']);?></span></figcaption>
    </figure>
   </div>
 
@@ -221,7 +224,7 @@ function alookhor_cc_pdp_markup(){
    <li><?php echo alookhor_cc_pdp_icon('truck');?><b>ارسال سریع</b><span>ارسال به سراسر کشور</span></li>
    <li><?php echo alookhor_cc_pdp_icon('shield');?><b>ضمانت کیفیت</b><span>تضمین کیفیت محصول</span></li>
    <li><?php echo alookhor_cc_pdp_icon('box');?><b>بسته‌بندی مطمئن</b><span>بسته‌بندی استاندارد</span></li>
-   <li><?php echo alookhor_cc_pdp_icon('chat');?><b>پشتیبانی</b><span>پاسخ‌گویی قبل و بعد از خرید</span></li>
+   <li><?php echo alookhor_cc_pdp_icon('phone');?><b>پشتیبانی</b><span>پاسخ‌گویی قبل و بعد از خرید</span></li>
   </ul>
 
   <section class="alp-story">

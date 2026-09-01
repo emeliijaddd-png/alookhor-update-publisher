@@ -17,8 +17,8 @@
 .alp-kicker{color:var(--gold);font:800 11px Arial,Helvetica,sans-serif;letter-spacing:4px}
 .alp-btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:48px;padding:12px 26px;border-radius:15px;font-weight:800;font-size:13.5px;text-decoration:none!important;cursor:pointer;transition:transform .2s,box-shadow .25s,background .25s,border-color .25s}
 .alp-btn:hover{transform:translateY(-1px)}
-.alp-btn-gold{border:0;background:linear-gradient(135deg,var(--gold-2),var(--gold));color:var(--purple-deep)!important;box-shadow:0 14px 30px var(--gold-glow)}
-.alp-btn-gold:hover{box-shadow:0 18px 38px rgba(212,175,55,.32)}
+.alp-btn-gold{border:0;background:#D4AF37;color:var(--purple-deep)!important;box-shadow:0 14px 30px var(--gold-glow)}
+.alp-btn-gold:hover{background:#E3C15C;box-shadow:0 18px 38px rgba(212,175,55,.32)}
 .alp-btn-ghost{border:1px solid rgba(36,16,47,.14);background:var(--glass-strong);color:var(--ink)!important;backdrop-filter:blur(10px)}
 .alp-btn-line{border:1px solid rgba(212,175,55,.45);background:rgba(255,255,255,.06);color:#fff!important}
 /* breadcrumb */
@@ -43,7 +43,7 @@
 .alp-stars{display:inline-flex;gap:2px;color:var(--gold)}
 .alp-stars svg{width:16px;height:16px}
 .alp-stars-off{color:rgba(36,16,47,.16)}
-.alp-sub{margin:0 0 14px!important;color:#4A4450!important;font-size:14.5px!important;line-height:1.9!important}
+.alp-sub{margin:0 0 14px!important;color:#4A4450!important;font-size:15.5px!important;line-height:1.95!important}
 /* micro features */
 .alp-feats{margin:0 0 16px;padding:0;list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:7px}
 .alp-feats li{display:flex;align-items:center;gap:7px;padding:8px 11px;border-radius:11px;background:var(--glass-strong);border:1px solid rgba(255,255,255,.8);font-size:11.5px;font-weight:700;color:#3D3744}
@@ -80,8 +80,8 @@
 .alp-qty button:hover{background:var(--cream)}
 .alp-qty svg{width:15px;height:15px}
 .alp-qty b{min-width:38px;text-align:center;font-size:16px;font-weight:900}
-.alp-cta{flex:1;display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:58px;border-radius:16px;background:linear-gradient(135deg,var(--gold-2),var(--gold));color:var(--purple-deep)!important;font-weight:900;font-size:15.5px;text-decoration:none!important;box-shadow:0 16px 34px var(--gold-glow);cursor:pointer;transition:transform .2s,box-shadow .25s}
-.alp-cta:hover{transform:translateY(-1px);box-shadow:0 20px 42px rgba(212,175,55,.34)}
+.alp-cta{flex:1;display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:58px;border-radius:16px;background:#D4AF37;color:#24102F!important;font-weight:900;font-size:15.5px;text-decoration:none!important;box-shadow:0 16px 34px var(--gold-glow);cursor:pointer;transition:transform .2s,box-shadow .25s,background .2s}
+.alp-cta:hover{transform:translateY(-1px);background:#E3C15C;box-shadow:0 20px 42px rgba(212,175,55,.38)}
 .alp-cta svg{width:20px;height:20px}
 .alp-mini{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:10px;min-height:44px;border-radius:14px;border:1px solid rgba(36,16,47,.12);background:rgba(255,255,255,.4);color:var(--muted);font-family:inherit;font-size:12.5px;font-weight:700;cursor:pointer;transition:all .2s}
 .alp-mini:hover{border-color:rgba(212,175,55,.55);color:var(--purple-deep)}
@@ -267,3 +267,11 @@ body.alookhor-pdp-body .page-title,body.alookhor-pdp-body .entry-title,body.aloo
 }
 @media(prefers-reduced-motion:reduce){.alookhor-alp *{animation:none!important;transition:none!important}}
 .alookhor-alp :focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:6px}
+
+/* v3.10.191 — premium fidelity pass (owner mockup): glass product badge, gallery caption, exact 4-up rail */
+.alp-flag{position:absolute;top:64px;right:22px;display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:999px;background:rgba(255,255,255,.72);border:1px solid rgba(212,175,55,.55);backdrop-filter:blur(10px);color:#24102F;font-size:11.5px;font-weight:900;box-shadow:0 8px 22px rgba(212,175,55,.28)}
+.alp-flag svg{width:13px;height:13px;color:#D4AF37}
+.alp-gal-cap{margin-top:9px;display:flex;justify-content:center}
+.alp-gal-cap span{padding:5px 16px;border-radius:999px;background:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.85);color:#6E6870;font-size:11px;font-weight:700;backdrop-filter:blur(6px)}
+@media(min-width:1081px){.alp-rail{grid-auto-columns:calc((100% - 42px)/4)}}
+@media(min-width:641px) and (max-width:1080px){.alp-rail{grid-auto-columns:calc((100% - 28px)/3)}}
