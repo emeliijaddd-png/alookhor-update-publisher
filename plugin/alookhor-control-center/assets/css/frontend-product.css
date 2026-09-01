@@ -748,7 +748,7 @@ body.alookhor-pdp-body .page-title,body.alookhor-pdp-body .entry-title,body.aloo
 }
 
 /* =========================================================
-   v3.10.201 — MOBILE PER OWNER MOCKUP #4 (phone screenshot)
+   v3.10.202 — MOBILE PER OWNER MOCKUP #4 (cascade fix: every selector now .alookhor-alp-prefixed so it actually wins over the 194-200 hero rules) (phone screenshot)
    stacked flow like the mockup: header → big photo → 4-thumb row →
    title/rate → fixed price box + weight chips → WIDE GOLD CTA →
    sticky bottom bar (price right / gold CTA left) — all on dark
@@ -756,149 +756,149 @@ body.alookhor-pdp-body .page-title,body.alookhor-pdp-body .entry-title,body.aloo
    ========================================================= */
 @media(max-width:650px){
  /* page + band */
- .alookhor-alp{padding-top:4px}
- .alp-inner{padding:0 12px}
- .alp-hero-band{padding:2px 0 6px}
- .alp-hero{padding:0 0 34px;gap:14px}
- .alp-crumbs{font-size:10.5px;gap:6px;padding:6px 2px 10px;white-space:nowrap;overflow-x:auto;scrollbar-width:none;flex-wrap:nowrap}
- .alp-crumbs::-webkit-scrollbar{display:none}
+.alookhor-alp{padding-top:4px}
+.alookhor-alp .alp-inner{padding:0 12px}
+.alookhor-alp .alp-hero-band{padding:2px 0 6px}
+.alookhor-alp .alp-hero{padding:0 0 34px;gap:14px}
+.alookhor-alp .alp-crumbs{font-size:10.5px;gap:6px;padding:6px 2px 10px;white-space:nowrap;overflow-x:auto;scrollbar-width:none;flex-wrap:nowrap}
+.alookhor-alp .alp-crumbs::-webkit-scrollbar{display:none}
  /* gallery first — photo-dominant */
- .alp-gallery{order:-1}
- .alp-stage{height:clamp(330px,60vw,420px);min-height:330px;border-radius:20px}
- .alp-stage-in{inset:30px 12px 14px}
- .alp-stage img{width:92%;height:88%}
- .alp-pglow{width:72%}
- .alp-ncorner-t,.alp-ncorner-b{width:48px;height:48px}
- .alp-float{top:12px;left:12px;gap:7px}
- .alp-float button{width:38px;height:38px;border-radius:11px}
- .alp-float button::after{display:none}
- .alp-flag{top:12px;right:12px;padding:5px 11px;font-size:10px}
- .alp-off{top:54px;left:12px;padding:5px 12px;font-size:11px}
- .alp-gal-bottom{gap:8px;margin-top:11px}
- .alp-garrow{display:none}
- .alp-thumbs{gap:8px}
- .alp-thumbs button{flex:0 0 64px;width:64px;height:64px;border-radius:14px;padding:3px}
- .alp-gcount{margin-top:8px;font-size:10px;gap:6px}
- .alp-gcount i{width:24px}
+.alookhor-alp .alp-gallery{order:-1}
+.alookhor-alp .alp-stage{height:clamp(330px,60vw,420px);min-height:330px;border-radius:20px}
+.alookhor-alp .alp-stage-in{inset:30px 12px 14px}
+.alookhor-alp .alp-stage img{width:92%;height:88%}
+.alookhor-alp .alp-pglow{width:72%}
+.alookhor-alp .alp-ncorner-t, .alookhor-alp .alp-ncorner-b{width:48px;height:48px}
+.alookhor-alp .alp-float{top:12px;left:12px;gap:7px}
+.alookhor-alp .alp-float button{width:38px;height:38px;border-radius:11px}
+.alookhor-alp .alp-float button::after{display:none}
+.alookhor-alp .alp-flag{top:12px;right:12px;padding:5px 11px;font-size:10px}
+.alookhor-alp .alp-off{top:54px;left:12px;padding:5px 12px;font-size:11px}
+.alookhor-alp .alp-gal-bottom{gap:8px;margin-top:11px}
+.alookhor-alp .alp-garrow{display:none}
+.alookhor-alp .alp-thumbs{gap:8px}
+.alookhor-alp .alp-thumbs button{flex:0 0 64px;width:64px;height:64px;border-radius:14px;padding:3px}
+.alookhor-alp .alp-gcount{margin-top:8px;font-size:10px;gap:6px}
+.alookhor-alp .alp-gcount i{width:24px}
  /* info panel — compact, fixed frames */
- .alp-info{padding:18px 14px 20px;border-radius:22px;min-height:0}
- .alp-topmeta{gap:8px}
- .alp-cat-badge{padding:5px 10px;font-size:10px}
- .alp-qact{width:34px;height:34px;border-radius:10px}
- .alp-info h1{font-size:21px!important;line-height:1.65!important;margin:12px 0 8px!important;overflow-wrap:anywhere}
- .alp-sub{font-size:12.5px!important;line-height:1.95!important;-webkit-line-clamp:3;display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden}
- .alp-rate{gap:7px;margin-bottom:10px;font-size:11.5px}
- .alp-rate b{font-size:16px}
- .alp-stars svg{width:14px;height:14px}
- .alp-feats{grid-template-columns:repeat(2,1fr);gap:6px;margin:14px 0 4px}
- .alp-feats li{min-height:58px;gap:5px;padding:7px 6px;border-radius:12px}
- .alp-feats svg{width:18px;height:18px}
- .alp-feats span{font-size:9px;line-height:1.6}
- .alp-price{min-height:72px;padding:11px 0 9px;margin:12px 0 2px}
- .alp-price-t{font-size:10px;margin-bottom:2px}
- .alp-price-now{font-size:24px;line-height:1.3}
- .alp-old{font-size:11.5px}
- .alp-price small{font-size:9.5px}
- .alp-off-b{padding:3px 10px;font-size:10.5px}
- .alp-pick{margin-top:13px}
- .alp-pick-h{margin-bottom:8px;gap:6px}
- .alp-pick-h strong{font-size:11.5px}
- .alp-pick-h span{font-size:9px}
- .alp-weights{grid-template-columns:repeat(3,1fr);gap:6px}
- .alp-weights button{min-height:52px;font-size:10.5px;border-radius:11px}
- .alp-stockrow{margin-top:12px;gap:8px}
- .alp-stock{font-size:11.5px}
- .alp-stock span{font-size:10px}
- .alp-ship-note{font-size:9px}
+.alookhor-alp .alp-info{padding:18px 14px 20px;border-radius:22px;min-height:0}
+.alookhor-alp .alp-topmeta{gap:8px}
+.alookhor-alp .alp-cat-badge{padding:5px 10px;font-size:10px}
+.alookhor-alp .alp-qact{width:34px;height:34px;border-radius:10px}
+.alookhor-alp .alp-info h1{font-size:21px!important;line-height:1.65!important;margin:12px 0 8px!important;overflow-wrap:anywhere}
+.alookhor-alp .alp-sub{font-size:12.5px!important;line-height:1.95!important;-webkit-line-clamp:3;display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden}
+.alookhor-alp .alp-rate{gap:7px;margin-bottom:10px;font-size:11.5px}
+.alookhor-alp .alp-rate b{font-size:16px}
+.alookhor-alp .alp-stars svg{width:14px;height:14px}
+.alookhor-alp .alp-feats{grid-template-columns:repeat(2,1fr);gap:6px;margin:14px 0 4px}
+.alookhor-alp .alp-feats li{min-height:58px;gap:5px;padding:7px 6px;border-radius:12px}
+.alookhor-alp .alp-feats svg{width:18px;height:18px}
+.alookhor-alp .alp-feats span{font-size:9px;line-height:1.6}
+.alookhor-alp .alp-price{min-height:72px;padding:11px 0 9px;margin:12px 0 2px}
+.alookhor-alp .alp-price-t{font-size:10px;margin-bottom:2px}
+.alookhor-alp .alp-price-now{font-size:24px;line-height:1.3}
+.alookhor-alp .alp-old{font-size:11.5px}
+.alookhor-alp .alp-price small{font-size:9.5px}
+.alookhor-alp .alp-off-b{padding:3px 10px;font-size:10.5px}
+.alookhor-alp .alp-pick{margin-top:13px}
+.alookhor-alp .alp-pick-h{margin-bottom:8px;gap:6px}
+.alookhor-alp .alp-pick-h strong{font-size:11.5px}
+.alookhor-alp .alp-pick-h span{font-size:9px}
+.alookhor-alp .alp-weights{grid-template-columns:repeat(3,1fr);gap:6px}
+.alookhor-alp .alp-weights button{min-height:52px;font-size:10.5px;border-radius:11px}
+.alookhor-alp .alp-stockrow{margin-top:12px;gap:8px}
+.alookhor-alp .alp-stock{font-size:11.5px}
+.alookhor-alp .alp-stock span{font-size:10px}
+.alookhor-alp .alp-ship-note{font-size:9px}
  /* buy — stacked: qty compact + WIDE GOLD CTA (per mockup) */
- .alp-buy{grid-template-columns:1fr;gap:9px;margin-top:14px}
- .alp-qty{height:50px;width:fit-content;min-width:132px;margin:0 auto;grid-template-columns:34px 1fr 34px;border-radius:13px}
- .alp-cta{width:100%;min-height:56px;height:56px;font-size:14.5px;border-radius:15px}
- .alp-cta svg{width:19px;height:19px}
- .alp-assure{margin-top:11px!important;font-size:9px!important}
- .alp-after{margin-top:12px}
- .alp-sec{min-height:40px;font-size:10px;border-radius:11px}
- .alp-sec svg{width:13px;height:13px}
+.alookhor-alp .alp-buy{grid-template-columns:1fr;gap:9px;margin-top:14px}
+.alookhor-alp .alp-qty{height:50px;width:fit-content;min-width:132px;margin:0 auto;grid-template-columns:34px 1fr 34px;border-radius:13px}
+.alookhor-alp .alp-cta{width:100%;min-height:56px;height:56px;font-size:14.5px;border-radius:15px}
+.alookhor-alp .alp-cta svg{width:19px;height:19px}
+.alookhor-alp .alp-assure{margin-top:11px!important;font-size:9px!important}
+.alookhor-alp .alp-after{margin-top:12px}
+.alookhor-alp .alp-sec{min-height:40px;font-size:10px;border-radius:11px}
+.alookhor-alp .alp-sec svg{width:13px;height:13px}
  /* trust */
- .alp-trust{margin:30px 0 36px;grid-template-columns:repeat(2,1fr);gap:8px}
- .alp-trust li{padding:12px 12px;border-radius:16px;gap:9px}
- .alp-trust svg{width:19px;height:19px}
- .alp-trust b{font-size:11.5px}
- .alp-trust span{font-size:9.5px}
+.alookhor-alp .alp-trust{margin:30px 0 36px;grid-template-columns:repeat(2,1fr);gap:8px}
+.alookhor-alp .alp-trust li{padding:12px 12px;border-radius:16px;gap:9px}
+.alookhor-alp .alp-trust svg{width:19px;height:19px}
+.alookhor-alp .alp-trust b{font-size:11.5px}
+.alookhor-alp .alp-trust span{font-size:9.5px}
  /* dark zones */
- .alp-dk{padding:30px 0 36px}
- .alp-dk .alp-shead{flex-wrap:wrap;padding:11px 14px;border-radius:14px;gap:9px}
- .alp-dk .alp-shead h2{font-size:16.5px!important}
- .alp-dk .alp-eyebrow{padding:4px 9px;font-size:9.5px;letter-spacing:1px}
- .alp-dk-sub{margin:0 2px 16px!important;font-size:11px!important}
- .alp-dk .alp-desc-grid{gap:16px}
- .alp-dk .alp-story-img{order:-1}
- .alp-dk .alp-story-img img{min-height:180px;border-radius:18px}
- .alp-dk .alp-desc-body>p{font-size:12.5px!important;line-height:2.05!important}
- .alp-dk .alp-path-inline{gap:5px}
- .alp-dk .alp-path-inline li{padding:6px 10px;font-size:10.5px}
- .alp-dk .alp-path-inline li:not(:last-child):after{margin-right:8px}
- .alp-dk .alp-btn{width:100%;min-height:46px;font-size:12.5px}
- .alp-dk .alp-cols{padding-top:28px;gap:16px}
- .alp-dk .alp-specs,.alp-dk .alp-why{padding:16px 14px;border-radius:18px}
- .alp-dk .alp-specs tr th,.alp-dk .alp-specs tr td{font-size:11.5px;padding:9px 4px}
- .alp-dk .alp-why li{grid-template-columns:38px 1fr;column-gap:10px}
- .alp-dk .alp-why i{width:38px;height:38px;border-radius:12px}
- .alp-dk .alp-why svg{width:17px;height:17px}
- .alp-dk-qa .alp-qa-grid{gap:14px}
- .alp-dk-qa .alp-qa-side{position:static;padding:16px 14px;border-radius:16px}
- .alp-dk-qa .alp-acc-t{padding:13px 12px;font-size:12px;gap:8px}
- .alp-dk-qa .alp-acc-t svg{width:30px;height:30px;border-radius:9px}
- .alp-dk-qa .alp-acc-b>p{margin:0 12px;padding:11px 0 13px;font-size:11.5px;line-height:2.05}
+.alookhor-alp .alp-dk{padding:30px 0 36px}
+.alookhor-alp .alp-dk .alp-shead{flex-wrap:wrap;padding:11px 14px;border-radius:14px;gap:9px}
+.alookhor-alp .alp-dk .alp-shead h2{font-size:16.5px!important}
+.alookhor-alp .alp-dk .alp-eyebrow{padding:4px 9px;font-size:9.5px;letter-spacing:1px}
+.alookhor-alp .alp-dk-sub{margin:0 2px 16px!important;font-size:11px!important}
+.alookhor-alp .alp-dk .alp-desc-grid{gap:16px}
+.alookhor-alp .alp-dk .alp-story-img{order:-1}
+.alookhor-alp .alp-dk .alp-story-img img{min-height:180px;border-radius:18px}
+.alookhor-alp .alp-dk .alp-desc-body>p{font-size:12.5px!important;line-height:2.05!important}
+.alookhor-alp .alp-dk .alp-path-inline{gap:5px}
+.alookhor-alp .alp-dk .alp-path-inline li{padding:6px 10px;font-size:10.5px}
+.alookhor-alp .alp-dk .alp-path-inline li:not(:last-child):after{margin-right:8px}
+.alookhor-alp .alp-dk .alp-btn{width:100%;min-height:46px;font-size:12.5px}
+.alookhor-alp .alp-dk .alp-cols{padding-top:28px;gap:16px}
+.alookhor-alp .alp-dk .alp-specs, .alookhor-alp .alp-dk .alp-why{padding:16px 14px;border-radius:18px}
+.alookhor-alp .alp-dk .alp-specs tr th, .alookhor-alp .alp-dk .alp-specs tr td{font-size:11.5px;padding:9px 4px}
+.alookhor-alp .alp-dk .alp-why li{grid-template-columns:38px 1fr;column-gap:10px}
+.alookhor-alp .alp-dk .alp-why i{width:38px;height:38px;border-radius:12px}
+.alookhor-alp .alp-dk .alp-why svg{width:17px;height:17px}
+.alookhor-alp .alp-dk-qa .alp-qa-grid{gap:14px}
+.alookhor-alp .alp-dk-qa .alp-qa-side{position:static;padding:16px 14px;border-radius:16px}
+.alookhor-alp .alp-dk-qa .alp-acc-t{padding:13px 12px;font-size:12px;gap:8px}
+.alookhor-alp .alp-dk-qa .alp-acc-t svg{width:30px;height:30px;border-radius:9px}
+.alookhor-alp .alp-dk-qa .alp-acc-b>p{margin:0 12px;padding:11px 0 13px;font-size:11.5px;line-height:2.05}
  /* dark rail */
- .alp-dk-rail .alp-rail{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
- .alp-dk-rail .alp-rail-head{padding:11px 13px}
- .alp-dk-rail .alp-rail-head h2{font-size:15.5px!important}
- .alp-dk-rail .alp-all{padding:7px 12px;font-size:10px}
- .alp-dk-rail .alp-card-img{height:118px}
- .alp-dk-rail .alp-card-body{padding:11px 10px;gap:5px}
- .alp-dk-rail .alp-card h3{font-size:11px!important}
- .alp-dk-rail .alp-card-price{font-size:12px}
- .alp-dk-rail .alp-card-add{width:100%;justify-content:center;padding:8px 8px;font-size:10.5px}
- .alp-rail-cta{margin-top:18px}
+.alookhor-alp .alp-dk-rail .alp-rail{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.alookhor-alp .alp-dk-rail .alp-rail-head{padding:11px 13px}
+.alookhor-alp .alp-dk-rail .alp-rail-head h2{font-size:15.5px!important}
+.alookhor-alp .alp-dk-rail .alp-all{padding:7px 12px;font-size:10px}
+.alookhor-alp .alp-dk-rail .alp-card-img{height:118px}
+.alookhor-alp .alp-dk-rail .alp-card-body{padding:11px 10px;gap:5px}
+.alookhor-alp .alp-dk-rail .alp-card h3{font-size:11px!important}
+.alookhor-alp .alp-dk-rail .alp-card-price{font-size:12px}
+.alookhor-alp .alp-dk-rail .alp-card-add{width:100%;justify-content:center;padding:8px 8px;font-size:10.5px}
+.alookhor-alp .alp-rail-cta{margin-top:18px}
  /* reviews */
- .alp-reviews{padding:16px 14px;border-radius:20px;margin-bottom:36px}
- .alp-rev-dash{grid-template-columns:1fr;gap:14px;padding:14px}
- .alp-rev-score{min-width:0;grid-auto-flow:column;justify-content:center;gap:12px;align-items:center}
- .alp-rev-score b{font-size:30px}
- .alp-rev-cat{grid-template-columns:38px 1fr 22px;font-size:10.5px}
- .alp-rev-form form textarea,.alp-rev-form form input[type=text],.alp-rev-form form input[type=email]{font-size:12px}
+.alookhor-alp .alp-reviews{padding:16px 14px;border-radius:20px;margin-bottom:36px}
+.alookhor-alp .alp-rev-dash{grid-template-columns:1fr;gap:14px;padding:14px}
+.alookhor-alp .alp-rev-score{min-width:0;grid-auto-flow:column;justify-content:center;gap:12px;align-items:center}
+.alookhor-alp .alp-rev-score b{font-size:30px}
+.alookhor-alp .alp-rev-cat{grid-template-columns:38px 1fr 22px;font-size:10.5px}
+.alookhor-alp .alp-rev-form form textarea, .alookhor-alp .alp-rev-form form input[type=text], .alookhor-alp .alp-rev-form form input[type=email]{font-size:12px}
  /* bands */
- .alp-band .alp-inner{padding-top:30px;padding-bottom:30px}
- .alp-band h2{font-size:18px!important}
- .alp-band p{font-size:11.5px!important}
- .alp-moment .alp-inner{padding-top:36px;padding-bottom:36px}
- .alp-moment b{font-size:12px;letter-spacing:6px}
- .alp-volume{gap:7px}
- .alp-volume li{padding:8px 14px;font-size:11px}
- .alp-ctas{flex-direction:column;align-items:stretch}
- .alp-ctas .alp-btn{width:100%}
- .alp-final .alp-inner{padding-top:34px;padding-bottom:34px}
+.alookhor-alp .alp-band .alp-inner{padding-top:30px;padding-bottom:30px}
+.alookhor-alp .alp-band h2{font-size:18px!important}
+.alookhor-alp .alp-band p{font-size:11.5px!important}
+.alookhor-alp .alp-moment .alp-inner{padding-top:36px;padding-bottom:36px}
+.alookhor-alp .alp-moment b{font-size:12px;letter-spacing:6px}
+.alookhor-alp .alp-volume{gap:7px}
+.alookhor-alp .alp-volume li{padding:8px 14px;font-size:11px}
+.alookhor-alp .alp-ctas{flex-direction:column;align-items:stretch}
+.alookhor-alp .alp-ctas .alp-btn{width:100%}
+.alookhor-alp .alp-final .alp-inner{padding-top:34px;padding-bottom:34px}
  /* sticky bottom bar — price right, gold CTA left (per mockup) */
- .alp-sticky{min-height:64px;padding:9px 10px calc(9px + env(safe-area-inset-bottom));gap:10px;background:rgba(18,8,30,.96);border-top:1px solid rgba(212,175,55,.5);backdrop-filter:blur(14px)}
- .alp-sticky-p{font-size:13px;max-width:44%}
- .alp-sticky-p del{font-size:9.5px}
- .alp-sticky .alp-cta{flex:1;min-height:46px;height:46px;font-size:12.5px;border-radius:12px}
- body.alookhor-pdp-body{padding-bottom:74px}
+.alookhor-alp .alp-sticky{min-height:64px;padding:9px 10px calc(9px + env(safe-area-inset-bottom));gap:10px;background:rgba(18,8,30,.96);border-top:1px solid rgba(212,175,55,.5);backdrop-filter:blur(14px)}
+.alookhor-alp .alp-sticky-p{font-size:13px;max-width:44%}
+.alookhor-alp .alp-sticky-p del{font-size:9.5px}
+.alookhor-alp .alp-sticky .alp-cta{flex:1;min-height:46px;height:46px;font-size:12.5px;border-radius:12px}
+body.alookhor-pdp-body{padding-bottom:74px}
  /* lightbox */
- .alp-lb button{top:12px;left:12px;width:40px;height:40px}
+.alookhor-alp .alp-lb button{top:12px;left:12px;width:40px;height:40px}
 }
 @media(max-width:390px){
- .alp-stage{height:clamp(300px,72vw,360px);min-height:300px}
- .alp-info h1{font-size:19px!important}
- .alp-price-now{font-size:21px}
- .alp-weights{grid-template-columns:repeat(2,1fr)}
- .alp-feats span{font-size:8.5px}
- .alp-dk-rail .alp-rail{grid-template-columns:1fr}
- .alp-sticky-p{max-width:40%;font-size:12px}
+.alookhor-alp .alp-stage{height:clamp(300px,72vw,360px);min-height:300px}
+.alookhor-alp .alp-info h1{font-size:19px!important}
+.alookhor-alp .alp-price-now{font-size:21px}
+.alookhor-alp .alp-weights{grid-template-columns:repeat(2,1fr)}
+.alookhor-alp .alp-feats span{font-size:8.5px}
+.alookhor-alp .alp-dk-rail .alp-rail{grid-template-columns:1fr}
+.alookhor-alp .alp-sticky-p{max-width:40%;font-size:12px}
 }
 /* hard stop for any residual horizontal overflow on phones */
 @media(max-width:650px){
- .alookhor-alp img{max-width:100%}
- .alookhor-alp .alp-price-now,.alookhor-alp .alp-card-price{overflow-wrap:anywhere}
+.alookhor-alp img{max-width:100%}
+.alookhor-alp .alp-price-now, .alookhor-alp .alp-card-price{overflow-wrap:anywhere}
 }
