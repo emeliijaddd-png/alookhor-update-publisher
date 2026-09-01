@@ -289,7 +289,7 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 | `scripts/generate_code_registry.py` | 293 | `cc820adb6cd74358acfe6eea9bcc5206a2262b91a53e053cc0794c47fec3026a` |
 | `scripts/header_visual_audit.py` | 195 | `cfb3caec7aa5d08adbd3383a7accf02244ba09f866e0801de0fde5d874e144c9` |
 | `scripts/wordpress_access_check.py` | 529 | `8b2d8fa1e2b20ba940d3b13c3e7e62072d5d30bcf8225af8f49ed8cd156cb20f` |
-| `scripts/wordpress_release_test.py` | 658 | `5eabd773b303051d8f4f893ba719598da60fab93a01556d7eb931716bff19459` |
+| `scripts/wordpress_release_test.py` | 673 | `654b232210f008a634c53659e5c30407343233931a162d60b8b3291368654b28` |
 
 # COMPLETE SOURCE SNAPSHOTS
 
@@ -15199,11 +15199,26 @@ def _temp_fetch_reference_image():
         if data[:8] != b'\x89PNG\r\n\x1a\n':
             page = data.decode(errors='replace')
             import re as _re
-            links = _re.findall(r'https://[^\"\'\s>]+\.png[^\"\'\s>]*', page) or _re.findall(r'https://s\d+\.picofile\.com/[^\"\'\s>]+', page)
-            print('ALOOKHOR-REF-LINKS', ' '.join(links[:5])[:400])
-            if links:
-                data = urlopen(Request(links[0], headers=hdr), timeout=120).read()
-                print('ALOOKHOR-REF-HEAD2', data[:80])
+            urls = _re.findall(r'https?:\\?/\\?/[^\s\"\'<>\\]{10,120}', page)
+            uniq = []
+            for u in urls:
+                u2 = u.replace('\\/', '/')
+                if u2 not in uniq: uniq.append(u2)
+            print('ALOOKHOR-REF-URLS', ' | '.join(uniq[:40])[:2400])
+            api = _re.findall(r'/api/[^\s\"\'<>\\]{3,100}', page)
+            apu = []
+            for a in api:
+                a2 = a.replace('\\/', '/')
+                if a2 not in apu: apu.append(a2)
+            print('ALOOKHOR-REF-API', ' | '.join(apu[:30])[:1200])
+            idx = page.find('download')
+            while idx != -1 and idx < len(page):
+                print('ALOOKHOR-REF-DL', page[max(0,idx-60):idx+120].replace('\n',' ')[:190])
+                nxt = page.find('download', idx+700)
+                if nxt == idx: break
+                idx = nxt
+                if idx > 40000: break
+            raise RuntimeError('html page, not image')
         pos = 8; idat = bytearray(); meta = {}
         while pos + 8 <= len(data):
             (ln,) = struct.unpack('>I', data[pos:pos + 4]); typ = data[pos + 4:pos + 8]
