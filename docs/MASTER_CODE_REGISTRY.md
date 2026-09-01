@@ -287,7 +287,7 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 | `plugin/alookhor-control-center/uninstall.php` | 6 | `d69282a9ab7c0865b6c60e6fca272d0859433e9c8730754fb2995295209ff84c` |
 | `scripts/build_release.py` | 113 | `7d54cb088e271f83a724467786b6c72377157df57b73699d12d64f1d3ddcb82a` |
 | `scripts/generate_code_registry.py` | 293 | `cc820adb6cd74358acfe6eea9bcc5206a2262b91a53e053cc0794c47fec3026a` |
-| `scripts/header_visual_audit.py` | 195 | `cfb3caec7aa5d08adbd3383a7accf02244ba09f866e0801de0fde5d874e144c9` |
+| `scripts/header_visual_audit.py` | 269 | `142a40b5af493f69d590586088598f9114238cb800a30c0b021e785ada4013e5` |
 | `scripts/wordpress_access_check.py` | 529 | `8b2d8fa1e2b20ba940d3b13c3e7e62072d5d30bcf8225af8f49ed8cd156cb20f` |
 | `scripts/wordpress_release_test.py` | 499 | `643a4a7488632707af2a15d594fa501b17d6c212549743f54230ebc65881b87f` |
 
@@ -14988,6 +14988,80 @@ try:
     report['ok']=all(v['ok'] for v in report['views'].values())
 except Exception as error:
     report['error']=f'{type(error).__name__}: {error}'
+
+# ---- PDP (product page) audit: informational only, never affects ok ----
+PDP_JS = r"""
+const one=s=>document.querySelector(s);
+const rect=e=>e?Object.fromEntries(['top','bottom','left','width','height'].map(k=>[k,Math.round(e.getBoundingClientRect()[k]*10)/10])):null;
+const akx=one('#akx-header'), mainbar=one('#akx-header .akx-mainbar'), topbar=one('#akx-header .akx-topbar,#akx-header .akx-top-bar');
+const alp=one('.alookhor-alp'), band=one('.alp-hero-band'), gal=one('.alp-gallery'), info=one('.alp-info'), stage=one('.alp-stage');
+const themeHeader=one('.whb-header, header.site-header, header#header');
+let pdpVersion=null; const w=document.createTreeWalker(document.documentElement,NodeFilter.SHOW_COMMENT); let n;
+while((n=w.nextNode())){const m=/ALOOKHOR-PDP\s+v([\d.]+)/.exec(n.nodeValue||''); if(m){pdpVersion=m[1];break;}}
+let cssHref=null; for(const sh of document.styleSheets){ if(sh.href&&sh.href.includes('frontend-product')){cssHref=sh.href;break;} }
+const parts=[akx,topbar,mainbar].filter(Boolean);
+const headerBottom=parts.length?Math.max(...parts.map(e=>e.getBoundingClientRect().bottom)):0;
+const g=(e)=>e?Math.round((e.getBoundingClientRect().top-headerBottom)*10)/10:null;
+return {
+  viewport:{width:innerWidth,height:innerHeight}, pdpVersion,
+  akx:rect(akx), topbar:rect(topbar), mainbar:rect(mainbar), theme_header:rect(themeHeader),
+  mainbar_position:mainbar?getComputedStyle(mainbar).position:null,
+  mainbar_z:mainbar?getComputedStyle(mainbar).zIndex:null,
+  mainbar_stuck:mainbar?mainbar.classList.contains('is-stuck'):null,
+  header_classes:akx?String(akx.className):'',
+  alp:rect(alp), alp_padding_top:alp?getComputedStyle(alp).paddingTop:null,
+  band:rect(band), gallery:rect(gal), info:rect(info), stage:rect(stage),
+  gap_alp_below_header:g(alp), gap_band_below_header:g(band), gap_gallery_below_header:g(gal), gap_info_below_header:g(info),
+  cssHref, scrollY:scrollY, scrollW:document.documentElement.scrollWidth,
+  body_classes:document.body.className
+};
+"""
+
+def pdp_audit(width: int, height: int, label: str) -> dict:
+    import urllib.request
+    options = Options()
+    options.add_argument('--headless=new'); options.add_argument('--no-sandbox'); options.add_argument('--disable-dev-shm-usage')
+    options.add_argument('--disable-gpu'); options.add_argument(f'--window-size={width},{height}')
+    options.add_argument('--hide-scrollbars'); options.add_argument('--force-device-scale-factor=1')
+    driver = webdriver.Chrome(options=options)
+    try:
+        api_version = None; url = f'{BASE}/product/%d8%a7%d9%84%d8%a8%d8%a7%d9%84%d9%88-%d8%ae%d8%b4%da%a9/'
+        try:
+            data = json.loads(urllib.request.urlopen(f'{BASE}/wp-json/alookhor-cc/v1/product', timeout=30).read().decode())
+            api_version = data.get('version'); url = data.get('product', {}).get('url') or url
+        except Exception as error:
+            pass
+        driver.get(url)
+        WebDriverWait(driver, 40).until(lambda d: d.execute_script("return !!document.querySelector('.alookhor-alp')"))
+        time.sleep(4)
+        before = driver.execute_script(PDP_JS)
+        css = {}
+        href = before.get('cssHref')
+        if href:
+            try:
+                fresh = href + ('&' if '?' in href else '?') + 'audit=' + str(int(time.time()))
+                txt = urllib.request.urlopen(fresh, timeout=30).read().decode('utf-8', 'replace')
+                css = {'has_206_breathing_room': 'BREATHING ROOM' in txt,
+                       'has_205_render_fixes': 'RENDER-TESTED FIXES' in txt,
+                       'has_204_flush': 'FLUSH TO MENU' in txt,
+                       'length': len(txt)}
+            except Exception as error:
+                css = {'error': str(error)[:160]}
+        driver.save_screenshot(str(SHOT_DIR / f'pdp-{label}-top.png'))
+        driver.execute_script('window.scrollTo(0, 500)'); time.sleep(1.2)
+        after = driver.execute_script(PDP_JS)
+        driver.save_screenshot(str(SHOT_DIR / f'pdp-{label}-scrolled.png'))
+        return {'label': label, 'api_version': api_version, 'url': url, 'before': before, 'after': after, 'css': css}
+    finally:
+        driver.quit()
+
+report['pdp'] = {}
+for label, width, height in (('desktop', 1614, 900), ('mobile', 390, 844)):
+    try:
+        report['pdp'][label] = pdp_audit(width, height, label)
+    except Exception as error:
+        report['pdp'][label] = {'error': f'{type(error).__name__}: {error}'}
+
 OUT.write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
 print(json.dumps(report,ensure_ascii=False,indent=2))
 if not report['ok']: raise SystemExit(1)
