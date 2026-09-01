@@ -289,7 +289,7 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 | `scripts/generate_code_registry.py` | 293 | `cc820adb6cd74358acfe6eea9bcc5206a2262b91a53e053cc0794c47fec3026a` |
 | `scripts/header_visual_audit.py` | 195 | `cfb3caec7aa5d08adbd3383a7accf02244ba09f866e0801de0fde5d874e144c9` |
 | `scripts/wordpress_access_check.py` | 529 | `8b2d8fa1e2b20ba940d3b13c3e7e62072d5d30bcf8225af8f49ed8cd156cb20f` |
-| `scripts/wordpress_release_test.py` | 582 | `df3caa8319e186653c93426827d1a7bacd1e42288992c86d7f497b6a60f7880e` |
+| `scripts/wordpress_release_test.py` | 547 | `5947379b428140051788d8417112b2cea85f5db65782037b7f517d58e9ecbd11` |
 
 # COMPLETE SOURCE SNAPSHOTS
 
@@ -15141,72 +15141,37 @@ import time
 
 # --- TEMP BLOCK (remove after reference image extraction) --------------------
 def _temp_fetch_reference_image():
-    """One-off: ships the owner reference screenshot back through the publisher
-    status log (tail window ~12k chars): a compact fingerprint + (if it fits)
-    a heavily quantized PNG of the screenshot itself. No effect on checks."""
+    """One-off: ship the owner reference screenshot (quantized PNG, quality
+    ladder) back through the publisher status log tail. No effect on checks."""
     import subprocess
     try:
         url = 'https://up.20script.ir/file/c03a-Screenshot-2026-09-01-133609.png'
         req = Request(url, headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'})
         data = urlopen(req, timeout=90).read()
-
-        def load_image():
-            for cmd in ([sys.executable, '-m', 'pip', 'install', '--quiet', '--break-system-packages', 'pillow'],
-                        [sys.executable, '-m', 'pip', 'install', '--quiet', '--user', 'pillow'],
-                        ['sudo', 'apt-get', 'install', '-y', '-qq', 'python3-pil']):
-                subprocess.run(cmd, check=False, capture_output=True, timeout=300)
-                try:
-                    from PIL import Image
-                    from io import BytesIO
-                    return Image.open(BytesIO(data)).convert('RGB')
-                except Exception:
-                    continue
-            return None
-
-        img = load_image()
+        for cmd in ([sys.executable, '-m', 'pip', 'install', '--quiet', '--break-system-packages', 'pillow'],
+                    [sys.executable, '-m', 'pip', 'install', '--quiet', '--user', 'pillow'],
+                    ['sudo', 'apt-get', 'install', '-y', '-qq', 'python3-pil']):
+            subprocess.run(cmd, check=False, capture_output=True, timeout=300)
+            try:
+                from PIL import Image
+                from io import BytesIO
+                img = Image.open(BytesIO(data)).convert('RGB')
+                break
+            except Exception:
+                img = None
+        if img is None:
+            raise RuntimeError('no PIL')
         W, H = img.size
-        # fingerprint v2 (printed first; survives when thumbnail is skipped)
-        im = img.resize((min(W, 980), max(1, int(H * min(W, 980) / W))))
-        w, h = im.size
-        px = im.load()
-
-        def hexavg(x0, y0, x1, y1):
-            dx = max(1, (x1 - x0) // 110); dy = max(1, (y1 - y0) // 34)
-            n = rs = gs = bs = 0
-            for y in range(y0, y1, dy):
-                for x in range(x0, x1, dx):
-                    r, g, b = px[x, y]; rs += r; gs += g; bs += b; n += 1
-            return '%02X%02X%02X' % (rs // n, gs // n, bs // n) if n else '000000'
-
-        strips = []
-        rows = 300; sh = h / rows
-        for i in range(rows):
-            strips.append(hexavg(0, int(i * sh), w, int((i + 1) * sh) if i < rows - 1 else h))
-        grid = []
-        gr, gc = 64, 16
-        for gy in range(gr):
-            for gx in range(gc):
-                grid.append(hexavg(int(gx * w / gc), int(gy * h / gr),
-                                   int((gx + 1) * w / gc) if gx < gc - 1 else w,
-                                   int((gy + 1) * h / gr) if gy < gr - 1 else h))
-        fp = {'w': W, 'h': H,
-              'strips': ''.join(x + ',' for x in strips).rstrip(','),
-              'grid': ''.join(x + (',' if (i % gc) < gc - 1 else '|') for i, x in enumerate(grid))}
-        blob = __import__('json').dumps(fp, ensure_ascii=False, separators=(',', ':'))
-        parts = [blob[i:i + 2600] for i in range(0, len(blob), 2600)]
-        print('ALOOKHOR-REF-FP-START', len(blob), len(parts))
-        for i, part in enumerate(parts):
-            print('ALOOKHOR-REF-FP %d/%d %s' % (i + 1, len(parts), part))
-        print('ALOOKHOR-REF-FP-END')
-        # quantized thumbnail, printed LAST so the 12k tail keeps it when present
+        print('ALOOKHOR-REF-DIM', W, H)
         from io import BytesIO
         import base64 as _b64
         best = None
-        for colors, width in ((8, W), (6, W), (8, 560), (4, 560), (2, 480)):
+        for colors, width in ((8, 760), (8, 680), (6, 720), (6, 620), (8, 560), (4, 720),
+                              (4, 640), (6, 520), (4, 560), (3, 640), (2, 760), (4, 480), (2, 560), (2, 480)):
             t = img if width >= W else img.resize((width, max(1, int(H * width / W))))
             t = t.quantize(colors=colors)
             buf = BytesIO(); t.save(buf, format='PNG', optimize=True)
-            if len(buf.getvalue()) <= 8400:
+            if len(buf.getvalue()) <= 8600:
                 best = buf.getvalue(); break
         if best:
             b64 = _b64.b64encode(best).decode('ascii')
@@ -15218,7 +15183,7 @@ def _temp_fetch_reference_image():
             print('ALOOKHOR-REF-PNG-SKIPPED too-big')
     except Exception as error:
         print('ALOOKHOR-REF-FAIL', repr(error)[:200])
-# --- END TEMP BLOCK -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# --- END TEMP BLOCK --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ROOT = Path(__file__).resolve().parents[1]
 TARGET = str(json.loads((ROOT / 'release.json').read_text())['version'])
