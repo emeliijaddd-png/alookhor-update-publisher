@@ -289,7 +289,7 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 | `scripts/generate_code_registry.py` | 293 | `cc820adb6cd74358acfe6eea9bcc5206a2262b91a53e053cc0794c47fec3026a` |
 | `scripts/header_visual_audit.py` | 315 | `125cf34405f1decd7e0b53689d70fc89b2e5d9fcc5336e7f2140fc13433c86ba` |
 | `scripts/wordpress_access_check.py` | 529 | `8b2d8fa1e2b20ba940d3b13c3e7e62072d5d30bcf8225af8f49ed8cd156cb20f` |
-| `scripts/wordpress_release_test.py` | 596 | `9da3fd53fc15143bac4ec2f0db349a781bb36d9b422c07a1321d9f3a892c7963` |
+| `scripts/wordpress_release_test.py` | 609 | `0b1a86823f259bc6845e0489bcf403de050610bfc52425aeacf4f76ef0e19f34` |
 
 # COMPLETE SOURCE SNAPSHOTS
 
@@ -15831,8 +15831,21 @@ def _pdp_browser_audit() -> dict:
     result = {'views': {}}
     driver = None
     try:
-        subprocess.run([sys.executable, '-m', 'pip', 'install', '--quiet', 'selenium'],
-                       capture_output=True, timeout=240)
+        try:
+            from selenium import webdriver  # noqa: F401
+        except ImportError:
+            installed = False
+            pip_errors = []
+            for extra in (['--break-system-packages'], ['--user'], []):
+                proc = subprocess.run([sys.executable, '-m', 'pip', 'install', '--quiet'] + extra + ['selenium'],
+                                      capture_output=True, timeout=240)
+                if proc.returncode == 0:
+                    installed = True
+                    break
+                pip_errors.append((extra or ['default'])[0] + ': ' + proc.stderr.decode(errors='replace')[-160:])
+            result['pip'] = 'ok' if installed else {'failed': pip_errors}
+            if not installed:
+                return result
         from selenium import webdriver
         from selenium.webdriver.chrome.options import Options as _Options
         from selenium.webdriver.support.ui import WebDriverWait as _Wait

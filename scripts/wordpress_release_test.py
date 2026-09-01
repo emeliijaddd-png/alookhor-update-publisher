@@ -179,8 +179,21 @@ def _pdp_browser_audit() -> dict:
     result = {'views': {}}
     driver = None
     try:
-        subprocess.run([sys.executable, '-m', 'pip', 'install', '--quiet', 'selenium'],
-                       capture_output=True, timeout=240)
+        try:
+            from selenium import webdriver  # noqa: F401
+        except ImportError:
+            installed = False
+            pip_errors = []
+            for extra in (['--break-system-packages'], ['--user'], []):
+                proc = subprocess.run([sys.executable, '-m', 'pip', 'install', '--quiet'] + extra + ['selenium'],
+                                      capture_output=True, timeout=240)
+                if proc.returncode == 0:
+                    installed = True
+                    break
+                pip_errors.append((extra or ['default'])[0] + ': ' + proc.stderr.decode(errors='replace')[-160:])
+            result['pip'] = 'ok' if installed else {'failed': pip_errors}
+            if not installed:
+                return result
         from selenium import webdriver
         from selenium.webdriver.chrome.options import Options as _Options
         from selenium.webdriver.support.ui import WebDriverWait as _Wait
