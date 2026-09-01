@@ -982,3 +982,12 @@ body.alookhor-pdp-body{padding-bottom:74px}
  .alookhor-alp{padding-top:20px}
  .alookhor-alp .alp-hero{padding:0 0 30px}
 }
+
+/* =========================================================
+   v3.10.207 — MEASURED ON LIVE SITE: theme pulls PDP content
+   ~120px (desktop) / ~70px (mobile) UP under the in-flow header.
+   Calibrated padding so the hero clears the menu with a real gap:
+   desktop band lands 122+30px, mobile 66+20px below menu top edge.
+   ========================================================= */
+.alookhor-alp{padding-top:152px}
+@media(max-width:1023px){.alookhor-alp{padding-top:90px}}

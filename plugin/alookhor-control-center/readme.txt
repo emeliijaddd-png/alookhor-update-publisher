@@ -4,7 +4,7 @@ Tags: control center, luxury, alookhor, admin, dashboard
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 3.10.206
+Stable tag: 3.10.207
 License: Private
 License URI: https://alookhor.ir
 
@@ -46,6 +46,9 @@ License URI: https://alookhor.ir
 در `config/site.json` و `wp_options: alookhor_cc_settings` — همان حافظه واقعی که در چت قبلی ویرایش می‌شد.
 
 == Changelog ==
+
+= 3.10.207 =
+* Fix: live-measured — theme pulls product content under the in-flow header; padding-top now calibrated (152px desktop / 90px mobile) so the photo & info box clear the main menu with a visible gap.
 
 = 3.10.206 =
 * Tweak: restored clear breathing room under the main menu — 32px desktop / 20px mobile (owner feedback; content was flush against the header).
