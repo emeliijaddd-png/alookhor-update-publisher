@@ -385,3 +385,4 @@ body.alookhor-pdp-body .page-title,body.alookhor-pdp-body .entry-title,body.aloo
  .alookhor-alp .alp-price-now{font-size:30px}
  .alookhor-alp .alp-weights{grid-template-columns:repeat(2,1fr)}
 }
+.alookhor-alp .alp-price-t{display:block;color:#A99BC0;font-size:11px}

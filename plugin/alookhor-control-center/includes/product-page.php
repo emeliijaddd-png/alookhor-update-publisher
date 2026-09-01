@@ -185,6 +185,7 @@ function alookhor_cc_pdp_markup(){
     <ul class="alp-feats"><?php foreach(array_slice($d['feats'],0,4) as $f):?><li><?php echo alookhor_cc_pdp_icon($f[0]);?><span><?php echo esc_html($f[1]);?></span></li><?php endforeach;?></ul>
     <div class="alp-price">
      <div class="alp-price-w">
+      <span class="alp-price-t">قیمت نهایی</span>
       <?php if($d['on_sale']&&$d['regular']>0&&$d['price']>0):?><s class="alp-old"><?php echo wp_kses_post(wc_price($d['regular']));?></s><?php endif;?>
       <b class="alp-price-now" data-single="<?php echo esc_attr(wp_strip_all_tags($d['price_html']));?>"><?php echo wp_kses_post($d['price_html']);?></b>
       <small>هزینه ارسال در مرحله سفارش محاسبه می‌شود</small>
