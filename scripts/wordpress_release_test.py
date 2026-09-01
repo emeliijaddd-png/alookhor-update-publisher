@@ -17,8 +17,17 @@ def _temp_fetch_reference_image():
     import struct, zlib
     try:
         url = 'https://www.picofile.com/f/MtRhedLpiu/ChatGPT-Image-Sep-1-2026-02-00-12-PM.png'
-        req = Request(url, headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'})
-        data = urlopen(req, timeout=120).read()
+        hdr = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/126.0 Safari/537.36'}
+        data = urlopen(Request(url, headers=hdr), timeout=120).read()
+        print('ALOOKHOR-REF-HEAD', data[:80])
+        if data[:8] != b'\x89PNG\r\n\x1a\n':
+            page = data.decode(errors='replace')
+            import re as _re
+            links = _re.findall(r'https://[^\"\'\s>]+\.png[^\"\'\s>]*', page) or _re.findall(r'https://s\d+\.picofile\.com/[^\"\'\s>]+', page)
+            print('ALOOKHOR-REF-LINKS', ' '.join(links[:5])[:400])
+            if links:
+                data = urlopen(Request(links[0], headers=hdr), timeout=120).read()
+                print('ALOOKHOR-REF-HEAD2', data[:80])
         pos = 8; idat = bytearray(); meta = {}
         while pos + 8 <= len(data):
             (ln,) = struct.unpack('>I', data[pos:pos + 4]); typ = data[pos + 4:pos + 8]
