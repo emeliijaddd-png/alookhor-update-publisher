@@ -4,7 +4,7 @@ Tags: control center, luxury, alookhor, admin, dashboard
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 3.10.187
+Stable tag: 3.10.188
 License: Private
 License URI: https://alookhor.ir
 
@@ -46,6 +46,10 @@ License URI: https://alookhor.ir
 در `config/site.json` و `wp_options: alookhor_cc_settings` — همان حافظه واقعی که در چت قبلی ویرایش می‌شد.
 
 == Changelog ==
+
+= 3.10.188 =
+
+* اصلاح: صفحه محصول مستقیماً در template_redirect رندر و خاتمه می‌یابد؛ صفحه قدیمی قالب، تکرار محتوا و چسبیدن صفحه جدید بعد از فوتر حذف شد. چک CI حالا وجود مارک‌آپ قالب قدیمی را هم رد می‌کند.
 
 = 3.10.187 =
 

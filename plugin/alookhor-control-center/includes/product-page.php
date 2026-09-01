@@ -1,5 +1,5 @@
 <?php
-/** Luxury glass PDP — v3.10.185: dual-path render (template_include @ PHP_INT_MAX + woocommerce_before_single_product fallback), real WooCommerce data only. */
+/** Luxury glass PDP — v3.10.188: definitive render at template_redirect (+ exit) with template_include fallback; real WooCommerce data only. */
 if(!defined('ABSPATH'))exit;
 
 function alookhor_cc_pdp_icon($name){
@@ -300,24 +300,29 @@ function alookhor_cc_pdp_markup(){
  return ob_get_clean();
 }
 
-/* Path 1 — full template replacement (max priority so theme builders cannot win). */
+/* Guaranteed path — render the ALOOKHOR PDP directly at template_redirect and exit,
+   BEFORE any theme/builder template can load (v3.10.188). No old page, no duplication. */
+add_action('template_redirect',function(){
+ if(($_SERVER['REQUEST_METHOD']??'')==='POST')return;
+ if(isset($_GET['elementor-preview'])||(($_GET['action']??'')==='elementor'))return;
+ if(isset($_GET['add-to-cart'])||isset($_GET['wc-ajax'])||isset($_GET['remove-item']))return;
+ if(!function_exists('is_product')||!is_product()||!function_exists('wc_get_product'))return;
+ $markup=alookhor_cc_pdp_markup();
+ if($markup==='')return;
+ nocache_headers();
+ get_header();
+ echo $markup;
+ get_footer();
+ exit;
+},55);
+
+/* Fallback path — if the direct render above ever gets bypassed, still force our template. */
 add_filter('template_include',function($template){
  if(!function_exists('is_product')||!is_product()||!function_exists('wc_get_product'))return $template;
  if(isset($_GET['elementor-preview'])||(($_GET['action']??'')==='elementor'))return $template;
  if(!file_exists(ALOOKHOR_CC_DIR.'templates/single-product.php'))return $template;
  return ALOOKHOR_CC_DIR.'templates/single-product.php';
 },PHP_INT_MAX);
-
-/* Path 2 — if a theme builder still renders its own product template, inject ours inside it
-   and hide the theme's product innards (never both, guarded by a global flag). */
-add_action('woocommerce_before_single_product',function(){
- if(!function_exists('is_product')||!is_product())return;
- if(isset($_GET['elementor-preview'])||(($_GET['action']??'')==='elementor'))return;
- $markup=alookhor_cc_pdp_markup();
- if($markup==='')return;
- echo '<div id="alp-fallback">'.$markup.'</div>';
- echo '<style id="alp-fallback-css">body.alookhor-pdp-body div.product>*:not(#alp-fallback){display:none!important}body.alookhor-pdp-body .product-tabs-wrapper,body.alookhor-pdp-body .related.products,body.alookhor-pdp-body .upsells,body.alookhor-pdp-body .product_meta{display:none!important}</style>';
-},5);
 
 add_filter('body_class',function($classes){
  if(function_exists('is_product')&&is_product())$classes[]='alookhor-pdp-body';
