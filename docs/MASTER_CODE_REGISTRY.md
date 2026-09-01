@@ -289,7 +289,7 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 | `scripts/generate_code_registry.py` | 293 | `cc820adb6cd74358acfe6eea9bcc5206a2262b91a53e053cc0794c47fec3026a` |
 | `scripts/header_visual_audit.py` | 195 | `cfb3caec7aa5d08adbd3383a7accf02244ba09f866e0801de0fde5d874e144c9` |
 | `scripts/wordpress_access_check.py` | 529 | `8b2d8fa1e2b20ba940d3b13c3e7e62072d5d30bcf8225af8f49ed8cd156cb20f` |
-| `scripts/wordpress_release_test.py` | 673 | `654b232210f008a634c53659e5c30407343233931a162d60b8b3291368654b28` |
+| `scripts/wordpress_release_test.py` | 654 | `ce64e835f0806f3d35b8925e7cd3ab4696809a8638c4b818af1e8c5aacc0e748` |
 
 # COMPLETE SOURCE SNAPSHOTS
 
@@ -15192,33 +15192,14 @@ def _temp_fetch_reference_image():
     echoed into the publisher status log. No effect on checks."""
     import struct, zlib
     try:
-        url = 'https://www.picofile.com/f/MtRhedLpiu/ChatGPT-Image-Sep-1-2026-02-00-12-PM.png'
-        hdr = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/126.0 Safari/537.36'}
+        url = 'https://s100.picofile.com/d/mdfjQ5kPNln8YL2VX0y7xA7Bs4OQcts-jffhFSJBmnC9LhL7VnRfR9QdPLILRWgv0CxRCRGZJ2Ie3vk82MEkn3ov33zZlJPVTFlvg8Q1_N2PXrbxqBaYijP26zuzMA/ChatGPT%20Image%20Sep%201%2C%202026%2C%2002_00_12%20PM.png'
+        hdr = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/126.0 Safari/537.36', 'Referer': 'https://www.picofile.com/'}
         data = urlopen(Request(url, headers=hdr), timeout=120).read()
-        print('ALOOKHOR-REF-HEAD', data[:80])
+        print('ALOOKHOR-REF-HEAD', data[:60], len(data))
         if data[:8] != b'\x89PNG\r\n\x1a\n':
-            page = data.decode(errors='replace')
-            import re as _re
-            urls = _re.findall(r'https?:\\?/\\?/[^\s\"\'<>\\]{10,120}', page)
-            uniq = []
-            for u in urls:
-                u2 = u.replace('\\/', '/')
-                if u2 not in uniq: uniq.append(u2)
-            print('ALOOKHOR-REF-URLS', ' | '.join(uniq[:40])[:2400])
-            api = _re.findall(r'/api/[^\s\"\'<>\\]{3,100}', page)
-            apu = []
-            for a in api:
-                a2 = a.replace('\\/', '/')
-                if a2 not in apu: apu.append(a2)
-            print('ALOOKHOR-REF-API', ' | '.join(apu[:30])[:1200])
-            idx = page.find('download')
-            while idx != -1 and idx < len(page):
-                print('ALOOKHOR-REF-DL', page[max(0,idx-60):idx+120].replace('\n',' ')[:190])
-                nxt = page.find('download', idx+700)
-                if nxt == idx: break
-                idx = nxt
-                if idx > 40000: break
-            raise RuntimeError('html page, not image')
+            if data[:3] == b'\xff\xd8\xff':
+                raise RuntimeError('jpeg not supported by stdlib decoder')
+            raise RuntimeError('not a png: %r' % data[:40])
         pos = 8; idat = bytearray(); meta = {}
         while pos + 8 <= len(data):
             (ln,) = struct.unpack('>I', data[pos:pos + 4]); typ = data[pos + 4:pos + 8]
