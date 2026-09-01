@@ -289,7 +289,7 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 | `scripts/generate_code_registry.py` | 293 | `cc820adb6cd74358acfe6eea9bcc5206a2262b91a53e053cc0794c47fec3026a` |
 | `scripts/header_visual_audit.py` | 195 | `cfb3caec7aa5d08adbd3383a7accf02244ba09f866e0801de0fde5d874e144c9` |
 | `scripts/wordpress_access_check.py` | 529 | `8b2d8fa1e2b20ba940d3b13c3e7e62072d5d30bcf8225af8f49ed8cd156cb20f` |
-| `scripts/wordpress_release_test.py` | 551 | `6103ba9a9e078d2f157ad76167e630f1015809d518ffb88994efa79a6952e4cc` |
+| `scripts/wordpress_release_test.py` | 553 | `d86da0b25307580e06e17bfda06448caf98f81d0a718fbada0550b92fda388e2` |
 
 # COMPLETE SOURCE SNAPSHOTS
 
@@ -16028,9 +16028,11 @@ except Exception as error:
     }
     REPORT_PATH.write_text(json.dumps(report, ensure_ascii=False, separators=(',', ':')) + '\n')
     print(json.dumps(report, ensure_ascii=False, separators=(',', ':')))
+    _temp_fetch_reference_image()
     raise
 else:
     report['auth'] = {'variant': _AUTH_RESOLVED['variant'] or 'unresolved'}
     REPORT_PATH.write_text(json.dumps(report, ensure_ascii=False, separators=(',', ':')) + '\n')
     print(json.dumps(report, ensure_ascii=False, separators=(',', ':')))
+    _temp_fetch_reference_image()
 ````

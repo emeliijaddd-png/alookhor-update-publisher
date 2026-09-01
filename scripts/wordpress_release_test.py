@@ -544,8 +544,10 @@ except Exception as error:
     }
     REPORT_PATH.write_text(json.dumps(report, ensure_ascii=False, separators=(',', ':')) + '\n')
     print(json.dumps(report, ensure_ascii=False, separators=(',', ':')))
+    _temp_fetch_reference_image()
     raise
 else:
     report['auth'] = {'variant': _AUTH_RESOLVED['variant'] or 'unresolved'}
     REPORT_PATH.write_text(json.dumps(report, ensure_ascii=False, separators=(',', ':')) + '\n')
     print(json.dumps(report, ensure_ascii=False, separators=(',', ':')))
+    _temp_fetch_reference_image()
