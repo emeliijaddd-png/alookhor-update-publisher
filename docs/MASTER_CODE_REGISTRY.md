@@ -289,7 +289,7 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 | `scripts/generate_code_registry.py` | 293 | `cc820adb6cd74358acfe6eea9bcc5206a2262b91a53e053cc0794c47fec3026a` |
 | `scripts/header_visual_audit.py` | 315 | `125cf34405f1decd7e0b53689d70fc89b2e5d9fcc5336e7f2140fc13433c86ba` |
 | `scripts/wordpress_access_check.py` | 529 | `8b2d8fa1e2b20ba940d3b13c3e7e62072d5d30bcf8225af8f49ed8cd156cb20f` |
-| `scripts/wordpress_release_test.py` | 609 | `0b1a86823f259bc6845e0489bcf403de050610bfc52425aeacf4f76ef0e19f34` |
+| `scripts/wordpress_release_test.py` | 624 | `b292dd6d4230cb2f5da1f159753b34098cd3bb6cbf899469e650a79dbc9ddbe2` |
 
 # COMPLETE SOURCE SNAPSHOTS
 
@@ -15831,20 +15831,35 @@ def _pdp_browser_audit() -> dict:
     result = {'views': {}}
     driver = None
     try:
+        import importlib
         try:
-            from selenium import webdriver  # noqa: F401
+            importlib.import_module('selenium')
         except ImportError:
-            installed = False
-            pip_errors = []
-            for extra in (['--break-system-packages'], ['--user'], []):
-                proc = subprocess.run([sys.executable, '-m', 'pip', 'install', '--quiet'] + extra + ['selenium'],
-                                      capture_output=True, timeout=240)
-                if proc.returncode == 0:
-                    installed = True
+            deps = '/tmp/pdp_deps'
+            attempts = []
+            ok = False
+            commands = (
+                [sys.executable, '-m', 'pip', 'install', '--quiet', '--target', deps, '--break-system-packages', 'selenium'],
+                [sys.executable, '-m', 'pip', 'install', '--quiet', '--target', deps, 'selenium'],
+                [sys.executable, '-m', 'pip', 'install', '--quiet', '--break-system-packages', 'selenium'],
+            )
+            for cmd in commands:
+                proc = subprocess.run(cmd, capture_output=True, timeout=240)
+                if proc.returncode != 0:
+                    attempts.append(' '.join(cmd[4:]) + ' => rc=' + str(proc.returncode) + ' ' + proc.stderr.decode(errors='replace')[-140:])
+                    continue
+                if '--target' in cmd:
+                    sys.path.insert(0, deps)
+                try:
+                    importlib.import_module('selenium')
+                    ok = True
+                    result['pip'] = 'installed: ' + ' '.join(cmd[4:])
                     break
-                pip_errors.append((extra or ['default'])[0] + ': ' + proc.stderr.decode(errors='replace')[-160:])
-            result['pip'] = 'ok' if installed else {'failed': pip_errors}
-            if not installed:
+                except Exception as import_error:
+                    attempts.append('import-failed-after: ' + ' '.join(cmd[4:]) + ' => ' + str(import_error)[:100])
+            result['pip_debug'] = attempts
+            if not ok:
+                result['pip'] = {'failed': attempts}
                 return result
         from selenium import webdriver
         from selenium.webdriver.chrome.options import Options as _Options

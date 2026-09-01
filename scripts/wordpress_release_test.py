@@ -179,20 +179,35 @@ def _pdp_browser_audit() -> dict:
     result = {'views': {}}
     driver = None
     try:
+        import importlib
         try:
-            from selenium import webdriver  # noqa: F401
+            importlib.import_module('selenium')
         except ImportError:
-            installed = False
-            pip_errors = []
-            for extra in (['--break-system-packages'], ['--user'], []):
-                proc = subprocess.run([sys.executable, '-m', 'pip', 'install', '--quiet'] + extra + ['selenium'],
-                                      capture_output=True, timeout=240)
-                if proc.returncode == 0:
-                    installed = True
+            deps = '/tmp/pdp_deps'
+            attempts = []
+            ok = False
+            commands = (
+                [sys.executable, '-m', 'pip', 'install', '--quiet', '--target', deps, '--break-system-packages', 'selenium'],
+                [sys.executable, '-m', 'pip', 'install', '--quiet', '--target', deps, 'selenium'],
+                [sys.executable, '-m', 'pip', 'install', '--quiet', '--break-system-packages', 'selenium'],
+            )
+            for cmd in commands:
+                proc = subprocess.run(cmd, capture_output=True, timeout=240)
+                if proc.returncode != 0:
+                    attempts.append(' '.join(cmd[4:]) + ' => rc=' + str(proc.returncode) + ' ' + proc.stderr.decode(errors='replace')[-140:])
+                    continue
+                if '--target' in cmd:
+                    sys.path.insert(0, deps)
+                try:
+                    importlib.import_module('selenium')
+                    ok = True
+                    result['pip'] = 'installed: ' + ' '.join(cmd[4:])
                     break
-                pip_errors.append((extra or ['default'])[0] + ': ' + proc.stderr.decode(errors='replace')[-160:])
-            result['pip'] = 'ok' if installed else {'failed': pip_errors}
-            if not installed:
+                except Exception as import_error:
+                    attempts.append('import-failed-after: ' + ' '.join(cmd[4:]) + ' => ' + str(import_error)[:100])
+            result['pip_debug'] = attempts
+            if not ok:
+                result['pip'] = {'failed': attempts}
                 return result
         from selenium import webdriver
         from selenium.webdriver.chrome.options import Options as _Options
