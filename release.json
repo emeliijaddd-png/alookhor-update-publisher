@@ -1,12 +1,17 @@
 {
-  "version": "3.10.195",
-  "previous": "3.10.194",
+  "version": "3.10.196",
+  "previous": "3.10.195",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "برگشت برچسب «قیمت نهایی» در هیروی جدید.",
+  "description": "تم روشن لوکس با پالت رسمی برند + بازسازی توضیحات محصول و سوالات متداول.",
   "changelog": [
+    {
+      "tag": "PDP9",
+      "title": "پالت رسمی برند روی کل صفحه",
+      "desc": "صفحه محصول با پالت رسمی روشن شد: سفید گرم #FCFAF7، متن ذغالی #211D24، بنفش سلطنتی #5B247A، بنفش روشن #8E5AA7، لاوندر #F5EFF8 و اکسنت طلایی #D4AF37؛ هیرو روی صحنهٔ بنفش تیره #24102F ماند."
+    },
     {
       "tag": "FIX",
       "title": "برچسب قیمت نهایی",
@@ -30,7 +35,7 @@
   ],
   "project": "ALOOKHOR",
   "area": "Boutique Header Settings / Admin Menu Cleanup",
-  "reason": "چک انتشار ۱۹۴ به دلیل حذف ناخواستهٔ برچسب «قیمت نهایی» قرمز شد.",
+  "reason": "مالک پالت هفت‌رنگهٔ رسمی را برای کل صفحه فرستاد و بازسازی بخش توضیحات محصول و سوالات متداول را خواست.",
   "files": [
     "docs/MASTER_DESIGN_DIRECTIVE.md",
     "plugin/alookhor-control-center/CHANGELOG.md",

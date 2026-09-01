@@ -83,6 +83,7 @@ function alookhor_cc_pdp_data($product){
  $stock='out';
  if($product->is_in_stock())$stock=$product->managing_stock()&&$product->get_stock_quantity()!==''&&(int)$product->get_stock_quantity()>0&&(int)$product->get_stock_quantity()<=5?'low':'in';
  $dried=false;foreach($cats as $c){if(mb_strpos($c,'خشک')!==false||mb_strpos($c,'برگه')!==false)$dried=true;}
+ $desc_html=trim((string)$product->get_description());
  $specs=[
   ['نوع محصول',$first_cat['name']?:'آلو بخارا'],
   ['منطقه تولید','زبرخان (خور)، خراسان'],
@@ -122,7 +123,7 @@ function alookhor_cc_pdp_data($product){
   'in_stock'=>$product->is_in_stock(),'stock'=>$stock,
   'rating'=>(float)$product->get_average_rating(),'reviews'=>(int)$product->get_review_count(),
   'rating_counts'=>[5=>(int)$product->get_rating_count(5),4=>(int)$product->get_rating_count(4),3=>(int)$product->get_rating_count(3),2=>(int)$product->get_rating_count(2),1=>(int)$product->get_rating_count(1)],
-  'short'=>$product->get_short_description()?:'','cats'=>$cats,'first_cat'=>$first_cat,
+  'short'=>$product->get_short_description()?:'','desc'=>$desc_html?wp_kses_post(wpautop($desc_html)):'','cats'=>$cats,'first_cat'=>$first_cat,
   'slides'=>$slides,'options'=>$options,'related'=>$related,'reviews_list'=>$reviews,
   'add_url'=>$product->add_to_cart_url(),'purchasable'=>$product->is_purchasable(),'featured'=>$product->is_featured(),
   'faqs'=>$faqs,'specs'=>$specs,'feats'=>$feats,'why'=>$why,'dried'=>$dried,
@@ -158,7 +159,7 @@ function alookhor_cc_pdp_markup(){
  $stars=function($n,$active=true){$o='';for($i=1;$i<=5;$i++)$o.=alookhor_cc_pdp_icon('star');return $o;};
  ob_start();?>
 <section id="alookhor-pdp" class="alookhor-alp" dir="rtl" data-cart="<?php echo esc_url($cart);?>" style="--alp-gold:<?php echo esc_attr($gold);?>">
- <div class="alp-inner">
+ <div class="alp-hero-band"><div class="alp-inner">
   <nav class="alp-crumbs" aria-label="مسیر صفحه"><a href="<?php echo esc_url(home_url('/'));?>">خانه</a><i>/</i><a href="<?php echo esc_url($shop);?>">محصولات</a><?php if($d['first_cat']['name']):?><i>/</i><a href="<?php echo esc_url($d['first_cat']['link']);?>"><?php echo esc_html($d['first_cat']['name']);?></a><?php endif;?><i>/</i><span><?php echo esc_html($d['name']);?></span></nav>
 
   <div class="alp-hero">
@@ -235,7 +236,9 @@ function alookhor_cc_pdp_markup(){
     <figcaption class="alp-gcount"><b data-gal-num>۱</b><i aria-hidden="true"></i><span data-gal-label><?php echo esc_html($main_slide['label']);?></span></figcaption>
    </figure>
   </div>
+ </div></div>
 
+ <div class="alp-inner">
   <ul class="alp-trust">
    <li><?php echo alookhor_cc_pdp_icon('truck');?><b>ارسال سریع</b><span>ارسال به سراسر کشور</span></li>
    <li><?php echo alookhor_cc_pdp_icon('shield');?><b>ضمانت کیفیت</b><span>تضمین کیفیت محصول</span></li>
@@ -243,25 +246,30 @@ function alookhor_cc_pdp_markup(){
    <li><?php echo alookhor_cc_pdp_icon('phone');?><b>پشتیبانی</b><span>پاسخ‌گویی قبل و بعد از خرید</span></li>
   </ul>
 
-  <section class="alp-story">
-   <div class="alp-story-body">
-    <span class="alp-kicker">EDITORIAL</span>
-    <h2>درباره <?php echo esc_html($d['name']);?></h2>
-    <p>این محصول از باغ‌های آلو در زبرخانِ خراسان رضوی برداشت می‌شود؛ همان خاکی که آلوخور از آن آموخته است کیفیت آلو را اول از همه درخت تعیین می‌کند و بعد از آن، دقت در انتخاب و فرآوری.</p>
-    <p>پس از برداشت، محصول سورت، آماده‌سازی و در بسته‌بندی بهداشتی بسته می‌شود؛ مناسب مصرف روزانهٔ خانواده، مهمان‌نوازی و هدیه — و در حجم‌های بزرگ‌تر، آمادهٔ سفارش عمده و صادرات.</p>
-    <ol class="alp-path-inline"><li>ایران</li><li>خراسان رضوی</li><li>زبرخان</li><li>آلوخور</li></ol>
-    <a class="alp-btn alp-btn-ghost" href="<?php echo esc_url($about);?>">داستان کامل آلوخور</a>
+  <section class="alp-desc" id="alp-desc">
+   <header class="alp-shead"><span class="alp-eyebrow">معرفی محصول</span><h2>توضیحات محصول</h2></header>
+   <div class="alp-desc-grid">
+    <div class="alp-desc-body">
+     <?php if($d['desc']):?>
+      <?php echo $d['desc'];?>
+     <?php else:?>
+      <p>این محصول از باغ‌های آلو در زبرخانِ خراسان رضوی برداشت می‌شود؛ همان خاکی که آلوخور از آن آموخته است کیفیت آلو را اول از همه درخت تعیین می‌کند و بعد از آن، دقت در انتخاب و فرآوری.</p>
+      <p>پس از برداشت، محصول سورت، آماده‌سازی و در بسته‌بندی بهداشتی بسته می‌شود؛ مناسب مصرف روزانهٔ خانواده، مهمان‌نوازی و هدیه — و در حجم‌های بزرگ‌تر، آمادهٔ سفارش عمده و صادرات.</p>
+     <?php endif;?>
+     <ol class="alp-path-inline"><li>ایران</li><li>خراسان رضوی</li><li>زبرخان</li><li>آلوخور</li></ol>
+     <a class="alp-btn alp-btn-royal" href="<?php echo esc_url($about);?>">داستان کامل آلوخور</a>
+    </div>
+    <figure class="alp-story-img"><img src="<?php echo esc_url($img.'export-banner-bg.jpg');?>" alt="باغ آلو در خراسان" loading="lazy"><figcaption><?php echo alookhor_cc_pdp_icon('leaf');?><span>۱۰۰٪ طبیعی</span></figcaption></figure>
    </div>
-   <figure class="alp-story-img"><img src="<?php echo esc_url($img.'export-banner-bg.jpg');?>" alt="باغ آلو در خراسان" loading="lazy"><figcaption><?php echo alookhor_cc_pdp_icon('leaf');?><span>۱۰۰٪ طبیعی</span></figcaption></figure>
   </section>
 
   <div class="alp-cols">
    <section class="alp-specs" id="alp-specs">
-    <h2>مشخصات محصول</h2>
+    <header class="alp-shead"><span class="alp-eyebrow">جزئیات</span><h2>مشخصات محصول</h2></header>
     <table><tbody><?php foreach($d['specs'] as $s):?><tr><th><?php echo esc_html($s[0]);?></th><td><?php echo esc_html($s[1]);?></td></tr><?php endforeach;?></tbody></table>
    </section>
    <section class="alp-why">
-    <h2>چرا آلوخور؟</h2>
+    <header class="alp-shead"><span class="alp-eyebrow">مزیت‌ها</span><h2>چرا آلوخور؟</h2></header>
     <ul><?php foreach($d['why'] as $w):?><li><i><?php echo alookhor_cc_pdp_icon($w[0]);?></i><b><?php echo esc_html($w[1]);?></b><span><?php echo esc_html($w[2]);?></span></li><?php endforeach;?></ul>
    </section>
   </div>
@@ -274,13 +282,13 @@ function alookhor_cc_pdp_markup(){
  <div class="alp-inner">
   <?php if($d['related']):?>
   <section class="alp-rail-sec">
-   <h2>محصولات پیشنهادی برای شما</h2>
+   <header class="alp-shead"><span class="alp-eyebrow">پیشنهاد آلوخور</span><h2>محصولات پیشنهادی برای شما</h2></header>
    <div class="alp-rail"><?php foreach($d['related'] as $rid)echo alookhor_cc_pdp_card($rid);?></div>
   </section>
   <?php endif;?>
 
   <section class="alp-reviews" id="alookhor-reviews">
-   <h2>نظر مشتریان آلوخور</h2>
+   <header class="alp-shead"><span class="alp-eyebrow">تجربهٔ مشتریان</span><h2>نظر مشتریان آلوخور</h2></header>
    <?php if($d['reviews']>0):?>
     <div class="alp-rev-dash">
      <div class="alp-rev-score"><b><?php echo esc_html(number_format_i18n($d['rating'],1));?></b><span class="alp-stars"><?php echo $stars(5);?></span><small><?php echo esc_html(number_format_i18n($d['reviews']));?> دیدگاه</small><em><?php echo esc_html(number_format_i18n($d['rating'],1));?> از ۵</em></div>
@@ -296,8 +304,16 @@ function alookhor_cc_pdp_markup(){
   </section>
 
   <section class="alp-qa" id="alp-qa">
-   <h2>سوالات متداول</h2>
-   <?php foreach($d['faqs'] as $f):?><div class="alp-acc" data-acc><button type="button" class="alp-acc-t" data-acc-t><b><?php echo esc_html($f['q']);?></b><?php echo alookhor_cc_pdp_icon('chev');?></button><div class="alp-acc-b"><p><?php echo esc_html($f['a']);?></p></div></div><?php endforeach;?>
+   <div class="alp-qa-grid">
+    <aside class="alp-qa-side">
+     <header class="alp-shead"><span class="alp-eyebrow">پرسش و پاسخ</span><h2>سوالات متداول</h2></header>
+     <p>پاسخ پرتکرارترین پرسش‌ها دربارهٔ خرید، ارسال و نگهداری محصول آلوخور این‌جا جمع شده است.</p>
+     <a class="alp-btn alp-btn-royal" href="<?php echo esc_url($contact);?>">تماس با پشتیبانی</a>
+    </aside>
+    <div class="alp-qa-list">
+     <?php foreach($d['faqs'] as $f):?><div class="alp-acc" data-acc><button type="button" class="alp-acc-t" data-acc-t><b><?php echo esc_html($f['q']);?></b><?php echo alookhor_cc_pdp_icon('chev');?></button><div class="alp-acc-b"><p><?php echo esc_html($f['a']);?></p></div></div><?php endforeach;?>
+    </div>
+   </div>
   </section>
  </div>
 

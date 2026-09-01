@@ -386,3 +386,120 @@ body.alookhor-pdp-body .page-title,body.alookhor-pdp-body .entry-title,body.aloo
  .alookhor-alp .alp-weights{grid-template-columns:repeat(2,1fr)}
 }
 .alookhor-alp .alp-price-t{display:block;color:#A99BC0;font-size:11px}
+
+/* =========================================================
+   v3.10.196 — LIGHT LUXURY THEME (owner palette)
+   Warm White #FCFAF7 page · Dark Charcoal #211D24 text ·
+   Royal Purple #5B247A primary · Soft Purple #8E5AA7 ·
+   Lavender #F5EFF8 surfaces · Gold #D4AF37 accents ·
+   hero stays on Deep Purple #24102F stage
+   ========================================================= */
+.alookhor-alp{
+ --text:#211D24;--muted:#5E5470;--soft:#6E6284;
+ --line:rgba(91,36,122,.14);--glass:#FFFFFF;--glass-strong:#FFFFFF;--glass-purple:rgba(91,36,122,.06);
+ --gold-glow:rgba(212,175,55,.16);
+ background:#FCFAF7;color:#211D24}
+.alookhor-alp:before{background:radial-gradient(38rem 24rem at 88% -4%,rgba(142,90,167,.08),transparent 60%),radial-gradient(30rem 20rem at 4% 12%,rgba(212,175,55,.06),transparent 62%),radial-gradient(44rem 30rem at 50% 108%,rgba(91,36,122,.07),transparent 60%)}
+.alookhor-alp:after{opacity:.03}
+.alookhor-alp :focus-visible{outline-color:#5B247A}
+/* ——— hero keeps its deep-purple stage ——— */
+.alp-hero-band{position:relative;padding:4px 0 8px;background:linear-gradient(168deg,#24102F 0%,#2A1240 52%,#1F0D2E 100%);color:#F6F1E9;
+ --text:#F6F1E9;--muted:#C6BAD4;--soft:#A99BC0;--line:rgba(255,255,255,.13);--glass:rgba(255,255,255,.055);--glass-strong:rgba(255,255,255,.09);--glass-purple:rgba(91,36,122,.16)}
+.alp-hero-band:before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(38rem 24rem at 88% -4%,rgba(125,70,180,.28),transparent 60%),radial-gradient(30rem 20rem at 4% 12%,rgba(212,175,55,.16),transparent 62%)}
+.alp-hero-band:after{content:"";position:absolute;right:0;left:0;bottom:0;height:1px;background:linear-gradient(90deg,transparent,rgba(212,175,55,.5),transparent);pointer-events:none}
+.alp-hero-band .alp-inner{position:relative;z-index:1}
+/* ——— shared section head ——— */
+.alp-shead{margin:0 0 18px}
+.alp-eyebrow{display:inline-flex;align-items:center;gap:8px;color:#8E5AA7;font-size:11px;font-weight:800;letter-spacing:3px}
+.alp-eyebrow:before{content:"";width:22px;height:2px;border-radius:2px;background:linear-gradient(90deg,#D4AF37,rgba(212,175,55,.25))}
+.alookhor-alp .alp-shead h2{position:relative;margin:6px 0 0!important;padding:0 0 12px!important;color:#211D24!important;font-size:clamp(20px,2.3vw,27px)!important;font-weight:900!important;line-height:1.6!important}
+.alookhor-alp .alp-shead h2:after{content:"";position:absolute;right:0;bottom:0;width:46px;height:3px;border-radius:3px;background:linear-gradient(90deg,#D4AF37,#8E5AA7)}
+/* ——— trust ——— */
+.alp-trust{margin:44px 0 52px}
+.alp-trust li{background:#FFFFFF;border:1px solid rgba(91,36,122,.12);box-shadow:0 10px 26px rgba(91,36,122,.07);backdrop-filter:none}
+.alp-trust li:hover{border-color:rgba(212,175,55,.55);box-shadow:0 16px 34px rgba(91,36,122,.12)}
+.alp-trust b{color:#211D24}
+.alp-trust span{color:#6E6284}
+/* ——— توضیحات محصول ——— */
+.alp-desc{padding:6px 0 56px}
+.alp-desc-grid{display:grid;grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr);gap:34px;align-items:start}
+.alp-desc-body>p{margin:0 0 14px!important;color:#4A4157!important;font-size:14px!important;line-height:2.1!important}
+.alp-desc-body>p:first-of-type{color:#211D24!important;font-size:15.5px!important}
+.alp-desc-body h2,.alp-desc-body h3{margin:20px 0 10px!important;color:#211D24!important;font-weight:900!important}
+.alp-desc-body ul,.alp-desc-body ol{margin:0 0 14px;padding:0 22px 0 0}
+.alp-desc-body ul li,.alp-desc-body ol li{color:#4A4157;font-size:14px;line-height:2.1}
+.alp-desc-body img{max-width:100%;height:auto;border-radius:16px}
+.alp-desc-body .alp-path-inline{margin:4px 0 20px}
+.alp-path-inline li{background:#F5EFF8;border:1px solid rgba(91,36,122,.18);color:#5B247A}
+.alp-path-inline li:not(:last-child):after{color:#D4AF37}
+.alp-story-img img{border:1px solid rgba(91,36,122,.16);box-shadow:0 24px 54px rgba(91,36,122,.14)}
+.alp-btn-royal{border:0;background:linear-gradient(135deg,#5B247A,#8E5AA7);color:#fff!important;box-shadow:0 12px 26px rgba(91,36,122,.24)}
+.alp-btn-royal:hover{box-shadow:0 16px 32px rgba(91,36,122,.34)}
+.alp-btn-ghost{border:1px solid rgba(91,36,122,.3);background:#fff;color:#5B247A!important;backdrop-filter:none}
+.alp-btn-ghost:hover{border-color:#5B247A;background:#F5EFF8}
+/* ——— مشخصات + چرا آلوخور ——— */
+.alp-cols{gap:26px;padding-bottom:56px}
+.alp-specs,.alp-why{background:#FFFFFF;border:1px solid rgba(91,36,122,.12);box-shadow:0 14px 36px rgba(91,36,122,.07);backdrop-filter:none}
+.alp-specs tr th,.alp-specs tr td{border-bottom:1px solid rgba(91,36,122,.09)}
+.alp-specs tbody tr:nth-child(even){background:rgba(245,239,248,.55)}
+.alp-specs th{color:#6E6284}
+.alp-specs td{color:#211D24}
+.alp-why:before{background:radial-gradient(circle,rgba(142,90,167,.12),transparent 65%)}
+.alp-why i{background:#F5EFF8;border:1px solid rgba(91,36,122,.16)}
+.alp-why b{color:#211D24}
+.alp-why span{color:#6E6284}
+/* ——— کارت محصولات پیشنهادی ——— */
+.alp-card{background:#FFFFFF;border:1px solid rgba(91,36,122,.12);box-shadow:0 10px 26px rgba(91,36,122,.07);backdrop-filter:none}
+.alp-card:hover{border-color:rgba(212,175,55,.6);box-shadow:0 18px 38px rgba(91,36,122,.13)}
+.alp-card-img{background:#F5EFF8}
+.alp-card h3 a{color:#211D24!important}
+.alp-card-rate{color:#B08A1E}
+.alp-card-rate small{color:#6E6284}
+.alp-card-price{color:#5B247A}
+.alp-card-price del{color:#8A7D9E}
+.alp-card-add{border:1px solid rgba(91,36,122,.4);color:#5B247A!important}
+.alp-card-add:hover{background:#5B247A;color:#fff!important}
+.alp-card:hover .alp-card-add svg{color:#fff}
+/* ——— دیدگاه‌ها ——— */
+.alp-reviews{background:#FFFFFF;border:1px solid rgba(91,36,122,.12);box-shadow:0 14px 36px rgba(91,36,122,.07);backdrop-filter:none;margin-bottom:56px}
+.alp-rev-dash{background:#F5EFF8;border:1px solid rgba(91,36,122,.12)}
+.alp-rev-score b{color:#5B247A}
+.alp-rev-cat{color:#6E6284}
+.alp-rev-cat i{background:rgba(91,36,122,.12)}
+.alp-rev-cat b{background:linear-gradient(90deg,#8E5AA7,#5B247A)}
+.alp-rev-card{background:#FCFAF7;border:1px solid rgba(91,36,122,.1)}
+.alp-rev-card header b{color:#5B247A}
+.alp-rev-card p{color:#4A4157!important}
+.alp-rev-form form textarea,.alp-rev-form form input[type=text],.alp-rev-form form input[type=email]{border-color:rgba(91,36,122,.18);background:#FCFAF7;color:#211D24}
+.alp-rev-form form p.form-submit .submit{background:#5B247A;color:#fff}
+.alp-rev-form form p.form-submit .submit:hover{background:#8E5AA7}
+.alp-rev-empty{color:#5E5470}
+/* ——— سوالات متداول ——— */
+.alp-qa{display:block;padding-bottom:56px}
+.alp-qa-grid{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:30px;align-items:start}
+.alp-qa-side{position:sticky;top:96px;padding:26px;border-radius:24px;background:#F5EFF8;border:1px solid rgba(91,36,122,.14)}
+.alp-qa-side .alp-shead{margin-bottom:12px}
+.alp-qa-side>p{margin:0 0 18px!important;color:#5E5470!important;font-size:13px!important;line-height:2!important}
+.alp-qa-list{display:grid;gap:10px}
+.alp-acc{background:#FFFFFF;border:1px solid rgba(91,36,122,.12);box-shadow:0 8px 22px rgba(91,36,122,.05);backdrop-filter:none}
+.alp-acc:has(.alp-acc-t.is-open){border-color:rgba(91,36,122,.45);box-shadow:0 0 0 3px rgba(91,36,122,.08),0 14px 30px rgba(91,36,122,.1)}
+.alp-acc-t{color:#211D24}
+.alp-acc-t svg{width:34px;height:34px;padding:8px;border-radius:11px;background:#F5EFF8;color:#5B247A;transition:transform .3s,background .25s,color .25s}
+.alp-acc-t.is-open>svg:last-child{transform:rotate(180deg);background:#5B247A;color:#fff}
+.alp-acc-b>p{margin:0 18px;padding:14px 0 16px;color:#4A4157;border-top:1px dashed rgba(91,36,122,.14)}
+/* ——— بنرهای تمام‌عرض بنفش تیره ——— */
+.alp-band{background:linear-gradient(160deg,#24102F,#33164E 55%,#1F0D2E)}
+.alp-rail-sec{padding-bottom:52px}
+/* responsive — light theme */
+@media(max-width:920px){
+ .alp-desc-grid{grid-template-columns:1fr;gap:24px}
+ .alp-qa-grid{grid-template-columns:1fr;gap:18px}
+ .alp-qa-side{position:static}
+}
+@media(max-width:640px){
+ .alp-trust{margin-top:34px}
+ .alp-desc{padding-bottom:40px}
+ .alp-qa-side{padding:20px}
+ .alp-acc-t{padding:14px}
+ .alp-acc-t svg{width:30px;height:30px;padding:7px}
+}
