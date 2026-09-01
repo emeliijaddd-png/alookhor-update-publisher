@@ -902,3 +902,35 @@ body.alookhor-pdp-body{padding-bottom:74px}
 .alookhor-alp img{max-width:100%}
 .alookhor-alp .alp-price-now, .alookhor-alp .alp-card-price{overflow-wrap:anywhere}
 }
+
+/* =========================================================
+   v3.10.203 — TIGHT TO MENU + EQUAL-HEIGHT COLUMNS (owner feedback)
+   1) much less vertical gap between the main menu and the hero
+   2) gallery stage becomes flex-elastic so the photo column and the
+      info column are ALWAYS equal height with aligned tops/bottoms
+      (whichever column is taller, the other stretches to match)
+   3) mobile: breadcrumbs hidden, zero top padding — photo sits right
+      under the menu; gallery stays first (order:-1)
+   ========================================================= */
+.alookhor-alp{padding-top:6px}
+.alookhor-alp .alp-crumbs{padding:8px 4px 10px}
+.alookhor-alp .alp-hero-band{padding:0 0 4px}
+.alookhor-alp .alp-hero{padding:4px 0 48px}
+.alookhor-alp .alp-gallery{display:flex;flex-direction:column}
+.alookhor-alp .alp-stage{height:auto;flex:1 1 auto;min-height:650px}
+.alookhor-alp .alp-gal-bottom{margin-top:14px}
+.alookhor-alp .alp-gcount{margin-top:8px}
+@media(max-width:1100px){
+ .alookhor-alp .alp-hero{padding:2px 0 40px}
+ .alookhor-alp .alp-stage{height:clamp(340px,52vw,560px);min-height:340px;flex:none}
+}
+@media(max-width:650px){
+ .alookhor-alp{padding-top:0}
+ .alookhor-alp .alp-crumbs{display:none}
+ .alookhor-alp .alp-hero-band{padding:0 0 2px}
+ .alookhor-alp .alp-hero{padding:0 0 34px;gap:12px}
+ .alookhor-alp .alp-gallery{order:-1}
+ .alookhor-alp .alp-stage{height:clamp(320px,58vw,410px);min-height:320px;flex:none}
+ .alookhor-alp .alp-gal-bottom{margin-top:10px}
+ .alookhor-alp .alp-gcount{margin-top:6px}
+}
