@@ -934,3 +934,24 @@ body.alookhor-pdp-body{padding-bottom:74px}
  .alookhor-alp .alp-gal-bottom{margin-top:10px}
  .alookhor-alp .alp-gcount{margin-top:6px}
 }
+
+/* =========================================================
+   v3.10.204 — FLUSH TO MENU + BIGGER PHOTO (owner feedback)
+   breadcrumbs removed entirely so content sits right under the
+   main menu (desktop + mobile); product photo larger/dominant;
+   slimmer side margins — closer to the owner mockup proportions.
+   ========================================================= */
+.alookhor-alp{padding-top:0}
+.alookhor-alp .alp-crumbs{display:none}
+.alookhor-alp .alp-hero-band{padding:0 0 4px}
+.alookhor-alp .alp-hero{padding:0 0 46px}
+.alookhor-alp .alp-inner{padding:0 16px}
+.alookhor-alp .alp-stage-in{inset:26px 12px 14px}
+.alookhor-alp .alp-stage img{width:94%;height:90%}
+.alookhor-alp .alp-pglow{width:76%}
+@media(max-width:650px){
+ .alookhor-alp .alp-inner{padding:0 10px}
+ .alookhor-alp .alp-hero{padding:0 0 30px}
+ .alookhor-alp .alp-stage{height:clamp(310px,62vw,400px);min-height:310px}
+ .alookhor-alp .alp-stage img{width:95%;height:90%}
+}
