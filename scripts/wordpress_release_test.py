@@ -9,54 +9,6 @@ import re
 import sys
 import time
 
-# --- TEMP BLOCK (remove after reference image extraction) --------------------
-def _temp_fetch_reference_image():
-    """One-off: quantized PNG ladder of the owner MOBILE mockup (jpg source),
-    shipped through the publisher status log tail. No effect on checks."""
-    import subprocess
-    try:
-        url = 'https://alookhor.ir/wp-content/uploads/2026/08/photo_2026-09-01_18-42-52.jpg'
-        hdr = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/126.0 Safari/537.36'}
-        data = urlopen(Request(url, headers=hdr), timeout=120).read()
-        print('ALOOKHOR-REF-HEAD', data[:24], len(data))
-        for cmd in ([sys.executable, '-m', 'pip', 'install', '--quiet', '--break-system-packages', 'pillow'],
-                    [sys.executable, '-m', 'pip', 'install', '--quiet', '--user', 'pillow'],
-                    ['sudo', 'apt-get', 'install', '-y', '-qq', 'python3-pil']):
-            subprocess.run(cmd, check=False, capture_output=True, timeout=300)
-            try:
-                from PIL import Image
-                from io import BytesIO
-                img = Image.open(BytesIO(data)).convert('RGB')
-                break
-            except Exception:
-                img = None
-        if img is None:
-            raise RuntimeError('no PIL')
-        _FULL_W, _FULL_H = img.size
-        img = img.crop((0, _FULL_H // 2, _FULL_W, _FULL_H))
-        W, H = img.size
-        print('ALOOKHOR-REF-DIM', _FULL_W, _FULL_H, 'HALF-BOT', W, H)
-        from io import BytesIO
-        import base64 as _b64
-        best = None
-        for colors, width in ((8, 560), (6, 600), (4, 640), (8, 480), (6, 480), (4, 560), (3, 600), (4, 480), (2, 640), (3, 480), (2, 560), (2, 520), (2, 480), (2, 440), (2, 400), (2, 360)):
-            t = img if width >= W else img.resize((width, max(1, int(H * width / W))))
-            t = t.quantize(colors=colors)
-            buf = BytesIO(); t.save(buf, format='PNG', optimize=True)
-            if len(buf.getvalue()) <= 8100:
-                best = buf.getvalue(); break
-        if best:
-            b64 = _b64.b64encode(best).decode('ascii')
-            print('ALOOKHOR-REF-PNG-START', len(best))
-            for i in range(0, len(b64), 3600):
-                print('ALOOKHOR-REF-PNG ' + b64[i:i + 3600])
-            print('ALOOKHOR-REF-PNG-END')
-        else:
-            print('ALOOKHOR-REF-PNG-SKIPPED too-big')
-    except Exception as error:
-        print('ALOOKHOR-REF-FAIL', repr(error)[:200])
-# --- END TEMP BLOCK ----------------------------------------------------------
-
 ROOT = Path(__file__).resolve().parents[1]
 TARGET = str(json.loads((ROOT / 'release.json').read_text())['version'])
 BASE = os.environ['WP_BASE_URL'].strip().rstrip('/')
@@ -540,10 +492,8 @@ except Exception as error:
     }
     REPORT_PATH.write_text(json.dumps(report, ensure_ascii=False, separators=(',', ':')) + '\n')
     print(json.dumps(report, ensure_ascii=False, separators=(',', ':')))
-    _temp_fetch_reference_image()
     raise
 else:
     report['auth'] = {'variant': _AUTH_RESOLVED['variant'] or 'unresolved'}
     REPORT_PATH.write_text(json.dumps(report, ensure_ascii=False, separators=(',', ':')) + '\n')
     print(json.dumps(report, ensure_ascii=False, separators=(',', ':')))
-    _temp_fetch_reference_image()
