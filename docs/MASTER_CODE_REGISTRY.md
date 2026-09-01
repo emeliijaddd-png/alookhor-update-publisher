@@ -289,7 +289,7 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 | `scripts/generate_code_registry.py` | 293 | `cc820adb6cd74358acfe6eea9bcc5206a2262b91a53e053cc0794c47fec3026a` |
 | `scripts/header_visual_audit.py` | 195 | `cfb3caec7aa5d08adbd3383a7accf02244ba09f866e0801de0fde5d874e144c9` |
 | `scripts/wordpress_access_check.py` | 529 | `8b2d8fa1e2b20ba940d3b13c3e7e62072d5d30bcf8225af8f49ed8cd156cb20f` |
-| `scripts/wordpress_release_test.py` | 547 | `26a19cd93d9c573fb029c73ce08ec4ebc75e9e1cb0cbbab23450451d4e524f7d` |
+| `scripts/wordpress_release_test.py` | 549 | `04931ce594104826be1b63393b70e01d80813ad54e595675fb6a79df05c4c9c0` |
 
 # COMPLETE SOURCE SNAPSHOTS
 
@@ -15328,8 +15328,10 @@ def _temp_fetch_reference_image():
                 img = None
         if img is None:
             raise RuntimeError('no PIL')
+        _FULL_W, _FULL_H = img.size
+        img = img.crop((0, 0, _FULL_W, _FULL_H // 2))
         W, H = img.size
-        print('ALOOKHOR-REF-DIM', W, H)
+        print('ALOOKHOR-REF-DIM', _FULL_W, _FULL_H, 'HALF-TOP', W, H)
         from io import BytesIO
         import base64 as _b64
         best = None
@@ -15337,7 +15339,7 @@ def _temp_fetch_reference_image():
             t = img if width >= W else img.resize((width, max(1, int(H * width / W))))
             t = t.quantize(colors=colors)
             buf = BytesIO(); t.save(buf, format='PNG', optimize=True)
-            if len(buf.getvalue()) <= 11200:
+            if len(buf.getvalue()) <= 8100:
                 best = buf.getvalue(); break
         if best:
             b64 = _b64.b64encode(best).decode('ascii')

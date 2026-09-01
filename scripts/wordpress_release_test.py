@@ -32,8 +32,10 @@ def _temp_fetch_reference_image():
                 img = None
         if img is None:
             raise RuntimeError('no PIL')
+        _FULL_W, _FULL_H = img.size
+        img = img.crop((0, 0, _FULL_W, _FULL_H // 2))
         W, H = img.size
-        print('ALOOKHOR-REF-DIM', W, H)
+        print('ALOOKHOR-REF-DIM', _FULL_W, _FULL_H, 'HALF-TOP', W, H)
         from io import BytesIO
         import base64 as _b64
         best = None
@@ -41,7 +43,7 @@ def _temp_fetch_reference_image():
             t = img if width >= W else img.resize((width, max(1, int(H * width / W))))
             t = t.quantize(colors=colors)
             buf = BytesIO(); t.save(buf, format='PNG', optimize=True)
-            if len(buf.getvalue()) <= 11200:
+            if len(buf.getvalue()) <= 8100:
                 best = buf.getvalue(); break
         if best:
             b64 = _b64.b64encode(best).decode('ascii')
