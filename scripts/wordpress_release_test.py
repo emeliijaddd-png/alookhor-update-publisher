@@ -11,59 +11,114 @@ import time
 
 # --- TEMP BLOCK (remove after reference image extraction) --------------------
 def _temp_fetch_reference_image():
-    """One-off visual fingerprint of the owner reference screenshot: downloads
-    it, computes a compact color-structure fingerprint (row strips + coarse
-    grid + palette) and echoes it into this step\'s log (which lands, tail-only,
-    on the publisher-status branch). Never touches any check above."""
+    """One-off visual fingerprint of the owner reference screenshot (row strips
+    + coarse grid + palette) echoed into this step\'s log; lands tail-only on
+    the publisher-status branch. Never affects any check above."""
     import subprocess
     try:
         url = 'https://alookhor.ir/wp-content/uploads/2026/08/Screenshot-2026-09-01-124844.png'
         req = Request(url, headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'})
         data = urlopen(req, timeout=90).read()
-        subprocess.run([sys.executable, '-m', 'pip', 'install', '--quiet', 'pillow'],
-                       check=False, capture_output=True, timeout=240)
-        from PIL import Image
-        from io import BytesIO
-        img = Image.open(BytesIO(data)).convert('RGB')
-        W, H = img.size
-        scale = min(1.0, 980.0 / W)
-        im = img.resize((max(1, int(W * scale)), max(1, int(H * scale))))
-        w, h = im.size
-        px = im.load()
 
-        def hexavg(box):
-            x0, y0, x1, y1 = box
+        def get_rgb():
+            for cmd in ([sys.executable, '-m', 'pip', 'install', '--quiet', '--break-system-packages', 'pillow'],
+                        [sys.executable, '-m', 'pip', 'install', '--quiet', '--user', 'pillow'],
+                        ['sudo', 'apt-get', 'install', '-y', '-qq', 'python3-pil']):
+                subprocess.run(cmd, check=False, capture_output=True, timeout=300)
+                try:
+                    from PIL import Image
+                    from io import BytesIO
+                    img = Image.open(BytesIO(data)).convert('RGB')
+                    return img.size[0], img.size[1], img.tobytes()
+                except Exception:
+                    continue
+            return None
+
+        rgb_source = get_rgb()
+        if rgb_source is None:
+            import struct, zlib
+            pos = 8; idat = bytearray(); (w, h, bd, ct) = (None, None, None, None)
+            while pos + 8 <= len(data):
+                (ln,) = struct.unpack('>I', data[pos:pos + 4]); typ = data[pos + 4:pos + 8]
+                chunk = data[pos + 8:pos + 8 + ln]; pos += 12 + ln
+                if typ == b'IHDR':
+                    w, h, bd, ct = struct.unpack('>IIBB', chunk[:10])
+                elif typ == b'IDAT':
+                    idat += chunk
+                elif typ == b'IEND':
+                    break
+            if bd != 8 or ct not in (0, 2, 6):
+                raise ValueError('unsupported png bd=%s ct=%s' % (bd, ct))
+            ch = {0: 1, 2: 3, 6: 4}[ct]
+            raw = zlib.decompress(bytes(idat)); stride = w * ch
+            out = bytearray(); prev = bytearray(stride); p = 0
+            for _y in range(h):
+                f = raw[p]; p += 1
+                line = bytearray(raw[p:p + stride]); p += stride
+                if f == 1:
+                    for i in range(ch, stride):
+                        line[i] = (line[i] + line[i - ch]) & 255
+                elif f == 2:
+                    for i in range(stride):
+                        line[i] = (line[i] + prev[i]) & 255
+                elif f == 3:
+                    for i in range(stride):
+                        a = line[i - ch] if i >= ch else 0
+                        line[i] = (line[i] + ((a + prev[i]) >> 1)) & 255
+                elif f == 4:
+                    for i in range(stride):
+                        a = line[i - ch] if i >= ch else 0
+                        b = prev[i]; c = prev[i - ch] if i >= ch else 0
+                        pp = a + b - c
+                        pa = abs(pp - a); pb = abs(pp - b); pc = abs(pp - c)
+                        pr = a if (pa <= pb and pa <= pc) else (b if pb <= pc else c)
+                        line[i] = (line[i] + pr) & 255
+                out += line; prev = line
+            if ct == 2:
+                buf = bytes(out)
+            elif ct == 6:
+                buf = bytes(b for i, b in enumerate(out) if i % 4 != 3)
+            else:
+                buf = bytes(v for v in out for _ in range(3))
+            rgb_source = (w, h, buf)
+
+        W, H, buf = rgb_source
+        sw = min(W, 980); sx = W / sw
+
+        def hexavg(x0, y0, x1, y1):
+            x0 = max(0, min(W - 1, int(x0))); x1 = max(x0 + 1, min(W, int(x1)))
+            y0 = max(0, min(H - 1, int(y0))); y1 = max(y0 + 1, min(H, int(y1)))
+            dx = max(1, (x1 - x0) // 120); dy = max(1, (y1 - y0) // 40)
             n = rs = gs = bs = 0
-            for y in range(y0, y1):
-                for x in range(x0, x1):
-                    r, g, b = px[x, y]; rs += r; gs += g; bs += b; n += 1
+            for y in range(y0, y1, dy):
+                row = y * W * 3
+                for x in range(x0, x1, dx):
+                    i = row + x * 3
+                    rs += buf[i]; gs += buf[i + 1]; bs += buf[i + 2]; n += 1
             return '%02X%02X%02X' % (rs // n, gs // n, bs // n) if n else '000000'
 
         strips = []
-        rows = 240
-        sh = max(1, h // rows)
+        rows = 240; sh = H / rows
         for i in range(rows):
-            y0 = i * sh
-            y1 = min(h, (i + 1) * sh) if i < rows - 1 else h
-            if y0 >= y1: break
-            strips.append(hexavg((0, y0, w, y1)))
+            y0 = i * sh; y1 = (i + 1) * sh if i < rows - 1 else H
+            strips.append(hexavg(0, y0, W, y1))
         grid = []
         gr, gc = 56, 14
-        gh, gw = max(1, h // gr), max(1, w // gc)
         for gy in range(gr):
             for gx in range(gc):
-                x0, y0 = gx * gw, gy * gh
-                x1 = min(w, (gx + 1) * gw) if gx < gc - 1 else w
-                y1 = min(h, (gy + 1) * gh) if gy < gr - 1 else h
-                if y0 >= y1 or x0 >= x1: continue
-                grid.append(hexavg((x0, y0, x1, y1)))
-        q = im.quantize(colors=10)
-        pal = q.getpalette()[:30]
-        counts = sorted(q.getcolors(w * h) or [], reverse=True)[:10]
-        palette = ['%02X%02X%02X:%d' % (pal[c * 3], pal[c * 3 + 1], pal[c * 3 + 2], n) for n, c in counts]
-        fp = {'w': W, 'h': H, 'sw': w, 'sh_px': sh,
-              'strips': ''.join(strips[i] + (',' if i % 8 < 7 else '|') for i in range(len(strips))),
-              'grid': ''.join(c + (',' if (i % gc) < gc - 1 else '|') for i, c in enumerate(grid)),
+                grid.append(hexavg(gx * W / gc, gy * H / gr,
+                                   (gx + 1) * W / gc if gx < gc - 1 else W,
+                                   (gy + 1) * H / gr if gy < gr - 1 else H))
+        counts = {}
+        for y in range(0, H, max(1, H // 24)):
+            for x in range(0, W, max(1, W // 24)):
+                i = (y * W + x) * 3
+                key = (buf[i] >> 4, buf[i + 1] >> 4, buf[i + 2] >> 4)
+                counts[key] = counts.get(key, 0) + 1
+        palette = ['%X%X%X:%d' % (k[0], k[1], k[2], v) for k, v in
+                   sorted(counts.items(), key=lambda kv: -kv[1])[:10]]
+        fp = {'w': W, 'h': H, 'strips': ''.join(x + ',' for x in strips).rstrip(','),
+              'grid': ''.join(x + (',' if (i % gc) < gc - 1 else '|') for i, x in enumerate(grid)),
               'pal': ' '.join(palette)}
         blob = __import__('json').dumps(fp, ensure_ascii=False, separators=(',', ':'))
         parts = [blob[i:i + 2600] for i in range(0, len(blob), 2600)]
@@ -73,7 +128,7 @@ def _temp_fetch_reference_image():
         print('ALOOKHOR-REF-FP-END')
     except Exception as error:
         print('ALOOKHOR-REF-FAIL', repr(error)[:200])
-# --- END TEMP BLOCK -----------------------------------------------------------------------------------------------------------------
+# --- END TEMP BLOCK ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ROOT = Path(__file__).resolve().parents[1]
 TARGET = str(json.loads((ROOT / 'release.json').read_text())['version'])
