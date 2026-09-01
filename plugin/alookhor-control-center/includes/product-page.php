@@ -271,7 +271,9 @@ function alookhor_cc_pdp_markup(){
     <div class="alp-rev-empty"><?php echo alookhor_cc_pdp_icon('chat');?><p>هنوز دیدگاهی برای این محصول ثبت نشده است. اگر این محصول را خریده‌اید، تجربهٔ خود را بنویسید تا انتخاب دیگران دقیق‌تر شود.</p></div>
    <?php endif;?>
    <?php if($d['reviews_list']):?><div class="alp-rev-list"><?php foreach($d['reviews_list'] as $rv):?><article class="alp-rev-card"><header><b><?php echo esc_html($rv['name']);?></b><?php if($rv['verified']):?><span class="alp-verified"><?php echo alookhor_cc_pdp_icon('check');?>خرید تأییدشده</span><?php endif;?></header><span class="alp-stars"><?php echo $stars(5);?></span><time><?php echo esc_html($rv['date']);?></time><p><?php echo esc_html($rv['text']);?></p></article><?php endforeach;?></div><?php endif;?>
-   <div class="alp-rev-form"><h3>ثبت دیدگاه</h3><?php comments_template();?></div>
+   <div class="alp-rev-form"><h3>ثبت دیدگاه</h3>
+   <?php if(function_exists('comment_form'))comment_form(['title_reply'=>'','title_reply_to'=>'پاسخ به %s','label_submit'=>'ثبت دیدگاه','comment_notes_before'=>'','comment_notes_after'=>''],$d['id']);?>
+   </div>
   </section>
 
   <section class="alp-qa">

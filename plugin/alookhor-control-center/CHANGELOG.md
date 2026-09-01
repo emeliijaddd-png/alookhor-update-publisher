@@ -1,5 +1,9 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.189 — 2026-09-01 — Safe review form in hijacked PDP render
+- FIX: comments_template() (بارگذار قالب دیدگاه تم) از صفحه محصول حذف شد و فرم دیدگاه با comment_form() هستهٔ وردپرس رندر می‌شود — عامل احتمالی خطای سرور (۵۰۰) در رندر مستقیم template_redirect.
+- CI: دریافت صفحه محصول (مهمان و احرازشده) در برابر خطای HTTP مقاوم شد و خطا در گزارش انتشار ثبت می‌شود.
+
 ## v3.10.188 — 2026-08-31 — Definitive PDP render (template_redirect + exit)
 - RENDER: صفحهٔ محصول حالا در template_redirect (اولویت ۵۵، بعد از هندلرهای سبد ووکامرس) مستقیماً با هدر/فوتر مدیریت‌شده رندر و با exit خاتمه می‌یابد — قالب/بیلدر تم هرگز بارگذاری نمی‌شود؛ رفع کامل «صفحه قدیمی بالا + فوتر + صفحه جدید پایین».
 - REMOVED: مسیر تزریق هوک woocommerce_before_single_product (عامل جای‌گذاری اشتباه بعد از فوتر) حذف شد؛ template_include به‌عنوان مسیر پشتیبان ماند.

@@ -292,18 +292,26 @@ try:
         pcounts=prod.get('counts') or {}
         pdp_page=(prod.get('product') or {}).get('url')
         pdp_html=''
+        page_error=''
         if pdp_page:
             page_probe=pdp_page+('&' if '?' in pdp_page else '?')+'release_test='+TARGET.replace('.','')
-            with urlopen(Request(page_probe,headers={'User-Agent':'ALOOKHOR-GitHub-Publisher/1.0'}),timeout=30) as response:
-                pdp_html=response.read().decode(errors='replace')
+            try:
+                with urlopen(Request(page_probe,headers={'User-Agent':'ALOOKHOR-GitHub-Publisher/1.0'}),timeout=30) as response:
+                    pdp_html=response.read().decode(errors='replace')
+            except Exception as error:
+                page_error=str(error)[:200]
         pdp_rendered=('alookhor-pdp' in pdp_html and 'انتخاب وزن' in pdp_html and 'قیمت نهایی' in pdp_html)
         coming_soon=('در حال ساخت' in pdp_html or 'اتفاقات بزرگی' in pdp_html)
-        report['product']={'version':prod.get('version'),'counts':pcounts,'name':(prod.get('product') or {}).get('name'),'page_ok':bool(pdp_html),'pdp_rendered':pdp_rendered,'behind_coming_soon':coming_soon}
+        report['product']={'version':prod.get('version'),'counts':pcounts,'name':(prod.get('product') or {}).get('name'),'page_ok':bool(pdp_html),'page_error':page_error,'pdp_rendered':pdp_rendered,'behind_coming_soon':coming_soon}
         report['checks']['product_endpoint']=(str(prod.get('version'))==TARGET and pcounts.get('highlights')==5 and pcounts.get('specs')==7 and pcounts.get('faqs')==5 and pcounts.get('why')==4 and pcounts.get('gallery',0)>=3 and pcounts.get('related',0)>=3 and str((prod.get('images') or {}).get('main','')).startswith('http') and (pdp_rendered or coming_soon))
     if tuple(map(int,TARGET.split('.'))) >= (3,10,185):
-        auth_page_probe=pdp_page+('&' if '?' in pdp_page else '?')+'pdp_auth=1'
-        with urlopen(Request(auth_page_probe,headers={'Authorization':f'Basic {active_auth()}','User-Agent':'ALOOKHOR-GitHub-Publisher/1.0'}),timeout=30) as response:
-            pdp_auth_html=response.read().decode(errors='replace')
+        auth_page_probe=(pdp_page or '')+('&' if '?' in (pdp_page or '') else '?')+'pdp_auth=1'
+        pdp_auth_html=''
+        try:
+            with urlopen(Request(auth_page_probe,headers={'Authorization':f'Basic {active_auth()}','User-Agent':'ALOOKHOR-GitHub-Publisher/1.0'}),timeout=30) as response:
+                pdp_auth_html=response.read().decode(errors='replace')
+        except Exception as error:
+            report.setdefault('product',{})['auth_error']=str(error)[:200]
         report['product']['auth_render']=('alookhor-pdp' in pdp_auth_html)
         old_markup=('product type-product' in pdp_auth_html)
         report['checks']['pdp_renders_authenticated']=('alookhor-pdp' in pdp_auth_html and 'قیمت نهایی' in pdp_auth_html and 'افزودن به سبد خرید' in pdp_auth_html and not old_markup)
