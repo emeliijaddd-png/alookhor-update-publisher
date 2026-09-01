@@ -4,7 +4,7 @@ Tags: control center, luxury, alookhor, admin, dashboard
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 3.10.205
+Stable tag: 3.10.206
 License: Private
 License URI: https://alookhor.ir
 
@@ -46,6 +46,10 @@ License URI: https://alookhor.ir
 در `config/site.json` و `wp_options: alookhor_cc_settings` — همان حافظه واقعی که در چت قبلی ویرایش می‌شد.
 
 == Changelog ==
+
+= 3.10.206 =
+* Tweak: restored clear breathing room under the main menu — 32px desktop / 20px mobile (owner feedback; content was flush against the header).
+* Kept: hidden breadcrumbs, dominant product photo (94/95%), aligned desktop columns, 64px mobile sticky bar.
 
 = 3.10.205 =
 * Fix: desktop gallery sticky offset removed — hero columns now perfectly aligned top & bottom (browser-render verified).

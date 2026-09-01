@@ -936,7 +936,7 @@ body.alookhor-pdp-body{padding-bottom:74px}
 }
 
 /* =========================================================
-   v3.10.205 — FLUSH TO MENU + BIGGER PHOTO (owner feedback)
+   v3.10.204 — FLUSH TO MENU + BIGGER PHOTO (owner feedback)
    breadcrumbs removed entirely so content sits right under the
    main menu (desktop + mobile); product photo larger/dominant;
    slimmer side margins — closer to the owner mockup proportions.
@@ -968,4 +968,17 @@ body.alookhor-pdp-body{padding-bottom:74px}
  body.alookhor-pdp-body .alp-sticky-p{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:13px;max-width:44%}
  body.alookhor-pdp-body .alp-sticky-p del{display:block;font-size:9.5px;color:#C6BAD4}
  body.alookhor-pdp-body .alp-sticky .alp-cta{box-sizing:border-box;flex:1;min-height:46px;height:46px;font-size:12.5px;border-radius:12px}
+}
+
+/* =========================================================
+   v3.10.206 — BREATHING ROOM UNDER MENU (owner feedback)
+   owner: content must NOT sit flush under the main menu in
+   desktop OR mobile — restore a clear gap. Breadcrumbs stay
+   hidden; big photo (94/95%) and all 204/205 wins kept.
+   ========================================================= */
+.alookhor-alp{padding-top:32px}
+.alookhor-alp .alp-hero{padding:0 0 46px}
+@media(max-width:650px){
+ .alookhor-alp{padding-top:20px}
+ .alookhor-alp .alp-hero{padding:0 0 30px}
 }

@@ -1,12 +1,17 @@
 {
-  "version": "3.10.205",
-  "previous": "3.10.204",
+  "version": "3.10.206",
+  "previous": "3.10.205",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "تراز کامل دسکتاپ + نوار چسبان ۶۴px موبایل (تست رندر مرورگر واقعی).",
+  "description": "بازگرداندن فاصلهٔ تنفسی از منوی اصلی (۳۲/۲۰px) با حفظ عکس بزرگ و تراز دسکتاپ.",
   "changelog": [
+    {
+      "tag": "PDP17",
+      "title": "فاصله از منو",
+      "desc": "padding-top سکشن محصول: ۳۲px دسکتاپ و ۲۰px موبایل؛ بقیهٔ بهبودهای ۲۰۴/۲۰۵ (عکس ۹۴/۹۵٪، تراز ستون‌ها، نوار ۶۴px) دست‌نخورده."
+    },
     {
       "tag": "PDP16",
       "title": "تست رندر واقعی",
@@ -40,7 +45,7 @@
   ],
   "project": "ALOOKHOR",
   "area": "Boutique Header Settings / Admin Menu Cleanup",
-  "reason": "ممیزی DOM با مرورگر headless: گالری sticky آفست ۹۶px می‌ساخت و انتخابگرهای نوار چسبانِ موبایل به‌دلیل بیرون‌بودن المان از section هرگز اعمال نمی‌شد؛ هر دو رفع شد.",
+  "reason": "بازخورد مالک بعد از v3.10.205: محتوا در هر دو حالت چسبیده به منو رفته و باید فاصله داشته باشد.",
   "files": [
     "docs/MASTER_DESIGN_DIRECTIVE.md",
     "plugin/alookhor-control-center/CHANGELOG.md",
