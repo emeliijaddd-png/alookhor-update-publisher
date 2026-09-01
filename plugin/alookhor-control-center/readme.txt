@@ -47,6 +47,11 @@ License URI: https://alookhor.ir
 
 == Changelog ==
 
+= 3.10.205 =
+* Fix: desktop gallery sticky offset removed — hero columns now perfectly aligned top & bottom (browser-render verified).
+* Fix: mobile sticky bar selectors corrected (element sits outside plugin section) — height now exactly 64px instead of 97px.
+* Fix: sticky price single-line with ellipsis; sticky CTA 46px.
+
 = 3.10.204 =
 
 * اصلاح: برگشت برچسب «قیمت نهایی» بالای قیمت در هیروی جدید (الزام بند ۲۵ بریف و چک انتشار).

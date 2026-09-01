@@ -1,12 +1,17 @@
 {
-  "version": "3.10.204",
-  "previous": "3.10.203",
+  "version": "3.10.205",
+  "previous": "3.10.204",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "چسبیده به منو + عکس بزرگ‌تر (تحلیل اسکرین‌شات زنده مالک).",
+  "description": "تراز کامل دسکتاپ + نوار چسبان ۶۴px موبایل (تست رندر مرورگر واقعی).",
   "changelog": [
+    {
+      "tag": "PDP16",
+      "title": "تست رندر واقعی",
+      "desc": "حذف sticky گالری برای تراز کامل ستون‌ها در دسکتاپ؛ رفع انتخابگر نوار چسبان موبایل (۹۷→۶۴px) و تک‌خطی شدن قیمت آن."
+    },
     {
       "tag": "PDP15",
       "title": "صفر فاصله از منو",
@@ -35,7 +40,7 @@
   ],
   "project": "ALOOKHOR",
   "area": "Boutique Header Settings / Admin Menu Cleanup",
-  "reason": "تحلیل پیکسلی اسکرین‌شات زنده مالک (v203) نشان داد فاصله از منو ~۵٪ و عکس ~۴۶٪ عرض است؛ هر دو به سمت موکاپ اصلاح شد.",
+  "reason": "ممیزی DOM با مرورگر headless: گالری sticky آفست ۹۶px می‌ساخت و انتخابگرهای نوار چسبانِ موبایل به‌دلیل بیرون‌بودن المان از section هرگز اعمال نمی‌شد؛ هر دو رفع شد.",
   "files": [
     "docs/MASTER_DESIGN_DIRECTIVE.md",
     "plugin/alookhor-control-center/CHANGELOG.md",

@@ -936,7 +936,7 @@ body.alookhor-pdp-body{padding-bottom:74px}
 }
 
 /* =========================================================
-   v3.10.204 — FLUSH TO MENU + BIGGER PHOTO (owner feedback)
+   v3.10.205 — FLUSH TO MENU + BIGGER PHOTO (owner feedback)
    breadcrumbs removed entirely so content sits right under the
    main menu (desktop + mobile); product photo larger/dominant;
    slimmer side margins — closer to the owner mockup proportions.
@@ -954,4 +954,18 @@ body.alookhor-pdp-body{padding-bottom:74px}
  .alookhor-alp .alp-hero{padding:0 0 30px}
  .alookhor-alp .alp-stage{height:clamp(310px,62vw,400px);min-height:310px}
  .alookhor-alp .alp-stage img{width:95%;height:90%}
+}
+
+/* =========================================================
+   v3.10.205 — RENDER-TESTED FIXES (real headless-browser audit)
+   1) gallery sticky (top:96px legacy) broke top/bottom alignment of the
+      equal-height hero columns on desktop → static now (flex handles it)
+   2) mobile sticky bar was 97px tall → fixed 64px, price single-line
+   ========================================================= */
+.alookhor-alp .alp-gallery{position:static}
+@media(max-width:650px){
+ body.alookhor-pdp-body .alp-sticky{box-sizing:border-box;height:64px;min-height:64px;padding:9px 10px calc(9px + env(safe-area-inset-bottom));gap:10px;background:rgba(18,8,30,.96);border-top:1px solid rgba(212,175,55,.5);backdrop-filter:blur(14px)}
+ body.alookhor-pdp-body .alp-sticky-p{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:13px;max-width:44%}
+ body.alookhor-pdp-body .alp-sticky-p del{display:block;font-size:9.5px;color:#C6BAD4}
+ body.alookhor-pdp-body .alp-sticky .alp-cta{box-sizing:border-box;flex:1;min-height:46px;height:46px;font-size:12.5px;border-radius:12px}
 }
