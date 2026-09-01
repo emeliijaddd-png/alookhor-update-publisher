@@ -626,3 +626,79 @@ body.alookhor-pdp-body .page-title,body.alookhor-pdp-body .entry-title,body.aloo
  .alp-rail-cta{margin-top:20px}
  .alp-rail-cta .alp-btn-royal{min-width:0;width:100%}
 }
+
+/* =========================================================
+   v3.10.199 — HERO v2 per owner mockup #3 (ChatGPT reference)
+   deeper purple-black stage #1F0F2F · bigger glowing product photo ·
+   SOLID royal-purple buy panel with gold CTA · fixed-size boxes:
+   price length / image count / weight count never stretch the frames
+   ========================================================= */
+/* ——— hero band: deeper, near-black purple ——— */
+.alookhor-alp .alp-hero-band{background:linear-gradient(172deg,#140B1E 0%,#1F0F2F 46%,#160D24 100%)}
+.alookhor-alp .alp-hero-band:before{background:radial-gradient(34rem 20rem at 86% -6%,rgba(142,90,167,.2),transparent 62%),radial-gradient(26rem 16rem at 6% 10%,rgba(212,175,55,.1),transparent 60%)}
+.alookhor-alp .alp-hero-band:after{height:3px;background:linear-gradient(90deg,transparent 2%,#5B247A 22%,#8E5AA7 50%,#5B247A 78%,transparent 98%)}
+.alookhor-alp .alp-hero{grid-template-columns:minmax(0,.98fr) minmax(0,1.02fr);gap:28px;align-items:stretch;padding:10px 0 58px}
+/* ——— gallery: photo-dominant, warm glow, quieter chrome ——— */
+.alookhor-alp .alp-gallery{display:flex;flex-direction:column}
+.alookhor-alp .alp-stage{height:650px;min-height:650px;background:linear-gradient(160deg,rgba(64,30,88,.5),rgba(22,10,36,.7));border:1px solid rgba(255,255,255,.11)}
+.alookhor-alp .alp-stage-in{inset:34px 18px 20px}
+.alookhor-alp .alp-stage img{width:88%;height:86%}
+.alookhor-alp .alp-pglow{width:68%;background:radial-gradient(circle,rgba(212,175,55,.26),rgba(142,90,167,.16) 46%,transparent 72%);filter:blur(14px)}
+.alookhor-alp .alp-amb1{background:rgba(142,90,167,.34)}
+.alookhor-alp .alp-amb2{background:rgba(212,175,55,.24)}
+.alookhor-alp .alp-ncorner-t,.alookhor-alp .alp-ncorner-b{width:84px;height:84px}
+.alookhor-alp .alp-ncorner-t{border-top-width:1px;border-left-width:1px}
+.alookhor-alp .alp-ncorner-b{border-bottom-width:1px;border-right-width:1px}
+.alookhor-alp .alp-thumbs button{flex:0 0 74px;width:74px;height:74px;background:rgba(18,8,30,.5)}
+/* ——— buy panel: SOLID royal purple, fixed structure ——— */
+.alookhor-alp .alp-info{min-height:650px;display:flex;flex-direction:column;padding:30px 28px;border-radius:30px;
+ background:linear-gradient(158deg,#5F2780 0%,#5B247A 30%,#451D61 62%,#37154F 100%);
+ border:1px solid rgba(255,255,255,.16);
+ box-shadow:0 30px 80px rgba(5,1,10,.6),inset 0 1px 0 rgba(255,255,255,.16),inset 0 -30px 60px rgba(20,6,36,.35)}
+.alookhor-alp .alp-info:before{right:22px;left:22px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.5),transparent)}
+.alookhor-alp .alp-info-glow{width:220px;height:220px;top:-110px;left:-80px;background:rgba(196,160,255,.28);filter:blur(46px)}
+.alookhor-alp .alp-info h1{color:#FFFFFF!important;text-shadow:0 2px 18px rgba(20,4,36,.45)}
+.alookhor-alp .alp-info h1 b{color:#F0D078!important}
+.alookhor-alp .alp-sub{color:#E9DFF5!important}
+.alookhor-alp .alp-rate a{color:#D9CCE8;border-bottom-color:rgba(240,208,120,.5)}
+.alookhor-alp .alp-rate b{color:#F0D078}
+.alookhor-alp .alp-feats li{min-height:70px;background:rgba(24,8,42,.38);border:1px solid rgba(255,255,255,.12);backdrop-filter:none}
+.alookhor-alp .alp-feats svg{color:#F0D078;filter:drop-shadow(0 0 8px rgba(212,175,55,.35))}
+.alookhor-alp .alp-feats span{color:#E4D8F0}
+/* price box — fixed height, never stretches with digits */
+.alookhor-alp .alp-price{min-height:84px;padding:16px 0 12px;border-top-color:rgba(255,255,255,.18);border-bottom-color:rgba(255,255,255,.18)}
+.alookhor-alp .alp-price-t{color:#D9CCE8}
+.alookhor-alp .alp-price-now{color:#F3D67E;font-size:clamp(25px,2.4vw,33px);font-variant-numeric:tabular-nums;line-height:1.25}
+.alookhor-alp .alp-price-now del,.alookhor-alp .alp-price-now .woocommerce-Price-decimalCurrency{font-size:.62em}
+.alookhor-alp .alp-old{color:#C9BBAE}
+.alookhor-alp .alp-price small{color:#C9B8DE}
+.alookhor-alp .alp-off-b{background:rgba(212,175,55,.2);border-color:rgba(240,208,120,.65);color:#F3D67E}
+/* weights — fixed chip height, wraps without stretching panel */
+.alookhor-alp .alp-pick-h strong{color:#F0D078}
+.alookhor-alp .alp-pick-h span{color:#D9CCE8}
+.alookhor-alp .alp-weights{grid-template-columns:repeat(auto-fit,minmax(104px,1fr))}
+.alookhor-alp .alp-weights button{min-height:58px;background:rgba(24,8,42,.4);border:1px solid rgba(255,255,255,.15);color:#F1EAF9}
+.alookhor-alp .alp-weights button.is-on{border:1.5px solid #F0D078;background:rgba(212,175,55,.16);color:#F3D67E;box-shadow:0 8px 22px rgba(212,175,55,.2)}
+/* stock + buy */
+.alookhor-alp .alp-stockrow b{color:#fff}
+.alookhor-alp .alp-stockrow span{color:#D9CCE8}
+.alookhor-alp .alp-ship-note{color:#F0D078}
+.alookhor-alp .alp-qty{background:rgba(24,8,42,.42);border-color:rgba(255,255,255,.16)}
+.alookhor-alp .alp-buy{grid-template-columns:105px 1fr}
+.alookhor-alp .alp-cta{background:linear-gradient(135deg,#E2B93F 0%,#D4AF37 45%,#B9922B 100%);box-shadow:0 18px 40px rgba(212,175,55,.32),inset 0 1px 0 rgba(255,255,255,.45)}
+.alookhor-alp .alp-cta:hover{background:linear-gradient(135deg,#F0CB5C,#E2B93F 55%,#C89D2F)}
+.alookhor-alp .alp-assure{color:#E0D3F0!important}
+.alookhor-alp .alp-sec{background:rgba(24,8,42,.35);border-color:rgba(255,255,255,.14);color:#E4D8F0}
+.alookhor-alp .alp-sec svg{color:#F0D078}
+.alookhor-alp .alp-sec:hover{border-color:rgba(240,208,120,.55);color:#F0D078;background:rgba(212,175,55,.1)}
+/* quick actions + badges on purple */
+.alookhor-alp .alp-qact{background:rgba(24,8,42,.4);border-color:rgba(255,255,255,.16)}
+.alookhor-alp .alp-cat-badge{background:rgba(24,8,42,.45);border-color:rgba(240,208,120,.5);color:#F3D67E}
+.alookhor-alp .alp-flag,.alookhor-alp .alp-off{background:rgba(16,5,28,.72)}
+/* hero v2 responsive */
+@media(max-width:1100px){.alookhor-alp .alp-info{min-height:0}}
+@media(max-width:650px){
+ .alookhor-alp .alp-stage{height:430px;min-height:430px}
+ .alookhor-alp .alp-info{padding:22px 16px}
+ .alookhor-alp .alp-price{min-height:74px}
+}
