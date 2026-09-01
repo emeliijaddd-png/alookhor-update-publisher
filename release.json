@@ -1,12 +1,17 @@
 {
-  "version": "3.10.189",
-  "previous": "3.10.188",
+  "version": "3.10.190",
+  "previous": "3.10.189",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "فرم دیدگاه ایمن در رندر مستقیم صفحه محصول + گزارش تست مقاوم.",
+  "description": "منوی اصلی سایت بالای صفحه محصول؛ حذف نوار تیرهٔ اضافهٔ هدر تم.",
   "changelog": [
+    {
+      "tag": "PDP5",
+      "title": "منوی اصلی بالای صفحه محصول",
+      "desc": "نوار تیرهٔ هدر تم حذف و هدر پورتال آلوخور (منوی اصلی سایت) + فوتر مدیریت‌شده در صفحهٔ محصول رندر شد."
+    },
     {
       "tag": "PDP4",
       "title": "فرم دیدگاه ایمن",
@@ -21,16 +26,11 @@
       "tag": "DIAG",
       "title": "تشخیص رندر بر اساس UA",
       "desc": "CI صفحه محصول را با UA ربات، مرورگر دسکتاپ و موبایل می‌گیرد و نتیجه را در گزارش ثبت می‌کند."
-    },
-    {
-      "tag": "CACHE",
-      "title": "پاک‌سازی کامل کش",
-      "desc": "بعد از هر آپدیت، کش همه افزونه‌های کش صفحه رایج (WP Rocket، SiteGround، WP Fastest Cache، WP Super Cache و…) پاک می‌شود تا HTML جدید برای همه بازدیدکنندگان نمایش داده شود."
     }
   ],
   "project": "ALOOKHOR",
   "area": "Boutique Header Settings / Admin Menu Cleanup",
-  "reason": "اجرای تست وردپرس در 3.10.188 کرش کرد (احتمالاً فاتال comments_template در بافت رندر مستقیم).",
+  "reason": "مالک روی صفحه محصول جدید یک نوار مشکی اضافه بالای صفحه دید و خواست همان منوی اصلی سایت بالای صفحه باشد.",
   "files": [
     "docs/MASTER_DESIGN_DIRECTIVE.md",
     "plugin/alookhor-control-center/CHANGELOG.md",

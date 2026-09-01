@@ -303,7 +303,10 @@ function alookhor_cc_pdp_markup(){
 }
 
 /* Guaranteed path — render the ALOOKHOR PDP directly at template_redirect and exit,
-   BEFORE any theme/builder template can load (v3.10.188). No old page, no duplication. */
+   BEFORE any theme/builder template can load (v3.10.188). No old page, no duplication.
+   v3.10.190: keep only the theme <head>+<body> (assets intact), drop the theme's own
+   header markup (the extra dark Woodmart strip) and render the site's managed chrome:
+   portal header (main menu) + PDP + managed footer. */
 add_action('template_redirect',function(){
  if(($_SERVER['REQUEST_METHOD']??'')==='POST')return;
  if(isset($_GET['elementor-preview'])||(($_GET['action']??'')==='elementor'))return;
@@ -312,9 +315,16 @@ add_action('template_redirect',function(){
  $markup=alookhor_cc_pdp_markup();
  if($markup==='')return;
  nocache_headers();
+ ob_start();
  get_header();
+ $theme_head=ob_get_clean();
+ if(is_string($theme_head)&&preg_match('/^(.*?<body[^>]*>)/s',$theme_head,$head_match)){echo $head_match[1];}
+ elseif(is_string($theme_head)){echo $theme_head;}
+ if(function_exists('alookhor_cc_render_akx_header'))echo alookhor_cc_render_akx_header();
  echo $markup;
- get_footer();
+ if(function_exists('alookhor_cc_footer_markup'))echo alookhor_cc_footer_markup();
+ wp_footer();
+ echo '</body></html>';
  exit;
 },55);
 
