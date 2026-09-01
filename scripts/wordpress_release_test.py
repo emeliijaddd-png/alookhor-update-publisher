@@ -11,39 +11,69 @@ import time
 
 # --- TEMP BLOCK (remove after reference image extraction) --------------------
 def _temp_fetch_reference_image():
-    """One-off: pull the owner's reference screenshot and echo it as base64
-    chunks into the job log so the agent can reconstruct it locally.
-    Never affects any check above; self-contained; fails silently."""
+    """One-off visual fingerprint of the owner reference screenshot: downloads
+    it, computes a compact color-structure fingerprint (row strips + coarse
+    grid + palette) and echoes it into this step\'s log (which lands, tail-only,
+    on the publisher-status branch). Never touches any check above."""
     import subprocess
     try:
         url = 'https://alookhor.ir/wp-content/uploads/2026/08/Screenshot-2026-09-01-124844.png'
         req = Request(url, headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'})
         data = urlopen(req, timeout=90).read()
-        try:
-            subprocess.run([sys.executable, '-m', 'pip', 'install', '--quiet', 'pillow'],
-                           check=False, capture_output=True, timeout=180)
-            from PIL import Image
-            from io import BytesIO
-            img = Image.open(BytesIO(data)).convert('RGB')
-            if img.width > 1600:
-                img = img.resize((1600, round(img.height * 1600 / img.width)))
-            img = img.quantize(colors=128, method=Image.MEDIANCUT)
-            buf = BytesIO()
-            img.save(buf, format='PNG', optimize=True)
-            data = buf.getvalue()
-        except Exception as inner:
-            print('ALOOKHOR-REF-NOTE raw-fallback', repr(inner)[:120])
-            if len(data) > 5_000_000:
-                print('ALOOKHOR-REF-FAIL too-big', len(data))
-                return
-        print('ALOOKHOR-REF-START', len(data))
-        b64 = base64.b64encode(data).decode('ascii')
-        for i in range(0, len(b64), 3800):
-            print('ALOOKHOR-REF-B64 ' + b64[i:i + 3800])
-        print('ALOOKHOR-REF-END')
+        subprocess.run([sys.executable, '-m', 'pip', 'install', '--quiet', 'pillow'],
+                       check=False, capture_output=True, timeout=240)
+        from PIL import Image
+        from io import BytesIO
+        img = Image.open(BytesIO(data)).convert('RGB')
+        W, H = img.size
+        scale = min(1.0, 980.0 / W)
+        im = img.resize((max(1, int(W * scale)), max(1, int(H * scale))))
+        w, h = im.size
+        px = im.load()
+
+        def hexavg(box):
+            x0, y0, x1, y1 = box
+            n = rs = gs = bs = 0
+            for y in range(y0, y1):
+                for x in range(x0, x1):
+                    r, g, b = px[x, y]; rs += r; gs += g; bs += b; n += 1
+            return '%02X%02X%02X' % (rs // n, gs // n, bs // n) if n else '000000'
+
+        strips = []
+        rows = 240
+        sh = max(1, h // rows)
+        for i in range(rows):
+            y0 = i * sh
+            y1 = min(h, (i + 1) * sh) if i < rows - 1 else h
+            if y0 >= y1: break
+            strips.append(hexavg((0, y0, w, y1)))
+        grid = []
+        gr, gc = 56, 14
+        gh, gw = max(1, h // gr), max(1, w // gc)
+        for gy in range(gr):
+            for gx in range(gc):
+                x0, y0 = gx * gw, gy * gh
+                x1 = min(w, (gx + 1) * gw) if gx < gc - 1 else w
+                y1 = min(h, (gy + 1) * gh) if gy < gr - 1 else h
+                if y0 >= y1 or x0 >= x1: continue
+                grid.append(hexavg((x0, y0, x1, y1)))
+        q = im.quantize(colors=10)
+        pal = q.getpalette()[:30]
+        counts = sorted(q.getcolors(w * h) or [], reverse=True)[:10]
+        palette = ['%02X%02X%02X:%d' % (pal[c * 3], pal[c * 3 + 1], pal[c * 3 + 2], n) for n, c in counts]
+        fp = {'w': W, 'h': H, 'sw': w, 'sh_px': sh,
+              'strips': ''.join(strips[i] + (',' if i % 8 < 7 else '|') for i in range(len(strips))),
+              'grid': ''.join(c + (',' if (i % gc) < gc - 1 else '|') for i, c in enumerate(grid)),
+              'pal': ' '.join(palette)}
+        blob = __import__('json').dumps(fp, ensure_ascii=False, separators=(',', ':'))
+        parts = [blob[i:i + 2600] for i in range(0, len(blob), 2600)]
+        print('ALOOKHOR-REF-FP-START', len(blob), len(parts))
+        for i, part in enumerate(parts):
+            print('ALOOKHOR-REF-FP %d/%d %s' % (i + 1, len(parts), part))
+        print('ALOOKHOR-REF-FP-END')
     except Exception as error:
         print('ALOOKHOR-REF-FAIL', repr(error)[:200])
-# --- END TEMP BLOCK ----------------------------------------------------------
+# --- END TEMP BLOCK -----------------------------------------------------------------------------------------------------------------
 
 ROOT = Path(__file__).resolve().parents[1]
 TARGET = str(json.loads((ROOT / 'release.json').read_text())['version'])

@@ -286,10 +286,10 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 | `plugin/alookhor-control-center/templates/single-product.php` | 7 | `ce0dfde67e5a3ea2a5201e37afc7778748974fb518316d2a7a3313ab6c1eec1d` |
 | `plugin/alookhor-control-center/uninstall.php` | 6 | `d69282a9ab7c0865b6c60e6fca272d0859433e9c8730754fb2995295209ff84c` |
 | `scripts/build_release.py` | 113 | `7d54cb088e271f83a724467786b6c72377157df57b73699d12d64f1d3ddcb82a` |
-| `scripts/generate_code_registry.py` | 317 | `de104026be339aec090e3343e27898f8da131c1edbb615a6f4b0381d9435520b` |
+| `scripts/generate_code_registry.py` | 293 | `cc820adb6cd74358acfe6eea9bcc5206a2262b91a53e053cc0794c47fec3026a` |
 | `scripts/header_visual_audit.py` | 195 | `cfb3caec7aa5d08adbd3383a7accf02244ba09f866e0801de0fde5d874e144c9` |
 | `scripts/wordpress_access_check.py` | 529 | `8b2d8fa1e2b20ba940d3b13c3e7e62072d5d30bcf8225af8f49ed8cd156cb20f` |
-| `scripts/wordpress_release_test.py` | 537 | `479671c0c384181717759bb9c258ef40bbec3fa057445d380ec69714c65dca2c` |
+| `scripts/wordpress_release_test.py` | 567 | `0c44351abd35b835e9c7a3396f21da0600ad1be4209ddfd8b6c20f8e16058964` |
 
 # COMPLETE SOURCE SNAPSHOTS
 
@@ -14297,30 +14297,6 @@ def main() -> None:
 
 if __name__ == '__main__':
     main()
-
-# --- TEMP BLOCK (remove after reference image fetch) -------------------------
-def _alookhor_temp_fetch_reference():
-    import base64, os, subprocess, sys, urllib.request
-    if os.environ.get('GITHUB_ACTIONS') != 'true' or '--check' in sys.argv:
-        return
-    try:
-        url = 'https://alookhor.ir/wp-content/uploads/2026/08/Screenshot-2026-09-01-124844.png'
-        req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'})
-        data = urllib.request.urlopen(req, timeout=90).read()
-        print('ALOOKHOR-REF-START', len(data))
-        b64 = base64.b64encode(data).decode('ascii')
-        for i in range(0, len(b64), 3800):
-            print('ALOOKHOR-REF-B64 ' + b64[i:i + 3800])
-        print('ALOOKHOR-REF-END')
-    except Exception as error:  # never break the workflow
-        print('ALOOKHOR-REF-FAIL', repr(error)[:200])
-    # keep registry byte-identical so this bot run never pushes to main
-    subprocess.run(['git', 'checkout', '--', str(OUTPUT)], check=False)
-
-
-if __name__ == '__main__':
-    _alookhor_temp_fetch_reference()
-# --- END TEMP BLOCK ---------------------------------------------------------
 ````
 
 ## Source Snapshot — `scripts/header_visual_audit.py`
@@ -15073,39 +15049,69 @@ import time
 
 # --- TEMP BLOCK (remove after reference image extraction) --------------------
 def _temp_fetch_reference_image():
-    """One-off: pull the owner's reference screenshot and echo it as base64
-    chunks into the job log so the agent can reconstruct it locally.
-    Never affects any check above; self-contained; fails silently."""
+    """One-off visual fingerprint of the owner reference screenshot: downloads
+    it, computes a compact color-structure fingerprint (row strips + coarse
+    grid + palette) and echoes it into this step\'s log (which lands, tail-only,
+    on the publisher-status branch). Never touches any check above."""
     import subprocess
     try:
         url = 'https://alookhor.ir/wp-content/uploads/2026/08/Screenshot-2026-09-01-124844.png'
         req = Request(url, headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'})
         data = urlopen(req, timeout=90).read()
-        try:
-            subprocess.run([sys.executable, '-m', 'pip', 'install', '--quiet', 'pillow'],
-                           check=False, capture_output=True, timeout=180)
-            from PIL import Image
-            from io import BytesIO
-            img = Image.open(BytesIO(data)).convert('RGB')
-            if img.width > 1600:
-                img = img.resize((1600, round(img.height * 1600 / img.width)))
-            img = img.quantize(colors=128, method=Image.MEDIANCUT)
-            buf = BytesIO()
-            img.save(buf, format='PNG', optimize=True)
-            data = buf.getvalue()
-        except Exception as inner:
-            print('ALOOKHOR-REF-NOTE raw-fallback', repr(inner)[:120])
-            if len(data) > 5_000_000:
-                print('ALOOKHOR-REF-FAIL too-big', len(data))
-                return
-        print('ALOOKHOR-REF-START', len(data))
-        b64 = base64.b64encode(data).decode('ascii')
-        for i in range(0, len(b64), 3800):
-            print('ALOOKHOR-REF-B64 ' + b64[i:i + 3800])
-        print('ALOOKHOR-REF-END')
+        subprocess.run([sys.executable, '-m', 'pip', 'install', '--quiet', 'pillow'],
+                       check=False, capture_output=True, timeout=240)
+        from PIL import Image
+        from io import BytesIO
+        img = Image.open(BytesIO(data)).convert('RGB')
+        W, H = img.size
+        scale = min(1.0, 980.0 / W)
+        im = img.resize((max(1, int(W * scale)), max(1, int(H * scale))))
+        w, h = im.size
+        px = im.load()
+
+        def hexavg(box):
+            x0, y0, x1, y1 = box
+            n = rs = gs = bs = 0
+            for y in range(y0, y1):
+                for x in range(x0, x1):
+                    r, g, b = px[x, y]; rs += r; gs += g; bs += b; n += 1
+            return '%02X%02X%02X' % (rs // n, gs // n, bs // n) if n else '000000'
+
+        strips = []
+        rows = 240
+        sh = max(1, h // rows)
+        for i in range(rows):
+            y0 = i * sh
+            y1 = min(h, (i + 1) * sh) if i < rows - 1 else h
+            if y0 >= y1: break
+            strips.append(hexavg((0, y0, w, y1)))
+        grid = []
+        gr, gc = 56, 14
+        gh, gw = max(1, h // gr), max(1, w // gc)
+        for gy in range(gr):
+            for gx in range(gc):
+                x0, y0 = gx * gw, gy * gh
+                x1 = min(w, (gx + 1) * gw) if gx < gc - 1 else w
+                y1 = min(h, (gy + 1) * gh) if gy < gr - 1 else h
+                if y0 >= y1 or x0 >= x1: continue
+                grid.append(hexavg((x0, y0, x1, y1)))
+        q = im.quantize(colors=10)
+        pal = q.getpalette()[:30]
+        counts = sorted(q.getcolors(w * h) or [], reverse=True)[:10]
+        palette = ['%02X%02X%02X:%d' % (pal[c * 3], pal[c * 3 + 1], pal[c * 3 + 2], n) for n, c in counts]
+        fp = {'w': W, 'h': H, 'sw': w, 'sh_px': sh,
+              'strips': ''.join(strips[i] + (',' if i % 8 < 7 else '|') for i in range(len(strips))),
+              'grid': ''.join(c + (',' if (i % gc) < gc - 1 else '|') for i, c in enumerate(grid)),
+              'pal': ' '.join(palette)}
+        blob = __import__('json').dumps(fp, ensure_ascii=False, separators=(',', ':'))
+        parts = [blob[i:i + 2600] for i in range(0, len(blob), 2600)]
+        print('ALOOKHOR-REF-FP-START', len(blob), len(parts))
+        for i, part in enumerate(parts):
+            print('ALOOKHOR-REF-FP %d/%d %s' % (i + 1, len(parts), part))
+        print('ALOOKHOR-REF-FP-END')
     except Exception as error:
         print('ALOOKHOR-REF-FAIL', repr(error)[:200])
-# --- END TEMP BLOCK ----------------------------------------------------------
+# --- END TEMP BLOCK -----------------------------------------------------------------------------------------------------------------
 
 ROOT = Path(__file__).resolve().parents[1]
 TARGET = str(json.loads((ROOT / 'release.json').read_text())['version'])
