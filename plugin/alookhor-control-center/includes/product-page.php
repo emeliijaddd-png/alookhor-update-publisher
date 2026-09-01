@@ -323,6 +323,7 @@ add_action('template_redirect',function(){
  $theme_head=ob_get_clean();
  if(is_string($theme_head)&&preg_match('/^(.*?<body[^>]*>)/s',$theme_head,$head_match)){echo $head_match[1];}
  elseif(is_string($theme_head)){echo $theme_head;}
+ echo "\n<!-- ALOOKHOR-PDP v".esc_html(ALOOKHOR_CC_VERSION)." -->\n";
  if(function_exists('alookhor_cc_render_akx_header'))echo alookhor_cc_render_akx_header();
  echo $markup;
  if(function_exists('alookhor_cc_footer_markup'))echo alookhor_cc_footer_markup();
