@@ -289,7 +289,7 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 | `scripts/generate_code_registry.py` | 293 | `cc820adb6cd74358acfe6eea9bcc5206a2262b91a53e053cc0794c47fec3026a` |
 | `scripts/header_visual_audit.py` | 315 | `125cf34405f1decd7e0b53689d70fc89b2e5d9fcc5336e7f2140fc13433c86ba` |
 | `scripts/wordpress_access_check.py` | 529 | `8b2d8fa1e2b20ba940d3b13c3e7e62072d5d30bcf8225af8f49ed8cd156cb20f` |
-| `scripts/wordpress_release_test.py` | 624 | `b292dd6d4230cb2f5da1f159753b34098cd3bb6cbf899469e650a79dbc9ddbe2` |
+| `scripts/wordpress_release_test.py` | 651 | `f05d542678c450dfd8fd600e2a4be4985cbe5a2fcdbaed20eb8f26003dbdc01f` |
 
 # COMPLETE SOURCE SNAPSHOTS
 
@@ -15857,7 +15857,7 @@ def _pdp_browser_audit() -> dict:
                     break
                 except Exception as import_error:
                     attempts.append('import-failed-after: ' + ' '.join(cmd[4:]) + ' => ' + str(import_error)[:100])
-            result['pip_debug'] = attempts
+            result['pip_debug'] = [a[:90] for a in attempts[:2]]
             if not ok:
                 result['pip'] = {'failed': attempts}
                 return result
@@ -15895,7 +15895,6 @@ return {viewport:{width:innerWidth,height:innerHeight},pdpVersion,
             result['api_error'] = str(api_error)[:160]
         url = (product or {}).get('product', {}).get('url') or (BASE + '/product/%d8%a7%d9%84%d8%a8%d8%a7%d9%84%d9%88-%d8%ae%d8%b4%da%a9/')
         result['api_version'] = (product or {}).get('version')
-        result['url'] = url
         for label, width, height in (('desktop', 1614, 900), ('mobile', 390, 844)):
             view = {}
             try:
@@ -15938,6 +15937,34 @@ return {viewport:{width:innerWidth,height:innerHeight},pdpVersion,
             result['views'][label] = view
     except Exception as setup_error:
         result['setup_error'] = ('%s: %s' % (type(setup_error).__name__, setup_error))[:240]
+        return result
+    # compact: the publisher-status step truncates logs to 12000 chars — stay tiny
+    def _r(x):
+        return {k: x.get(k) for k in ('top', 'bottom', 'height')} if isinstance(x, dict) else None
+    slim = {}
+    for label, view in result['views'].items():
+        if view.get('error'):
+            slim[label] = {'err': str(view['error'])[:110]}
+            continue
+        b = view.get('before') or {}
+        a = view.get('after') or {}
+        c = view.get('css') or {}
+        slim[label] = {
+            'mk': b.get('pdpVersion'), 'pt': b.get('alp_padding_top'), 'sw': b.get('scrollW'),
+            'hdr': {'akx': _r(b.get('akx')), 'tb': _r(b.get('topbar')), 'mb': _r(b.get('mainbar')),
+                    'pos': b.get('mainbar_position'), 'stuck': b.get('mainbar_stuck')},
+            'alp': _r(b.get('alp')), 'band': _r(b.get('band')), 'gal': _r(b.get('gallery')), 'info': _r(b.get('info')),
+            'gap': {'alp': b.get('gap_alp_below_header'), 'band': b.get('gap_band_below_header'),
+                    'gal': b.get('gap_gallery_below_header'), 'info': b.get('gap_info_below_header')},
+            'css': {'v206': c.get('has_206_breathing_room'), 'v205': c.get('has_205_render_fixes'),
+                    'v204': c.get('has_204_flush'), 'len': c.get('length'), 'err': str(c.get('error') or '')[:60]},
+            'scr': {'stuck': a.get('mainbar_stuck'),
+                    'mbTop': (a.get('mainbar') or {}).get('top') if isinstance(a.get('mainbar'), dict) else None},
+        }
+    result['views'] = slim
+    payload = json.dumps(result, ensure_ascii=False, separators=(',', ':'))
+    if len(payload) > 1600:
+        return {'too_big': len(payload)}
     return result
 
 
