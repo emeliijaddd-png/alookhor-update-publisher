@@ -3,7 +3,7 @@
 > این سند از روی فایل‌های واقعی Repository تولید می‌شود. Source اصلی همچنان فایل‌های اجرایی است؛ Snapshotهای کامل زیر برای بازیابی، ممیزی و انتقال دانش نگهداری می‌شوند.
 
 - **Registry version:** `1.0.0`
-- **Plugin/source version:** `3.10.192`
+- **Plugin/source version:** `3.10.193`
 - **Generated:** `2026-08-14`
 - **Repository:** `alookhor-update-publisher`
 - **Production:** `https://alookhor.ir`
@@ -13,8 +13,8 @@
 
 ## Current Project State
 
-- CURRENT VERSION: `3.10.192`
-- LAST FUNCTIONAL CHANGE: مهر نسخه در سورس صفحه محصول برای تشخیص فوری نسخهٔ زنده.
+- CURRENT VERSION: `3.10.193`
+- LAST FUNCTIONAL CHANGE: تم بنفش لوکس برای کل صفحهٔ محصول مطابق موکاپ؛ هدر و فوتر حفظ شد.
 - ACTIVE DESIGN: Luxury Black/Gold; actual component colors remain controlled by saved WordPress settings and existing module defaults.
 - ACTIVE SHORTCODES: `[alookhor_portal_header]`, `[alookhor_managed_categories]`, `[alookhor_managed_hero]`, `[alookhor_managed_features]`.
 - ACTIVE PANELS: Main ALOOKHOR Control Center and Header/Top Bar submenu.
@@ -27,9 +27,9 @@
 ```text
 PROJECT: ALOOKHOR
 AREA: Boutique Header Settings / Admin Menu Cleanup
-CURRENT VERSION: 3.10.192
-CHANGE: مهر نسخه در سورس صفحه محصول برای تشخیص فوری نسخهٔ زنده.
-REASON: مالک هنوز صفحهٔ قدیمی می‌دید در حالی که سرور از همهٔ مسیرها نسخهٔ جدید می‌دهد؛ مهر نسخه تشخیص را قطعی می‌کند.
+CURRENT VERSION: 3.10.193
+CHANGE: تم بنفش لوکس برای کل صفحهٔ محصول مطابق موکاپ؛ هدر و فوتر حفظ شد.
+REASON: مالک تصویر موکاپ بنفش فرستاد و خواست همهٔ صفحهٔ محصول (به‌جز هدر و فوتر) دقیقاً مثل آن بنفش لوکس شود.
 FILES: docs/MASTER_DESIGN_DIRECTIVE.md; plugin/alookhor-control-center/CHANGELOG.md; plugin/alookhor-control-center/alookhor-control-center.php; plugin/alookhor-control-center/assets/css/frontend-about-page.css; plugin/alookhor-control-center/assets/css/frontend-app-banner.css; plugin/alookhor-control-center/assets/css/frontend-bestsellers.css; plugin/alookhor-control-center/assets/css/frontend-campaign-slider.css; plugin/alookhor-control-center/assets/css/frontend-contact-page.css; plugin/alookhor-control-center/assets/css/frontend-design-system.css; plugin/alookhor-control-center/assets/css/frontend-export-banner.css; plugin/alookhor-control-center/assets/css/frontend-featured-products.css; plugin/alookhor-control-center/assets/css/frontend-features.css; plugin/alookhor-control-center/assets/css/frontend-footer.css; plugin/alookhor-control-center/assets/css/frontend-header-akx.css; plugin/alookhor-control-center/assets/css/frontend-hero.css; plugin/alookhor-control-center/assets/css/frontend-international-standards.css; plugin/alookhor-control-center/assets/css/frontend-magazine.css; plugin/alookhor-control-center/assets/css/frontend-managed-layout.css; plugin/alookhor-control-center/assets/css/frontend-newsletter.css; plugin/alookhor-control-center/assets/css/frontend-product.css; plugin/alookhor-control-center/assets/css/frontend-sort-center.css; plugin/alookhor-control-center/assets/css/frontend-why-alookhor.css; plugin/alookhor-control-center/assets/fonts/vazirmatn-arabic-wght-normal.woff2; plugin/alookhor-control-center/assets/fonts/vazirmatn-latin-wght-normal.woff2; plugin/alookhor-control-center/assets/js/app.js; plugin/alookhor-control-center/assets/js/core/updateSystem.js; plugin/alookhor-control-center/assets/js/frontend-about-page.js; plugin/alookhor-control-center/assets/js/frontend-bestsellers.js; plugin/alookhor-control-center/assets/js/frontend-campaign-slider.js; plugin/alookhor-control-center/assets/js/frontend-contact-page.js; plugin/alookhor-control-center/assets/js/frontend-export-banner.js; plugin/alookhor-control-center/assets/js/frontend-featured-products.js; plugin/alookhor-control-center/assets/js/frontend-features.js; plugin/alookhor-control-center/assets/js/frontend-hero.js; plugin/alookhor-control-center/assets/js/frontend-international-standards.js; plugin/alookhor-control-center/assets/js/frontend-magazine.js; plugin/alookhor-control-center/assets/js/frontend-managed-layout.js; plugin/alookhor-control-center/assets/js/frontend-newsletter.js; plugin/alookhor-control-center/assets/js/frontend-product.js; plugin/alookhor-control-center/assets/js/frontend-sort-center.js; plugin/alookhor-control-center/assets/js/frontend-why-alookhor.js; plugin/alookhor-control-center/assets/js/modules/dashboard.js; plugin/alookhor-control-center/assets/js/modules/settings.js; plugin/alookhor-control-center/config/site.json; plugin/alookhor-control-center/includes/about-page.php; plugin/alookhor-control-center/includes/admin-export-banner.php; plugin/alookhor-control-center/includes/admin-pages.php; plugin/alookhor-control-center/includes/admin.php; plugin/alookhor-control-center/includes/ajax.php; plugin/alookhor-control-center/includes/app-banner.php; plugin/alookhor-control-center/includes/bestselling-products.php; plugin/alookhor-control-center/includes/campaign-slider.php; plugin/alookhor-control-center/includes/contact-page.php; plugin/alookhor-control-center/includes/featured-products.php; plugin/alookhor-control-center/includes/footer.php; plugin/alookhor-control-center/includes/hero.php; plugin/alookhor-control-center/includes/international-standards.php; plugin/alookhor-control-center/includes/magazine.php; plugin/alookhor-control-center/includes/newsletter.php; plugin/alookhor-control-center/includes/pages-settings.php; plugin/alookhor-control-center/includes/product-categories.php; plugin/alookhor-control-center/includes/product-page.php; plugin/alookhor-control-center/includes/shortcode-export-banner.php; plugin/alookhor-control-center/includes/shortcode-header.php; plugin/alookhor-control-center/includes/site-features.php; plugin/alookhor-control-center/includes/sort-center.php; plugin/alookhor-control-center/includes/why-alookhor.php; plugin/alookhor-control-center/readme.txt; plugin/alookhor-control-center/templates/admin-control-center.php; plugin/alookhor-control-center/templates/single-product.php; release.json; scripts/wordpress_release_test.py
 STATUS: SOURCE READY — deployment status must be verified separately.
 ```
@@ -38,34 +38,34 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 
 | ID | Type | Name | File | Used In | Version | Status |
 |---|---|---|---|---|---:|---|
-| SC-001 | Shortcode | `[alookhor_portal_header]` | `includes/shortcode-header.php` | Elementor Header Shortcode widget; exact template ID unavailable | 3.10.192 | Active / compatibility-preserving |
-| SC-002 | Shortcode | `[alookhor_managed_categories]` | `includes/product-categories.php` | Home page → Elementor Shortcode widget | 3.10.192 | Active |
-| SC-003 | Shortcode | `[alookhor_managed_hero]` | `includes/hero.php` | Home Elementor Shortcode widget / automatic Legacy-root replacement | 3.10.192 | Active |
-| SC-004 | Shortcode | `[alookhor_managed_features]` | `includes/site-features.php` | Home Elementor HTML widget / automatic Legacy-root replacement | 3.10.192 | Active |
+| SC-001 | Shortcode | `[alookhor_portal_header]` | `includes/shortcode-header.php` | Elementor Header Shortcode widget; exact template ID unavailable | 3.10.193 | Active / compatibility-preserving |
+| SC-002 | Shortcode | `[alookhor_managed_categories]` | `includes/product-categories.php` | Home page → Elementor Shortcode widget | 3.10.193 | Active |
+| SC-003 | Shortcode | `[alookhor_managed_hero]` | `includes/hero.php` | Home Elementor Shortcode widget / automatic Legacy-root replacement | 3.10.193 | Active |
+| SC-004 | Shortcode | `[alookhor_managed_features]` | `includes/site-features.php` | Home Elementor HTML widget / automatic Legacy-root replacement | 3.10.193 | Active |
 | SC-EXT-001 | External shortcode | `[alookhor_categories_carousel]` | External plugin source unavailable | Former Home showcase | External | Replaced on Home / do not reconstruct |
-| PN-001 | Admin panel | ALOOKHOR Control Center | `includes/admin.php` | WP Admin top-level menu | 3.10.192 | Active |
-| PN-002 | Admin panel | Header & Top Bar | `includes/admin.php` | WP Admin submenu | 3.10.192 | Active mirror |
-| MOD-001 | Managed module | WooCommerce Categories | `includes/product-categories.php` | Home / Elementor / REST | 3.10.192 | Active |
-| MOD-002 | Managed module | Responsive Footer | `includes/footer.php` | Frontend footer / REST | 3.10.192 | Active |
-| MOD-003 | Managed module | Four-slide Hero | `includes/hero.php` | Home / Elementor / REST | 3.10.192 | Active |
-| MOD-004 | Managed module | Four-card Site Features | `includes/site-features.php` | Home / Elementor / REST | 3.10.192 | Active |
-| API-001 | REST API | `alookhor-cc/v1` | `includes/rest-api.php` | Public state + authenticated updater | 3.10.192 | Active |
-| UPD-001 | Updater | Private native updater | `includes/updater.php` | Control Center + GitHub Actions | 3.10.192 | Active |
-| CFG-001 | WordPress state | Main settings | `alookhor_cc_settings` | All managed modules | 3.10.192 | Active |
-| CFG-002 | WordPress state | Header settings | `alookhor_header_settings` | Header and Top Bar | 3.10.192 | Active |
-| CSS-001 | CSS | Managed Header | `assets/css/frontend-header.css` | `[alookhor_portal_header]` fallback renderer | 3.10.192 | Active |
-| JS-001 | JavaScript | Managed Header runtime | `assets/js/frontend-header.js` | `[alookhor_portal_header]` fallback renderer | 3.10.192 | Active |
-| JS-002 | JavaScript | Legacy Top Bar manager | `assets/js/frontend-topbar-manager.js` | Preserved legacy header provider | 3.10.192 | Active when legacy provider exists |
-| CSS-002 | CSS | WooCommerce Categories | `assets/css/frontend-categories.css` | `[alookhor_managed_categories]` | 3.10.192 | Active |
-| JS-003 | JavaScript | Categories carousel | `assets/js/frontend-categories.js` | `[alookhor_managed_categories]` | 3.10.192 | Active |
-| CSS-003 | CSS | Managed Footer | `assets/css/frontend-footer.css` | Managed Footer module | 3.10.192 | Active |
-| JS-004 | JavaScript | Managed Footer | `assets/js/frontend-footer.js` | Managed Footer module | 3.10.192 | Active |
-| CSS-004 | CSS | Control Center UI | `assets/css/luxury.css` | WP Admin ALOOKHOR pages | 3.10.192 | Active |
-| JS-005 | JavaScript | Control Center app | `assets/js/app.js` + modules | WP Admin ALOOKHOR pages | 3.10.192 | Active |
-| CSS-005 | CSS | Managed Hero | `assets/css/frontend-hero.css` | `[alookhor_managed_hero]` / automatic Home replacement | 3.10.192 | Active |
-| JS-006 | JavaScript | Managed Hero runtime | `assets/js/frontend-hero.js` | Four-slide replacement, controls and REST refresh | 3.10.192 | Active |
-| CSS-006 | CSS | Managed Site Features | `assets/css/frontend-features.css` | `[alookhor_managed_features]` / automatic Home replacement | 3.10.192 | Active |
-| JS-007 | JavaScript | Managed Site Features runtime | `assets/js/frontend-features.js` | Four-card replacement and REST refresh | 3.10.192 | Active |
+| PN-001 | Admin panel | ALOOKHOR Control Center | `includes/admin.php` | WP Admin top-level menu | 3.10.193 | Active |
+| PN-002 | Admin panel | Header & Top Bar | `includes/admin.php` | WP Admin submenu | 3.10.193 | Active mirror |
+| MOD-001 | Managed module | WooCommerce Categories | `includes/product-categories.php` | Home / Elementor / REST | 3.10.193 | Active |
+| MOD-002 | Managed module | Responsive Footer | `includes/footer.php` | Frontend footer / REST | 3.10.193 | Active |
+| MOD-003 | Managed module | Four-slide Hero | `includes/hero.php` | Home / Elementor / REST | 3.10.193 | Active |
+| MOD-004 | Managed module | Four-card Site Features | `includes/site-features.php` | Home / Elementor / REST | 3.10.193 | Active |
+| API-001 | REST API | `alookhor-cc/v1` | `includes/rest-api.php` | Public state + authenticated updater | 3.10.193 | Active |
+| UPD-001 | Updater | Private native updater | `includes/updater.php` | Control Center + GitHub Actions | 3.10.193 | Active |
+| CFG-001 | WordPress state | Main settings | `alookhor_cc_settings` | All managed modules | 3.10.193 | Active |
+| CFG-002 | WordPress state | Header settings | `alookhor_header_settings` | Header and Top Bar | 3.10.193 | Active |
+| CSS-001 | CSS | Managed Header | `assets/css/frontend-header.css` | `[alookhor_portal_header]` fallback renderer | 3.10.193 | Active |
+| JS-001 | JavaScript | Managed Header runtime | `assets/js/frontend-header.js` | `[alookhor_portal_header]` fallback renderer | 3.10.193 | Active |
+| JS-002 | JavaScript | Legacy Top Bar manager | `assets/js/frontend-topbar-manager.js` | Preserved legacy header provider | 3.10.193 | Active when legacy provider exists |
+| CSS-002 | CSS | WooCommerce Categories | `assets/css/frontend-categories.css` | `[alookhor_managed_categories]` | 3.10.193 | Active |
+| JS-003 | JavaScript | Categories carousel | `assets/js/frontend-categories.js` | `[alookhor_managed_categories]` | 3.10.193 | Active |
+| CSS-003 | CSS | Managed Footer | `assets/css/frontend-footer.css` | Managed Footer module | 3.10.193 | Active |
+| JS-004 | JavaScript | Managed Footer | `assets/js/frontend-footer.js` | Managed Footer module | 3.10.193 | Active |
+| CSS-004 | CSS | Control Center UI | `assets/css/luxury.css` | WP Admin ALOOKHOR pages | 3.10.193 | Active |
+| JS-005 | JavaScript | Control Center app | `assets/js/app.js` + modules | WP Admin ALOOKHOR pages | 3.10.193 | Active |
+| CSS-005 | CSS | Managed Hero | `assets/css/frontend-hero.css` | `[alookhor_managed_hero]` / automatic Home replacement | 3.10.193 | Active |
+| JS-006 | JavaScript | Managed Hero runtime | `assets/js/frontend-hero.js` | Four-slide replacement, controls and REST refresh | 3.10.193 | Active |
+| CSS-006 | CSS | Managed Site Features | `assets/css/frontend-features.css` | `[alookhor_managed_features]` / automatic Home replacement | 3.10.193 | Active |
+| JS-007 | JavaScript | Managed Site Features runtime | `assets/js/frontend-features.js` | Four-card replacement and REST refresh | 3.10.193 | Active |
 
 ## SC-001 — Portal Header
 
@@ -200,7 +200,7 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 |---|---:|---|
 | `.github/workflows/publish.yml` | 535 | `ea2a747b9787cb39313702fd50fd8940891a2ed64de3acac6c4e5d69912dec3d` |
 | `ops/wordpress-ci-bootstrap.php` | 215 | `409c23f2be99c6651b0e75dc877c91c884534e6b16f9985c177cf65d14fd4c95` |
-| `plugin/alookhor-control-center/alookhor-control-center.php` | 436 | `30f6fd5e954f76b9c7d0e6ffbb7c7b1c414217f1d31c83d285d99cc5f09d257d` |
+| `plugin/alookhor-control-center/alookhor-control-center.php` | 436 | `199916d403cc419ed1d04c0e6d871b656bd03f97f995212ab68bf255e6258cd0` |
 | `plugin/alookhor-control-center/assets/css/frontend-about-page.css` | 37 | `4a895038f4ede91f1172279e86e10ed6939a8a406c16ee780c326f6f4f5df5c2` |
 | `plugin/alookhor-control-center/assets/css/frontend-app-banner.css` | 1 | `244970e53ef04849a0a52d3930427bc7be986c818a258efcfb9afbd16b187898` |
 | `plugin/alookhor-control-center/assets/css/frontend-bestsellers.css` | 24 | `cf27fd12f8c8d7ebff96e50093e77e9d43cad86f88944a9ee983fd47a622184d` |
@@ -221,15 +221,15 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 | `plugin/alookhor-control-center/assets/css/frontend-magazine.css` | 3 | `506927291547c597b5cb9a56cf350932623dc3277783309ce624fa26f3af3b50` |
 | `plugin/alookhor-control-center/assets/css/frontend-managed-layout.css` | 29 | `215444c878e19ed0cfd336484ef1d1baec7eb2f71069daf3a26a3742a800c903` |
 | `plugin/alookhor-control-center/assets/css/frontend-newsletter.css` | 7 | `20d9fd105e74dedf48fd5c4cdf7e338420d21738813d87120e0f0bb3587a654e` |
-| `plugin/alookhor-control-center/assets/css/frontend-product.css` | 277 | `6a326fad7f34636dce7a32683cc758052cbccb470e2c6a7c5d31e1f9d29d999d` |
+| `plugin/alookhor-control-center/assets/css/frontend-product.css` | 277 | `2198256228297a1d714ab8205b6d3105527e89abceb2100e74f56e45ea8aadd3` |
 | `plugin/alookhor-control-center/assets/css/frontend-sort-center.css` | 6 | `235119cbc8575b4794f5bf1dde93cf14a3c5055feff58191956e0c67daa65c3c` |
 | `plugin/alookhor-control-center/assets/css/frontend-why-alookhor.css` | 45 | `5a09aa03fd1ae4fc6a345c71f38139ce3e7c992944c46fd97214d29a5cea0195` |
 | `plugin/alookhor-control-center/assets/css/luxury.css` | 564 | `eef0550c9d8b090dbe799d9a969518207519fdb585c9701e2d897a507e669f8f` |
 | `plugin/alookhor-control-center/assets/js/admin-wp.js` | 84 | `b8ff32723f2f46dc44add19fdc441eec1c611f5229ce7e13ac8b773457be6afc` |
-| `plugin/alookhor-control-center/assets/js/app.js` | 325 | `5b99a2cbc6fd87f36052c30e548bb7d1a09efb6636d7a4d7ce61d3418f439232` |
+| `plugin/alookhor-control-center/assets/js/app.js` | 325 | `65dc62789f4aeecb628b05bd4402b35662bb121b5d94420e2d25187d7122e87e` |
 | `plugin/alookhor-control-center/assets/js/core/config.js` | 199 | `1c89b0d0d8121bce7fc7097f9d1974eb1e38d1ec7f6b0f6f6d5244ab60ea1e85` |
 | `plugin/alookhor-control-center/assets/js/core/responsive.js` | 52 | `0848ef0deef9aaa532581904c4adab9b45cbe8445a99fbeb71f92d358a1aa724` |
-| `plugin/alookhor-control-center/assets/js/core/updateSystem.js` | 298 | `889a43bfd477d56f4c356345c1b5dfc73058c30f5b8603b1dac0eba827bafc24` |
+| `plugin/alookhor-control-center/assets/js/core/updateSystem.js` | 298 | `082cc8a1416311ea84ee6e93df02c296c76d617a159d574ac9ade806e37def17` |
 | `plugin/alookhor-control-center/assets/js/frontend-about-page.js` | 7 | `67eb9861385f661036e8cd67fea01439f57d6f50325ec92d0a75cdc7cabcc1e0` |
 | `plugin/alookhor-control-center/assets/js/frontend-bestsellers.js` | 1 | `df2ac32d9938f428c20f972f6c45ae7570e8773d821649f45a09daed6cc227a8` |
 | `plugin/alookhor-control-center/assets/js/frontend-campaign-slider.js` | 1 | `e7d2e5652230a7cf079be7eeb9bd40734d4e2ac60cd2f07c98e8b83cfbf64d12` |
@@ -251,12 +251,12 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 | `plugin/alookhor-control-center/assets/js/frontend-topbar-manager.js` | 464 | `45980b0d4bcdf219ecb7665bbad95e69c874400047a12b526b7a0248231d0aa9` |
 | `plugin/alookhor-control-center/assets/js/frontend-why-alookhor.js` | 1 | `56302efb357de366650abbfe9f80c9439772e63a5ad1f637fac65beb8de13155` |
 | `plugin/alookhor-control-center/assets/js/modules/analytics.js` | 21 | `5e35bdba45de5750af08d6cfea337fd7a6eb8cc852ef1c955ee5ba1e7a56bf0c` |
-| `plugin/alookhor-control-center/assets/js/modules/dashboard.js` | 173 | `d0e6a0695ba1c0d1a11910e4fc3a0192c4990b2f38ff13c6ecea73dc919d4bf3` |
+| `plugin/alookhor-control-center/assets/js/modules/dashboard.js` | 173 | `9bcdd84bd382ce28d4ab77e1b079811cf1302327f24f23d8bffd46f5f3e43e05` |
 | `plugin/alookhor-control-center/assets/js/modules/inventory.js` | 30 | `e1c39f880a1e7985fa8ea64b07ec72ce69c416165fb514ad9fb7d9f8e8e93723` |
 | `plugin/alookhor-control-center/assets/js/modules/orders.js` | 19 | `0ccd8376c69ba37fb50d3261f002789488042e17a0b1b37539bab86abda374eb` |
-| `plugin/alookhor-control-center/assets/js/modules/settings.js` | 794 | `a57ccf34662d8e5fb91bd9236c37ae26599835e6f81796763e59902ac9baa3d3` |
+| `plugin/alookhor-control-center/assets/js/modules/settings.js` | 794 | `745b6016f354e93bfad1c11a0f1ce2a28b2b605cd30e950fc08b8585d9cbec2b` |
 | `plugin/alookhor-control-center/assets/js/modules/users.js` | 20 | `6fb96546faf00ea831ace016d09b10f903a501db647bae20d0f570034ac36946` |
-| `plugin/alookhor-control-center/config/site.json` | 328 | `65b204abd800fe1d3aca30fc6d9281ce6a670a8eee491a691cd1ab5f4ae89ddc` |
+| `plugin/alookhor-control-center/config/site.json` | 328 | `401d6166315d9d2c241b521a28ed49c830bfbe82382981a89d5bc09d58b40112` |
 | `plugin/alookhor-control-center/includes/about-page.php` | 161 | `c6550866eeb1d48ff70085c42b84ec251afb3ce764b0b005c0c80a9751ae266b` |
 | `plugin/alookhor-control-center/includes/admin-export-banner.php` | 180 | `fff84102b3dc84cb69c7318312395993a8adf6255a5d7f056d4c7bf7dce8e1b2` |
 | `plugin/alookhor-control-center/includes/admin-pages.php` | 210 | `6cf25d85284e99d73dbfade4504c8fa4d3e98e1ddbc2d6cc5fcd8845e2edb4e1` |
@@ -1063,7 +1063,7 @@ add_action('rest_api_init', function(){
  * Plugin Name: ALOOKHOR Control Center
  * Plugin URI: https://alookhor.ir
  * Description: کنترل سنتر لوکس و ماژولار آلوخور — مدیریت کامل سایت (هدر، اسلایدر، سورت، محصولات، مشتریان VIP، مالی، آنالیتیکس) با آپدیت آنی بدون رفرش. تمام تنظیمات چت قبلی + شورت‌کد [alookhor_portal_header] اینجا مدیریت می‌شود.
- * Version: 3.10.192
+ * Version: 3.10.193
  * Author: ALOOKHOR Team — Luxury Modular
  * Author URI: https://alookhor.ir
  * Update URI: https://alookhor.ir/alookhor-control-center
@@ -1076,8 +1076,8 @@ add_action('rest_api_init', function(){
 
 if (!defined('ABSPATH')) exit;
 
-define('ALOOKHOR_CC_VERSION', '3.10.192');
-define('ALOOKHOR_CC_BUILD', '3.10.192');
+define('ALOOKHOR_CC_VERSION', '3.10.193');
+define('ALOOKHOR_CC_BUILD', '3.10.193');
 define('ALOOKHOR_CC_FILE', __FILE__);
 define('ALOOKHOR_CC_DIR', plugin_dir_path(__FILE__));
 define('ALOOKHOR_CC_URL', plugin_dir_url(__FILE__));
@@ -4229,245 +4229,253 @@ html body.alookhor-managed-page hr{border-color:rgba(212,175,55,.12)!important;b
 ## Source Snapshot — `plugin/alookhor-control-center/assets/css/frontend-product.css`
 
 ````css
-/* ALOOKHOR luxury glass PDP v3.10.185 — #24102F / #5B247A / gold #D4AF37 / #FAF8F3 — controlled glass + elegant neon */
+/* ALOOKHOR luxury PURPLE glass PDP v3.10.193 — deep royal purple #24102F/#5B247A + gold #D4AF37, controlled glass & elegant neon. Header/footer untouched. */
 .alookhor-alp,.alookhor-alp *{box-sizing:border-box}
 .alookhor-alp{
- --gold:var(--alp-gold,#D4AF37);--gold-2:#E8C766;--purple-deep:#24102F;--royal:#5B247A;
- --off:#FAF8F3;--cream:#F3EEE4;--ink:#17131A;--muted:#6E6870;
- --glass:rgba(255,255,255,.55);--glass-strong:rgba(255,255,255,.72);--glass-purple:rgba(91,36,122,.08);
- --gold-glow:rgba(212,175,55,.18);--neon:rgba(125,70,180,.22);--line:rgba(36,16,47,.1);
- width:100vw;max-width:100vw;margin:0 calc(50% - 50vw);padding:22px 0 0;background:var(--off);color:var(--ink);
+ --gold:var(--alp-gold,#D4AF37);--gold-2:#E8C766;--purple-deep:#24102F;--purple-page:#2A1240;--royal:#5B247A;--royal-soft:#6E3692;
+ --deep:#1A0B26;--text:#F6F1E9;--muted:#C6BAD4;--soft:#A99BC0;
+ --glass:rgba(255,255,255,.055);--glass-strong:rgba(255,255,255,.09);--glass-purple:rgba(91,36,122,.16);
+ --gold-glow:rgba(212,175,55,.2);--neon:rgba(125,70,180,.35);--line:rgba(255,255,255,.13);
+ width:100vw;max-width:100vw;margin:0 calc(50% - 50vw);padding:22px 0 0;background:linear-gradient(168deg,#24102F 0%,#2A1240 48%,#1F0D2E 100%);color:var(--text);
  font-family:Vazirmatn,IRANSansX,Tahoma,sans-serif;position:relative;z-index:1;overflow-x:clip}
 .alookhor-alp:before{content:"";position:absolute;inset:0;pointer-events:none;z-index:0;
- background:radial-gradient(38rem 24rem at 88% -4%,var(--glass-purple),transparent 60%),
+ background:radial-gradient(38rem 24rem at 88% -4%,rgba(125,70,180,.3),transparent 60%),
   radial-gradient(30rem 20rem at 4% 12%,var(--gold-glow),transparent 62%),
-  radial-gradient(44rem 30rem at 50% 108%,rgba(91,36,122,.07),transparent 60%)}
-.alookhor-alp:after{content:"";position:absolute;inset:0;pointer-events:none;z-index:0;opacity:.05;
+  radial-gradient(44rem 30rem at 50% 108%,rgba(91,36,122,.28),transparent 60%)}
+.alookhor-alp:after{content:"";position:absolute;inset:0;pointer-events:none;z-index:0;opacity:.06;
  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/></filter><rect width='140' height='140' filter='url(%23n)' opacity='0.5'/></svg>")}
 .alp-inner{width:min(1320px,100%);margin:auto;padding:0 24px;position:relative;z-index:1}
-.alp-kicker{color:var(--gold);font:800 11px Arial,Helvetica,sans-serif;letter-spacing:4px}
+.alp-kicker{color:var(--gold-2);font:800 11px Arial,Helvetica,sans-serif;letter-spacing:4px}
 .alp-btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:48px;padding:12px 26px;border-radius:15px;font-weight:800;font-size:13.5px;text-decoration:none!important;cursor:pointer;transition:transform .2s,box-shadow .25s,background .25s,border-color .25s}
 .alp-btn:hover{transform:translateY(-1px)}
-.alp-btn-gold{border:0;background:#D4AF37;color:var(--purple-deep)!important;box-shadow:0 14px 30px var(--gold-glow)}
-.alp-btn-gold:hover{background:#E3C15C;box-shadow:0 18px 38px rgba(212,175,55,.32)}
-.alp-btn-ghost{border:1px solid rgba(36,16,47,.14);background:var(--glass-strong);color:var(--ink)!important;backdrop-filter:blur(10px)}
+.alp-btn-gold{border:0;background:#D4AF37;color:#24102F!important;box-shadow:0 14px 30px var(--gold-glow)}
+.alp-btn-gold:hover{background:#E3C15C;box-shadow:0 18px 38px rgba(212,175,55,.34)}
+.alp-btn-ghost{border:1px solid rgba(212,175,55,.4);background:var(--glass);color:var(--text)!important;backdrop-filter:blur(10px)}
+.alp-btn-ghost:hover{border-color:var(--gold);background:var(--glass-purple)}
 .alp-btn-line{border:1px solid rgba(212,175,55,.45);background:rgba(255,255,255,.06);color:#fff!important}
 /* breadcrumb */
 .alp-crumbs{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:10px 4px 18px;color:var(--muted);font-size:13px}
 .alp-crumbs a{color:var(--muted);text-decoration:none;transition:color .2s}
-.alp-crumbs a:hover{color:var(--royal)}
-.alp-crumbs span{color:var(--royal);font-weight:700}
-.alp-crumbs i{color:rgba(36,16,47,.18);font-style:normal}
+.alp-crumbs a:hover{color:var(--gold-2)}
+.alp-crumbs span{color:var(--gold-2);font-weight:700}
+.alp-crumbs i{color:rgba(255,255,255,.22);font-style:normal}
 /* ——— hero ——— */
 .alp-hero{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:32px;align-items:start;padding-bottom:30px}
-/* info panel (glass) */
-.alp-info{position:relative;padding:34px 32px;border-radius:30px;background:var(--glass);border:1px solid rgba(255,255,255,.75);box-shadow:0 15px 45px rgba(36,16,47,.08);backdrop-filter:blur(18px)}
-.alp-info:before{content:"";position:absolute;top:0;right:28px;left:28px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.8;pointer-events:none}
-.alp-cat-badge{display:inline-flex;align-items:center;gap:7px;padding:6px 13px;border-radius:999px;background:var(--glass-purple);border:1px solid rgba(91,36,122,.22);color:var(--royal);font-size:11.5px;font-weight:800}
+/* info panel (purple glass) */
+.alp-info{position:relative;padding:34px 32px;border-radius:30px;background:linear-gradient(155deg,rgba(255,255,255,.08),rgba(255,255,255,.04));border:1px solid var(--line);box-shadow:0 18px 50px rgba(10,3,18,.45);backdrop-filter:blur(18px)}
+.alp-info:before{content:"";position:absolute;top:0;right:28px;left:28px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.9;pointer-events:none}
+.alp-cat-badge{display:inline-flex;align-items:center;gap:7px;padding:6px 13px;border-radius:999px;background:var(--glass-purple);border:1px solid rgba(212,175,55,.4);color:var(--gold-2);font-size:11.5px;font-weight:800}
 .alp-cat-badge svg{width:14px;height:14px;color:var(--gold)}
-.alp-info h1{margin:14px 0 10px!important;color:var(--ink)!important;font-size:clamp(24px,2.7vw,38px)!important;font-weight:900!important;line-height:1.55!important}
+.alp-info h1{margin:14px 0 10px!important;color:var(--text)!important;font-size:clamp(24px,2.7vw,38px)!important;font-weight:900!important;line-height:1.55!important}
 .alp-info h1 b{color:var(--gold)!important}
 .alp-rate{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:12px}
-.alp-rate b{font-size:19px;font-weight:900;color:var(--purple-deep)}
-.alp-rate a{color:var(--muted);font-size:12.5px;text-decoration:none;border-bottom:1px dashed rgba(91,36,122,.35)}
-.alp-rate a:hover{color:var(--royal)}
+.alp-rate b{font-size:19px;font-weight:900;color:var(--gold-2)}
+.alp-rate a{color:var(--muted);font-size:12.5px;text-decoration:none;border-bottom:1px dashed rgba(212,175,55,.4)}
+.alp-rate a:hover{color:var(--gold-2)}
 .alp-stars{display:inline-flex;gap:2px;color:var(--gold)}
 .alp-stars svg{width:16px;height:16px}
-.alp-stars-off{color:rgba(36,16,47,.16)}
-.alp-sub{margin:0 0 14px!important;color:#4A4450!important;font-size:15.5px!important;line-height:1.95!important}
+.alp-stars-off{color:rgba(255,255,255,.22)}
+.alp-sub{margin:0 0 14px!important;color:#DCD2E8!important;font-size:15.5px!important;line-height:1.95!important}
 /* micro features */
 .alp-feats{margin:0 0 16px;padding:0;list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:7px}
-.alp-feats li{display:flex;align-items:center;gap:7px;padding:8px 11px;border-radius:11px;background:var(--glass-strong);border:1px solid rgba(255,255,255,.8);font-size:11.5px;font-weight:700;color:#3D3744}
+.alp-feats li{display:flex;align-items:center;gap:7px;padding:8px 11px;border-radius:11px;background:var(--glass);border:1px solid var(--line);font-size:11.5px;font-weight:700;color:#E4DBEF}
 .alp-feats svg{width:13px;height:13px;color:var(--gold);flex:none}
 /* price */
-.alp-price{position:relative;padding:16px 18px 13px;border-radius:20px;background:var(--glass-strong);border:1px solid rgba(255,255,255,.8);box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 8px 24px rgba(36,16,47,.05)}
+.alp-price{position:relative;padding:16px 18px 13px;border-radius:20px;background:linear-gradient(120deg,rgba(212,175,55,.1),rgba(91,36,122,.14));border:1px solid rgba(212,175,55,.35);box-shadow:inset 0 1px 0 rgba(255,255,255,.08)}
 .alp-price:before{content:"";position:absolute;top:10px;bottom:10px;right:0;width:2px;border-radius:2px;background:linear-gradient(180deg,var(--gold-2),var(--gold),transparent)}
 .alp-price-t{display:block;color:var(--muted);font-size:11.5px;margin-bottom:3px}
 .alp-price-row{display:flex;align-items:baseline;gap:11px;flex-wrap:wrap}
-.alp-price-row b{font-size:clamp(28px,3vw,40px);font-weight:900;color:var(--purple-deep);line-height:1.2}
-.alp-price-row b del{color:var(--muted);font-size:15px;font-weight:500;opacity:.75;margin-right:8px}
-.alp-price-row s{color:var(--muted);font-size:15px}
-.alp-off-b{font-style:normal;padding:4px 12px;border-radius:999px;background:linear-gradient(135deg,rgba(212,175,55,.16),var(--gold-glow));border:1px solid rgba(212,175,55,.5);color:#7A5B10;font-size:12px;font-weight:900}
-.alp-price small{display:block;margin-top:7px;color:var(--muted);font-size:11px}
+.alp-price-row b{font-size:clamp(28px,3vw,40px);font-weight:900;color:var(--gold-2);line-height:1.2}
+.alp-price-row b del{color:var(--muted);font-size:15px;font-weight:500;opacity:.8;margin-right:8px}
+.alp-price-row s{color:var(--soft);font-size:15px}
+.alp-off-b{font-style:normal;padding:4px 12px;border-radius:999px;background:rgba(212,175,55,.14);border:1px solid rgba(212,175,55,.5);color:var(--gold-2);font-size:12px;font-weight:900}
+.alp-price small{display:block;margin-top:7px;color:var(--soft);font-size:11px}
 /* weights */
 .alp-pick{margin-top:16px}
-.alp-pick-t{display:block;font-weight:800;font-size:13.5px;color:var(--purple-deep);margin-bottom:9px}
+.alp-pick-t{display:block;font-weight:800;font-size:13.5px;color:var(--gold-2);margin-bottom:9px}
 .alp-weights{display:flex;flex-wrap:wrap;gap:8px}
-.alp-weights button{min-height:46px;padding:10px 18px;border-radius:15px;border:1px solid rgba(36,16,47,.12);background:var(--glass-strong);backdrop-filter:blur(8px);color:var(--ink);font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;transition:all .2s}
+.alp-weights button{min-height:46px;padding:10px 18px;border-radius:15px;border:1px solid var(--line);background:var(--glass);backdrop-filter:blur(8px);color:var(--text);font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;transition:all .2s}
 .alp-weights button:hover{border-color:rgba(212,175,55,.55)}
-.alp-weights button.is-on{border-color:var(--gold);background:var(--glass-purple);box-shadow:0 0 0 3px var(--gold-glow),0 6px 18px rgba(91,36,122,.12);color:var(--purple-deep)}
+.alp-weights button.is-on{border-color:var(--gold);background:var(--glass-purple);box-shadow:0 0 0 3px rgba(212,175,55,.18),0 6px 18px rgba(110,54,146,.35);color:var(--gold-2)}
 .alp-weights button[disabled]{opacity:.4;cursor:not-allowed}
 /* stock */
 .alp-stock{display:flex;align-items:center;gap:8px;margin:14px 2px 2px;font-size:13px}
-.alp-stock i{width:9px;height:9px;border-radius:50%;background:#3BA55D;box-shadow:0 0 0 3px rgba(59,165,93,.18);flex:none}
-.alp-stock-low i{background:#D99A2B;box-shadow:0 0 0 3px rgba(217,154,43,.18)}
-.alp-stock-out i{background:#C25B50;box-shadow:0 0 0 3px rgba(194,91,80,.18)}
+.alp-stock i{width:9px;height:9px;border-radius:50%;background:#4CC98A;box-shadow:0 0 0 3px rgba(76,201,138,.18);flex:none}
+.alp-stock-low i{background:#E5B45A;box-shadow:0 0 0 3px rgba(229,180,90,.18)}
+.alp-stock-out i{background:#E06D66;box-shadow:0 0 0 3px rgba(224,109,102,.18)}
 .alp-stock b{font-weight:800}
-.alp-stock span{color:var(--muted);font-size:12px}
+.alp-stock span{color:var(--soft);font-size:12px}
 /* buy */
 .alp-buy{display:flex;align-items:center;gap:12px;margin-top:16px}
-.alp-qty{display:inline-flex;align-items:center;height:52px;border-radius:16px;border:1px solid rgba(36,16,47,.12);background:var(--glass-strong);backdrop-filter:blur(8px);overflow:hidden;flex:none}
-.alp-qty button{width:44px;height:100%;display:grid;place-items:center;border:0;background:transparent;color:var(--purple-deep);cursor:pointer}
-.alp-qty button:hover{background:var(--cream)}
+.alp-qty{display:inline-flex;align-items:center;height:52px;border-radius:16px;border:1px solid var(--line);background:var(--glass);backdrop-filter:blur(8px);overflow:hidden;flex:none}
+.alp-qty button{width:44px;height:100%;display:grid;place-items:center;border:0;background:transparent;color:var(--gold-2);cursor:pointer}
+.alp-qty button:hover{background:var(--glass-purple)}
 .alp-qty svg{width:15px;height:15px}
-.alp-qty b{min-width:38px;text-align:center;font-size:16px;font-weight:900}
-.alp-cta{flex:1;display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:58px;border-radius:16px;background:#D4AF37;color:#24102F!important;font-weight:900;font-size:15.5px;text-decoration:none!important;box-shadow:0 16px 34px var(--gold-glow);cursor:pointer;transition:transform .2s,box-shadow .25s,background .2s}
-.alp-cta:hover{transform:translateY(-1px);background:#E3C15C;box-shadow:0 20px 42px rgba(212,175,55,.38)}
+.alp-qty b{min-width:38px;text-align:center;font-size:16px;font-weight:900;color:var(--text)}
+.alp-cta{flex:1;display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:58px;border-radius:16px;background:#D4AF37;color:#24102F!important;font-weight:900;font-size:15.5px;text-decoration:none!important;box-shadow:0 16px 34px rgba(212,175,55,.28);cursor:pointer;transition:transform .2s,box-shadow .25s,background .2s}
+.alp-cta:hover{transform:translateY(-1px);background:#E3C15C;box-shadow:0 20px 42px rgba(212,175,55,.4)}
 .alp-cta svg{width:20px;height:20px}
-.alp-mini{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:10px;min-height:44px;border-radius:14px;border:1px solid rgba(36,16,47,.12);background:rgba(255,255,255,.4);color:var(--muted);font-family:inherit;font-size:12.5px;font-weight:700;cursor:pointer;transition:all .2s}
-.alp-mini:hover{border-color:rgba(212,175,55,.55);color:var(--purple-deep)}
-.alp-mini.is-on{border-color:var(--gold);color:#7A5B10;background:var(--gold-glow)}
+.alp-mini{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:10px;min-height:44px;border-radius:14px;border:1px solid var(--line);background:var(--glass);color:var(--muted);font-family:inherit;font-size:12.5px;font-weight:700;cursor:pointer;transition:all .2s}
+.alp-mini:hover{border-color:rgba(212,175,55,.55);color:var(--gold-2)}
+.alp-mini.is-on{border-color:var(--gold);color:var(--gold-2);background:rgba(212,175,55,.12)}
 .alp-mini svg{width:16px;height:16px}
-.alp-assure{display:flex;align-items:center;gap:8px;margin:12px 2px 0!important;color:var(--muted)!important;font-size:11.5px!important}
+.alp-assure{display:flex;align-items:center;gap:8px;margin:12px 2px 0!important;color:var(--soft)!important;font-size:11.5px!important}
 .alp-assure svg{width:15px;height:15px;color:var(--gold);flex:none}
 /* gallery */
 .alp-gallery{margin:0;position:sticky;top:96px}
-.alp-stage{position:relative;border-radius:30px;background:linear-gradient(160deg,#FFFDF9,var(--cream));border:1px solid rgba(255,255,255,.8);box-shadow:0 24px 60px rgba(36,16,47,.1);overflow:hidden}
+.alp-stage{position:relative;border-radius:30px;background:linear-gradient(160deg,#31173F,#1C0B29);border:1px solid var(--line);box-shadow:0 26px 64px rgba(8,2,14,.55);overflow:hidden}
 .alp-stage img{width:100%;height:min(560px,56vw);object-fit:cover;display:block;transition:transform .45s ease}
 .alp-stage:hover img{transform:scale(1.035)}
-.alp-frame{position:absolute;inset:12px;border-radius:22px;border:1px solid rgba(255,255,255,.75);backdrop-filter:blur(2px);pointer-events:none;box-shadow:inset 0 0 0 1px rgba(212,175,55,.12)}
+.alp-frame{position:absolute;inset:12px;border-radius:22px;border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(2px);pointer-events:none;box-shadow:inset 0 0 0 1px rgba(212,175,55,.14)}
 .alp-frame:before,.alp-frame:after{content:"";position:absolute;width:56px;height:56px;pointer-events:none}
 .alp-frame:before{top:-1px;left:-1px;border-top:2px solid var(--neon);border-left:2px solid var(--neon);border-top-left-radius:22px}
 .alp-frame:after{bottom:-1px;right:-1px;border-bottom:2px solid var(--gold-glow);border-right:2px solid var(--gold-glow);border-bottom-right-radius:22px}
-.alp-off{position:absolute;top:22px;left:22px;padding:7px 15px;border-radius:999px;background:var(--glass-strong);border:1px solid rgba(212,175,55,.55);backdrop-filter:blur(8px);color:#7A5B10;font-size:13px;font-weight:900;box-shadow:0 8px 20px var(--gold-glow)}
-.alp-badge-shot{position:absolute;top:22px;right:22px;display:inline-flex;align-items:center;gap:7px;padding:7px 14px;border-radius:999px;background:rgba(36,16,47,.55);border:1px solid rgba(255,255,255,.2);backdrop-filter:blur(10px);color:#fff;font-size:11.5px;font-weight:700}
+.alp-off{position:absolute;top:22px;left:22px;padding:7px 15px;border-radius:999px;background:rgba(26,11,38,.75);border:1px solid rgba(212,175,55,.6);backdrop-filter:blur(8px);color:var(--gold-2);font-size:13px;font-weight:900;box-shadow:0 8px 20px rgba(212,175,55,.25)}
+.alp-flag{position:absolute;top:64px;right:22px;display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:999px;background:rgba(26,11,38,.72);border:1px solid rgba(212,175,55,.55);backdrop-filter:blur(10px);color:var(--gold-2);font-size:11.5px;font-weight:900;box-shadow:0 8px 22px rgba(212,175,55,.28)}
+.alp-flag svg{width:13px;height:13px;color:var(--gold)}
+.alp-badge-shot{position:absolute;top:22px;right:22px;display:inline-flex;align-items:center;gap:7px;padding:7px 14px;border-radius:999px;background:rgba(26,11,38,.6);border:1px solid rgba(255,255,255,.18);backdrop-filter:blur(10px);color:#EDE6F5;font-size:11.5px;font-weight:700}
 .alp-badge-shot svg{width:14px;height:14px;color:var(--gold)}
 .alp-float{position:absolute;bottom:22px;left:22px;display:flex;flex-direction:column;gap:9px}
-.alp-float button{width:46px;height:46px;display:grid;place-items:center;border-radius:16px;border:1px solid rgba(255,255,255,.85);background:var(--glass-strong);backdrop-filter:blur(12px);color:var(--purple-deep);cursor:pointer;box-shadow:0 10px 24px rgba(36,16,47,.12);transition:all .2s}
-.alp-float button:hover{color:var(--gold);transform:translateY(-2px)}
+.alp-float button{width:46px;height:46px;display:grid;place-items:center;border-radius:16px;border:1px solid rgba(255,255,255,.2);background:rgba(26,11,38,.66);backdrop-filter:blur(12px);color:var(--gold-2);cursor:pointer;box-shadow:0 10px 24px rgba(8,2,14,.4);transition:all .2s}
+.alp-float button:hover{color:var(--gold);transform:translateY(-2px);border-color:var(--gold)}
 .alp-float svg{width:19px;height:19px}
 .alp-thumbs{display:flex;gap:10px;margin-top:12px;overflow-x:auto;padding-bottom:4px;scrollbar-width:thin}
-.alp-thumbs button{flex:none;width:78px;height:78px;padding:0;border-radius:18px;border:1px solid rgba(255,255,255,.8);background:var(--glass);backdrop-filter:blur(8px);overflow:hidden;cursor:pointer;opacity:.8;transition:all .2s}
+.alp-thumbs button{flex:none;width:78px;height:78px;padding:0;border-radius:18px;border:1px solid var(--line);background:var(--glass);backdrop-filter:blur(8px);overflow:hidden;cursor:pointer;opacity:.75;transition:all .2s}
 .alp-thumbs button img{width:100%;height:100%;object-fit:cover;display:block}
 .alp-thumbs button:hover{opacity:1}
-.alp-thumbs button.is-on{opacity:1;border-color:var(--gold);box-shadow:0 0 0 3px var(--gold-glow),0 6px 16px var(--neon)}
+.alp-thumbs button.is-on{opacity:1;border-color:var(--gold);box-shadow:0 0 0 3px rgba(212,175,55,.2),0 6px 16px rgba(110,54,146,.4)}
+.alp-gal-cap{margin-top:9px;display:flex;justify-content:center}
+.alp-gal-cap span{padding:5px 16px;border-radius:999px;background:var(--glass);border:1px solid var(--line);color:var(--muted);font-size:11px;font-weight:700;backdrop-filter:blur(6px)}
 /* trust strip */
 .alp-trust{margin:0 0 46px;padding:0;list-style:none;display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
-.alp-trust li{display:flex;align-items:center;gap:12px;padding:16px 18px;border-radius:22px;background:var(--glass);border:1px solid rgba(255,255,255,.75);box-shadow:0 12px 32px rgba(36,16,47,.06);backdrop-filter:blur(14px);transition:transform .25s,box-shadow .25s}
-.alp-trust li:hover{transform:translateY(-3px);box-shadow:0 18px 40px rgba(36,16,47,.1)}
+.alp-trust li{display:flex;align-items:center;gap:12px;padding:16px 18px;border-radius:22px;background:linear-gradient(150deg,rgba(255,255,255,.07),rgba(255,255,255,.03));border:1px solid var(--line);box-shadow:0 14px 34px rgba(8,2,14,.35);backdrop-filter:blur(14px);transition:transform .25s,box-shadow .25s,border-color .25s}
+.alp-trust li:hover{transform:translateY(-3px);border-color:rgba(212,175,55,.45);box-shadow:0 20px 44px rgba(8,2,14,.45)}
 .alp-trust svg{width:23px;height:23px;color:var(--gold);flex:none}
-.alp-trust b{display:block;font-size:13px;font-weight:800;color:var(--purple-deep)}
-.alp-trust span{display:block;color:var(--muted);font-size:11px}
+.alp-trust b{display:block;font-size:13px;font-weight:800;color:var(--text)}
+.alp-trust span{display:block;color:var(--soft);font-size:11px}
 /* story */
 .alp-story{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:34px;align-items:center;padding:14px 0 52px}
-.alp-story-body h2{position:relative;margin:8px 0 16px!important;padding-right:18px!important;color:var(--purple-deep)!important;font-size:clamp(22px,2.6vw,32px)!important;font-weight:900!important;line-height:1.6!important}
+.alp-story-body h2{position:relative;margin:8px 0 16px!important;padding-right:18px!important;color:var(--text)!important;font-size:clamp(22px,2.6vw,32px)!important;font-weight:900!important;line-height:1.6!important}
 .alp-story-body h2:before{content:"";position:absolute;top:6px;bottom:6px;right:0;width:3px;border-radius:3px;background:linear-gradient(180deg,var(--gold-2),var(--gold),transparent)}
-.alp-story-body p{margin:0 0 14px!important;color:#4A4450!important;font-size:14px!important;line-height:2!important}
+.alp-story-body p{margin:0 0 14px!important;color:#DCD2E8!important;font-size:14px!important;line-height:2!important}
 .alp-path-inline{margin:0 0 18px;padding:0;list-style:none;display:flex;flex-wrap:wrap;align-items:center;gap:7px}
-.alp-path-inline li{padding:7px 14px;border-radius:999px;background:var(--glass-purple);border:1px solid rgba(91,36,122,.18);color:var(--royal);font-size:12px;font-weight:800}
+.alp-path-inline li{padding:7px 14px;border-radius:999px;background:var(--glass-purple);border:1px solid rgba(212,175,55,.32);color:var(--gold-2);font-size:12px;font-weight:800}
 .alp-path-inline li:not(:last-child):after{content:"←";margin-right:12px;color:var(--gold)}
 .alp-story-img{margin:0;position:relative}
-.alp-story-img img{width:100%;height:400px;object-fit:cover;border-radius:28px;border:1px solid rgba(255,255,255,.8);box-shadow:0 26px 60px rgba(36,16,47,.14)}
-.alp-story-img figcaption{position:absolute;bottom:16px;right:16px;display:inline-flex;align-items:center;gap:8px;padding:9px 15px;border-radius:999px;background:rgba(36,16,47,.62);border:1px solid rgba(255,255,255,.2);backdrop-filter:blur(10px);color:var(--gold);font-size:12px;font-weight:800}
+.alp-story-img img{width:100%;height:400px;object-fit:cover;border-radius:28px;border:1px solid rgba(212,175,55,.3);box-shadow:0 26px 60px rgba(8,2,14,.5)}
+.alp-story-img figcaption{position:absolute;bottom:16px;right:16px;display:inline-flex;align-items:center;gap:8px;padding:9px 15px;border-radius:999px;background:rgba(26,11,38,.78);border:1px solid rgba(212,175,55,.45);backdrop-filter:blur(10px);color:var(--gold-2);font-size:12px;font-weight:800}
 .alp-story-img figcaption svg{width:15px;height:15px}
 /* specs + why */
 .alp-cols{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:26px;padding-bottom:52px}
-.alp-specs,.alp-why{padding:26px;border-radius:26px;background:var(--glass);border:1px solid rgba(255,255,255,.75);box-shadow:0 15px 45px rgba(36,16,47,.07);backdrop-filter:blur(16px)}
-.alp-specs h2,.alp-why h2{margin:0 0 16px!important;color:var(--purple-deep)!important;font-size:19px!important;font-weight:900!important}
+.alp-specs,.alp-why{padding:26px;border-radius:26px;background:linear-gradient(150deg,rgba(255,255,255,.07),rgba(255,255,255,.03));border:1px solid var(--line);box-shadow:0 15px 45px rgba(8,2,14,.38);backdrop-filter:blur(16px)}
+.alp-specs h2,.alp-why h2{margin:0 0 16px!important;color:var(--gold-2)!important;font-size:19px!important;font-weight:900!important}
 .alp-specs table{width:100%;border-collapse:collapse}
-.alp-specs tr th,.alp-specs tr td{padding:12px 6px;font-size:13px;text-align:right;border-bottom:1px solid rgba(36,16,47,.07)}
+.alp-specs tr th,.alp-specs tr td{padding:12px 6px;font-size:13px;text-align:right;border-bottom:1px solid rgba(255,255,255,.08)}
 .alp-specs tr:last-child th,.alp-specs tr:last-child td{border-bottom:0}
-.alp-specs th{color:var(--muted);font-weight:700;width:42%}
-.alp-specs td{color:var(--ink);font-weight:700}
+.alp-specs th{color:var(--soft);font-weight:700;width:42%}
+.alp-specs td{color:var(--text);font-weight:700}
 .alp-why{position:relative;overflow:hidden}
-.alp-why:before{content:"";position:absolute;inset:-40% -20% auto auto;width:26rem;height:26rem;background:radial-gradient(circle,rgba(91,36,122,.12),transparent 65%);pointer-events:none}
+.alp-why:before{content:"";position:absolute;inset:-40% -20% auto auto;width:26rem;height:26rem;background:radial-gradient(circle,rgba(125,70,180,.3),transparent 65%);pointer-events:none}
 .alp-why ul{margin:0;padding:0;list-style:none;display:grid;gap:12px}
 .alp-why li{display:grid;grid-template-columns:44px 1fr;grid-template-rows:auto auto;column-gap:12px;align-items:center}
-.alp-why i{grid-row:span 2;display:grid;place-items:center;width:44px;height:44px;border-radius:15px;background:var(--glass-strong);border:1px solid rgba(212,175,55,.4);color:var(--gold);font-style:normal}
+.alp-why i{grid-row:span 2;display:grid;place-items:center;width:44px;height:44px;border-radius:15px;background:var(--glass-purple);border:1px solid rgba(212,175,55,.4);color:var(--gold);font-style:normal}
 .alp-why svg{width:20px;height:20px}
-.alp-why b{font-size:13.5px;font-weight:800;color:var(--purple-deep)}
-.alp-why span{font-size:12px;color:var(--muted)}
+.alp-why b{font-size:13.5px;font-weight:800;color:var(--text)}
+.alp-why span{font-size:12px;color:var(--soft)}
 /* bands */
-.alp-band{width:100vw;max-width:100vw;margin:0 calc(50% - 50vw);background:var(--purple-deep);color:#fff;position:relative;overflow:hidden}
-.alp-band:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 14% 10%,rgba(212,175,55,.14),transparent 42%),radial-gradient(circle at 86% 90%,rgba(125,70,180,.2),transparent 44%);pointer-events:none}
+.alp-band{width:100vw;max-width:100vw;margin:0 calc(50% - 50vw);background:linear-gradient(160deg,#170A22,#2D1145 55%,#1D0C2E);color:#fff;position:relative;overflow:hidden;border-top:1px solid rgba(212,175,55,.22);border-bottom:1px solid rgba(212,175,55,.22)}
+.alp-band:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 14% 10%,rgba(212,175,55,.16),transparent 42%),radial-gradient(circle at 86% 90%,rgba(125,70,180,.3),transparent 44%);pointer-events:none}
 .alp-band .alp-inner{position:relative;padding-top:44px;padding-bottom:44px;text-align:center}
-.alp-band .alp-kicker{color:var(--gold)}
+.alp-band .alp-kicker{color:var(--gold-2)}
 .alp-band h2{margin:10px 0 8px!important;color:#fff!important;font-size:clamp(22px,2.8vw,32px)!important;font-weight:900!important}
-.alp-band h2 b,.alp-band p{color:#E9E1F2!important}
-.alp-band p{margin:0 0 20px!important;font-size:13.5px!important}
-.alp-moment{padding:0}
+.alp-band h2 b{color:var(--gold-2)!important}
+.alp-band p{margin:0 0 20px!important;color:#E4DCEF!important;font-size:13.5px!important}
 .alp-moment .alp-inner{padding-top:52px;padding-bottom:52px}
-.alp-moment b{display:block;color:var(--gold);font:900 15px Arial,Helvetica,sans-serif;letter-spacing:9px;margin-bottom:8px}
-.alp-moment h2{margin:0 0 8px!important;color:var(--gold)!important;font-size:clamp(26px,3.4vw,40px)!important}
+.alp-moment b{display:block;color:var(--gold-2);font:900 15px Arial,Helvetica,sans-serif;letter-spacing:9px;margin-bottom:8px}
+.alp-moment h2{margin:0 0 8px!important;color:var(--gold-2)!important;font-size:clamp(26px,3.4vw,40px)!important}
 .alp-moment p{margin:0!important}
-.alp-dust{position:absolute;inset:0;pointer-events:none;opacity:.5;background-image:radial-gradient(1.5px 1.5px at 12% 30%,rgba(212,175,55,.6),transparent 60%),radial-gradient(1px 1px at 30% 70%,rgba(212,175,55,.5),transparent 60%),radial-gradient(1.5px 1.5px at 52% 22%,rgba(232,199,102,.5),transparent 60%),radial-gradient(1px 1px at 68% 62%,rgba(212,175,55,.45),transparent 60%),radial-gradient(1.5px 1.5px at 84% 34%,rgba(232,199,102,.55),transparent 60%),radial-gradient(1px 1px at 44% 84%,rgba(212,175,55,.4),transparent 60%),radial-gradient(1px 1px at 8% 78%,rgba(212,175,55,.4),transparent 60%)}
+.alp-dust{position:absolute;inset:0;pointer-events:none;opacity:.55;background-image:radial-gradient(1.5px 1.5px at 12% 30%,rgba(212,175,55,.6),transparent 60%),radial-gradient(1px 1px at 30% 70%,rgba(212,175,55,.5),transparent 60%),radial-gradient(1.5px 1.5px at 52% 22%,rgba(232,199,102,.5),transparent 60%),radial-gradient(1px 1px at 68% 62%,rgba(212,175,55,.45),transparent 60%),radial-gradient(1.5px 1.5px at 84% 34%,rgba(232,199,102,.55),transparent 60%),radial-gradient(1px 1px at 44% 84%,rgba(212,175,55,.4),transparent 60%),radial-gradient(1px 1px at 8% 78%,rgba(212,175,55,.4),transparent 60%)}
 .alp-volume{margin:0 0 24px;padding:0;list-style:none;display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
-.alp-volume li{padding:10px 20px;border-radius:999px;border:1px solid rgba(212,175,55,.4);background:rgba(255,255,255,.05);font-size:13px;font-weight:800}
+.alp-volume li{padding:10px 20px;border-radius:999px;border:1px solid rgba(212,175,55,.45);background:rgba(255,255,255,.05);font-size:13px;font-weight:800}
 .alp-ctas{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
 .alp-final .alp-inner{padding-top:48px;padding-bottom:48px}
 /* rail / cards */
 .alp-rail-sec{padding-bottom:46px}
-.alp-rail-sec>h2,.alp-reviews>h2,.alp-qa>h2{margin:0 0 18px!important;color:var(--purple-deep)!important;font-size:clamp(19px,2.2vw,26px)!important;font-weight:900!important}
+.alp-rail-sec>h2,.alp-reviews>h2,.alp-qa>h2{margin:0 0 18px!important;color:var(--text)!important;font-size:clamp(19px,2.2vw,26px)!important;font-weight:900!important}
 .alp-rail{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(240px,1fr);gap:14px;overflow-x:auto;padding-bottom:8px;scroll-snap-type:x mandatory;scrollbar-width:thin}
-.alp-card{scroll-snap-align:start;display:flex;flex-direction:column;background:var(--glass-strong);border:1px solid rgba(255,255,255,.8);border-radius:24px;overflow:hidden;box-shadow:0 12px 32px rgba(36,16,47,.06);backdrop-filter:blur(12px);transition:transform .22s,box-shadow .22s,border-color .22s}
-.alp-card:hover{transform:translateY(-4px);border-color:rgba(212,175,55,.55);box-shadow:0 20px 44px rgba(36,16,47,.12)}
-.alp-card-img{display:block;height:180px;overflow:hidden;background:var(--cream)}
+.alp-card{scroll-snap-align:start;display:flex;flex-direction:column;background:linear-gradient(150deg,rgba(255,255,255,.08),rgba(255,255,255,.03));border:1px solid var(--line);border-radius:24px;overflow:hidden;box-shadow:0 12px 32px rgba(8,2,14,.35);backdrop-filter:blur(12px);transition:transform .22s,box-shadow .22s,border-color .22s}
+.alp-card:hover{transform:translateY(-4px);border-color:rgba(212,175,55,.55);box-shadow:0 20px 44px rgba(8,2,14,.5)}
+.alp-card-img{display:block;height:180px;overflow:hidden;background:#1C0B29}
 .alp-card-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .25s}
 .alp-card:hover .alp-card-img img{transform:scale(1.06)}
 .alp-card-body{padding:15px;display:flex;flex-direction:column;gap:7px;align-items:flex-start}
 .alp-card h3{margin:0!important;font-size:13.5px!important;font-weight:800!important}
-.alp-card h3 a{color:var(--ink)!important;text-decoration:none!important}
+.alp-card h3 a{color:var(--text)!important;text-decoration:none!important}
 .alp-card-rate{display:inline-flex;align-items:center;gap:5px;color:var(--gold);font-size:12px;font-weight:800}
 .alp-card-rate svg{width:13px;height:13px}
-.alp-card-rate small{color:var(--muted);font-weight:600}
-.alp-card-price{color:var(--purple-deep);font-weight:900;font-size:13px}
-.alp-card-price del{color:var(--muted);font-weight:500;font-size:11px;margin-right:6px}
-.alp-card-add{display:inline-flex;align-items:center;gap:7px;margin-top:2px;padding:9px 15px;border-radius:13px;border:1px solid rgba(212,175,55,.5);color:var(--purple-deep)!important;font-size:11.5px;font-weight:800;text-decoration:none!important;transition:all .2s}
-.alp-card-add:hover{background:linear-gradient(135deg,var(--gold-2),var(--gold));color:var(--purple-deep)!important}
+.alp-card-rate small{color:var(--soft);font-weight:600}
+.alp-card-price{color:var(--gold-2);font-weight:900;font-size:13px}
+.alp-card-price del{color:var(--soft);font-weight:500;font-size:11px;margin-right:6px}
+.alp-card-add{display:inline-flex;align-items:center;gap:7px;margin-top:2px;padding:9px 15px;border-radius:13px;border:1px solid rgba(212,175,55,.5);color:var(--gold-2)!important;font-size:11.5px;font-weight:800;text-decoration:none!important;transition:all .2s}
+.alp-card-add:hover{background:#D4AF37;color:#24102F!important}
 .alp-card-add svg{width:14px;height:14px;color:var(--gold)}
-.alp-card:hover .alp-card-add svg{color:var(--purple-deep)}
+.alp-card:hover .alp-card-add svg{color:#24102F}
 /* reviews */
-.alp-reviews{padding:26px;border-radius:28px;background:var(--glass);border:1px solid rgba(255,255,255,.75);box-shadow:0 15px 45px rgba(36,16,47,.07);backdrop-filter:blur(16px);margin-bottom:46px}
-.alp-rev-dash{display:grid;grid-template-columns:auto 1fr;gap:28px;align-items:center;padding:18px;border-radius:20px;background:var(--glass-strong);border:1px solid rgba(255,255,255,.8);margin-bottom:18px}
+.alp-reviews{padding:26px;border-radius:28px;background:linear-gradient(150deg,rgba(255,255,255,.07),rgba(255,255,255,.03));border:1px solid var(--line);box-shadow:0 15px 45px rgba(8,2,14,.38);backdrop-filter:blur(16px);margin-bottom:46px}
+.alp-rev-dash{display:grid;grid-template-columns:auto 1fr;gap:28px;align-items:center;padding:18px;border-radius:20px;background:var(--glass);border:1px solid var(--line);margin-bottom:18px}
 .alp-rev-score{display:grid;justify-items:center;gap:4px;min-width:170px}
-.alp-rev-score b{font-size:44px;font-weight:900;color:var(--purple-deep);line-height:1.05}
-.alp-rev-score em{font-style:normal;color:var(--muted);font-size:11.5px}
-.alp-rev-score small{color:var(--muted);font-size:11.5px}
+.alp-rev-score b{font-size:44px;font-weight:900;color:var(--gold-2);line-height:1.05}
+.alp-rev-score em{font-style:normal;color:var(--soft);font-size:11.5px}
+.alp-rev-score small{color:var(--soft);font-size:11.5px}
 .alp-rev-cats{display:grid;gap:9px}
-.alp-rev-cat{display:grid;grid-template-columns:52px 1fr 30px;align-items:center;gap:10px;font-size:12px;color:var(--muted)}
+.alp-rev-cat{display:grid;grid-template-columns:52px 1fr 30px;align-items:center;gap:10px;font-size:12px;color:var(--soft)}
 .alp-rev-cat small{text-align:left;font-size:11px}
-.alp-rev-cat i{display:block;height:7px;border-radius:99px;background:rgba(36,16,47,.08);overflow:hidden}
+.alp-rev-cat i{display:block;height:7px;border-radius:99px;background:rgba(255,255,255,.1);overflow:hidden}
 .alp-rev-cat b{display:block;height:100%;background:linear-gradient(90deg,var(--gold-2),var(--gold));border-radius:99px}
-.alp-rev-empty{display:flex;align-items:center;gap:14px;padding:18px;border-radius:18px;border:1px dashed rgba(91,36,122,.3);color:var(--muted);font-size:13px}
+.alp-rev-empty{display:flex;align-items:center;gap:14px;padding:18px;border-radius:18px;border:1px dashed rgba(212,175,55,.4);color:var(--muted);font-size:13px}
 .alp-rev-empty svg{width:30px;height:30px;color:var(--gold);flex:none}
 .alp-rev-empty p{margin:0!important}
 .alp-rev-list{display:grid;gap:12px;margin-bottom:16px}
-.alp-rev-card{padding:16px 18px;border-radius:18px;background:var(--glass-strong);border:1px solid rgba(255,255,255,.8)}
+.alp-rev-card{padding:16px 18px;border-radius:18px;background:var(--glass);border:1px solid var(--line)}
 .alp-rev-card header{display:flex;align-items:center;gap:10px;margin-bottom:7px}
-.alp-rev-card header b{font-size:13px;font-weight:800;color:var(--purple-deep)}
-.alp-verified{display:inline-flex;align-items:center;gap:5px;padding:3px 9px;border-radius:999px;background:rgba(59,165,93,.1);border:1px solid rgba(59,165,93,.3);color:#25774A;font-size:10.5px;font-weight:800}
+.alp-rev-card header b{font-size:13px;font-weight:800;color:var(--gold-2)}
+.alp-verified{display:inline-flex;align-items:center;gap:5px;padding:3px 9px;border-radius:999px;background:rgba(76,201,138,.12);border:1px solid rgba(76,201,138,.4);color:#7FE0AC;font-size:10.5px;font-weight:800}
 .alp-verified svg{width:11px;height:11px}
 .alp-rev-card .alp-stars svg{width:13px;height:13px}
-.alp-rev-card time{display:block;margin:5px 0 8px;color:var(--muted);font-size:11px}
-.alp-rev-card p{margin:0!important;color:#4A4450!important;font-size:12.5px!important;line-height:2!important}
-.alp-rev-form h3{margin:0 0 10px!important;font-size:14px!important;font-weight:800!important;color:var(--purple-deep)!important}
-.alp-rev-form form textarea,.alp-rev-form form input[type=text],.alp-rev-form form input[type=email]{width:100%;border:1px solid rgba(36,16,47,.14);border-radius:13px;padding:11px 14px;font-family:inherit;font-size:12.5px;background:#fff}
-.alp-rev-form form p.form-submit .submit{background:linear-gradient(135deg,var(--gold-2),var(--gold));color:var(--purple-deep);border:0;border-radius:14px;padding:12px 26px;font-family:inherit;font-weight:900;cursor:pointer}
+.alp-rev-card time{display:block;margin:5px 0 8px;color:var(--soft);font-size:11px}
+.alp-rev-card p{margin:0!important;color:#DCD2E8!important;font-size:12.5px!important;line-height:2!important}
+.alp-rev-form h3{margin:0 0 10px!important;font-size:14px!important;font-weight:800!important;color:var(--gold-2)!important}
+.alp-rev-form form textarea,.alp-rev-form form input[type=text],.alp-rev-form form input[type=email]{width:100%;border:1px solid var(--line);border-radius:13px;padding:11px 14px;font-family:inherit;font-size:12.5px;background:rgba(20,8,30,.55);color:var(--text)}
+.alp-rev-form form p.form-submit .submit{background:#D4AF37;color:#24102F;border:0;border-radius:14px;padding:12px 26px;font-family:inherit;font-weight:900;cursor:pointer}
+.alp-rev-form form p.form-submit .submit:hover{background:#E3C15C}
 .alp-rev-form .comment-form-rating a{color:var(--gold)}
+.alp-rev-form .logged-in-as,.alp-rev-form .comment-notes,.alp-rev-form form label{color:var(--muted)}
 /* faq */
 .alp-qa{padding-bottom:46px;display:flex;flex-direction:column;gap:10px;align-items:flex-start}
 .alp-qa .alp-acc{width:100%}
-.alp-acc{border-radius:20px;background:var(--glass);border:1px solid rgba(255,255,255,.75);box-shadow:0 10px 28px rgba(36,16,47,.05);backdrop-filter:blur(12px);overflow:hidden;transition:border-color .25s,box-shadow .25s}
-.alp-acc:has(.alp-acc-t.is-open){border-color:rgba(212,175,55,.5);box-shadow:0 0 0 3px var(--gold-glow),0 12px 30px rgba(91,36,122,.08)}
-.alp-acc-t{width:100%;display:flex;align-items:center;gap:10px;padding:16px 18px;border:0;background:transparent;color:var(--ink);font-family:inherit;font-size:13.5px;font-weight:800;text-align:right;cursor:pointer}
+.alp-acc{border-radius:20px;background:linear-gradient(150deg,rgba(255,255,255,.06),rgba(255,255,255,.03));border:1px solid var(--line);box-shadow:0 10px 28px rgba(8,2,14,.3);backdrop-filter:blur(12px);overflow:hidden;transition:border-color .25s,box-shadow .25s}
+.alp-acc:has(.alp-acc-t.is-open){border-color:rgba(212,175,55,.55);box-shadow:0 0 0 3px rgba(212,175,55,.14),0 12px 30px rgba(110,54,146,.3)}
+.alp-acc-t{width:100%;display:flex;align-items:center;gap:10px;padding:16px 18px;border:0;background:transparent;color:var(--text);font-family:inherit;font-size:13.5px;font-weight:800;text-align:right;cursor:pointer}
 .alp-acc-t b{flex:1}
 .alp-acc-t svg{width:17px;height:17px;color:var(--gold);flex:none;transition:transform .3s}
 .alp-acc-t.is-open>svg:last-child{transform:rotate(180deg)}
 .alp-acc-b{max-height:0;overflow:hidden;transition:max-height .4s ease}
 .alp-acc-b.is-open{max-height:640px}
-.alp-acc-b>p{margin:0;padding:0 18px 16px;color:#4A4450;font-size:12.5px;line-height:2.1}
+.alp-acc-b>p{margin:0;padding:0 18px 16px;color:#DCD2E8;font-size:12.5px;line-height:2.1}
 /* lightbox */
-.alp-lb{position:fixed;inset:0;z-index:99999;display:grid;place-items:center;background:rgba(18,7,28,.9);backdrop-filter:blur(8px)}
+.alp-lb{position:fixed;inset:0;z-index:99999;display:grid;place-items:center;background:rgba(12,4,20,.93);backdrop-filter:blur(8px)}
 .alp-lb[hidden]{display:none}
 .alp-lb img{max-width:92vw;max-height:88vh;border-radius:20px;object-fit:contain}
-.alp-lb button{position:absolute;top:18px;left:18px;width:44px;height:44px;border-radius:14px;border:1px solid rgba(212,175,55,.5);background:rgba(255,255,255,.08);color:var(--gold);font-size:17px;cursor:pointer}
+.alp-lb button{position:absolute;top:18px;left:18px;width:44px;height:44px;border-radius:14px;border:1px solid rgba(212,175,55,.5);background:rgba(255,255,255,.08);color:var(--gold-2);font-size:17px;cursor:pointer}
 /* mobile sticky bar */
 .alp-sticky{display:none}
-/* theme chrome cleanup + fallback scoping */
+/* theme chrome cleanup */
 body.alookhor-pdp-body{overflow-x:hidden}
 body.alookhor-pdp-body .page-title,body.alookhor-pdp-body .entry-title,body.alookhor-pdp-body .woodmart-page-title,body.alookhor-pdp-body .woocommerce-breadcrumb,body.alookhor-pdp-body .breadcrumbs,body.alookhor-pdp-body .title-wrapper,body.alookhor-pdp-body .product-tabs-wrapper,body.alookhor-pdp-body .related.products,body.alookhor-pdp-body .upsells,body.alookhor-pdp-body .product_meta{display:none!important}
 /* responsive */
 @media(max-width:1080px){.alp-trust{grid-template-columns:repeat(2,1fr)}.alp-feats{grid-template-columns:1fr 1fr}}
+@media(min-width:1081px){.alp-rail{grid-auto-columns:calc((100% - 42px)/4)}}
+@media(min-width:641px) and (max-width:1080px){.alp-rail{grid-auto-columns:calc((100% - 28px)/3)}}
 @media(max-width:920px){
  .alp-hero{grid-template-columns:1fr;gap:20px}
  .alp-gallery{position:static;order:-1}
@@ -4490,22 +4498,14 @@ body.alookhor-pdp-body .page-title,body.alookhor-pdp-body .entry-title,body.aloo
  .alp-rail{grid-auto-columns:minmax(210px,80%)}
  .alp-story-body h2{font-size:21px!important}
  .alp-story-img img{height:230px}
- .alp-sticky{position:fixed;bottom:0;right:0;left:0;z-index:9990;display:flex;align-items:center;gap:12px;min-height:72px;padding:12px 14px calc(12px + env(safe-area-inset-bottom));background:rgba(255,255,255,.78);border-top:1px solid rgba(212,175,55,.5);box-shadow:0 -12px 34px rgba(36,16,47,.12);backdrop-filter:blur(16px)}
- .alp-sticky-p{flex:none;font-size:13px;font-weight:900;color:var(--purple-deep,#24102F)}
- .alp-sticky-p del{display:block;font-size:10.5px;color:#6E6870;font-weight:500}
+ .alp-sticky{position:fixed;bottom:0;right:0;left:0;z-index:9990;display:flex;align-items:center;gap:12px;min-height:72px;padding:12px 14px calc(12px + env(safe-area-inset-bottom));background:rgba(26,11,38,.9);border-top:1px solid rgba(212,175,55,.55);box-shadow:0 -12px 34px rgba(8,2,14,.5);backdrop-filter:blur(16px)}
+ .alp-sticky-p{flex:none;font-size:13px;font-weight:900;color:var(--gold-2,#E8C766)}
+ .alp-sticky-p del{display:block;font-size:10.5px;color:#C6BAD4;font-weight:500}
  .alp-sticky .alp-cta{flex:1;min-height:48px;min-width:0;font-size:13.5px;padding:0 10px}
  body.alookhor-pdp-body{padding-bottom:80px}
 }
 @media(prefers-reduced-motion:reduce){.alookhor-alp *{animation:none!important;transition:none!important}}
 .alookhor-alp :focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:6px}
-
-/* v3.10.191 — premium fidelity pass (owner mockup): glass product badge, gallery caption, exact 4-up rail */
-.alp-flag{position:absolute;top:64px;right:22px;display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:999px;background:rgba(255,255,255,.72);border:1px solid rgba(212,175,55,.55);backdrop-filter:blur(10px);color:#24102F;font-size:11.5px;font-weight:900;box-shadow:0 8px 22px rgba(212,175,55,.28)}
-.alp-flag svg{width:13px;height:13px;color:#D4AF37}
-.alp-gal-cap{margin-top:9px;display:flex;justify-content:center}
-.alp-gal-cap span{padding:5px 16px;border-radius:999px;background:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.85);color:#6E6870;font-size:11px;font-weight:700;backdrop-filter:blur(6px)}
-@media(min-width:1081px){.alp-rail{grid-auto-columns:calc((100% - 42px)/4)}}
-@media(min-width:641px) and (max-width:1080px){.alp-rail{grid-auto-columns:calc((100% - 28px)/3)}}
 ````
 
 ## Source Snapshot — `plugin/alookhor-control-center/assets/css/frontend-sort-center.css`
@@ -5231,15 +5231,15 @@ tr:last-child td{border-bottom:0}
 
 ````javascript
 // Release query prevents stale ES Modules after a WordPress-native update.
-import { initResponsive } from './core/responsive.js?v=3.10.192';
-import { initUpdater, Updater } from './core/updateSystem.js?v=3.10.192';
-import { Config } from './core/config.js?v=3.10.192';
-import { dashboardModule } from './modules/dashboard.js?v=3.10.192';
-import { inventoryModule } from './modules/inventory.js?v=3.10.192';
-import { ordersModule } from './modules/orders.js?v=3.10.192';
-import { usersModule } from './modules/users.js?v=3.10.192';
-import { analyticsModule } from './modules/analytics.js?v=3.10.192';
-import { settingsModule } from './modules/settings.js?v=3.10.192';
+import { initResponsive } from './core/responsive.js?v=3.10.193';
+import { initUpdater, Updater } from './core/updateSystem.js?v=3.10.193';
+import { Config } from './core/config.js?v=3.10.193';
+import { dashboardModule } from './modules/dashboard.js?v=3.10.193';
+import { inventoryModule } from './modules/inventory.js?v=3.10.193';
+import { ordersModule } from './modules/orders.js?v=3.10.193';
+import { usersModule } from './modules/users.js?v=3.10.193';
+import { analyticsModule } from './modules/analytics.js?v=3.10.193';
+import { settingsModule } from './modules/settings.js?v=3.10.193';
 
 const modules = {
   dashboard: dashboardModule,
@@ -5825,7 +5825,7 @@ export function initResponsive() {
 // UI/state remain modular; version discovery and installation are delegated to WordPress.
 
 const runtimeConfig = window.ALOOKHOR_CC || {};
-const runtimeVersion = String(runtimeConfig.version || '3.10.192');
+const runtimeVersion = String(runtimeConfig.version || '3.10.193');
 
 function normalizeResult(data = {}) {
   const current = String(data.current || runtimeVersion);
@@ -7636,7 +7636,7 @@ export const analyticsModule = {
 ## Source Snapshot — `plugin/alookhor-control-center/assets/js/modules/dashboard.js`
 
 ````javascript
-import { Config } from '../core/config.js?v=3.10.192';
+import { Config } from '../core/config.js?v=3.10.193';
 
 const escapeHTML = value => String(value ?? '').replace(/[&<>'"]/g, char => ({
   '&':'&amp;', '<':'&lt;', '>':'&gt;', "'":'&#039;', '"':'&quot;'
@@ -7873,7 +7873,7 @@ export const ordersModule = {
 ## Source Snapshot — `plugin/alookhor-control-center/assets/js/modules/settings.js`
 
 ````javascript
-import { Config } from '../core/config.js?v=3.10.192';
+import { Config } from '../core/config.js?v=3.10.193';
 
 const escapeAttr = value => String(value ?? '').replace(/[&<>'"]/g, char => ({
   '&':'&amp;', '<':'&lt;', '>':'&gt;', "'":'&#039;', '"':'&quot;'
@@ -8891,7 +8891,7 @@ export const usersModule = {
   },
   "updated_at": "2026-08-10T16:20:00Z",
   "updated_by": "AI Assistant — recovered from previous chat",
-  "version": "3.10.192",
+  "version": "3.10.193",
   "hero_settings": {
     "enabled": true,
     "hide_legacy": true,
