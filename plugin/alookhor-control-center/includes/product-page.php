@@ -284,13 +284,19 @@ function alookhor_cc_pdp_markup(){
   <div class="alp-inner"><span class="alp-dust" aria-hidden="true"></span><b>ALOOKHOR</b><h2>پایتخت آلوی ایران</h2><p>از باغ‌های آلو خراسان تا بستهٔ نهایی، با همان استاندارد.</p></div>
  </section>
 
- <div class="alp-inner">
+ <div class="alp-dk alp-dk-rail">
+  <div class="alp-inner">
   <?php if($d['related']):?>
   <section class="alp-rail-sec">
-   <header class="alp-shead"><span class="alp-eyebrow">پیشنهاد آلوخور</span><h2>محصولات پیشنهادی برای شما</h2></header>
+   <header class="alp-shead alp-rail-head"><span class="alp-eyebrow">پیشنهاد آلوخور</span><h2>محصولات <b>پیشنهادی</b> برای شما</h2><a class="alp-all" href="<?php echo esc_url($shop);?>">مشاهده همه محصولات</a></header>
    <div class="alp-rail"><?php foreach($d['related'] as $rid)echo alookhor_cc_pdp_card($rid);?></div>
+   <div class="alp-rail-cta"><a class="alp-btn alp-btn-royal" href="<?php echo esc_url($shop);?>">مشاهده همه محصولات</a></div>
   </section>
   <?php endif;?>
+  </div>
+ </div>
+
+ <div class="alp-inner">
 
   <section class="alp-reviews" id="alookhor-reviews">
    <header class="alp-shead"><span class="alp-eyebrow">تجربهٔ مشتریان</span><h2>نظر مشتریان آلوخور</h2></header>
@@ -307,8 +313,6 @@ function alookhor_cc_pdp_markup(){
    <?php if(function_exists('comment_form'))comment_form(['title_reply'=>'','title_reply_to'=>'پاسخ به %s','label_submit'=>'ثبت دیدگاه','comment_notes_before'=>'','comment_notes_after'=>''],$d['id']);?>
    </div>
   </section>
-
- </div>
  </div>
 
  <div class="alp-dk alp-dk-qa">

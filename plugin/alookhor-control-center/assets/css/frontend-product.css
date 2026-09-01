@@ -584,3 +584,45 @@ body.alookhor-pdp-body .page-title,body.alookhor-pdp-body .entry-title,body.aloo
  .alp-dk-sub{margin-bottom:18px!important}
  .alp-dk .alp-cols{padding-top:34px}
 }
+
+/* =========================================================
+   v3.10.198 — DARK RAIL ZONE (owner reference screenshot #2)
+   near-black zone, header with gold word + gold "مشاهده همه" link,
+   4 glass cards in a row (dark-warm), gold prices, royal-purple pill CTA
+   ========================================================= */
+.alp-dk-rail .alp-rail-sec{padding:0}
+.alp-dk-rail .alp-rail-head{gap:14px}
+.alp-dk-rail .alp-rail-head h2 b{color:#E8C766}
+.alp-dk-rail .alp-all{display:inline-flex;align-items:center;gap:8px;padding:9px 16px;border-radius:999px;border:1px solid rgba(212,175,55,.45);background:rgba(212,175,55,.08);color:#E8C766!important;font-size:11.5px;font-weight:800;text-decoration:none!important;white-space:nowrap;transition:.25s ease}
+.alp-dk-rail .alp-all:after{content:"‹";font-size:15px;line-height:1}
+.alp-dk-rail .alp-all:hover{border-color:#D4AF37;background:rgba(212,175,55,.16);transform:translateY(-1px)}
+/* 4 cards in a row (grid, not scroll) */
+.alp-dk-rail .alp-rail{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;overflow:visible;padding-bottom:4px;scroll-snap-type:none}
+.alp-dk-rail .alp-card{display:flex;flex-direction:column;background:linear-gradient(155deg,#3D2D38 0%,#2D2028 58%,#231823 100%);border:1px solid rgba(255,255,255,.1);box-shadow:0 16px 38px rgba(4,1,8,.45),inset 0 1px 0 rgba(255,255,255,.06);backdrop-filter:blur(14px)}
+.alp-dk-rail .alp-card:hover{border-color:rgba(212,175,55,.55);box-shadow:0 22px 48px rgba(4,1,8,.6),0 0 0 3px rgba(212,175,55,.08)}
+.alp-dk-rail .alp-card-img{height:190px;background:radial-gradient(circle at 50% 42%,rgba(142,90,167,.14),transparent 70%),#190E24}
+.alp-dk-rail .alp-card-img img{opacity:.96}
+.alp-dk-rail .alp-card-body{padding:16px}
+.alp-dk-rail .alp-card h3 a{color:#F6F1E9!important}
+.alp-dk-rail .alp-card-rate{color:#E8C766}
+.alp-dk-rail .alp-card-rate small{color:#A99BC0}
+.alp-dk-rail .alp-card-price{color:#E8C766;font-size:14.5px}
+.alp-dk-rail .alp-card-price del{color:#8A7D9E}
+.alp-dk-rail .alp-card-price ins{text-decoration:none}
+.alp-dk-rail .alp-card-add{border:1px solid rgba(212,175,55,.5);color:#E8C766!important;background:rgba(212,175,55,.07)}
+.alp-dk-rail .alp-card-add:hover{background:linear-gradient(135deg,#D4AF37,#E6C65B);color:#24102F!important;box-shadow:0 10px 24px rgba(212,175,55,.25)}
+.alp-dk-rail .alp-card:hover .alp-card-add svg{color:#E8C766}
+.alp-dk-rail .alp-card-add:hover svg{color:#24102F!important}
+.alp-rail-cta{display:flex;justify-content:center;margin-top:26px}
+.alp-rail-cta .alp-btn-royal{min-width:240px}
+/* responsive — dark rail */
+@media(min-width:641px) and (max-width:1080px){.alp-dk-rail .alp-rail{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:640px){
+ .alp-dk-rail .alp-rail{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+ .alp-dk-rail .alp-rail-head{flex-wrap:wrap}
+ .alp-dk-rail .alp-all{order:3}
+ .alp-dk-rail .alp-card-img{height:130px}
+ .alp-dk-rail .alp-card-body{padding:12px}
+ .alp-rail-cta{margin-top:20px}
+ .alp-rail-cta .alp-btn-royal{min-width:0;width:100%}
+}

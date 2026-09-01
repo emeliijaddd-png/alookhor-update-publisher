@@ -9,103 +9,6 @@ import re
 import sys
 import time
 
-# --- TEMP BLOCK (remove after reference image extraction) --------------------
-def _temp_fetch_reference_image():
-    """One-off: analyze the owner reference screenshot ON THE RUNNER (full
-    colors) and echo a compact textual vision report (class map + edges +
-    photo blobs) into the publisher status log. No effect on checks."""
-    import subprocess
-    try:
-        url = 'https://up.20script.ir/file/c03a-Screenshot-2026-09-01-133609.png'
-        req = Request(url, headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'})
-        data = urlopen(req, timeout=90).read()
-        for cmd in ([sys.executable, '-m', 'pip', 'install', '--quiet', '--break-system-packages', 'pillow'],
-                    [sys.executable, '-m', 'pip', 'install', '--quiet', '--user', 'pillow'],
-                    ['sudo', 'apt-get', 'install', '-y', '-qq', 'python3-pil']):
-            subprocess.run(cmd, check=False, capture_output=True, timeout=300)
-            try:
-                from PIL import Image
-                from io import BytesIO
-                img = Image.open(BytesIO(data)).convert('RGB')
-                break
-            except Exception:
-                img = None
-        if img is None:
-            raise RuntimeError('no PIL')
-        W, H = img.size
-        print('ALOOKHOR-REF-DIM', W, H)
-        px = img.load()
-
-        def cls(r, g, b):
-            lum = (r * 30 + g * 59 + b * 11) // 100
-            if lum < 32 and abs(int(r) - int(b)) < 40:
-                return 'K'                      # near-black bg
-            if b > r > g and b - g > 40:
-                return 'L' if lum > 90 else 'P'  # lilac / purple
-            if r > 140 and g > 100 and b < 120 and r - b > 60 and g - b > 20:
-                return 'G'                      # gold
-            if lum > 170 and abs(int(r) - int(b)) < 60:
-                return '.'                      # white/light
-            if r > g > b and 28 < lum < 95 and r - b < 55:
-                return 'W'                      # dark warm panel
-            if r - b > 45 and r > 85 and lum >= 95:
-                return 'O'                      # warm photo (fruit)
-            if b > r and b - g > 25:
-                return 'P'
-            return '?'
-
-        ROWS, COLS = 56, 120
-        grid = []
-        for gy in range(ROWS):
-            row = ''
-            for gx in range(COLS):
-                x0 = int(gx * W / COLS); x1 = max(x0 + 1, int((gx + 1) * W / COLS))
-                y0 = int(gy * H / ROWS); y1 = max(y0 + 1, int((gy + 1) * H / ROWS))
-                counts = {}
-                for y in range(y0, y1, max(1, (y1 - y0) // 3 or 1)):
-                    for x in range(x0, x1, max(1, (x1 - x0) // 3 or 1)):
-                        r, g, b = px[x, y]
-                        c = cls(r, g, b)
-                        counts[c] = counts.get(c, 0) + 1
-                row += max(counts.items(), key=lambda kv: kv[1])[0]
-            grid.append(row)
-        print('ALOOKHOR-REF-MAP-START')
-        for i, row in enumerate(grid):
-            print('M%02d %s' % (i, row))
-        print('ALOOKHOR-REF-MAP-END')
-        # row profiles: fraction of 'W' panel cells per row band
-        print('ALOOKHOR-REF-ROWS')
-        for gy in range(ROWS):
-            row = grid[gy]
-            print('R%02d W%02d K%02d O%02d G%02d .%02d P%02d L%02d' % (
-                gy, round(100*row.count('W')/COLS), round(100*row.count('K')/COLS), round(100*row.count('O')/COLS),
-                round(100*row.count('G')/COLS), round(100*row.count('.')/COLS), round(100*row.count('P')/COLS), round(100*row.count('L')/COLS)))
-        # photo blobs (connected components of O cells, 8-neighbour)
-        seen = [[False] * COLS for _ in range(ROWS)]
-        blobs = []
-        for gy in range(ROWS):
-            for gx in range(COLS):
-                if grid[gy][gx] == 'O' and not seen[gy][gx]:
-                    stack = [(gy, gx)]; seen[gy][gx] = True; cells = []
-                    while stack:
-                        cy, cx = stack.pop(); cells.append((cy, cx))
-                        for dy in (-1, 0, 1):
-                            for dx in (-1, 0, 1):
-                                ny, nx = cy + dy, cx + dx
-                                if 0 <= ny < ROWS and 0 <= nx < COLS and not seen[ny][nx] and grid[ny][nx] == 'O':
-                                    seen[ny][nx] = True; stack.append((ny, nx))
-                    if len(cells) >= 3:
-                        ys = [c[0] for c in cells]; xs = [c[1] for c in cells]
-                        blobs.append((min(xs), min(ys), max(xs), max(ys), len(cells)))
-        blobs.sort(key=lambda b: -b[4])
-        print('ALOOKHOR-REF-BLOBS', len(blobs))
-        for x0, y0, x1, y1, n in blobs[:14]:
-            print('B x%d-%d(%.0f-%.0f%%) y%d-%d(%.0f-%.0f%%) cells=%d' % (
-                x0, x1, 100 * x0 / COLS, 100 * x1 / COLS, y0, y1, 100 * y0 / ROWS, 100 * y1 / ROWS, n))
-    except Exception as error:
-        print('ALOOKHOR-REF-FAIL', repr(error)[:200])
-# --- END TEMP BLOCK ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
 ROOT = Path(__file__).resolve().parents[1]
 TARGET = str(json.loads((ROOT / 'release.json').read_text())['version'])
 BASE = os.environ['WP_BASE_URL'].strip().rstrip('/')
@@ -589,10 +492,8 @@ except Exception as error:
     }
     REPORT_PATH.write_text(json.dumps(report, ensure_ascii=False, separators=(',', ':')) + '\n')
     print(json.dumps(report, ensure_ascii=False, separators=(',', ':')))
-    _temp_fetch_reference_image()
     raise
 else:
     report['auth'] = {'variant': _AUTH_RESOLVED['variant'] or 'unresolved'}
     REPORT_PATH.write_text(json.dumps(report, ensure_ascii=False, separators=(',', ':')) + '\n')
     print(json.dumps(report, ensure_ascii=False, separators=(',', ':')))
-    _temp_fetch_reference_image()
