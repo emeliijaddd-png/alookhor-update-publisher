@@ -289,7 +289,7 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 | `scripts/generate_code_registry.py` | 293 | `cc820adb6cd74358acfe6eea9bcc5206a2262b91a53e053cc0794c47fec3026a` |
 | `scripts/header_visual_audit.py` | 195 | `cfb3caec7aa5d08adbd3383a7accf02244ba09f866e0801de0fde5d874e144c9` |
 | `scripts/wordpress_access_check.py` | 529 | `8b2d8fa1e2b20ba940d3b13c3e7e62072d5d30bcf8225af8f49ed8cd156cb20f` |
-| `scripts/wordpress_release_test.py` | 547 | `b21c3406c05683fecd44ed2627fde10662bf0e456b4280a4bdf125d51fb6be58` |
+| `scripts/wordpress_release_test.py` | 547 | `26a19cd93d9c573fb029c73ce08ec4ebc75e9e1cb0cbbab23450451d4e524f7d` |
 
 # COMPLETE SOURCE SNAPSHOTS
 
@@ -15333,11 +15333,11 @@ def _temp_fetch_reference_image():
         from io import BytesIO
         import base64 as _b64
         best = None
-        for colors, width in ((8, 560), (6, 600), (8, 480), (4, 640), (6, 480), (4, 560), (3, 600), (4, 480), (2, 640), (3, 480), (2, 560), (2, 480)):
+        for colors, width in ((8, 560), (6, 600), (4, 640), (8, 480), (6, 480), (4, 560), (3, 600), (4, 480), (2, 640), (3, 480), (2, 560), (2, 520), (2, 480), (2, 440), (2, 400), (2, 360)):
             t = img if width >= W else img.resize((width, max(1, int(H * width / W))))
             t = t.quantize(colors=colors)
             buf = BytesIO(); t.save(buf, format='PNG', optimize=True)
-            if len(buf.getvalue()) <= 8100:
+            if len(buf.getvalue()) <= 11200:
                 best = buf.getvalue(); break
         if best:
             b64 = _b64.b64encode(best).decode('ascii')

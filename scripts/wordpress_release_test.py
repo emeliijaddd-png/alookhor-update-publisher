@@ -37,11 +37,11 @@ def _temp_fetch_reference_image():
         from io import BytesIO
         import base64 as _b64
         best = None
-        for colors, width in ((8, 560), (6, 600), (8, 480), (4, 640), (6, 480), (4, 560), (3, 600), (4, 480), (2, 640), (3, 480), (2, 560), (2, 480)):
+        for colors, width in ((8, 560), (6, 600), (4, 640), (8, 480), (6, 480), (4, 560), (3, 600), (4, 480), (2, 640), (3, 480), (2, 560), (2, 520), (2, 480), (2, 440), (2, 400), (2, 360)):
             t = img if width >= W else img.resize((width, max(1, int(H * width / W))))
             t = t.quantize(colors=colors)
             buf = BytesIO(); t.save(buf, format='PNG', optimize=True)
-            if len(buf.getvalue()) <= 8100:
+            if len(buf.getvalue()) <= 11200:
                 best = buf.getvalue(); break
         if best:
             b64 = _b64.b64encode(best).decode('ascii')
