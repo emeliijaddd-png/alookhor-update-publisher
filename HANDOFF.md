@@ -1,163 +1,157 @@
-# 📦 سند جامع انتقال — پروژهٔ آلوخور (alookhor-update-publisher)
+# 📦 سند جامع انتقال — پروژهٔ آلوخور (به‌روز: v3.10.211)
 
-> این فایل را کپی کنید در چت جدید. همهٔ زمینهٔ کار، قوانین، دستورات، یافته‌ها و وضعیت فعلی داخل همین سند است.
+> کل این فایل را در چت جدید کپی کنید. همهٔ زمینه، کدها، دستورات، قوانین، اندازه‌گیری‌ها و وضعیت فعلی داخل همین سند است.
 
 ---
 
 ## ۱) شناسنامهٔ پروژه
 
-- **مخزن گیت‌هاب:** `emeliijaddd-png/alookhor-update-publisher` (خصوصی)
-- **برنچ کاری نشست:** `arena/01a053d1-alookhor-update-publisher` — همهٔ کار/کامیت/پوش فقط روی همین برنچ. پوش دیگر برنچ‌ها ممنوع.
-- **سایت زنده:** `https://alookhor.ir` (وردپرس + ووکامرس، قالب Woodmart)
-- **افزونه:** `plugin/alookhor-control-center/` — نسخهٔ فعلی **3.10.207**
-- **انتشار خودکار:** تگ `vX.Y.Z` پوش شود → GitHub Actions ساخته، آپلود FTPS، به‌روزرسانی خودکار وردپرس و تست پس از انتشار اجرا می‌شود.
-- **مالک** سایت را در مرورگر خودش می‌بیند (نه LocalWP). کد در گیت‌هاب، کش سایت در Cloudflare/هاست/افزونهٔ WP — این دو همیشه جدا توضیح داده شوند.
-- مالک فارسی‌زبان است، گاهی فقط «؟» می‌فرستد؛ پاسخ‌ها کوتاه، فارسی، با جدول و اسکرین‌شات/عدد باشد.
+- **مخزن:** `emeliijaddd-png/alookhor-update-publisher` (خصوصی، گیت‌هاب)
+- **برنچ کاری:** `arena/01a053d1-alookhor-update-publisher` — کامیت/پوش فقط روی همین برنچ
+- **سایت زنده:** `https://alookhor.ir` (وردپرس + ووکامرس، قالب Woodmart، کش Cloudflare/هاست)
+- **افزونه:** `plugin/alookhor-control-center/` — نسخهٔ فعلی **3.10.211** (زنده و تأییدشده)
+- **انتشار خودکار:** پوش تگ `vX.Y.Z` → GitHub Actions: build → FTPS آپلود → به‌روزرسانی خودکار WP → تست پس از انتشار + ممیزی مرورگر واقعی
+- مالک فارسی‌زبان، عجول، پاسخ کوتاه/فارسی/با عدد و جدول. کد در گیت‌هاب، کش سایت جای دیگر — همیشه جدا توضیح بده.
 
-## ۲) هدف محصول (معیار پذیرش مالک)
+## ۲) هدف محصول (موکاپ #4 مالک)
 
-صفحهٔ محصول (PDP) مطابق **موکاپ #4 مالک**:
-- **موبایل:** گالری اول، عکس بزرگ، CTA طلایی پهن تمام‌عرض، نوار چسبان پایین (قیمت + CTA)
-- **دسکتاپ:** ستون عکس/ستون خرید هم‌ارتفاع و هم‌تراز (بالا و پایین)
-- پالت ۷رنگ بنفش/طلایی، کادرها (frames) با ابعاد ثابت
-- **موضع فعلی مالک (آخرین بازخورد):** «محتوا زیر منوی اصلی رفته، باید فاصله داشته باشد» — در دسکتاپ و موبایل.
+- **موبایل:** گالری اول، عکس بزرگ، CTA طلایی پهن تمام‌عرض، نوار چسبان پایین (قیمت + CTA، ۶۴px)
+- **دسکتاپ:** ستون عکس/خرید هم‌ارتفاع و هم‌تراز بالا و پایین
+- پالت ۷رنگ بنفش تیره/طلایی؛ کادرها با ابعاد ثابت
+- **خواستهٔ نهایی (حل‌شده در ۲۱۱):** کادر عکس و کادر توضیحات چسبیده به منو و بزرگ‌تر؛ محتوا (عکس/متن/دکمه) سر جایشان؛ هیچ نوار سفید/بنفش/دورنگی بین منو و محتوا در هیچ موقعیت اسکرول.
 
 ## ۳) نقشهٔ فایل‌های مهم
 
 | مسیر | نقش |
 |---|---|
-| `plugin/alookhor-control-center/assets/css/frontend-product.css` | CSS کامل PDP (~۱۰۰۰ خط). انتهای فایل بلاک‌های نسخه‌ای به ترتیب: …→v3.10.203→v3.10.204(FLUSH)→v3.10.205(RENDER-TESTED)→v3.10.206(BREATHING)→v3.10.207(CALIBRATED آخرین خط) |
-| `plugin/alookhor-control-center/includes/product-page.php` | مارک‌آپ PDP + enqueue (خط 397: `frontend-product.css` با نسخهٔ `ALOOKHOR_CC_BUILD`). کامنت مارکر `<!-- ALOOKHOR-PDP v3.10.x -->` همین‌جاست |
-| `plugin/alookhor-control-center/assets/css/frontend-header-akx.css` | هدر سایت `#akx-header` خودِ همین افزونه است؛ نوار اصلی `.akx-mainbar` با اسکرول `position:fixed; top:0` می‌شود (کلاس `is-stuck`، z-index:99990) |
-| `plugin/alookhor-control-center/alookhor-control-center.php` | خط 20: `define('ALOOKHOR_CC_BUILD','3.10.207')` |
-| `scripts/build_release.py` | بیلد ZIP + اعتبارسنجی نسخه‌ها (نسخه در **۶جا** باید یکی باشد: plugin_header/constant/build/stable_tag/site_json/release_json) |
-| `scripts/generate_code_registry.py` | تولید `docs/MASTER_CODE_REGISTRY.md` — **بعد از هر تغییر سورس باید اجرا شود** وگرنه CI می‌میرد (`--check` برای تست) |
-| `scripts/wordpress_release_test.py` | تست پس از انتشار (داخل job deploy روی تگ اجرا می‌شود). از v206 انتهایش تابع `_pdp_browser_audit()` اضافه شده: مرورگر واقعی Chrome/Selenium صفحهٔ محصول زنده را می‌سنجد و در `publisher-status/latest.json` می‌نویسد |
-| `scripts/header_visual_audit.py` | ممیزی هدر صفحهٔ اصلی (Selenium). از v206+ یک `pdp_audit` اطلاعاتی هم دارد ولی فقط در job `access_audit` اجرا می‌شود که **فقط روی push به main** می‌رود (نه تگ) |
-| `.github/workflows/publish.yml` | تنها ورک‌فلو: build → deploy (فقط تگ `v*.*.*`) → access_audit (فقط main) |
-| `release.json` | نسخه/previous/توضیح/changelog انتشار |
-| `plugin/alookhor-control-center/readme.txt` + `CHANGELOG.md` | ورودی نسخه + `Stable tag:` (جا بماند build_release خطا می‌دهد) |
-| `/home/user/uploads/view203.png` | اسکرین‌شات دسکتاپ مالک (مرجع تحلیل پیکسلی) |
+| `plugin/.../assets/css/frontend-product.css` | CSS کامل PDP (~۱۰۴۰ خط). بلاک‌های نسخه‌ای پشت سر هم تا انتهای فایل؛ آخرین‌ها: 204(FLUSH)→205(RENDER-TESTED)→206(BREATHING)→207(CALIBRATED)→208(WHITE STRIP)→209(FRAMES STICK)→210(بد لنگر، کنار گذاشته)→**211(FINAL GEOMETRY)** |
+| `plugin/.../includes/product-page.php` | مارک‌آپ PDP + enqueue خط 397 (نسخهٔ `ALOOKHOR_CC_BUILD`). مارکر `<!-- ALOOKHOR-PDP v3.10.x -->` همینجاست |
+| `plugin/.../assets/css/frontend-header-akx.css` | هدر `#akx-header` مال خودِ افزونه: topbar 44px + `.akx-mainbar` 78px (min-height)؛ با اسکرول mainbar با کلاس `is-stuck` می‌شود `position:fixed; top:0; z-index:99990` |
+| `plugin/.../alookhor-control-center.php` | خط 20: `define('ALOOKHOR_CC_BUILD','3.10.211')` |
+| `scripts/build_release.py` | بیلد + چک نسخه در **۶جا**: plugin_header / constant / build / **Stable tag در readme.txt** / site_json / release_json |
+| `scripts/generate_code_registry.py` | تولید `docs/MASTER_CODE_REGISTRY.md` — **بعد از هر تغییر سورس اجباری**، وگرنه CI می‌میرد |
+| `scripts/wordpress_release_test.py` | تست پس از انتشار + تابع `_pdp_browser_audit()` (انتهای فایل): مرورگر واقعی Chrome/Selenium صفحهٔ محصول زنده را در 2 ویوپورت می‌سنجد؛ خروجی فشرده زیر `wordpress.pdp_browser_audit` |
+| `.github/workflows/publish.yml` | تنها ورک‌فلو — deploy فقط روی تگ `v*.*.*`، access_audit فقط روی push به main |
+| `release.json` / `readme.txt` / `CHANGELOG.md` | متادیتای انتشار (باید با هم هم‌نسخه شوند) |
+| `HANDOFF.md` | همین سند (روی برنچ کامیت شده) |
 
-**شورتکد/صفحات شناخته‌شده:** هدر پریمیوم `[alookhor_premium_header]` (در ممیزی چک می‌شود که raw باقی نمانده)، صفحات about/contact توسط افزونه ساخته می‌شوند (`/wp-json/alookhor-cc/v1/about` و مشابه). PDP با فیلتر روی ووکامرس جایگزین می‌شود، نه شورتکد.
+**شورتکدها/ساختار سایت:** هدر پریمیوم `[alookhor_premium_header]` (ممیزی چک می‌کند raw نمانده)، صفحات about/contact توسط افزونه (`/wp-json/alookhor-cc/v1/about` و مشابه_product). PDP با فیلتر روی ووکامرس جایگزین می‌شود نه شورتکد. نوار چسبان موبایل `.alp-sticky` **بیرون از** `<section class="alookhor-alp">` رندر می‌شود → انتخابگرش باید `body.alookhor-pdp-body .alp-sticky` باشد.
 
-## ۴) دستورالعمل انتشار (دقیقاً به همین ترتیب — هرگز کم نکنید)
+## ۴) دستورالعمل انتشار (دقیق و بی‌کم‌وکاست)
 
 ```bash
 cd /home/user/alookhor-update-publisher
-# 1) تغییر CSS/کد + بامپ نسخه در ۶ فایل (جایگزینی رشته‌ای 3.10.20X→3.10.20Y):
+# 1) تغییر کد/CSS (فقط append بلاک نسخه‌دار در انتهای frontend-product.css)
+# 2) بامپ نسخه با جایگزینی رشته‌ای 3.10.21X→3.10.21Y در ۶ فایل:
 #    alookhor-control-center.php / assets/js/app.js / assets/js/core/updateSystem.js
 #    assets/js/modules/dashboard.js / assets/js/modules/settings.js / config/site.json
-# 2) readme.txt: Stable tag + بلاک changelog انگلیسی | CHANGELOG.md: ورودی فارسی
-# 3) release.json: version/previous/description/changelog[0]
-python3 scripts/generate_code_registry.py          # الزامی
-python3 scripts/generate_code_registry.py --check
+# 3) readme.txt: Stable tag + بلاک «= X =» | CHANGELOG.md: ورودی فارسی | release.json: version/previous/desc/changelog[0]
+python3 scripts/generate_code_registry.py && python3 scripts/generate_code_registry.py --check
 python3 -m py_compile scripts/*.py
 node --check plugin/alookhor-control-center/assets/js/app.js
-python3 scripts/build_release.py                   # باید JSON ready بدهد
-rm -f alookhor-control-center-*.zip                # خروجی محلی را کامیت نکن
-git add -A && git -c user.name="Arena Agent" -c user.email="agent@arena.ai" \
-  commit -m "vX.Y.Z: ..." --quiet
+python3 scripts/build_release.py        # باید {"state": "ready", ...} بدهد
+rm -f alookhor-control-center-*.zip     # خروجی محلی را کامیت نکن
+git add -A && git -c user.name="Arena Agent" -c user.email="agent@arena.ai" commit -m "vX.Y.Z: ..." --quiet
 git push origin arena/01a053d1-alookhor-update-publisher
-git tag vX.Y.Z && git push origin vX.Y.Z           # تگ = اجرای CI انتشار
+git tag vX.Y.Z && git push origin vX.Y.Z          # تگ = اجرای انتشار
+# پیگیری:
+ID=$(gh run list --limit 1 --json databaseId --jq '.[0].databaseId')
+gh run watch $ID --exit-status --interval 25
 ```
 
-**چک‌های CI (build job) که کار را کشته‌اند — همیشه رعایت شود:**
-- `MASTER_CODE_REGISTRY.md` باید با اسکریپت تولید شده باشد (ویرایش دستی + sed نسخه، کهنه‌اش می‌کند → بازتولید کن)
-- `Stable tag:` در readme.txt باید با نسخه یکی باشد
-- بدون CJK در CSS، بدون کلمهٔ کلیدی ممنوعه، `node --check` همهٔ JSها، `php -l` همهٔ PHPها (در CI؛ محلی php نداریم — از `npm i php-parser` در `/tmp/render` استفاده کن)
+**چک‌های CI که قبلاً کار را کشته‌اند:** رجیستری کهنه (راه‌حل: بازتولید)، Stable tag جاافتاده، CJK در CSS، `node --check` همهٔ JS، `php -l` همهٔ PHP (در CI؛ محلی php نیست → `npm i php-parser`).
 
-**پیگیری ران:**
-```bash
-gh run list --limit 3 --json databaseId,headBranch,status,conclusion
-gh run watch <ID> --exit-status --interval 25
-# اگر شکست خورد و دانلود لاگ EOF داد (محیط سندباکس بلاک است):
-gh api repos/emeliijaddd-png/alookhor-update-publisher/actions/runs/<ID>/jobs \
-  --jq '.jobs[] | {name, conclusion, bad: [.steps[] | select(.conclusion=="failure") | .name]}'
-```
+**تأیید زنده:** `fetch_page` روی `https://alookhor.ir/wp-json/alookhor-cc/v1/product` → `"version"` باید نسخهٔ جدید باشد. curl مستقیم از سندباکس بلاک است.
 
-**تأیید زنده:** `fetch_page` روی `https://alookhor.ir/wp-json/alookhor-cc/v1/product` → باید `"version":"X.Y.Z"` باشد. (curl مستقیم در سندباکس بلاک است؛ fetch_page جواب می‌دهد.)
+## ۵) هندسهٔ اندازه‌گیری‌شدهٔ زنده (قلب فنی ماجرا)
 
-## ۵) یافته‌های کلیدی اندازه‌گیری زنده (مهم‌ترین بخش فنی)
+ثابت‌های سایت (ممیزی مرورگر واقعی در CI):
 
-ممیزی مرورگر واقعی روی سایت زنده (در CI، از داخل `wordpress_release_test.py`) این اعداد را داد — **عریض‌ترین دلیل باگ «زیر منو رفتن»**:
-
-| | دسکتاپ 1614×900 | موبایل 390×844 (innerWidth 375) |
+| کمیت | دسکتاپ 1614×900 | موبایل ~390 |
 |---|---|---|
-| هدر `#akx-header` (in-flow) | 0 → پایین **122px** (topbar 44 + mainbar 78) | 0 → **66px** (topbar مخفی) |
-| بالای سکشن `.alookhor-alp` | **2px** (یعنی ۱۲۰px زیر لبهٔ هدر!) | **−4px** |
-| بالای band/گالری/info | 34px → گپ واقعی با منو **−88px** | 16px → گپ **−50px** |
-| CSS سرو‌شده (bypass کش) | هر سه مارکر v204/205/206 موجود، len 79280 → **کش مشکل نیست** | همان |
-| بعد اسکرول 500px | mainbar `is-stuck=true`، top=0 (fixed می‌شود) | stuck=false (هدر اسکرول می‌خورد) |
+| هدر در جریان `#akx-header` | 0→122px (topbar 44 + mainbar 78) | 0→66px (topbar مخفی) |
+| کشش منفی قالب (چون عنوان صفحه hidden است) | `.alookhor-alp` در top=+2 (یعنی ۱۲۰ زیر هدر) | top=−4 (۷۰ زیر هدر) |
+| منوی چسبان هنگام اسکرول | mainbar `is-stuck`، fixed، 0→78px | هدر اسکرول می‌خورد، stuck نمی‌شود |
 
-**نتیجه:** قالب (Woodmart) وقتی عنوان صفحه با CSS ما `display:none` می‌شود، محتوا را با مارجن منفی به زیر هدرِ in-flow می‌کشد (دمای دسکتاپ 88px، موبایل 50px). برای همین پدینگ‌های قبلی (32/20px) اثر بصری نداشتند.
+**قانون طلایی (درس ۲۰۸→۲۱۱):** کادرها باید به **خط منوی چسبان (78px دسکتاپ)** لنگر شوند نه کل هدر (122px). آن‌وقت: در لود اول، ۴۴px بالای کادر پشت topbar مخفی می‌شود و کادر «دقیقاً از لبهٔ منو» پیدا می‌شود؛ هنگام اسکرول کادر دقیقاً به منوی چسبان می‌چسبد → **در هیچ موقعیتی نوار باقی نمی‌ماند.**
 
-**اصلاح v3.10.207 (فعلی):**
+**مقادیر نهایی v3.10.211 (آخر بلاک‌های CSS):**
 ```css
-.alookhor-alp{padding-top:152px}                 /* دسکتاپ: 122+88+32−88 ≈ band 30px زیر منو */
-@media(max-width:1023px){.alookhor-alp{padding-top:90px}}  /* موبایل: 66+50+20−50 ≈ band 20px زیر منو */
+.alookhor-alp{padding-top:76px}                    /* دسکتاپ: کادر top=78 = خط منوی چسبان */
+.alookhor-alp .alp-info{padding-top:110px}         /* متن اول: 78+110=188px (همان جای همیشگی) */
+.alookhor-alp .alp-stage-in{inset:134px 12px 46px} /* عکس: 78+134=212px (همان جای همیشگی) */
+@media(max-width:1023px){                          /* موبایل = هندسهٔ اثبات‌شدهٔ 209 */
+ .alookhor-alp{padding-top:70px}                   /* کادر top=66 = لبهٔ منو، گپ 0 */
+ .alookhor-alp .alp-info{padding-top:66px}
+ .alookhor-alp .alp-stage{height:clamp(330px,calc(62vw + 20px),420px);min-height:330px}
+ .alookhor-alp .alp-stage-in{top:46px}             /* عکس 132px، متن 100px */
+}
+/* از 208: body.alookhor-pdp-body{background:#24102F!important} + رپرها transparent — سفیدی قالب مرده */
 ```
-> اگر مالک باز گفت فاصله کم/زیاد است، فقط همین دو عدد را جابه‌جا کنید (فرمول: `پدینگ = ارتفاع هدر + 88 (یا 50 موبایل) + فاصلهٔ مطلوب مالک − 88`). اگر گفت «از پایین افتاده» یعنی theme ارتفاع هدر را تغییر داده → اعداد ممیزی جدید را از `publisher-status` بگیرید.
+**تأیید زندهٔ ۲۱۱:** دسکتاپ gal/info top=78 (نسبت به هدر کامل گپ −44 = چسبیده به لبهٔ منو)؛ موبایل گپ 0. عکس ۲۱۲px و متن ۱۸۸px = دقیقاً مثل قبل از بزرگ‌شدن کادرها.
 
-## ۶) تاریخچهٔ نسخه‌ها (خلاصهٔ چه کرد و چه شد)
+**فرمول تغییر فاصله (اگر مالبعداً خواست):** `پدینگ alp = خط لنگر موردنظر − 2 (کشش قالب)` و برای پین‌ماندن محتوا، پدینگ داخلی به همان اندازه کم/زیاد شود (عکس: stage-in.top ، متن: info.padding-top).
+
+## ۶) تاریخچهٔ کامل نسخه‌ها
 
 | نسخه | تغییر | نتیجه |
 |---|---|---|
-| 199–202 | بازسازی هیرو، رفع آبشار موبایل، موکاپ موبایل | 202 فقط موبایلی بود → مالک «فرقی نکرد» |
-| 203 | چسبیده به منو + ستون‌های هم‌ارتفاع | تغییر دسکتاپی ظریف؛ مالک باز «فرقی نکرد» |
-| 204 | حذف breadcrumbs + عکس 94/95٪ + حاشیه 16/10px | سبز؛ کش مالک مشکلی نبود (view-source تأیید) |
-| 205 | رفع دو باگ واقعی با رندر تست: حذف `position:sticky` گالری (آفست 96px دسکتاپ)؛ **انتخابگر نوار چسبان غلط بود** (المان بیرون از `<section>` است → پیشوند درست: `body.alookhor-pdp-body .alp-sticky`) ارتفاع 97→64px | سبز |
-| 206 | تلاش برای فاصله: padding-top 32/20px + جاسازی ممیزی زنده در خط انتشار | **بی‌اثر** چون قالب محتوا را 88/50px زیر هدر می‌کشد (یافتهٔ ممیزی) |
-| **207** | پدینگ کالیبره 152/90px بر اساس اندازه‌گیری زنده | تگ زده شد؛ **وضعیت ران CI نامعلوم** (کاربر وسط watch قطعش کرد) ← اول این را چک کنید |
+| 199–202 | بازسازی هیرو، رفع آبشار موبایل، موکاپ موبایل | 202 فقط موبایلی؛ مالک: «فرقی نکرد» |
+| 203 | چسبیده به منو + ستون هم‌ارتفاع | ظریف بود؛ دوباره «فرقی نکرد» |
+| 204 | حذف breadcrumbs + عکس 94/95٪ | سبز؛ کشِ مالک مشکلی نبود (view-source تأیید شد) |
+| 205 | دو باگ رندر-تست: حذف sticky گالری (آفست 96px)؛ انتخابگر واقعی نوار چسبان (97→64px) | سبز |
+| 206 | padding 32/20px + جاسازی ممیزی زنده در خط انتشار | بی‌اثر — قالب محتوا را 88/50px زیر هدر می‌کشد |
+| 207 | پدینگ کالیبره 152/90px | فاصله درست (+32/+20) ولی **نوار سفید** قالب در گپ دیده شد |
+| 208 | body + رپرهای قالب بنفش تیره `#24102F` / transparent | سفیدی حذف؛ مالک نوارِ بنفش را دید و گفت کلاً باید نباشد |
+| 209 | کادرها چسبیده به منو (120/70px) + پدینگ جبرانی (66/58/46) | گپ 0 ✓ ولی در اسکرولِ دسکتاپ 44px نوار می‌ماند (فروپاشی topbar) |
+| 210 | آزمایش padding:0 + margin:-10 | اشتباه — کادرها پشت کل هدر (گپ −120)؛ کنار گذاشته شد |
+| **211** | لنگر = منوی چسبان 78px + پدینگ‌های جبرانی 110/134؛ موبایل به هندسهٔ 209 | **زنده و تأییدشده: بدون نوار در لود و اسکرول، محتوا پین** |
 
-**زنجیرهٔ کامیت (قدیم→جدید):** `884cd8a`→`888cac0`→`ce9b1b0`→`b1d8b1f`→`a8b100b`→`3acdf7e`→`e90b1e6`→`1ba58bb`(204)→`3930f7a`(205 سبز)→`e5145b8`(206)→`8b34532`(206+ممیزی نهایی، ران سبز 33542080104)→**`3e4fe79` (v3.10.207 = HEAD)**. تگ‌های تمیز: v3.10.200 روی کامیت تحلیل موقت نشسته (پاک‌سازی اختیاری).
+زنجیرهٔ کامیت‌های کلیدی: `1ba58bb`(204)→`3930f7a`(205)→`e5145b8`(206)→`3e4fe79`(207)→`5773641`(208)→`9b0390a`(209)→`d566f29`(210)→**`8423b24`(211=HEAD فعلی)**. ران‌های سبز مهم: 33537486867(205)، 33542647254(207)، 33601170738(208)، 33601888371(209)، 33603480390(210)، **33603927802(211)**.
 
-## ۷) زیرساخت ممیزی که ساخته شد (بعداً هم استفاده کنید)
+## ۷) زیرساخت ممیزی زنده (استفادهٔ مجدد)
 
-**الف) ممیزی زندهٔ هنگام انتشار (خودکار):** انتهای `scripts/wordpress_release_test.py` تابع `_pdp_browser_audit()` هست — Chrome/Selenium در رانر CI صفحهٔ محصول زنده را در 2 ویوپورت می‌سنجد (هندسهٔ هدر/گپ/پدینگ/CSS تازه/اسکرول). خروجی فوق‌فشرده زیر کلید `wordpress.pdp_browser_audit` در برنچ `publisher-status` فایل `latest.json`. خواندن:
+- **خودکار هنگام هر انتشار:** انتهای `scripts/wordpress_release_test.py` تابع `_pdp_browser_audit()` — Chrome/Selenium در رانر، 2 ویوپورت، هندسهٔ هدر/کادرها/گپ/CSS تازه/اسکرول. خروجی فشرده (<1.6KB؛ گارد `too_big`) زیر کلید `wordpress.pdp_browser_audit`.
+- **خواندن:**
 ```bash
 gh api 'repos/emeliijaddd-png/alookhor-update-publisher/contents/latest.json?ref=publisher-status' \
   --jq .content | base64 -d | python3 -m json.tool
+# کلیدهای هر ویو: gal/info/band (top/bottom/height) + gap (نسبت به هدر) + pt (پدینگ alp) + css + scr
 ```
-قیود: گام status لاگ‌ها را به ۱۲۰۰۰ کاراکتر می‌برد → payload ممیزی باید < ~1600B بماند (گارد `too_big` دارد). نصب selenium در رانر: فقط `pip install --target /tmp/pdp_deps --break-system-packages selenium` + `sys.path.insert(0,...)` جواب داد (PEP 668).
+- قیود: گام status لاگ را ۱۲۰۰۰ کاراکتر می‌برد (payload کوچک بماند)؛ نصب selenium فقط با `pip install --target /tmp/pdp_deps --break-system-packages selenium` + `sys.path.insert` (PEP 668).
+- **رندر محلی سریع** (بدون سایت): `/tmp/render` با puppeteer + @sparticuz/chromium (`inflate` به `/tmp/al2023`، launch با `env:{LD_LIBRARY_PATH:'/tmp/al2023/lib'}` + `--no-sandbox`) و صفحهٔ تست `pdp.html` — برای چک تراز/سرریز؛ حقیقت نهایی فقط ممیزی زنده است (هدر/مارجن منفی قالب را ندارد).
 
-**ب) رندر محلی (تست سریع CSS پیش از انتشار):** در `/tmp/render` (با ریست پاک می‌شود):
-```bash
-cd /tmp/render && npm i puppeteer @sparticuz/chromium php-parser
-node -e "const c=require('@sparticuz/chromium').default; c.inflate('node_modules/@sparticuz/chromium/bin/al2023.tar.br','/tmp/al2023').then(()=>console.log('ok'))"
-# سپس launch با: executablePath=await chromium.executablePath(), args:[...chromium.args,'--no-sandbox'],
-#                env:{LD_LIBRARY_PATH:'/tmp/al2023/lib'}
+## ۸) قوانین محیط (تکرار ممنوع)
+
+1. پوش **فایل ورک‌فلوی جدید ممنوع** (توکن sandbox بدون `workflows` permission) — فقط فایل‌های موجود را ویرایش کن.
+2. دانلود لاگ ران (`.../logs`) در sandbox خطای EOF می‌دهد → از jobs API نام قدم شکست‌خورده را بگیر و محلی بازتولید کن.
+3. curl به alookhor.ir بلاک؛ `fetch_page` جواب می‌دهد؛ رانرهای CI دسترسی کامل دارند.
+4. `php` محلی نیست → php-parserِ npm برای lint.
+5. Chrome فقط از @sparticuz (CDN گوگل و apt بلاک/ناقص).
+6. CSS جدید همیشه با پیشوند `.alookhor-alp`؛ **استثنا:** نوار چسبان `body.alookhor-pdp-body` (المان بیرون سکشن است — این باگ ۴ نسخه طول کشید!).
+7. `MASTER_CODE_REGISTRY.md` هرگز دستی — همیشه `generate_code_registry.py`.
+8. rename/delete فایل‌های CSS ممنوع؛ بدون CJK؛ بودجهٔ تصویر ≤8100B.
+9. `/tmp` با ریست پاک می‌شود؛ پیوست چت به workspace نمی‌رسد (URL بخواه یا از CI بگیر).
+10. deploy فقط روی تگ، access_audit فقط روی main — طراحی را حول همین ببند.
+11. اگر برنچ محلی عقب افتاد/به‌هم رفت: `git fetch origin <branch>` بعد مقایسه و در صورت نیاز `git reset --hard FETCH_HEAD` (یک‌بار اتفاق افتاد؛ همهٔ کارها روی remote سالم بودند).
+12. اسم فایل سند را تغییر نده: `HANDOFF.md` روی برنچ است و دستور فراخوانی به آن اشاره دارد.
+
+## ۹) وضعیت همین لحظه
+
+- **v3.10.211 زنده، سبز و تأییدشده** (endpoint + ممیزی مرورگر واقعی: بدون نوار، محتوا پین).
+- تغییر از ۲۰۸ به بعد فقط CSS (append) + متادیتا؛ هیچ تغییر PHP.
+- **گام‌های بعدی پیشنهادی:** (۱) بازخورد مالک بعد از Ctrl+F5 — اگر فاصله/چسبندگی می‌خواهد تغییر کند فقط اعداد بلاک ۲۱۱ طبق فرمول بخش ۵. (۲) اختیاری: پاک‌سازی تگ قدیمی `v3.10.200` (روی کامیت تحلیل موقت نشسته) و حذف بلاک‌های CSS نسخه‌های ۱۹۹–۲۰۳ برای سبک‌شدن (~۱۵KB). (۳) اگر مالک اسکرین‌شات داد، اول ممیزی زنده با اعداد مقایسه کن بعد نظر بده.
+
+## ۱۰) فرمان شروع چت جدید
+
 ```
-صفحهٔ تست `/tmp/render/pdp.html` (بازسازی از `includes/product-page.php` + هدر فیک 120px + CSS واقعی با file://). مفید برای چک تراز/سرریز، ولی **هدر/مارجن منفی قالب را ندارد** — حقیقت نهایی فقط ممیزی زندهٔ بخش (الف).
+فایل سند انتقال پروژهٔ آلوخور را کامل بخوان و به‌عنوان زمینهٔ کاری همین چت در نظر بگیر، بعد وضعیت فعلی را در ۵ خط خلاصه کن. اگر فایل محلی نبود از گیت‌هاب بگیر:
 
-## ۸) قوانین/محدودیت‌های محیط (تکرار نکنید این اشتباهات را)
+cat /home/user/alookhor-update-publisher/HANDOFF.md 2>/dev/null || gh api "repos/emeliijaddd-png/alookhor-update-publisher/contents/HANDOFF.md?ref=arena/01a053d1-alookhor-update-publisher" --jq .content | base64 -d
+```
 
-1. **پوش فایل ورک‌فلوی جدید ممنوع** — توکن GitHub App سندباکس `workflows` permission ندارد. فقط فایل‌های موجود قابل ویرایش‌اند. (پوش `live-audit.yml` رد شد.)
-2. دانلود لاگ ران با `gh api .../logs` در سندباکس **EOF** می‌دهد → از jobs API برای نام قدم شکست‌خورده استفاده کن، بعد محلی بازتولید کن.
-3. curl به alookhor.ir از سندباکس بلاک؛ `fetch_page` جواب می‌دهد؛ رانرهای CI دسترسی کامل دارند.
-4. `php` باینری محلی نیست → php-parserِ npm برای lint PHP.
-5. Chrome از CDN گوگل نصب نمی‌شود؛ apt ناقص → راه @sparticuz (بالا).
-6. بلاک‌های CSS جدید همیشه با پیشوند `.alookhor-alp`؛ به‌جز نوار چسبان که **بیرون سکشن** است → `body.alookhor-pdp-body` (این باگ یک‌بار ۴ نسخه طول کشید!).
-7. `MASTER_CODE_REGISTRY.md` دستی ویرایش نشود؛ همیشه `generate_code_registry.py` بعد از تغییر سورس.
-8. rename/delete فایل CSS ممنوع؛ بودجهٔ تصویر ≤8100B؛ بدون نویسهٔ CJK.
-9. `/tmp` با ریست پاک می‌شود؛ پیوست‌های چت به workspace نمی‌رسد (از مالک بخواهید URL بدهد یا در CI بگیرید).
-10. ورک‌فلو: deploy فقط روی تگ، access_audit فقط روی main (تغییردادن‌شان نیاز به workflows permission دارد که نداریم — طراحی را حول همین ببند).
+## ۱۱) نکات ارتباط با مالک
 
-## ۹) وضعیت این لحظه و گام‌های بعدی
-
-1. **v3.10.207 کامیت/تگ/پوش شده (`3e4fe79`)** ولی وضعیت ران CI نامعلوم است (watch قطع شد):
-   ```bash
-   gh run list --limit 2 --json databaseId,headBranch,status,conclusion
-   # سبز شد؟ → fetch_page روی /wp-json/alookhor-cc/v1/product باید 3.10.207 بدهد
-   # قرمز شد؟ → jobs API بگیر؛ محتمل‌ترین: registry (بازتولید) یا Stable tag
-   ```
-2. بعد از سبزی، `publisher-status/latest.json` را بخوان و مطمئن شو `gap.band` دسکتاپ ≈ +30 و موبایل ≈ +20 است.
-3. به مالک خبر بده: «الان با Ctrl+F5 چک کن — عکس و کادر توضیح باید با فاصلهٔ مشخص (~۳۰px دسکتاپ / ~۲۰px موبایل) زیر منو بیایند؛ اگر کم/زیاد است بگو چه مقدار».
-4. اختیاری: پاک‌سازی تگ `v3.10.200` از کامیت تحلیل موقت؛ حذف بلاک‌های CSS نسخه‌های قدیمی برای کاهش حجم.
-
-## ۱۰) نکات ارتباط با مالک
-
-- مالک عصبی/عجول است؛ پاسخ کوتاه، فارسی، بدون عذرپذیری اضافه، با عدد/جدول.
-- هر تغییر باید «در مرورگر خود مالک» دیده شود؛ قبل از خبر دادن، ممیزی زنده بگیر.
-- محل کد (GitHub) و کش سایت (Cloudflare/هاست/LiteSpeed) را همیشه جدا نگویید.
-- تجربهٔ ثابت شده: بدون اندازه‌گیری زنده، حدس CSS همیشه بخشی از حقیقت (مارجن منفی قالب) را از دست می‌دهد — **اول اندازه بگیر، بعد CSS بنویس.**
+- پاسخ کوتاه، فارسی، با جدول/عدد؛ بدون توضیح فنی اضافه.
+- قبل از خبر «انجام شد»، همیشه ممیزی زنده بگیر (publish-status) — حدس CSS بدون اندازه‌گیری ۷ بار اشتباه بود در این پروژه.
+- محل کد (گیت‌هاب) و کش سایت (Cloudflare/هاست) جدا توضیح داده شود؛ «سرور تازه است» کافی نیست، مالک باید در مرورگر خودش ببیند (Ctrl+F5).
