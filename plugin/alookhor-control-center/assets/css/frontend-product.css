@@ -1503,3 +1503,80 @@ body.alookhor-pdp-body .gallery-thumbs button.is-on{border-color:#f7b32b!importa
 #alookhor-pdp .slider-glass,#alookhor-pdp .reviews-glass{background:rgba(47,26,63,.40) !important;border:1px solid rgba(255,255,255,.08) !important;backdrop-filter:blur(12px) !important;border-radius:1.5rem !important}
 #alookhor-pdp .suggested-product{background:rgba(34,17,44,.60) !important;border:1px solid rgba(255,255,255,.08) !important;border-radius:1rem !important}
 #alookhor-pdp .newsletter-section{position:relative !important;overflow:hidden !important;border-radius:1.5rem !important;border:1px solid rgba(255,255,255,.08) !important;min-height:110px !important}
+
+
+/* ===== v3.10.230 — FIX HUGE ARROWS & WHITE BUTTONS — MOCKUP PDP ===== */
+#alookhor-pdp .product-gallery{position:relative !important;display:flex !important;gap:12px !important}
+#alookhor-pdp .gallery-frame{position:relative !important;overflow:hidden !important;border-radius:24px !important;min-height:560px !important;background:#22112c !important;border:1px solid rgba(255,255,255,.10) !important}
+#alookhor-pdp .gallery-frame img{width:100% !important;height:100% !important;object-fit:cover !important}
+#alookhor-pdp .gallery-frame button[data-gal-prev],
+#alookhor-pdp .gallery-frame button[data-gal-next],
+#alookhor-pdp .gallery-frame button.gallery-expand{
+  position:absolute !important;
+  width:44px !important;height:44px !important;
+  min-width:44px !important;min-height:44px !important;
+  border-radius:9999px !important;
+  display:grid !important;place-items:center !important;
+  border:1px solid rgba(255,255,255,.25) !important;
+  background:rgba(23,10,32,.45) !important;
+  color:#fbf3e2 !important;
+  backdrop-filter:blur(8px) !important;
+  z-index:10 !important;
+  font-size:0 !important;
+  line-height:0 !important;
+}
+#alookhor-pdp .gallery-frame button[data-gal-prev]{right:16px !important;top:50% !important;transform:translateY(-50%) !important}
+#alookhor-pdp .gallery-frame button[data-gal-next]{left:16px !important;top:50% !important;transform:translateY(-50%) !important}
+#alookhor-pdp .gallery-frame button.gallery-expand{right:16px !important;bottom:16px !important;top:auto !important;transform:none !important;width:40px !important;height:40px !important;border-radius:12px !important}
+#alookhor-pdp .gallery-frame button svg{width:20px !important;height:20px !important;display:block !important}
+#alookhor-pdp .gallery-thumbs{width:96px !important;flex-shrink:0 !important;display:flex !important;flex-direction:column !important;gap:12px !important}
+#alookhor-pdp .gallery-thumb{width:100% !important;aspect-ratio:1/1 !important;border-radius:12px !important;overflow:hidden !important;border:2px solid rgba(255,255,255,.10) !important;opacity:.70 !important;background:#22112c !important}
+#alookhor-pdp .gallery-thumb.border-gold-400{border-color:#f7b32b !important;opacity:1 !important;box-shadow:0 0 0 3px rgba(247,179,43,.25) !important}
+#alookhor-pdp .gallery-counter{position:absolute !important;right:16px !important;top:16px !important;background:rgba(23,10,32,.70) !important;color:#fbf3e2 !important;padding:4px 12px !important;border-radius:9999px !important;font-size:12px !important;font-weight:700 !important;backdrop-filter:blur(4px) !important;z-index:10 !important}
+#alookhor-pdp .product-panel.alpm-panel{padding:20px !important}
+@media(min-width:640px){#alookhor-pdp .product-panel.alpm-panel{padding:28px !important}}
+#alookhor-pdp .favorite-action,#alookhor-pdp .share-action{
+  background:transparent !important;
+  border:none !important;
+  color:#c7b3da !important;
+  font-size:12px !important;font-weight:700 !important;
+  display:flex !important;align-items:center !important;gap:6px !important;
+}
+#alookhor-pdp .favorite-action:hover{color:#e42a68 !important}
+#alookhor-pdp .share-action:hover{color:#f7b32b !important}
+#alookhor-pdp .quantity-control{
+  background:rgba(34,17,44,.60) !important;
+  border:1px solid rgba(255,255,255,.10) !important;
+  border-radius:12px !important;
+  padding:4px !important;
+  display:flex !important;align-items:center !important;gap:4px !important;
+}
+#alookhor-pdp .quantity-control button{
+  width:36px !important;height:36px !important;
+  min-width:36px !important;min-height:36px !important;
+  border-radius:8px !important;
+  background:transparent !important;
+  border:none !important;
+  color:#fbf3e2 !important;
+  display:grid !important;place-items:center !important;
+}
+#alookhor-pdp .quantity-control button:hover{background:rgba(255,255,255,.10) !important;color:#f7b32b !important}
+#alookhor-pdp .quantity-control #alpQty{width:40px !important;text-align:center !important;color:#fbf3e2 !important;font-weight:900 !important}
+#alookhor-pdp .add-button{
+  height:56px !important;
+  border-radius:16px !important;
+  background:linear-gradient(to left,#ffe3ac,#f7b32b,#ef9f1f) !important;
+  color:#170a20 !important;
+  font-weight:900 !important;font-size:18px !important;
+  display:flex !important;align-items:center !important;justify-content:center !important;gap:12px !important;
+  box-shadow:0 15px 40px -12px rgba(247,179,43,.65) !important;
+}
+#alookhor-pdp .product-features .feature-item{
+  background:rgba(34,17,44,.50) !important;
+  border:1px solid rgba(255,255,255,.08) !important;
+  border-radius:16px !important;
+  padding:16px 8px !important;
+  text-align:center !important;
+}
+#alookhor-pdp .promo-banner{border-radius:24px !important;overflow:hidden !important;border:1px solid rgba(247,179,43,.25) !important;min-height:140px !important}
+#alookhor-pdp .promo-banner img{position:absolute !important;inset:0 !important;width:100% !important;height:100% !important;object-fit:cover !important}

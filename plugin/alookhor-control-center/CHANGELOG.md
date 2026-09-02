@@ -1,4 +1,11 @@
 
+## 3.10.230 — FIX HUGE ARROWS & WHITE BUTTONS — exact React port 100% fidelity
+- User screenshots show huge '<' arrows and white qty/wishlist buttons — caused by Woodmart CSS overriding Tailwind utilities and missing icon sizing.
+- Added v3.10.230 CSS block with explicit !important fixed sizes for gallery prev/next (44px circle, icon 20px), thumbs 96px desktop, quantity control dark, wishlist/share transparent, etc.
+- Ensured frontend-product-react.css 77KB loaded before frontend-product.css, both with BUILD version.
+- Kept header/footer untouched, MOCKUP PDP marker preserved.
+- Live verification pending after deploy.
+
 ## 3.10.229 — EXACT REACT PORT 100% FIDELITY — fix 'messed up' after recovery, ensure Woodmart not overriding
 - Re-extracted frontend-product-react.css 77KB from target-design/dist/index.html (singlefile) — Tailwind v4 + custom below-product, slider-glass, etc.
 - Fixed product-page.php markup to exactly match React App.tsx: product-page-main grid 1440px, left-col gallery+promo-banner, right-col product-panel alpm-panel, below-product with about-story, specs 7, highlights 4, suggested filtered, FAQ 5 dark, reviews glass, newsletter.

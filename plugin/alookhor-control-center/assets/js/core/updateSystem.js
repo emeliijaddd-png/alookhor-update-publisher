@@ -2,7 +2,7 @@
 // UI/state remain modular; version discovery and installation are delegated to WordPress.
 
 const runtimeConfig = window.ALOOKHOR_CC || {};
-const runtimeVersion = String(runtimeConfig.version || '3.10.229');
+const runtimeVersion = String(runtimeConfig.version || '3.10.230');
 
 function normalizeResult(data = {}) {
   const current = String(data.current || runtimeVersion);
