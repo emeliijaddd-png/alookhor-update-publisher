@@ -4,7 +4,7 @@ Tags: control center, luxury, alookhor, admin, dashboard
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 3.10.227
+Stable tag: 3.10.228
 License: Private
 License URI: https://alookhor.ir
 
@@ -47,7 +47,7 @@ License URI: https://alookhor.ir
 
 == Changelog ==
 
-= 3.10.227 =
+= 3.10.228 =
 * Fix fatal error Cannot redeclare alookhor_cc_goldify() after v225 — site returned 500 and broke API. Removed duplicate function, restored alookhor_cc_pdp_gold wrapper. No visual change, design from 225 preserved.
 
 = 3.10.225 =

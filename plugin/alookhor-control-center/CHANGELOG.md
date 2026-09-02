@@ -1,4 +1,9 @@
 
+## 3.10.228 — RECOVERY COMPLETE — trigger auto-update after manual single-file fix (site back from 500)
+- Site recovered via manual product-page.php replacement, now 200.
+- This tag re-triggers deploy so dashboard update section can install full 109-file package (react css 63KB + 8 images + js + fixed product-page).
+- No data loss, settings preserved.
+
 ## 3.10.227 — EMERGENCY RECOVERY — fix fatal redeclare alookhor_cc_goldify (wrap all pdp funcs in function_exists) — site 500 recovery
 - Root cause: v3.10.225 defined alookhor_cc_goldify() already in pages-settings.php:98 → fatal → all REST 500 → auto-updater blocked.
 - Fix: removed duplicate, wrapped all pdp functions with if(!function_exists), kept exact React port (plum/gold/berry/mint, gallery vertical, banner, below sections), filtered Samsung demo IDs, dark FAQ !important fix, added frontend-product-react.css 63KB + 8 images.
