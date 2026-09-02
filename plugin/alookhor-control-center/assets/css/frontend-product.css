@@ -1001,3 +1001,19 @@ body.alookhor-pdp-body{padding-bottom:74px}
 body.alookhor-pdp-body{background:#24102F!important}
 body.alookhor-pdp-body .website-wrapper,body.alookhor-pdp-body .main-page-wrapper,body.alookhor-pdp-body .site-content,body.alookhor-pdp-body .container,body.alookhor-pdp-body main,body.alookhor-pdp-body #main-content{background:transparent!important}
 .alookhor-alp{background-color:#24102F}
+
+/* =========================================================
+   v3.10.209 — FRAMES STICK TO MENU, CONTENT STAYS PUT
+   photo box & info card frames now start flush under the
+   main menu; inner content (image, texts, buttons) keeps
+   its exact position via compensating padding/insets.
+   desktop: frames 122→ (was 154) | mobile: 66→ (was 86)
+   ========================================================= */
+.alookhor-alp{padding-top:120px}
+.alookhor-alp .alp-info{padding-top:66px}
+.alookhor-alp .alp-stage-in{inset:58px 12px 46px}
+@media(max-width:1023px){
+ .alookhor-alp{padding-top:70px}
+ .alookhor-alp .alp-stage{height:clamp(330px,calc(62vw + 20px),420px);min-height:330px}
+ .alookhor-alp .alp-stage-in{top:46px}
+}
