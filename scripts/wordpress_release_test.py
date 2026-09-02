@@ -216,7 +216,7 @@ def _pdp_browser_audit() -> dict:
 const one=s=>document.querySelector(s);
 const rect=e=>e?Object.fromEntries(['top','bottom','left','width','height'].map(k=>[k,Math.round(e.getBoundingClientRect()[k]*10)/10])):null;
 const akx=one('#akx-header'), mainbar=one('#akx-header .akx-mainbar'), topbar=one('#akx-header .akx-topbar,#akx-header .akx-top-bar');
-const alp=one('.alookhor-alp'), band=one('.alp-hero-band'), gal=one('.alp-gallery'), info=one('.alp-info'), stage=one('.alp-stage');
+const alp=one('.alookhor-alp'), band=one('.alpm-wrap'), gal=one('.alpm-gallery'), info=one('.alpm-panel'), stage=one('.alpm-stage');
 const themeHeader=one('.whb-header, header.site-header, header#header');
 let pdpVersion=null; const w=document.createTreeWalker(document.documentElement,NodeFilter.SHOW_COMMENT); let n;
 while((n=w.nextNode())){const m=/ALOOKHOR-PDP\s+v([\d.]+)/.exec(n.nodeValue||''); if(m){pdpVersion=m[1];break;}}
@@ -263,7 +263,8 @@ return {viewport:{width:innerWidth,height:innerHeight},pdpVersion,
                         fresh = href + ('&' if '?' in href else '?') + 'fresh=' + str(int(_time.time()))
                         with urlopen(Request(fresh, headers={'User-Agent': 'ALOOKHOR-GitHub-Publisher/1.0'}), timeout=30) as response:
                             txt = response.read().decode(errors='replace')
-                        css = {'has_206_breathing_room': 'BREATHING ROOM' in txt,
+                        css = {'has_212_mockup': 'MOCKUP PDP' in txt,
+                               'has_206_breathing_room': 'BREATHING ROOM' in txt,
                                'has_205_render_fixes': 'RENDER-TESTED FIXES' in txt,
                                'has_204_flush': 'FLUSH TO MENU' in txt,
                                'length': len(txt)}
@@ -304,7 +305,7 @@ return {viewport:{width:innerWidth,height:innerHeight},pdpVersion,
             'alp': _r(b.get('alp')), 'band': _r(b.get('band')), 'gal': _r(b.get('gallery')), 'info': _r(b.get('info')),
             'gap': {'alp': b.get('gap_alp_below_header'), 'band': b.get('gap_band_below_header'),
                     'gal': b.get('gap_gallery_below_header'), 'info': b.get('gap_info_below_header')},
-            'css': {'v206': c.get('has_206_breathing_room'), 'v205': c.get('has_205_render_fixes'),
+            'css': {'v212': c.get('has_212_mockup'), 'v206': c.get('has_206_breathing_room'),
                     'v204': c.get('has_204_flush'), 'len': c.get('length'), 'err': str(c.get('error') or '')[:60]},
             'scr': {'stuck': a.get('mainbar_stuck'),
                     'mbTop': (a.get('mainbar') or {}).get('top') if isinstance(a.get('mainbar'), dict) else None},
