@@ -4,7 +4,7 @@ Tags: control center, luxury, alookhor, admin, dashboard
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 3.10.219
+Stable tag: 3.10.220
 License: Private
 License URI: https://alookhor.ir
 
@@ -46,6 +46,9 @@ License URI: https://alookhor.ir
 در `config/site.json` و `wp_options: alookhor_cc_settings` — همان حافظه واقعی که در چت قبلی ویرایش می‌شد.
 
 == Changelog ==
+
+= 3.10.220 =
+* SEO SPRINT 1 (Technical): single Product schema on PDP (WooCommerce core schema dequeued there), richer factual schema (description, itemCondition, URL, AggregateRating only when REAL reviews exist); Organization+WebSite(SearchAction) fallback schema when Yoast is absent; automatic alt text for product images; lightweight 404 logging shown in the SEO Cleanup tool with a purge button; technical probes (indexability, permalinks, Woo pages, Yoast presence).
 
 = 3.10.219 =
 * Security: the SEO Cleanup tool gains a read-only Server Intrusion Monitor — it audits .htaccess for injected redirect rules, flags changed core files, lists mu-plugins and any PHP files inside uploads. Use it BEFORE manual deletion so evidence stays intact. Nothing here deletes anything.

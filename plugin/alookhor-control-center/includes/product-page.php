@@ -377,7 +377,14 @@ function alookhor_cc_pdp_markup(){
  <div class="alpm-toast" data-toast hidden><div class="alpm-toast-in"><span class="alpm-toast-ic"><?php echo alookhor_cc_pdp_icon('check');?></span><span data-toast-msg></span></div></div>
 </section>
 <div class="alp-sticky" data-name="<?php echo esc_attr($d['name']);?>"><span class="alp-sticky-p"><?php echo $price_now_html;?></span><?php if($d['purchasable']&&$d['stock']!=='out'):?><a href="<?php echo esc_url($d['add_url']);?>" data-base="<?php echo esc_attr($d['add_url']);?>" class="alp-cta"><?php echo alookhor_cc_pdp_icon('bag');?><span>افزودن به سبد خرید</span></a><?php endif;?></div>
-<script type="application/ld+json"><?php echo wp_json_encode(['@context'=>'https://schema.org','@type'=>'Product','name'=>$d['name'],'image'=>$main_slide['src'],'sku'=>$d['sku'],'offers'=>['@type'=>'Offer','price'=>$d['price'],'priceCurrency'=>(function_exists('get_woocommerce_currency')?get_woocommerce_currency():'IRR'),'availability'=>'https://schema.org/'.($d['in_stock']?'InStock':'OutOfStock')],'brand'=>['@type'=>'Brand','name'=>'ALOOKHOR']]);?></script>
+<script type="application/ld+json"><?php
+ $alpm_ld=['@context'=>'https://schema.org','@type'=>'Product','name'=>$d['name'],'image'=>$main_slide['src'],'sku'=>$d['sku'],'inLanguage'=>'fa-IR',
+  'brand'=>['@type'=>'Brand','name'=>'ALOOKHOR'],
+  'offers'=>['@type'=>'Offer','price'=>$d['price'],'priceCurrency'=>(function_exists('get_woocommerce_currency')?get_woocommerce_currency():'IRR'),
+   'availability'=>'https://schema.org/'.($d['in_stock']?'InStock':'OutOfStock'),'url'=>get_permalink($product->get_id()),'itemCondition'=>'https://schema.org/NewCondition']];
+ if(!empty($d['short'])){$alpm_ld['description']=wp_trim_words(wp_strip_all_tags($d['short']),30,'…');}
+ if(!empty($d['rating'])&&(float)$d['rating']>0&&!empty($d['reviews'])&&(int)$d['reviews']>0){$alpm_ld['aggregateRating']=['@type'=>'AggregateRating','ratingValue'=>(string)$d['rating'],'reviewCount'=>(string)(int)$d['reviews'],'bestRating'=>'5','worstRating'=>'1'];}
+ echo wp_json_encode($alpm_ld,JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);?></script>
 <?php $GLOBALS['alookhor_cc_pdp_done']=true;
  return ob_get_clean();
 }
@@ -404,6 +411,11 @@ add_action('template_redirect',function(){
  if(function_exists('alookhor_cc_render_akx_header'))echo alookhor_cc_render_akx_header();
  echo $markup;
  if(function_exists('alookhor_cc_footer_markup'))echo alookhor_cc_footer_markup();
+ /* v3.10.220 — حذف اسکیمای Product ووکامرس تا با اسکیمای کامل خودمان تکراری نشود */
+ if(function_exists('WC')&&WC()&&isset(WC()->structured_data)&&is_object(WC()->structured_data)){
+  remove_action('wp_footer',[WC()->structured_data,'output_structured_data_json']);
+  remove_action('wp_footer',[WC()->structured_data,'output_structured_data'],40);
+ }
  wp_footer();
  echo '</body></html>';
  exit;

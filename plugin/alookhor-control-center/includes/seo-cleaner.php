@@ -58,6 +58,14 @@ function alookhor_seo_cleaner_probe(){
  }
  $mu=ABSPATH.'wp-content/mu-plugins';
  if(is_dir($mu)){foreach(glob($mu.'/*.php')?:[] as $ff){$out[]=['mu-plugin: '.basename($ff),'آخرین تغییر: '.date_i18n('Y-m-d H:i:s',@filemtime($ff)),'🚨 mu-plugin بدون ریس انجام می‌شود؛ اگر نمی‌شناسید فوراً حذف کنید'];}}
+ /* ---------- پروب‌های سئو تکنیکال ---------- */
+ $out[]=['ایندکس‌پذیری سایت (blog_public)',get_option('blog_public')==='1'?'باز':'بسته',
+  get_option('blog_public')==='1'?'✅ ایندکس مجاز است':'🚨 «از موتورهای جست‌وجو ممانعت کنید» فعال است — سایت در نتایج گوگل نمایش داده نمی‌شود! تنظیمات ← خواندن را بررسی کنید'];
+ $ps=get_option('permalink_structure');
+ $out[]=['پیوند یکتا',$ps===''?'ساده (?p=)':$ps,$ps===''?'🚨 پیوند ساده برای سئو بد است؛ از «نام نوشته» استفاده کنید':'✅'];
+ $out[]=['Yoast SEO',defined('WPSEO_VERSION')?'فعال':'غایب',defined('WPSEO_VERSION')?'✅ متاهای SEO + اسکیما توسط یواست':'ℹ️ نسخهٔ جایگزین اسکیمای سازمانی آلوخور فعال است'];
+ $out[]=['صفحه سبد/تسویه',function_exists('wc_get_page_id')?((wc_get_page_id('cart')>0&&wc_get_page_id('checkout')>0)?'تنظیم‌شده':'نیاز به تنظیم'):'ووکامرس غایب',''];
+ $pc=wp_count_posts('product');$out[]=['محصولات منتشرشده',$pc?(int)$pc->publish:0,''];
  try{
   $bad=[];$rii=new RecursiveIteratorIterator(new RecursiveDirectoryIterator(ABSPATH.'wp-content/uploads',FilesystemIterator::SKIP_DOTS));
   foreach($rii as $fi){ if($fi->isFile()&&strtolower($fi->getExtension())==='php'){$bad[]=$fi->getPathname().' ('.date_i18n('Y-m-d',@filemtime($fi->getPathname())).')'; if(count($bad)>=30){$bad[]='…';break;}} }
@@ -111,6 +119,7 @@ function alookhor_seo_cleaner_page(){
    $ids=get_posts(['post_type'=>'product','post_status'=>['publish','draft'],'posts_per_page'=>-1,'fields'=>'ids','s'=>'گوشی سامسونگ']);
    $n=0;foreach($ids as $id){if(wp_trash_post($id)){$n++;}}
    $acted=$n?'✅ '.$n.' محصول دمو به زبالت‌دان رفت (قابل بازیابی از پیشخوان وردپرس).':'ℹ️ محصول دموی «گوشی سامسونگ» پیدا نشد.';
+  }elseif($act==='purge404'){delete_option('acc_404_log');$acted='✅ لاگ ۴۰۴ پاک شد.';
   }
  }
  $files=alookhor_seo_cleaner_scan_files();
@@ -139,7 +148,17 @@ function alookhor_seo_cleaner_page(){
   echo '<tr><td>'.esc_html($row[0]).'</td><td>'.esc_html($row[1]).'</td><td style="white-space:pre-wrap;font-size:11px">'.esc_html($row[2]).'</td></tr>';
  }
  echo '</tbody></table><p style="color:#b94a48;font-weight:700">⚠ اگر هر جا 🚨 دیدید، اسکرین‌شات این بخش را برای عامل بفرستید و خودتان هیچ فایلی را دستی حذف نکنید تا شواهد از بین نرود.</p>';
- echo '<h2>۵) اقدامات دستی پیشنهادی به ترتیب اولویت</h2><ol>
+ $log404=get_option('acc_404_log');if(!is_array($log404))$log404=[];
+ uasort($log404,function($a,$b){return (int)$b['c']<=>(int)$a['c'];});
+ echo '<h2>۵) لاگ مسیرهای ۴۰۴ (فقط وقتی صفحات واقعی وردپرس ۴۰۴ می‌شوند)</h2>';
+ if($log404){
+  echo '<table class="widefat striped"><thead><tr><th>مسیر</th><th>دفعات</th><th>آخرین بازدید</th></tr></thead><tbody>';
+  $i=0;foreach($log404 as $p=>$row){if($i++>=20)break;echo '<tr><td dir="ltr">'.esc_html($p).'</td><td>'.intval($row['c']).'</td><td>'.esc_html(date_i18n('Y-m-d H:i',(int)$row['t'])).'</td></tr>';}
+  echo '</tbody></table>';
+  echo '<form method="post" style="margin:10px 0">'.wp_nonce_field('acc_seo_clean','_wpnonce',true,false).'<button class="button" name="acc_seo_ok" value="purge404">🗑 پاک کردن لاگ ۴۰۴</button></form>';
+ }else{echo '<p style="color:#2e7d32">✅ فعلاً موردی ثبت نشده (یا تازه پاک شده).</p>';}
+ echo '<p style="font-size:12px;color:#666">راهنما: مسیرهای پرتکرار ۴۰۴ را با افزونهٔ Redirection یا ریدایرکت .htaccess به نزدیک‌ترین صفحهٔ مرتبط هدایت کنید؛ صفحات مهم هرگز نباید ۴۰۴ بمانند.</p>';
+ echo '<h2>۶) اقدامات دستی پیشنهادی به ترتیب اولویت</h2><ol>
   <li><b>اول:</b> اسکن امنیتی کامل با افزونهٔ Wordfence (نسخهٔ رایگان کافی است) یا درخواست اسکن بدافزار از پشتیبانی هاست.</li>
   <li>رمزهای پیشخوان وردپرس، cPanel، FTP و دیتابیس را عوض کنید و کاربران ناشناس را حذف کنید.</li>
   <li>محصولات دمو «گوشی سامسونگ…» با دکمهٔ بالا به زبالت‌دان بروند؛ دسته‌های دمو (تبلت/لپتاپ/جوراب/…) را پاک کنید.</li>
