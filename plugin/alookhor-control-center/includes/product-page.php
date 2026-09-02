@@ -162,11 +162,12 @@ function alookhor_cc_pdp_markup(){
  $cart=function_exists('wc_get_cart_url')?wc_get_cart_url():home_url('/cart/');
  $wa='';$wa_phone=preg_replace('/\D+/','',(string)($header['phone']??''));if($wa_phone)$wa='https://wa.me/'.$wa_phone;
  $main_slide=$d['slides'][0];
+ $fa_th=function($n){return strtr(number_format((float)$n,0,'.','٬'),['0'=>'۰','1'=>'۱','2'=>'۲','3'=>'۳','4'=>'۴','5'=>'۵','6'=>'۶','7'=>'۷','8'=>'۸','9'=>'۹']);};
  $cur=function_exists('get_woocommerce_currency')?get_woocommerce_currency():'';
  $toman_rate=$cur==='IRR'?10:($cur==='IRT'?1:0);
  $use_toman=$toman_rate>0&&!$product->is_type('variable')&&$d['price']>0;
- $price_now_html=$use_toman?number_format_i18n((int)round($d['price']/$toman_rate)).'<span class="alpm-cur">تومان</span>':wp_kses_post($d['price_html']);
- $price_old_html=($use_toman&&$d['regular']>0)?number_format_i18n((int)round($d['regular']/$toman_rate)).'<span class="alpm-cur">تومان</span>':wp_kses_post(wc_price($d['regular']));
+ $price_now_html=$use_toman?$fa_th((int)round($d['price']/$toman_rate)).'<span class="alpm-cur">تومان</span>':wp_kses_post($d['price_html']);
+ $price_old_html=($use_toman&&$d['regular']>0)?$fa_th((int)round($d['regular']/$toman_rate)).'<span class="alpm-cur">تومان</span>':wp_kses_post(wc_price($d['regular']));
  $price_single=$use_toman?wp_strip_all_tags($price_now_html):wp_strip_all_tags($d['price_html']);
  $show_weights=count($d['options'])>1||$product->is_type('variable')||!empty((float)$product->get_weight());
  $stars=function($n,$active=true){$o='';for($i=1;$i<=5;$i++)$o.=alookhor_cc_pdp_icon('star');return $o;};
@@ -205,7 +206,7 @@ function alookhor_cc_pdp_markup(){
     </div>
 
     <div class="alpm-pricebox">
-     <div class="alpm-prow"><span class="alpm-plabel">قیمت محصول :</span><?php if($d['discount']>0):?><em class="alpm-poff">٪<?php echo esc_html(number_format_i18n($d['discount']));?> تخفیف</em><?php endif;?></div>
+     <div class="alpm-prow"><span class="alpm-plabel">قیمت محصول :</span><?php if($d['discount']>0):?><em class="alpm-poff">٪<?php echo esc_html(strtr((string)$d['discount'],['0'=>'۰','1'=>'۱','2'=>'۲','3'=>'۳','4'=>'۴','5'=>'۵','6'=>'۶','7'=>'۷','8'=>'۸','9'=>'۹']));?> تخفیف</em><?php endif;?></div>
      <div class="alpm-prow2">
       <?php if($d['on_sale']&&$d['regular']>0&&$d['price']>0&&$d['price']<$d['regular']):?><s class="alpm-pold"><?php echo $price_old_html;?></s><?php endif;?>
       <b class="alpm-pnow alp-price-now" data-single="<?php echo esc_attr($price_single);?>"><?php echo $price_now_html;?></b>
