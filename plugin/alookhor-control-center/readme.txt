@@ -4,7 +4,7 @@ Tags: control center, luxury, alookhor, admin, dashboard
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 3.10.218
+Stable tag: 3.10.219
 License: Private
 License URI: https://alookhor.ir
 
@@ -46,6 +46,9 @@ License URI: https://alookhor.ir
 در `config/site.json` و `wp_options: alookhor_cc_settings` — همان حافظه واقعی که در چت قبلی ویرایش می‌شد.
 
 == Changelog ==
+
+= 3.10.219 =
+* Security: the SEO Cleanup tool gains a read-only Server Intrusion Monitor — it audits .htaccess for injected redirect rules, flags changed core files, lists mu-plugins and any PHP files inside uploads. Use it BEFORE manual deletion so evidence stays intact. Nothing here deletes anything.
 
 = 3.10.218 =
 * SEO SPRINT 0 (Emergency): old spam doorway URLs /item/<id> now return 410 Gone; the admin gets a new "SEO Cleanup" tool (acc-admin → پاک‌سازی SEO) that finds poisoned sitemap*.xml / robots.txt files on the server, deletes only /item/-signed files, lists demo template products (soft-trash, reversible) and products without images. Cleanup requires your confirmation in admin; nothing is deleted silently.

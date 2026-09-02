@@ -43,6 +43,29 @@ add_action('admin_menu',function(){
  add_submenu_page('acc-admin','پاک‌سازی SEO','🧹 پاک‌سازی SEO','manage_options','alookhor-seo-clean','alookhor_seo_cleaner_page');
 },99);
 
+function alookhor_seo_cleaner_probe(){
+ $out=[];
+ $ht=ABSPATH.'.htaccess';
+ if(is_file($ht)){
+  $c=@file_get_contents($ht);$sus=[];
+  if(is_string($c)){foreach(preg_split('/\r\n|\r|\n/',$c) as $i=>$ln){
+   if(preg_match('/(base64_decode|gzinflate|eval\(|str_rot13)|((rewritecond|rewriterule).*(item|base64|googlebot|referer|user-agent|https?:))/i',$ln)){ $sus[]=($i+1).': '.$ln; }
+  }}
+  $out[]=['.htaccess','آخرین تغییر: '.date_i18n('Y-m-d H:i:s',@filemtime($ht)),$sus?'🚨 خطوط مشکوک:\n'.implode("\n",$sus):'✅ خط مشکوکی دیده نشد'];
+ }else{$out[]=['.htaccess','یافت نشد','سرور شما شاید NGINX است؛ این فایل ندارد'];}
+ foreach(['index.php','wp-config.php','wp-settings.php','wp-load.php'] as $core){
+  if(is_file(ABSPATH.$core)){$out[]=['فایل هسته: '.$core,'آخرین تغییر: '.date_i18n('Y-m-d H:i:s',@filemtime(ABSPATH.$core)),'⚠ اگر این تاریخ بدون به‌روزرسانی وردپرس جدید است، احتمال دست‌کاری بالاست'];}
+ }
+ $mu=ABSPATH.'wp-content/mu-plugins';
+ if(is_dir($mu)){foreach(glob($mu.'/*.php')?:[] as $ff){$out[]=['mu-plugin: '.basename($ff),'آخرین تغییر: '.date_i18n('Y-m-d H:i:s',@filemtime($ff)),'🚨 mu-plugin بدون ریس انجام می‌شود؛ اگر نمی‌شناسید فوراً حذف کنید'];}}
+ try{
+  $bad=[];$rii=new RecursiveIteratorIterator(new RecursiveDirectoryIterator(ABSPATH.'wp-content/uploads',FilesystemIterator::SKIP_DOTS));
+  foreach($rii as $fi){ if($fi->isFile()&&strtolower($fi->getExtension())==='php'){$bad[]=$fi->getPathname().' ('.date_i18n('Y-m-d',@filemtime($fi->getPathname())).')'; if(count($bad)>=30){$bad[]='…';break;}} }
+  $out[]=['فایل‌های PHP داخل uploads', $bad?'یافت شد: '.count($bad):'هیچ‌کدام', $bad?'🚨 '.implode(" | ",$bad):'✅ سالم — هیچ فایل PHP در uploads نیست'];
+ }catch(Throwable $e){$out[]=['فایل‌های PHP داخل uploads','خطا در اسکن','⚠ صرف‌نظر شد'];}
+ return $out;
+}
+
 function alookhor_seo_cleaner_scan_files(){
  $hits=[];
  $cands=[ABSPATH.'robots.txt',ABSPATH.'sitemap.xml',ABSPATH.'sitemap_index.xml'];
@@ -111,12 +134,17 @@ function alookhor_seo_cleaner_page(){
  echo '<h2>۳) محصولات بدون تصویر ('.count($noimg).' از حداکثر ۲۰۰)</h2>';
  if($noimg){echo '<ol>';foreach($noimg as $p){echo '<li><a href="'.esc_url(get_permalink($p->ID)).'" target="_blank">'.esc_html($p->post_title).'</a></li>';}echo '</ol><p>⚠ این محصولات با تصویر پیش‌فرض ووکامرس در نتایج جست‌وجو دیده می‌شوند؛ تصویر واقعی برایشان بارگذاری کنید.</p>';}
  else{echo '<p style="color:#2e7d32">✅ همهٔ محصولات تصویر دارند.</p>';}
- echo '<h2>۴) اقدامات دستی پیشنهادی پس از پاک‌سازی</h2><ol>
-  <li>در گوگل Search Console بخش Removals پیشوند <code>alookhor.ir/item/</code> را ثبت کنید تا صفحات هرزنده سریع‌تر حذف شوند.</li>
-  <li>دستهٔ <b>uncategorized/گوشی</b> و دسته‌های خالی دمو (تبلت، لپتاپ، جوراب و…) را از پیشخوان حذف کنید.</li>
+ echo '<h2>۴) پایش نفوذ سرور 🛡 (فقط خواندنی)</h2><table class="widefat striped"><thead><tr><th>مورد</th><th>وضعیت</th><th>جزئیات</th></tr></thead><tbody>';
+ foreach(alookhor_seo_cleaner_probe() as $row){
+  echo '<tr><td>'.esc_html($row[0]).'</td><td>'.esc_html($row[1]).'</td><td style="white-space:pre-wrap;font-size:11px">'.esc_html($row[2]).'</td></tr>';
+ }
+ echo '</tbody></table><p style="color:#b94a48;font-weight:700">⚠ اگر هر جا 🚨 دیدید، اسکرین‌شات این بخش را برای عامل بفرستید و خودتان هیچ فایلی را دستی حذف نکنید تا شواهد از بین نرود.</p>';
+ echo '<h2>۵) اقدامات دستی پیشنهادی به ترتیب اولویت</h2><ol>
+  <li><b>اول:</b> اسکن امنیتی کامل با افزونهٔ Wordfence (نسخهٔ رایگان کافی است) یا درخواست اسکن بدافزار از پشتیبانی هاست.</li>
+  <li>رمزهای پیشخوان وردپرس، cPanel، FTP و دیتابیس را عوض کنید و کاربران ناشناس را حذف کنید.</li>
+  <li>محصولات دمو «گوشی سامسونگ…» با دکمهٔ بالا به زبالت‌دان بروند؛ دسته‌های دمو (تبلت/لپتاپ/جوراب/…) را پاک کنید.</li>
   <li>بنر «جشواره فروش اپل» + متون لورم ایپسوم را از صفحهٔ فروشگاه حذف کنید.</li>
-  <li>پس از تکمیل پاک‌سازی، نقشهٔ سالم Yoast (<code>sitemap_index.xml</code>) را در گوگل Search Console ثبت و خطای Coverage را ریست کنید.</li>
-  <li>اسکن امنیتی Wordfence را اجرا و کاربران/افزونه‌های ناشناس را بررسی کنید.</li></ol>
+  <li>بعد از پاک شدن بدافزار: نقشه‌های آلودهٔ بالا را با دکمه حذف کنید؛ در گوگل Search Console بخش Removals پیشوند <code>alookhor.ir/item/</code> را ثبت کنید؛ نقشهٔ سالم Yoast را ثبت کنید.</li></ol>
  <p style="color:#666;font-size:12px">این ابزار هیچ داده‌ای را بدون تأیید شما تغییر نمی‌دهد؛ انتقال به زبالت‌دان قابل بازگشت است.</p></div>';
 }
 }
