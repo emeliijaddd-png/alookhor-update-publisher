@@ -37,7 +37,7 @@ function alookhor_cc_pdp_icon($name){
  return '<svg viewBox="0 0 24 24" '.$fill.' aria-hidden="true">'.$svg.'</svg>';
 }
 
-function alookhor_cc_goldify($t){return function_exists('alookhor_cc_goldify')?alookhor_cc_goldify($t):esc_html($t);}
+function alookhor_cc_pdp_gold($text){return function_exists('alookhor_cc_goldify')?alookhor_cc_goldify($text):esc_html($text);}
 
 function alookhor_cc_pdp_product($slug=''){
  if(!function_exists('wc_get_product'))return null;

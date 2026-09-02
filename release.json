@@ -1,16 +1,16 @@
 {
-  "version": "3.10.225",
-  "previous": "3.10.224",
+  "version": "3.10.226",
+  "previous": "3.10.225",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "پورت کامل دیزاین React — 100% fidelity + فیکس سفید و سامسونگ",
+  "description": "فیکس ریدکلر تابع goldify — حل خطای 500",
   "changelog": [
     {
-      "tag": "DESIGN",
-      "title": "صفحه محصول دقیقا مثل ۵ عکس مرجع React شد",
-      "desc": "بوم، پنل، گالری عمودی، بنر، بخش‌های پایین، فیکس سفید، حذف سامسونگ"
+      "tag": "FIX",
+      "title": "حل خطای Cannot redeclare alookhor_cc_goldify",
+      "desc": "تابع تکراری حذف شد، سایت 500 بود"
     }
   ],
   "project": "ALOOKHOR",
