@@ -4,7 +4,7 @@ Tags: control center, luxury, alookhor, admin, dashboard
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 3.10.220
+Stable tag: 3.10.221
 License: Private
 License URI: https://alookhor.ir
 
@@ -46,6 +46,9 @@ License URI: https://alookhor.ir
 در `config/site.json` و `wp_options: alookhor_cc_settings` — همان حافظه واقعی که در چت قبلی ویرایش می‌شد.
 
 == Changelog ==
+
+= 3.10.221 =
+* Fix: mega-menu promo card logo pointed to the old migration path /uploads/2026/06/LOGO2.png (404) — now the real /uploads/2026/08/LOGO2.png. No layout change; only the broken image request is fixed.
 
 = 3.10.220 =
 * SEO SPRINT 1 (Technical): single Product schema on PDP (WooCommerce core schema dequeued there), richer factual schema (description, itemCondition, URL, AggregateRating only when REAL reviews exist); Organization+WebSite(SearchAction) fallback schema when Yoast is absent; automatic alt text for product images; lightweight 404 logging shown in the SEO Cleanup tool with a purge button; technical probes (indexability, permalinks, Woo pages, Yoast presence).
