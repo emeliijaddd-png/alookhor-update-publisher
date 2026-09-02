@@ -196,7 +196,7 @@ PDP_JS = r"""
 const one=s=>document.querySelector(s);
 const rect=e=>e?Object.fromEntries(['top','bottom','left','width','height'].map(k=>[k,Math.round(e.getBoundingClientRect()[k]*10)/10])):null;
 const akx=one('#akx-header'), mainbar=one('#akx-header .akx-mainbar'), topbar=one('#akx-header .akx-topbar,#akx-header .akx-top-bar');
-const alp=one('.alookhor-alp'), band=one('.alp-hero-band'), gal=one('.alp-gallery'), info=one('.alp-info'), stage=one('.alp-stage');
+const alp=one('.alookhor-alp'), band=one('.alpm-wrap'), gal=one('.alpm-gallery'), info=one('.alpm-panel'), stage=one('.alpm-stage');
 const themeHeader=one('.whb-header, header.site-header, header#header');
 let pdpVersion=null; const w=document.createTreeWalker(document.documentElement,NodeFilter.SHOW_COMMENT); let n;
 while((n=w.nextNode())){const m=/ALOOKHOR-PDP\s+v([\d.]+)/.exec(n.nodeValue||''); if(m){pdpVersion=m[1];break;}}

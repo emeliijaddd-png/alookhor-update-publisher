@@ -445,7 +445,7 @@ try:
                     pdp_html=response.read().decode(errors='replace')
             except Exception as error:
                 page_error=str(error)[:200]
-        pdp_rendered=('alookhor-pdp' in pdp_html and 'انتخاب وزن' in pdp_html and 'قیمت نهایی' in pdp_html)
+        pdp_rendered=('alookhor-pdp' in pdp_html and 'انتخاب وزن' in pdp_html and 'قیمت محصول' in pdp_html)
         coming_soon=('در حال ساخت' in pdp_html or 'اتفاقات بزرگی' in pdp_html)
         report['product']={'version':prod.get('version'),'counts':pcounts,'name':(prod.get('product') or {}).get('name'),'page_ok':bool(pdp_html),'page_error':page_error,'pdp_rendered':pdp_rendered,'behind_coming_soon':coming_soon}
         report['checks']['product_endpoint']=(str(prod.get('version'))==TARGET and pcounts.get('highlights')==5 and pcounts.get('specs')==7 and pcounts.get('faqs')==5 and pcounts.get('why')==4 and pcounts.get('gallery',0)>=3 and pcounts.get('related',0)>=3 and str((prod.get('images') or {}).get('main','')).startswith('http') and (pdp_rendered or coming_soon))
@@ -461,7 +461,7 @@ try:
         old_markup=('product type-product' in pdp_auth_html)
         report['product']['portal_header']=('akx-header' in pdp_auth_html)
         report['product']['theme_header_chrome']=('topbar-wrapp' in pdp_auth_html or 'woodmart-header' in pdp_auth_html or 'whb-header' in pdp_auth_html)
-        report['checks']['pdp_renders_authenticated']=('alookhor-pdp' in pdp_auth_html and 'قیمت نهایی' in pdp_auth_html and 'افزودن به سبد خرید' in pdp_auth_html and not old_markup and 'akx-header' in pdp_auth_html)
+        report['checks']['pdp_renders_authenticated']=('alookhor-pdp' in pdp_auth_html and 'قیمت محصول' in pdp_auth_html and 'افزودن به سبد خرید' in pdp_auth_html and not old_markup and 'akx-header' in pdp_auth_html)
         for label,ua in [('desktop_browser','Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36'),('mobile_browser','Mozilla/5.0 (iPhone; CPU iPhone OS 17_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.5 Mobile/15E148 Safari/604.1')]:
             try:
                 with urlopen(Request(auth_page_probe.replace('pdp_auth=1','ua='+label),headers={'User-Agent':ua,'Accept':'text/html,application/xhtml+xml'},),timeout=30) as response:
