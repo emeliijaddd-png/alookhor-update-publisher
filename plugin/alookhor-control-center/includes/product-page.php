@@ -2,6 +2,7 @@
 /** ALOOKHOR PDP — v3.10.225: exact port of owner React design (convert-content zip) — plum/gold/berry/mint, gallery vertical rail, banner, below sections. */
 if(!defined('ABSPATH'))exit;
 
+if(!function_exists('alookhor_cc_pdp_icon')){
 function alookhor_cc_pdp_icon($name){
  $p=[
   'star'=>'<path d="M12 2l2.92 6.26 6.58.57-5 4.4 1.5 6.47L12 16.9 5.99 19.7l1.5-6.47-5-4.4 6.6-.57L12 2z"/>',
@@ -36,9 +37,15 @@ function alookhor_cc_pdp_icon($name){
  if($name==='heart') $fill='fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"';
  return '<svg viewBox="0 0 24 24" '.$fill.' aria-hidden="true">'.$svg.'</svg>';
 }
+}
 
+
+if(!function_exists('alookhor_cc_pdp_gold')){
 function alookhor_cc_pdp_gold($text){return function_exists('alookhor_cc_goldify')?alookhor_cc_goldify($text):esc_html($text);}
+}
 
+
+if(!function_exists('alookhor_cc_pdp_product')){
 function alookhor_cc_pdp_product($slug=''){
  if(!function_exists('wc_get_product'))return null;
  if($slug){$post=get_page_by_path(sanitize_title($slug),OBJECT,'product');if($post)return wc_get_product($post->ID);}
@@ -46,7 +53,10 @@ function alookhor_cc_pdp_product($slug=''){
  $posts=get_posts(['post_type'=>'product','post_status'=>'publish','numberposts'=>1,'orderby'=>'date','order'=>'DESC','fields'=>'ids']);
  return $posts?wc_get_product((int)$posts[0]):null;
 }
+}
 
+
+if(!function_exists('alookhor_cc_pdp_data')){
 function alookhor_cc_pdp_data($product){
  $img=ALOOKHOR_CC_URL.'assets/images/';
  $id=$product->get_id();
@@ -149,7 +159,10 @@ function alookhor_cc_pdp_data($product){
   'faqs'=>$faqs,'specs'=>$specs,'feats'=>$feats,'why'=>$why,'dried'=>$dried,
  ];
 }
+}
 
+
+if(!function_exists('alookhor_cc_pdp_card')){
 function alookhor_cc_pdp_card($pid){
  $p=function_exists('wc_get_product')?wc_get_product((int)$pid):null;if(!$p)return '';
  $u=wp_get_attachment_image_url((int)$p->get_image_id(),'woocommerce_thumbnail');
@@ -161,7 +174,10 @@ function alookhor_cc_pdp_card($pid){
  $out='<article class="suggested-product group"><button onclick="window.location.href=\''.esc_url(get_permalink($p->get_id())).'\'" class="suggested-image" aria-label="مشاهده '.esc_attr($name).'"><img src="'.esc_url($u).'" alt="'.esc_attr($name).'" loading="lazy"><span class="product-tag">پیشنهاد الخور</span><span class="suggested-heart">'.alookhor_cc_pdp_icon('heart').'</span></button><div class="suggested-body"><div class="flex items-center justify-between gap-2"><span class="text-[10px] text-lav">'.esc_html($p->get_attribute('pa_brand')?:'خشکبار').'</span><span class="flex items-center gap-0.5 text-gold-400">'.str_repeat(alookhor_cc_pdp_icon('star'),5).'</span></div><h3>'.esc_html($name).'</h3><div class="suggested-footer"><span>'.wp_kses_post($price_html).'</span><button onclick="window.location.href=\''.esc_url($p->add_to_cart_url()).'\'" aria-label="افزودن '.esc_attr($name).'" class="suggested-cart">'.alookhor_cc_pdp_icon('cart').'</button></div></div></article>';
  return $out;
 }
+}
 
+
+if(!function_exists('alookhor_cc_pdp_markup')){
 function alookhor_cc_pdp_markup(){
  if(!empty($GLOBALS['alookhor_cc_pdp_done']))return '';
  $product=alookhor_cc_pdp_product();if(!$product)return '';
@@ -312,6 +328,8 @@ function alookhor_cc_pdp_markup(){
  $GLOBALS['alookhor_cc_pdp_done']=true;
  return ob_get_clean();
 }
+}
+
 
 add_action('template_redirect',function(){
  if(($_SERVER['REQUEST_METHOD']??'')==='POST')return;

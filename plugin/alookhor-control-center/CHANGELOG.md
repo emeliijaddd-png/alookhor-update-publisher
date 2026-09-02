@@ -1,3 +1,9 @@
+
+## 3.10.227 — EMERGENCY RECOVERY — fix fatal redeclare alookhor_cc_goldify (wrap all pdp funcs in function_exists) — site 500 recovery
+- Root cause: v3.10.225 defined alookhor_cc_goldify() already in pages-settings.php:98 → fatal → all REST 500 → auto-updater blocked.
+- Fix: removed duplicate, wrapped all pdp functions with if(!function_exists), kept exact React port (plum/gold/berry/mint, gallery vertical, banner, below sections), filtered Samsung demo IDs, dark FAQ !important fix, added frontend-product-react.css 63KB + 8 images.
+- Recovery: manual FTPS upload of fixed includes/product-page.php to /wp-content/plugins/alookhor-control-center/includes/ OR reinstall 3.10.227 zip via WP admin.
+- CI contract: highlights 5, specs 7 (incl ایران), faqs 5, why 4, gallery>=5, related>=3 filtered.
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
 ## v3.10.226 — 2026-09-02 — فیکس Fatal Error ریدکلر goldify
