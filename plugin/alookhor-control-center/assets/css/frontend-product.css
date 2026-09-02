@@ -991,3 +991,13 @@ body.alookhor-pdp-body{padding-bottom:74px}
    ========================================================= */
 .alookhor-alp{padding-top:152px}
 @media(max-width:1023px){.alookhor-alp{padding-top:90px}}
+
+/* =========================================================
+   v3.10.208 — WHITE STRIP ABOVE HERO (owner report)
+   theme's white body/wrapper shows in the new gap under the
+   menu; paint the whole PDP page the same deep purple so no
+   white layer can appear anywhere above the product hero.
+   ========================================================= */
+body.alookhor-pdp-body{background:#24102F!important}
+body.alookhor-pdp-body .website-wrapper,body.alookhor-pdp-body .main-page-wrapper,body.alookhor-pdp-body .site-content,body.alookhor-pdp-body .container,body.alookhor-pdp-body main,body.alookhor-pdp-body #main-content{background:transparent!important}
+.alookhor-alp{background-color:#24102F}
