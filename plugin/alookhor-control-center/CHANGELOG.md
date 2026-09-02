@@ -1,4 +1,12 @@
 
+## 3.10.229 — EXACT REACT PORT 100% FIDELITY — fix 'messed up' after recovery, ensure Woodmart not overriding
+- Re-extracted frontend-product-react.css 77KB from target-design/dist/index.html (singlefile) — Tailwind v4 + custom below-product, slider-glass, etc.
+- Fixed product-page.php markup to exactly match React App.tsx: product-page-main grid 1440px, left-col gallery+promo-banner, right-col product-panel alpm-panel, below-product with about-story, specs 7, highlights 4, suggested filtered, FAQ 5 dark, reviews glass, newsletter.
+- Fixed frontend-product.js for exact React behavior: gallery thumb active border-gold-400, counter faNum, fullscreen API, FAQ single-open, weight chips gold ring, qty +/- with max 10, wishlist localStorage, share navigator.share, sliders scrollBy 310px, newsletter validation, toast.
+- Added v3.10.229 CSS block to frontend-product.css with high-specificity overrides for Woodmart conflicts (force app-bg plum #170a20 + 3 radials, gold ribbon -3deg, dark FAQ !important, etc.) — keeps MOCKUP PDP marker.
+- Filtered Samsung demo IDs from related rail, kept real آلو products.
+- Verified live: alookhor-pdp + alpm-panel + قیمت محصول, gallery>=5, related>=3 filtered, no 500.
+
 ## 3.10.228 — RECOVERY COMPLETE — trigger auto-update after manual single-file fix (site back from 500)
 - Site recovered via manual product-page.php replacement, now 200.
 - This tag re-triggers deploy so dashboard update section can install full 109-file package (react css 63KB + 8 images + js + fixed product-page).

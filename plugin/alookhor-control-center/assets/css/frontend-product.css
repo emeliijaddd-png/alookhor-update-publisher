@@ -1487,3 +1487,19 @@ body.alookhor-pdp-body .gallery-thumbs button.is-on{border-color:#f7b32b!importa
  body.alookhor-pdp-body .product-gallery .gallery-frame{border-radius:0!important;border-inline:0!important;aspect-ratio:16/9!important}
  body.alookhor-pdp-body .product-gallery .gallery-thumbs{flex-direction:row!important;width:100%!important}
 }
+
+
+/* ===== v3.10.229 — EXACT REACT PORT FIX — Woodmart override + 100% fidelity — MOCKUP PDP ===== */
+.alookhor-alp.app-bg{background:#170a20 !important;background-image:radial-gradient(38rem 24rem at 88% -4%,rgba(125,70,180,.30),transparent 60%),radial-gradient(30rem 20rem at 4% 12%,rgba(212,175,55,.20),transparent 62%),radial-gradient(44rem 30rem at 50% 108%,rgba(91,36,122,.28),transparent 60%) !important}
+#alookhor-pdp .product-page-main{max-width:1440px !important;margin:auto !important;display:grid !important;gap:1.5rem !important}
+#alookhor-pdp .product-gallery .gallery-frame{min-height:560px !important;border-radius:1.5rem !important;border:1px solid rgba(255,255,255,.10) !important;background:#22112c !important}
+#alookhor-pdp .gallery-thumbs .gallery-thumb.is-on,#alookhor-pdp .gallery-thumbs .gallery-thumb.border-gold-400{border-color:#f7b32b !important;box-shadow:0 0 0 3px rgba(247,179,43,.25) !important;opacity:1 !important}
+#alookhor-pdp .product-panel.alpm-panel{background:linear-gradient(to bottom,rgba(59,33,80,.70),rgba(47,26,63,.60)) !important;border:1px solid rgba(255,255,255,.08) !important;border-radius:1.5rem !important}
+#alookhor-pdp .price-box{background:rgba(23,10,32,.50) !important;border:1px solid rgba(255,255,255,.08) !important;border-radius:1rem !important}
+#alookhor-pdp .weight-option.border-gold-400{background:rgba(247,179,43,.10) !important;color:#f7b32b !important;border-color:#f7b32b !important}
+#alookhor-pdp .faq-item{background:rgba(34,17,44,.70) !important;border:1px solid rgba(255,255,255,.08) !important;border-radius:1rem !important}
+#alookhor-pdp .faq-item.is-open{background:rgba(47,26,63,.80) !important}
+#alookhor-pdp .faq-answer{color:#c7b3da !important}
+#alookhor-pdp .slider-glass,#alookhor-pdp .reviews-glass{background:rgba(47,26,63,.40) !important;border:1px solid rgba(255,255,255,.08) !important;backdrop-filter:blur(12px) !important;border-radius:1.5rem !important}
+#alookhor-pdp .suggested-product{background:rgba(34,17,44,.60) !important;border:1px solid rgba(255,255,255,.08) !important;border-radius:1rem !important}
+#alookhor-pdp .newsletter-section{position:relative !important;overflow:hidden !important;border-radius:1.5rem !important;border:1px solid rgba(255,255,255,.08) !important;min-height:110px !important}
