@@ -1027,3 +1027,23 @@ body.alookhor-pdp-body .website-wrapper,body.alookhor-pdp-body .main-page-wrappe
    One continuous background — no bar, any scroll position.
    ========================================================= */
 .alookhor-alp{padding-top:0;margin-top:-10px}
+
+/* =========================================================
+   v3.10.211 — FINAL GEOMETRY (fixes 210 overshoot)
+   frames anchored at the sticky mainbar line (78px): hidden
+   behind the full header at load (visible top = menu bottom,
+   flush, zero strip) and exactly at the stuck bar when
+   scrolling (zero strip). Content pinned to its long-standing
+   positions: photo top 212px, first text 188px (desktop).
+   Mobile restored to the proven 209 geometry (frames 66px,
+   photo 132px, info card untouched).
+   ========================================================= */
+.alookhor-alp{padding-top:76px;margin-top:0}
+.alookhor-alp .alp-info{padding-top:110px}
+.alookhor-alp .alp-stage-in{inset:134px 12px 46px}
+@media(max-width:1023px){
+ .alookhor-alp{padding-top:70px}
+ .alookhor-alp .alp-info{padding-top:66px}
+ .alookhor-alp .alp-stage{height:clamp(330px,calc(62vw + 20px),420px);min-height:330px}
+ .alookhor-alp .alp-stage-in{top:46px}
+}
