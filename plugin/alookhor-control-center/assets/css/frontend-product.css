@@ -1219,3 +1219,16 @@ body.alookhor-pdp-body{background:#170a20!important}
 @media(min-width:1280px){
  .alookhor-alp .alpm-feats{grid-template-columns:repeat(4,1fr)}
 }
+
+/* =========================================================
+   v3.10.214 — MOCKUP POLISH (owner live review)
+   1) toman display unit (site currency is IRT) — .alpm-cur
+   2) qty row vertical alignment fix (label vs stepper)
+   3) tighter pricebox rhythm like the reference mockup
+   4) hidden a11y price text can never leak visually
+   ========================================================= */
+.alookhor-alp .alpm-cur{font-size:.55em;font-weight:800;text-shadow:none}
+.alookhor-alp .alpm-qtyrow .alpm-olabel{margin:0;line-height:1.6;flex:none}
+.alookhor-alp .alpm-qty{flex:none}
+.alookhor-alp .alpm-prow2{margin-top:8px;align-items:center}
+.alookhor-alp .alpm-pricebox .alp-price-now .screen-reader-text{border:0;clip:rect(1px,1px,1px,1px);clip-path:inset(50%);height:1px;width:1px;margin:-1px;overflow:hidden;padding:0;position:absolute!important;white-space:nowrap}

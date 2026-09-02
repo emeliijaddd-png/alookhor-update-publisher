@@ -162,6 +162,11 @@ function alookhor_cc_pdp_markup(){
  $cart=function_exists('wc_get_cart_url')?wc_get_cart_url():home_url('/cart/');
  $wa='';$wa_phone=preg_replace('/\D+/','',(string)($header['phone']??''));if($wa_phone)$wa='https://wa.me/'.$wa_phone;
  $main_slide=$d['slides'][0];
+ $use_toman=(function_exists('get_woocommerce_currency')&&get_woocommerce_currency()==='IRT')&&!$product->is_type('variable')&&$d['price']>0;
+ $price_now_html=$use_toman?number_format_i18n((int)round($d['price']/10)).'<span class="alpm-cur">تومان</span>':wp_kses_post($d['price_html']);
+ $price_old_html=($use_toman&&$d['regular']>0)?number_format_i18n((int)round($d['regular']/10)).'<span class="alpm-cur">تومان</span>':wp_kses_post(wc_price($d['regular']));
+ $price_single=$use_toman?wp_strip_all_tags($price_now_html):wp_strip_all_tags($d['price_html']);
+ $show_weights=count($d['options'])>1||$product->is_type('variable')||!empty((float)$product->get_weight());
  $stars=function($n,$active=true){$o='';for($i=1;$i<=5;$i++)$o.=alookhor_cc_pdp_icon('star');return $o;};
  ob_start();?>
 <section id="alookhor-pdp" class="alookhor-alp" dir="rtl" data-cart="<?php echo esc_url($cart);?>" style="--alp-gold:<?php echo esc_attr($gold);?>">
@@ -200,15 +205,17 @@ function alookhor_cc_pdp_markup(){
     <div class="alpm-pricebox">
      <div class="alpm-prow"><span class="alpm-plabel">قیمت محصول :</span><?php if($d['discount']>0):?><em class="alpm-poff">٪<?php echo esc_html(number_format_i18n($d['discount']));?> تخفیف</em><?php endif;?></div>
      <div class="alpm-prow2">
-      <?php if($d['on_sale']&&$d['regular']>0&&$d['price']>0&&$d['price']<$d['regular']):?><s class="alpm-pold"><?php echo wp_kses_post(wc_price($d['regular']));?></s><?php endif;?>
-      <b class="alpm-pnow alp-price-now" data-single="<?php echo esc_attr(wp_strip_all_tags($d['price_html']));?>"><?php echo wp_kses_post($d['price_html']);?></b>
+      <?php if($d['on_sale']&&$d['regular']>0&&$d['price']>0&&$d['price']<$d['regular']):?><s class="alpm-pold"><?php echo $price_old_html;?></s><?php endif;?>
+      <b class="alpm-pnow alp-price-now" data-single="<?php echo esc_attr($price_single);?>"><?php echo $price_now_html;?></b>
      </div>
     </div>
 
+    <?php if($show_weights):?>
     <div class="alpm-opt">
      <span class="alpm-olabel">وزن محصول :</span>
      <div class="alpm-wchips" role="radiogroup" aria-label="انتخاب وزن"><?php foreach($d['options'] as $oi=>$o):?><button type="button" role="radio" aria-checked="<?php echo $oi===0?'true':'false';?>" class="<?php echo $oi===0?'is-on':'';?>" data-vid="<?php echo esc_attr($o['id']);?>" data-price="<?php echo esc_attr($o['price_html']);?>"><?php echo esc_html($o['label']);?></button><?php endforeach;?></div>
     </div>
+    <?php endif;?>
 
     <?php if($d['purchasable']&&$d['stock']!=='out'):?>
     <div class="alpm-qtyrow">
@@ -366,7 +373,7 @@ function alookhor_cc_pdp_markup(){
 
  <div class="alpm-toast" data-toast hidden><div class="alpm-toast-in"><span class="alpm-toast-ic"><?php echo alookhor_cc_pdp_icon('check');?></span><span data-toast-msg></span></div></div>
 </section>
-<div class="alp-sticky" data-name="<?php echo esc_attr($d['name']);?>"><span class="alp-sticky-p"><?php echo wp_kses_post($d['price_html']);?></span><?php if($d['purchasable']&&$d['stock']!=='out'):?><a href="<?php echo esc_url($d['add_url']);?>" data-base="<?php echo esc_attr($d['add_url']);?>" class="alp-cta"><?php echo alookhor_cc_pdp_icon('bag');?><span>افزودن به سبد خرید</span></a><?php endif;?></div>
+<div class="alp-sticky" data-name="<?php echo esc_attr($d['name']);?>"><span class="alp-sticky-p"><?php echo $price_now_html;?></span><?php if($d['purchasable']&&$d['stock']!=='out'):?><a href="<?php echo esc_url($d['add_url']);?>" data-base="<?php echo esc_attr($d['add_url']);?>" class="alp-cta"><?php echo alookhor_cc_pdp_icon('bag');?><span>افزودن به سبد خرید</span></a><?php endif;?></div>
 <script type="application/ld+json"><?php echo wp_json_encode(['@context'=>'https://schema.org','@type'=>'Product','name'=>$d['name'],'image'=>$main_slide['src'],'sku'=>$d['sku'],'offers'=>['@type'=>'Offer','price'=>$d['price'],'priceCurrency'=>(function_exists('get_woocommerce_currency')?get_woocommerce_currency():'IRR'),'availability'=>'https://schema.org/'.($d['in_stock']?'InStock':'OutOfStock')],'brand'=>['@type'=>'Brand','name'=>'ALOOKHOR']]);?></script>
 <?php $GLOBALS['alookhor_cc_pdp_done']=true;
  return ob_get_clean();
