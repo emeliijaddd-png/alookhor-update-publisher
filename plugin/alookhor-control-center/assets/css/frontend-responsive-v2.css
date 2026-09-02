@@ -1,0 +1,24 @@
+/* ===== ALOOKHOR RESPONSIVE v2 — v3.10.222 =====
+   Dedicated tablet / small-laptop band 768-1100px + horizontal-overflow armor.
+   Append-only, ALOOKHOR-prefixed selectors, header/footer untouched at normal widths. */
+
+/* (۱) از بین بردن اسکرول افقی روی همهٔ عرض‌ها — clip برخلاف hidden استیکی را نمی‌شکند */
+html,body{overflow-x:clip}
+@supports not (overflow:clip){html,body{overflow-x:hidden}}
+
+/* (۲) مهار عناصر برگی که معمولاً بیرون می‌زنند (فقط داخل اجزای آلوخور) */
+.alookhor-pdp table,.alp-pdp table,.acc-rendered table{display:block;max-width:100%;overflow-x:auto}
+.alookhor-pdp img,.acc-rendered img{max-width:100%;height:auto}
+
+/* (۳) فرزندان پوسته‌های اصلی اجازهٔ کوچک‌شدن محتوایی (رفع مین‌ویدث پیش‌فرض flex/grid) */
+.alookhor-pdp .alpm-buybox>*,.alookhor-pdp .alpm-panel>*,
+.acc-rendered>*,.acc-rendered .grid>*,.footer-grid>*{min-width:0;max-width:100%}
+
+/* (۴) باند تبلت/لپ‌تاپ کوچک: ۷۶۸ تا ۱۱۰۰ */
+@media (min-width:768px) and (max-width:1100px){
+ .alookhor-pdp .alpm-buybox{max-width:1000px;padding:22px 16px}
+ .alookhor-pdp .alpm-thumbs{min-width:0}
+ .alookhor-pdp .alpm-thumb{width:64px;height:64px}
+ .acc-f3-stats{grid-template-columns:repeat(2,1fr)}
+ .acc-rendered{max-width:1000px}
+}

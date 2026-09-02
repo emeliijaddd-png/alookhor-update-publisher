@@ -73,7 +73,9 @@ function alookhor_ajax_save_settings(){
             $capsule_glass=sanitize_text_field($header['capsule_glass']);
             $header['capsule_glass']=preg_match('/^rgba?\(\s*\d{1,3}\s*,\s*\d{1,3}\s*,\s*\d{1,3}(?:\s*,\s*(?:0|1|0?\.\d+))?\s*\)$/',$capsule_glass)?$capsule_glass:($header_current['capsule_glass']??'rgba(33,20,38,.75)');
         }
-        if(array_key_exists('capsule_blur',$header))$header['capsule_blur']=max(10,min(36,absint($header['capsule_blur'])));
+        if(array_key_exists('capsule_blur',$header))$header['capsule_blur']=max(0,min(36,absint($header['capsule_blur'])));
+        if(array_key_exists('mainbar_opacity',$header))$header['mainbar_opacity']=max(10,min(100,absint($header['mainbar_opacity'])));
+        if(array_key_exists('mainbar_glass_enabled',$header))$header['mainbar_glass_enabled']=rest_sanitize_boolean($header['mainbar_glass_enabled']);
         foreach (['export_url', 'wholesale_url', 'top_logo_url', 'top_logo_link'] as $key) {
             if (array_key_exists($key, $header)) $header[$key] = esc_url_raw($header[$key]);
         }
@@ -236,6 +238,16 @@ function alookhor_ajax_save_settings(){
         'message' => 'ذخیره واقعی WordPress تأیید شد',
         'updated_at' => $merged['updated_at'],
         'header_settings' => is_array($persisted_header) ? [
+            // v3.10.66: کلیدهای AKX فرم بوتیک نیز برگردانده می‌شوند تا تأیید ذخیره
+            // هدر در settings.js بتواند مقادیر واقعی WordPress را بخواند.
+            'enabled' => !empty($persisted_header['enabled']),
+            'logo_id' => (int) ($persisted_header['logo_id'] ?? 0),
+            'logo_url' => $persisted_header['logo_url'] ?? null,
+            'logo_width' => (int) ($persisted_header['logo_width'] ?? 74),
+            'whatsapp_number' => $persisted_header['whatsapp_number'] ?? null,
+            'brand_name' => $persisted_header['brand_name'] ?? null,
+            'brand_subtitle' => $persisted_header['brand_subtitle'] ?? null,
+            'search_placeholder' => $persisted_header['search_placeholder'] ?? null,
             'phone' => $persisted_header['phone'] ?? null,
             'email' => $persisted_header['email'] ?? null,
             'whatsapp' => $persisted_header['whatsapp'] ?? null,
@@ -257,6 +269,8 @@ function alookhor_ajax_save_settings(){
             'capsule_text' => $persisted_header['capsule_text'] ?? null,
             'capsule_muted' => $persisted_header['capsule_muted'] ?? null,
             'capsule_blur' => $persisted_header['capsule_blur'] ?? null,
+            'mainbar_glass_enabled' => !empty($persisted_header['mainbar_glass_enabled']),
+            'mainbar_opacity' => (int) ($persisted_header['mainbar_opacity'] ?? 72),
             'header_logo_desktop_width' => $persisted_header['header_logo_desktop_width'] ?? null,
             'header_logo_mobile_width' => $persisted_header['header_logo_mobile_width'] ?? null,
             'sticky' => $persisted_header['sticky'] ?? null,
@@ -322,7 +336,33 @@ function alookhor_ajax_save_header_wp(){
     $data['logo_text'] = sanitize_text_field(wp_unslash($_POST['logo_text'] ?? ($current['logo_text'] ?? 'ALOOKHOR')));
     $data['logo_sub'] = sanitize_text_field(wp_unslash($_POST['logo_sub'] ?? ($current['logo_sub'] ?? 'Control Center • Luxury')));
     $data['logo_letter'] = sanitize_text_field(wp_unslash($_POST['logo_letter'] ?? ($current['logo_letter'] ?? 'A')));
-    $data['search_placeholder'] = sanitize_text_field(wp_unslash($_POST['search_placeholder'] ?? ($current['search_placeholder'] ?? 'جستجوی محصول…')));
+
+    // === AKX-specific fields (only write when present in $_POST) ===
+    if (isset($_POST['enabled'])) {
+        $data['enabled'] = rest_sanitize_boolean(wp_unslash($_POST['enabled']));
+    }
+    if (isset($_POST['logo_id'])) {
+        $data['logo_id'] = absint($_POST['logo_id']);
+    }
+    if (array_key_exists('logo_url', $_POST)) {
+        $data['logo_url'] = esc_url_raw(wp_unslash($_POST['logo_url']));
+    }
+    if (isset($_POST['logo_width'])) {
+        $data['logo_width'] = max(40, min(180, absint($_POST['logo_width'])));
+    }
+    if (array_key_exists('whatsapp_number', $_POST)) {
+        $data['whatsapp_number'] = preg_replace('/\D+/', '', (string) wp_unslash($_POST['whatsapp_number']));
+    }
+    if (array_key_exists('brand_name', $_POST)) {
+        $data['brand_name'] = sanitize_text_field(wp_unslash($_POST['brand_name']));
+    }
+    if (array_key_exists('brand_subtitle', $_POST)) {
+        $data['brand_subtitle'] = sanitize_text_field(wp_unslash($_POST['brand_subtitle']));
+    }
+    if (array_key_exists('search_placeholder', $_POST)) {
+        $data['search_placeholder'] = sanitize_text_field(wp_unslash($_POST['search_placeholder']));
+    }
+
     if (isset($_POST['gold'])) {
         $data['gold'] = sanitize_hex_color(wp_unslash($_POST['gold'])) ?: ($current['gold'] ?? '#D49A2E');
     } elseif (empty($data['gold'])) {
