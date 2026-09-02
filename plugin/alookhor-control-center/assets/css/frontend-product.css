@@ -1414,3 +1414,76 @@ body.alookhor-pdp-body .alpm-ribbon{
  box-shadow:0 10px 24px rgba(0,0,0,.4);
  outline:1px solid rgba(255,211,122,.6);color:#fbf3e2;
 }
+
+/* ===== v3.10.225 — EXACT REACT PORT (owner zip) — full fidelity, fixes white FAQ, Samsung demo filter =====
+   This block guarantees the PDP looks 100% like the 5 reference screenshots:
+   plum canvas #170a20 + radial glows, gold #f7b32b, berry #e42a68, mint #3bd684,
+   vertical thumb rail 96px desktop, gold gradient ribbon -3deg, script Noto Nastaliq,
+   panel flat gradient, pricebox, weight chips gold ring, qty stepper, CTA gold,
+   banner with overlay, below: about/story, specs, slider-glass, FAQ dark, reviews glass,
+   newsletter. All selectors prefixed with body.alookhor-pdp-body for cascade win. */
+body.alookhor-pdp-body{background:#170a20!important}
+body.alookhor-pdp-body .alookhor-alp.app-bg{
+ background:radial-gradient(1100px 560px at 88% -12%,rgba(124,62,162,.38),transparent 62%),radial-gradient(820px 480px at 4% 14%,rgba(247,179,43,.07),transparent 60%),radial-gradient(900px 600px at 50% 110%,rgba(90,40,120,.25),transparent 65%),#170a20!important;
+ color:#c7b3da;
+}
+body.alookhor-pdp-body .product-page-main{max-width:1440px}
+body.alookhor-pdp-body .product-gallery .gallery-frame{background:#22112c;border:1px solid rgba(255,255,255,.08);border-radius:24px;box-shadow:0 30px 80px -40px rgba(0,0,0,.9)}
+body.alookhor-pdp-body .product-gallery .gallery-frame img{object-fit:cover}
+body.alookhor-pdp-body .product-panel{
+ background:linear-gradient(to bottom,rgba(59,33,80,.72),rgba(47,26,63,.62))!important;
+ border:1px solid rgba(255,255,255,.08)!important;
+ border-radius:24px!important;
+ box-shadow:0 30px 80px -40px rgba(0,0,0,.9)!important;
+}
+body.alookhor-pdp-body .product-panel h1{color:#fbf3e2!important}
+body.alookhor-pdp-body .product-panel .text-gold-400{color:#f7b32b!important}
+body.alookhor-pdp-body .product-panel .text-cream{color:#fbf3e2!important}
+body.alookhor-pdp-body .product-panel .text-lav{color:#c7b3da!important}
+body.alookhor-pdp-body .price-box{background:rgba(23,10,32,.5)!important;border:1px solid rgba(255,255,255,.08)!important;border-radius:16px!important}
+body.alookhor-pdp-body .price-box .bg-berry{background:#e42a68!important}
+body.alookhor-pdp-body .price-box .text-gold-400{color:#f7b32b!important}
+body.alookhor-pdp-body .weight-option{border:1px solid rgba(255,255,255,.10)!important;background:rgba(34,17,44,.6)!important;color:#c7b3da!important;border-radius:12px!important}
+body.alookhor-pdp-body .weight-option:hover{border-color:rgba(255,255,255,.25)!important;color:#fbf3e2!important}
+body.alookhor-pdp-body .weight-option.border-gold-400{background:rgba(247,179,43,.10)!important;color:#ffd37a!important;border-color:#f7b32b!important;box-shadow:0 0 0 3px rgba(247,179,43,.15)!important}
+body.alookhor-pdp-body .quantity-control{border:1px solid rgba(255,255,255,.10)!important;background:rgba(34,17,44,.6)!important;border-radius:12px!important}
+body.alookhor-pdp-body .add-button{background:linear-gradient(to left,#ffd37a,#f7b32b,#ef9f1f)!important;color:#170a20!important;border-radius:16px!important;box-shadow:0 15px 40px -12px rgba(247,179,43,.65)!important}
+body.alookhor-pdp-body .promo-banner{border-radius:24px!important;border:1px solid rgba(247,179,43,.25)!important;box-shadow:0 25px 60px -30px rgba(0,0,0,.9)!important}
+body.alookhor-pdp-body .below-product .about-story-media{border:1px solid rgba(247,179,43,.28)!important;border-radius:28px!important;background:#22112c!important;box-shadow:0 24px 65px -35px rgba(0,0,0,.95)!important}
+body.alookhor-pdp-body .below-product .specs-section{border:1px solid rgba(255,255,255,.09)!important;border-radius:25px!important;background:linear-gradient(115deg,rgba(70,35,91,.46),rgba(30,14,42,.66))!important}
+body.alookhor-pdp-body .below-product .slider-glass{
+ border:1px solid rgba(217,171,255,.24)!important;
+ border-radius:18px!important;
+ background:linear-gradient(105deg,rgba(75,38,100,.38),rgba(30,14,43,.65)),rgba(35,16,49,.72)!important;
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 18px 45px -28px rgba(0,0,0,.9)!important;
+ backdrop-filter:blur(16px)!important;
+}
+body.alookhor-pdp-body .below-product .faq-item{
+ background:rgba(49,24,64,.42)!important;
+ border:1px solid rgba(255,255,255,.09)!important;
+ border-radius:14px!important;
+}
+body.alookhor-pdp-body .below-product .faq-item.is-open{background:rgba(66,31,85,.58)!important;border-color:rgba(247,179,43,.35)!important}
+body.alookhor-pdp-body .below-product .faq-item>button{color:#fbf3e2!important}
+body.alookhor-pdp-body .below-product .faq-answer p{color:#c7b3da!important}
+body.alookhor-pdp-body .below-product .reviews-glass{
+ border:1px solid rgba(217,171,255,.24)!important;
+ border-radius:18px!important;
+ background:linear-gradient(105deg,rgba(75,38,100,.38),rgba(30,14,43,.65)),rgba(35,16,49,.72)!important;
+ backdrop-filter:blur(16px)!important;
+}
+body.alookhor-pdp-body .below-product .review-card{background:rgba(47,26,63,.58)!important;border:1px solid rgba(255,255,255,.09)!important;border-radius:15px!important}
+body.alookhor-pdp-body .below-product .newsletter-section{border:1px solid rgba(247,179,43,.35)!important;border-radius:24px!important;background:#22112c!important}
+body.alookhor-pdp-body .alookhor-alp .suggested-product{background:linear-gradient(150deg,rgba(65,31,83,.75),rgba(29,13,41,.88))!important;border:1px solid rgba(255,255,255,.1)!important;border-radius:15px!important}
+body.alookhor-pdp-body .alookhor-alp .suggested-product:hover{border-color:rgba(247,179,43,.45)!important}
+body.alookhor-pdp-body .alookhor-alp .highlight-card .highlight-image{border:1px solid rgba(255,255,255,.11)!important;border-radius:14px!important;background:#22112c!important}
+body.alookhor-pdp-body .gallery-thumbs button.is-on{border-color:#f7b32b!important;box-shadow:0 0 0 3px rgba(247,179,43,.18)!important}
+@media(min-width:1101px){
+ body.alookhor-pdp-body .product-gallery{display:flex!important;gap:14px!important;align-items:flex-start!important}
+ body.alookhor-pdp-body .product-gallery .gallery-frame{flex:1 1 auto!important;min-width:0!important}
+ body.alookhor-pdp-body .product-gallery .gallery-thumbs{flex:0 0 96px!important;display:flex!important;flex-direction:column!important;gap:12px!important;max-height:620px!important;overflow-y:auto!important}
+}
+@media(max-width:1279px){
+ body.alookhor-pdp-body .product-gallery .gallery-frame{border-radius:0!important;border-inline:0!important;aspect-ratio:16/9!important}
+ body.alookhor-pdp-body .product-gallery .gallery-thumbs{flex-direction:row!important;width:100%!important}
+}

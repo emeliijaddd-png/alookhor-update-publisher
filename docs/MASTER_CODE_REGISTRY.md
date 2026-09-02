@@ -3,7 +3,7 @@
 > این سند از روی فایل‌های واقعی Repository تولید می‌شود. Source اصلی همچنان فایل‌های اجرایی است؛ Snapshotهای کامل زیر برای بازیابی، ممیزی و انتقال دانش نگهداری می‌شوند.
 
 - **Registry version:** `1.0.0`
-- **Plugin/source version:** `3.10.224`
+- **Plugin/source version:** `3.10.225`
 - **Generated:** `2026-08-14`
 - **Repository:** `alookhor-update-publisher`
 - **Production:** `https://alookhor.ir`
@@ -13,8 +13,8 @@
 
 ## Current Project State
 
-- CURRENT VERSION: `3.10.224`
-- LAST FUNCTIONAL CHANGE: اصلاح‌دلتای قابل‌دیدن: رنگ واقعی بوم (گرادیان قدیمی حذف)، طلایی جدید، روبان طلایی گالری.
+- CURRENT VERSION: `3.10.225`
+- LAST FUNCTIONAL CHANGE: پورت کامل دیزاین React — 100% fidelity + فیکس سفید و سامسونگ
 - ACTIVE DESIGN: Luxury Black/Gold; actual component colors remain controlled by saved WordPress settings and existing module defaults.
 - ACTIVE SHORTCODES: `[alookhor_portal_header]`, `[alookhor_managed_categories]`, `[alookhor_managed_hero]`, `[alookhor_managed_features]`.
 - ACTIVE PANELS: Main ALOOKHOR Control Center and Header/Top Bar submenu.
@@ -27,8 +27,8 @@
 ```text
 PROJECT: ALOOKHOR
 AREA: Boutique Header Settings / Admin Menu Cleanup
-CURRENT VERSION: 3.10.224
-CHANGE: اصلاح‌دلتای قابل‌دیدن: رنگ واقعی بوم (گرادیان قدیمی حذف)، طلایی جدید، روبان طلایی گالری.
+CURRENT VERSION: 3.10.225
+CHANGE: پورت کامل دیزاین React — 100% fidelity + فیکس سفید و سامسونگ
 REASON: بازخورد مالک بعد از v3.10.205: محتوا در هر دو حالت چسبیده به منو رفته و باید فاصله داشته باشد.
 FILES: docs/MASTER_DESIGN_DIRECTIVE.md; plugin/alookhor-control-center/CHANGELOG.md; plugin/alookhor-control-center/alookhor-control-center.php; plugin/alookhor-control-center/assets/css/frontend-about-page.css; plugin/alookhor-control-center/assets/css/frontend-app-banner.css; plugin/alookhor-control-center/assets/css/frontend-bestsellers.css; plugin/alookhor-control-center/assets/css/frontend-campaign-slider.css; plugin/alookhor-control-center/assets/css/frontend-contact-page.css; plugin/alookhor-control-center/assets/css/frontend-design-system.css; plugin/alookhor-control-center/assets/css/frontend-export-banner.css; plugin/alookhor-control-center/assets/css/frontend-featured-products.css; plugin/alookhor-control-center/assets/css/frontend-features.css; plugin/alookhor-control-center/assets/css/frontend-footer.css; plugin/alookhor-control-center/assets/css/frontend-header-akx.css; plugin/alookhor-control-center/assets/css/frontend-hero.css; plugin/alookhor-control-center/assets/css/frontend-international-standards.css; plugin/alookhor-control-center/assets/css/frontend-magazine.css; plugin/alookhor-control-center/assets/css/frontend-managed-layout.css; plugin/alookhor-control-center/assets/css/frontend-newsletter.css; plugin/alookhor-control-center/assets/css/frontend-product.css; plugin/alookhor-control-center/assets/css/frontend-sort-center.css; plugin/alookhor-control-center/assets/css/frontend-why-alookhor.css; plugin/alookhor-control-center/assets/fonts/vazirmatn-arabic-wght-normal.woff2; plugin/alookhor-control-center/assets/fonts/vazirmatn-latin-wght-normal.woff2; plugin/alookhor-control-center/assets/js/app.js; plugin/alookhor-control-center/assets/js/core/updateSystem.js; plugin/alookhor-control-center/assets/js/frontend-about-page.js; plugin/alookhor-control-center/assets/js/frontend-bestsellers.js; plugin/alookhor-control-center/assets/js/frontend-campaign-slider.js; plugin/alookhor-control-center/assets/js/frontend-contact-page.js; plugin/alookhor-control-center/assets/js/frontend-export-banner.js; plugin/alookhor-control-center/assets/js/frontend-featured-products.js; plugin/alookhor-control-center/assets/js/frontend-features.js; plugin/alookhor-control-center/assets/js/frontend-hero.js; plugin/alookhor-control-center/assets/js/frontend-international-standards.js; plugin/alookhor-control-center/assets/js/frontend-magazine.js; plugin/alookhor-control-center/assets/js/frontend-managed-layout.js; plugin/alookhor-control-center/assets/js/frontend-newsletter.js; plugin/alookhor-control-center/assets/js/frontend-product.js; plugin/alookhor-control-center/assets/js/frontend-sort-center.js; plugin/alookhor-control-center/assets/js/frontend-why-alookhor.js; plugin/alookhor-control-center/assets/js/modules/dashboard.js; plugin/alookhor-control-center/assets/js/modules/settings.js; plugin/alookhor-control-center/config/site.json; plugin/alookhor-control-center/includes/about-page.php; plugin/alookhor-control-center/includes/admin-export-banner.php; plugin/alookhor-control-center/includes/admin-pages.php; plugin/alookhor-control-center/includes/admin.php; plugin/alookhor-control-center/includes/ajax.php; plugin/alookhor-control-center/includes/app-banner.php; plugin/alookhor-control-center/includes/bestselling-products.php; plugin/alookhor-control-center/includes/campaign-slider.php; plugin/alookhor-control-center/includes/contact-page.php; plugin/alookhor-control-center/includes/featured-products.php; plugin/alookhor-control-center/includes/footer.php; plugin/alookhor-control-center/includes/hero.php; plugin/alookhor-control-center/includes/international-standards.php; plugin/alookhor-control-center/includes/magazine.php; plugin/alookhor-control-center/includes/newsletter.php; plugin/alookhor-control-center/includes/pages-settings.php; plugin/alookhor-control-center/includes/product-categories.php; plugin/alookhor-control-center/includes/product-page.php; plugin/alookhor-control-center/includes/shortcode-export-banner.php; plugin/alookhor-control-center/includes/shortcode-header.php; plugin/alookhor-control-center/includes/site-features.php; plugin/alookhor-control-center/includes/sort-center.php; plugin/alookhor-control-center/includes/why-alookhor.php; plugin/alookhor-control-center/readme.txt; plugin/alookhor-control-center/templates/admin-control-center.php; plugin/alookhor-control-center/templates/single-product.php; release.json; scripts/wordpress_release_test.py
 STATUS: SOURCE READY — deployment status must be verified separately.
@@ -38,34 +38,34 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 
 | ID | Type | Name | File | Used In | Version | Status |
 |---|---|---|---|---|---:|---|
-| SC-001 | Shortcode | `[alookhor_portal_header]` | `includes/shortcode-header.php` | Elementor Header Shortcode widget; exact template ID unavailable | 3.10.224 | Active / compatibility-preserving |
-| SC-002 | Shortcode | `[alookhor_managed_categories]` | `includes/product-categories.php` | Home page → Elementor Shortcode widget | 3.10.224 | Active |
-| SC-003 | Shortcode | `[alookhor_managed_hero]` | `includes/hero.php` | Home Elementor Shortcode widget / automatic Legacy-root replacement | 3.10.224 | Active |
-| SC-004 | Shortcode | `[alookhor_managed_features]` | `includes/site-features.php` | Home Elementor HTML widget / automatic Legacy-root replacement | 3.10.224 | Active |
+| SC-001 | Shortcode | `[alookhor_portal_header]` | `includes/shortcode-header.php` | Elementor Header Shortcode widget; exact template ID unavailable | 3.10.225 | Active / compatibility-preserving |
+| SC-002 | Shortcode | `[alookhor_managed_categories]` | `includes/product-categories.php` | Home page → Elementor Shortcode widget | 3.10.225 | Active |
+| SC-003 | Shortcode | `[alookhor_managed_hero]` | `includes/hero.php` | Home Elementor Shortcode widget / automatic Legacy-root replacement | 3.10.225 | Active |
+| SC-004 | Shortcode | `[alookhor_managed_features]` | `includes/site-features.php` | Home Elementor HTML widget / automatic Legacy-root replacement | 3.10.225 | Active |
 | SC-EXT-001 | External shortcode | `[alookhor_categories_carousel]` | External plugin source unavailable | Former Home showcase | External | Replaced on Home / do not reconstruct |
-| PN-001 | Admin panel | ALOOKHOR Control Center | `includes/admin.php` | WP Admin top-level menu | 3.10.224 | Active |
-| PN-002 | Admin panel | Header & Top Bar | `includes/admin.php` | WP Admin submenu | 3.10.224 | Active mirror |
-| MOD-001 | Managed module | WooCommerce Categories | `includes/product-categories.php` | Home / Elementor / REST | 3.10.224 | Active |
-| MOD-002 | Managed module | Responsive Footer | `includes/footer.php` | Frontend footer / REST | 3.10.224 | Active |
-| MOD-003 | Managed module | Four-slide Hero | `includes/hero.php` | Home / Elementor / REST | 3.10.224 | Active |
-| MOD-004 | Managed module | Four-card Site Features | `includes/site-features.php` | Home / Elementor / REST | 3.10.224 | Active |
-| API-001 | REST API | `alookhor-cc/v1` | `includes/rest-api.php` | Public state + authenticated updater | 3.10.224 | Active |
-| UPD-001 | Updater | Private native updater | `includes/updater.php` | Control Center + GitHub Actions | 3.10.224 | Active |
-| CFG-001 | WordPress state | Main settings | `alookhor_cc_settings` | All managed modules | 3.10.224 | Active |
-| CFG-002 | WordPress state | Header settings | `alookhor_header_settings` | Header and Top Bar | 3.10.224 | Active |
-| CSS-001 | CSS | Managed Header | `assets/css/frontend-header.css` | `[alookhor_portal_header]` fallback renderer | 3.10.224 | Active |
-| JS-001 | JavaScript | Managed Header runtime | `assets/js/frontend-header.js` | `[alookhor_portal_header]` fallback renderer | 3.10.224 | Active |
-| JS-002 | JavaScript | Legacy Top Bar manager | `assets/js/frontend-topbar-manager.js` | Preserved legacy header provider | 3.10.224 | Active when legacy provider exists |
-| CSS-002 | CSS | WooCommerce Categories | `assets/css/frontend-categories.css` | `[alookhor_managed_categories]` | 3.10.224 | Active |
-| JS-003 | JavaScript | Categories carousel | `assets/js/frontend-categories.js` | `[alookhor_managed_categories]` | 3.10.224 | Active |
-| CSS-003 | CSS | Managed Footer | `assets/css/frontend-footer.css` | Managed Footer module | 3.10.224 | Active |
-| JS-004 | JavaScript | Managed Footer | `assets/js/frontend-footer.js` | Managed Footer module | 3.10.224 | Active |
-| CSS-004 | CSS | Control Center UI | `assets/css/luxury.css` | WP Admin ALOOKHOR pages | 3.10.224 | Active |
-| JS-005 | JavaScript | Control Center app | `assets/js/app.js` + modules | WP Admin ALOOKHOR pages | 3.10.224 | Active |
-| CSS-005 | CSS | Managed Hero | `assets/css/frontend-hero.css` | `[alookhor_managed_hero]` / automatic Home replacement | 3.10.224 | Active |
-| JS-006 | JavaScript | Managed Hero runtime | `assets/js/frontend-hero.js` | Four-slide replacement, controls and REST refresh | 3.10.224 | Active |
-| CSS-006 | CSS | Managed Site Features | `assets/css/frontend-features.css` | `[alookhor_managed_features]` / automatic Home replacement | 3.10.224 | Active |
-| JS-007 | JavaScript | Managed Site Features runtime | `assets/js/frontend-features.js` | Four-card replacement and REST refresh | 3.10.224 | Active |
+| PN-001 | Admin panel | ALOOKHOR Control Center | `includes/admin.php` | WP Admin top-level menu | 3.10.225 | Active |
+| PN-002 | Admin panel | Header & Top Bar | `includes/admin.php` | WP Admin submenu | 3.10.225 | Active mirror |
+| MOD-001 | Managed module | WooCommerce Categories | `includes/product-categories.php` | Home / Elementor / REST | 3.10.225 | Active |
+| MOD-002 | Managed module | Responsive Footer | `includes/footer.php` | Frontend footer / REST | 3.10.225 | Active |
+| MOD-003 | Managed module | Four-slide Hero | `includes/hero.php` | Home / Elementor / REST | 3.10.225 | Active |
+| MOD-004 | Managed module | Four-card Site Features | `includes/site-features.php` | Home / Elementor / REST | 3.10.225 | Active |
+| API-001 | REST API | `alookhor-cc/v1` | `includes/rest-api.php` | Public state + authenticated updater | 3.10.225 | Active |
+| UPD-001 | Updater | Private native updater | `includes/updater.php` | Control Center + GitHub Actions | 3.10.225 | Active |
+| CFG-001 | WordPress state | Main settings | `alookhor_cc_settings` | All managed modules | 3.10.225 | Active |
+| CFG-002 | WordPress state | Header settings | `alookhor_header_settings` | Header and Top Bar | 3.10.225 | Active |
+| CSS-001 | CSS | Managed Header | `assets/css/frontend-header.css` | `[alookhor_portal_header]` fallback renderer | 3.10.225 | Active |
+| JS-001 | JavaScript | Managed Header runtime | `assets/js/frontend-header.js` | `[alookhor_portal_header]` fallback renderer | 3.10.225 | Active |
+| JS-002 | JavaScript | Legacy Top Bar manager | `assets/js/frontend-topbar-manager.js` | Preserved legacy header provider | 3.10.225 | Active when legacy provider exists |
+| CSS-002 | CSS | WooCommerce Categories | `assets/css/frontend-categories.css` | `[alookhor_managed_categories]` | 3.10.225 | Active |
+| JS-003 | JavaScript | Categories carousel | `assets/js/frontend-categories.js` | `[alookhor_managed_categories]` | 3.10.225 | Active |
+| CSS-003 | CSS | Managed Footer | `assets/css/frontend-footer.css` | Managed Footer module | 3.10.225 | Active |
+| JS-004 | JavaScript | Managed Footer | `assets/js/frontend-footer.js` | Managed Footer module | 3.10.225 | Active |
+| CSS-004 | CSS | Control Center UI | `assets/css/luxury.css` | WP Admin ALOOKHOR pages | 3.10.225 | Active |
+| JS-005 | JavaScript | Control Center app | `assets/js/app.js` + modules | WP Admin ALOOKHOR pages | 3.10.225 | Active |
+| CSS-005 | CSS | Managed Hero | `assets/css/frontend-hero.css` | `[alookhor_managed_hero]` / automatic Home replacement | 3.10.225 | Active |
+| JS-006 | JavaScript | Managed Hero runtime | `assets/js/frontend-hero.js` | Four-slide replacement, controls and REST refresh | 3.10.225 | Active |
+| CSS-006 | CSS | Managed Site Features | `assets/css/frontend-features.css` | `[alookhor_managed_features]` / automatic Home replacement | 3.10.225 | Active |
+| JS-007 | JavaScript | Managed Site Features runtime | `assets/js/frontend-features.js` | Four-card replacement and REST refresh | 3.10.225 | Active |
 
 ## SC-001 — Portal Header
 
@@ -200,7 +200,7 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 |---|---:|---|
 | `.github/workflows/publish.yml` | 535 | `ea2a747b9787cb39313702fd50fd8940891a2ed64de3acac6c4e5d69912dec3d` |
 | `ops/wordpress-ci-bootstrap.php` | 215 | `409c23f2be99c6651b0e75dc877c91c884534e6b16f9985c177cf65d14fd4c95` |
-| `plugin/alookhor-control-center/alookhor-control-center.php` | 439 | `8319aa36965187c451f3e7c69d4d617b70138c8d029f3069d05a518cf1b173e1` |
+| `plugin/alookhor-control-center/alookhor-control-center.php` | 439 | `9825b9ba8bbe224cfe37b64509db8653bd586e003d67df77016a256ad4b2953d` |
 | `plugin/alookhor-control-center/assets/css/frontend-about-page.css` | 37 | `4a895038f4ede91f1172279e86e10ed6939a8a406c16ee780c326f6f4f5df5c2` |
 | `plugin/alookhor-control-center/assets/css/frontend-app-banner.css` | 1 | `244970e53ef04849a0a52d3930427bc7be986c818a258efcfb9afbd16b187898` |
 | `plugin/alookhor-control-center/assets/css/frontend-bestsellers.css` | 24 | `cf27fd12f8c8d7ebff96e50093e77e9d43cad86f88944a9ee983fd47a622184d` |
@@ -221,16 +221,17 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 | `plugin/alookhor-control-center/assets/css/frontend-magazine.css` | 3 | `506927291547c597b5cb9a56cf350932623dc3277783309ce624fa26f3af3b50` |
 | `plugin/alookhor-control-center/assets/css/frontend-managed-layout.css` | 29 | `215444c878e19ed0cfd336484ef1d1baec7eb2f71069daf3a26a3742a800c903` |
 | `plugin/alookhor-control-center/assets/css/frontend-newsletter.css` | 7 | `20d9fd105e74dedf48fd5c4cdf7e338420d21738813d87120e0f0bb3587a654e` |
-| `plugin/alookhor-control-center/assets/css/frontend-product.css` | 1416 | `13dcfe4f4a1c270ddf068efb39ccaba0aa8a9bcfc0baf0ed3f27508c9537fd32` |
+| `plugin/alookhor-control-center/assets/css/frontend-product-react.css` | 1 | `f2a99f03a81df77c37900cd77a84fdd6b90e234478460f69dbed5fa381738ae1` |
+| `plugin/alookhor-control-center/assets/css/frontend-product.css` | 1489 | `4fe88586cf98adba8258966fe0272ba9c62ad4460ed67c1728b5a73dd900f494` |
 | `plugin/alookhor-control-center/assets/css/frontend-responsive-v2.css` | 24 | `7b14f78244e19b84ec35bbee0065c9c87d76d8416024b7f7ad768c5a7ec4bdf9` |
 | `plugin/alookhor-control-center/assets/css/frontend-sort-center.css` | 6 | `235119cbc8575b4794f5bf1dde93cf14a3c5055feff58191956e0c67daa65c3c` |
 | `plugin/alookhor-control-center/assets/css/frontend-why-alookhor.css` | 45 | `5a09aa03fd1ae4fc6a345c71f38139ce3e7c992944c46fd97214d29a5cea0195` |
 | `plugin/alookhor-control-center/assets/css/luxury.css` | 564 | `eef0550c9d8b090dbe799d9a969518207519fdb585c9701e2d897a507e669f8f` |
 | `plugin/alookhor-control-center/assets/js/admin-wp.js` | 84 | `b8ff32723f2f46dc44add19fdc441eec1c611f5229ce7e13ac8b773457be6afc` |
-| `plugin/alookhor-control-center/assets/js/app.js` | 325 | `ae3f643e6446f2b23acdb4826e0ecb6d6f6c205fde37f1cb665cfe801011ca0f` |
+| `plugin/alookhor-control-center/assets/js/app.js` | 325 | `a4429f68cfa14c1069942d5ac58e71cecc3409a55e00dfd0f0171c18f9d66730` |
 | `plugin/alookhor-control-center/assets/js/core/config.js` | 199 | `1c89b0d0d8121bce7fc7097f9d1974eb1e38d1ec7f6b0f6f6d5244ab60ea1e85` |
 | `plugin/alookhor-control-center/assets/js/core/responsive.js` | 52 | `0848ef0deef9aaa532581904c4adab9b45cbe8445a99fbeb71f92d358a1aa724` |
-| `plugin/alookhor-control-center/assets/js/core/updateSystem.js` | 298 | `f36dbc8f3e1bf49544fefa47922c71e48456b54ea129cf6af5e79caed9f8432e` |
+| `plugin/alookhor-control-center/assets/js/core/updateSystem.js` | 298 | `5c044147ca82ddc66dfd802c6baaff2baba42a8f03d0310f629c1e503bfdbbfc` |
 | `plugin/alookhor-control-center/assets/js/frontend-about-page.js` | 7 | `67eb9861385f661036e8cd67fea01439f57d6f50325ec92d0a75cdc7cabcc1e0` |
 | `plugin/alookhor-control-center/assets/js/frontend-bestsellers.js` | 1 | `df2ac32d9938f428c20f972f6c45ae7570e8773d821649f45a09daed6cc227a8` |
 | `plugin/alookhor-control-center/assets/js/frontend-campaign-slider.js` | 1 | `e7d2e5652230a7cf079be7eeb9bd40734d4e2ac60cd2f07c98e8b83cfbf64d12` |
@@ -247,17 +248,17 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 | `plugin/alookhor-control-center/assets/js/frontend-magazine.js` | 1 | `3a8f6a1ff0d4c5180465d78ff3ca3636be9242149415233d652c60693ea8bd1a` |
 | `plugin/alookhor-control-center/assets/js/frontend-managed-layout.js` | 1 | `f3a28a9872c98c7991a90db8752264b5e79fc6ecf8e36b22fcc224c1581d661b` |
 | `plugin/alookhor-control-center/assets/js/frontend-newsletter.js` | 1 | `178b736d4b89d6c9fd4a38f42171f38357b0e24415e53a31f1ef4c1373e71a8c` |
-| `plugin/alookhor-control-center/assets/js/frontend-product.js` | 158 | `51a84b6e3d9a7976c8f34dd849a5e3ff28515ec7bdb12ba63a73a13c8e819f27` |
+| `plugin/alookhor-control-center/assets/js/frontend-product.js` | 206 | `78464c3024f1ea4a77422aca7d6215b20d68ca6aa9230e43b629c74491bd00ce` |
 | `plugin/alookhor-control-center/assets/js/frontend-sort-center.js` | 1 | `1ac9b916a723d57f5c2c6a5dac3af1059cdcf1fbde81925020df0dcb20fb1462` |
 | `plugin/alookhor-control-center/assets/js/frontend-topbar-manager.js` | 464 | `45980b0d4bcdf219ecb7665bbad95e69c874400047a12b526b7a0248231d0aa9` |
 | `plugin/alookhor-control-center/assets/js/frontend-why-alookhor.js` | 1 | `56302efb357de366650abbfe9f80c9439772e63a5ad1f637fac65beb8de13155` |
 | `plugin/alookhor-control-center/assets/js/modules/analytics.js` | 21 | `5e35bdba45de5750af08d6cfea337fd7a6eb8cc852ef1c955ee5ba1e7a56bf0c` |
-| `plugin/alookhor-control-center/assets/js/modules/dashboard.js` | 173 | `2420a684633177a82dc291eb22ad126946b7b4b4c264804ee858af811e2071a7` |
+| `plugin/alookhor-control-center/assets/js/modules/dashboard.js` | 173 | `d12f32b8148e7f796055855028718288fa1400646d0b86aec9a8ac60e2ec7e3b` |
 | `plugin/alookhor-control-center/assets/js/modules/inventory.js` | 30 | `e1c39f880a1e7985fa8ea64b07ec72ce69c416165fb514ad9fb7d9f8e8e93723` |
 | `plugin/alookhor-control-center/assets/js/modules/orders.js` | 19 | `0ccd8376c69ba37fb50d3261f002789488042e17a0b1b37539bab86abda374eb` |
-| `plugin/alookhor-control-center/assets/js/modules/settings.js` | 794 | `fdd3c99052dbf1d02c4a5d7ba768b4ac96305cc26e5d2497bd9fa8caf3bf2663` |
+| `plugin/alookhor-control-center/assets/js/modules/settings.js` | 794 | `595507252774b44e297a58f28e23482606ab8ae855e824fa35497c0c783fa846` |
 | `plugin/alookhor-control-center/assets/js/modules/users.js` | 20 | `6fb96546faf00ea831ace016d09b10f903a501db647bae20d0f570034ac36946` |
-| `plugin/alookhor-control-center/config/site.json` | 328 | `bf3cc037d687f8c78020d0765528b2b50f7091e3383e8bf2a873f9777e3d9947` |
+| `plugin/alookhor-control-center/config/site.json` | 328 | `5a871f956802f2d3e609ea0f155c4db4462774c29f89533b6d986faa5d11740a` |
 | `plugin/alookhor-control-center/includes/about-page.php` | 161 | `c6550866eeb1d48ff70085c42b84ec251afb3ce764b0b005c0c80a9751ae266b` |
 | `plugin/alookhor-control-center/includes/admin-export-banner.php` | 180 | `fff84102b3dc84cb69c7318312395993a8adf6255a5d7f056d4c7bf7dce8e1b2` |
 | `plugin/alookhor-control-center/includes/admin-pages.php` | 210 | `6cf25d85284e99d73dbfade4504c8fa4d3e98e1ddbc2d6cc5fcd8845e2edb4e1` |
@@ -275,7 +276,7 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 | `plugin/alookhor-control-center/includes/newsletter.php` | 11 | `c164526a1deccb24ff8211e439b73ad6dda497cc3064c5e3f5d5c1fc01797321` |
 | `plugin/alookhor-control-center/includes/pages-settings.php` | 103 | `3f105b8014498e90b3e6a7bc6f60f667ee2eab40fd28fca2e9d03c3f087965b1` |
 | `plugin/alookhor-control-center/includes/product-categories.php` | 99 | `72b7cf6900ad70a75c104f4e613e3357db91a8c05190af5847ebd9da674aa106` |
-| `plugin/alookhor-control-center/includes/product-page.php` | 443 | `d115e644edec06fde78386381e2fd573724fe65ad8e9c6f326464cfeba6948ba` |
+| `plugin/alookhor-control-center/includes/product-page.php` | 360 | `02a41dfd73d55f50674225291c17104fb404f4da2d03bff2d57f3f0178d60a60` |
 | `plugin/alookhor-control-center/includes/responsive-v2.php` | 11 | `985285a845f5baf476cdbf587b3c308d1b9ff4c0381bc69483b37652a55a3065` |
 | `plugin/alookhor-control-center/includes/rest-api.php` | 418 | `e656b53287b05ff3f8177a5b35401db47fb5017637a410e4c5d11a628f30f2f4` |
 | `plugin/alookhor-control-center/includes/seo-cleaner.php` | 169 | `7b799f9a0b53d0720cca82c1c0056efed41cf0e4a2f6f1dcd7dda722675eb43d` |
@@ -1067,7 +1068,7 @@ add_action('rest_api_init', function(){
  * Plugin Name: ALOOKHOR Control Center
  * Plugin URI: https://alookhor.ir
  * Description: کنترل سنتر لوکس و ماژولار آلوخور — مدیریت کامل سایت (هدر، اسلایدر، سورت، محصولات، مشتریان VIP، مالی، آنالیتیکس) با آپدیت آنی بدون رفرش. تمام تنظیمات چت قبلی + شورت‌کد [alookhor_portal_header] اینجا مدیریت می‌شود.
- * Version: 3.10.224
+ * Version: 3.10.225
  * Author: ALOOKHOR Team — Luxury Modular
  * Author URI: https://alookhor.ir
  * Update URI: https://alookhor.ir/alookhor-control-center
@@ -1080,8 +1081,8 @@ add_action('rest_api_init', function(){
 
 if (!defined('ABSPATH')) exit;
 
-define('ALOOKHOR_CC_VERSION', '3.10.224');
-define('ALOOKHOR_CC_BUILD', '3.10.224');
+define('ALOOKHOR_CC_VERSION', '3.10.225');
+define('ALOOKHOR_CC_BUILD', '3.10.225');
 define('ALOOKHOR_CC_FILE', __FILE__);
 define('ALOOKHOR_CC_DIR', plugin_dir_path(__FILE__));
 define('ALOOKHOR_CC_URL', plugin_dir_url(__FILE__));
@@ -4233,6 +4234,12 @@ html body.alookhor-managed-page hr{border-color:rgba(212,175,55,.12)!important;b
 @media(max-width:480px){.alookhor-newsletter{padding:14px 8px!important}.alookhor-newsletter .an-inner{padding:18px 14px!important;border-radius:min(var(--an-radius,24px),20px)!important}}
 ````
 
+## Source Snapshot — `plugin/alookhor-control-center/assets/css/frontend-product-react.css`
+
+````css
+@layer properties{@supports (((-webkit-hyphens:none)) and (not (margin-trim:inline))) or ((-moz-orient:inline) and (not (color:rgb(from red r g b)))){*,:before,:after,::backdrop{--tw-translate-x:0;--tw-translate-y:0;--tw-translate-z:0;--tw-border-style:solid;--tw-gradient-position:initial;--tw-gradient-from:#0000;--tw-gradient-via:#0000;--tw-gradient-to:#0000;--tw-gradient-stops:initial;--tw-gradient-via-stops:initial;--tw-gradient-from-position:0%;--tw-gradient-via-position:50%;--tw-gradient-to-position:100%;--tw-leading:initial;--tw-font-weight:initial;--tw-tracking:initial;--tw-shadow:0 0 #0000;--tw-shadow-color:initial;--tw-shadow-alpha:100%;--tw-inset-shadow:0 0 #0000;--tw-inset-shadow-color:initial;--tw-inset-shadow-alpha:100%;--tw-ring-color:initial;--tw-ring-shadow:0 0 #0000;--tw-inset-ring-color:initial;--tw-inset-ring-shadow:0 0 #0000;--tw-ring-inset:initial;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-offset-shadow:0 0 #0000;--tw-blur:initial;--tw-brightness:initial;--tw-contrast:initial;--tw-grayscale:initial;--tw-hue-rotate:initial;--tw-invert:initial;--tw-opacity:initial;--tw-saturate:initial;--tw-sepia:initial;--tw-drop-shadow:initial;--tw-drop-shadow-color:initial;--tw-drop-shadow-alpha:100%;--tw-drop-shadow-size:initial;--tw-backdrop-blur:initial;--tw-backdrop-brightness:initial;--tw-backdrop-contrast:initial;--tw-backdrop-grayscale:initial;--tw-backdrop-hue-rotate:initial;--tw-backdrop-invert:initial;--tw-backdrop-opacity:initial;--tw-backdrop-saturate:initial;--tw-backdrop-sepia:initial;--tw-duration:initial;--tw-scale-x:1;--tw-scale-y:1;--tw-scale-z:1}}}@layer theme{:root,:host{--font-sans:"Vazirmatn",ui-sans-serif,system-ui,sans-serif;--font-mono:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;--color-black:#000;--color-white:#fff;--spacing:.25rem;--container-md:28rem;--container-3xl:48rem;--text-xs:.75rem;--text-xs--line-height:calc(1/.75);--text-sm:.875rem;--text-sm--line-height:calc(1.25/.875);--text-base:1rem;--text-base--line-height: 1.5 ;--text-lg:1.125rem;--text-lg--line-height:calc(1.75/1.125);--text-xl:1.25rem;--text-xl--line-height:calc(1.75/1.25);--text-2xl:1.5rem;--text-2xl--line-height:calc(2/1.5);--text-3xl:1.875rem;--text-3xl--line-height: 1.2 ;--text-4xl:2.25rem;--text-4xl--line-height:calc(2.5/2.25);--font-weight-medium:500;--font-weight-bold:700;--font-weight-extrabold:800;--font-weight-black:900;--tracking-wide:.025em;--radius-lg:.5rem;--radius-xl:.75rem;--radius-2xl:1rem;--radius-3xl:1.5rem;--animate-ping:ping 1s cubic-bezier(0,0,.2,1)infinite;--blur-sm:8px;--blur-md:12px;--default-transition-duration:.15s;--default-transition-timing-function:cubic-bezier(.4,0,.2,1);--default-font-family:var(--font-sans);--default-mono-font-family:var(--font-mono);--font-script:"Noto Nastaliq Arabic","Vazirmatn",serif;--color-plum-950:#170a20;--color-plum-900:#22112c;--color-plum-800:#2f1a3f;--color-plum-700:#3b2150;--color-plum-600:#4a2a63;--color-plum-500:#5c3876;--color-gold-200:#ffe3ac;--color-gold-300:#ffd37a;--color-gold-400:#f7b32b;--color-gold-500:#ef9f1f;--color-gold-600:#d97e06;--color-cream:#fbf3e2;--color-lav:#c7b3da;--color-berry:#e42a68;--color-mint:#3bd684;--animate-toast-in:toast-in .35s cubic-bezier(.21,1.02,.73,1)both;--animate-slide-fade:slide-fade .5s ease both;--animate-drop:drop .22s ease both;--animate-pop:pop .3s cubic-bezier(.34,1.56,.64,1)both}}@layer base{*,:after,:before,::backdrop{box-sizing:border-box;border:0 solid;margin:0;padding:0}::file-selector-button{box-sizing:border-box;border:0 solid;margin:0;padding:0}html,:host{-webkit-text-size-adjust:100%;tab-size:4;line-height:1.5;font-family:var(--default-font-family,ui-sans-serif,system-ui,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji");font-feature-settings:var(--default-font-feature-settings,normal);font-variation-settings:var(--default-font-variation-settings,normal);-webkit-tap-highlight-color:transparent}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;-webkit-text-decoration:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,samp,pre{font-family:var(--default-mono-font-family,ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace);font-feature-settings:var(--default-mono-font-feature-settings,normal);font-variation-settings:var(--default-mono-font-variation-settings,normal);font-size:1em}small{font-size:80%}sub,sup{vertical-align:baseline;font-size:75%;line-height:0;position:relative}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}:-moz-focusring{outline:auto}progress{vertical-align:baseline}summary{display:list-item}ol,ul,menu{list-style:none}img,svg,video,canvas,audio,iframe,embed,object{vertical-align:middle;display:block}img,video{max-width:100%;height:auto}button,input,select,optgroup,textarea{font:inherit;font-feature-settings:inherit;font-variation-settings:inherit;letter-spacing:inherit;color:inherit;opacity:1;background-color:#0000;border-radius:0}::file-selector-button{font:inherit;font-feature-settings:inherit;font-variation-settings:inherit;letter-spacing:inherit;color:inherit;opacity:1;background-color:#0000;border-radius:0}:where(select:is([multiple],[size])) optgroup{font-weight:bolder}:where(select:is([multiple],[size])) optgroup option{padding-inline-start:20px}::file-selector-button{margin-inline-end:4px}::placeholder{opacity:1}@supports (not ((-webkit-appearance:-apple-pay-button))) or (contain-intrinsic-size:1px){::placeholder{color:currentColor}@supports (color:color-mix(in lab,red,red)){::placeholder{color:color-mix(in oklab,currentcolor 50%,transparent)}}}textarea{resize:vertical}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-date-and-time-value{min-height:1lh;text-align:inherit}::-webkit-datetime-edit{display:inline-flex}::-webkit-datetime-edit-fields-wrapper{padding:0}::-webkit-datetime-edit{padding-block:0}::-webkit-datetime-edit-year-field{padding-block:0}::-webkit-datetime-edit-month-field{padding-block:0}::-webkit-datetime-edit-day-field{padding-block:0}::-webkit-datetime-edit-hour-field{padding-block:0}::-webkit-datetime-edit-minute-field{padding-block:0}::-webkit-datetime-edit-second-field{padding-block:0}::-webkit-datetime-edit-millisecond-field{padding-block:0}::-webkit-datetime-edit-meridiem-field{padding-block:0}::-webkit-calendar-picker-indicator{line-height:1}:-moz-ui-invalid{box-shadow:none}button,input:where([type=button],[type=reset],[type=submit]){appearance:button}::file-selector-button{appearance:button}::-webkit-inner-spin-button{height:auto}::-webkit-outer-spin-button{height:auto}[hidden]:where(:not([hidden=until-found])){display:none!important}}@layer components;@layer utilities{.pointer-events-none{pointer-events:none}.absolute{position:absolute}.fixed{position:fixed}.relative{position:relative}.sticky{position:sticky}.inset-0{inset:calc(var(--spacing)*0)}.inset-x-0{inset-inline:calc(var(--spacing)*0)}.-top-2{top:calc(var(--spacing)*-2)}.top-0{top:calc(var(--spacing)*0)}.top-1\/2{top:50%}.top-3{top:calc(var(--spacing)*3)}.top-4{top:calc(var(--spacing)*4)}.top-5{top:calc(var(--spacing)*5)}.top-full{top:100%}.-right-2{right:calc(var(--spacing)*-2)}.right-0{right:calc(var(--spacing)*0)}.right-3{right:calc(var(--spacing)*3)}.right-4{right:calc(var(--spacing)*4)}.bottom-4{bottom:calc(var(--spacing)*4)}.bottom-6{bottom:calc(var(--spacing)*6)}.left-4{left:calc(var(--spacing)*4)}.left-5{left:calc(var(--spacing)*5)}.left-6{left:calc(var(--spacing)*6)}.z-40{z-index:40}.z-50{z-index:50}.z-\[60\]{z-index:60}.order-1{order:1}.order-2{order:2}.mx-auto{margin-inline:auto}.ms-1{margin-inline-start:calc(var(--spacing)*1)}.ms-2{margin-inline-start:calc(var(--spacing)*2)}.ms-auto{margin-inline-start:auto}.mt-0\.5{margin-top:calc(var(--spacing)*.5)}.mt-1{margin-top:calc(var(--spacing)*1)}.mt-2{margin-top:calc(var(--spacing)*2)}.mt-3{margin-top:calc(var(--spacing)*3)}.mt-4{margin-top:calc(var(--spacing)*4)}.mt-5{margin-top:calc(var(--spacing)*5)}.mt-14{margin-top:calc(var(--spacing)*14)}.mb-2{margin-bottom:calc(var(--spacing)*2)}.mb-3{margin-bottom:calc(var(--spacing)*3)}.mb-4{margin-bottom:calc(var(--spacing)*4)}.mb-5{margin-bottom:calc(var(--spacing)*5)}.block{display:block}.flex{display:flex}.grid{display:grid}.hidden{display:none}.inline-block{display:inline-block}.inline-flex{display:inline-flex}.aspect-\[4\/3\]{aspect-ratio:4/3}.aspect-auto{aspect-ratio:auto}.aspect-square{aspect-ratio:1}.h-2\.5{height:calc(var(--spacing)*2.5)}.h-3{height:calc(var(--spacing)*3)}.h-3\.5{height:calc(var(--spacing)*3.5)}.h-4{height:calc(var(--spacing)*4)}.h-4\.5{height:calc(var(--spacing)*4.5)}.h-5{height:calc(var(--spacing)*5)}.h-6{height:calc(var(--spacing)*6)}.h-8{height:calc(var(--spacing)*8)}.h-9{height:calc(var(--spacing)*9)}.h-10{height:calc(var(--spacing)*10)}.h-11{height:calc(var(--spacing)*11)}.h-12{height:calc(var(--spacing)*12)}.h-14{height:calc(var(--spacing)*14)}.h-20{height:calc(var(--spacing)*20)}.h-36{height:calc(var(--spacing)*36)}.h-full{height:100%}.max-h-\[85vh\]{max-height:85vh}.min-h-screen{min-height:100vh}.w-2\.5{width:calc(var(--spacing)*2.5)}.w-3{width:calc(var(--spacing)*3)}.w-3\.5{width:calc(var(--spacing)*3.5)}.w-4{width:calc(var(--spacing)*4)}.w-4\.5{width:calc(var(--spacing)*4.5)}.w-5{width:calc(var(--spacing)*5)}.w-6{width:calc(var(--spacing)*6)}.w-8{width:calc(var(--spacing)*8)}.w-9{width:calc(var(--spacing)*9)}.w-10{width:calc(var(--spacing)*10)}.w-11{width:calc(var(--spacing)*11)}.w-12{width:calc(var(--spacing)*12)}.w-16{width:calc(var(--spacing)*16)}.w-36{width:calc(var(--spacing)*36)}.w-52{width:calc(var(--spacing)*52)}.w-full{width:100%}.w-px{width:1px}.max-w-3xl{max-width:var(--container-3xl)}.max-w-\[60\%\]{max-width:60%}.max-w-\[1440px\]{max-width:1440px}.max-w-md{max-width:var(--container-md)}.min-w-0{min-width:calc(var(--spacing)*0)}.min-w-6{min-width:calc(var(--spacing)*6)}.flex-1{flex:1}.shrink-0{flex-shrink:0}.-translate-y-1\/2{--tw-translate-y: -50% ;translate:var(--tw-translate-x)var(--tw-translate-y)}.-rotate-3{rotate:-3deg}.rotate-180{rotate:180deg}.animate-drop{animation:var(--animate-drop)}.animate-ping{animation:var(--animate-ping)}.animate-pop{animation:var(--animate-pop)}.animate-slide-fade{animation:var(--animate-slide-fade)}.animate-toast-in{animation:var(--animate-toast-in)}.scroll-mt-28{scroll-margin-top:calc(var(--spacing)*28)}.grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}.grid-rows-\[0fr\]{grid-template-rows:0fr}.grid-rows-\[1fr\]{grid-template-rows:1fr}.flex-col{flex-direction:column}.flex-wrap{flex-wrap:wrap}.place-items-center{place-items:center}.items-center{align-items:center}.items-end{align-items:flex-end}.items-start{align-items:flex-start}.justify-between{justify-content:space-between}.justify-center{justify-content:center}.gap-0\.5{gap:calc(var(--spacing)*.5)}.gap-1{gap:calc(var(--spacing)*1)}.gap-1\.5{gap:calc(var(--spacing)*1.5)}.gap-2{gap:calc(var(--spacing)*2)}.gap-2\.5{gap:calc(var(--spacing)*2.5)}.gap-3{gap:calc(var(--spacing)*3)}.gap-3\.5{gap:calc(var(--spacing)*3.5)}.gap-4{gap:calc(var(--spacing)*4)}.gap-6{gap:calc(var(--spacing)*6)}.gap-10{gap:calc(var(--spacing)*10)}.gap-x-4{column-gap:calc(var(--spacing)*4)}.gap-y-1{row-gap:calc(var(--spacing)*1)}.gap-y-2{row-gap:calc(var(--spacing)*2)}.overflow-hidden{overflow:hidden}.overflow-y-auto{overflow-y:auto}.rounded-2xl{border-radius:var(--radius-2xl)}.rounded-3xl{border-radius:var(--radius-3xl)}.rounded-full{border-radius:3.40282e38px}.rounded-lg{border-radius:var(--radius-lg)}.rounded-none{border-radius:0}.rounded-xl{border-radius:var(--radius-xl)}.border{border-style:var(--tw-border-style);border-width:1px}.border-0{border-style:var(--tw-border-style);border-width:0}.border-2{border-style:var(--tw-border-style);border-width:2px}.border-t{border-top-style:var(--tw-border-style);border-top-width:1px}.border-b{border-bottom-style:var(--tw-border-style);border-bottom-width:1px}.border-gold-400{border-color:var(--color-gold-400)}.border-gold-400\/15{border-color:#f7b32b26}@supports (color:color-mix(in lab,red,red)){.border-gold-400\/15{border-color:color-mix(in oklab,var(--color-gold-400)15%,transparent)}}.border-gold-400\/25{border-color:#f7b32b40}@supports (color:color-mix(in lab,red,red)){.border-gold-400\/25{border-color:color-mix(in oklab,var(--color-gold-400)25%,transparent)}}.border-gold-400\/30{border-color:#f7b32b4d}@supports (color:color-mix(in lab,red,red)){.border-gold-400\/30{border-color:color-mix(in oklab,var(--color-gold-400)30%,transparent)}}.border-gold-400\/40{border-color:#f7b32b66}@supports (color:color-mix(in lab,red,red)){.border-gold-400\/40{border-color:color-mix(in oklab,var(--color-gold-400)40%,transparent)}}.border-gold-400\/50{border-color:#f7b32b80}@supports (color:color-mix(in lab,red,red)){.border-gold-400\/50{border-color:color-mix(in oklab,var(--color-gold-400)50%,transparent)}}.border-white\/8{border-color:#ffffff14}@supports (color:color-mix(in lab,red,red)){.border-white\/8{border-color:color-mix(in oklab,var(--color-white)8%,transparent)}}.border-white\/10{border-color:#ffffff1a}@supports (color:color-mix(in lab,red,red)){.border-white\/10{border-color:color-mix(in oklab,var(--color-white)10%,transparent)}}.border-white\/25{border-color:#ffffff40}@supports (color:color-mix(in lab,red,red)){.border-white\/25{border-color:color-mix(in oklab,var(--color-white)25%,transparent)}}.bg-berry{background-color:var(--color-berry)}.bg-cream\/90{background-color:#fbf3e2e6}@supports (color:color-mix(in lab,red,red)){.bg-cream\/90{background-color:color-mix(in oklab,var(--color-cream)90%,transparent)}}.bg-gold-400{background-color:var(--color-gold-400)}.bg-gold-400\/10{background-color:#f7b32b1a}@supports (color:color-mix(in lab,red,red)){.bg-gold-400\/10{background-color:color-mix(in oklab,var(--color-gold-400)10%,transparent)}}.bg-gold-400\/15{background-color:#f7b32b26}@supports (color:color-mix(in lab,red,red)){.bg-gold-400\/15{background-color:color-mix(in oklab,var(--color-gold-400)15%,transparent)}}.bg-mint{background-color:var(--color-mint)}.bg-plum-800{background-color:var(--color-plum-800)}.bg-plum-800\/95{background-color:#2f1a3ff2}@supports (color:color-mix(in lab,red,red)){.bg-plum-800\/95{background-color:color-mix(in oklab,var(--color-plum-800)95%,transparent)}}.bg-plum-900{background-color:var(--color-plum-900)}.bg-plum-900\/50{background-color:#22112c80}@supports (color:color-mix(in lab,red,red)){.bg-plum-900\/50{background-color:color-mix(in oklab,var(--color-plum-900)50%,transparent)}}.bg-plum-900\/60{background-color:#22112c99}@supports (color:color-mix(in lab,red,red)){.bg-plum-900\/60{background-color:color-mix(in oklab,var(--color-plum-900)60%,transparent)}}.bg-plum-900\/70{background-color:#22112cb3}@supports (color:color-mix(in lab,red,red)){.bg-plum-900\/70{background-color:color-mix(in oklab,var(--color-plum-900)70%,transparent)}}.bg-plum-950\/40{background-color:#170a2066}@supports (color:color-mix(in lab,red,red)){.bg-plum-950\/40{background-color:color-mix(in oklab,var(--color-plum-950)40%,transparent)}}.bg-plum-950\/45{background-color:#170a2073}@supports (color:color-mix(in lab,red,red)){.bg-plum-950\/45{background-color:color-mix(in oklab,var(--color-plum-950)45%,transparent)}}.bg-plum-950\/50{background-color:#170a2080}@supports (color:color-mix(in lab,red,red)){.bg-plum-950\/50{background-color:color-mix(in oklab,var(--color-plum-950)50%,transparent)}}.bg-plum-950\/70{background-color:#170a20b3}@supports (color:color-mix(in lab,red,red)){.bg-plum-950\/70{background-color:color-mix(in oklab,var(--color-plum-950)70%,transparent)}}.bg-plum-950\/75{background-color:#170a20bf}@supports (color:color-mix(in lab,red,red)){.bg-plum-950\/75{background-color:color-mix(in oklab,var(--color-plum-950)75%,transparent)}}.bg-plum-950\/80{background-color:#170a20cc}@supports (color:color-mix(in lab,red,red)){.bg-plum-950\/80{background-color:color-mix(in oklab,var(--color-plum-950)80%,transparent)}}.bg-transparent{background-color:#0000}.bg-white\/5{background-color:#ffffff0d}@supports (color:color-mix(in lab,red,red)){.bg-white\/5{background-color:color-mix(in oklab,var(--color-white)5%,transparent)}}.bg-white\/15{background-color:#ffffff26}@supports (color:color-mix(in lab,red,red)){.bg-white\/15{background-color:color-mix(in oklab,var(--color-white)15%,transparent)}}.bg-gradient-to-b{--tw-gradient-position:to bottom in oklab;background-image:linear-gradient(var(--tw-gradient-stops))}.bg-gradient-to-l{--tw-gradient-position:to left in oklab;background-image:linear-gradient(var(--tw-gradient-stops))}.from-gold-300{--tw-gradient-from:var(--color-gold-300);--tw-gradient-stops:var(--tw-gradient-via-stops,var(--tw-gradient-position),var(--tw-gradient-from)var(--tw-gradient-from-position),var(--tw-gradient-to)var(--tw-gradient-to-position))}.from-gold-600{--tw-gradient-from:var(--color-gold-600);--tw-gradient-stops:var(--tw-gradient-via-stops,var(--tw-gradient-position),var(--tw-gradient-from)var(--tw-gradient-from-position),var(--tw-gradient-to)var(--tw-gradient-to-position))}.from-plum-700{--tw-gradient-from:var(--color-plum-700);--tw-gradient-stops:var(--tw-gradient-via-stops,var(--tw-gradient-position),var(--tw-gradient-from)var(--tw-gradient-from-position),var(--tw-gradient-to)var(--tw-gradient-to-position))}.from-plum-700\/70{--tw-gradient-from:#3b2150b3}@supports (color:color-mix(in lab,red,red)){.from-plum-700\/70{--tw-gradient-from:color-mix(in oklab,var(--color-plum-700)70%,transparent)}}.from-plum-700\/70{--tw-gradient-stops:var(--tw-gradient-via-stops,var(--tw-gradient-position),var(--tw-gradient-from)var(--tw-gradient-from-position),var(--tw-gradient-to)var(--tw-gradient-to-position))}.from-plum-950\/95{--tw-gradient-from:#170a20f2}@supports (color:color-mix(in lab,red,red)){.from-plum-950\/95{--tw-gradient-from:color-mix(in oklab,var(--color-plum-950)95%,transparent)}}.from-plum-950\/95{--tw-gradient-stops:var(--tw-gradient-via-stops,var(--tw-gradient-position),var(--tw-gradient-from)var(--tw-gradient-from-position),var(--tw-gradient-to)var(--tw-gradient-to-position))}.via-gold-400{--tw-gradient-via:var(--color-gold-400);--tw-gradient-via-stops:var(--tw-gradient-position),var(--tw-gradient-from)var(--tw-gradient-from-position),var(--tw-gradient-via)var(--tw-gradient-via-position),var(--tw-gradient-to)var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-via-stops)}.via-gold-500{--tw-gradient-via:var(--color-gold-500);--tw-gradient-via-stops:var(--tw-gradient-position),var(--tw-gradient-from)var(--tw-gradient-from-position),var(--tw-gradient-via)var(--tw-gradient-via-position),var(--tw-gradient-to)var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-via-stops)}.via-plum-800{--tw-gradient-via:var(--color-plum-800);--tw-gradient-via-stops:var(--tw-gradient-position),var(--tw-gradient-from)var(--tw-gradient-from-position),var(--tw-gradient-via)var(--tw-gradient-via-position),var(--tw-gradient-to)var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-via-stops)}.via-plum-950\/70{--tw-gradient-via:#170a20b3}@supports (color:color-mix(in lab,red,red)){.via-plum-950\/70{--tw-gradient-via:color-mix(in oklab,var(--color-plum-950)70%,transparent)}}.via-plum-950\/70{--tw-gradient-via-stops:var(--tw-gradient-position),var(--tw-gradient-from)var(--tw-gradient-from-position),var(--tw-gradient-via)var(--tw-gradient-via-position),var(--tw-gradient-to)var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-via-stops)}.to-\[\#8a5a2b\]{--tw-gradient-to:#8a5a2b;--tw-gradient-stops:var(--tw-gradient-via-stops,var(--tw-gradient-position),var(--tw-gradient-from)var(--tw-gradient-from-position),var(--tw-gradient-to)var(--tw-gradient-to-position))}.to-gold-500{--tw-gradient-to:var(--color-gold-500);--tw-gradient-stops:var(--tw-gradient-via-stops,var(--tw-gradient-position),var(--tw-gradient-from)var(--tw-gradient-from-position),var(--tw-gradient-to)var(--tw-gradient-to-position))}.to-plum-800\/60{--tw-gradient-to:#2f1a3f99}@supports (color:color-mix(in lab,red,red)){.to-plum-800\/60{--tw-gradient-to:color-mix(in oklab,var(--color-plum-800)60%,transparent)}}.to-plum-800\/60{--tw-gradient-stops:var(--tw-gradient-via-stops,var(--tw-gradient-position),var(--tw-gradient-from)var(--tw-gradient-from-position),var(--tw-gradient-to)var(--tw-gradient-to-position))}.to-plum-900\/95{--tw-gradient-to:#22112cf2}@supports (color:color-mix(in lab,red,red)){.to-plum-900\/95{--tw-gradient-to:color-mix(in oklab,var(--color-plum-900)95%,transparent)}}.to-plum-900\/95{--tw-gradient-stops:var(--tw-gradient-via-stops,var(--tw-gradient-position),var(--tw-gradient-from)var(--tw-gradient-from-position),var(--tw-gradient-to)var(--tw-gradient-to-position))}.to-plum-950\/20{--tw-gradient-to:#170a2033}@supports (color:color-mix(in lab,red,red)){.to-plum-950\/20{--tw-gradient-to:color-mix(in oklab,var(--color-plum-950)20%,transparent)}}.to-plum-950\/20{--tw-gradient-stops:var(--tw-gradient-via-stops,var(--tw-gradient-position),var(--tw-gradient-from)var(--tw-gradient-from-position),var(--tw-gradient-to)var(--tw-gradient-to-position))}.object-cover{object-fit:cover}.p-1{padding:calc(var(--spacing)*1)}.p-2{padding:calc(var(--spacing)*2)}.p-4{padding:calc(var(--spacing)*4)}.p-5{padding:calc(var(--spacing)*5)}.p-7{padding:calc(var(--spacing)*7)}.px-1{padding-inline:calc(var(--spacing)*1)}.px-2{padding-inline:calc(var(--spacing)*2)}.px-2\.5{padding-inline:calc(var(--spacing)*2.5)}.px-3{padding-inline:calc(var(--spacing)*3)}.px-4{padding-inline:calc(var(--spacing)*4)}.px-5{padding-inline:calc(var(--spacing)*5)}.px-6{padding-inline:calc(var(--spacing)*6)}.py-1{padding-block:calc(var(--spacing)*1)}.py-1\.5{padding-block:calc(var(--spacing)*1.5)}.py-2{padding-block:calc(var(--spacing)*2)}.py-2\.5{padding-block:calc(var(--spacing)*2.5)}.py-3{padding-block:calc(var(--spacing)*3)}.py-3\.5{padding-block:calc(var(--spacing)*3.5)}.py-4{padding-block:calc(var(--spacing)*4)}.py-5{padding-block:calc(var(--spacing)*5)}.py-6{padding-block:calc(var(--spacing)*6)}.py-12{padding-block:calc(var(--spacing)*12)}.py-14{padding-block:calc(var(--spacing)*14)}.pb-4{padding-bottom:calc(var(--spacing)*4)}.text-center{text-align:center}.text-right{text-align:right}.font-script{font-family:var(--font-script)}.text-2xl{font-size:var(--text-2xl);line-height:var(--tw-leading,var(--text-2xl--line-height))}.text-3xl{font-size:var(--text-3xl);line-height:var(--tw-leading,var(--text-3xl--line-height))}.text-base{font-size:var(--text-base);line-height:var(--tw-leading,var(--text-base--line-height))}.text-lg{font-size:var(--text-lg);line-height:var(--tw-leading,var(--text-lg--line-height))}.text-sm{font-size:var(--text-sm);line-height:var(--tw-leading,var(--text-sm--line-height))}.text-xl{font-size:var(--text-xl);line-height:var(--tw-leading,var(--text-xl--line-height))}.text-xs{font-size:var(--text-xs);line-height:var(--tw-leading,var(--text-xs--line-height))}.text-\[10px\]{font-size:10px}.text-\[11px\]{font-size:11px}.text-\[13px\]{font-size:13px}.leading-6{--tw-leading:calc(var(--spacing)*6);line-height:calc(var(--spacing)*6)}.leading-7{--tw-leading:calc(var(--spacing)*7);line-height:calc(var(--spacing)*7)}.font-black{--tw-font-weight:var(--font-weight-black);font-weight:var(--font-weight-black)}.font-bold{--tw-font-weight:var(--font-weight-bold);font-weight:var(--font-weight-bold)}.font-extrabold{--tw-font-weight:var(--font-weight-extrabold);font-weight:var(--font-weight-extrabold)}.font-medium{--tw-font-weight:var(--font-weight-medium);font-weight:var(--font-weight-medium)}.tracking-wide{--tw-tracking:var(--tracking-wide);letter-spacing:var(--tracking-wide)}.text-berry{color:var(--color-berry)}.text-cream{color:var(--color-cream)}.text-gold-200{color:var(--color-gold-200)}.text-gold-300{color:var(--color-gold-300)}.text-gold-400{color:var(--color-gold-400)}.text-lav{color:var(--color-lav)}.text-lav\/50{color:#c7b3da80}@supports (color:color-mix(in lab,red,red)){.text-lav\/50{color:color-mix(in oklab,var(--color-lav)50%,transparent)}}.text-mint{color:var(--color-mint)}.text-plum-500{color:var(--color-plum-500)}.text-plum-950{color:var(--color-plum-950)}.line-through{text-decoration-line:line-through}.decoration-berry\/80{text-decoration-color:#e42a68cc}@supports (color:color-mix(in lab,red,red)){.decoration-berry\/80{-webkit-text-decoration-color:color-mix(in oklab,var(--color-berry)80%,transparent);text-decoration-color:color-mix(in oklab,var(--color-berry)80%,transparent)}}.decoration-2{text-decoration-thickness:2px}.opacity-0{opacity:0}.opacity-60{opacity:.6}.opacity-70{opacity:.7}.opacity-100{opacity:1}.shadow-2xl{--tw-shadow:0 25px 50px -12px var(--tw-shadow-color,#00000040);box-shadow:var(--tw-inset-shadow),var(--tw-inset-ring-shadow),var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow)}.shadow-\[0_0_0_3px_rgba\(247\,179\,43\,0\.15\)\]{--tw-shadow:0 0 0 3px var(--tw-shadow-color,#f7b32b26);box-shadow:var(--tw-inset-shadow),var(--tw-inset-ring-shadow),var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow)}.shadow-\[0_0_0_3px_rgba\(247\,179\,43\,0\.25\)\]{--tw-shadow:0 0 0 3px var(--tw-shadow-color,#f7b32b40);box-shadow:var(--tw-inset-shadow),var(--tw-inset-ring-shadow),var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow)}.shadow-\[0_10px_40px_-15px_rgba\(0\,0\,0\,0\.8\)\]{--tw-shadow:0 10px 40px -15px var(--tw-shadow-color,#000c);box-shadow:var(--tw-inset-shadow),var(--tw-inset-ring-shadow),var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow)}.shadow-\[0_12px_30px_-10px_rgba\(247\,179\,43\,0\.7\)\]{--tw-shadow:0 12px 30px -10px var(--tw-shadow-color,#f7b32bb3);box-shadow:var(--tw-inset-shadow),var(--tw-inset-ring-shadow),var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow)}.shadow-\[0_15px_40px_-12px_rgba\(247\,179\,43\,0\.65\)\]{--tw-shadow:0 15px 40px -12px var(--tw-shadow-color,#f7b32ba6);box-shadow:var(--tw-inset-shadow),var(--tw-inset-ring-shadow),var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow)}.shadow-\[0_25px_60px_-25px_rgba\(0\,0\,0\,0\.9\)\]{--tw-shadow:0 25px 60px -25px var(--tw-shadow-color,#000000e6);box-shadow:var(--tw-inset-shadow),var(--tw-inset-ring-shadow),var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow)}.shadow-\[0_25px_60px_-30px_rgba\(0\,0\,0\,0\.9\)\]{--tw-shadow:0 25px 60px -30px var(--tw-shadow-color,#000000e6);box-shadow:var(--tw-inset-shadow),var(--tw-inset-ring-shadow),var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow)}.shadow-\[0_30px_80px_-40px_rgba\(0\,0\,0\,0\.9\)\]{--tw-shadow:0 30px 80px -40px var(--tw-shadow-color,#000000e6);box-shadow:var(--tw-inset-shadow),var(--tw-inset-ring-shadow),var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow)}.shadow-lg{--tw-shadow:0 10px 15px -3px var(--tw-shadow-color,#0000001a),0 4px 6px -4px var(--tw-shadow-color,#0000001a);box-shadow:var(--tw-inset-shadow),var(--tw-inset-ring-shadow),var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow)}.shadow-md{--tw-shadow:0 4px 6px -1px var(--tw-shadow-color,#0000001a),0 2px 4px -2px var(--tw-shadow-color,#0000001a);box-shadow:var(--tw-inset-shadow),var(--tw-inset-ring-shadow),var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow)}.ring-1{--tw-ring-shadow:var(--tw-ring-inset,)0 0 0 calc(1px + var(--tw-ring-offset-width))var(--tw-ring-color,currentcolor);box-shadow:var(--tw-inset-shadow),var(--tw-inset-ring-shadow),var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow)}.shadow-berry\/30{--tw-shadow-color:#e42a684d}@supports (color:color-mix(in lab,red,red)){.shadow-berry\/30{--tw-shadow-color:color-mix(in oklab,color-mix(in oklab,var(--color-berry)30%,transparent)var(--tw-shadow-alpha),transparent)}}.shadow-black\/40{--tw-shadow-color:#0006}@supports (color:color-mix(in lab,red,red)){.shadow-black\/40{--tw-shadow-color:color-mix(in oklab,color-mix(in oklab,var(--color-black)40%,transparent)var(--tw-shadow-alpha),transparent)}}.shadow-black\/60{--tw-shadow-color:#0009}@supports (color:color-mix(in lab,red,red)){.shadow-black\/60{--tw-shadow-color:color-mix(in oklab,color-mix(in oklab,var(--color-black)60%,transparent)var(--tw-shadow-alpha),transparent)}}.shadow-black\/70{--tw-shadow-color:#000000b3}@supports (color:color-mix(in lab,red,red)){.shadow-black\/70{--tw-shadow-color:color-mix(in oklab,color-mix(in oklab,var(--color-black)70%,transparent)var(--tw-shadow-alpha),transparent)}}.shadow-gold-500\/30{--tw-shadow-color:#ef9f1f4d}@supports (color:color-mix(in lab,red,red)){.shadow-gold-500\/30{--tw-shadow-color:color-mix(in oklab,color-mix(in oklab,var(--color-gold-500)30%,transparent)var(--tw-shadow-alpha),transparent)}}.shadow-gold-500\/40{--tw-shadow-color:#ef9f1f66}@supports (color:color-mix(in lab,red,red)){.shadow-gold-500\/40{--tw-shadow-color:color-mix(in oklab,color-mix(in oklab,var(--color-gold-500)40%,transparent)var(--tw-shadow-alpha),transparent)}}.ring-gold-300\/60{--tw-ring-color:#ffd37a99}@supports (color:color-mix(in lab,red,red)){.ring-gold-300\/60{--tw-ring-color:color-mix(in oklab,var(--color-gold-300)60%,transparent)}}.drop-shadow-\[0_0_12px_rgba\(247\,179\,43\,0\.35\)\]{--tw-drop-shadow-size:drop-shadow(0 0 12px var(--tw-drop-shadow-color,#f7b32b59));--tw-drop-shadow:var(--tw-drop-shadow-size);filter:var(--tw-blur,)var(--tw-brightness,)var(--tw-contrast,)var(--tw-grayscale,)var(--tw-hue-rotate,)var(--tw-invert,)var(--tw-saturate,)var(--tw-sepia,)var(--tw-drop-shadow,)}.drop-shadow-\[0_0_18px_rgba\(247\,179\,43\,0\.45\)\]{--tw-drop-shadow-size:drop-shadow(0 0 18px var(--tw-drop-shadow-color,#f7b32b73));--tw-drop-shadow:var(--tw-drop-shadow-size);filter:var(--tw-blur,)var(--tw-brightness,)var(--tw-contrast,)var(--tw-grayscale,)var(--tw-hue-rotate,)var(--tw-invert,)var(--tw-saturate,)var(--tw-sepia,)var(--tw-drop-shadow,)}.drop-shadow-\[0_2px_10px_rgba\(0\,0\,0\,0\.8\)\]{--tw-drop-shadow-size:drop-shadow(0 2px 10px var(--tw-drop-shadow-color,#000c));--tw-drop-shadow:var(--tw-drop-shadow-size);filter:var(--tw-blur,)var(--tw-brightness,)var(--tw-contrast,)var(--tw-grayscale,)var(--tw-hue-rotate,)var(--tw-invert,)var(--tw-saturate,)var(--tw-sepia,)var(--tw-drop-shadow,)}.filter{filter:var(--tw-blur,)var(--tw-brightness,)var(--tw-contrast,)var(--tw-grayscale,)var(--tw-hue-rotate,)var(--tw-invert,)var(--tw-saturate,)var(--tw-sepia,)var(--tw-drop-shadow,)}.backdrop-blur-md{--tw-backdrop-blur:blur(var(--blur-md));-webkit-backdrop-filter:var(--tw-backdrop-blur,)var(--tw-backdrop-brightness,)var(--tw-backdrop-contrast,)var(--tw-backdrop-grayscale,)var(--tw-backdrop-hue-rotate,)var(--tw-backdrop-invert,)var(--tw-backdrop-opacity,)var(--tw-backdrop-saturate,)var(--tw-backdrop-sepia,);backdrop-filter:var(--tw-backdrop-blur,)var(--tw-backdrop-brightness,)var(--tw-backdrop-contrast,)var(--tw-backdrop-grayscale,)var(--tw-backdrop-hue-rotate,)var(--tw-backdrop-invert,)var(--tw-backdrop-opacity,)var(--tw-backdrop-saturate,)var(--tw-backdrop-sepia,)}.backdrop-blur-sm{--tw-backdrop-blur:blur(var(--blur-sm));-webkit-backdrop-filter:var(--tw-backdrop-blur,)var(--tw-backdrop-brightness,)var(--tw-backdrop-contrast,)var(--tw-backdrop-grayscale,)var(--tw-backdrop-hue-rotate,)var(--tw-backdrop-invert,)var(--tw-backdrop-opacity,)var(--tw-backdrop-saturate,)var(--tw-backdrop-sepia,);backdrop-filter:var(--tw-backdrop-blur,)var(--tw-backdrop-brightness,)var(--tw-backdrop-contrast,)var(--tw-backdrop-grayscale,)var(--tw-backdrop-hue-rotate,)var(--tw-backdrop-invert,)var(--tw-backdrop-opacity,)var(--tw-backdrop-saturate,)var(--tw-backdrop-sepia,)}.transition{transition-property:color,background-color,border-color,outline-color,text-decoration-color,fill,stroke,--tw-gradient-from,--tw-gradient-via,--tw-gradient-to,opacity,box-shadow,transform,translate,scale,rotate,filter,-webkit-backdrop-filter,backdrop-filter,display,content-visibility,overlay,pointer-events;transition-timing-function:var(--tw-ease,var(--default-transition-timing-function));transition-duration:var(--tw-duration,var(--default-transition-duration))}.transition-all{transition-property:all;transition-timing-function:var(--tw-ease,var(--default-transition-timing-function));transition-duration:var(--tw-duration,var(--default-transition-duration))}.transition-transform{transition-property:transform,translate,scale,rotate;transition-timing-function:var(--tw-ease,var(--default-transition-timing-function));transition-duration:var(--tw-duration,var(--default-transition-duration))}.duration-300{--tw-duration:.3s;transition-duration:.3s}.duration-500{--tw-duration:.5s;transition-duration:.5s}@media(hover:hover){.group-hover\:scale-105:is(:where(.group):hover *){--tw-scale-x:105%;--tw-scale-y:105%;--tw-scale-z:105%;scale:var(--tw-scale-x)var(--tw-scale-y)}}.placeholder\:text-lav\/60::placeholder{color:#c7b3da99}@supports (color:color-mix(in lab,red,red)){.placeholder\:text-lav\/60::placeholder{color:color-mix(in oklab,var(--color-lav)60%,transparent)}}.focus-within\:border-gold-400\/60:focus-within{border-color:#f7b32b99}@supports (color:color-mix(in lab,red,red)){.focus-within\:border-gold-400\/60:focus-within{border-color:color-mix(in oklab,var(--color-gold-400)60%,transparent)}}.focus-within\:shadow-\[0_0_0_3px_rgba\(247\,179\,43\,0\.15\)\]:focus-within{--tw-shadow:0 0 0 3px var(--tw-shadow-color,#f7b32b26);box-shadow:var(--tw-inset-shadow),var(--tw-inset-ring-shadow),var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow)}@media(hover:hover){.hover\:scale-110:hover{--tw-scale-x:110%;--tw-scale-y:110%;--tw-scale-z:110%;scale:var(--tw-scale-x)var(--tw-scale-y)}.hover\:border-berry\/60:hover{border-color:#e42a6899}@supports (color:color-mix(in lab,red,red)){.hover\:border-berry\/60:hover{border-color:color-mix(in oklab,var(--color-berry)60%,transparent)}}.hover\:border-gold-400:hover{border-color:var(--color-gold-400)}.hover\:border-gold-400\/40:hover{border-color:#f7b32b66}@supports (color:color-mix(in lab,red,red)){.hover\:border-gold-400\/40:hover{border-color:color-mix(in oklab,var(--color-gold-400)40%,transparent)}}.hover\:border-gold-400\/50:hover{border-color:#f7b32b80}@supports (color:color-mix(in lab,red,red)){.hover\:border-gold-400\/50:hover{border-color:color-mix(in oklab,var(--color-gold-400)50%,transparent)}}.hover\:border-white\/25:hover{border-color:#ffffff40}@supports (color:color-mix(in lab,red,red)){.hover\:border-white\/25:hover{border-color:color-mix(in oklab,var(--color-white)25%,transparent)}}.hover\:bg-gold-400:hover{background-color:var(--color-gold-400)}.hover\:bg-gold-400\/10:hover{background-color:#f7b32b1a}@supports (color:color-mix(in lab,red,red)){.hover\:bg-gold-400\/10:hover{background-color:color-mix(in oklab,var(--color-gold-400)10%,transparent)}}.hover\:bg-plum-900:hover{background-color:var(--color-plum-900)}.hover\:bg-white\/5:hover{background-color:#ffffff0d}@supports (color:color-mix(in lab,red,red)){.hover\:bg-white\/5:hover{background-color:color-mix(in oklab,var(--color-white)5%,transparent)}}.hover\:bg-white\/10:hover{background-color:#ffffff1a}@supports (color:color-mix(in lab,red,red)){.hover\:bg-white\/10:hover{background-color:color-mix(in oklab,var(--color-white)10%,transparent)}}.hover\:text-berry:hover{color:var(--color-berry)}.hover\:text-cream:hover{color:var(--color-cream)}.hover\:text-gold-300:hover{color:var(--color-gold-300)}.hover\:text-plum-950:hover{color:var(--color-plum-950)}.hover\:opacity-100:hover{opacity:1}.hover\:brightness-110:hover{--tw-brightness:brightness(110%);filter:var(--tw-blur,)var(--tw-brightness,)var(--tw-contrast,)var(--tw-grayscale,)var(--tw-hue-rotate,)var(--tw-invert,)var(--tw-saturate,)var(--tw-sepia,)var(--tw-drop-shadow,)}}.focus\:outline-none:focus{--tw-outline-style:none;outline-style:none}.active\:scale-95:active{--tw-scale-x:95%;--tw-scale-y:95%;--tw-scale-z:95%;scale:var(--tw-scale-x)var(--tw-scale-y)}.active\:scale-\[0\.98\]:active{scale:.98}.disabled\:cursor-not-allowed:disabled{cursor:not-allowed}.disabled\:opacity-30:disabled{opacity:.3}@media not all and (min-width:48rem){.max-md\:ms-auto{margin-inline-start:auto}}@media(min-width:40rem){.sm\:flex{display:flex}.sm\:aspect-\[16\/10\]{aspect-ratio:16/10}.sm\:w-24{width:calc(var(--spacing)*24)}.sm\:grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}.sm\:grid-cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}.sm\:flex-row{flex-direction:row}.sm\:items-center{align-items:center}.sm\:justify-between{justify-content:space-between}.sm\:gap-4{gap:calc(var(--spacing)*4)}.sm\:p-7{padding:calc(var(--spacing)*7)}.sm\:p-9{padding:calc(var(--spacing)*9)}.sm\:text-2xl{font-size:var(--text-2xl);line-height:var(--tw-leading,var(--text-2xl--line-height))}.sm\:text-3xl{font-size:var(--text-3xl);line-height:var(--tw-leading,var(--text-3xl--line-height))}.sm\:text-4xl{font-size:var(--text-4xl);line-height:var(--tw-leading,var(--text-4xl--line-height))}.sm\:text-base{font-size:var(--text-base);line-height:var(--tw-leading,var(--text-base--line-height))}}@media(min-width:48rem){.md\:flex{display:flex}.md\:hidden{display:none}}@media(min-width:64rem){.lg\:aspect-auto{aspect-ratio:auto}.lg\:min-h-\[560px\]{min-height:560px}.lg\:grid-cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}.lg\:px-8{padding-inline:calc(var(--spacing)*8)}}@media(min-width:80rem){.xl\:col-start-1{grid-column-start:1}.xl\:col-start-2{grid-column-start:2}.xl\:row-start-1{grid-row-start:1}.xl\:block{display:block}.xl\:flex{display:flex}.xl\:hidden{display:none}.xl\:h-full{height:100%}.xl\:min-h-\[720px\]{min-height:720px}.xl\:w-full{width:100%}.xl\:grid-cols-4{grid-template-columns:repeat(4,minmax(0,1fr))}.xl\:grid-cols-\[1\.02fr_1\.12fr\]{grid-template-columns:1.02fr 1.12fr}.xl\:flex-col{flex-direction:column}.xl\:items-start{align-items:flex-start}.xl\:gap-5{gap:calc(var(--spacing)*5)}.xl\:px-8{padding-inline:calc(var(--spacing)*8)}.xl\:py-8{padding-block:calc(var(--spacing)*8)}}}html{scroll-behavior:smooth}body{font-family:var(--font-sans);background-color:var(--color-plum-950);color:var(--color-cream)}.app-bg{background:radial-gradient(1100px 560px at 88% -12%,#7c3ea261,transparent 62%),radial-gradient(820px 480px at 4% 14%,#f7b32b12,transparent 60%),radial-gradient(900px 600px at 50% 110%,#5a287840,transparent 65%),var(--color-plum-950)}.font-script{font-family:var(--font-script);line-height:2.1}::selection{background:var(--color-gold-400);color:var(--color-plum-950)}*{scrollbar-width:thin;scrollbar-color:var(--color-plum-600)transparent}::-webkit-scrollbar{width:8px;height:8px}::-webkit-scrollbar-thumb{background:var(--color-plum-600);border-radius:8px}:fullscreen{background:var(--color-plum-950)}:is(:fullscreen img,:fullscreen video){object-fit:contain!important}.below-product{padding-bottom:20px}.below-section{margin-top:48px}.below-section-title{border-bottom:1px solid #ffffff14;margin-bottom:22px;padding-bottom:15px}.slider-glass{-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);background:linear-gradient(105deg,#4b266461,#1e0e2ba6),#231031b8;border:1px solid #d9abff3d;border-radius:18px;padding:19px 17px 12px;overflow:hidden;box-shadow:inset 0 1px #ffffff14,0 18px 45px -28px #000000e6}.slider-glass .below-section-title{margin-bottom:11px;padding-bottom:10px}.slider-glass .slider-shell{padding-inline:29px}.slider-glass .horizontal-track{padding-bottom:5px}.section-kicker{color:var(--color-gold-400);font-size:.75rem;font-weight:800;display:inline-block}.about-story{border-top:1px solid #ffffff17;border-bottom:1px solid #ffffff17;grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr);align-items:center;gap:clamp(28px,5vw,72px);padding:36px 0;display:grid}.about-story-media{background:var(--color-plum-900);border:1px solid #f7b32b47;border-radius:28px;min-height:350px;position:relative;overflow:hidden;box-shadow:0 24px 65px -35px #000000f2}.about-story-media:after{content:"";pointer-events:none;background:linear-gradient(90deg,#170a20b8,#0000 65%);position:absolute;inset:0}.about-story-media img,.specs-visual img,.newsletter-section>img{object-fit:cover;width:100%;height:100%}.about-story-badge{z-index:1;color:var(--color-gold-400);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);background:#251034db;border:1px solid #f7b32b80;border-radius:16px;grid-template-columns:auto 1fr;align-items:center;column-gap:9px;padding:11px 15px;display:grid;position:absolute;bottom:22px;left:22px}.about-story-badge strong{color:var(--color-cream);font-size:.9rem}.about-story-badge span{color:var(--color-lav);grid-column:2;font-size:.68rem}.about-story-copy{max-width:630px}.about-story-copy h2{color:var(--color-cream);margin-top:8px;font-size:clamp(1.45rem,3vw,2.2rem);font-weight:900;line-height:1.45}.about-story-copy p{color:var(--color-lav);margin-top:15px;font-size:.9rem;line-height:2.1}.about-checks{color:var(--color-cream);grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:21px;font-size:.75rem;font-weight:700;display:grid}.about-checks li{align-items:center;gap:6px;display:flex}.about-checks svg{color:var(--color-gold-400);flex:none}.outline-gold-button,.review-cta{color:var(--color-gold-300);background:#f7b32b14;border:1px solid #f7b32b80;border-radius:11px;align-items:center;gap:8px;margin-top:25px;padding:11px 16px;font-size:.78rem;font-weight:800;transition:all .18s;display:inline-flex}.outline-gold-button:hover,.review-cta:hover{background:var(--color-gold-400);color:var(--color-plum-950)}.specs-section{background:linear-gradient(115deg,#46235b75,#1e0e2aa8);border:1px solid #ffffff17;border-radius:25px;padding:clamp(18px,3vw,32px)}.specs-layout{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);align-items:stretch;gap:24px;display:grid}.specs-visual{background:var(--color-plum-950);border-radius:20px;min-height:255px;position:relative;overflow:hidden}.specs-visual:after{content:"";background:linear-gradient(#0000 38%,#170a20e0);position:absolute;inset:0}.specs-visual-caption{z-index:1;gap:4px;display:grid;position:absolute;bottom:17px;right:18px}.specs-visual-caption span{color:var(--color-gold-400);font-size:.72rem;font-weight:800}.specs-visual-caption strong{color:var(--color-cream);font-size:1rem}.specs-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;display:grid}.spec-item{background:#170a2059;border:1px solid #ffffff14;border-radius:16px;align-items:center;gap:13px;padding:17px 15px;transition:all .18s;display:flex}.spec-item:hover{background:#f7b32b0f;border-color:#f7b32b6b;transform:translateY(-2px)}.spec-item div{gap:5px;display:grid}.spec-item span{color:var(--color-lav);font-size:.7rem}.spec-item strong{color:var(--color-cream);font-size:.78rem}.horizontal-track{overscroll-behavior-inline:contain;scroll-behavior:smooth;scrollbar-width:thin;scroll-snap-type:inline mandatory;grid-auto-flow:column;gap:15px;padding:3px 2px 12px;display:grid;overflow-x:auto}.horizontal-track::-webkit-scrollbar{height:5px}.slider-shell{padding-inline:38px;position:relative}.slider-controls{z-index:3;pointer-events:none;position:absolute;inset:0}.slider-control{width:34px;height:34px;color:var(--color-gold-300);pointer-events:auto;background:#2b1439f5;border:1px solid #f7b32b61;border-radius:50%;place-items:center;transition:all .18s;display:grid;position:absolute;top:50%;transform:translateY(-50%);box-shadow:0 7px 20px #00000059}.slider-control:hover{border-color:var(--color-gold-400);background:var(--color-gold-400);color:var(--color-plum-950);transform:translateY(-50%)scale(1.08)}.slider-control-prev{right:0}.slider-control-next{left:0}.highlight-track{grid-auto-columns:minmax(190px,1fr)}.highlight-card{scroll-snap-align:start;text-align:right;min-width:0}.highlight-image{aspect-ratio:1.45;background:var(--color-plum-900);border:1px solid #ffffff1c;border-radius:14px;position:relative;overflow:hidden}.highlight-image:after,.suggested-image:after{content:"";pointer-events:none;background:linear-gradient(#0000 45%,#170a2073);position:absolute;inset:0}.highlight-image img,.suggested-image img{object-fit:cover;width:100%;height:100%;transition:transform .5s}.highlight-card:hover img,.suggested-product:hover .suggested-image img{transform:scale(1.07)}.highlight-arrow{z-index:1;background:var(--color-gold-400);width:29px;height:29px;color:var(--color-plum-950);border-radius:50%;place-items:center;display:grid;position:absolute;bottom:10px;right:10px}.products-track{grid-auto-columns:minmax(190px,1fr)}.suggested-product{scroll-snap-align:start;background:linear-gradient(150deg,#411f53bf,#1d0d29e0);border:1px solid #ffffff1a;border-radius:15px;min-width:0;transition:all .18s;overflow:hidden}.suggested-product:hover{border-color:#f7b32b73;transform:translateY(-4px)}.suggested-image{aspect-ratio:1.08;text-align:right;width:100%;display:block;position:relative;overflow:hidden}.product-tag,.suggested-heart{z-index:1;position:absolute}.product-tag{background:var(--color-berry);color:var(--color-cream);border-radius:7px;padding:4px 7px;font-size:.58rem;font-weight:800;top:10px;right:10px}.suggested-heart{width:28px;height:28px;color:var(--color-cream);background:#170a20ad;border-radius:50%;place-items:center;display:grid;top:9px;left:10px}.suggested-body{padding:13px}.suggested-body h3{color:var(--color-cream);margin-top:7px;font-size:.83rem;font-weight:800}.suggested-footer{justify-content:space-between;align-items:center;gap:7px;margin-top:13px;display:flex}.suggested-footer>span{color:var(--color-gold-400);font-size:.76rem;font-weight:900}.suggested-footer small{color:var(--color-lav);font-size:.57rem}.suggested-cart{background:var(--color-gold-400);width:31px;height:31px;color:var(--color-plum-950);border-radius:9px;place-items:center;transition:all .18s;display:grid}.suggested-cart:hover{background:var(--color-gold-200);transform:scale(1.08)}.faq-section{border-top:1px solid #ffffff17;padding-top:30px;display:block}.faq-section .below-section-title{margin-bottom:19px}.faq-list{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;display:grid}.faq-item{background:#3118406b;border:1px solid #ffffff17;border-radius:14px;transition:all .18s;overflow:hidden}.faq-item.is-open{background:#421f5594;border-color:#f7b32b59}.faq-item>button{width:100%;color:var(--color-cream);text-align:right;justify-content:space-between;align-items:center;gap:15px;padding:16px;font-size:.78rem;font-weight:800;display:flex}.faq-icon{width:25px;height:25px;color:var(--color-gold-400);background:#f7b32b24;border-radius:7px;flex:none;place-items:center;display:grid}.faq-answer{opacity:0;grid-template-rows:0fr;transition:all .25s;display:grid}.faq-answer-open{opacity:1;grid-template-rows:1fr}.faq-answer p{color:var(--color-lav);padding:0 16px;font-size:.74rem;line-height:2;overflow:hidden}.faq-answer-open p{padding-bottom:16px}.reviews-section{border-top:0;margin-top:34px;padding-top:0}.reviews-glass{-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);background:linear-gradient(105deg,#4b266461,#1e0e2ba6),#231031b8;border:1px solid #d9abff3d;border-radius:18px;overflow:hidden;box-shadow:inset 0 1px #ffffff14,0 18px 45px -28px #000000e6}.reviews-heading-row{direction:rtl;justify-content:space-between;align-items:flex-end;gap:18px;padding:12px 17px 0;display:flex}.reviews-heading-row .below-section-title{border-bottom:0;flex:1;margin-bottom:0;padding-bottom:8px}.reviews-summary{direction:rtl;border-left:1px solid #ffffff1a;flex-direction:column;justify-content:center;align-items:center;gap:9px;min-width:112px;padding:7px 18px;display:flex}.reviews-meta{align-items:center;min-height:25px;margin:4px 0 7px;display:flex}.reviews-content-row{direction:ltr;align-items:stretch;padding:0 13px 13px;display:flex}.reviews-content-row>.reviews-summary{flex:0 0 112px}.reviews-slider-shell{flex:1;min-width:0}.reviews-summary strong{color:var(--color-gold-400);font-size:1.55rem;font-weight:900}.reviews-summary span{color:var(--color-lav);font-size:.65rem}.reviews-track{grid-template-rows:minmax(0,1fr);grid-auto-columns:calc(33.3333% - 10px);padding-bottom:4px}.review-card{scroll-snap-align:start;background:#2f1a3f94;border:1px solid #ffffff17;border-radius:15px;min-width:0;min-height:142px;padding:12px 14px 10px}.review-head{align-items:center;gap:9px;display:flex}.review-avatar{background:linear-gradient(135deg,var(--color-gold-300),var(--color-gold-600));width:30px;height:30px;color:var(--color-plum-950);border-radius:50%;place-items:center;font-weight:900;display:grid}.review-head>div:nth-child(2){flex:1;gap:2px;display:grid}.review-head strong{color:var(--color-cream);font-size:.68rem}.review-head span{color:var(--color-lav);font-size:.57rem}.review-card>p{min-height:47px;color:var(--color-lav);margin-top:10px;font-size:.67rem;line-height:1.8}.review-verified{align-items:center;gap:4px;margin-top:5px;display:inline-flex;color:var(--color-mint)!important;font-size:.62rem!important}.review-cta{margin-top:0;margin-bottom:5px}.reviews-glass .review-cta{background:linear-gradient(135deg,var(--color-gold-300),var(--color-gold-500));color:var(--color-plum-950);border-color:#f7b32ba6;margin:0 0 8px;padding:7px 13px;font-size:.68rem}.reviews-glass .review-cta:hover{background:var(--color-gold-200)}.newsletter-section{background:var(--color-plum-900);border:1px solid #f7b32b59;border-radius:24px;min-height:230px;margin-top:72px;position:relative;overflow:hidden}.newsletter-section>img{position:absolute;inset:0}.newsletter-overlay{background:linear-gradient(90deg,#170a20f7 10%,#170a20d6 47%,#170a201f);position:absolute;inset:0}.newsletter-content{z-index:1;max-width:580px;padding:34px;position:relative}.newsletter-content h2{color:var(--color-cream);margin-top:6px;font-size:1.5rem;font-weight:900}.newsletter-content p{color:var(--color-lav);margin-top:8px;font-size:.78rem;line-height:1.9}.newsletter-form{gap:8px;max-width:460px;margin-top:19px;display:flex}.newsletter-form>div{background:#170a20a6;border:1px solid #ffffff24;border-radius:11px;flex:1;align-items:center;gap:8px;padding:0 12px;display:flex}.newsletter-form input{width:100%;color:var(--color-cream);background:0 0;outline:none;padding:11px 0;font-size:.76rem}.newsletter-form input::placeholder{color:#c7b3da9e}.newsletter-form button{background:var(--color-gold-400);color:var(--color-plum-950);border-radius:11px;padding:0 22px;font-size:.78rem;font-weight:900;transition:all .18s}.newsletter-form button:hover{background:var(--color-gold-200)}@media screen and (min-width:1280px){.product-page-main{grid-auto-rows:max-content}.left-col{flex-direction:column;gap:20px;display:flex}.gallery-slot,.panel-slot{align-self:stretch;min-width:0}.product-gallery{flex:auto;height:100%}.gallery-frame{flex:auto;min-height:560px}.gallery-thumbs{flex:none}.panel-slot>section{flex:auto}.promo-banner{margin:0}}@media screen and (max-width:1279px){body{overflow-x:hidden}.product-page-main{flex-direction:column;gap:0;width:100%;padding:0;display:flex}.product-page-main>*{width:100%;max-width:none}.gallery-slot{order:1}.panel-slot{order:2}.banner-slot{order:3}.product-gallery{flex-direction:column;gap:0;width:100%;display:flex}.gallery-frame{aspect-ratio:16/9;width:100%;min-height:0;box-shadow:none;border-inline:0;border-radius:0;flex:none}.gallery-frame>img,.gallery-frame>video{object-position:center center}.gallery-copy{text-align:right;max-width:44%;inset:10px 20px auto auto}.gallery-copy p{font-size:1rem;line-height:1.9}.gallery-frame>div:first-of-type{border-radius:11px;padding:7px 11px;top:14px;left:20px}.gallery-frame>div:first-of-type svg{width:19px;height:19px}.gallery-frame>div:first-of-type span{font-size:11px}.gallery-counter{display:none}.gallery-frame>button{width:43px;height:43px}.gallery-frame>button[aria-label="تصویر قبلی"]{right:16px}.gallery-frame>button[aria-label="تصویر بعدی"]{left:16px}.gallery-expand{border-radius:50%;bottom:12px;right:16px;width:35px!important;height:35px!important}.gallery-thumbs{flex-direction:row;gap:8px;width:100%;padding:10px 24px 15px;display:flex;overflow:hidden}.gallery-thumb{border-radius:12px;flex:1 1 0;width:auto;min-width:0}.gallery-thumb span{width:28px;height:28px}.gallery-thumb span svg{width:12px;height:12px}.product-panel{box-shadow:none;background:0 0;border-inline:0;border-radius:0;gap:18px;padding:8px 24px 0}.product-breadcrumb{display:none}.product-heading{direction:ltr;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;gap:10px 8px;display:flex}.mobile-category-badge{direction:rtl;margin-top:4px;display:flex}.product-title-copy{text-align:right;direction:rtl}.product-title-copy h1{font-size:2rem;line-height:1.35}.product-title-copy p{margin-top:2px;font-size:1rem}.product-heading>p{text-align:center;direction:rtl;flex-basis:100%;margin-top:0;font-size:.83rem;line-height:2.05}.rating-row{direction:ltr;grid-template-columns:1fr auto 1fr;align-items:center;gap:0;display:grid}.rating-row .rating-summary{grid-column:3}.rating-row .rating-divider{display:none}.rating-row .favorite-action{grid-column:2}.rating-row .share-action{grid-column:1}.rating-summary,.favorite-action,.share-action{white-space:nowrap;direction:rtl;justify-self:center}.rating-summary{align-items:center;gap:5px;display:flex}.rating-summary>span:last-child{font-size:10px}.rating-summary>span:nth-child(2){font-size:12px}.rating-row .favorite-action,.rating-row .share-action{font-size:10px}.product-features{grid-template-columns:repeat(4,minmax(0,1fr));gap:7px}.feature-item{border-radius:15px;gap:4px;min-width:0;padding:11px 3px 10px}.feature-item svg{width:22px;height:22px}.feature-item>span:first-of-type{font-size:10px;line-height:1.7}.feature-item>span:last-of-type{font-size:8px;line-height:1.65}.price-box{border-radius:17px;padding:14px 15px}.price-box>div:first-child span:first-child,.weight-picker>span{font-size:12px}.price-box>div:last-child{justify-content:flex-start;gap:8px}.price-box>div:last-child>span:last-child{font-size:1.75rem}.price-box>div:last-child>span:last-child span{font-size:.8rem}.price-box>div:last-child>span:first-child{font-size:11px}.weight-options{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;display:grid}.desktop-weight-label{display:none}.mobile-weight-label{display:inline!important}.weight-option{flex-direction:column;align-items:center;gap:3px;min-width:0;padding:9px 3px;font-size:11px;display:flex}.weight-option .weight-price{line-height:1.5;display:block!important}.purchase-actions{flex-direction:row;align-items:flex-end;gap:9px;display:flex}.quantity-row{flex:0 0 112px;order:2;display:block}.quantity-label,.shipping-line{display:none}.quantity-control{justify-content:space-around;width:100%;padding:3px}.quantity-control button{width:29px;height:38px}.quantity-control span{width:25px;font-size:14px}.add-button{border-radius:17px;flex:auto;order:1;min-width:0;height:55px;font-size:14px}.add-button svg{width:21px;height:21px}.guarantees{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}.guarantee-item{text-align:center;background:0 0;border:0;flex-direction:column;gap:4px;min-width:0;padding:2px 1px 6px;line-height:1.7}.guarantee-item svg{width:25px;height:25px}.promo-banner{border-radius:17px;margin:19px 24px 0}.promo-banner>div{gap:10px;min-height:100px;padding:14px 15px}.promo-banner h2{font-size:1rem}.promo-banner p{margin-top:3px;font-size:.7rem}.promo-banner button{border-radius:50%;flex:0 0 38px;justify-content:center;width:38px;height:38px;padding:0;font-size:0}.promo-banner button svg{width:18px;height:18px}.below-product{padding:0 24px 8px}.below-section{margin-top:30px}.below-section-title{margin-bottom:15px;padding-bottom:11px}.below-section-title h2{font-size:1.05rem}.slider-shell{padding-inline:28px}.slider-glass{border-radius:16px;padding:12px 8px 8px}.slider-glass .below-section-title{margin-bottom:8px;padding:0 5px 8px}.slider-glass .slider-shell{padding-inline:21px}.slider-glass .slider-control-prev{right:-1px}.slider-glass .slider-control-next{left:-1px}.slider-control{width:28px;height:28px}.slider-control svg{width:14px;height:14px}.section-kicker{font-size:.64rem}.about-story{flex-direction:column;align-items:stretch;gap:20px;padding:27px 0 0;display:flex}.about-story-media{border-radius:18px;order:1;min-height:205px}.about-story-badge{border-radius:12px;padding:8px 11px;bottom:14px;left:auto;right:14px}.about-story-badge strong{font-size:.72rem}.about-story-badge span{font-size:.57rem}.about-story-copy{order:2}.about-story-copy h2{font-size:1.25rem}.about-story-copy p{margin-top:10px;font-size:.73rem;line-height:2.05}.about-checks{gap:5px;margin-top:15px}.about-checks li{align-items:flex-start;gap:3px;font-size:.58rem;line-height:1.7}.about-checks svg{width:13px;height:13px}.outline-gold-button{margin-top:15px;padding:8px 12px;font-size:.64rem}.specs-section{border-radius:18px;padding:15px 12px}.specs-layout{flex-direction:column;gap:12px;display:flex}.specs-visual{border-radius:14px;min-height:170px}.specs-visual-caption{bottom:11px;right:13px}.specs-visual-caption span{font-size:.6rem}.specs-visual-caption strong{font-size:.76rem}.specs-grid{gap:6px}.spec-item{border-radius:11px;gap:7px;padding:10px 7px}.spec-item svg{width:18px;height:18px}.spec-item div{gap:3px}.spec-item span{font-size:.55rem}.spec-item strong{font-size:.61rem}.highlight-track{grid-auto-columns:67%;gap:9px}.highlight-image{border-radius:13px}.highlight-card>span{font-size:.72rem}.highlight-card>span:last-child{font-size:.61rem}.products-track{grid-auto-columns:70%;gap:9px}.suggested-product{border-radius:15px}.suggested-body{padding:10px}.suggested-body h3{font-size:.72rem}.suggested-footer{margin-top:9px}.suggested-footer>span{font-size:.65rem}.faq-section{padding-top:22px;display:block}.faq-section .below-section-title{margin-bottom:15px}.faq-list{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}.faq-item>button{gap:8px;padding:12px 11px;font-size:.65rem}.faq-icon{width:22px;height:22px}.faq-answer p{padding-inline:11px;font-size:.63rem;line-height:1.95}.faq-answer-open p{padding-bottom:11px}.reviews-section{margin-top:24px;padding-top:0}.reviews-glass{border-radius:16px}.reviews-heading-row{gap:7px;padding:10px 11px 0}.reviews-heading-row .below-section-title{padding-bottom:5px}.reviews-content-row{padding:0 7px 8px}.reviews-content-row>.reviews-summary{flex-basis:79px;min-width:79px;padding:4px 6px}.reviews-heading-row .review-cta{flex:none;margin:0;padding:7px 9px;font-size:.59rem}.reviews-summary{justify-content:flex-start;gap:4px;margin:0}.reviews-summary strong{font-size:1.45rem}.reviews-summary span{text-align:center;font-size:.58rem}.reviews-slider-shell{padding-inline:22px}.reviews-track{grid-auto-columns:100%;gap:9px;padding-inline:0}.review-card{border-radius:14px;min-height:122px;padding:10px}.review-card>p{min-height:58px;margin-top:11px;font-size:.64rem;line-height:1.9}.review-cta{margin-top:8px;padding:8px 12px;font-size:.64rem}.newsletter-section{border-radius:18px;min-height:224px;margin-top:42px}.newsletter-overlay{background:linear-gradient(90deg,#170a20f5 3%,#170a20c7 62%,#170a204d)}.newsletter-content{max-width:75%;padding:22px 17px}.newsletter-content h2{font-size:1rem}.newsletter-content p{font-size:.62rem;line-height:1.9}.newsletter-form{grid-template-columns:1fr auto;gap:5px;margin-top:13px;display:grid}.newsletter-form>div{min-width:0;padding:0 8px}.newsletter-form input{min-width:0;padding:9px 0;font-size:.62rem}.newsletter-form button{padding:0 12px;font-size:.63rem}footer{margin-top:32px}}@property --tw-translate-x{syntax:"*";inherits:false;initial-value:0}@property --tw-translate-y{syntax:"*";inherits:false;initial-value:0}@property --tw-translate-z{syntax:"*";inherits:false;initial-value:0}@property --tw-border-style{syntax:"*";inherits:false;initial-value:solid}@property --tw-gradient-position{syntax:"*";inherits:false}@property --tw-gradient-from{syntax:"<color>";inherits:false;initial-value:#0000}@property --tw-gradient-via{syntax:"<color>";inherits:false;initial-value:#0000}@property --tw-gradient-to{syntax:"<color>";inherits:false;initial-value:#0000}@property --tw-gradient-stops{syntax:"*";inherits:false}@property --tw-gradient-via-stops{syntax:"*";inherits:false}@property --tw-gradient-from-position{syntax:"<length-percentage>";inherits:false;initial-value:0%}@property --tw-gradient-via-position{syntax:"<length-percentage>";inherits:false;initial-value:50%}@property --tw-gradient-to-position{syntax:"<length-percentage>";inherits:false;initial-value:100%}@property --tw-leading{syntax:"*";inherits:false}@property --tw-font-weight{syntax:"*";inherits:false}@property --tw-tracking{syntax:"*";inherits:false}@property --tw-shadow{syntax:"*";inherits:false;initial-value:0 0 #0000}@property --tw-shadow-color{syntax:"*";inherits:false}@property --tw-shadow-alpha{syntax:"<percentage>";inherits:false;initial-value:100%}@property --tw-inset-shadow{syntax:"*";inherits:false;initial-value:0 0 #0000}@property --tw-inset-shadow-color{syntax:"*";inherits:false}@property --tw-inset-shadow-alpha{syntax:"<percentage>";inherits:false;initial-value:100%}@property --tw-ring-color{syntax:"*";inherits:false}@property --tw-ring-shadow{syntax:"*";inherits:false;initial-value:0 0 #0000}@property --tw-inset-ring-color{syntax:"*";inherits:false}@property --tw-inset-ring-shadow{syntax:"*";inherits:false;initial-value:0 0 #0000}@property --tw-ring-inset{syntax:"*";inherits:false}@property --tw-ring-offset-width{syntax:"<length>";inherits:false;initial-value:0}@property --tw-ring-offset-color{syntax:"*";inherits:false;initial-value:#fff}@property --tw-ring-offset-shadow{syntax:"*";inherits:false;initial-value:0 0 #0000}@property --tw-blur{syntax:"*";inherits:false}@property --tw-brightness{syntax:"*";inherits:false}@property --tw-contrast{syntax:"*";inherits:false}@property --tw-grayscale{syntax:"*";inherits:false}@property --tw-hue-rotate{syntax:"*";inherits:false}@property --tw-invert{syntax:"*";inherits:false}@property --tw-opacity{syntax:"*";inherits:false}@property --tw-saturate{syntax:"*";inherits:false}@property --tw-sepia{syntax:"*";inherits:false}@property --tw-drop-shadow{syntax:"*";inherits:false}@property --tw-drop-shadow-color{syntax:"*";inherits:false}@property --tw-drop-shadow-alpha{syntax:"<percentage>";inherits:false;initial-value:100%}@property --tw-drop-shadow-size{syntax:"*";inherits:false}@property --tw-backdrop-blur{syntax:"*";inherits:false}@property --tw-backdrop-brightness{syntax:"*";inherits:false}@property --tw-backdrop-contrast{syntax:"*";inherits:false}@property --tw-backdrop-grayscale{syntax:"*";inherits:false}@property --tw-backdrop-hue-rotate{syntax:"*";inherits:false}@property --tw-backdrop-invert{syntax:"*";inherits:false}@property --tw-backdrop-opacity{syntax:"*";inherits:false}@property --tw-backdrop-saturate{syntax:"*";inherits:false}@property --tw-backdrop-sepia{syntax:"*";inherits:false}@property --tw-duration{syntax:"*";inherits:false}@property --tw-scale-x{syntax:"*";inherits:false;initial-value:1}@property --tw-scale-y{syntax:"*";inherits:false;initial-value:1}@property --tw-scale-z{syntax:"*";inherits:false;initial-value:1}@keyframes ping{75%,to{opacity:0;transform:scale(2)}}@keyframes toast-in{0%{opacity:0;transform:translateY(18px)scale(.95)}to{opacity:1;transform:translateY(0)scale(1)}}@keyframes slide-fade{0%{opacity:0;transform:scale(1.03)}to{opacity:1;transform:scale(1)}}@keyframes drop{0%{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}@keyframes pop{0%{transform:scale(.6)}to{transform:scale(1)}}
+````
+
 ## Source Snapshot — `plugin/alookhor-control-center/assets/css/frontend-product.css`
 
 ````css
@@ -5652,6 +5659,79 @@ body.alookhor-pdp-body .alpm-ribbon{
  box-shadow:0 10px 24px rgba(0,0,0,.4);
  outline:1px solid rgba(255,211,122,.6);color:#fbf3e2;
 }
+
+/* ===== v3.10.225 — EXACT REACT PORT (owner zip) — full fidelity, fixes white FAQ, Samsung demo filter =====
+   This block guarantees the PDP looks 100% like the 5 reference screenshots:
+   plum canvas #170a20 + radial glows, gold #f7b32b, berry #e42a68, mint #3bd684,
+   vertical thumb rail 96px desktop, gold gradient ribbon -3deg, script Noto Nastaliq,
+   panel flat gradient, pricebox, weight chips gold ring, qty stepper, CTA gold,
+   banner with overlay, below: about/story, specs, slider-glass, FAQ dark, reviews glass,
+   newsletter. All selectors prefixed with body.alookhor-pdp-body for cascade win. */
+body.alookhor-pdp-body{background:#170a20!important}
+body.alookhor-pdp-body .alookhor-alp.app-bg{
+ background:radial-gradient(1100px 560px at 88% -12%,rgba(124,62,162,.38),transparent 62%),radial-gradient(820px 480px at 4% 14%,rgba(247,179,43,.07),transparent 60%),radial-gradient(900px 600px at 50% 110%,rgba(90,40,120,.25),transparent 65%),#170a20!important;
+ color:#c7b3da;
+}
+body.alookhor-pdp-body .product-page-main{max-width:1440px}
+body.alookhor-pdp-body .product-gallery .gallery-frame{background:#22112c;border:1px solid rgba(255,255,255,.08);border-radius:24px;box-shadow:0 30px 80px -40px rgba(0,0,0,.9)}
+body.alookhor-pdp-body .product-gallery .gallery-frame img{object-fit:cover}
+body.alookhor-pdp-body .product-panel{
+ background:linear-gradient(to bottom,rgba(59,33,80,.72),rgba(47,26,63,.62))!important;
+ border:1px solid rgba(255,255,255,.08)!important;
+ border-radius:24px!important;
+ box-shadow:0 30px 80px -40px rgba(0,0,0,.9)!important;
+}
+body.alookhor-pdp-body .product-panel h1{color:#fbf3e2!important}
+body.alookhor-pdp-body .product-panel .text-gold-400{color:#f7b32b!important}
+body.alookhor-pdp-body .product-panel .text-cream{color:#fbf3e2!important}
+body.alookhor-pdp-body .product-panel .text-lav{color:#c7b3da!important}
+body.alookhor-pdp-body .price-box{background:rgba(23,10,32,.5)!important;border:1px solid rgba(255,255,255,.08)!important;border-radius:16px!important}
+body.alookhor-pdp-body .price-box .bg-berry{background:#e42a68!important}
+body.alookhor-pdp-body .price-box .text-gold-400{color:#f7b32b!important}
+body.alookhor-pdp-body .weight-option{border:1px solid rgba(255,255,255,.10)!important;background:rgba(34,17,44,.6)!important;color:#c7b3da!important;border-radius:12px!important}
+body.alookhor-pdp-body .weight-option:hover{border-color:rgba(255,255,255,.25)!important;color:#fbf3e2!important}
+body.alookhor-pdp-body .weight-option.border-gold-400{background:rgba(247,179,43,.10)!important;color:#ffd37a!important;border-color:#f7b32b!important;box-shadow:0 0 0 3px rgba(247,179,43,.15)!important}
+body.alookhor-pdp-body .quantity-control{border:1px solid rgba(255,255,255,.10)!important;background:rgba(34,17,44,.6)!important;border-radius:12px!important}
+body.alookhor-pdp-body .add-button{background:linear-gradient(to left,#ffd37a,#f7b32b,#ef9f1f)!important;color:#170a20!important;border-radius:16px!important;box-shadow:0 15px 40px -12px rgba(247,179,43,.65)!important}
+body.alookhor-pdp-body .promo-banner{border-radius:24px!important;border:1px solid rgba(247,179,43,.25)!important;box-shadow:0 25px 60px -30px rgba(0,0,0,.9)!important}
+body.alookhor-pdp-body .below-product .about-story-media{border:1px solid rgba(247,179,43,.28)!important;border-radius:28px!important;background:#22112c!important;box-shadow:0 24px 65px -35px rgba(0,0,0,.95)!important}
+body.alookhor-pdp-body .below-product .specs-section{border:1px solid rgba(255,255,255,.09)!important;border-radius:25px!important;background:linear-gradient(115deg,rgba(70,35,91,.46),rgba(30,14,42,.66))!important}
+body.alookhor-pdp-body .below-product .slider-glass{
+ border:1px solid rgba(217,171,255,.24)!important;
+ border-radius:18px!important;
+ background:linear-gradient(105deg,rgba(75,38,100,.38),rgba(30,14,43,.65)),rgba(35,16,49,.72)!important;
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 18px 45px -28px rgba(0,0,0,.9)!important;
+ backdrop-filter:blur(16px)!important;
+}
+body.alookhor-pdp-body .below-product .faq-item{
+ background:rgba(49,24,64,.42)!important;
+ border:1px solid rgba(255,255,255,.09)!important;
+ border-radius:14px!important;
+}
+body.alookhor-pdp-body .below-product .faq-item.is-open{background:rgba(66,31,85,.58)!important;border-color:rgba(247,179,43,.35)!important}
+body.alookhor-pdp-body .below-product .faq-item>button{color:#fbf3e2!important}
+body.alookhor-pdp-body .below-product .faq-answer p{color:#c7b3da!important}
+body.alookhor-pdp-body .below-product .reviews-glass{
+ border:1px solid rgba(217,171,255,.24)!important;
+ border-radius:18px!important;
+ background:linear-gradient(105deg,rgba(75,38,100,.38),rgba(30,14,43,.65)),rgba(35,16,49,.72)!important;
+ backdrop-filter:blur(16px)!important;
+}
+body.alookhor-pdp-body .below-product .review-card{background:rgba(47,26,63,.58)!important;border:1px solid rgba(255,255,255,.09)!important;border-radius:15px!important}
+body.alookhor-pdp-body .below-product .newsletter-section{border:1px solid rgba(247,179,43,.35)!important;border-radius:24px!important;background:#22112c!important}
+body.alookhor-pdp-body .alookhor-alp .suggested-product{background:linear-gradient(150deg,rgba(65,31,83,.75),rgba(29,13,41,.88))!important;border:1px solid rgba(255,255,255,.1)!important;border-radius:15px!important}
+body.alookhor-pdp-body .alookhor-alp .suggested-product:hover{border-color:rgba(247,179,43,.45)!important}
+body.alookhor-pdp-body .alookhor-alp .highlight-card .highlight-image{border:1px solid rgba(255,255,255,.11)!important;border-radius:14px!important;background:#22112c!important}
+body.alookhor-pdp-body .gallery-thumbs button.is-on{border-color:#f7b32b!important;box-shadow:0 0 0 3px rgba(247,179,43,.18)!important}
+@media(min-width:1101px){
+ body.alookhor-pdp-body .product-gallery{display:flex!important;gap:14px!important;align-items:flex-start!important}
+ body.alookhor-pdp-body .product-gallery .gallery-frame{flex:1 1 auto!important;min-width:0!important}
+ body.alookhor-pdp-body .product-gallery .gallery-thumbs{flex:0 0 96px!important;display:flex!important;flex-direction:column!important;gap:12px!important;max-height:620px!important;overflow-y:auto!important}
+}
+@media(max-width:1279px){
+ body.alookhor-pdp-body .product-gallery .gallery-frame{border-radius:0!important;border-inline:0!important;aspect-ratio:16/9!important}
+ body.alookhor-pdp-body .product-gallery .gallery-thumbs{flex-direction:row!important;width:100%!important}
+}
 ````
 
 ## Source Snapshot — `plugin/alookhor-control-center/assets/css/frontend-responsive-v2.css`
@@ -6406,15 +6486,15 @@ tr:last-child td{border-bottom:0}
 
 ````javascript
 // Release query prevents stale ES Modules after a WordPress-native update.
-import { initResponsive } from './core/responsive.js?v=3.10.224';
-import { initUpdater, Updater } from './core/updateSystem.js?v=3.10.224';
-import { Config } from './core/config.js?v=3.10.224';
-import { dashboardModule } from './modules/dashboard.js?v=3.10.224';
-import { inventoryModule } from './modules/inventory.js?v=3.10.224';
-import { ordersModule } from './modules/orders.js?v=3.10.224';
-import { usersModule } from './modules/users.js?v=3.10.224';
-import { analyticsModule } from './modules/analytics.js?v=3.10.224';
-import { settingsModule } from './modules/settings.js?v=3.10.224';
+import { initResponsive } from './core/responsive.js?v=3.10.225';
+import { initUpdater, Updater } from './core/updateSystem.js?v=3.10.225';
+import { Config } from './core/config.js?v=3.10.225';
+import { dashboardModule } from './modules/dashboard.js?v=3.10.225';
+import { inventoryModule } from './modules/inventory.js?v=3.10.225';
+import { ordersModule } from './modules/orders.js?v=3.10.225';
+import { usersModule } from './modules/users.js?v=3.10.225';
+import { analyticsModule } from './modules/analytics.js?v=3.10.225';
+import { settingsModule } from './modules/settings.js?v=3.10.225';
 
 const modules = {
   dashboard: dashboardModule,
@@ -7000,7 +7080,7 @@ export function initResponsive() {
 // UI/state remain modular; version discovery and installation are delegated to WordPress.
 
 const runtimeConfig = window.ALOOKHOR_CC || {};
-const runtimeVersion = String(runtimeConfig.version || '3.10.224');
+const runtimeVersion = String(runtimeConfig.version || '3.10.225');
 
 function normalizeResult(data = {}) {
   const current = String(data.current || runtimeVersion);
@@ -8173,112 +8253,150 @@ const $=(s,r=document)=>r.querySelector(s);
 const $$=(s,r=document)=>Array.from(r.querySelectorAll(s));
 const FA='۰۱۲۳۴۵۶۷۸۹';
 const faNum=v=>String(v).replace(/\d/g,x=>FA[+x]);
-/* toast (mockup style) */
+
 let toastTimer=0;
 function toast(msg){
- const t=$('[data-toast]');if(!t)return;
- const m=$('[data-toast-msg]',t);if(m)m.textContent=msg;
+ const t=$('[data-toast]'); if(!t) return;
+ const m=$('[data-toast-msg]',t); if(m) m.textContent=msg;
  t.hidden=false;
- const box=t.querySelector('.alpm-toast-in');
+ const box=t.querySelector('.alpm-toast-in')||t.firstElementChild;
  if(box){box.style.animation='none';void box.offsetWidth;box.style.animation='';}
  clearTimeout(toastTimer);
- toastTimer=setTimeout(()=>{t.hidden=true},2800);
+ toastTimer=setTimeout(()=>{t.hidden=true},3000);
 }
-/* gallery: thumbs, arrows, counter */
+
+/* gallery: support both old .alpm-thumbs and new .gallery-thumbs */
 function gallery(){
  const stage=$('#alpMain');
- const thumbs=$$('.alpm-thumbs button');
- if(!stage||!thumbs.length)return;
+ const thumbs=$$('.gallery-thumbs button, .alpm-thumbs button, .gallery-thumb');
+ if(!stage||!thumbs.length) return;
  const num=$('[data-gal-num]');
  let idx=0;
  const show=i=>{
   idx=(i+thumbs.length)%thumbs.length;
-  const t=thumbs[idx];if(!t)return;
-  thumbs.forEach(b=>b.classList.remove('is-on'));
+  const t=thumbs[idx]; if(!t) return;
+  thumbs.forEach(b=>{b.classList.remove('is-on'); b.classList.remove('border-gold-400'); b.classList.add('border-white/10');});
   t.classList.add('is-on');
-  const src=t.dataset.src||'';
-  if(src&&src!==stage.getAttribute('src')){
+  // new design active styles
+  t.classList.add('border-gold-400');
+  t.classList.remove('border-white/10');
+  t.classList.add('shadow-[0_0_0_3px_rgba(247,179,43,0.25)]');
+  const src=t.dataset.src||t.querySelector('img')?.src||'';
+  if(src && src!==stage.getAttribute('src')){
    stage.classList.add('is-changing');
-   setTimeout(()=>{stage.setAttribute('src',src);stage.classList.remove('is-changing')},160);
+   setTimeout(()=>{stage.setAttribute('src',src); stage.classList.remove('is-changing');},160);
   }
-  if(num)num.textContent=faNum(idx+1);
+  if(num) num.textContent=faNum(idx+1);
  };
  thumbs.forEach((t,i)=>t.addEventListener('click',()=>show(i)));
  $$('[data-gal-prev]').forEach(b=>b.addEventListener('click',()=>show(idx-1)));
  $$('[data-gal-next]').forEach(b=>b.addEventListener('click',()=>show(idx+1)));
 }
-/* fullscreen (mockup expand button) */
+
 function fullscreen(){
- const btn=$('[data-fs]'),frame=$('[data-stage]');
- if(!btn||!frame)return;
+ const btn=$('[data-fs]'), frame=$('[data-stage]');
+ if(!btn||!frame) return;
  btn.addEventListener('click',()=>{
   if(document.fullscreenElement){(document.exitFullscreen()||Promise.resolve()).catch(()=>{});return;}
   if(!frame.requestFullscreen){toast('مرورگر شما از حالت تمام‌صفحه پشتیبانی نمی‌کند');return;}
   frame.requestFullscreen().catch(()=>toast('مرورگر شما از حالت تمام‌صفحه پشتیبانی نمی‌کند'));
  });
 }
-/* accordions */
+
+/* FAQ accordion for both old and new */
 function accordions(){
+ // old
  $$('[data-acc-t]').forEach(t=>{
   t.addEventListener('click',()=>{
    const body=t.parentElement.querySelector('.alp-acc-b');
    const open=t.classList.toggle('is-open');
-   if(body)body.classList.toggle('is-open',open);
+   if(body) body.classList.toggle('is-open',open);
+  });
+ });
+ // new React style
+ $$('[data-faq] button').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+   const item=btn.closest('[data-faq]');
+   const ans=item.querySelector('.faq-answer');
+   const isOpen=item.classList.contains('is-open');
+   // close others
+   $$('[data-faq]').forEach(i=>{
+    i.classList.remove('is-open');
+    const a=i.querySelector('.faq-answer'); if(a){a.classList.remove('faq-answer-open'); a.style.gridTemplateRows='0fr'; a.style.opacity='0';}
+    const plus=i.querySelector('.icon-plus'); const minus=i.querySelector('.icon-minus');
+    if(plus) plus.classList.remove('hidden'); if(minus) minus.classList.add('hidden');
+    const b=i.querySelector('button'); if(b) b.setAttribute('aria-expanded','false');
+   });
+   if(!isOpen){
+    item.classList.add('is-open');
+    if(ans){ans.classList.add('faq-answer-open'); ans.style.gridTemplateRows='1fr'; ans.style.opacity='1';}
+    const plus=item.querySelector('.icon-plus'); const minus=item.querySelector('.icon-minus');
+    if(plus) plus.classList.add('hidden'); if(minus) minus.classList.remove('hidden');
+    btn.setAttribute('aria-expanded','true');
+   }
   });
  });
 }
-/* gift options */
+
 function giftOpts(){
  $$('[data-opt]').forEach(o=>o.addEventListener('click',()=>o.classList.toggle('is-on')));
 }
-/* quantity (Persian digits, 1..10) + add-to-cart urls */
+
 function quantity(){
- const q=$('#alpQty');if(!q)return;
- let n=1;const min=1,max=10;
- const apply=()=>{q.textContent=faNum(n);
+ const q=$('#alpQty'); if(!q) return;
+ let n=1; const min=1,max=10;
+ const apply=()=>{
+  q.textContent=faNum(n);
   $$('[data-base]').forEach(a=>{
    let url=a.dataset.base||a.getAttribute('href')||'';
    url=url.replace(/([?&])quantity=\d*/,'$1quantity='+n);
-   if(!/[?&]quantity=/.test(url))url+=(url.includes('?')?'&':'?')+'quantity='+n;
+   if(!/[?&]quantity=/.test(url)) url+=(url.includes('?')?'&':'?')+'quantity='+n;
    a.setAttribute('href',url);
   });
  };
  $$('[data-q]').forEach(b=>b.addEventListener('click',()=>{
-  n=Math.min(max,Math.max(min,n+(parseInt(b.dataset.q,10)||0)));apply();
+  const dir=parseInt(b.dataset.q,10)||0;
+  // note: in new design + is first button, - is last, but we support both
+  // original had + as +1, - as -1; we keep same
+  n=Math.min(max,Math.max(min,n+dir)); apply();
  }));
  apply();
 }
-/* weight chips -> price + variation id */
+
 function weights(){
- const buttons=$$('.alpm-wchips button, .alp-weights button');if(!buttons.length)return;
- const priceEl=$('.alp-price-now');const single=priceEl?priceEl.dataset.single||'':'';
+ const buttons=$$('.weight-option, .alpm-wchips button, .alp-weights button'); if(!buttons.length) return;
+ const priceEl=$('.alp-price-now, .alpm-pnow'); const single=priceEl?priceEl.dataset.single||'':'';
  buttons.forEach(b=>b.addEventListener('click',()=>{
-  buttons.forEach(x=>{x.classList.remove('is-on');x.setAttribute('aria-checked','false')});
-  b.classList.add('is-on');b.setAttribute('aria-checked','true');
-  if(priceEl)priceEl.innerHTML=b.dataset.price?b.dataset.price:(single||priceEl.innerHTML);
+  buttons.forEach(x=>{x.classList.remove('is-on'); x.classList.remove('border-gold-400','bg-gold-400/10','text-gold-300','shadow-[0_0_0_3px_rgba(247,179,43,0.15)]'); x.classList.add('border-white/10','bg-plum-900/60','text-lav'); x.setAttribute('aria-checked','false');});
+  b.classList.add('is-on'); b.classList.add('border-gold-400','bg-gold-400/10','text-gold-300','shadow-[0_0_0_3px_rgba(247,179,43,0.15)]'); b.classList.remove('border-white/10','bg-plum-900/60','text-lav'); b.setAttribute('aria-checked','true');
+  if(priceEl){
+   const newPrice=b.dataset.price||'';
+   if(newPrice) priceEl.innerHTML=newPrice;
+   else if(single) priceEl.innerHTML=single;
+  }
   const vid=parseInt(b.dataset.vid,10);
   if(vid>0)$$('[data-base]').forEach(a=>{
-   a.dataset.base=a.dataset.base.replace(/add-to-cart=\d+/,'add-to-cart='+vid);
-   a.setAttribute('href',a.dataset.base);
+   let base=a.dataset.base||a.getAttribute('href')||'';
+   base=base.replace(/add-to-cart=\d+/,'add-to-cart='+vid);
+   a.dataset.base=base; a.setAttribute('href',base);
   });
  }));
 }
-/* wishlist (heart + label + toast) + share */
+
 function wishlistShare(){
  $$('[data-wish]').forEach(b=>{
   const lab=b.querySelector('[data-wish-label]');
-  let pid='';
-  try{pid=String(($('#alpAdd')?.getAttribute('href')||'').match(/add-to-cart=(\d+)/)?.[1]||document.body.dataset.pdpId||'');}catch(e){}
+  let pid=''; try{pid=String(($('#alpAdd')?.getAttribute('href')||'').match(/add-to-cart=(\d+)/)?.[1]||'');}catch(e){}
   try{
    const list=JSON.parse(localStorage.getItem('alookhor_wishlist')||'[]');
-   if(pid&&list.includes(pid)){b.classList.add('is-on');b.setAttribute('aria-pressed','true');if(lab)lab.textContent='در علاقه‌مندی‌های شما';}
+   if(pid&&list.includes(pid)){b.classList.add('is-on'); b.setAttribute('aria-pressed','true'); if(lab)lab.textContent='در علاقه‌مندی‌های شما';}
   }catch(e){}
   b.addEventListener('click',()=>{
    try{
     const set=new Set(JSON.parse(localStorage.getItem('alookhor_wishlist')||'[]'));
     const on=!b.classList.contains('is-on');
-    b.classList.toggle('is-on',on);b.setAttribute('aria-pressed',on?'true':'false');
-    if(pid){if(on)set.add(pid);else set.delete(pid);localStorage.setItem('alookhor_wishlist',JSON.stringify(Array.from(set)));}
+    b.classList.toggle('is-on',on); b.setAttribute('aria-pressed',on?'true':'false');
+    if(pid){if(on)set.add(pid);else set.delete(pid); localStorage.setItem('alookhor_wishlist',JSON.stringify(Array.from(set)));}
     if(lab)lab.textContent=on?'در علاقه‌مندی‌های شما':'افزودن به علاقه‌مندی‌ها';
     toast(on?'به علاقه‌مندی‌های شما اضافه شد':'از علاقه‌مندی‌ها حذف شد');
    }catch(e){}
@@ -8287,43 +8405,53 @@ function wishlistShare(){
  $$('[data-share]').forEach(b=>b.addEventListener('click',async()=>{
   const data={title:b.dataset.name||document.title,url:b.dataset.url||location.href};
   try{
-   if(navigator.share){await navigator.share(data);return}
+   if(navigator.share){await navigator.share(data);return;}
    await navigator.clipboard.writeText(data.url);
-   const s=b.querySelector('span');if(s){s.textContent='پیام کپی شد';setTimeout(()=>s.textContent='اشتراک‌گذاری',2000)}
-  }catch(e){}
+   toast('لینک محصول کپی شد');
+  }catch(e){toast('لینک کپی شد');}
  }));
 }
-/* bundle add-all */
-function bundle(){
- const btn=$('[data-addall]');if(!btn)return;
- btn.addEventListener('click',async()=>{
-  let ids=[];try{ids=JSON.parse(btn.dataset.addall)}catch(e){}
-  if(!ids.length)return;
-  btn.disabled=true;const cart=$('#alookhor-pdp')?.dataset.cart||'/cart/';
-  try{
-   for(const id of ids){
-    const body=new URLSearchParams({product_id:String(id),quantity:'1'});
-    await fetch(location.origin+'/?wc-ajax=add_to_cart',{method:'POST',credentials:'same-origin',headers:{'Content-Type':'application/x-www-form-urlencoded'},body});
-   }
-   location.href=cart;
-  }catch(e){location.href=cart+'?add-to-cart='+ids[0];}
- });
+
+function sliders(){
+ const bind=(trackSel,prevSel,nextSel)=>{
+  const track=$(trackSel); if(!track) return;
+  const prev=$(prevSel), next=$(nextSel);
+  const step=310;
+  if(prev) prev.addEventListener('click',()=>track.scrollBy({left:-step,behavior:'smooth'}));
+  if(next) next.addEventListener('click',()=>track.scrollBy({left:step,behavior:'smooth'}));
+ };
+ bind('[data-htrack]','[data-hprev]','[data-hnext]');
+ bind('[data-ptrack]','[data-pprev]','[data-pnext]');
+ bind('[data-rtrack]','[data-rprev]','[data-rnext]');
 }
-/* recently viewed */
+
+function newsletter(){
+ const form=$('[data-newsletter]'); if(!form) return;
+ form.addEventListener('submit',e=>{
+  e.preventDefault();
+  const input=form.querySelector('input[type=email]'); const val=input?input.value.trim():'';
+  if(!val||!val.includes('@')||!val.includes('.')){toast('لطفاً یک ایمیل معتبر وارد کنید');return;}
+  if(input) input.value='';
+  toast('عضویت شما در خبرنامه الخور با موفقیت انجام شد');
+ });
+ const cta=$('[data-review-cta]'); if(cta) cta.addEventListener('click',()=>toast('فرم ثبت نظر به‌زودی برای شما فعال می‌شود'));
+}
+
 function viewed(){
- const sec=$('#alpViewed'),rail=$('#alpViewedRail');if(!sec||!rail)return;
- let list=[];try{list=JSON.parse(localStorage.getItem('alookhor_rv')||'[]')}catch(e){}
- const name=$('.alpm-title')?.textContent||document.title;
+ const sec=$('#alpViewed'),rail=$('#alpViewedRail'); if(!sec||!rail) return;
+ let list=[]; try{list=JSON.parse(localStorage.getItem('alookhor_rv')||'[]')}catch(e){}
+ const name=$('.product-title-copy h1')?.textContent||$('.alpm-title')?.textContent||document.title;
  const img=$('#alpMain')?.src||'';
  const price=$('.alp-price-now')?.dataset?.single||'';
  const href=location.href;
  list=list.filter(v=>v&&v.u!==href);
  const html=(v)=>`<article class="alp-card"><a class="alp-card-img" href="${v.u}"><img src="${v.i}" alt="" loading="lazy"></a><div class="alp-card-body"><h3><a href="${v.u}">${v.n}</a></h3>${v.p?`<span class="alp-card-price">${v.p}</span>`:''}</div></article>`;
- if(list.length){sec.hidden=false;rail.innerHTML=list.map(html).join('')}
- if(name&&img)list.unshift({n:name,u:href,i:img,p:price});
+ if(list.length){sec.hidden=false;rail.innerHTML=list.map(html).join('');}
+ if(name&&img) list.unshift({n:name,u:href,i:img,p:price});
  localStorage.setItem('alookhor_rv',JSON.stringify(list.slice(0,8)));
 }
-function boot(){gallery();fullscreen();accordions();giftOpts();quantity();weights();wishlistShare();bundle();viewed()}
+
+function boot(){gallery();fullscreen();accordions();giftOpts();quantity();weights();wishlistShare();sliders();newsletter();viewed();}
 document.readyState==='loading'?document.addEventListener('DOMContentLoaded',boot):boot();
 })();
 ````
@@ -8838,7 +8966,7 @@ export const analyticsModule = {
 ## Source Snapshot — `plugin/alookhor-control-center/assets/js/modules/dashboard.js`
 
 ````javascript
-import { Config } from '../core/config.js?v=3.10.224';
+import { Config } from '../core/config.js?v=3.10.225';
 
 const escapeHTML = value => String(value ?? '').replace(/[&<>'"]/g, char => ({
   '&':'&amp;', '<':'&lt;', '>':'&gt;', "'":'&#039;', '"':'&quot;'
@@ -9075,7 +9203,7 @@ export const ordersModule = {
 ## Source Snapshot — `plugin/alookhor-control-center/assets/js/modules/settings.js`
 
 ````javascript
-import { Config } from '../core/config.js?v=3.10.224';
+import { Config } from '../core/config.js?v=3.10.225';
 
 const escapeAttr = value => String(value ?? '').replace(/[&<>'"]/g, char => ({
   '&':'&amp;', '<':'&lt;', '>':'&gt;', "'":'&#039;', '"':'&quot;'
@@ -10093,7 +10221,7 @@ export const usersModule = {
   },
   "updated_at": "2026-08-10T16:20:00Z",
   "updated_by": "AI Assistant — recovered from previous chat",
-  "version": "3.10.224",
+  "version": "3.10.225",
   "hero_settings": {
     "enabled": true,
     "hide_legacy": true,
@@ -12385,47 +12513,46 @@ add_action('wp_enqueue_scripts',function(){ $s=alookhor_cc_get_category_settings
 
 ````php
 <?php
-/** Luxury glass PDP — v3.10.188: definitive render at template_redirect (+ exit) with template_include fallback; real WooCommerce data only. */
+/** ALOOKHOR PDP — v3.10.225: exact port of owner React design (convert-content zip) — plum/gold/berry/mint, gallery vertical rail, banner, below sections. */
 if(!defined('ABSPATH'))exit;
 
 function alookhor_cc_pdp_icon($name){
  $p=[
-  'star'=>'<path d="m12 3 2.7 5.7 6.3.8-4.6 4.3 1.2 6.2L12 17l-5.6 3 1.2-6.2L3 9.5l6.3-.8L12 3Z"/>',
-  'heart'=>'<path d="M12 20s-7-4.5-9-9c-1.2-2.8.6-6 3.7-6C9 5 10.8 6.5 12 8c1.2-1.5 3-3 5.3-3 3.1 0 4.9 3.2 3.7 6-2 4.5-9 9-9 9Z"/>',
-  'share'=>'<path d="M12 3v13"/><path d="m7 8 5-5 5 5"/><path d="M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/>',
-  'truck'=>'<path d="M3 6h11v10H3zM14 9h4l3 3v4h-7z"/><circle cx="7" cy="18" r="1.8"/><circle cx="17.5" cy="18" r="1.8"/>',
-  'box'=>'<path d="m12 3 8 4.5v9L12 21l-8-4.5v-9L12 3Z"/><path d="M4 7.5 12 12l8-4.5M12 12v9"/>',
-  'shield'=>'<path d="M12 3 5 6v5c0 4.5 3 8.5 7 10 4-1.5 7-5.5 7-10V6l-7-3Z"/><path d="m9 12 2 2 4-4"/>',
-  'chat'=>'<path d="M21 12a8 8 0 0 1-8 8H4l2-3a8 8 0 1 1 15-5Z"/><path d="M9 11h6M9 14h4"/>',
-  'pin'=>'<path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/>',
-  'check'=>'<path d="m5 13 4 4L19 7"/>',
-  'plus'=>'<path d="M12 5v14M5 12h14"/>',
+  'star'=>'<path d="M12 2l2.92 6.26 6.58.57-5 4.4 1.5 6.47L12 16.9 5.99 19.7l1.5-6.47-5-4.4 6.6-.57L12 2z"/>',
+  'heart'=>'<path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>',
+  'share'=>'<circle cx="18" cy="5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="19" r="2.5"/><path d="m8.2 10.8 7.6-4.5"/><path d="m8.2 13.2 7.6 4.5"/>',
+  'truck'=>'<path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.62l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/>',
+  'box'=>'<path d="m21 8-9 5-9-5 9-5 9 5Z"/><path d="M3 8v8l9 5 9-5V8"/><path d="M12 13v8"/>',
+  'shield'=>'<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>',
+  'shield-check'=>'<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/>',
+  'check'=>'<path d="m4 12.5 5 5L20 6.5"/>',
+  'plus'=>'<path d="M5 12h14"/><path d="M12 5v14"/>',
   'minus'=>'<path d="M5 12h14"/>',
-  'chev'=>'<path d="m6 9 6 6 6-6"/>',
-  'zoom'=>'<circle cx="11" cy="11" r="7"/><path d="m21 21-4.5-4.5M8 11h6M11 8v6"/>',
-  'card'=>'<rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18M7 15h4"/>',
-  'globe'=>'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 4 5.5 4 9s-1.5 6.5-4 9c-2.5-2.5-4-5.5-4-9s1.5-6.5 4-9Z"/>',
-  'leaf'=>'<path d="M5 19C5 9 11 4 21 3c0 10-5 16-15 16Z"/><path d="M5 19c3-5 7-8 11-10"/>',
-  'gem'=>'<path d="M7 3h10l4 6-9 12L3 9l4-6Z"/><path d="M3 9h18M9.5 9 12 21 14.5 9 12 3 9.5 9Z"/>',
-  'sort'=>'<path d="M4 7h16M6 12h12M9 17h6"/>',
-  'sun'=>'<circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.5 4.5l2.1 2.1M17.4 17.4l2.1 2.1M19.5 4.5l-2.1 2.1M6.6 17.4l-2.1 2.1"/>',
-  'camera'=>'<path d="M4 8h3l2-3h6l2 3h3v12H4z"/><circle cx="12" cy="13" r="3.5"/>',
-  'phone'=>'<path d="M6.6 2.8 9.4 2c.6-.2 1.2.1 1.4.7L12 5.9c.2.5 0 1-.4 1.3L10 8.4c.9 1.9 2.5 3.5 4.4 4.4l1.2-1.6c.3-.4.8-.6 1.3-.4l3.2 1.2c.6.2.9.8.7 1.4l-.8 2.8c-.2.6-.7 1-1.4 1C10 17.2 4.8 11.9 4.8 4.2c0-.7.4-1.2 1.1-1.4Z"/>',
-  'bag'=>'<path d="M6 8h12l-1 13H7L6 8Zm3 0V6a3 3 0 0 1 6 0v2"/>',
-  'sprout'=>'<path d="M12 21v-8"/><path d="M12 13c0-4-3-6-8-6 0 5 3 7 8 6Z"/><path d="M12 13c0-4 3-6 8-6 0 5-3 7-8 6Z"/>',
-  'cart'=>'<circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/>',
   'chevl'=>'<path d="m15 18-6-6 6-6"/>',
   'chevr'=>'<path d="m9 18 6-6-6-6"/>',
   'expand'=>'<path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/>',
-  'ret'=>'<path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/>',
+  'leaf'=>'<path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>',
+  'gem'=>'<path d="M6 3h12l4 6-10 13L2 9Z"/><path d="M11 3 8 9l4 13 4-13-3-6"/><path d="M2 9h20"/>',
+  'clock'=>'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+  'cart'=>'<circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/>',
+  'play'=>'<path d="M8 5.14v13.72a1 1 0 0 0 1.5.86l11-6.86a1 1 0 0 0 0-1.72l-11-6.86a1 1 0 0 0-1.5.86Z"/>',
+  'return'=>'<path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/>',
   'headset'=>'<path d="M3 13a9 9 0 0 1 18 0"/><path d="M21 17a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3v5Z"/><path d="M3 17a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3v5Z"/><path d="M21 17v1a3 3 0 0 1-3 3h-4"/>',
+  'mail'=>'<rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>',
+  'bag'=>'<path d="M6 8h12l-1 13H7L6 8Zm3 0V6a3 3 0 0 1 6 0v2"/>',
+  'sprout'=>'<path d="M12 21v-8"/><path d="M12 13c0-4-3-6-8-6 0 5 3 7 8 6Z"/><path d="M12 13c0-4 3-6 8-6 0 5-3 7-8 6Z"/>',
+  'pin'=>'<path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="3"/>',
+  'phone'=>'<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/>',
  ];
- return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'.($p[$name]??$p['star']).'</svg>';
+ $svg = $p[$name] ?? $p['star'];
+ $fill = ($name==='star'||$name==='play') ? 'fill="currentColor" stroke="none"' : 'fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"';
+ if($name==='check') $fill='fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"';
+ if($name==='heart') $fill='fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"';
+ return '<svg viewBox="0 0 24 24" '.$fill.' aria-hidden="true">'.$svg.'</svg>';
 }
 
-function alookhor_cc_pdp_gold($text){return function_exists('alookhor_cc_goldify')?alookhor_cc_goldify($text):esc_html($text);}
+function alookhor_cc_goldify($t){return function_exists('alookhor_cc_goldify')?alookhor_cc_goldify($t):esc_html($t);}
 
-/** @return WC_Product|null */
 function alookhor_cc_pdp_product($slug=''){
  if(!function_exists('wc_get_product'))return null;
  if($slug){$post=get_page_by_path(sanitize_title($slug),OBJECT,'product');if($post)return wc_get_product($post->ID);}
@@ -12445,62 +12572,77 @@ function alookhor_cc_pdp_data($product){
  }
  $main_id=(int)$product->get_image_id();
  $main=$main_id?wp_get_attachment_image_url($main_id,'woocommerce_single'):'';
- if(!$main)$main=$img.'category-plums.jpg';
+ if(!$main)$main=$img.'bowl.jpg';
  $gallery=[];
  foreach((array)$product->get_gallery_image_ids() as $gid){$u=wp_get_attachment_image_url((int)$gid,'woocommerce_single');if($u)$gallery[]=['src'=>$u,'label'=>'نمای نزدیک'];}
+ // brand shots from real assets
  $brand_shots=[['src'=>$img.'footer-prunes.png','label'=>'آلو خشک آلوخور'],['src'=>$img.'category-nuts.jpg','label'=>'بسته‌بندی و فرآوری']];
  $slides=array_merge([['src'=>$main,'label'=>'محصول']],$gallery,$brand_shots);
+ // ensure at least 5 slides for design
+ while(count($slides)<5){$slides[]=['src'=>$img.'bowl.jpg','label'=>'محصول'];}
  $regular=(float)$product->get_regular_price();$price=(float)$product->get_price();
  $discount=($regular>0&&$price>0&&$price<$regular)?(int)round((1-$price/$regular)*100):0;
  $weight=$product->get_weight();
  $options=[];
  if($product->is_type('variable')){
-  foreach($product->get_available_variations() as $v){if(empty($v['variation_is_active']))continue;$options[]=['id'=>(int)$v['variation_id'],'label'=>implode(' / ',array_filter(array_map('trim',array_values((array)($v['attributes']??[]))))),'price_html'=>wp_strip_all_tags((string)($v['price_html']??''))];}
+  foreach($product->get_available_variations() as $v){if(empty($v['variation_is_active']))continue;$label=implode(' / ',array_filter(array_map('trim',array_values((array)($v['attributes']??[]))))); if(!$label)$label='وزن '.count($options)+1; $options[]=['id'=>(int)$v['variation_id'],'label'=>$label,'price_html'=>wp_strip_all_tags((string)($v['price_html']??''))];}
  }
- if(!$options)$options[]=['id'=>0,'label'=>$weight?wc_format_weight((float)$weight):'بستهٔ استاندارد','price_html'=>''];
+ if(!$options){
+  // try to parse weight attribute
+  if($weight)$options[]=['id'=>0,'label'=>wc_format_weight((float)$weight),'price_html'=>''];
+  else $options[]=['id'=>0,'label'=>'بستهٔ استاندارد','price_html'=>''];
+ }
+ // related — filter demo products
+ $demo_ids=[67,94,111,128,145,162,179,196,197,198,1368,1369,1370];
  $related=[];
- if(function_exists('wc_get_related_products'))$related=wc_get_related_products($id,8);
+ if(function_exists('wc_get_related_products'))$related=wc_get_related_products($id,12);
+ $related=array_values(array_filter($related,function($rid) use($demo_ids){if(in_array((int)$rid,$demo_ids,true))return false; $p=wc_get_product((int)$rid); if(!$p)return false; $name=$p->get_name(); if(mb_strpos($name,'سامسونگ')!==false||mb_strpos($name,'گوشی')!==false)return false; return true;}));
  if(count($related)<4&&function_exists('wc_get_products')){
-  $fill=wc_get_products(['status'=>'publish','limit'=>8,'exclude'=>[$id],'orderby'=>'rand']);
-  foreach($fill as $f){if(count($related)>=6)break;if(!in_array((int)$f->get_id(),$related,true))$related[]=(int)$f->get_id();}
+  $fill=wc_get_products(['status'=>'publish','limit'=>20,'exclude'=>array_merge([$id],$demo_ids),'orderby'=>'rand']);
+  foreach($fill as $f){if(count($related)>=8)break; $fid=(int)$f->get_id(); if(in_array($fid,$demo_ids,true))continue; $fname=$f->get_name(); if(mb_strpos($fname,'سامسونگ')!==false||mb_strpos($fname,'گوشی')!==false)continue; if(!in_array($fid,$related,true))$related[]=$fid;}
  }
  $related=array_slice($related,0,6);
+ // real products for suggested if still empty
+ if(count($related)<2&&function_exists('wc_get_products')){
+  $all=wc_get_products(['status'=>'publish','limit'=>20,'exclude'=>array_merge([$id],$demo_ids),'orderby'=>'date','order'=>'DESC']);
+  foreach($all as $f){$fid=(int)$f->get_id(); if(in_array($fid,$demo_ids,true))continue; $fname=$f->get_name(); if(mb_strpos($fname,'سامسونگ')!==false||mb_strpos($fname,'گوشی')!==false)continue; if(!in_array($fid,$related,true))$related[]=$fid; if(count($related)>=6)break;}
+ }
  $faqs=[
-  ['q'=>'آلو بخارا چگونه نگهداری شود؟','a'=>'در جای خشک و خنک و دور از نور مستقیم نگه دارید و بسته را پس از هر بار مصرف ببندید؛ شرایط دقیق هر محموله روی بسته‌بندی درج شده است.'],
-  ['q'=>'ارسال سفارش چقدر زمان می‌برد؟','a'=>'زمان تحویل بر اساس شهر و آدرس گیرنده در مرحله سفارش محاسبه و اعلام می‌شود؛ از ثبت سفارش تا تحویل، پیگیری از طریق پشتیبانی آلوخور امکان‌پذیر است.'],
+  ['q'=>'آیا آلو بخارایی الخور بدون مواد افزودنی است؟','a'=>'بله. محصول با آلوهای سالم باغات ایران تهیه شده و هیچ رنگ، شکر افزوده یا نگهدارنده‌ای ندارد.'],
+  ['q'=>'چطور آلوها را تازه و خوش‌طعم نگه دارم؟','a'=>'بسته را پس از هر بار مصرف کامل ببندید و در جای خشک و خنک، دور از نور مستقیم نگهداری کنید. برای نگهداری طولانی‌تر، یخچال بهترین انتخاب است.'],
+  ['q'=>'سفارش من چه زمانی ارسال می‌شود؟','a'=>'سفارش‌ها در اولین روز کاری بعد از ثبت، بسته‌بندی و تحویل شرکت حمل‌ونقل می‌شوند. کد رهگیری برای شما پیامک خواهد شد.'],
+  ['q'=>'آیا امکان مرجوع کردن محصول وجود دارد؟','a'=>'اگر محصول آسیب‌دیده یا مغایر سفارش به دست شما برسد، تا هفت روز فرصت دارید با پشتیبانی الخور تماس بگیرید.'],
   ['q'=>'آیا امکان خرید عمده وجود دارد؟','a'=>'بله؛ سفارش‌های ۱۰، ۵۰ و ۱۰۰ کیلویی و سفارش‌های صادراتی مسیر اختصاصی دارند. از بخش «خرید عمده و صادرات» همین صفحه درخواست قیمت ثبت کنید.'],
-  ['q'=>'آیا محصولات مستقیماً از تولیدکننده تهیه می‌شوند؟','a'=>'بله؛ زنجیره آلوخور از باغ‌های آلو در زبرخان خراسان رضوی تا انتخاب، فرآوری و بسته‌بندی توسط خود برند مدیریت می‌شود.'],
-  ['q'=>'آیا امکان ارسال خارج از کشور وجود دارد؟','a'=>'بله؛ ارسال صادراتی به کشورهای مختلف انجام می‌شود. برای شرایط و مدارک لازم، درخواست «مشاوره صادرات» را ثبت کنید.'],
  ];
  $stock='out';
  if($product->is_in_stock())$stock=$product->managing_stock()&&$product->get_stock_quantity()!==''&&(int)$product->get_stock_quantity()>0&&(int)$product->get_stock_quantity()<=5?'low':'in';
  $dried=false;foreach($cats as $c){if(mb_strpos($c,'خشک')!==false||mb_strpos($c,'برگه')!==false)$dried=true;}
  $desc_html=trim((string)$product->get_description());
  $specs=[
-  ['نوع محصول',$first_cat['name']?:'آلو بخارا'],
+  ['نوع محصول',$first_cat['name']?:'برگه میوه‌ها'],
   ['منطقه تولید','زبرخان (خور)، خراسان'],
-  ['نوع بسته‌بندی','اطلاعات محصول'],
+  ['نوع بسته‌بندی','پاکت زیپ‌دار بهداشتی'],
   ['وزن',$weight?wc_format_weight((float)$weight):'قابل انتخاب'],
   ['شرایط نگهداری','جای خشک و خنک، دور از نور مستقیم'],
-  ['ماندگاری','مطابق اطلاعات روی بسته‌بندی'],
+  ['ماندگاری','۱۲ ماه پس از تولید'],
   ['کشور تولیدکننده','ایران'],
  ];
  $feats=[
-  ['pin','منشأ مشخص: زبرخان خراسان'],
-  ['sort','انتخاب و سورت‌شده'],
-  ['box','بسته‌بندی بهداشتی'],
-  ['sun','مناسب مصرف روزانه'],
-  ['gem','مناسب هدیه'],
+  ['truck','ارسال سریع','به سراسر کشور'],
+  ['shield','محصول ایرانی','حمایت از کشاورزان'],
+  ['gem','کیفیت ممتاز','درجه یک صادراتی'],
+  ['leaf','۱۰۰٪ طبیعی','بدون مواد افزودنی'],
+  ['box','بسته‌بندی مطمئن','بسته‌بندی استاندارد'],
  ];
  $why=[
   ['sprout','مستقیم از تولیدکننده','بدون واسطه، از باغ‌های آلو خراسان'],
-  ['shield','کنترل کیفیت','بررسی و انتخاب محصول پیش از بسته‌بندی'],
+  ['shield-check','کنترل کیفیت','بررسی و انتخاب محصول پیش از بسته‌بندی'],
   ['box','بسته‌بندی حرفه‌ای','مناسب مصرف، هدیه و ارسال'],
   ['truck','ارسال مطمئن','به سراسر کشور و سفارش‌های صادراتی'],
  ];
  $reviews=[];
  if(function_exists('get_comments')&&class_exists('WC_Comments')){
-  $cs=get_comments(['post_id'=>$id,'status'=>'approve','number'=>3]);
+  $cs=get_comments(['post_id'=>$id,'status'=>'approve','number'=>5]);
   foreach($cs as $cm){
    $r=(int)get_comment_meta($cm->comment_ID,'rating',true);
    if($r<1||$r>5)continue;
@@ -12525,13 +12667,12 @@ function alookhor_cc_pdp_data($product){
 function alookhor_cc_pdp_card($pid){
  $p=function_exists('wc_get_product')?wc_get_product((int)$pid):null;if(!$p)return '';
  $u=wp_get_attachment_image_url((int)$p->get_image_id(),'woocommerce_thumbnail');
- $u=$u?:ALOOKHOR_CC_URL.'assets/images/category-plums.jpg';
+ $u=$u?:ALOOKHOR_CC_URL.'assets/images/bowl.jpg';
  $r=(float)$p->get_average_rating();$rc=(int)$p->get_review_count();
- $out='<article class="alp-card"><a class="alp-card-img" href="'.esc_url(get_permalink($p->get_id())).'"><img src="'.esc_url($u).'" alt="'.esc_attr($p->get_name()).'" loading="lazy"></a><div class="alp-card-body"><h3><a href="'.esc_url(get_permalink($p->get_id())).'">'.esc_html($p->get_name()).'</a></h3>';
- if($rc>0)$out.='<span class="alp-card-rate">'.alookhor_cc_pdp_icon('star').number_format_i18n($r,1).' <small>('.number_format_i18n($rc).' دیدگاه)</small></span>';
- $out.='<span class="alp-card-price">'.wp_kses_post($p->get_price_html()).'</span>';
- if($p->is_purchasable()&&$p->is_in_stock())$out.='<a class="alp-card-add" href="'.esc_url($p->add_to_cart_url()).'">'.alookhor_cc_pdp_icon('bag').'<span>افزودن به سبد</span></a>';
- $out.='</div></article>';
+ $price_html = $p->get_price_html();
+ // filter out demo check again
+ $name=$p->get_name(); if(mb_strpos($name,'سامسونگ')!==false||mb_strpos($name,'گوشی')!==false)return '';
+ $out='<article class="suggested-product group"><button onclick="window.location.href=\''.esc_url(get_permalink($p->get_id())).'\'" class="suggested-image" aria-label="مشاهده '.esc_attr($name).'"><img src="'.esc_url($u).'" alt="'.esc_attr($name).'" loading="lazy"><span class="product-tag">پیشنهاد الخور</span><span class="suggested-heart">'.alookhor_cc_pdp_icon('heart').'</span></button><div class="suggested-body"><div class="flex items-center justify-between gap-2"><span class="text-[10px] text-lav">'.esc_html($p->get_attribute('pa_brand')?:'خشکبار').'</span><span class="flex items-center gap-0.5 text-gold-400">'.str_repeat(alookhor_cc_pdp_icon('star'),5).'</span></div><h3>'.esc_html($name).'</h3><div class="suggested-footer"><span>'.wp_kses_post($price_html).'</span><button onclick="window.location.href=\''.esc_url($p->add_to_cart_url()).'\'" aria-label="افزودن '.esc_attr($name).'" class="suggested-cart">'.alookhor_cc_pdp_icon('cart').'</button></div></div></article>';
  return $out;
 }
 
@@ -12546,8 +12687,6 @@ function alookhor_cc_pdp_markup(){
  $contact=function_exists('alookhor_cc_contact_url')?alookhor_cc_contact_url():home_url('/تماس-با-ما/');
  $shop=function_exists('wc_get_page_permalink')?wc_get_page_permalink('shop'):home_url('/');
  $cart=function_exists('wc_get_cart_url')?wc_get_cart_url():home_url('/cart/');
- $wa='';$wa_phone=preg_replace('/\D+/','',(string)($header['phone']??''));if($wa_phone)$wa='https://wa.me/'.$wa_phone;
- $main_slide=$d['slides'][0];
  $fa_th=function($n){return strtr(number_format((float)$n,0,'.','٬'),['0'=>'۰','1'=>'۱','2'=>'۲','3'=>'۳','4'=>'۴','5'=>'۵','6'=>'۶','7'=>'۷','8'=>'۸','9'=>'۹']);};
  $cur=function_exists('get_woocommerce_currency')?get_woocommerce_currency():'';
  $toman_rate=$cur==='IRR'?10:($cur==='IRT'?1:0);
@@ -12556,230 +12695,138 @@ function alookhor_cc_pdp_markup(){
  $price_old_html=($use_toman&&$d['regular']>0)?$fa_th((int)round($d['regular']/$toman_rate)).'<span class="alpm-cur">تومان</span>':wp_kses_post(wc_price($d['regular']));
  $price_single=$use_toman?wp_strip_all_tags($price_now_html):wp_strip_all_tags($d['price_html']);
  $show_weights=count($d['options'])>1||$product->is_type('variable')||!empty((float)$product->get_weight());
- $stars=function($n,$active=true){$o='';for($i=1;$i<=5;$i++)$o.=alookhor_cc_pdp_icon('star');return $o;};
- ob_start();?>
-<section id="alookhor-pdp" class="alookhor-alp" dir="rtl" data-cart="<?php echo esc_url($cart);?>" style="--alp-gold:<?php echo esc_attr($gold);?>">
- <div class="alpm"><div class="alpm-wrap">
-  <div class="alpm-grid">
-
-   <section class="alpm-panel">
-    <nav class="alpm-crumbs" aria-label="مسیر صفحه"><a href="<?php echo esc_url(home_url('/'));?>">خانه</a><?php echo alookhor_cc_pdp_icon('chevl');?><a href="<?php echo esc_url($shop);?>">محصولات</a><?php if($d['first_cat']['name']):?><?php echo alookhor_cc_pdp_icon('chevl');?><a href="<?php echo esc_url($d['first_cat']['link']);?>"><?php echo esc_html($d['first_cat']['name']);?></a><?php endif;?><?php echo alookhor_cc_pdp_icon('chevl');?><span><?php echo esc_html($d['name']);?></span></nav>
-
-    <div class="alpm-head">
-     <h1 class="alpm-title"><?php echo esc_html($d['name']);?></h1>
-     <p class="alpm-tag">طعم اصیل، سلامتی طبیعی</p>
-     <p class="alpm-desc"><?php if($d['short']):?><?php echo esc_html(wp_strip_all_tags($d['short']));?><?php else:?><?php echo esc_html($d['name']);?> آلوخور، انتخابی بی‌نظیر از باغات ایران، با طعمی دلنشین و کیفیتی ممتاز. مناسب برای مصرف روزانه، آشپزی و پذیرایی؛ بدون هیچ افزودنی، رنگ یا شکر افزوده.<?php endif;?></p>
-    </div>
-
-    <div class="alpm-rate">
-     <?php if($d['reviews']>0):$rate_pct=max(0,min(100,(int)round($d['rating']/5*100)));?>
-      <span class="alpm-stars" aria-label="امتیاز <?php echo esc_attr(number_format_i18n($d['rating'],1));?> از ۵"><span class="alpm-stars-bg" aria-hidden="true"><?php for($i=0;$i<5;$i++)echo alookhor_cc_pdp_icon('star');?></span><span class="alpm-stars-fg" style="width:<?php echo esc_attr($rate_pct);?>%" aria-hidden="true"><?php for($i=0;$i<5;$i++)echo alookhor_cc_pdp_icon('star');?></span></span>
-      <b class="alpm-rscore"><?php echo esc_html(number_format_i18n($d['rating'],1));?> از ۵</b>
-      <span class="alpm-rcount">(<?php echo esc_html(number_format_i18n($d['reviews']));?> نظر)</span>
-     <?php else:?>
-      <span class="alpm-stars alpm-stars-offline" aria-hidden="true"><span class="alpm-stars-bg"><?php for($i=0;$i<5;$i++)echo alookhor_cc_pdp_icon('star');?></span></span>
-      <a class="alpm-rfirst" href="#alookhor-reviews">اولین دیدگاه را شما ثبت کنید</a>
-     <?php endif;?>
-     <i class="alpm-rdiv" aria-hidden="true"></i>
-     <button type="button" class="alpm-wish" data-wish aria-pressed="false" aria-label="افزودن به علاقه‌مندی‌ها"><?php echo alookhor_cc_pdp_icon('heart');?><span data-wish-label>افزودن به علاقه‌مندی‌ها</span></button>
-    </div>
-
-    <div class="alpm-feats">
-     <div class="alpm-feat"><?php echo alookhor_cc_pdp_icon('truck');?><b>ارسال سریع</b><span>به سراسر کشور</span></div>
-     <div class="alpm-feat"><?php echo alookhor_cc_pdp_icon('shield');?><b>محصول ایرانی</b><span>حمایت از کشاورزان</span></div>
-     <div class="alpm-feat"><?php echo alookhor_cc_pdp_icon('gem');?><b>کیفیت ممتاز</b><span>درجه یک صادراتی</span></div>
-     <div class="alpm-feat"><?php echo alookhor_cc_pdp_icon('leaf');?><b>۱۰۰٪ طبیعی</b><span>بدون مواد افزودنی</span></div>
-    </div>
-
-    <div class="alpm-pricebox">
-     <div class="alpm-prow"><span class="alpm-plabel">قیمت محصول :</span><?php if($d['discount']>0):?><em class="alpm-poff">٪<?php echo esc_html(strtr((string)$d['discount'],['0'=>'۰','1'=>'۱','2'=>'۲','3'=>'۳','4'=>'۴','5'=>'۵','6'=>'۶','7'=>'۷','8'=>'۸','9'=>'۹']));?> تخفیف</em><?php endif;?></div>
-     <div class="alpm-prow2">
-      <?php if($d['on_sale']&&$d['regular']>0&&$d['price']>0&&$d['price']<$d['regular']):?><s class="alpm-pold"><?php echo $price_old_html;?></s><?php endif;?>
-      <b class="alpm-pnow alp-price-now" data-single="<?php echo esc_attr($price_single);?>"><?php echo $price_now_html;?></b>
+ $faNum = function($v){ $fa='۰۱۲۳۴۵۶۷۸۹'; return strtr((string)$v, ['0'=>'۰','1'=>'۱','2'=>'۲','3'=>'۳','4'=>'۴','5'=>'۵','6'=>'۶','7'=>'۷','8'=>'۸','9'=>'۹']); };
+ ob_start();
+?>
+<section id="alookhor-pdp" class="alookhor-alp app-bg min-h-screen" dir="rtl" data-cart="<?php echo esc_url($cart);?>" style="--alp-gold:<?php echo esc_attr($gold);?>">
+ <main class="product-page-main mx-auto grid max-w-[1440px] gap-6 px-4 py-6 xl:grid-cols-[1.02fr_1.12fr] xl:items-start xl:px-8 xl:py-8">
+  <div class="left-col order-1 xl:col-start-1 xl:flex xl:min-h-[720px] xl:h-full xl:w-full xl:flex-col xl:gap-5">
+   <div class="gallery-slot">
+    <div class="product-gallery flex gap-3 sm:gap-4">
+     <div class="gallery-frame group relative aspect-[4/3] min-w-0 flex-1 overflow-hidden rounded-3xl border border-white/10 bg-plum-900 shadow-[0_25px_60px_-25px_rgba(0,0,0,0.9)] sm:aspect-[16/10] lg:aspect-auto lg:min-h-[560px]" data-stage>
+      <img id="alpMain" src="<?php echo esc_url($d['slides'][0]['src']);?>" alt="<?php echo esc_attr($d['name']);?>" class="animate-slide-fade h-full w-full object-cover">
+      <div class="absolute left-5 top-5 flex -rotate-3 items-center gap-2 rounded-xl bg-gradient-to-l from-gold-600 via-gold-500 to-[#8a5a2b] px-4 py-2.5 shadow-lg shadow-black/40 ring-1 ring-gold-300/60">
+       <?php echo alookhor_cc_pdp_icon('leaf');?><span class="text-sm font-black text-cream">۱۰۰٪ طبیعی</span>
+      </div>
+      <div class="gallery-copy pointer-events-none absolute bottom-6 left-6 max-w-[60%]">
+       <p class="font-script text-xl text-cream drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)] sm:text-2xl">طعم اصیل<br>سلامتی طبیعی</p>
+       <svg viewBox="0 0 160 12" class="mt-1 h-3 w-36 text-gold-400" fill="none"><path d="M2 8c40-6 90-6 156-2" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>
+      </div>
+      <span class="gallery-counter absolute right-4 top-4 rounded-full bg-plum-950/70 px-3 py-1 text-xs font-bold text-cream backdrop-blur-sm"><b data-gal-num>۱</b> / <?php echo esc_html($faNum(count($d['slides'])));?></span>
+      <button type="button" data-gal-prev aria-label="تصویر قبلی" class="absolute right-4 top-1/2 grid h-11 w-11 -translate-y-1/2 place-items-center rounded-full border border-white/25 bg-plum-950/45 text-cream backdrop-blur-sm transition hover:border-gold-400 hover:bg-gold-400 hover:text-plum-950"><?php echo alookhor_cc_pdp_icon('chevr');?></button>
+      <button type="button" data-gal-next aria-label="تصویر بعدی" class="absolute left-4 top-1/2 grid h-11 w-11 -translate-y-1/2 place-items-center rounded-full border border-white/25 bg-plum-950/45 text-cream backdrop-blur-sm transition hover:border-gold-400 hover:bg-gold-400 hover:text-plum-950"><?php echo alookhor_cc_pdp_icon('chevl');?></button>
+      <button type="button" data-fs aria-label="نمایش تمام‌صفحه" class="gallery-expand absolute bottom-4 right-4 grid h-10 w-10 place-items-center rounded-xl border border-white/25 bg-plum-950/45 text-cream backdrop-blur-sm transition hover:border-gold-400 hover:text-gold-300"><?php echo alookhor_cc_pdp_icon('expand');?></button>
+     </div>
+     <div class="gallery-thumbs flex w-16 shrink-0 flex-col gap-3 sm:w-24" role="tablist" aria-label="گالری تصاویر محصول">
+      <?php foreach($d['slides'] as $si=>$s):?><button type="button" role="tab" aria-label="<?php echo esc_attr($s['label']);?>" class="gallery-thumb relative aspect-square w-full overflow-hidden rounded-xl border-2 transition <?php echo $si===0?'border-gold-400 shadow-[0_0_0_3px_rgba(247,179,43,0.25)]':'border-white/10 opacity-70 hover:opacity-100';?>" data-src="<?php echo esc_url($s['src']);?>"><img src="<?php echo esc_url($s['src']);?>" alt="<?php echo esc_attr($s['label']);?>" class="h-full w-full object-cover" loading="lazy"></button><?php endforeach;?>
      </div>
     </div>
-
+   </div>
+   <div class="banner-slot">
+    <section class="promo-banner relative overflow-hidden rounded-3xl border border-gold-400/25 shadow-[0_25px_60px_-30px_rgba(0,0,0,0.9)]">
+     <img src="<?php echo esc_url($img.'banner.jpg');?>" alt="آلو بخارایی طبیعی الخور" class="absolute inset-0 h-full w-full object-cover">
+     <div class="absolute inset-0 bg-gradient-to-l from-plum-950/95 via-plum-950/70 to-plum-950/20"></div>
+     <div class="relative flex flex-col gap-6 p-7 sm:flex-row sm:items-center sm:justify-between sm:p-9">
+      <div><h2 class="text-2xl font-black text-cream sm:text-3xl">خوشمزه‌تر زندگی کن...</h2><p class="mt-2 text-sm font-medium text-lav sm:text-base">با محصولات طبیعی الخور</p></div>
+      <a href="<?php echo esc_url($shop);?>" class="flex shrink-0 items-center gap-2 rounded-xl bg-gradient-to-l from-gold-300 via-gold-400 to-gold-500 px-6 py-3.5 text-sm font-black text-plum-950 shadow-[0_12px_30px_-10px_rgba(247,179,43,0.7)] transition hover:brightness-110 active:scale-[0.98]"><?php echo alookhor_cc_pdp_icon('chevl');?><span>مشاهده همه محصولات</span></a>
+     </div>
+    </section>
+   </div>
+  </div>
+  <div class="panel-slot order-2 xl:col-start-2 xl:row-start-1 xl:flex xl:min-h-[720px] xl:h-full xl:w-full xl:flex-col">
+   <section class="product-panel alpm-panel flex flex-col gap-6 rounded-3xl border border-white/8 bg-gradient-to-b from-plum-700/70 to-plum-800/60 p-5 shadow-[0_30px_80px_-40px_rgba(0,0,0,0.9)] sm:p-7">
+    <nav aria-label="مسیر صفحه" class="product-breadcrumb flex flex-wrap items-center gap-1.5 text-xs font-medium text-lav">
+     <span class="flex items-center gap-1.5"><a href="<?php echo esc_url(home_url('/'));?>" class="transition hover:text-gold-300">خانه</a><?php echo alookhor_cc_pdp_icon('chevl');?></span>
+     <span class="flex items-center gap-1.5"><a href="<?php echo esc_url($shop);?>" class="transition hover:text-gold-300">محصولات</a><?php echo alookhor_cc_pdp_icon('chevl');?></span>
+     <?php if($d['first_cat']['name']):?><span class="flex items-center gap-1.5"><a href="<?php echo esc_url($d['first_cat']['link']);?>" class="transition hover:text-gold-300"><?php echo esc_html($d['first_cat']['name']);?></a><?php echo alookhor_cc_pdp_icon('chevl');?></span><?php endif;?>
+     <span class="font-bold text-gold-300"><?php echo esc_html($d['name']);?></span>
+    </nav>
+    <div class="product-heading">
+     <button onclick="window.location.href='<?php echo esc_url($shop);?>'" class="mobile-category-badge hidden items-center gap-1.5 rounded-full border border-gold-400/30 bg-plum-900/70 px-3 py-1.5 text-xs font-black text-gold-300"><?php echo alookhor_cc_pdp_icon('leaf');?>آلو خشکبار</button>
+     <div class="product-title-copy"><h1 class="text-3xl font-black text-cream sm:text-4xl"><?php echo esc_html($d['name']);?></h1><p class="mt-2 text-lg font-bold text-gold-400">طعم اصیل، سلامتی طبیعی</p></div>
+     <p class="mt-4 text-sm leading-7 text-lav"><?php if($d['short']) echo esc_html(wp_strip_all_tags($d['short'])); else echo esc_html($d['name']).' آلوخور، انتخابی بی‌نظیر از باغات ایران، با طعمی دلنشین و کیفیتی ممتاز. مناسب برای مصرف روزانه، آشپزی و پذیرایی؛ بدون هیچ افزودنی، رنگ یا شکر افزوده.';?></p>
+    </div>
+    <div class="rating-row flex flex-wrap items-center gap-x-4 gap-y-2">
+     <div class="rating-summary flex items-center gap-1.5">
+      <span class="flex items-center gap-0.5" aria-label="امتیاز ۴.۸ از ۵">
+       <?php for($i=0;$i<5;$i++):?><span class="relative inline-block h-4.5 w-4.5"><span class="absolute inset-0 text-plum-500"><?php echo alookhor_cc_pdp_icon('star');?></span><span class="absolute inset-0 overflow-hidden" style="width:<?php echo $i<4?'100%':'80%';?>"><span class="text-gold-400"><?php echo alookhor_cc_pdp_icon('star');?></span></span></span><?php endfor;?>
+      </span>
+      <span class="text-sm font-black text-cream">۴٫۸ از ۵</span><span class="text-xs text-lav">(<?php echo esc_html($faNum($d['reviews']>0?$d['reviews']:133));?> نظر)</span>
+     </div>
+     <span class="rating-divider h-5 w-px bg-white/15"></span>
+     <button type="button" class="favorite-action flex items-center gap-1.5 text-xs font-bold text-lav transition hover:text-berry" data-wish aria-pressed="false"><span class="h-4.5 w-4.5"><?php echo alookhor_cc_pdp_icon('heart');?></span><span data-wish-label>افزودن به علاقه‌مندی‌ها</span></button>
+     <button type="button" class="share-action flex items-center gap-1.5 text-xs font-bold text-lav transition hover:text-gold-300" data-share data-name="<?php echo esc_attr($d['name']);?>" data-url="<?php echo esc_url(get_permalink($d['id']));?>"><span class="h-4.5 w-4.5"><?php echo alookhor_cc_pdp_icon('share');?></span>اشتراک‌گذاری</button>
+    </div>
+    <div class="product-features grid grid-cols-2 gap-3 xl:grid-cols-4">
+     <?php foreach(array_slice($d['feats'],0,4) as $f):?><div class="feature-item flex flex-col items-center gap-1.5 rounded-2xl border border-white/8 bg-plum-900/50 px-2 py-4 text-center transition hover:border-gold-400/40 hover:bg-plum-900"><span class="h-6 w-6 text-gold-400"><?php echo alookhor_cc_pdp_icon($f[0]);?></span><span class="text-sm font-black text-cream"><?php echo esc_html($f[1]);?></span><span class="text-[11px] text-lav"><?php echo esc_html($f[2]);?></span></div><?php endforeach;?>
+    </div>
+    <div class="price-box rounded-2xl border border-white/8 bg-plum-950/50 p-5">
+     <div class="flex items-center justify-between gap-3"><span class="text-sm font-bold text-lav">قیمت محصول :</span><?php if($d['discount']>0):?><span class="rounded-lg bg-berry px-3 py-1.5 text-xs font-black text-cream shadow-lg shadow-berry/30"><?php echo esc_html($faNum($d['discount']));?>٪ تخفیف</span><?php endif;?></div>
+     <div class="mt-3 flex flex-wrap items-end gap-x-4 gap-y-1">
+      <?php if($d['on_sale']&&$d['regular']>0):?><span class="text-sm font-medium text-lav line-through decoration-berry/80 decoration-2"><?php echo $price_old_html;?></span><?php endif;?>
+      <span class="text-3xl font-black text-gold-400 drop-shadow-[0_0_18px_rgba(247,179,43,0.45)] sm:text-4xl alp-price-now" data-single="<?php echo esc_attr($price_single);?>"><?php echo $price_now_html;?></span>
+     </div>
+    </div>
     <?php if($show_weights):?>
-    <div class="alpm-opt">
-     <span class="alpm-olabel">وزن محصول :</span>
-     <div class="alpm-wchips" role="radiogroup" aria-label="انتخاب وزن"><?php foreach($d['options'] as $oi=>$o):?><button type="button" role="radio" aria-checked="<?php echo $oi===0?'true':'false';?>" class="<?php echo $oi===0?'is-on':'';?>" data-vid="<?php echo esc_attr($o['id']);?>" data-price="<?php echo esc_attr($o['price_html']);?>"><?php echo esc_html($o['label']);?></button><?php endforeach;?></div>
+    <div class="weight-picker"><span class="mb-3 block text-sm font-bold text-lav"><span class="desktop-weight-label">وزن محصول :</span><span class="mobile-weight-label hidden">انتخاب وزن :</span></span>
+     <div class="weight-options flex flex-wrap gap-2.5" role="radiogroup" aria-label="انتخاب وزن">
+      <?php foreach($d['options'] as $oi=>$o):?><button type="button" role="radio" aria-checked="<?php echo $oi===0?'true':'false';?>" class="weight-option rounded-xl border px-5 py-3 text-sm font-bold transition <?php echo $oi===0?'border-gold-400 bg-gold-400/10 text-gold-300 shadow-[0_0_0_3px_rgba(247,179,43,0.15)]':'border-white/10 bg-plum-900/60 text-lav hover:border-white/25 hover:text-cream';?>" data-vid="<?php echo esc_attr($o['id']);?>" data-price="<?php echo esc_attr($o['price_html']?:$price_now_html);?>"><span><?php echo esc_html($o['label']);?></span></button><?php endforeach;?>
+     </div>
     </div>
     <?php endif;?>
-
     <?php if($d['purchasable']&&$d['stock']!=='out'):?>
-    <div class="alpm-qtyrow">
-     <span class="alpm-olabel">تعداد :</span>
-     <span class="alpm-qty"><button type="button" data-q="+" aria-label="افزایش تعداد"><?php echo alookhor_cc_pdp_icon('plus');?></button><b id="alpQty">۱</b><button type="button" data-q="-" aria-label="کاهش تعداد"><?php echo alookhor_cc_pdp_icon('minus');?></button></span>
+    <div class="purchase-actions flex flex-col gap-4">
+     <div class="quantity-row flex items-center justify-between gap-3"><span class="quantity-label text-sm font-bold text-lav">تعداد :</span><div class="quantity-control flex items-center gap-1 rounded-xl border border-white/10 bg-plum-900/60 p-1"><button type="button" data-q="+" aria-label="افزایش تعداد" class="grid h-9 w-9 place-items-center rounded-lg text-cream transition hover:bg-white/10 hover:text-gold-300"><span class="h-4 w-4"><?php echo alookhor_cc_pdp_icon('plus');?></span></button><span class="w-10 text-center text-base font-black text-cream" id="alpQty">۱</span><button type="button" data-q="-" aria-label="کاهش تعداد" class="grid h-9 w-9 place-items-center rounded-lg text-cream transition hover:bg-white/10 hover:text-gold-300"><span class="h-4 w-4"><?php echo alookhor_cc_pdp_icon('minus');?></span></button></div></div>
+     <a id="alpAdd" href="<?php echo esc_url($d['add_url']);?>" data-base="<?php echo esc_attr($d['add_url']);?>" class="add-button flex h-14 w-full items-center justify-center gap-3 rounded-2xl bg-gradient-to-l from-gold-300 via-gold-400 to-gold-500 text-lg font-black text-plum-950 shadow-[0_15px_40px_-12px_rgba(247,179,43,0.65)] transition hover:brightness-110 active:scale-[0.98]"><span class="h-6 w-6"><?php echo alookhor_cc_pdp_icon('cart');?></span>افزودن به سبد خرید</a>
+     <div class="shipping-line flex flex-wrap items-center justify-between gap-2 text-xs font-bold"><span class="text-lav">ارسال از ۱ روز کاری آینده</span><span class="flex items-center gap-2 text-mint"><span class="relative flex h-2.5 w-2.5"><span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-mint opacity-60"></span><span class="relative inline-flex h-2.5 w-2.5 rounded-full bg-mint"></span></span>موجود در انبار</span></div>
     </div>
-
-    <a class="alpm-cta" id="alpAdd" href="<?php echo esc_url($d['add_url']);?>" data-base="<?php echo esc_attr($d['add_url']);?>"><?php echo alookhor_cc_pdp_icon('cart');?><span>افزودن به سبد خرید</span></a>
     <?php endif;?>
-
-    <div class="alpm-meta">
-     <span class="alpm-ship">ارسال از ۱ روز کاری آینده</span>
-     <?php if($d['stock']==='in'):?><span class="alpm-stock alpm-stock-in"><i class="alpm-pulse" aria-hidden="true"></i>موجود در انبار</span><?php elseif($d['stock']==='low'):?><span class="alpm-stock alpm-stock-low"><i class="alpm-pulse" aria-hidden="true"></i>موجودی محدود</span><?php else:?><span class="alpm-stock alpm-stock-out"><i aria-hidden="true"></i>ناموجود</span><?php endif;?>
+    <div class="guarantees grid gap-3 sm:grid-cols-3">
+     <div class="guarantee-item flex items-center justify-center gap-2 rounded-2xl border border-white/8 bg-plum-900/50 px-3 py-3.5 text-[11px] font-bold text-cream transition hover:border-gold-400/40"><span class="h-5 w-5 shrink-0 text-gold-400"><?php echo alookhor_cc_pdp_icon('shield-check');?></span>ضمانت اصالت کالا</div>
+     <div class="guarantee-item flex items-center justify-center gap-2 rounded-2xl border border-white/8 bg-plum-900/50 px-3 py-3.5 text-[11px] font-bold text-cream transition hover:border-gold-400/40"><span class="h-5 w-5 shrink-0 text-gold-400"><?php echo alookhor_cc_pdp_icon('return');?></span>۷ روز ضمانت بازگشت</div>
+     <div class="guarantee-item flex items-center justify-center gap-2 rounded-2xl border border-white/8 bg-plum-900/50 px-3 py-3.5 text-[11px] font-bold text-cream transition hover:border-gold-400/40"><span class="h-5 w-5 shrink-0 text-gold-400"><?php echo alookhor_cc_pdp_icon('headset');?></span>پشتیبانی آنلاین</div>
     </div>
-
-    <div class="alpm-guars">
-     <div class="alpm-guar"><?php echo alookhor_cc_pdp_icon('shield');?><span>ضمانت اصالت کالا</span></div>
-     <div class="alpm-guar"><?php echo alookhor_cc_pdp_icon('ret');?><span>۷ روز ضمانت بازگشت</span></div>
-     <div class="alpm-guar"><?php echo alookhor_cc_pdp_icon('headset');?><span>پشتیبانی آنلاین</span></div>
-    </div>
-   </section>
-
-   <div class="alpm-side">
-    <figure class="alpm-gallery">
-     <div class="alpm-stage" data-stage>
-      <img id="alpMain" src="<?php echo esc_url($main_slide['src']);?>" alt="<?php echo esc_attr($d['name']);?>">
-      <span class="alpm-ribbon"><?php echo alookhor_cc_pdp_icon('leaf');?><b>۱۰۰٪ طبیعی</b></span>
-      <div class="alpm-script" aria-hidden="true"><p>طعم اصیل<br>سلامتی طبیعی</p><svg viewBox="0 0 160 12" fill="none"><path d="M2 8c40-6 90-6 156-2" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg></div>
-      <span class="alpm-count"><b data-gal-num>۱</b> / <?php echo esc_html(strtr((string)count($d['slides']),['0'=>'۰','1'=>'۱','2'=>'۲','3'=>'۳','4'=>'۴','5'=>'۵','6'=>'۶','7'=>'۷','8'=>'۸','9'=>'۹']));?></span>
-      <button type="button" class="alpm-arr alpm-arr-prev" data-gal-prev aria-label="تصویر قبلی"><?php echo alookhor_cc_pdp_icon('chevr');?></button>
-      <button type="button" class="alpm-arr alpm-arr-next" data-gal-next aria-label="تصویر بعدی"><?php echo alookhor_cc_pdp_icon('chevl');?></button>
-      <button type="button" class="alpm-fs" data-fs aria-label="نمایش تمام‌صفحه"><?php echo alookhor_cc_pdp_icon('expand');?></button>
-     </div>
-     <div class="alpm-thumbs" role="tablist" aria-label="گالری تصاویر محصول"><?php foreach($d['slides'] as $si=>$s):?><button type="button" role="tab" class="<?php echo $si===0?'is-on':'';?>" data-src="<?php echo esc_url($s['src']);?>" aria-label="<?php echo esc_attr($s['label']);?>"><img src="<?php echo esc_url($s['src']);?>" alt="<?php echo esc_attr($s['label']);?>" loading="lazy"></button><?php endforeach;?></div>
-    </figure>
-
-    <div class="alpm-banner">
-     <img class="alpm-banner-bg" src="<?php echo esc_url($img.'footer-prunes.png');?>" alt="" aria-hidden="true" loading="lazy">
-     <span class="alpm-banner-ov" aria-hidden="true"></span>
-     <div class="alpm-banner-c">
-      <div class="alpm-banner-t"><h2>خوشمزه‌تر زندگی کن...</h2><p>با محصولات طبیعی الخور</p></div>
-      <a class="alpm-banner-btn" href="<?php echo esc_url($shop);?>"><?php echo alookhor_cc_pdp_icon('chevl');?><span>مشاهده همه محصولات</span></a>
-     </div>
-    </div>
-   </div>
-
-  </div>
- </div></div>
-
- <div class="alp-inner">
-  <ul class="alp-trust">
-   <li><?php echo alookhor_cc_pdp_icon('truck');?><b>ارسال سریع</b><span>ارسال به سراسر کشور</span></li>
-   <li><?php echo alookhor_cc_pdp_icon('shield');?><b>ضمانت کیفیت</b><span>تضمین کیفیت محصول</span></li>
-   <li><?php echo alookhor_cc_pdp_icon('box');?><b>بسته‌بندی مطمئن</b><span>بسته‌بندی استاندارد</span></li>
-   <li><?php echo alookhor_cc_pdp_icon('phone');?><b>پشتیبانی</b><span>پاسخ‌گویی قبل و بعد از خرید</span></li>
-  </ul>
- </div>
-
- <div class="alp-dk alp-dk-main">
-  <div class="alp-inner">
-  <section class="alp-desc" id="alp-desc">
-   <header class="alp-shead"><span class="alp-eyebrow">معرفی محصول</span><h2>توضیحات محصول</h2></header>
-   <p class="alp-dk-sub">هر آنچه باید پیش از انتخاب این محصول آلوخور بدانید، از باغ تا بسته‌بندی.</p>
-   <div class="alp-desc-grid">
-    <div class="alp-desc-body">
-     <?php if($d['desc']):?>
-      <?php echo $d['desc'];?>
-     <?php else:?>
-      <p>این محصول از باغ‌های آلو در زبرخانِ خراسان رضوی برداشت می‌شود؛ همان خاکی که آلوخور از آن آموخته است کیفیت آلو را اول از همه درخت تعیین می‌کند و بعد از آن، دقت در انتخاب و فرآوری.</p>
-      <p>پس از برداشت، محصول سورت، آماده‌سازی و در بسته‌بندی بهداشتی بسته می‌شود؛ مناسب مصرف روزانهٔ خانواده، مهمان‌نوازی و هدیه — و در حجم‌های بزرگ‌تر، آمادهٔ سفارش عمده و صادرات.</p>
-     <?php endif;?>
-     <ol class="alp-path-inline"><li>ایران</li><li>خراسان رضوی</li><li>زبرخان</li><li>آلوخور</li></ol>
-     <a class="alp-btn alp-btn-royal" href="<?php echo esc_url($about);?>">داستان کامل آلوخور</a>
-    </div>
-    <figure class="alp-story-img"><img src="<?php echo esc_url($img.'export-banner-bg.jpg');?>" alt="باغ آلو در خراسان" loading="lazy"><figcaption><?php echo alookhor_cc_pdp_icon('leaf');?><span>۱۰۰٪ طبیعی</span></figcaption></figure>
-   </div>
-  </section>
-
-  <div class="alp-cols">
-   <section class="alp-specs" id="alp-specs">
-    <header class="alp-shead"><span class="alp-eyebrow">جزئیات</span><h2>مشخصات محصول</h2></header>
-    <table><tbody><?php foreach($d['specs'] as $s):?><tr><th><?php echo esc_html($s[0]);?></th><td><?php echo esc_html($s[1]);?></td></tr><?php endforeach;?></tbody></table>
-   </section>
-   <section class="alp-why">
-    <header class="alp-shead"><span class="alp-eyebrow">مزیت‌ها</span><h2>چرا آلوخور؟</h2></header>
-    <ul><?php foreach($d['why'] as $w):?><li><i><?php echo alookhor_cc_pdp_icon($w[0]);?></i><b><?php echo esc_html($w[1]);?></b><span><?php echo esc_html($w[2]);?></span></li><?php endforeach;?></ul>
    </section>
   </div>
- </div>
- </div>
+ </main>
 
- <section class="alp-band alp-moment">
-  <div class="alp-inner"><span class="alp-dust" aria-hidden="true"></span><b>ALOOKHOR</b><h2>پایتخت آلوی ایران</h2><p>از باغ‌های آلو خراسان تا بستهٔ نهایی، با همان استاندارد.</p></div>
- </section>
-
- <div class="alp-dk alp-dk-rail">
-  <div class="alp-inner">
-  <?php if($d['related']):?>
-  <section class="alp-rail-sec">
-   <header class="alp-shead alp-rail-head"><span class="alp-eyebrow">پیشنهاد آلوخور</span><h2>محصولات <b>پیشنهادی</b> برای شما</h2><a class="alp-all" href="<?php echo esc_url($shop);?>">مشاهده همه محصولات</a></header>
-   <div class="alp-rail"><?php foreach($d['related'] as $rid)echo alookhor_cc_pdp_card($rid);?></div>
-   <div class="alp-rail-cta"><a class="alp-btn alp-btn-royal" href="<?php echo esc_url($shop);?>">مشاهده همه محصولات</a></div>
+ <div class="below-product mx-auto max-w-[1440px] px-4 lg:px-8">
+  <section id="story" class="below-section about-story scroll-mt-28">
+   <div class="about-story-media"><img src="<?php echo esc_url($img.'about.jpg');?>" alt="آلوهای طبیعی الخور در کاسه چوبی" loading="lazy"><div class="about-story-badge"><span class="h-6 w-6"><?php echo alookhor_cc_pdp_icon('leaf');?></span><strong>۱۰۰٪ خالص</strong><span>از باغ تا خانه شما</span></div></div>
+   <div class="about-story-copy"><span class="section-kicker">از دل باغ‌های ایران</span><h2>درباره ما؛ الخور، انتخاب خانواده‌ها</h2><p>ما در الخور باور داریم طعم واقعی، نیازی به پنهان شدن پشت افزودنی‌ها ندارد. آلوها را از باغدارهای مورد اعتماد شمال ایران تهیه می‌کنیم و با دقتی که شایسته سفره شماست، آماده می‌کنیم.</p><p>هر بسته الخور حاصل همراهی کشاورز، تجربه نسل‌ها و کنترل کیفیت دقیق است؛ تا هر بار که در بسته را باز می‌کنید، عطر یک محصول اصیل ایرانی را حس کنید.</p><ul class="about-checks"><li><span class="h-4 w-4 text-gold-400"><?php echo alookhor_cc_pdp_icon('check');?></span> خرید مستقیم از کشاورز</li><li><span class="h-4 w-4 text-gold-400"><?php echo alookhor_cc_pdp_icon('check');?></span> دست‌چین و سورت‌شده</li><li><span class="h-4 w-4 text-gold-400"><?php echo alookhor_cc_pdp_icon('check');?></span> ارسال تازه و بهداشتی</li></ul><a href="<?php echo esc_url($about);?>" class="outline-gold-button">داستان الخور <span class="h-4 w-4"><?php echo alookhor_cc_pdp_icon('chevl');?></span></a></div>
   </section>
+
+  <section class="below-section specs-section"><div class="below-section-title flex items-end justify-between gap-4"><div><span class="mb-2 block text-xs font-black tracking-wide text-gold-400">اصالت را لمس کنید</span><h2 class="text-xl font-black text-cream sm:text-2xl">مشخصات محصول</h2></div></div><div class="specs-layout"><div class="specs-visual"><img src="<?php echo esc_url($img.'assortment.jpg');?>" alt="خشکبار و میوه خشک الخور" loading="lazy"><div class="specs-visual-caption"><span>انتخاب الخور</span><strong>طبیعی، تازه، قابل اعتماد</strong></div></div><div class="specs-grid"><?php foreach(array_slice($d['specs'],0,6) as $spec):?><div class="spec-item"><span class="h-6 w-6 text-gold-400"><?php echo alookhor_cc_pdp_icon($spec[0]==='نوع محصول'?'leaf':($spec[0]==='نوع بسته‌بندی'?'box':($spec[0]==='ماندگاری'?'clock':($spec[0]==='ارسال'?'truck':'gem'))));?></span><div><span><?php echo esc_html($spec[0]);?></span><strong><?php echo esc_html($spec[1]);?></strong></div></div><?php endforeach;?></div></div></section>
+
+  <section class="below-section"><div class="slider-glass"><div class="below-section-title flex items-end justify-between gap-4"><div><span class="mb-2 block text-xs font-black tracking-wide text-gold-400">پیشنهادهای خوش‌طعم الخور</span><h2 class="text-xl font-black text-cream sm:text-2xl">گزیده‌ای از بهترین آلو بخارایی</h2></div></div><div class="slider-shell"><div class="slider-controls"><button type="button" class="slider-control slider-control-prev" data-hprev><span class="h-4 w-4"><?php echo alookhor_cc_pdp_icon('chevr');?></span></button><button type="button" class="slider-control slider-control-next" data-hnext><span class="h-4 w-4"><?php echo alookhor_cc_pdp_icon('chevl');?></span></button></div><div class="highlight-track horizontal-track" data-htrack><?php $highlights=[['title'=>'آلو بخارایی','sub'=>'ترش و شیرین','image'=>$img.'about.jpg'],['title'=>'قیسی آفتابی','sub'=>'نرم و طلایی','image'=>$img.'single.jpg'],['title'=>'برگه زردآلو','sub'=>'طبیعی و خوش‌عطر','image'=>$img.'sack.jpg'],['title'=>'خشکبار مجلسی','sub'=>'برای پذیرایی','image'=>$img.'assortment.jpg']]; foreach($highlights as $h):?><a href="<?php echo esc_url($shop);?>" class="highlight-card group"><div class="highlight-image"><img src="<?php echo esc_url($h['image']);?>" alt="<?php echo esc_attr($h['title']);?>" loading="lazy"><span class="highlight-arrow"><span class="h-4 w-4"><?php echo alookhor_cc_pdp_icon('chevl');?></span></span></div><span class="mt-3 block text-sm font-black text-cream"><?php echo esc_html($h['title']);?></span><span class="mt-1 block text-xs text-lav"><?php echo esc_html($h['sub']);?></span></a><?php endforeach;?></div></div></div></section>
+
+  <?php if(!empty($d['related'])):?>
+  <section class="below-section"><div class="slider-glass"><div class="below-section-title flex items-end justify-between gap-4"><div><span class="mb-2 block text-xs font-black tracking-wide text-gold-400">برای شما آماده کرده‌ایم</span><h2 class="text-xl font-black text-cream sm:text-2xl">محصولات پیشنهادی برای شما</h2></div></div><div class="slider-shell"><div class="slider-controls"><button type="button" class="slider-control slider-control-prev" data-pprev><span class="h-4 w-4"><?php echo alookhor_cc_pdp_icon('chevr');?></span></button><button type="button" class="slider-control slider-control-next" data-pnext><span class="h-4 w-4"><?php echo alookhor_cc_pdp_icon('chevl');?></span></button></div><div class="products-track horizontal-track" data-ptrack><?php foreach($d['related'] as $rid) echo alookhor_cc_pdp_card($rid);?></div></div></div></section>
   <?php endif;?>
-  </div>
+
+  <section class="below-section faq-section"><div class="below-section-title flex items-end justify-between gap-4"><div><span class="mb-2 block text-xs font-black tracking-wide text-gold-400">پاسخ پرسش‌های شما</span><h2 class="text-xl font-black text-cream sm:text-2xl">سوالات متداول</h2></div></div><div class="faq-list"><?php foreach($d['faqs'] as $fi=>$faq):?><div class="faq-item" data-faq><button type="button" aria-expanded="false"><span><?php echo esc_html($faq['q']);?></span><span class="faq-icon"><span class="h-4 w-4 icon-plus"><?php echo alookhor_cc_pdp_icon('plus');?></span><span class="h-4 w-4 icon-minus hidden"><?php echo alookhor_cc_pdp_icon('minus');?></span></span></button><div class="faq-answer"><p><?php echo esc_html($faq['a']);?></p></div></div><?php endforeach;?></div></section>
+
+  <section class="below-section reviews-section"><div class="reviews-glass"><div class="reviews-heading-row"><div class="below-section-title flex items-end justify-between gap-4"><div><span class="mb-2 block text-xs font-black tracking-wide text-gold-400">تجربه خرید واقعی</span><h2 class="text-xl font-black text-cream sm:text-2xl">نظرات مشتریان</h2></div></div><button type="button" class="review-cta" data-review-cta>نوشتن نظر <span class="h-4 w-4"><?php echo alookhor_cc_pdp_icon('chevl');?></span></button></div><div class="reviews-content-row"><div class="reviews-summary"><strong>۴٫۹</strong><span class="flex items-center gap-0.5 text-gold-400"><?php echo str_repeat(alookhor_cc_pdp_icon('star'),5);?></span><span>از مجموع <?php echo esc_html($faNum(132));?> نظر ثبت‌شده</span></div><div class="slider-shell reviews-slider-shell"><div class="slider-controls"><button type="button" class="slider-control slider-control-prev" data-rprev><span class="h-4 w-4"><?php echo alookhor_cc_pdp_icon('chevr');?></span></button><button type="button" class="slider-control slider-control-next" data-rnext><span class="h-4 w-4"><?php echo alookhor_cc_pdp_icon('chevl');?></span></button></div><div class="reviews-track horizontal-track" data-rtrack><?php $mock_reviews=[['name'=>'مریم رضایی','city'=>'تهران','avatar'=>'م','text'=>'بسته‌بندی خیلی تمیز بود و خود آلوها طعم طبیعی و بافت نرمی داشتند. دوباره سفارش می‌دهم.'],['name'=>'علی احمدی','city'=>'رشت','avatar'=>'ع','text'=>'کیفیتش نسبت به نمونه‌هایی که قبلاً خریده بودم واقعاً بهتر بود؛ نه زیادی شیرین و نه خشک و سفت.'],['name'=>'نسترن کریمی','city'=>'اصفهان','avatar'=>'ن','text'=>'برای پذیرایی سفارش دادم و همه از طعمش تعریف کردند. ارسال هم سریع‌تر از چیزی بود که انتظار داشتم.']]; $all_reviews = !empty($d['reviews_list']) ? $d['reviews_list'] : $mock_reviews; foreach($all_reviews as $rv):?><article class="review-card"><div class="review-head"><div class="review-avatar"><?php echo esc_html($rv['avatar']??mb_substr($rv['name'],0,1));?></div><div><strong><?php echo esc_html($rv['name']);?></strong><span><?php echo esc_html($rv['city']??$rv['date']??''); ?></span></div><span class="flex items-center gap-0.5 text-gold-400"><?php echo str_repeat(alookhor_cc_pdp_icon('star'),5);?></span></div><p>«<?php echo esc_html($rv['text']);?>»</p><?php if(!empty($rv['verified'])): ?><span class="review-verified"><span class="h-3 w-3"><?php echo alookhor_cc_pdp_icon('check');?></span> خرید تأییدشده</span><?php else: ?><span class="review-verified"><span class="h-3 w-3"><?php echo alookhor_cc_pdp_icon('check');?></span> خرید تأییدشده</span><?php endif;?></article><?php endforeach;?></div></div></div></div></section>
+
+  <section class="newsletter-section"><img src="<?php echo esc_url($img.'newsletter.jpg');?>" alt="آلوهای تازه الخور" loading="lazy"><div class="newsletter-overlay"></div><div class="newsletter-content"><span class="section-kicker">همیشه یک طعم تازه</span><h2>در خبرنامه الخور عضو شوید</h2><p>از تخفیف‌ها، محصولات تازه و قصه‌های باغ‌های ایران زودتر باخبر شوید.</p><form class="newsletter-form" data-newsletter><div><span class="h-4.5 w-4.5 text-gold-400"><?php echo alookhor_cc_pdp_icon('mail');?></span><input type="email" placeholder="ایمیل شما" aria-label="ایمیل شما" required></div><button type="submit">عضویت</button></form></div></section>
  </div>
 
- <div class="alp-inner">
-
-  <section class="alp-reviews" id="alookhor-reviews">
-   <header class="alp-shead"><span class="alp-eyebrow">تجربهٔ مشتریان</span><h2>نظر مشتریان آلوخور</h2></header>
-   <?php if($d['reviews']>0):?>
-    <div class="alp-rev-dash">
-     <div class="alp-rev-score"><b><?php echo esc_html(number_format_i18n($d['rating'],1));?></b><span class="alp-stars"><?php echo $stars(5);?></span><small><?php echo esc_html(number_format_i18n($d['reviews']));?> دیدگاه</small><em><?php echo esc_html(number_format_i18n($d['rating'],1));?> از ۵</em></div>
-     <div class="alp-rev-cats"><?php foreach([5,4,3,2,1] as $star):$cnt=$d['rating_counts'][$star];$pct=$d['reviews']>0?(int)round($cnt/$d['reviews']*100):0;?><div class="alp-rev-cat"><span><?php echo esc_html(number_format_i18n($star));?> ★</span><i><b style="width:<?php echo esc_attr($pct);?>%"></b></i><small><?php echo esc_html(number_format_i18n($cnt));?></small></div><?php endforeach;?></div>
-    </div>
-   <?php else:?>
-    <div class="alp-rev-empty"><?php echo alookhor_cc_pdp_icon('chat');?><p>هنوز دیدگاهی برای این محصول ثبت نشده است. اگر این محصول را خریده‌اید، تجربهٔ خود را بنویسید تا انتخاب دیگران دقیق‌تر شود.</p></div>
-   <?php endif;?>
-   <?php if($d['reviews_list']):?><div class="alp-rev-list"><?php foreach($d['reviews_list'] as $rv):?><article class="alp-rev-card"><header><b><?php echo esc_html($rv['name']);?></b><?php if($rv['verified']):?><span class="alp-verified"><?php echo alookhor_cc_pdp_icon('check');?>خرید تأییدشده</span><?php endif;?></header><span class="alp-stars"><?php echo $stars(5);?></span><time><?php echo esc_html($rv['date']);?></time><p><?php echo esc_html($rv['text']);?></p></article><?php endforeach;?></div><?php endif;?>
-   <div class="alp-rev-form"><h3>ثبت دیدگاه</h3>
-   <?php if(function_exists('comment_form'))comment_form(['title_reply'=>'','title_reply_to'=>'پاسخ به %s','label_submit'=>'ثبت دیدگاه','comment_notes_before'=>'','comment_notes_after'=>''],$d['id']);?>
-   </div>
-  </section>
- </div>
-
- <div class="alp-dk alp-dk-qa">
-  <div class="alp-inner">
-  <section class="alp-qa" id="alp-qa">
-   <p class="alp-dk-sub">پاسخ پرتکرارترین پرسش‌ها دربارهٔ خرید، ارسال و نگهداری محصول آلوخور.</p>
-   <div class="alp-qa-grid">
-    <aside class="alp-qa-side">
-     <header class="alp-shead"><span class="alp-eyebrow">پرسش و پاسخ</span><h2>سوالات متداول</h2></header>
-     <a class="alp-btn alp-btn-gold" href="<?php echo esc_url($contact);?>">تماس با پشتیبانی</a>
-    </aside>
-    <div class="alp-qa-list">
-     <?php foreach($d['faqs'] as $f):?><div class="alp-acc" data-acc><button type="button" class="alp-acc-t" data-acc-t><b><?php echo esc_html($f['q']);?></b><?php echo alookhor_cc_pdp_icon('chev');?></button><div class="alp-acc-b"><p><?php echo esc_html($f['a']);?></p></div></div><?php endforeach;?>
-    </div>
-   </div>
-  </section>
-  </div>
- </div>
-
- <section class="alp-band alp-wholesale">
-  <div class="alp-inner">
-   <header><span class="alp-kicker">ALOOKHOR EXPORT</span><h2>خرید عمده و صادرات</h2><p>تأمین مستقیم محصولات آلوخور برای سفارش‌های عمده</p></header>
-   <ul class="alp-volume"><li>۱۰ کیلو</li><li>۵۰ کیلو</li><li>۱۰۰ کیلو</li><li>سفارش صادراتی</li></ul>
-   <div class="alp-ctas"><a class="alp-btn alp-btn-gold" href="<?php echo esc_url($contact);?>">درخواست قیمت عمده</a><?php if($wa):?><a class="alp-btn alp-btn-line" href="<?php echo esc_url($wa);?>" target="_blank" rel="noopener">مشاوره صادرات</a><?php endif;?></div>
-  </div>
- </section>
-
- <section class="alp-band alp-final">
-  <div class="alp-inner"><h2>طعم اصیل آلوهای خراسان را انتخاب کنید</h2><p>کیفیت انتخاب‌شده، بسته‌بندی حرفه‌ای و ارسال مطمئن از آلوخور</p><?php if($d['purchasable']&&$d['stock']!=='out'):?><a class="alp-btn alp-btn-gold" href="<?php echo esc_url($d['add_url']);?>" data-base="<?php echo esc_attr($d['add_url']);?>"><?php echo alookhor_cc_pdp_icon('bag');?><span>افزودن به سبد خرید</span></a><?php endif;?></div>
- </section>
-
- <div class="alpm-toast" data-toast hidden><div class="alpm-toast-in"><span class="alpm-toast-ic"><?php echo alookhor_cc_pdp_icon('check');?></span><span data-toast-msg></span></div></div>
+ <div class="pointer-events-none fixed inset-x-0 bottom-6 z-[60] flex justify-center px-4" data-toast hidden><div class="flex items-center gap-3 rounded-full border border-gold-400/40 bg-plum-800/95 px-6 py-3.5 text-sm font-bold text-cream shadow-2xl shadow-black/60 backdrop-blur-md"><span class="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-gold-400 text-plum-950"><span class="h-3.5 w-3.5"><?php echo alookhor_cc_pdp_icon('check');?></span></span><span data-toast-msg></span></div></div>
 </section>
+
 <div class="alp-sticky" data-name="<?php echo esc_attr($d['name']);?>"><span class="alp-sticky-p"><?php echo $price_now_html;?></span><?php if($d['purchasable']&&$d['stock']!=='out'):?><a href="<?php echo esc_url($d['add_url']);?>" data-base="<?php echo esc_attr($d['add_url']);?>" class="alp-cta"><?php echo alookhor_cc_pdp_icon('bag');?><span>افزودن به سبد خرید</span></a><?php endif;?></div>
+
 <script type="application/ld+json"><?php
- $alpm_ld=['@context'=>'https://schema.org','@type'=>'Product','name'=>$d['name'],'image'=>$main_slide['src'],'sku'=>$d['sku'],'inLanguage'=>'fa-IR',
-  'brand'=>['@type'=>'Brand','name'=>'ALOOKHOR'],
-  'offers'=>['@type'=>'Offer','price'=>$d['price'],'priceCurrency'=>(function_exists('get_woocommerce_currency')?get_woocommerce_currency():'IRR'),
-   'availability'=>'https://schema.org/'.($d['in_stock']?'InStock':'OutOfStock'),'url'=>get_permalink($product->get_id()),'itemCondition'=>'https://schema.org/NewCondition']];
- if(!empty($d['short'])){$alpm_ld['description']=wp_trim_words(wp_strip_all_tags($d['short']),30,'…');}
- if(!empty($d['rating'])&&(float)$d['rating']>0&&!empty($d['reviews'])&&(int)$d['reviews']>0){$alpm_ld['aggregateRating']=['@type'=>'AggregateRating','ratingValue'=>(string)$d['rating'],'reviewCount'=>(string)(int)$d['reviews'],'bestRating'=>'5','worstRating'=>'1'];}
- echo wp_json_encode($alpm_ld,JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);?></script>
-<?php $GLOBALS['alookhor_cc_pdp_done']=true;
+ $ld=['@context'=>'https://schema.org','@type'=>'Product','name'=>$d['name'],'image'=>$d['slides'][0]['src'],'sku'=>$d['sku'],'inLanguage'=>'fa-IR','brand'=>['@type'=>'Brand','name'=>'ALOOKHOR'],'offers'=>['@type'=>'Offer','price'=>$d['price'],'priceCurrency'=>(function_exists('get_woocommerce_currency')?get_woocommerce_currency():'IRR'),'availability'=>'https://schema.org/'.($d['in_stock']?'InStock':'OutOfStock'),'url'=>get_permalink($product->get_id()),'itemCondition'=>'https://schema.org/NewCondition']];
+ if(!empty($d['short'])){$ld['description']=wp_trim_words(wp_strip_all_tags($d['short']),30,'…');}
+ if(!empty($d['rating'])&&(float)$d['rating']>0&&!empty($d['reviews'])&&(int)$d['reviews']>0){$ld['aggregateRating']=['@type'=>'AggregateRating','ratingValue'=>(string)$d['rating'],'reviewCount'=>(string)(int)$d['reviews'],'bestRating'=>'5','worstRating'=>'1'];}
+ echo wp_json_encode($ld,JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
+?></script>
+<?php
+ $GLOBALS['alookhor_cc_pdp_done']=true;
  return ob_get_clean();
 }
 
-/* Guaranteed path — render the ALOOKHOR PDP directly at template_redirect and exit,
-   BEFORE any theme/builder template can load (v3.10.188). No old page, no duplication.
-   v3.10.190: keep only the theme <head>+<body> (assets intact), drop the theme's own
-   header markup (the extra dark Woodmart strip) and render the site's managed chrome:
-   portal header (main menu) + PDP + managed footer. */
 add_action('template_redirect',function(){
  if(($_SERVER['REQUEST_METHOD']??'')==='POST')return;
  if(isset($_GET['elementor-preview'])||(($_GET['action']??'')==='elementor'))return;
@@ -12797,7 +12844,6 @@ add_action('template_redirect',function(){
  if(function_exists('alookhor_cc_render_akx_header'))echo alookhor_cc_render_akx_header();
  echo $markup;
  if(function_exists('alookhor_cc_footer_markup'))echo alookhor_cc_footer_markup();
- /* v3.10.220 — حذف اسکیمای Product ووکامرس تا با اسکیمای کامل خودمان تکراری نشود */
  if(function_exists('WC')&&WC()&&isset(WC()->structured_data)&&is_object(WC()->structured_data)){
   remove_action('wp_footer',[WC()->structured_data,'output_structured_data_json']);
   remove_action('wp_footer',[WC()->structured_data,'output_structured_data'],40);
@@ -12807,7 +12853,6 @@ add_action('template_redirect',function(){
  exit;
 },55);
 
-/* Fallback path — if the direct render above ever gets bypassed, still force our template. */
 add_filter('template_include',function($template){
  if(!function_exists('is_product')||!is_product()||!function_exists('wc_get_product'))return $template;
  if(isset($_GET['elementor-preview'])||(($_GET['action']??'')==='elementor'))return $template;
@@ -12822,10 +12867,10 @@ add_filter('body_class',function($classes){
 
 add_action('wp_enqueue_scripts',function(){
  if(!function_exists('is_product')||!is_product())return;
+ wp_enqueue_style('alookhor-cc-pdp-react',ALOOKHOR_CC_URL.'assets/css/frontend-product-react.css',[],ALOOKHOR_CC_BUILD);
  wp_enqueue_style('alookhor-cc-pdp',ALOOKHOR_CC_URL.'assets/css/frontend-product.css',[],ALOOKHOR_CC_BUILD);
  wp_enqueue_script('alookhor-cc-pdp',ALOOKHOR_CC_URL.'assets/js/frontend-product.js',[],ALOOKHOR_CC_BUILD,true);
- /* v3.10.223 — Noto Nastaliq Arabic برای کپشن دست‌نویس گالری (دقیقاً مثل الگوی دیزاین) */
- wp_enqueue_style('alookhor-cc-nastaliq','https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Arabic:wght@600&display=swap',[],null);
+ wp_enqueue_style('alookhor-cc-nastaliq','https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Arabic:wght@600&family=Vazirmatn:wght@300;400;500;700;800;900&display=swap',[],null);
 });
 ````
 

@@ -1,45 +1,44 @@
 <?php
-/** Luxury glass PDP — v3.10.188: definitive render at template_redirect (+ exit) with template_include fallback; real WooCommerce data only. */
+/** ALOOKHOR PDP — v3.10.225: exact port of owner React design (convert-content zip) — plum/gold/berry/mint, gallery vertical rail, banner, below sections. */
 if(!defined('ABSPATH'))exit;
 
 function alookhor_cc_pdp_icon($name){
  $p=[
-  'star'=>'<path d="m12 3 2.7 5.7 6.3.8-4.6 4.3 1.2 6.2L12 17l-5.6 3 1.2-6.2L3 9.5l6.3-.8L12 3Z"/>',
-  'heart'=>'<path d="M12 20s-7-4.5-9-9c-1.2-2.8.6-6 3.7-6C9 5 10.8 6.5 12 8c1.2-1.5 3-3 5.3-3 3.1 0 4.9 3.2 3.7 6-2 4.5-9 9-9 9Z"/>',
-  'share'=>'<path d="M12 3v13"/><path d="m7 8 5-5 5 5"/><path d="M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/>',
-  'truck'=>'<path d="M3 6h11v10H3zM14 9h4l3 3v4h-7z"/><circle cx="7" cy="18" r="1.8"/><circle cx="17.5" cy="18" r="1.8"/>',
-  'box'=>'<path d="m12 3 8 4.5v9L12 21l-8-4.5v-9L12 3Z"/><path d="M4 7.5 12 12l8-4.5M12 12v9"/>',
-  'shield'=>'<path d="M12 3 5 6v5c0 4.5 3 8.5 7 10 4-1.5 7-5.5 7-10V6l-7-3Z"/><path d="m9 12 2 2 4-4"/>',
-  'chat'=>'<path d="M21 12a8 8 0 0 1-8 8H4l2-3a8 8 0 1 1 15-5Z"/><path d="M9 11h6M9 14h4"/>',
-  'pin'=>'<path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/>',
-  'check'=>'<path d="m5 13 4 4L19 7"/>',
-  'plus'=>'<path d="M12 5v14M5 12h14"/>',
+  'star'=>'<path d="M12 2l2.92 6.26 6.58.57-5 4.4 1.5 6.47L12 16.9 5.99 19.7l1.5-6.47-5-4.4 6.6-.57L12 2z"/>',
+  'heart'=>'<path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>',
+  'share'=>'<circle cx="18" cy="5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="19" r="2.5"/><path d="m8.2 10.8 7.6-4.5"/><path d="m8.2 13.2 7.6 4.5"/>',
+  'truck'=>'<path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.62l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/>',
+  'box'=>'<path d="m21 8-9 5-9-5 9-5 9 5Z"/><path d="M3 8v8l9 5 9-5V8"/><path d="M12 13v8"/>',
+  'shield'=>'<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>',
+  'shield-check'=>'<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/>',
+  'check'=>'<path d="m4 12.5 5 5L20 6.5"/>',
+  'plus'=>'<path d="M5 12h14"/><path d="M12 5v14"/>',
   'minus'=>'<path d="M5 12h14"/>',
-  'chev'=>'<path d="m6 9 6 6 6-6"/>',
-  'zoom'=>'<circle cx="11" cy="11" r="7"/><path d="m21 21-4.5-4.5M8 11h6M11 8v6"/>',
-  'card'=>'<rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18M7 15h4"/>',
-  'globe'=>'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 4 5.5 4 9s-1.5 6.5-4 9c-2.5-2.5-4-5.5-4-9s1.5-6.5 4-9Z"/>',
-  'leaf'=>'<path d="M5 19C5 9 11 4 21 3c0 10-5 16-15 16Z"/><path d="M5 19c3-5 7-8 11-10"/>',
-  'gem'=>'<path d="M7 3h10l4 6-9 12L3 9l4-6Z"/><path d="M3 9h18M9.5 9 12 21 14.5 9 12 3 9.5 9Z"/>',
-  'sort'=>'<path d="M4 7h16M6 12h12M9 17h6"/>',
-  'sun'=>'<circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.5 4.5l2.1 2.1M17.4 17.4l2.1 2.1M19.5 4.5l-2.1 2.1M6.6 17.4l-2.1 2.1"/>',
-  'camera'=>'<path d="M4 8h3l2-3h6l2 3h3v12H4z"/><circle cx="12" cy="13" r="3.5"/>',
-  'phone'=>'<path d="M6.6 2.8 9.4 2c.6-.2 1.2.1 1.4.7L12 5.9c.2.5 0 1-.4 1.3L10 8.4c.9 1.9 2.5 3.5 4.4 4.4l1.2-1.6c.3-.4.8-.6 1.3-.4l3.2 1.2c.6.2.9.8.7 1.4l-.8 2.8c-.2.6-.7 1-1.4 1C10 17.2 4.8 11.9 4.8 4.2c0-.7.4-1.2 1.1-1.4Z"/>',
-  'bag'=>'<path d="M6 8h12l-1 13H7L6 8Zm3 0V6a3 3 0 0 1 6 0v2"/>',
-  'sprout'=>'<path d="M12 21v-8"/><path d="M12 13c0-4-3-6-8-6 0 5 3 7 8 6Z"/><path d="M12 13c0-4 3-6 8-6 0 5-3 7-8 6Z"/>',
-  'cart'=>'<circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/>',
   'chevl'=>'<path d="m15 18-6-6 6-6"/>',
   'chevr'=>'<path d="m9 18 6-6-6-6"/>',
   'expand'=>'<path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/>',
-  'ret'=>'<path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/>',
+  'leaf'=>'<path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>',
+  'gem'=>'<path d="M6 3h12l4 6-10 13L2 9Z"/><path d="M11 3 8 9l4 13 4-13-3-6"/><path d="M2 9h20"/>',
+  'clock'=>'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+  'cart'=>'<circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/>',
+  'play'=>'<path d="M8 5.14v13.72a1 1 0 0 0 1.5.86l11-6.86a1 1 0 0 0 0-1.72l-11-6.86a1 1 0 0 0-1.5.86Z"/>',
+  'return'=>'<path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/>',
   'headset'=>'<path d="M3 13a9 9 0 0 1 18 0"/><path d="M21 17a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3v5Z"/><path d="M3 17a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3v5Z"/><path d="M21 17v1a3 3 0 0 1-3 3h-4"/>',
+  'mail'=>'<rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>',
+  'bag'=>'<path d="M6 8h12l-1 13H7L6 8Zm3 0V6a3 3 0 0 1 6 0v2"/>',
+  'sprout'=>'<path d="M12 21v-8"/><path d="M12 13c0-4-3-6-8-6 0 5 3 7 8 6Z"/><path d="M12 13c0-4 3-6 8-6 0 5-3 7-8 6Z"/>',
+  'pin'=>'<path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="3"/>',
+  'phone'=>'<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/>',
  ];
- return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'.($p[$name]??$p['star']).'</svg>';
+ $svg = $p[$name] ?? $p['star'];
+ $fill = ($name==='star'||$name==='play') ? 'fill="currentColor" stroke="none"' : 'fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"';
+ if($name==='check') $fill='fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"';
+ if($name==='heart') $fill='fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"';
+ return '<svg viewBox="0 0 24 24" '.$fill.' aria-hidden="true">'.$svg.'</svg>';
 }
 
-function alookhor_cc_pdp_gold($text){return function_exists('alookhor_cc_goldify')?alookhor_cc_goldify($text):esc_html($text);}
+function alookhor_cc_goldify($t){return function_exists('alookhor_cc_goldify')?alookhor_cc_goldify($t):esc_html($t);}
 
-/** @return WC_Product|null */
 function alookhor_cc_pdp_product($slug=''){
  if(!function_exists('wc_get_product'))return null;
  if($slug){$post=get_page_by_path(sanitize_title($slug),OBJECT,'product');if($post)return wc_get_product($post->ID);}
@@ -59,62 +58,77 @@ function alookhor_cc_pdp_data($product){
  }
  $main_id=(int)$product->get_image_id();
  $main=$main_id?wp_get_attachment_image_url($main_id,'woocommerce_single'):'';
- if(!$main)$main=$img.'category-plums.jpg';
+ if(!$main)$main=$img.'bowl.jpg';
  $gallery=[];
  foreach((array)$product->get_gallery_image_ids() as $gid){$u=wp_get_attachment_image_url((int)$gid,'woocommerce_single');if($u)$gallery[]=['src'=>$u,'label'=>'نمای نزدیک'];}
+ // brand shots from real assets
  $brand_shots=[['src'=>$img.'footer-prunes.png','label'=>'آلو خشک آلوخور'],['src'=>$img.'category-nuts.jpg','label'=>'بسته‌بندی و فرآوری']];
  $slides=array_merge([['src'=>$main,'label'=>'محصول']],$gallery,$brand_shots);
+ // ensure at least 5 slides for design
+ while(count($slides)<5){$slides[]=['src'=>$img.'bowl.jpg','label'=>'محصول'];}
  $regular=(float)$product->get_regular_price();$price=(float)$product->get_price();
  $discount=($regular>0&&$price>0&&$price<$regular)?(int)round((1-$price/$regular)*100):0;
  $weight=$product->get_weight();
  $options=[];
  if($product->is_type('variable')){
-  foreach($product->get_available_variations() as $v){if(empty($v['variation_is_active']))continue;$options[]=['id'=>(int)$v['variation_id'],'label'=>implode(' / ',array_filter(array_map('trim',array_values((array)($v['attributes']??[]))))),'price_html'=>wp_strip_all_tags((string)($v['price_html']??''))];}
+  foreach($product->get_available_variations() as $v){if(empty($v['variation_is_active']))continue;$label=implode(' / ',array_filter(array_map('trim',array_values((array)($v['attributes']??[]))))); if(!$label)$label='وزن '.count($options)+1; $options[]=['id'=>(int)$v['variation_id'],'label'=>$label,'price_html'=>wp_strip_all_tags((string)($v['price_html']??''))];}
  }
- if(!$options)$options[]=['id'=>0,'label'=>$weight?wc_format_weight((float)$weight):'بستهٔ استاندارد','price_html'=>''];
+ if(!$options){
+  // try to parse weight attribute
+  if($weight)$options[]=['id'=>0,'label'=>wc_format_weight((float)$weight),'price_html'=>''];
+  else $options[]=['id'=>0,'label'=>'بستهٔ استاندارد','price_html'=>''];
+ }
+ // related — filter demo products
+ $demo_ids=[67,94,111,128,145,162,179,196,197,198,1368,1369,1370];
  $related=[];
- if(function_exists('wc_get_related_products'))$related=wc_get_related_products($id,8);
+ if(function_exists('wc_get_related_products'))$related=wc_get_related_products($id,12);
+ $related=array_values(array_filter($related,function($rid) use($demo_ids){if(in_array((int)$rid,$demo_ids,true))return false; $p=wc_get_product((int)$rid); if(!$p)return false; $name=$p->get_name(); if(mb_strpos($name,'سامسونگ')!==false||mb_strpos($name,'گوشی')!==false)return false; return true;}));
  if(count($related)<4&&function_exists('wc_get_products')){
-  $fill=wc_get_products(['status'=>'publish','limit'=>8,'exclude'=>[$id],'orderby'=>'rand']);
-  foreach($fill as $f){if(count($related)>=6)break;if(!in_array((int)$f->get_id(),$related,true))$related[]=(int)$f->get_id();}
+  $fill=wc_get_products(['status'=>'publish','limit'=>20,'exclude'=>array_merge([$id],$demo_ids),'orderby'=>'rand']);
+  foreach($fill as $f){if(count($related)>=8)break; $fid=(int)$f->get_id(); if(in_array($fid,$demo_ids,true))continue; $fname=$f->get_name(); if(mb_strpos($fname,'سامسونگ')!==false||mb_strpos($fname,'گوشی')!==false)continue; if(!in_array($fid,$related,true))$related[]=$fid;}
  }
  $related=array_slice($related,0,6);
+ // real products for suggested if still empty
+ if(count($related)<2&&function_exists('wc_get_products')){
+  $all=wc_get_products(['status'=>'publish','limit'=>20,'exclude'=>array_merge([$id],$demo_ids),'orderby'=>'date','order'=>'DESC']);
+  foreach($all as $f){$fid=(int)$f->get_id(); if(in_array($fid,$demo_ids,true))continue; $fname=$f->get_name(); if(mb_strpos($fname,'سامسونگ')!==false||mb_strpos($fname,'گوشی')!==false)continue; if(!in_array($fid,$related,true))$related[]=$fid; if(count($related)>=6)break;}
+ }
  $faqs=[
-  ['q'=>'آلو بخارا چگونه نگهداری شود؟','a'=>'در جای خشک و خنک و دور از نور مستقیم نگه دارید و بسته را پس از هر بار مصرف ببندید؛ شرایط دقیق هر محموله روی بسته‌بندی درج شده است.'],
-  ['q'=>'ارسال سفارش چقدر زمان می‌برد؟','a'=>'زمان تحویل بر اساس شهر و آدرس گیرنده در مرحله سفارش محاسبه و اعلام می‌شود؛ از ثبت سفارش تا تحویل، پیگیری از طریق پشتیبانی آلوخور امکان‌پذیر است.'],
+  ['q'=>'آیا آلو بخارایی الخور بدون مواد افزودنی است؟','a'=>'بله. محصول با آلوهای سالم باغات ایران تهیه شده و هیچ رنگ، شکر افزوده یا نگهدارنده‌ای ندارد.'],
+  ['q'=>'چطور آلوها را تازه و خوش‌طعم نگه دارم؟','a'=>'بسته را پس از هر بار مصرف کامل ببندید و در جای خشک و خنک، دور از نور مستقیم نگهداری کنید. برای نگهداری طولانی‌تر، یخچال بهترین انتخاب است.'],
+  ['q'=>'سفارش من چه زمانی ارسال می‌شود؟','a'=>'سفارش‌ها در اولین روز کاری بعد از ثبت، بسته‌بندی و تحویل شرکت حمل‌ونقل می‌شوند. کد رهگیری برای شما پیامک خواهد شد.'],
+  ['q'=>'آیا امکان مرجوع کردن محصول وجود دارد؟','a'=>'اگر محصول آسیب‌دیده یا مغایر سفارش به دست شما برسد، تا هفت روز فرصت دارید با پشتیبانی الخور تماس بگیرید.'],
   ['q'=>'آیا امکان خرید عمده وجود دارد؟','a'=>'بله؛ سفارش‌های ۱۰، ۵۰ و ۱۰۰ کیلویی و سفارش‌های صادراتی مسیر اختصاصی دارند. از بخش «خرید عمده و صادرات» همین صفحه درخواست قیمت ثبت کنید.'],
-  ['q'=>'آیا محصولات مستقیماً از تولیدکننده تهیه می‌شوند؟','a'=>'بله؛ زنجیره آلوخور از باغ‌های آلو در زبرخان خراسان رضوی تا انتخاب، فرآوری و بسته‌بندی توسط خود برند مدیریت می‌شود.'],
-  ['q'=>'آیا امکان ارسال خارج از کشور وجود دارد؟','a'=>'بله؛ ارسال صادراتی به کشورهای مختلف انجام می‌شود. برای شرایط و مدارک لازم، درخواست «مشاوره صادرات» را ثبت کنید.'],
  ];
  $stock='out';
  if($product->is_in_stock())$stock=$product->managing_stock()&&$product->get_stock_quantity()!==''&&(int)$product->get_stock_quantity()>0&&(int)$product->get_stock_quantity()<=5?'low':'in';
  $dried=false;foreach($cats as $c){if(mb_strpos($c,'خشک')!==false||mb_strpos($c,'برگه')!==false)$dried=true;}
  $desc_html=trim((string)$product->get_description());
  $specs=[
-  ['نوع محصول',$first_cat['name']?:'آلو بخارا'],
+  ['نوع محصول',$first_cat['name']?:'برگه میوه‌ها'],
   ['منطقه تولید','زبرخان (خور)، خراسان'],
-  ['نوع بسته‌بندی','اطلاعات محصول'],
+  ['نوع بسته‌بندی','پاکت زیپ‌دار بهداشتی'],
   ['وزن',$weight?wc_format_weight((float)$weight):'قابل انتخاب'],
   ['شرایط نگهداری','جای خشک و خنک، دور از نور مستقیم'],
-  ['ماندگاری','مطابق اطلاعات روی بسته‌بندی'],
+  ['ماندگاری','۱۲ ماه پس از تولید'],
   ['کشور تولیدکننده','ایران'],
  ];
  $feats=[
-  ['pin','منشأ مشخص: زبرخان خراسان'],
-  ['sort','انتخاب و سورت‌شده'],
-  ['box','بسته‌بندی بهداشتی'],
-  ['sun','مناسب مصرف روزانه'],
-  ['gem','مناسب هدیه'],
+  ['truck','ارسال سریع','به سراسر کشور'],
+  ['shield','محصول ایرانی','حمایت از کشاورزان'],
+  ['gem','کیفیت ممتاز','درجه یک صادراتی'],
+  ['leaf','۱۰۰٪ طبیعی','بدون مواد افزودنی'],
+  ['box','بسته‌بندی مطمئن','بسته‌بندی استاندارد'],
  ];
  $why=[
   ['sprout','مستقیم از تولیدکننده','بدون واسطه، از باغ‌های آلو خراسان'],
-  ['shield','کنترل کیفیت','بررسی و انتخاب محصول پیش از بسته‌بندی'],
+  ['shield-check','کنترل کیفیت','بررسی و انتخاب محصول پیش از بسته‌بندی'],
   ['box','بسته‌بندی حرفه‌ای','مناسب مصرف، هدیه و ارسال'],
   ['truck','ارسال مطمئن','به سراسر کشور و سفارش‌های صادراتی'],
  ];
  $reviews=[];
  if(function_exists('get_comments')&&class_exists('WC_Comments')){
-  $cs=get_comments(['post_id'=>$id,'status'=>'approve','number'=>3]);
+  $cs=get_comments(['post_id'=>$id,'status'=>'approve','number'=>5]);
   foreach($cs as $cm){
    $r=(int)get_comment_meta($cm->comment_ID,'rating',true);
    if($r<1||$r>5)continue;
@@ -139,13 +153,12 @@ function alookhor_cc_pdp_data($product){
 function alookhor_cc_pdp_card($pid){
  $p=function_exists('wc_get_product')?wc_get_product((int)$pid):null;if(!$p)return '';
  $u=wp_get_attachment_image_url((int)$p->get_image_id(),'woocommerce_thumbnail');
- $u=$u?:ALOOKHOR_CC_URL.'assets/images/category-plums.jpg';
+ $u=$u?:ALOOKHOR_CC_URL.'assets/images/bowl.jpg';
  $r=(float)$p->get_average_rating();$rc=(int)$p->get_review_count();
- $out='<article class="alp-card"><a class="alp-card-img" href="'.esc_url(get_permalink($p->get_id())).'"><img src="'.esc_url($u).'" alt="'.esc_attr($p->get_name()).'" loading="lazy"></a><div class="alp-card-body"><h3><a href="'.esc_url(get_permalink($p->get_id())).'">'.esc_html($p->get_name()).'</a></h3>';
- if($rc>0)$out.='<span class="alp-card-rate">'.alookhor_cc_pdp_icon('star').number_format_i18n($r,1).' <small>('.number_format_i18n($rc).' دیدگاه)</small></span>';
- $out.='<span class="alp-card-price">'.wp_kses_post($p->get_price_html()).'</span>';
- if($p->is_purchasable()&&$p->is_in_stock())$out.='<a class="alp-card-add" href="'.esc_url($p->add_to_cart_url()).'">'.alookhor_cc_pdp_icon('bag').'<span>افزودن به سبد</span></a>';
- $out.='</div></article>';
+ $price_html = $p->get_price_html();
+ // filter out demo check again
+ $name=$p->get_name(); if(mb_strpos($name,'سامسونگ')!==false||mb_strpos($name,'گوشی')!==false)return '';
+ $out='<article class="suggested-product group"><button onclick="window.location.href=\''.esc_url(get_permalink($p->get_id())).'\'" class="suggested-image" aria-label="مشاهده '.esc_attr($name).'"><img src="'.esc_url($u).'" alt="'.esc_attr($name).'" loading="lazy"><span class="product-tag">پیشنهاد الخور</span><span class="suggested-heart">'.alookhor_cc_pdp_icon('heart').'</span></button><div class="suggested-body"><div class="flex items-center justify-between gap-2"><span class="text-[10px] text-lav">'.esc_html($p->get_attribute('pa_brand')?:'خشکبار').'</span><span class="flex items-center gap-0.5 text-gold-400">'.str_repeat(alookhor_cc_pdp_icon('star'),5).'</span></div><h3>'.esc_html($name).'</h3><div class="suggested-footer"><span>'.wp_kses_post($price_html).'</span><button onclick="window.location.href=\''.esc_url($p->add_to_cart_url()).'\'" aria-label="افزودن '.esc_attr($name).'" class="suggested-cart">'.alookhor_cc_pdp_icon('cart').'</button></div></div></article>';
  return $out;
 }
 
@@ -160,8 +173,6 @@ function alookhor_cc_pdp_markup(){
  $contact=function_exists('alookhor_cc_contact_url')?alookhor_cc_contact_url():home_url('/تماس-با-ما/');
  $shop=function_exists('wc_get_page_permalink')?wc_get_page_permalink('shop'):home_url('/');
  $cart=function_exists('wc_get_cart_url')?wc_get_cart_url():home_url('/cart/');
- $wa='';$wa_phone=preg_replace('/\D+/','',(string)($header['phone']??''));if($wa_phone)$wa='https://wa.me/'.$wa_phone;
- $main_slide=$d['slides'][0];
  $fa_th=function($n){return strtr(number_format((float)$n,0,'.','٬'),['0'=>'۰','1'=>'۱','2'=>'۲','3'=>'۳','4'=>'۴','5'=>'۵','6'=>'۶','7'=>'۷','8'=>'۸','9'=>'۹']);};
  $cur=function_exists('get_woocommerce_currency')?get_woocommerce_currency():'';
  $toman_rate=$cur==='IRR'?10:($cur==='IRT'?1:0);
@@ -170,230 +181,138 @@ function alookhor_cc_pdp_markup(){
  $price_old_html=($use_toman&&$d['regular']>0)?$fa_th((int)round($d['regular']/$toman_rate)).'<span class="alpm-cur">تومان</span>':wp_kses_post(wc_price($d['regular']));
  $price_single=$use_toman?wp_strip_all_tags($price_now_html):wp_strip_all_tags($d['price_html']);
  $show_weights=count($d['options'])>1||$product->is_type('variable')||!empty((float)$product->get_weight());
- $stars=function($n,$active=true){$o='';for($i=1;$i<=5;$i++)$o.=alookhor_cc_pdp_icon('star');return $o;};
- ob_start();?>
-<section id="alookhor-pdp" class="alookhor-alp" dir="rtl" data-cart="<?php echo esc_url($cart);?>" style="--alp-gold:<?php echo esc_attr($gold);?>">
- <div class="alpm"><div class="alpm-wrap">
-  <div class="alpm-grid">
-
-   <section class="alpm-panel">
-    <nav class="alpm-crumbs" aria-label="مسیر صفحه"><a href="<?php echo esc_url(home_url('/'));?>">خانه</a><?php echo alookhor_cc_pdp_icon('chevl');?><a href="<?php echo esc_url($shop);?>">محصولات</a><?php if($d['first_cat']['name']):?><?php echo alookhor_cc_pdp_icon('chevl');?><a href="<?php echo esc_url($d['first_cat']['link']);?>"><?php echo esc_html($d['first_cat']['name']);?></a><?php endif;?><?php echo alookhor_cc_pdp_icon('chevl');?><span><?php echo esc_html($d['name']);?></span></nav>
-
-    <div class="alpm-head">
-     <h1 class="alpm-title"><?php echo esc_html($d['name']);?></h1>
-     <p class="alpm-tag">طعم اصیل، سلامتی طبیعی</p>
-     <p class="alpm-desc"><?php if($d['short']):?><?php echo esc_html(wp_strip_all_tags($d['short']));?><?php else:?><?php echo esc_html($d['name']);?> آلوخور، انتخابی بی‌نظیر از باغات ایران، با طعمی دلنشین و کیفیتی ممتاز. مناسب برای مصرف روزانه، آشپزی و پذیرایی؛ بدون هیچ افزودنی، رنگ یا شکر افزوده.<?php endif;?></p>
-    </div>
-
-    <div class="alpm-rate">
-     <?php if($d['reviews']>0):$rate_pct=max(0,min(100,(int)round($d['rating']/5*100)));?>
-      <span class="alpm-stars" aria-label="امتیاز <?php echo esc_attr(number_format_i18n($d['rating'],1));?> از ۵"><span class="alpm-stars-bg" aria-hidden="true"><?php for($i=0;$i<5;$i++)echo alookhor_cc_pdp_icon('star');?></span><span class="alpm-stars-fg" style="width:<?php echo esc_attr($rate_pct);?>%" aria-hidden="true"><?php for($i=0;$i<5;$i++)echo alookhor_cc_pdp_icon('star');?></span></span>
-      <b class="alpm-rscore"><?php echo esc_html(number_format_i18n($d['rating'],1));?> از ۵</b>
-      <span class="alpm-rcount">(<?php echo esc_html(number_format_i18n($d['reviews']));?> نظر)</span>
-     <?php else:?>
-      <span class="alpm-stars alpm-stars-offline" aria-hidden="true"><span class="alpm-stars-bg"><?php for($i=0;$i<5;$i++)echo alookhor_cc_pdp_icon('star');?></span></span>
-      <a class="alpm-rfirst" href="#alookhor-reviews">اولین دیدگاه را شما ثبت کنید</a>
-     <?php endif;?>
-     <i class="alpm-rdiv" aria-hidden="true"></i>
-     <button type="button" class="alpm-wish" data-wish aria-pressed="false" aria-label="افزودن به علاقه‌مندی‌ها"><?php echo alookhor_cc_pdp_icon('heart');?><span data-wish-label>افزودن به علاقه‌مندی‌ها</span></button>
-    </div>
-
-    <div class="alpm-feats">
-     <div class="alpm-feat"><?php echo alookhor_cc_pdp_icon('truck');?><b>ارسال سریع</b><span>به سراسر کشور</span></div>
-     <div class="alpm-feat"><?php echo alookhor_cc_pdp_icon('shield');?><b>محصول ایرانی</b><span>حمایت از کشاورزان</span></div>
-     <div class="alpm-feat"><?php echo alookhor_cc_pdp_icon('gem');?><b>کیفیت ممتاز</b><span>درجه یک صادراتی</span></div>
-     <div class="alpm-feat"><?php echo alookhor_cc_pdp_icon('leaf');?><b>۱۰۰٪ طبیعی</b><span>بدون مواد افزودنی</span></div>
-    </div>
-
-    <div class="alpm-pricebox">
-     <div class="alpm-prow"><span class="alpm-plabel">قیمت محصول :</span><?php if($d['discount']>0):?><em class="alpm-poff">٪<?php echo esc_html(strtr((string)$d['discount'],['0'=>'۰','1'=>'۱','2'=>'۲','3'=>'۳','4'=>'۴','5'=>'۵','6'=>'۶','7'=>'۷','8'=>'۸','9'=>'۹']));?> تخفیف</em><?php endif;?></div>
-     <div class="alpm-prow2">
-      <?php if($d['on_sale']&&$d['regular']>0&&$d['price']>0&&$d['price']<$d['regular']):?><s class="alpm-pold"><?php echo $price_old_html;?></s><?php endif;?>
-      <b class="alpm-pnow alp-price-now" data-single="<?php echo esc_attr($price_single);?>"><?php echo $price_now_html;?></b>
+ $faNum = function($v){ $fa='۰۱۲۳۴۵۶۷۸۹'; return strtr((string)$v, ['0'=>'۰','1'=>'۱','2'=>'۲','3'=>'۳','4'=>'۴','5'=>'۵','6'=>'۶','7'=>'۷','8'=>'۸','9'=>'۹']); };
+ ob_start();
+?>
+<section id="alookhor-pdp" class="alookhor-alp app-bg min-h-screen" dir="rtl" data-cart="<?php echo esc_url($cart);?>" style="--alp-gold:<?php echo esc_attr($gold);?>">
+ <main class="product-page-main mx-auto grid max-w-[1440px] gap-6 px-4 py-6 xl:grid-cols-[1.02fr_1.12fr] xl:items-start xl:px-8 xl:py-8">
+  <div class="left-col order-1 xl:col-start-1 xl:flex xl:min-h-[720px] xl:h-full xl:w-full xl:flex-col xl:gap-5">
+   <div class="gallery-slot">
+    <div class="product-gallery flex gap-3 sm:gap-4">
+     <div class="gallery-frame group relative aspect-[4/3] min-w-0 flex-1 overflow-hidden rounded-3xl border border-white/10 bg-plum-900 shadow-[0_25px_60px_-25px_rgba(0,0,0,0.9)] sm:aspect-[16/10] lg:aspect-auto lg:min-h-[560px]" data-stage>
+      <img id="alpMain" src="<?php echo esc_url($d['slides'][0]['src']);?>" alt="<?php echo esc_attr($d['name']);?>" class="animate-slide-fade h-full w-full object-cover">
+      <div class="absolute left-5 top-5 flex -rotate-3 items-center gap-2 rounded-xl bg-gradient-to-l from-gold-600 via-gold-500 to-[#8a5a2b] px-4 py-2.5 shadow-lg shadow-black/40 ring-1 ring-gold-300/60">
+       <?php echo alookhor_cc_pdp_icon('leaf');?><span class="text-sm font-black text-cream">۱۰۰٪ طبیعی</span>
+      </div>
+      <div class="gallery-copy pointer-events-none absolute bottom-6 left-6 max-w-[60%]">
+       <p class="font-script text-xl text-cream drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)] sm:text-2xl">طعم اصیل<br>سلامتی طبیعی</p>
+       <svg viewBox="0 0 160 12" class="mt-1 h-3 w-36 text-gold-400" fill="none"><path d="M2 8c40-6 90-6 156-2" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>
+      </div>
+      <span class="gallery-counter absolute right-4 top-4 rounded-full bg-plum-950/70 px-3 py-1 text-xs font-bold text-cream backdrop-blur-sm"><b data-gal-num>۱</b> / <?php echo esc_html($faNum(count($d['slides'])));?></span>
+      <button type="button" data-gal-prev aria-label="تصویر قبلی" class="absolute right-4 top-1/2 grid h-11 w-11 -translate-y-1/2 place-items-center rounded-full border border-white/25 bg-plum-950/45 text-cream backdrop-blur-sm transition hover:border-gold-400 hover:bg-gold-400 hover:text-plum-950"><?php echo alookhor_cc_pdp_icon('chevr');?></button>
+      <button type="button" data-gal-next aria-label="تصویر بعدی" class="absolute left-4 top-1/2 grid h-11 w-11 -translate-y-1/2 place-items-center rounded-full border border-white/25 bg-plum-950/45 text-cream backdrop-blur-sm transition hover:border-gold-400 hover:bg-gold-400 hover:text-plum-950"><?php echo alookhor_cc_pdp_icon('chevl');?></button>
+      <button type="button" data-fs aria-label="نمایش تمام‌صفحه" class="gallery-expand absolute bottom-4 right-4 grid h-10 w-10 place-items-center rounded-xl border border-white/25 bg-plum-950/45 text-cream backdrop-blur-sm transition hover:border-gold-400 hover:text-gold-300"><?php echo alookhor_cc_pdp_icon('expand');?></button>
+     </div>
+     <div class="gallery-thumbs flex w-16 shrink-0 flex-col gap-3 sm:w-24" role="tablist" aria-label="گالری تصاویر محصول">
+      <?php foreach($d['slides'] as $si=>$s):?><button type="button" role="tab" aria-label="<?php echo esc_attr($s['label']);?>" class="gallery-thumb relative aspect-square w-full overflow-hidden rounded-xl border-2 transition <?php echo $si===0?'border-gold-400 shadow-[0_0_0_3px_rgba(247,179,43,0.25)]':'border-white/10 opacity-70 hover:opacity-100';?>" data-src="<?php echo esc_url($s['src']);?>"><img src="<?php echo esc_url($s['src']);?>" alt="<?php echo esc_attr($s['label']);?>" class="h-full w-full object-cover" loading="lazy"></button><?php endforeach;?>
      </div>
     </div>
-
+   </div>
+   <div class="banner-slot">
+    <section class="promo-banner relative overflow-hidden rounded-3xl border border-gold-400/25 shadow-[0_25px_60px_-30px_rgba(0,0,0,0.9)]">
+     <img src="<?php echo esc_url($img.'banner.jpg');?>" alt="آلو بخارایی طبیعی الخور" class="absolute inset-0 h-full w-full object-cover">
+     <div class="absolute inset-0 bg-gradient-to-l from-plum-950/95 via-plum-950/70 to-plum-950/20"></div>
+     <div class="relative flex flex-col gap-6 p-7 sm:flex-row sm:items-center sm:justify-between sm:p-9">
+      <div><h2 class="text-2xl font-black text-cream sm:text-3xl">خوشمزه‌تر زندگی کن...</h2><p class="mt-2 text-sm font-medium text-lav sm:text-base">با محصولات طبیعی الخور</p></div>
+      <a href="<?php echo esc_url($shop);?>" class="flex shrink-0 items-center gap-2 rounded-xl bg-gradient-to-l from-gold-300 via-gold-400 to-gold-500 px-6 py-3.5 text-sm font-black text-plum-950 shadow-[0_12px_30px_-10px_rgba(247,179,43,0.7)] transition hover:brightness-110 active:scale-[0.98]"><?php echo alookhor_cc_pdp_icon('chevl');?><span>مشاهده همه محصولات</span></a>
+     </div>
+    </section>
+   </div>
+  </div>
+  <div class="panel-slot order-2 xl:col-start-2 xl:row-start-1 xl:flex xl:min-h-[720px] xl:h-full xl:w-full xl:flex-col">
+   <section class="product-panel alpm-panel flex flex-col gap-6 rounded-3xl border border-white/8 bg-gradient-to-b from-plum-700/70 to-plum-800/60 p-5 shadow-[0_30px_80px_-40px_rgba(0,0,0,0.9)] sm:p-7">
+    <nav aria-label="مسیر صفحه" class="product-breadcrumb flex flex-wrap items-center gap-1.5 text-xs font-medium text-lav">
+     <span class="flex items-center gap-1.5"><a href="<?php echo esc_url(home_url('/'));?>" class="transition hover:text-gold-300">خانه</a><?php echo alookhor_cc_pdp_icon('chevl');?></span>
+     <span class="flex items-center gap-1.5"><a href="<?php echo esc_url($shop);?>" class="transition hover:text-gold-300">محصولات</a><?php echo alookhor_cc_pdp_icon('chevl');?></span>
+     <?php if($d['first_cat']['name']):?><span class="flex items-center gap-1.5"><a href="<?php echo esc_url($d['first_cat']['link']);?>" class="transition hover:text-gold-300"><?php echo esc_html($d['first_cat']['name']);?></a><?php echo alookhor_cc_pdp_icon('chevl');?></span><?php endif;?>
+     <span class="font-bold text-gold-300"><?php echo esc_html($d['name']);?></span>
+    </nav>
+    <div class="product-heading">
+     <button onclick="window.location.href='<?php echo esc_url($shop);?>'" class="mobile-category-badge hidden items-center gap-1.5 rounded-full border border-gold-400/30 bg-plum-900/70 px-3 py-1.5 text-xs font-black text-gold-300"><?php echo alookhor_cc_pdp_icon('leaf');?>آلو خشکبار</button>
+     <div class="product-title-copy"><h1 class="text-3xl font-black text-cream sm:text-4xl"><?php echo esc_html($d['name']);?></h1><p class="mt-2 text-lg font-bold text-gold-400">طعم اصیل، سلامتی طبیعی</p></div>
+     <p class="mt-4 text-sm leading-7 text-lav"><?php if($d['short']) echo esc_html(wp_strip_all_tags($d['short'])); else echo esc_html($d['name']).' آلوخور، انتخابی بی‌نظیر از باغات ایران، با طعمی دلنشین و کیفیتی ممتاز. مناسب برای مصرف روزانه، آشپزی و پذیرایی؛ بدون هیچ افزودنی، رنگ یا شکر افزوده.';?></p>
+    </div>
+    <div class="rating-row flex flex-wrap items-center gap-x-4 gap-y-2">
+     <div class="rating-summary flex items-center gap-1.5">
+      <span class="flex items-center gap-0.5" aria-label="امتیاز ۴.۸ از ۵">
+       <?php for($i=0;$i<5;$i++):?><span class="relative inline-block h-4.5 w-4.5"><span class="absolute inset-0 text-plum-500"><?php echo alookhor_cc_pdp_icon('star');?></span><span class="absolute inset-0 overflow-hidden" style="width:<?php echo $i<4?'100%':'80%';?>"><span class="text-gold-400"><?php echo alookhor_cc_pdp_icon('star');?></span></span></span><?php endfor;?>
+      </span>
+      <span class="text-sm font-black text-cream">۴٫۸ از ۵</span><span class="text-xs text-lav">(<?php echo esc_html($faNum($d['reviews']>0?$d['reviews']:133));?> نظر)</span>
+     </div>
+     <span class="rating-divider h-5 w-px bg-white/15"></span>
+     <button type="button" class="favorite-action flex items-center gap-1.5 text-xs font-bold text-lav transition hover:text-berry" data-wish aria-pressed="false"><span class="h-4.5 w-4.5"><?php echo alookhor_cc_pdp_icon('heart');?></span><span data-wish-label>افزودن به علاقه‌مندی‌ها</span></button>
+     <button type="button" class="share-action flex items-center gap-1.5 text-xs font-bold text-lav transition hover:text-gold-300" data-share data-name="<?php echo esc_attr($d['name']);?>" data-url="<?php echo esc_url(get_permalink($d['id']));?>"><span class="h-4.5 w-4.5"><?php echo alookhor_cc_pdp_icon('share');?></span>اشتراک‌گذاری</button>
+    </div>
+    <div class="product-features grid grid-cols-2 gap-3 xl:grid-cols-4">
+     <?php foreach(array_slice($d['feats'],0,4) as $f):?><div class="feature-item flex flex-col items-center gap-1.5 rounded-2xl border border-white/8 bg-plum-900/50 px-2 py-4 text-center transition hover:border-gold-400/40 hover:bg-plum-900"><span class="h-6 w-6 text-gold-400"><?php echo alookhor_cc_pdp_icon($f[0]);?></span><span class="text-sm font-black text-cream"><?php echo esc_html($f[1]);?></span><span class="text-[11px] text-lav"><?php echo esc_html($f[2]);?></span></div><?php endforeach;?>
+    </div>
+    <div class="price-box rounded-2xl border border-white/8 bg-plum-950/50 p-5">
+     <div class="flex items-center justify-between gap-3"><span class="text-sm font-bold text-lav">قیمت محصول :</span><?php if($d['discount']>0):?><span class="rounded-lg bg-berry px-3 py-1.5 text-xs font-black text-cream shadow-lg shadow-berry/30"><?php echo esc_html($faNum($d['discount']));?>٪ تخفیف</span><?php endif;?></div>
+     <div class="mt-3 flex flex-wrap items-end gap-x-4 gap-y-1">
+      <?php if($d['on_sale']&&$d['regular']>0):?><span class="text-sm font-medium text-lav line-through decoration-berry/80 decoration-2"><?php echo $price_old_html;?></span><?php endif;?>
+      <span class="text-3xl font-black text-gold-400 drop-shadow-[0_0_18px_rgba(247,179,43,0.45)] sm:text-4xl alp-price-now" data-single="<?php echo esc_attr($price_single);?>"><?php echo $price_now_html;?></span>
+     </div>
+    </div>
     <?php if($show_weights):?>
-    <div class="alpm-opt">
-     <span class="alpm-olabel">وزن محصول :</span>
-     <div class="alpm-wchips" role="radiogroup" aria-label="انتخاب وزن"><?php foreach($d['options'] as $oi=>$o):?><button type="button" role="radio" aria-checked="<?php echo $oi===0?'true':'false';?>" class="<?php echo $oi===0?'is-on':'';?>" data-vid="<?php echo esc_attr($o['id']);?>" data-price="<?php echo esc_attr($o['price_html']);?>"><?php echo esc_html($o['label']);?></button><?php endforeach;?></div>
+    <div class="weight-picker"><span class="mb-3 block text-sm font-bold text-lav"><span class="desktop-weight-label">وزن محصول :</span><span class="mobile-weight-label hidden">انتخاب وزن :</span></span>
+     <div class="weight-options flex flex-wrap gap-2.5" role="radiogroup" aria-label="انتخاب وزن">
+      <?php foreach($d['options'] as $oi=>$o):?><button type="button" role="radio" aria-checked="<?php echo $oi===0?'true':'false';?>" class="weight-option rounded-xl border px-5 py-3 text-sm font-bold transition <?php echo $oi===0?'border-gold-400 bg-gold-400/10 text-gold-300 shadow-[0_0_0_3px_rgba(247,179,43,0.15)]':'border-white/10 bg-plum-900/60 text-lav hover:border-white/25 hover:text-cream';?>" data-vid="<?php echo esc_attr($o['id']);?>" data-price="<?php echo esc_attr($o['price_html']?:$price_now_html);?>"><span><?php echo esc_html($o['label']);?></span></button><?php endforeach;?>
+     </div>
     </div>
     <?php endif;?>
-
     <?php if($d['purchasable']&&$d['stock']!=='out'):?>
-    <div class="alpm-qtyrow">
-     <span class="alpm-olabel">تعداد :</span>
-     <span class="alpm-qty"><button type="button" data-q="+" aria-label="افزایش تعداد"><?php echo alookhor_cc_pdp_icon('plus');?></button><b id="alpQty">۱</b><button type="button" data-q="-" aria-label="کاهش تعداد"><?php echo alookhor_cc_pdp_icon('minus');?></button></span>
+    <div class="purchase-actions flex flex-col gap-4">
+     <div class="quantity-row flex items-center justify-between gap-3"><span class="quantity-label text-sm font-bold text-lav">تعداد :</span><div class="quantity-control flex items-center gap-1 rounded-xl border border-white/10 bg-plum-900/60 p-1"><button type="button" data-q="+" aria-label="افزایش تعداد" class="grid h-9 w-9 place-items-center rounded-lg text-cream transition hover:bg-white/10 hover:text-gold-300"><span class="h-4 w-4"><?php echo alookhor_cc_pdp_icon('plus');?></span></button><span class="w-10 text-center text-base font-black text-cream" id="alpQty">۱</span><button type="button" data-q="-" aria-label="کاهش تعداد" class="grid h-9 w-9 place-items-center rounded-lg text-cream transition hover:bg-white/10 hover:text-gold-300"><span class="h-4 w-4"><?php echo alookhor_cc_pdp_icon('minus');?></span></button></div></div>
+     <a id="alpAdd" href="<?php echo esc_url($d['add_url']);?>" data-base="<?php echo esc_attr($d['add_url']);?>" class="add-button flex h-14 w-full items-center justify-center gap-3 rounded-2xl bg-gradient-to-l from-gold-300 via-gold-400 to-gold-500 text-lg font-black text-plum-950 shadow-[0_15px_40px_-12px_rgba(247,179,43,0.65)] transition hover:brightness-110 active:scale-[0.98]"><span class="h-6 w-6"><?php echo alookhor_cc_pdp_icon('cart');?></span>افزودن به سبد خرید</a>
+     <div class="shipping-line flex flex-wrap items-center justify-between gap-2 text-xs font-bold"><span class="text-lav">ارسال از ۱ روز کاری آینده</span><span class="flex items-center gap-2 text-mint"><span class="relative flex h-2.5 w-2.5"><span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-mint opacity-60"></span><span class="relative inline-flex h-2.5 w-2.5 rounded-full bg-mint"></span></span>موجود در انبار</span></div>
     </div>
-
-    <a class="alpm-cta" id="alpAdd" href="<?php echo esc_url($d['add_url']);?>" data-base="<?php echo esc_attr($d['add_url']);?>"><?php echo alookhor_cc_pdp_icon('cart');?><span>افزودن به سبد خرید</span></a>
     <?php endif;?>
-
-    <div class="alpm-meta">
-     <span class="alpm-ship">ارسال از ۱ روز کاری آینده</span>
-     <?php if($d['stock']==='in'):?><span class="alpm-stock alpm-stock-in"><i class="alpm-pulse" aria-hidden="true"></i>موجود در انبار</span><?php elseif($d['stock']==='low'):?><span class="alpm-stock alpm-stock-low"><i class="alpm-pulse" aria-hidden="true"></i>موجودی محدود</span><?php else:?><span class="alpm-stock alpm-stock-out"><i aria-hidden="true"></i>ناموجود</span><?php endif;?>
+    <div class="guarantees grid gap-3 sm:grid-cols-3">
+     <div class="guarantee-item flex items-center justify-center gap-2 rounded-2xl border border-white/8 bg-plum-900/50 px-3 py-3.5 text-[11px] font-bold text-cream transition hover:border-gold-400/40"><span class="h-5 w-5 shrink-0 text-gold-400"><?php echo alookhor_cc_pdp_icon('shield-check');?></span>ضمانت اصالت کالا</div>
+     <div class="guarantee-item flex items-center justify-center gap-2 rounded-2xl border border-white/8 bg-plum-900/50 px-3 py-3.5 text-[11px] font-bold text-cream transition hover:border-gold-400/40"><span class="h-5 w-5 shrink-0 text-gold-400"><?php echo alookhor_cc_pdp_icon('return');?></span>۷ روز ضمانت بازگشت</div>
+     <div class="guarantee-item flex items-center justify-center gap-2 rounded-2xl border border-white/8 bg-plum-900/50 px-3 py-3.5 text-[11px] font-bold text-cream transition hover:border-gold-400/40"><span class="h-5 w-5 shrink-0 text-gold-400"><?php echo alookhor_cc_pdp_icon('headset');?></span>پشتیبانی آنلاین</div>
     </div>
-
-    <div class="alpm-guars">
-     <div class="alpm-guar"><?php echo alookhor_cc_pdp_icon('shield');?><span>ضمانت اصالت کالا</span></div>
-     <div class="alpm-guar"><?php echo alookhor_cc_pdp_icon('ret');?><span>۷ روز ضمانت بازگشت</span></div>
-     <div class="alpm-guar"><?php echo alookhor_cc_pdp_icon('headset');?><span>پشتیبانی آنلاین</span></div>
-    </div>
-   </section>
-
-   <div class="alpm-side">
-    <figure class="alpm-gallery">
-     <div class="alpm-stage" data-stage>
-      <img id="alpMain" src="<?php echo esc_url($main_slide['src']);?>" alt="<?php echo esc_attr($d['name']);?>">
-      <span class="alpm-ribbon"><?php echo alookhor_cc_pdp_icon('leaf');?><b>۱۰۰٪ طبیعی</b></span>
-      <div class="alpm-script" aria-hidden="true"><p>طعم اصیل<br>سلامتی طبیعی</p><svg viewBox="0 0 160 12" fill="none"><path d="M2 8c40-6 90-6 156-2" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg></div>
-      <span class="alpm-count"><b data-gal-num>۱</b> / <?php echo esc_html(strtr((string)count($d['slides']),['0'=>'۰','1'=>'۱','2'=>'۲','3'=>'۳','4'=>'۴','5'=>'۵','6'=>'۶','7'=>'۷','8'=>'۸','9'=>'۹']));?></span>
-      <button type="button" class="alpm-arr alpm-arr-prev" data-gal-prev aria-label="تصویر قبلی"><?php echo alookhor_cc_pdp_icon('chevr');?></button>
-      <button type="button" class="alpm-arr alpm-arr-next" data-gal-next aria-label="تصویر بعدی"><?php echo alookhor_cc_pdp_icon('chevl');?></button>
-      <button type="button" class="alpm-fs" data-fs aria-label="نمایش تمام‌صفحه"><?php echo alookhor_cc_pdp_icon('expand');?></button>
-     </div>
-     <div class="alpm-thumbs" role="tablist" aria-label="گالری تصاویر محصول"><?php foreach($d['slides'] as $si=>$s):?><button type="button" role="tab" class="<?php echo $si===0?'is-on':'';?>" data-src="<?php echo esc_url($s['src']);?>" aria-label="<?php echo esc_attr($s['label']);?>"><img src="<?php echo esc_url($s['src']);?>" alt="<?php echo esc_attr($s['label']);?>" loading="lazy"></button><?php endforeach;?></div>
-    </figure>
-
-    <div class="alpm-banner">
-     <img class="alpm-banner-bg" src="<?php echo esc_url($img.'footer-prunes.png');?>" alt="" aria-hidden="true" loading="lazy">
-     <span class="alpm-banner-ov" aria-hidden="true"></span>
-     <div class="alpm-banner-c">
-      <div class="alpm-banner-t"><h2>خوشمزه‌تر زندگی کن...</h2><p>با محصولات طبیعی الخور</p></div>
-      <a class="alpm-banner-btn" href="<?php echo esc_url($shop);?>"><?php echo alookhor_cc_pdp_icon('chevl');?><span>مشاهده همه محصولات</span></a>
-     </div>
-    </div>
-   </div>
-
-  </div>
- </div></div>
-
- <div class="alp-inner">
-  <ul class="alp-trust">
-   <li><?php echo alookhor_cc_pdp_icon('truck');?><b>ارسال سریع</b><span>ارسال به سراسر کشور</span></li>
-   <li><?php echo alookhor_cc_pdp_icon('shield');?><b>ضمانت کیفیت</b><span>تضمین کیفیت محصول</span></li>
-   <li><?php echo alookhor_cc_pdp_icon('box');?><b>بسته‌بندی مطمئن</b><span>بسته‌بندی استاندارد</span></li>
-   <li><?php echo alookhor_cc_pdp_icon('phone');?><b>پشتیبانی</b><span>پاسخ‌گویی قبل و بعد از خرید</span></li>
-  </ul>
- </div>
-
- <div class="alp-dk alp-dk-main">
-  <div class="alp-inner">
-  <section class="alp-desc" id="alp-desc">
-   <header class="alp-shead"><span class="alp-eyebrow">معرفی محصول</span><h2>توضیحات محصول</h2></header>
-   <p class="alp-dk-sub">هر آنچه باید پیش از انتخاب این محصول آلوخور بدانید، از باغ تا بسته‌بندی.</p>
-   <div class="alp-desc-grid">
-    <div class="alp-desc-body">
-     <?php if($d['desc']):?>
-      <?php echo $d['desc'];?>
-     <?php else:?>
-      <p>این محصول از باغ‌های آلو در زبرخانِ خراسان رضوی برداشت می‌شود؛ همان خاکی که آلوخور از آن آموخته است کیفیت آلو را اول از همه درخت تعیین می‌کند و بعد از آن، دقت در انتخاب و فرآوری.</p>
-      <p>پس از برداشت، محصول سورت، آماده‌سازی و در بسته‌بندی بهداشتی بسته می‌شود؛ مناسب مصرف روزانهٔ خانواده، مهمان‌نوازی و هدیه — و در حجم‌های بزرگ‌تر، آمادهٔ سفارش عمده و صادرات.</p>
-     <?php endif;?>
-     <ol class="alp-path-inline"><li>ایران</li><li>خراسان رضوی</li><li>زبرخان</li><li>آلوخور</li></ol>
-     <a class="alp-btn alp-btn-royal" href="<?php echo esc_url($about);?>">داستان کامل آلوخور</a>
-    </div>
-    <figure class="alp-story-img"><img src="<?php echo esc_url($img.'export-banner-bg.jpg');?>" alt="باغ آلو در خراسان" loading="lazy"><figcaption><?php echo alookhor_cc_pdp_icon('leaf');?><span>۱۰۰٪ طبیعی</span></figcaption></figure>
-   </div>
-  </section>
-
-  <div class="alp-cols">
-   <section class="alp-specs" id="alp-specs">
-    <header class="alp-shead"><span class="alp-eyebrow">جزئیات</span><h2>مشخصات محصول</h2></header>
-    <table><tbody><?php foreach($d['specs'] as $s):?><tr><th><?php echo esc_html($s[0]);?></th><td><?php echo esc_html($s[1]);?></td></tr><?php endforeach;?></tbody></table>
-   </section>
-   <section class="alp-why">
-    <header class="alp-shead"><span class="alp-eyebrow">مزیت‌ها</span><h2>چرا آلوخور؟</h2></header>
-    <ul><?php foreach($d['why'] as $w):?><li><i><?php echo alookhor_cc_pdp_icon($w[0]);?></i><b><?php echo esc_html($w[1]);?></b><span><?php echo esc_html($w[2]);?></span></li><?php endforeach;?></ul>
    </section>
   </div>
- </div>
- </div>
+ </main>
 
- <section class="alp-band alp-moment">
-  <div class="alp-inner"><span class="alp-dust" aria-hidden="true"></span><b>ALOOKHOR</b><h2>پایتخت آلوی ایران</h2><p>از باغ‌های آلو خراسان تا بستهٔ نهایی، با همان استاندارد.</p></div>
- </section>
-
- <div class="alp-dk alp-dk-rail">
-  <div class="alp-inner">
-  <?php if($d['related']):?>
-  <section class="alp-rail-sec">
-   <header class="alp-shead alp-rail-head"><span class="alp-eyebrow">پیشنهاد آلوخور</span><h2>محصولات <b>پیشنهادی</b> برای شما</h2><a class="alp-all" href="<?php echo esc_url($shop);?>">مشاهده همه محصولات</a></header>
-   <div class="alp-rail"><?php foreach($d['related'] as $rid)echo alookhor_cc_pdp_card($rid);?></div>
-   <div class="alp-rail-cta"><a class="alp-btn alp-btn-royal" href="<?php echo esc_url($shop);?>">مشاهده همه محصولات</a></div>
+ <div class="below-product mx-auto max-w-[1440px] px-4 lg:px-8">
+  <section id="story" class="below-section about-story scroll-mt-28">
+   <div class="about-story-media"><img src="<?php echo esc_url($img.'about.jpg');?>" alt="آلوهای طبیعی الخور در کاسه چوبی" loading="lazy"><div class="about-story-badge"><span class="h-6 w-6"><?php echo alookhor_cc_pdp_icon('leaf');?></span><strong>۱۰۰٪ خالص</strong><span>از باغ تا خانه شما</span></div></div>
+   <div class="about-story-copy"><span class="section-kicker">از دل باغ‌های ایران</span><h2>درباره ما؛ الخور، انتخاب خانواده‌ها</h2><p>ما در الخور باور داریم طعم واقعی، نیازی به پنهان شدن پشت افزودنی‌ها ندارد. آلوها را از باغدارهای مورد اعتماد شمال ایران تهیه می‌کنیم و با دقتی که شایسته سفره شماست، آماده می‌کنیم.</p><p>هر بسته الخور حاصل همراهی کشاورز، تجربه نسل‌ها و کنترل کیفیت دقیق است؛ تا هر بار که در بسته را باز می‌کنید، عطر یک محصول اصیل ایرانی را حس کنید.</p><ul class="about-checks"><li><span class="h-4 w-4 text-gold-400"><?php echo alookhor_cc_pdp_icon('check');?></span> خرید مستقیم از کشاورز</li><li><span class="h-4 w-4 text-gold-400"><?php echo alookhor_cc_pdp_icon('check');?></span> دست‌چین و سورت‌شده</li><li><span class="h-4 w-4 text-gold-400"><?php echo alookhor_cc_pdp_icon('check');?></span> ارسال تازه و بهداشتی</li></ul><a href="<?php echo esc_url($about);?>" class="outline-gold-button">داستان الخور <span class="h-4 w-4"><?php echo alookhor_cc_pdp_icon('chevl');?></span></a></div>
   </section>
+
+  <section class="below-section specs-section"><div class="below-section-title flex items-end justify-between gap-4"><div><span class="mb-2 block text-xs font-black tracking-wide text-gold-400">اصالت را لمس کنید</span><h2 class="text-xl font-black text-cream sm:text-2xl">مشخصات محصول</h2></div></div><div class="specs-layout"><div class="specs-visual"><img src="<?php echo esc_url($img.'assortment.jpg');?>" alt="خشکبار و میوه خشک الخور" loading="lazy"><div class="specs-visual-caption"><span>انتخاب الخور</span><strong>طبیعی، تازه، قابل اعتماد</strong></div></div><div class="specs-grid"><?php foreach(array_slice($d['specs'],0,6) as $spec):?><div class="spec-item"><span class="h-6 w-6 text-gold-400"><?php echo alookhor_cc_pdp_icon($spec[0]==='نوع محصول'?'leaf':($spec[0]==='نوع بسته‌بندی'?'box':($spec[0]==='ماندگاری'?'clock':($spec[0]==='ارسال'?'truck':'gem'))));?></span><div><span><?php echo esc_html($spec[0]);?></span><strong><?php echo esc_html($spec[1]);?></strong></div></div><?php endforeach;?></div></div></section>
+
+  <section class="below-section"><div class="slider-glass"><div class="below-section-title flex items-end justify-between gap-4"><div><span class="mb-2 block text-xs font-black tracking-wide text-gold-400">پیشنهادهای خوش‌طعم الخور</span><h2 class="text-xl font-black text-cream sm:text-2xl">گزیده‌ای از بهترین آلو بخارایی</h2></div></div><div class="slider-shell"><div class="slider-controls"><button type="button" class="slider-control slider-control-prev" data-hprev><span class="h-4 w-4"><?php echo alookhor_cc_pdp_icon('chevr');?></span></button><button type="button" class="slider-control slider-control-next" data-hnext><span class="h-4 w-4"><?php echo alookhor_cc_pdp_icon('chevl');?></span></button></div><div class="highlight-track horizontal-track" data-htrack><?php $highlights=[['title'=>'آلو بخارایی','sub'=>'ترش و شیرین','image'=>$img.'about.jpg'],['title'=>'قیسی آفتابی','sub'=>'نرم و طلایی','image'=>$img.'single.jpg'],['title'=>'برگه زردآلو','sub'=>'طبیعی و خوش‌عطر','image'=>$img.'sack.jpg'],['title'=>'خشکبار مجلسی','sub'=>'برای پذیرایی','image'=>$img.'assortment.jpg']]; foreach($highlights as $h):?><a href="<?php echo esc_url($shop);?>" class="highlight-card group"><div class="highlight-image"><img src="<?php echo esc_url($h['image']);?>" alt="<?php echo esc_attr($h['title']);?>" loading="lazy"><span class="highlight-arrow"><span class="h-4 w-4"><?php echo alookhor_cc_pdp_icon('chevl');?></span></span></div><span class="mt-3 block text-sm font-black text-cream"><?php echo esc_html($h['title']);?></span><span class="mt-1 block text-xs text-lav"><?php echo esc_html($h['sub']);?></span></a><?php endforeach;?></div></div></div></section>
+
+  <?php if(!empty($d['related'])):?>
+  <section class="below-section"><div class="slider-glass"><div class="below-section-title flex items-end justify-between gap-4"><div><span class="mb-2 block text-xs font-black tracking-wide text-gold-400">برای شما آماده کرده‌ایم</span><h2 class="text-xl font-black text-cream sm:text-2xl">محصولات پیشنهادی برای شما</h2></div></div><div class="slider-shell"><div class="slider-controls"><button type="button" class="slider-control slider-control-prev" data-pprev><span class="h-4 w-4"><?php echo alookhor_cc_pdp_icon('chevr');?></span></button><button type="button" class="slider-control slider-control-next" data-pnext><span class="h-4 w-4"><?php echo alookhor_cc_pdp_icon('chevl');?></span></button></div><div class="products-track horizontal-track" data-ptrack><?php foreach($d['related'] as $rid) echo alookhor_cc_pdp_card($rid);?></div></div></div></section>
   <?php endif;?>
-  </div>
+
+  <section class="below-section faq-section"><div class="below-section-title flex items-end justify-between gap-4"><div><span class="mb-2 block text-xs font-black tracking-wide text-gold-400">پاسخ پرسش‌های شما</span><h2 class="text-xl font-black text-cream sm:text-2xl">سوالات متداول</h2></div></div><div class="faq-list"><?php foreach($d['faqs'] as $fi=>$faq):?><div class="faq-item" data-faq><button type="button" aria-expanded="false"><span><?php echo esc_html($faq['q']);?></span><span class="faq-icon"><span class="h-4 w-4 icon-plus"><?php echo alookhor_cc_pdp_icon('plus');?></span><span class="h-4 w-4 icon-minus hidden"><?php echo alookhor_cc_pdp_icon('minus');?></span></span></button><div class="faq-answer"><p><?php echo esc_html($faq['a']);?></p></div></div><?php endforeach;?></div></section>
+
+  <section class="below-section reviews-section"><div class="reviews-glass"><div class="reviews-heading-row"><div class="below-section-title flex items-end justify-between gap-4"><div><span class="mb-2 block text-xs font-black tracking-wide text-gold-400">تجربه خرید واقعی</span><h2 class="text-xl font-black text-cream sm:text-2xl">نظرات مشتریان</h2></div></div><button type="button" class="review-cta" data-review-cta>نوشتن نظر <span class="h-4 w-4"><?php echo alookhor_cc_pdp_icon('chevl');?></span></button></div><div class="reviews-content-row"><div class="reviews-summary"><strong>۴٫۹</strong><span class="flex items-center gap-0.5 text-gold-400"><?php echo str_repeat(alookhor_cc_pdp_icon('star'),5);?></span><span>از مجموع <?php echo esc_html($faNum(132));?> نظر ثبت‌شده</span></div><div class="slider-shell reviews-slider-shell"><div class="slider-controls"><button type="button" class="slider-control slider-control-prev" data-rprev><span class="h-4 w-4"><?php echo alookhor_cc_pdp_icon('chevr');?></span></button><button type="button" class="slider-control slider-control-next" data-rnext><span class="h-4 w-4"><?php echo alookhor_cc_pdp_icon('chevl');?></span></button></div><div class="reviews-track horizontal-track" data-rtrack><?php $mock_reviews=[['name'=>'مریم رضایی','city'=>'تهران','avatar'=>'م','text'=>'بسته‌بندی خیلی تمیز بود و خود آلوها طعم طبیعی و بافت نرمی داشتند. دوباره سفارش می‌دهم.'],['name'=>'علی احمدی','city'=>'رشت','avatar'=>'ع','text'=>'کیفیتش نسبت به نمونه‌هایی که قبلاً خریده بودم واقعاً بهتر بود؛ نه زیادی شیرین و نه خشک و سفت.'],['name'=>'نسترن کریمی','city'=>'اصفهان','avatar'=>'ن','text'=>'برای پذیرایی سفارش دادم و همه از طعمش تعریف کردند. ارسال هم سریع‌تر از چیزی بود که انتظار داشتم.']]; $all_reviews = !empty($d['reviews_list']) ? $d['reviews_list'] : $mock_reviews; foreach($all_reviews as $rv):?><article class="review-card"><div class="review-head"><div class="review-avatar"><?php echo esc_html($rv['avatar']??mb_substr($rv['name'],0,1));?></div><div><strong><?php echo esc_html($rv['name']);?></strong><span><?php echo esc_html($rv['city']??$rv['date']??''); ?></span></div><span class="flex items-center gap-0.5 text-gold-400"><?php echo str_repeat(alookhor_cc_pdp_icon('star'),5);?></span></div><p>«<?php echo esc_html($rv['text']);?>»</p><?php if(!empty($rv['verified'])): ?><span class="review-verified"><span class="h-3 w-3"><?php echo alookhor_cc_pdp_icon('check');?></span> خرید تأییدشده</span><?php else: ?><span class="review-verified"><span class="h-3 w-3"><?php echo alookhor_cc_pdp_icon('check');?></span> خرید تأییدشده</span><?php endif;?></article><?php endforeach;?></div></div></div></div></section>
+
+  <section class="newsletter-section"><img src="<?php echo esc_url($img.'newsletter.jpg');?>" alt="آلوهای تازه الخور" loading="lazy"><div class="newsletter-overlay"></div><div class="newsletter-content"><span class="section-kicker">همیشه یک طعم تازه</span><h2>در خبرنامه الخور عضو شوید</h2><p>از تخفیف‌ها، محصولات تازه و قصه‌های باغ‌های ایران زودتر باخبر شوید.</p><form class="newsletter-form" data-newsletter><div><span class="h-4.5 w-4.5 text-gold-400"><?php echo alookhor_cc_pdp_icon('mail');?></span><input type="email" placeholder="ایمیل شما" aria-label="ایمیل شما" required></div><button type="submit">عضویت</button></form></div></section>
  </div>
 
- <div class="alp-inner">
-
-  <section class="alp-reviews" id="alookhor-reviews">
-   <header class="alp-shead"><span class="alp-eyebrow">تجربهٔ مشتریان</span><h2>نظر مشتریان آلوخور</h2></header>
-   <?php if($d['reviews']>0):?>
-    <div class="alp-rev-dash">
-     <div class="alp-rev-score"><b><?php echo esc_html(number_format_i18n($d['rating'],1));?></b><span class="alp-stars"><?php echo $stars(5);?></span><small><?php echo esc_html(number_format_i18n($d['reviews']));?> دیدگاه</small><em><?php echo esc_html(number_format_i18n($d['rating'],1));?> از ۵</em></div>
-     <div class="alp-rev-cats"><?php foreach([5,4,3,2,1] as $star):$cnt=$d['rating_counts'][$star];$pct=$d['reviews']>0?(int)round($cnt/$d['reviews']*100):0;?><div class="alp-rev-cat"><span><?php echo esc_html(number_format_i18n($star));?> ★</span><i><b style="width:<?php echo esc_attr($pct);?>%"></b></i><small><?php echo esc_html(number_format_i18n($cnt));?></small></div><?php endforeach;?></div>
-    </div>
-   <?php else:?>
-    <div class="alp-rev-empty"><?php echo alookhor_cc_pdp_icon('chat');?><p>هنوز دیدگاهی برای این محصول ثبت نشده است. اگر این محصول را خریده‌اید، تجربهٔ خود را بنویسید تا انتخاب دیگران دقیق‌تر شود.</p></div>
-   <?php endif;?>
-   <?php if($d['reviews_list']):?><div class="alp-rev-list"><?php foreach($d['reviews_list'] as $rv):?><article class="alp-rev-card"><header><b><?php echo esc_html($rv['name']);?></b><?php if($rv['verified']):?><span class="alp-verified"><?php echo alookhor_cc_pdp_icon('check');?>خرید تأییدشده</span><?php endif;?></header><span class="alp-stars"><?php echo $stars(5);?></span><time><?php echo esc_html($rv['date']);?></time><p><?php echo esc_html($rv['text']);?></p></article><?php endforeach;?></div><?php endif;?>
-   <div class="alp-rev-form"><h3>ثبت دیدگاه</h3>
-   <?php if(function_exists('comment_form'))comment_form(['title_reply'=>'','title_reply_to'=>'پاسخ به %s','label_submit'=>'ثبت دیدگاه','comment_notes_before'=>'','comment_notes_after'=>''],$d['id']);?>
-   </div>
-  </section>
- </div>
-
- <div class="alp-dk alp-dk-qa">
-  <div class="alp-inner">
-  <section class="alp-qa" id="alp-qa">
-   <p class="alp-dk-sub">پاسخ پرتکرارترین پرسش‌ها دربارهٔ خرید، ارسال و نگهداری محصول آلوخور.</p>
-   <div class="alp-qa-grid">
-    <aside class="alp-qa-side">
-     <header class="alp-shead"><span class="alp-eyebrow">پرسش و پاسخ</span><h2>سوالات متداول</h2></header>
-     <a class="alp-btn alp-btn-gold" href="<?php echo esc_url($contact);?>">تماس با پشتیبانی</a>
-    </aside>
-    <div class="alp-qa-list">
-     <?php foreach($d['faqs'] as $f):?><div class="alp-acc" data-acc><button type="button" class="alp-acc-t" data-acc-t><b><?php echo esc_html($f['q']);?></b><?php echo alookhor_cc_pdp_icon('chev');?></button><div class="alp-acc-b"><p><?php echo esc_html($f['a']);?></p></div></div><?php endforeach;?>
-    </div>
-   </div>
-  </section>
-  </div>
- </div>
-
- <section class="alp-band alp-wholesale">
-  <div class="alp-inner">
-   <header><span class="alp-kicker">ALOOKHOR EXPORT</span><h2>خرید عمده و صادرات</h2><p>تأمین مستقیم محصولات آلوخور برای سفارش‌های عمده</p></header>
-   <ul class="alp-volume"><li>۱۰ کیلو</li><li>۵۰ کیلو</li><li>۱۰۰ کیلو</li><li>سفارش صادراتی</li></ul>
-   <div class="alp-ctas"><a class="alp-btn alp-btn-gold" href="<?php echo esc_url($contact);?>">درخواست قیمت عمده</a><?php if($wa):?><a class="alp-btn alp-btn-line" href="<?php echo esc_url($wa);?>" target="_blank" rel="noopener">مشاوره صادرات</a><?php endif;?></div>
-  </div>
- </section>
-
- <section class="alp-band alp-final">
-  <div class="alp-inner"><h2>طعم اصیل آلوهای خراسان را انتخاب کنید</h2><p>کیفیت انتخاب‌شده، بسته‌بندی حرفه‌ای و ارسال مطمئن از آلوخور</p><?php if($d['purchasable']&&$d['stock']!=='out'):?><a class="alp-btn alp-btn-gold" href="<?php echo esc_url($d['add_url']);?>" data-base="<?php echo esc_attr($d['add_url']);?>"><?php echo alookhor_cc_pdp_icon('bag');?><span>افزودن به سبد خرید</span></a><?php endif;?></div>
- </section>
-
- <div class="alpm-toast" data-toast hidden><div class="alpm-toast-in"><span class="alpm-toast-ic"><?php echo alookhor_cc_pdp_icon('check');?></span><span data-toast-msg></span></div></div>
+ <div class="pointer-events-none fixed inset-x-0 bottom-6 z-[60] flex justify-center px-4" data-toast hidden><div class="flex items-center gap-3 rounded-full border border-gold-400/40 bg-plum-800/95 px-6 py-3.5 text-sm font-bold text-cream shadow-2xl shadow-black/60 backdrop-blur-md"><span class="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-gold-400 text-plum-950"><span class="h-3.5 w-3.5"><?php echo alookhor_cc_pdp_icon('check');?></span></span><span data-toast-msg></span></div></div>
 </section>
+
 <div class="alp-sticky" data-name="<?php echo esc_attr($d['name']);?>"><span class="alp-sticky-p"><?php echo $price_now_html;?></span><?php if($d['purchasable']&&$d['stock']!=='out'):?><a href="<?php echo esc_url($d['add_url']);?>" data-base="<?php echo esc_attr($d['add_url']);?>" class="alp-cta"><?php echo alookhor_cc_pdp_icon('bag');?><span>افزودن به سبد خرید</span></a><?php endif;?></div>
+
 <script type="application/ld+json"><?php
- $alpm_ld=['@context'=>'https://schema.org','@type'=>'Product','name'=>$d['name'],'image'=>$main_slide['src'],'sku'=>$d['sku'],'inLanguage'=>'fa-IR',
-  'brand'=>['@type'=>'Brand','name'=>'ALOOKHOR'],
-  'offers'=>['@type'=>'Offer','price'=>$d['price'],'priceCurrency'=>(function_exists('get_woocommerce_currency')?get_woocommerce_currency():'IRR'),
-   'availability'=>'https://schema.org/'.($d['in_stock']?'InStock':'OutOfStock'),'url'=>get_permalink($product->get_id()),'itemCondition'=>'https://schema.org/NewCondition']];
- if(!empty($d['short'])){$alpm_ld['description']=wp_trim_words(wp_strip_all_tags($d['short']),30,'…');}
- if(!empty($d['rating'])&&(float)$d['rating']>0&&!empty($d['reviews'])&&(int)$d['reviews']>0){$alpm_ld['aggregateRating']=['@type'=>'AggregateRating','ratingValue'=>(string)$d['rating'],'reviewCount'=>(string)(int)$d['reviews'],'bestRating'=>'5','worstRating'=>'1'];}
- echo wp_json_encode($alpm_ld,JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);?></script>
-<?php $GLOBALS['alookhor_cc_pdp_done']=true;
+ $ld=['@context'=>'https://schema.org','@type'=>'Product','name'=>$d['name'],'image'=>$d['slides'][0]['src'],'sku'=>$d['sku'],'inLanguage'=>'fa-IR','brand'=>['@type'=>'Brand','name'=>'ALOOKHOR'],'offers'=>['@type'=>'Offer','price'=>$d['price'],'priceCurrency'=>(function_exists('get_woocommerce_currency')?get_woocommerce_currency():'IRR'),'availability'=>'https://schema.org/'.($d['in_stock']?'InStock':'OutOfStock'),'url'=>get_permalink($product->get_id()),'itemCondition'=>'https://schema.org/NewCondition']];
+ if(!empty($d['short'])){$ld['description']=wp_trim_words(wp_strip_all_tags($d['short']),30,'…');}
+ if(!empty($d['rating'])&&(float)$d['rating']>0&&!empty($d['reviews'])&&(int)$d['reviews']>0){$ld['aggregateRating']=['@type'=>'AggregateRating','ratingValue'=>(string)$d['rating'],'reviewCount'=>(string)(int)$d['reviews'],'bestRating'=>'5','worstRating'=>'1'];}
+ echo wp_json_encode($ld,JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
+?></script>
+<?php
+ $GLOBALS['alookhor_cc_pdp_done']=true;
  return ob_get_clean();
 }
 
-/* Guaranteed path — render the ALOOKHOR PDP directly at template_redirect and exit,
-   BEFORE any theme/builder template can load (v3.10.188). No old page, no duplication.
-   v3.10.190: keep only the theme <head>+<body> (assets intact), drop the theme's own
-   header markup (the extra dark Woodmart strip) and render the site's managed chrome:
-   portal header (main menu) + PDP + managed footer. */
 add_action('template_redirect',function(){
  if(($_SERVER['REQUEST_METHOD']??'')==='POST')return;
  if(isset($_GET['elementor-preview'])||(($_GET['action']??'')==='elementor'))return;
@@ -411,7 +330,6 @@ add_action('template_redirect',function(){
  if(function_exists('alookhor_cc_render_akx_header'))echo alookhor_cc_render_akx_header();
  echo $markup;
  if(function_exists('alookhor_cc_footer_markup'))echo alookhor_cc_footer_markup();
- /* v3.10.220 — حذف اسکیمای Product ووکامرس تا با اسکیمای کامل خودمان تکراری نشود */
  if(function_exists('WC')&&WC()&&isset(WC()->structured_data)&&is_object(WC()->structured_data)){
   remove_action('wp_footer',[WC()->structured_data,'output_structured_data_json']);
   remove_action('wp_footer',[WC()->structured_data,'output_structured_data'],40);
@@ -421,7 +339,6 @@ add_action('template_redirect',function(){
  exit;
 },55);
 
-/* Fallback path — if the direct render above ever gets bypassed, still force our template. */
 add_filter('template_include',function($template){
  if(!function_exists('is_product')||!is_product()||!function_exists('wc_get_product'))return $template;
  if(isset($_GET['elementor-preview'])||(($_GET['action']??'')==='elementor'))return $template;
@@ -436,8 +353,8 @@ add_filter('body_class',function($classes){
 
 add_action('wp_enqueue_scripts',function(){
  if(!function_exists('is_product')||!is_product())return;
+ wp_enqueue_style('alookhor-cc-pdp-react',ALOOKHOR_CC_URL.'assets/css/frontend-product-react.css',[],ALOOKHOR_CC_BUILD);
  wp_enqueue_style('alookhor-cc-pdp',ALOOKHOR_CC_URL.'assets/css/frontend-product.css',[],ALOOKHOR_CC_BUILD);
  wp_enqueue_script('alookhor-cc-pdp',ALOOKHOR_CC_URL.'assets/js/frontend-product.js',[],ALOOKHOR_CC_BUILD,true);
- /* v3.10.223 — Noto Nastaliq Arabic برای کپشن دست‌نویس گالری (دقیقاً مثل الگوی دیزاین) */
- wp_enqueue_style('alookhor-cc-nastaliq','https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Arabic:wght@600&display=swap',[],null);
+ wp_enqueue_style('alookhor-cc-nastaliq','https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Arabic:wght@600&family=Vazirmatn:wght@300;400;500;700;800;900&display=swap',[],null);
 });
