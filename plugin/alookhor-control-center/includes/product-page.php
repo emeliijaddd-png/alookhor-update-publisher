@@ -438,4 +438,6 @@ add_action('wp_enqueue_scripts',function(){
  if(!function_exists('is_product')||!is_product())return;
  wp_enqueue_style('alookhor-cc-pdp',ALOOKHOR_CC_URL.'assets/css/frontend-product.css',[],ALOOKHOR_CC_BUILD);
  wp_enqueue_script('alookhor-cc-pdp',ALOOKHOR_CC_URL.'assets/js/frontend-product.js',[],ALOOKHOR_CC_BUILD,true);
+ /* v3.10.223 — Noto Nastaliq Arabic برای کپشن دست‌نویس گالری (دقیقاً مثل الگوی دیزاین) */
+ wp_enqueue_style('alookhor-cc-nastaliq','https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Arabic:wght@600&display=swap',[],null);
 });

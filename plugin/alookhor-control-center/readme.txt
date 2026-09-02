@@ -4,7 +4,7 @@ Tags: control center, luxury, alookhor, admin, dashboard
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 3.10.222
+Stable tag: 3.10.223
 License: Private
 License URI: https://alookhor.ir
 
@@ -46,6 +46,9 @@ License URI: https://alookhor.ir
 در `config/site.json` و `wp_options: alookhor_cc_settings` — همان حافظه واقعی که در چت قبلی ویرایش می‌شد.
 
 == Changelog ==
+
+= 3.10.223 =
+* DESIGN CONVERSION (Phase A, approved scope): product page adopts the owner's React design exactly — dark plum canvas (radial gradient bg), flat plum-gradient panel, vertical gallery thumb rail on desktop, berry discount badge, gold gradient CTA, mint stock pulse, Noto Nastaliq gallery caption, unified dark below-section surfaces. Header and footer untouched; all class names and behavior preserved.
 
 = 3.10.222 =
 * Responsive: dedicated tablet / small-laptop band (768-1100px) — PDP buy box, thumbs, stats and managed grids stop overflowing between mobile and laptop; plus global horizontal-overflow armor (overflow-x:clip, sticky-safe) and table/image containment. Loaded as the last stylesheet so nothing has to be edited destructively.

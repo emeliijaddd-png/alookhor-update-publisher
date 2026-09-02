@@ -1232,3 +1232,171 @@ body.alookhor-pdp-body{background:#170a20!important}
 .alookhor-alp .alpm-qty{flex:none}
 .alookhor-alp .alpm-prow2{margin-top:8px;align-items:center}
 .alookhor-alp .alpm-pricebox .alp-price-now .screen-reader-text{border:0;clip:rect(1px,1px,1px,1px);clip-path:inset(50%);height:1px;width:1px;margin:-1px;overflow:hidden;padding:0;position:absolute!important;white-space:nowrap}
+
+/* ===== v3.10.223 — DESIGN CONVERSION (owner React design) — dark plum flat — MOCKUP PDP =====
+   Source: convert-content zip (tailwind theme tokens). Palette: plum #170a20..#5c3876,
+   gold #ffe3ac..#d97e06, cream #fbf3e2, lavender #c7b3da, berry #e42a68, mint #3bd684.
+   Append-only override; all class names / markup / JS hooks unchanged. */
+
+/* ---------- canvas ---------- */
+body.alookhor-pdp-body{
+ background:radial-gradient(1100px 560px at 88% -12%,rgba(124,62,162,.38),transparent 62%),
+            radial-gradient(820px 480px at 4% 14%,rgba(247,179,43,.07),transparent 60%),
+            radial-gradient(900px 600px at 50% 110%,rgba(90,40,120,.25),transparent 65%),
+            #170a20;
+}
+body.alookhor-pdp-body .alookhor-alp:before,
+body.alookhor-pdp-body .alookhor-alp:after{display:none}
+body.alookhor-pdp-body .alookhor-alp{--alp-gold:#f7b32b!important;--gold:#f7b32b!important;color:#c7b3da}
+
+/* ---------- hero grid (1440, 2col like design) ---------- */
+body.alookhor-pdp-body .alpm-wrap{max-width:1440px}
+body.alookhor-pdp-body .alpm-grid{gap:24px}
+
+/* ---------- panel: flat plum gradient ---------- */
+body.alookhor-pdp-body .alpm-panel{
+ background:linear-gradient(to bottom,rgba(59,33,80,.72),rgba(47,26,63,.62));
+ border:1px solid rgba(255,255,255,.08);
+ border-radius:24px;
+ box-shadow:0 30px 80px -40px rgba(0,0,0,.9);
+ -webkit-backdrop-filter:none;backdrop-filter:none;
+}
+body.alookhor-pdp-body .alpm-head h1{color:#fbf3e2}
+body.alookhor-pdp-body .alpm-head p,body.alookhor-pdp-body .alpm-head .alpm-sub{color:#f7b32b}
+body.alookhor-pdp-body .alpm-meta span,
+body.alookhor-pdp-body .alpm-plabel,body.alookhor-pdp-body .alpm-olabel{color:#c7b3da}
+
+/* feature tiles */
+body.alookhor-pdp-body .alpm-feats .alpm-feat{
+ background:rgba(34,17,44,.5);border:1px solid rgba(255,255,255,.08);border-radius:16px;
+}
+body.alookhor-pdp-body .alpm-feats .alpm-feat:hover{border-color:rgba(247,179,43,.4);background:#22112c}
+body.alookhor-pdp-body .alpm-feats .alpm-feat b{color:#fbf3e2}
+
+/* price box */
+body.alookhor-pdp-body .alpm-pricebox{
+ background:rgba(23,10,32,.5);border:1px solid rgba(255,255,255,.08);border-radius:16px;
+}
+body.alookhor-pdp-body .alpm-poff{background:#e42a68;box-shadow:0 10px 24px -10px rgba(228,42,104,.5)}
+body.alookhor-pdp-body .alp-price-now{color:#f7b32b;text-shadow:0 0 18px rgba(247,179,43,.45)}
+
+/* weight chips */
+body.alookhor-pdp-body .alpm-wchips>button{
+ border:1px solid rgba(255,255,255,.10);background:rgba(34,17,44,.6);color:#c7b3da;border-radius:12px;
+ transition:border-color .18s,color .18s,box-shadow .18s,background .18s;
+}
+body.alookhor-pdp-body .alpm-wchips>button:hover{border-color:rgba(255,255,255,.25);color:#fbf3e2}
+body.alookhor-pdp-body .alpm-wchips>button.is-on{
+ border-color:#f7b32b;background:rgba(247,179,43,.10);color:#ffd37a;
+ box-shadow:0 0 0 3px rgba(247,179,43,.15);
+}
+
+/* quantity stepper */
+body.alookhor-pdp-body .alpm-qty{
+ display:inline-flex;align-items:center;gap:4px;
+ border:1px solid rgba(255,255,255,.10);background:rgba(34,17,44,.6);border-radius:12px;padding:4px;
+}
+body.alookhor-pdp-body .alpm-qty button{
+ width:36px;height:36px;display:grid;place-items:center;border-radius:8px;color:#fbf3e2;background:transparent;
+ transition:background .15s,color .15s;
+}
+body.alookhor-pdp-body .alpm-qty button:hover{background:rgba(255,255,255,.10);color:#ffd37a}
+
+/* add-to-cart CTA */
+body.alookhor-pdp-body .alpm-cta{
+ height:56px;border-radius:16px;
+ background:linear-gradient(to left,#ffd37a,#f7b32b,#ef9f1f);
+ color:#170a20;font-weight:900;
+ box-shadow:0 15px 40px -12px rgba(247,179,43,.65);
+ transition:filter .18s,transform .1s;
+}
+body.alookhor-pdp-body .alpm-cta:hover{filter:brightness(1.1)}
+body.alookhor-pdp-body .alpm-cta:active{transform:scale(.98)}
+
+/* stock pulse → mint */
+body.alookhor-pdp-body .alpm-stock-in{color:#3bd684}
+body.alookhor-pdp-body .alpm-stock-in .alpm-pulse{background:#3bd684;border-color:#3bd684}
+
+/* guarantees */
+body.alookhor-pdp-body .alpm-guar{
+ background:rgba(34,17,44,.5);border:1px solid rgba(255,255,255,.08);border-radius:16px;color:#fbf3e2;
+}
+body.alookhor-pdp-body .alpm-guar:hover{border-color:rgba(247,179,43,.4)}
+
+/* ---------- gallery: flat stage + vertical thumb rail ---------- */
+body.alookhor-pdp-body .alpm-stage{
+ border-radius:24px;border:1px solid rgba(255,255,255,.08);background:#22112c;
+ box-shadow:0 30px 80px -40px rgba(0,0,0,.9);
+ -webkit-backdrop-filter:none;backdrop-filter:none;
+}
+body.alookhor-pdp-body .alpm-ribbon{background:#e42a68;box-shadow:0 10px 24px -10px rgba(228,42,104,.5)}
+body.alookhor-pdp-body .alpm-script{font-family:"Noto Nastaliq Arabic","Vazirmatn",serif;line-height:2.1;color:#ffe3ac}
+body.alookhor-pdp-body .alpm-count{background:rgba(23,10,32,.7);border-radius:999px}
+body.alookhor-pdp-body .alpm-arr,body.alookhor-pdp-body .alpm-fs{
+ border:1px solid rgba(255,255,255,.25);background:rgba(23,10,32,.45);color:#fbf3e2;border-radius:12px;
+}
+body.alookhor-pdp-body .alpm-arr:hover,body.alookhor-pdp-body .alpm-fs:hover{border-color:#f7b32b;color:#ffd37a}
+
+@media (min-width:1101px){
+ body.alookhor-pdp-body .alpm-gallery{display:flex;gap:14px;align-items:flex-start}
+ body.alookhor-pdp-body .alpm-stage{flex:1 1 auto;min-width:0}
+ body.alookhor-pdp-body .alpm-thumbs{
+  flex:0 0 96px;display:flex;flex-direction:column;gap:12px;
+  max-height:620px;overflow-y:auto;padding:2px;
+  scrollbar-width:thin;scrollbar-color:#4a2a63 transparent;
+ }
+ body.alookhor-pdp-body .alpm-thumbs::-webkit-scrollbar{width:8px}
+ body.alookhor-pdp-body .alpm-thumbs::-webkit-scrollbar-thumb{background:#4a2a63;border-radius:8px}
+ body.alookhor-pdp-body .alpm-thumbs>button{
+  width:96px;height:96px;flex:0 0 auto;border-radius:16px;overflow:hidden;
+  border:1px solid rgba(255,255,255,.10);background:#22112c;padding:0;cursor:pointer;
+  transition:border-color .18s,box-shadow .18s;
+ }
+ body.alookhor-pdp-body .alpm-thumbs>button img{width:100%;height:100%;object-fit:cover;display:block}
+ body.alookhor-pdp-body .alpm-thumbs>button.is-on{border-color:#f7b32b;box-shadow:0 0 0 3px rgba(247,179,43,.18)}
+ body.alookhor-pdp-body .alpm-thumbs>button:hover{border-color:rgba(255,255,255,.25)}
+}
+
+/* ---------- banner ---------- */
+body.alookhor-pdp-body .alpm-banner{
+ border-radius:24px;border:1px solid rgba(247,179,43,.25);overflow:hidden;
+ box-shadow:0 25px 60px -30px rgba(0,0,0,.9);
+}
+body.alookhor-pdp-body .alpm-banner-ov{background:linear-gradient(to left,rgba(23,10,32,.95),rgba(23,10,32,.70),rgba(23,10,32,.20))}
+body.alookhor-pdp-body .alpm-banner-t h2{color:#fbf3e2}
+body.alookhor-pdp-body .alpm-banner-t p{color:#c7b3da}
+body.alookhor-pdp-body .alpm-banner-btn{
+ background:linear-gradient(to left,#ffd37a,#f7b32b,#ef9f1f);color:#170a20;border-radius:12px;
+ box-shadow:0 12px 30px -10px rgba(247,179,43,.7);
+}
+body.alookhor-pdp-body .alpm-banner-btn:hover{filter:brightness(1.1)}
+
+/* ---------- sticky bar + toast ---------- */
+body.alookhor-pdp-body .alp-sticky{
+ background:rgba(47,26,63,.95);border-top:1px solid rgba(255,255,255,.10);
+ -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+}
+body.alookhor-pdp-body .alp-sticky-p{color:#f7b32b}
+body.alookhor-pdp-body .alp-sticky .alp-cta{
+ background:linear-gradient(to left,#ffd37a,#f7b32b,#ef9f1f);color:#170a20;border-radius:12px;
+}
+body.alookhor-pdp-body .alpm-toast-in{
+ background:rgba(47,26,63,.95);border:1px solid rgba(247,179,43,.4);color:#fbf3e2;border-radius:999px;
+ -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+}
+
+/* ---------- below sections: unify dark surface ---------- */
+body.alookhor-pdp-body .alp-dk{background:transparent}
+body.alookhor-pdp-body .alp-trust li,
+body.alookhor-pdp-body .alp-specs,
+body.alookhor-pdp-body .alp-rev-card,
+body.alookhor-pdp-body .alp-acc,
+body.alookhor-pdp-body .alp-qa-list>*{
+ background:rgba(34,17,44,.45);border:1px solid rgba(255,255,255,.08);border-radius:16px;
+}
+body.alookhor-pdp-body .alp-shead h2,body.alookhor-pdp-body .alp-rail-head h2{color:#fbf3e2}
+body.alookhor-pdp-body .alp-eyebrow{color:#f7b32b}
+body.alookhor-pdp-body .alp-dk-sub{color:#c7b3da}
+body.alookhor-pdp-body .alp-card{background:rgba(34,17,44,.5);border:1px solid rgba(255,255,255,.08);border-radius:18px}
+body.alookhor-pdp-body .alp-card h3 a{color:#fbf3e2}
+body.alookhor-pdp-body .alp-card-price,.alookhor-pdp-body .alp-card-price ins{color:#f7b32b}
