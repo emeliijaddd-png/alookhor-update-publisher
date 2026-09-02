@@ -1017,3 +1017,13 @@ body.alookhor-pdp-body .website-wrapper,body.alookhor-pdp-body .main-page-wrappe
  .alookhor-alp .alp-stage{height:clamp(330px,calc(62vw + 20px),420px);min-height:330px}
  .alookhor-alp .alp-stage-in{top:46px}
 }
+
+/* =========================================================
+   v3.10.210 — NO STRIP AT ALL (owner: the painted bar must die)
+   frames now attach to the STICKY mainbar itself (78px), not the
+   full in-flow header (122px). At first load the frames' top 44px
+   sit behind the opaque topbar/mainbar (content protected by the
+   209 paddings); when the menu sticks on scroll there is zero gap.
+   One continuous background — no bar, any scroll position.
+   ========================================================= */
+.alookhor-alp{padding-top:0;margin-top:-10px}

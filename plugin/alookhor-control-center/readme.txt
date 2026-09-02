@@ -4,7 +4,7 @@ Tags: control center, luxury, alookhor, admin, dashboard
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 3.10.209
+Stable tag: 3.10.210
 License: Private
 License URI: https://alookhor.ir
 
@@ -46,6 +46,9 @@ License URI: https://alookhor.ir
 در `config/site.json` و `wp_options: alookhor_cc_settings` — همان حافظه واقعی که در چت قبلی ویرایش می‌شد.
 
 == Changelog ==
+
+= 3.10.210 =
+* Fix: the leftover strip (white, later purple) between the menu and the product boxes is gone for good — frames now anchor to the sticky main menu bar itself, so no gap appears at load or while scrolling; one continuous page background.
 
 = 3.10.209 =
 * Tweak: photo box and info card frames now start flush under the main menu (bigger backdrops); the image, texts and buttons keep their exact position.
