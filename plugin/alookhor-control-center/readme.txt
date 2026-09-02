@@ -4,7 +4,7 @@ Tags: control center, luxury, alookhor, admin, dashboard
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 3.10.223
+Stable tag: 3.10.224
 License: Private
 License URI: https://alookhor.ir
 
@@ -46,6 +46,9 @@ License URI: https://alookhor.ir
 در `config/site.json` و `wp_options: alookhor_cc_settings` — همان حافظه واقعی که در چت قبلی ویرایش می‌شد.
 
 == Changelog ==
+
+= 3.10.224 =
+* Design delta 2: page canvas now uses the exact app-bg from the owner design (#170a20 + three radial glows — was hidden behind the old royal gradient), gold tone corrected to #f7b32b/#ffd37a, gallery ribbon changed from berry to the gold gradient with -3deg tilt exactly like the reference. Everything already deployed; this makes the design visibly different.
 
 = 3.10.223 =
 * DESIGN CONVERSION (Phase A, approved scope): product page adopts the owner's React design exactly — dark plum canvas (radial gradient bg), flat plum-gradient panel, vertical gallery thumb rail on desktop, berry discount badge, gold gradient CTA, mint stock pulse, Noto Nastaliq gallery caption, unified dark below-section surfaces. Header and footer untouched; all class names and behavior preserved.

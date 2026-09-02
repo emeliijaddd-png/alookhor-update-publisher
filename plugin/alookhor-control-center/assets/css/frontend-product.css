@@ -1400,3 +1400,17 @@ body.alookhor-pdp-body .alp-dk-sub{color:#c7b3da}
 body.alookhor-pdp-body .alp-card{background:rgba(34,17,44,.5);border:1px solid rgba(255,255,255,.08);border-radius:18px}
 body.alookhor-pdp-body .alp-card h3 a{color:#fbf3e2}
 body.alookhor-pdp-body .alp-card-price,.alookhor-pdp-body .alp-card-price ins{color:#f7b32b}
+
+/* ===== v3.10.224 — DESIGN DELTA SET 2 (visible canvas + gold tone + gold ribbon) ===== */
+body.alookhor-pdp-body .alookhor-alp{
+ background:radial-gradient(1100px 560px at 88% -12%,rgba(124,62,162,.38),transparent 62%),
+            radial-gradient(820px 480px at 4% 14%,rgba(247,179,43,.07),transparent 60%),
+            radial-gradient(900px 600px at 50% 110%,rgba(90,40,120,.25),transparent 65%),#170a20;
+ --gold-2:#ffd37a;color:#c7b3da;
+}
+body.alookhor-pdp-body .alpm-ribbon{
+ background:linear-gradient(to left,#d97e06,#ef9f1f,#8a5a2b);
+ transform:rotate(-3deg);border-radius:12px;
+ box-shadow:0 10px 24px rgba(0,0,0,.4);
+ outline:1px solid rgba(255,211,122,.6);color:#fbf3e2;
+}
