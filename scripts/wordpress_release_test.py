@@ -445,7 +445,7 @@ try:
                     pdp_html=response.read().decode(errors='replace')
             except Exception as error:
                 page_error=str(error)[:200]
-        pdp_rendered=('alookhor-pdp' in pdp_html and 'انتخاب وزن' in pdp_html and 'قیمت محصول' in pdp_html)
+        pdp_rendered=('alookhor-pdp' in pdp_html and 'alpm-panel' in pdp_html and 'قیمت محصول' in pdp_html)
         coming_soon=('در حال ساخت' in pdp_html or 'اتفاقات بزرگی' in pdp_html)
         report['product']={'version':prod.get('version'),'counts':pcounts,'name':(prod.get('product') or {}).get('name'),'page_ok':bool(pdp_html),'page_error':page_error,'pdp_rendered':pdp_rendered,'behind_coming_soon':coming_soon}
         report['checks']['product_endpoint']=(str(prod.get('version'))==TARGET and pcounts.get('highlights')==5 and pcounts.get('specs')==7 and pcounts.get('faqs')==5 and pcounts.get('why')==4 and pcounts.get('gallery',0)>=3 and pcounts.get('related',0)>=3 and str((prod.get('images') or {}).get('main','')).startswith('http') and (pdp_rendered or coming_soon))
