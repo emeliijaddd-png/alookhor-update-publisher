@@ -4,7 +4,7 @@ Tags: control center, luxury, alookhor, admin, dashboard
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 3.10.215
+Stable tag: 3.10.216
 License: Private
 License URI: https://alookhor.ir
 
@@ -46,6 +46,9 @@ License URI: https://alookhor.ir
 در `config/site.json` و `wp_options: alookhor_cc_settings` — همان حافظه واقعی که در چت قبلی ویرایش می‌شد.
 
 == Changelog ==
+
+= 3.10.216 =
+* Fix: toman display now triggers for the IRR store currency as well (rial ÷10 → toman label); IRT stores stay as-is (×1). Weights-hide and qty alignment from 3.10.214 carried over.
 
 = 3.10.215 =
 * Fix: release-test product_endpoint assertion no longer requires the weight-chooser text (that section is now intentionally hidden for products without weight options); no visual change.
