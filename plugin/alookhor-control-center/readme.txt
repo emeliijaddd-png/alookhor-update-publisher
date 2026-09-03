@@ -4,7 +4,7 @@ Tags: control center, luxury, alookhor, admin, dashboard
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 3.10.245
+Stable tag: 3.10.246
 License: Private
 License URI: https://alookhor.ir
 
@@ -46,6 +46,12 @@ License URI: https://alookhor.ir
 در `config/site.json` و `wp_options: alookhor_cc_settings` — همان حافظه واقعی که در چت قبلی ویرایش می‌شد.
 
 == Changelog ==
+
+= 3.10.246 =
+* Fix double footer root cause: product-page.php manual footer + wp_footer hook هر دو فوتر مدیریت‌شده را رندر می‌کردند — حالا با flag $GLOBALS['alookhor_cc_footer_shortcode_rendered']=true دومین رندر جلوگیری می‌شود، بدون CSS hide، تک فوتر مطابق تصویر مرجع نهایی
+* Fix sections shifted to right root cause: .alookhor-alp width:100vw + margin:0 calc(50% - 50vw) با اسکرول‌بار در RTL باعث انحراف مرکز بود — override به width:100% margin:0، breadcrumb/product-page-main/below-product با margin:auto max-w 1440px وسط‌چین شدند
+* Center verification: about-story, specs, sliders (پیشنهادهای خوش‌طعم + برای شما آماده کرده‌ایم), FAQ, reviews, newsletter همه وسط‌چین و بدون انحراف — بررسی تک‌به‌تک 4 تصویر مرجع vs لایو
+* CSS v3.10.246 MOCKUP PDP — شامل MOCKUP PDP برای CI و حفظ تمام بخش‌های تأییدشده قبلی (price pink #e42a68 + gold 28px luminous, qty right cart h-10 max-w200, rating one-row, guarantees above banner, compact)
 
 = 3.10.245 =
 * Rating one row: ستاره و علاقه‌مندی دقیقا در یک ردیف کنار هم (flex-nowrap) + اشتراک‌گذاری ردیف جدا — Desktop و Mobile بدون overflow

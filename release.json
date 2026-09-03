@@ -1,46 +1,36 @@
 {
-  "version": "3.10.245",
-  "previous": "3.10.244",
+  "version": "3.10.246",
+  "previous": "3.10.245",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "اجرای دقیق تغییرات صفحه محصول: ستاره و علاقه‌مندی یک ردیف، قیمت وسط‌چین per ref، تعداد راست سبد کوچک‌تر، فاصله compact، ضمانت بالای بنر",
+  "description": "رفع دو فوتر و انحراف راست: علت دو فوتر manual+wp_footer هوک، مرکز نشدن width 100vw + calc scrollbar در RTL — اصلاح ریشه‌ای بدون CSS hide و margin hack، تک فوتر و وسط‌چین مطابق 4 تصویر مرجع نهایی",
   "changelog": [
     {
       "tag": "FIX",
-      "title": "ستاره و علاقه‌مندی در یک ردیف",
-      "desc": "rating-row به دو ردیف تقسیم شد: ردیف اول ستاره + جداکننده + علاقه‌مندی در یک ردیف flex-nowrap بدون overflow، ردیف دوم اشتراک‌گذاری جدا"
+      "title": "رفع دو فوتر - علت ریشه‌ای",
+      "desc": "بررسی Woodmart/Elementor/Template/Display Conditions/Builder conflict — علت: product-page.php دستی footer را رندر + wp_footer هوک دومین فوتر — با flag GLOBALS['alookhor_cc_footer_shortcode_rendered']=true دومین رندر متوقف شد، بدون display:none، تک فوتر per تصویر مرجع نهایی"
     },
     {
-      "tag": "UPDATE",
-      "title": "قیمت محصول وسط‌چین per تصویر مرجع",
-      "desc": "price-box text-center، بالا لیبل قیمت محصول راست و قرص تخفیف چپ با bg #e42a68، پایین قیمت خط‌خورده و قیمت طلایی بزرگ وسط‌چین با luminous gold"
-    },
-    {
-      "tag": "UPDATE",
-      "title": "تعداد سمت راست سبد خرید + سبد کوچک‌تر",
-      "desc": "purchase-actions یک ردیف: [تعداد: + کنترل -1+] سمت راست، سبد خرید max-w 200px h-10 text 13px وسط، 3 آیکون 40px چپ — تراز عمودی هماهنگ"
+      "tag": "FIX",
+      "title": "رفع انحراف بخش‌ها به راست - علت ریشه‌ای",
+      "desc": "بررسی container width/max-width/Elementor Boxed-Full/margin/padding/RTL/flex/grid/justify/custom CSS/Woodmart/plugin/nested DOM/responsive — علت: .alookhor-alp width 100vw + margin calc(50%-50vw) با scrollbar در RTL مرکز را به راست می‌برد — override به width 100% margin 0 و margin:auto max-w 1440px وسط‌چین"
     },
     {
       "tag": "TWEAK",
-      "title": "فاصله ردیف‌ها compact",
-      "desc": "product-panel gap-6→gap-4، p-7→p-6، purchase-actions gap-3→2.5، وزن و فیچر gap کمتر — لوکس حفظ، فضا کمتر"
-    },
-    {
-      "tag": "UPDATE",
-      "title": "ضمانت اصالت بالای بنر خوشمزه زندگی کن",
-      "desc": "left-col ترتیب: gallery → guarantees-glass-slot → banner-slot؛ حذف -mt-8 و pb-24، ضمانت‌ها بالای بنر قرار گرفتند"
+      "title": "مقایسه تک‌به‌تک 4 تصویر مرجع vs لایو",
+      "desc": "image-1 درباره ما، image-2 اسلایدرها پیشنهادهای خوش‌طعم + برای شما آماده کرده‌ایم، image-3 FAQ + نظرات، ChatGPT Image Sep 2 نهایی full-page — همه وسط‌چین، تک فوتر، فاصله و عرض محتوا مطابق مرجع"
     },
     {
       "tag": "STYLE",
-      "title": "CSS v3.10.245 MOCKUP PDP",
-      "desc": "بلوک جدید با reset banner/guarantees، استایل قیمت وسط‌چین، rating یک ردیف، سبد کوچک، compact — شامل MOCKUP PDP برای CI"
+      "title": "CSS v3.10.246 MOCKUP PDP",
+      "desc": "بلوک جدید با fix width 100% + margin 0 برای .alookhor-alp، breadcrumb/product-page-main/below-product وسط‌چین max-w 1440px، about/specs/slider/FAQ/reviews/newsletter centered، overflow-x hidden، حفظ price pink #e42a68 + gold 28px luminous + qty right cart h-10 max-w200 — شامل MOCKUP PDP برای CI"
     }
   ],
   "project": "ALOOKHOR",
-  "area": "Product Page PDP",
-  "reason": "دستور دقیق مالک: 6 تغییر الزامی صفحه محصول با تست Live قبل از تحویل",
+  "area": "Product Page PDP - Footer & Centering",
+  "reason": "دستور مالک 2026-09-03: دو فوتر باید ریشه‌یابی و حذف شود، بخش‌ها به راست رفته باید ریشه‌یابی و وسط‌چین شود، مقایسه تک‌به‌تک 4 تصویر مرجع vs لایو، بدون شکستن بخش‌های تأییدشده قبلی، تست Live قبل از تحویل",
   "files": [
     "docs/MASTER_DESIGN_DIRECTIVE.md",
     "plugin/alookhor-control-center/CHANGELOG.md",

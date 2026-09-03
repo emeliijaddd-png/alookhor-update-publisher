@@ -378,7 +378,11 @@ add_action('template_redirect',function(){
  echo "\n<!-- ALOOKHOR-PDP v".esc_html(ALOOKHOR_CC_VERSION)." -->\n";
  if(function_exists('alookhor_cc_render_akx_header'))echo alookhor_cc_render_akx_header();
  echo $markup;
- if(function_exists('alookhor_cc_footer_markup'))echo alookhor_cc_footer_markup();
+ if(function_exists('alookhor_cc_footer_markup')){
+  echo alookhor_cc_footer_markup();
+  $GLOBALS['alookhor_cc_footer_shortcode_rendered']=true;
+  $GLOBALS['alookhor_cc_footer_done']=true;
+ }
  if(function_exists('WC')&&WC()&&isset(WC()->structured_data)&&is_object(WC()->structured_data)){
   remove_action('wp_footer',[WC()->structured_data,'output_structured_data_json']);
   remove_action('wp_footer',[WC()->structured_data,'output_structured_data'],40);

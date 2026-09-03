@@ -1,4 +1,19 @@
 
+## 3.10.246 — FIX DOUBLE FOOTER ROOT CAUSE + CENTER SECTIONS PER 4 REF IMAGES
+- ROOT CAUSE DOUBLE FOOTER: investigated footer origins — Woodmart footer, Elementor template, Theme Builder display conditions, builder conflict, footer added inside page. Found: product-page.php template_redirect manually echoed alookhor_cc_footer_markup() then called wp_footer() which triggers alookhor_cc_render_managed_footer hooked to wp_footer/get_footer, both rendering managed footer → double footer. FIX: after manual echo set $GLOBALS['alookhor_cc_footer_shortcode_rendered']=true so second render skips. No CSS display:none hide — proper root cause removal, single footer exactly per final full-page reference ChatGPT Image Sep 2 2026 01_55_08 PM.png.
+- ROOT CAUSE CENTER SHIFT: investigated container width, max-width, Elementor Container, Boxed/Full Width, margin, padding, RTL margin-left/right, width, flexbox, grid, justify-content, align-items, custom CSS Woodmart/plugin, nested containers, DOM, responsive settings, mobile/desktop CSS interference. Found: .alookhor-alp used width:100vw + margin:0 calc(50% - 50vw) to break out — in RTL with vertical scrollbar, 100vw includes scrollbar width → parent wider than viewport → inner mx-auto max-w 1440 appears shifted right. FIX: override to width:100% max-width:100% margin:0, inner breadcrumb/product-page-main/below-product margin:auto max-w 1440px centered. No margin-left/right hack — proper container fix.
+- IMAGE-BY-IMAGE COMPARE: compared each uploaded image one-by-one vs live — image-1.png about story section (درباره ما) was right-shifted, image-2.png sliders (پیشنهادهای خوش‌طعم + برای شما آماده کرده‌ایم) shifted, image-3.png FAQ + reviews shifted, ChatGPT final full-page reference shows single footer + centered layout. All now centered, single footer, matches final image.
+- PRESERVE: all previously approved sections untouched — desktop/mobile/header/price/cart: price centered pink pill #e42a68 + gold 28px luminous, qty right cart max-w200 h-10, rating one-row, guarantees above banner, compact gap-4 — only scoped fix per-breakpoint.
+- CSS v3.10.246 MOCKUP PDP block appended with centering override and footer guard, includes MOCKUP PDP marker for CI.
+
+## 3.10.245 — RATING ONE ROW + PRICE CENTER PER REF + QTY RIGHT OF CART SMALLER + COMPACT + GUARANTEES ABOVE BANNER
+- Rating one row: ستاره و علاقه‌مندی دقیقا در یک ردیف کنار هم (flex-nowrap) + اشتراک‌گذاری ردیف جدا — Desktop و Mobile بدون overflow
+- Price per ref image-2: قیمت وسط‌چین، قرص تخفیف #e42a68، قیمت خط‌خورده 12px و قیمت طلایی 28px luminous gold وسط‌چین
+- Qty right of cart: [تعداد: + کنترل] سمت راست سبد خرید، سبد max-w 200px h-10 text 13px کوچک‌تر ولی خوانا
+- Compact: product-panel gap-6→gap-4، فاصله ردیف‌ها کمتر، لوکس حفظ
+- Guarantees above banner: ترتیب gallery → guarantees → banner، حذف -mt-8 و pb-24، ضمانت بالای بنر خوشمزه زندگی کن
+- CSS v3.10.245 MOCKUP PDP — شامل MOCKUP PDP برای CI
+
 ## 3.10.244 — GUARANTEES BIGGER ON BANNER خوشمزه زندگی کن PER PHOTO
 - User request: guarantees (ضمانت اصالت etc) bigger and placed on banner خوشمزه زندگی کن per image-1.png.
 - Fixed: guarantees-glass-slot changed from mt-5 to relative z-10 -mt-8 to overlap banner, appears on banner.
@@ -1259,10 +1274,3 @@
 - FIX: قراردادن دسترسی‌های `localStorage` داخل `try/catch` برای Safari ITP.
 - FIX: استفاده از `site_json_url` مطلق در WP Admin به‌جای `./config/site.json`.
 - Version bump `3.8.1` → `3.8.2`.
-## 3.10.245 — RATING ONE ROW + PRICE CENTER PER REF + QTY RIGHT OF CART SMALLER + COMPACT + GUARANTEES ABOVE BANNER
-- Rating: ستاره و علاقه‌مندی دقیقا در یک ردیف کنار هم — rating-row به flex-col با ردیف اول flex-nowrap شامل rating-summary + divider + favorite-action، ردیف دوم share-action self-start — Desktop/Mobile بدون overflow per دستور 1
-- Price per image-2.png: price-box text-center، بالا قیمت محصول: راست و قرص 13% تخفیف چپ bg #e42a68 سفید، پایین قیمت خط‌خورده 12px و قیمت طلایی 28px luminous gold وسط‌چین — رنگ/فونت/فاصله per ref per دستور 2
-- Qty right of cart: quantity-row [تعداد: + -1+ ] سمت راست سبد خرید — یک ردیف flex-wrap با qty order1 راست، add-button order2 وسط max-w 200px h-10 text 13px کوچک‌تر، 3 آیکون 40px order3 چپ — تراز عمودی هماهنگ per دستور 3 و 4
-- Compact: product-panel gap-6→gap-4 p-7→p-6، purchase-actions gap-3→2.5، فاصله ردیف‌ها کمتر ولی لوکس حفظ — per دستور 5
-- Guarantees above banner: left-col ترتیب gallery → guarantees-glass-slot → banner-slot — حذف -mt-8 و pb-24، ضمانت اصالت و مزایا بالای بنر خوشمزه زندگی کن — per دستور 6
-- CSS v3.10.245 MOCKUP PDP block با reset banner/guarantees و استایل‌های جدید

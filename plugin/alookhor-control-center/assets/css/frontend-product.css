@@ -1846,3 +1846,69 @@ body.alookhor-pdp-body .wd-product-info .wd-btn-arrow{display:none !important;vi
  #alookhor-pdp .add-button{max-width:100% !important;flex:1 1 100% !important}
  #alookhor-pdp .purchase-actions .flex.gap-1\.5{width:100% !important;justify-content:flex-start !important}
 }
+
+/* ===== v3.10.246 — FIX DOUBLE FOOTER ROOT CAUSE + CENTER SECTIONS — MOCKUP PDP ===== */
+/* ROOT CAUSE DOUBLE FOOTER: product-page.php manual footer + wp_footer hook both rendered managed footer.
+   FIX: PHP sets $GLOBALS['alookhor_cc_footer_shortcode_rendered']=true after manual render, so render_managed_footer skips second.
+   No CSS display:none — single footer per final full-page reference image. */
+body.alookhor-pdp-body #alookhor-managed-footer{position:relative !important;z-index:2 !important}
+/* ROOT CAUSE CENTER SHIFT: .alookhor-alp used width:100vw + margin:0 calc(50% - 50vw) to break out of container.
+   In RTL with vertical scrollbar, 100vw includes scrollbar width → parent wider than viewport → inner mx-auto max-w 1440 appears shifted right.
+   Also Woodmart wrapper centering + RTL margin calc causes off-center.
+   FIX: override to width:100% margin:0 — full-bleed via body background, inner containers handle centering with margin:auto.
+   Verified against 4 reference images: about, sliders, FAQ, reviews, final full-page — all must be centered. */
+body.alookhor-pdp-body .alookhor-alp,
+body.alookhor-pdp-body .alookhor-alp.app-bg,
+#alookhor-pdp.alookhor-alp,
+#alookhor-pdp.alookhor-alp.app-bg{
+  width:100% !important;
+  max-width:100% !important;
+  margin:0 !important;
+  left:auto !important;
+  right:auto !important;
+  overflow-x:clip !important;
+  box-sizing:border-box !important;
+}
+#alookhor-pdp .breadcrumb-wrapper,
+#alookhor-pdp .product-page-main,
+#alookhor-pdp .below-product{
+  margin-left:auto !important;
+  margin-right:auto !important;
+  max-width:1440px !important;
+  width:100% !important;
+  box-sizing:border-box !important;
+  float:none !important;
+  clear:both !important;
+}
+#alookhor-pdp .breadcrumb-wrapper{padding-left:16px !important;padding-right:16px !important}
+#alookhor-pdp .product-page-main{padding-left:16px !important;padding-right:16px !important}
+#alookhor-pdp .below-product{padding-left:16px !important;padding-right:16px !important}
+@media(min-width:1024px){
+  #alookhor-pdp .breadcrumb-wrapper{padding-left:32px !important;padding-right:32px !important}
+  #alookhor-pdp .product-page-main{padding-left:32px !important;padding-right:32px !important}
+  #alookhor-pdp .below-product{padding-left:32px !important;padding-right:32px !important}
+}
+#alookhor-pdp .below-product .below-section{
+  margin-left:auto !important;
+  margin-right:auto !important;
+  max-width:100% !important;
+  width:100% !important;
+  box-sizing:border-box !important;
+}
+body.alookhor-pdp-body{overflow-x:hidden !important}
+html{overflow-x:hidden !important}
+#alookhor-pdp .about-story,
+#alookhor-pdp .specs-section,
+#alookhor-pdp .slider-glass,
+#alookhor-pdp .faq-section,
+#alookhor-pdp .reviews-section,
+#alookhor-pdp .newsletter-section{
+  margin-left:auto !important;
+  margin-right:auto !important;
+  width:100% !important;
+  max-width:100% !important;
+  box-sizing:border-box !important;
+}
+/* Preserve approved sections: header, price pink pill #e42a68 centered gold 28px luminous, qty right cart h-10 max-w200, rating one-row, guarantees above banner, compact gap-4 */
+#alookhor-pdp .price-box .rounded-full.bg-\[\#e42a68\]{background:#e42a68 !important}
+#alookhor-pdp .price-box .alp-price-now{color:#f7b32b !important;font-size:28px !important}
