@@ -201,8 +201,8 @@ function alookhor_cc_pdp_markup(){
  ob_start();
 ?>
 <section id="alookhor-pdp" class="alookhor-alp app-bg min-h-screen" dir="rtl" data-cart="<?php echo esc_url($cart);?>" style="--alp-gold:<?php echo esc_attr($gold);?>">
- <main class="product-page-main mx-auto grid max-w-[1440px] gap-6 px-4 py-6 xl:grid-cols-[1.02fr_1.12fr] xl:items-start xl:px-8 xl:py-8">
-  <div class="left-col order-1 xl:col-start-1 xl:flex xl:min-h-[720px] xl:h-full xl:w-full xl:flex-col xl:gap-5">
+ <main dir="ltr" class="product-page-main mx-auto grid max-w-[1440px] gap-6 px-4 py-6 xl:grid-cols-[1.02fr_1.12fr] xl:items-start xl:px-8 xl:py-8">
+  <div dir="rtl" class="left-col order-1 xl:col-start-1 xl:flex xl:min-h-[720px] xl:h-full xl:w-full xl:flex-col xl:gap-5">
    <div class="gallery-slot">
     <div class="product-gallery flex gap-3 sm:gap-4">
      <div class="gallery-frame group relative aspect-[4/3] min-w-0 flex-1 overflow-hidden rounded-3xl border border-white/10 bg-plum-900 shadow-[0_25px_60px_-25px_rgba(0,0,0,0.9)] sm:aspect-[16/10] lg:aspect-auto lg:min-h-[560px]" data-stage>
@@ -235,7 +235,7 @@ function alookhor_cc_pdp_markup(){
     </section>
    </div>
   </div>
-  <div class="panel-slot order-2 xl:col-start-2 xl:row-start-1 xl:flex xl:min-h-[720px] xl:h-full xl:w-full xl:flex-col">
+  <div dir="rtl" class="panel-slot order-2 xl:col-start-2 xl:row-start-1 xl:flex xl:min-h-[720px] xl:h-full xl:w-full xl:flex-col">
    <section class="product-panel alpm-panel flex flex-col gap-6 rounded-3xl border border-white/8 bg-gradient-to-b from-plum-700/70 to-plum-800/60 p-5 shadow-[0_30px_80px_-40px_rgba(0,0,0,0.9)] sm:p-7">
     <nav aria-label="مسیر صفحه" class="product-breadcrumb flex flex-wrap items-center gap-1.5 text-xs font-medium text-lav">
      <span class="flex items-center gap-1.5"><a href="<?php echo esc_url(home_url('/'));?>" class="transition hover:text-gold-300">خانه</a><?php echo alookhor_cc_pdp_icon('chevl');?></span>

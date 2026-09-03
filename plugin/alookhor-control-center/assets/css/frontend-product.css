@@ -1653,3 +1653,33 @@ body.alookhor-pdp-body .wd-product-info .wd-btn-arrow{display:none !important;vi
 #alookhor-pdp .weight-options{gap:10px !important}
 #alookhor-pdp .weight-option{padding:12px 20px !important;border-radius:12px !important;border:1px solid rgba(255,255,255,.10) !important;background:rgba(34,17,44,.60) !important;color:#c7b3da !important;font-size:14px !important;font-weight:700 !important}
 #alookhor-pdp .weight-option.border-gold-400{border-color:#f7b32b !important;background:rgba(247,179,43,.10) !important;color:#f7b32b !important;box-shadow:0 0 0 3px rgba(247,179,43,.15) !important}
+
+
+/* ===== v3.10.233 — TOP SECTION LAYOUT FIX — description right, image left, distance, equal height — MOCKUP PDP ===== */
+#alookhor-pdp .product-page-main{
+  margin-top:32px !important;
+  padding-top:16px !important;
+  scroll-margin-top:100px !important;
+}
+@media(max-width:1279px){
+  #alookhor-pdp .product-page-main{margin-top:16px !important;padding-top:8px !important}
+}
+/* RTL fix: gallery left, panel right */
+@media(min-width:1280px){
+  #alookhor-pdp .product-page-main{
+    grid-template-columns:1.02fr 1.12fr !important; /* gallery 1.02 left, panel 1.12 right */
+  }
+  #alookhor-pdp .left-col{grid-column:1 !important;grid-row:1 !important}
+  #alookhor-pdp .panel-slot{grid-column:2 !important;grid-row:1 !important}
+}
+/* Equal height */
+#alookhor-pdp .left-col,#alookhor-pdp .panel-slot{
+  min-height:720px !important;
+  height:100% !important;
+  display:flex !important;
+  flex-direction:column !important;
+}
+#alookhor-pdp .left-col .gallery-slot{flex:1 1 auto !important;display:flex !important;flex-direction:column !important}
+#alookhor-pdp .product-gallery{flex:1 1 auto !important;min-height:560px !important}
+#alookhor-pdp .product-panel{flex:1 1 auto !important;min-height:560px !important;display:flex !important;flex-direction:column !important}
+#alookhor-pdp .banner-slot{margin-top:auto !important}

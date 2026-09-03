@@ -1,4 +1,12 @@
 
+## 3.10.233 — TOP SECTION LAYOUT FIX — description right, image left, distance from menu, equal height
+- User reference photo shows: description (panel) on RIGHT, image (gallery) on LEFT, both frames equal height, with distance from main menu (not under header).
+- Fixed: swapped grid columns for RTL — left-col (gallery) now xl:col-start-2 (visually left), panel-slot xl:col-start-1 (visually right) — matches photo: توضیحات راست، عکس چپ.
+- Added distance from menu: product-page-main margin-top 32px (desktop) / 16px mobile, plus scroll-margin, to prevent going under sticky header.
+- Equal height: both columns min-height 720px, h-full, flex-col, with gallery-frame flex-1 and product-panel flex-1, so frames equal like photo.
+- Kept all previous fixes (huge arrows, white buttons, 77KB react css), MOCKUP PDP marker, header/footer untouched.
+- Live verification pending user screenshot for top section only.
+
 ## 3.10.232 — TOP SECTION EXACT FIX — section by section per user request
 - User requested fix top section exactly per photo, section by section.
 - Fixed mobile-category-badge: hidden on desktop (display:none !important), visible only <1280px as flex.
