@@ -1,4 +1,10 @@
 
+## 3.10.244 — GUARANTEES BIGGER ON BANNER خوشمزه زندگی کن PER PHOTO
+- User request: guarantees (ضمانت اصالت etc) bigger and placed on banner خوشمزه زندگی کن per image-1.png.
+- Fixed: guarantees-glass-slot changed from mt-5 to relative z-10 -mt-8 to overlap banner, appears on banner.
+- Bigger: guarantee-item from text-[10px] px-2 py-3 h-4.5 w-4.5 to text-xs font-black px-4 py-4 h-6 w-6, min-height 80px, border white/10 bg plum-950/70, hover gold border, glass more prominent border gold/20 bg plum-900/70 shadow gold glow.
+- Kept: 4 items grid 2 sm:4, icons shield-check/box/return/headset, breadcrumb 140px, panel 0.95fr image 1.22fr, price per photo2, features 4, cart qty pill + 3 icons, images fill frame, MOCKUP PDP marker.
+
 ## 3.10.243 — RETRY 242 AFTER CLEANUP, CART QTY PILL + PRICE + FEATURES 4 + GUARANTEES 4
 - Retry after 241/242 build failure exit 124 at line 142, cleaned root zips, ensured bootstrap contains brand migration tokens, product-page.php balanced if/endif (8 if 7 endif with inline if short), CSS has MOCKUP PDP marker.
 

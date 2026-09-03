@@ -244,13 +244,13 @@ function alookhor_cc_pdp_markup(){
 
     </section>
    </div>
-   <div class="guarantees-glass-slot mt-5">
-    <div class="guarantees-glass rounded-2xl border border-white/8 bg-plum-900/50 p-3 backdrop-blur-md shadow-[0_15px_40px_-20px_rgba(0,0,0,0.7)]">
-      <div class="guarantees grid grid-cols-2 gap-2.5 sm:grid-cols-4">
-        <div class="guarantee-item flex items-center justify-center gap-2 rounded-xl border border-white/8 bg-plum-950/60 px-2 py-3 text-[10px] font-bold text-cream transition hover:border-gold-400/40"><span class="h-4.5 w-4.5 shrink-0 text-gold-400"><?php echo alookhor_cc_pdp_icon('shield-check');?></span>ضمانت اصالت</div>
-        <div class="guarantee-item flex items-center justify-center gap-2 rounded-xl border border-white/8 bg-plum-950/60 px-2 py-3 text-[10px] font-bold text-cream transition hover:border-gold-400/40"><span class="h-4.5 w-4.5 shrink-0 text-gold-400"><?php echo alookhor_cc_pdp_icon('box');?></span>بسته‌بندی بهداشتی</div>
-        <div class="guarantee-item flex items-center justify-center gap-2 rounded-xl border border-white/8 bg-plum-950/60 px-2 py-3 text-[10px] font-bold text-cream transition hover:border-gold-400/40"><span class="h-4.5 w-4.5 shrink-0 text-gold-400"><?php echo alookhor_cc_pdp_icon('return');?></span>۷ روز ضمانت بازگشت</div>
-        <div class="guarantee-item flex items-center justify-center gap-2 rounded-xl border border-white/8 bg-plum-950/60 px-2 py-3 text-[10px] font-bold text-cream transition hover:border-gold-400/40"><span class="h-4.5 w-4.5 shrink-0 text-gold-400"><?php echo alookhor_cc_pdp_icon('headset');?></span>پشتیبانی همیشگی</div>
+   <div class="guarantees-glass-slot relative z-10 -mt-8">
+    <div class="guarantees-glass rounded-2xl border border-gold-400/20 bg-plum-900/70 p-4 backdrop-blur-md shadow-[0_20px_50px_-15px_rgba(0,0,0,0.8),0_0_30px_-10px_rgba(247,179,43,0.15)]">
+      <div class="guarantees grid grid-cols-2 gap-3 sm:grid-cols-4">
+        <div class="guarantee-item flex items-center justify-center gap-2.5 rounded-xl border border-white/10 bg-plum-950/70 px-4 py-4 text-xs font-black text-cream transition hover:border-gold-400/50 hover:bg-plum-900/80"><span class="h-6 w-6 shrink-0 text-gold-400"><?php echo alookhor_cc_pdp_icon('shield-check');?></span>ضمانت اصالت</div>
+        <div class="guarantee-item flex items-center justify-center gap-2.5 rounded-xl border border-white/10 bg-plum-950/70 px-4 py-4 text-xs font-black text-cream transition hover:border-gold-400/50 hover:bg-plum-900/80"><span class="h-6 w-6 shrink-0 text-gold-400"><?php echo alookhor_cc_pdp_icon('box');?></span>بسته‌بندی بهداشتی</div>
+        <div class="guarantee-item flex items-center justify-center gap-2.5 rounded-xl border border-white/10 bg-plum-950/70 px-4 py-4 text-xs font-black text-cream transition hover:border-gold-400/50 hover:bg-plum-900/80"><span class="h-6 w-6 shrink-0 text-gold-400"><?php echo alookhor_cc_pdp_icon('return');?></span>۷ روز ضمانت بازگشت</div>
+        <div class="guarantee-item flex items-center justify-center gap-2.5 rounded-xl border border-white/10 bg-plum-950/70 px-4 py-4 text-xs font-black text-cream transition hover:border-gold-400/50 hover:bg-plum-900/80"><span class="h-6 w-6 shrink-0 text-gold-400"><?php echo alookhor_cc_pdp_icon('headset');?></span>پشتیبانی همیشگی</div>
       </div>
     </div>
    </div>

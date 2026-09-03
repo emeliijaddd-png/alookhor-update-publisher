@@ -1797,3 +1797,12 @@ body.alookhor-pdp-body .wd-product-info .wd-btn-arrow{display:none !important;vi
 
 /* ===== v3.10.243 — RETRY CLEAN BUILD — MOCKUP PDP ===== */
 #alookhor-pdp .product-page-main{grid-template-columns:1.22fr 0.95fr !important}
+
+
+/* ===== v3.10.244 — GUARANTEES BIGGER ON BANNER — MOCKUP PDP ===== */
+#alookhor-pdp .banner-slot{position:relative !important;z-index:1 !important;padding-bottom:24px !important}
+#alookhor-pdp .guarantees-glass-slot{margin-top:-32px !important;position:relative !important;z-index:10 !important}
+#alookhor-pdp .guarantees-glass{border:1px solid rgba(247,179,43,.20) !important;background:rgba(38,18,50,.75) !important;backdrop-filter:blur(12px) !important;padding:16px !important;border-radius:16px !important;box-shadow:0 20px 50px -15px rgba(0,0,0,.80), 0 0 30px -10px rgba(247,179,43,.15) !important}
+#alookhor-pdp .guarantee-item{min-height:76px !important;padding:16px 12px !important;font-size:12px !important;font-weight:900 !important;border-radius:12px !important;background:rgba(22,10,32,.80) !important;border:1px solid rgba(255,255,255,.10) !important}
+#alookhor-pdp .guarantee-item svg{width:24px !important;height:24px !important;color:#f7b32b !important}
+#alookhor-pdp .guarantees{gap:12px !important}
