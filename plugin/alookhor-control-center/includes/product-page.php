@@ -233,6 +233,16 @@ function alookhor_cc_pdp_markup(){
      </div>
     </div>
    </div>
+   <div class="guarantees-glass-slot">
+    <div class="guarantees-glass rounded-2xl border border-gold-400/20 bg-plum-900/70 p-4 backdrop-blur-md shadow-[0_20px_50px_-15px_rgba(0,0,0,0.8),0_0_30px_-10px_rgba(247,179,43,0.15)]">
+      <div class="guarantees grid grid-cols-2 gap-3 sm:grid-cols-4">
+        <div class="guarantee-item flex items-center justify-center gap-2.5 rounded-xl border border-white/10 bg-plum-950/70 px-4 py-4 text-xs font-black text-cream transition hover:border-gold-400/50 hover:bg-plum-900/80"><span class="h-6 w-6 shrink-0 text-gold-400"><?php echo alookhor_cc_pdp_icon('shield-check');?></span>ضمانت اصالت</div>
+        <div class="guarantee-item flex items-center justify-center gap-2.5 rounded-xl border border-white/10 bg-plum-950/70 px-4 py-4 text-xs font-black text-cream transition hover:border-gold-400/50 hover:bg-plum-900/80"><span class="h-6 w-6 shrink-0 text-gold-400"><?php echo alookhor_cc_pdp_icon('box');?></span>بسته‌بندی بهداشتی</div>
+        <div class="guarantee-item flex items-center justify-center gap-2.5 rounded-xl border border-white/10 bg-plum-950/70 px-4 py-4 text-xs font-black text-cream transition hover:border-gold-400/50 hover:bg-plum-900/80"><span class="h-6 w-6 shrink-0 text-gold-400"><?php echo alookhor_cc_pdp_icon('return');?></span>۷ روز ضمانت بازگشت</div>
+        <div class="guarantee-item flex items-center justify-center gap-2.5 rounded-xl border border-white/10 bg-plum-950/70 px-4 py-4 text-xs font-black text-cream transition hover:border-gold-400/50 hover:bg-plum-900/80"><span class="h-6 w-6 shrink-0 text-gold-400"><?php echo alookhor_cc_pdp_icon('headset');?></span>پشتیبانی همیشگی</div>
+      </div>
+    </div>
+   </div>
    <div class="banner-slot">
     <section class="promo-banner relative overflow-hidden rounded-3xl border border-gold-400/25 shadow-[0_25px_60px_-30px_rgba(0,0,0,0.9)]">
      <img src="<?php echo esc_url($img.'banner.jpg');?>" alt="آلو بخارایی طبیعی الخور" class="absolute inset-0 h-full w-full object-cover">
@@ -244,48 +254,35 @@ function alookhor_cc_pdp_markup(){
 
     </section>
    </div>
-   <div class="guarantees-glass-slot relative z-10 -mt-8">
-    <div class="guarantees-glass rounded-2xl border border-gold-400/20 bg-plum-900/70 p-4 backdrop-blur-md shadow-[0_20px_50px_-15px_rgba(0,0,0,0.8),0_0_30px_-10px_rgba(247,179,43,0.15)]">
-      <div class="guarantees grid grid-cols-2 gap-3 sm:grid-cols-4">
-        <div class="guarantee-item flex items-center justify-center gap-2.5 rounded-xl border border-white/10 bg-plum-950/70 px-4 py-4 text-xs font-black text-cream transition hover:border-gold-400/50 hover:bg-plum-900/80"><span class="h-6 w-6 shrink-0 text-gold-400"><?php echo alookhor_cc_pdp_icon('shield-check');?></span>ضمانت اصالت</div>
-        <div class="guarantee-item flex items-center justify-center gap-2.5 rounded-xl border border-white/10 bg-plum-950/70 px-4 py-4 text-xs font-black text-cream transition hover:border-gold-400/50 hover:bg-plum-900/80"><span class="h-6 w-6 shrink-0 text-gold-400"><?php echo alookhor_cc_pdp_icon('box');?></span>بسته‌بندی بهداشتی</div>
-        <div class="guarantee-item flex items-center justify-center gap-2.5 rounded-xl border border-white/10 bg-plum-950/70 px-4 py-4 text-xs font-black text-cream transition hover:border-gold-400/50 hover:bg-plum-900/80"><span class="h-6 w-6 shrink-0 text-gold-400"><?php echo alookhor_cc_pdp_icon('return');?></span>۷ روز ضمانت بازگشت</div>
-        <div class="guarantee-item flex items-center justify-center gap-2.5 rounded-xl border border-white/10 bg-plum-950/70 px-4 py-4 text-xs font-black text-cream transition hover:border-gold-400/50 hover:bg-plum-900/80"><span class="h-6 w-6 shrink-0 text-gold-400"><?php echo alookhor_cc_pdp_icon('headset');?></span>پشتیبانی همیشگی</div>
-      </div>
-    </div>
-   </div>
   </div>
   <div dir="rtl" class="panel-slot order-2 xl:col-start-2 xl:row-start-1 xl:flex xl:min-h-[720px] xl:h-full xl:w-full xl:flex-col">
-   <section class="product-panel alpm-panel flex flex-col gap-6 rounded-3xl border border-white/8 bg-gradient-to-b from-plum-700/70 to-plum-800/60 p-5 shadow-[0_30px_80px_-40px_rgba(0,0,0,0.9)] sm:p-7">
+   <section class="product-panel alpm-panel flex flex-col gap-4 rounded-3xl border border-white/8 bg-gradient-to-b from-plum-700/70 to-plum-800/60 p-5 shadow-[0_30px_80px_-40px_rgba(0,0,0,0.9)] sm:p-6">
     <div class="product-heading">
      <button onclick="window.location.href='<?php echo esc_url($shop);?>'" class="mobile-category-badge hidden items-center gap-1.5 rounded-full border border-gold-400/30 bg-plum-900/70 px-3 py-1.5 text-xs font-black text-gold-300"><?php echo alookhor_cc_pdp_icon('leaf');?>آلو خشکبار</button>
      <div class="product-title-copy"><h1 class="text-3xl font-black text-cream sm:text-4xl"><?php echo esc_html($d['name']);?></h1><p class="mt-2 text-lg font-bold text-gold-400">طعم اصیل، سلامتی طبیعی</p></div>
      <p class="mt-4 text-sm leading-7 text-lav"><?php if($d['short']) echo esc_html(wp_strip_all_tags($d['short'])); else echo esc_html($d['name']).' آلوخور، انتخابی بی‌نظیر از باغات ایران، با طعمی دلنشین و کیفیتی ممتاز. مناسب برای مصرف روزانه، آشپزی و پذیرایی؛ بدون هیچ افزودنی، رنگ یا شکر افزوده.';?></p>
     </div>
-    <div class="rating-row flex flex-wrap items-center gap-x-4 gap-y-2">
-     <div class="rating-summary flex items-center gap-1.5">
-      <span class="flex items-center gap-0.5" aria-label="امتیاز ۴.۸ از ۵">
-       <?php for($i=0;$i<5;$i++):?><span class="relative inline-block h-4.5 w-4.5"><span class="absolute inset-0 text-plum-500"><?php echo alookhor_cc_pdp_icon('star');?></span><span class="absolute inset-0 overflow-hidden" style="width:<?php echo $i<4?'100%':'80%';?>"><span class="text-gold-400"><?php echo alookhor_cc_pdp_icon('star');?></span></span></span><?php endfor;?>
-      </span>
-      <span class="text-sm font-black text-cream">۴٫۸ از ۵</span><span class="text-xs text-lav">(<?php echo esc_html($faNum($d['reviews']>0?$d['reviews']:133));?> نظر)</span>
+    <div class="rating-row flex flex-col gap-2">
+     <div class="flex flex-nowrap items-center gap-3">
+      <div class="rating-summary flex items-center gap-1.5 shrink-0">
+       <span class="flex items-center gap-0.5" aria-label="امتیاز ۴.۸ از ۵">
+        <?php for($i=0;$i<5;$i++):?><span class="relative inline-block h-4.5 w-4.5"><span class="absolute inset-0 text-plum-500"><?php echo alookhor_cc_pdp_icon('star');?></span><span class="absolute inset-0 overflow-hidden" style="width:<?php echo $i<4?'100%':'80%';?>"><span class="text-gold-400"><?php echo alookhor_cc_pdp_icon('star');?></span></span></span><?php endfor;?>
+       </span>
+       <span class="text-sm font-black text-cream">۴٫۸ از ۵</span><span class="text-xs text-lav">(<?php echo esc_html($faNum($d['reviews']>0?$d['reviews']:133));?> نظر)</span>
+      </div>
+      <span class="rating-divider h-5 w-px bg-white/15 shrink-0"></span>
+      <button type="button" class="favorite-action flex items-center gap-1.5 text-xs font-bold text-lav transition hover:text-berry shrink-0" data-wish aria-pressed="false"><span class="h-4.5 w-4.5"><?php echo alookhor_cc_pdp_icon('heart');?></span><span data-wish-label>افزودن به علاقه‌مندی‌ها</span></button>
      </div>
-     <span class="rating-divider h-5 w-px bg-white/15"></span>
-     <button type="button" class="favorite-action flex items-center gap-1.5 text-xs font-bold text-lav transition hover:text-berry" data-wish aria-pressed="false"><span class="h-4.5 w-4.5"><?php echo alookhor_cc_pdp_icon('heart');?></span><span data-wish-label>افزودن به علاقه‌مندی‌ها</span></button>
-     <button type="button" class="share-action flex items-center gap-1.5 text-xs font-bold text-lav transition hover:text-gold-300" data-share data-name="<?php echo esc_attr($d['name']);?>" data-url="<?php echo esc_url(get_permalink($d['id']));?>"><span class="h-4.5 w-4.5"><?php echo alookhor_cc_pdp_icon('share');?></span>اشتراک‌گذاری</button>
+     <button type="button" class="share-action flex items-center gap-1.5 text-xs font-bold text-lav transition hover:text-gold-300 self-start" data-share data-name="<?php echo esc_attr($d['name']);?>" data-url="<?php echo esc_url(get_permalink($d['id']));?>"><span class="h-4.5 w-4.5"><?php echo alookhor_cc_pdp_icon('share');?></span>اشتراک‌گذاری</button>
     </div>
     <div class="product-features grid grid-cols-2 gap-3 xl:grid-cols-4">
      <?php foreach(array_slice($d['feats'],0,4) as $f):?><div class="feature-item flex flex-col items-center gap-1.5 rounded-2xl border border-white/8 bg-plum-900/50 px-2 py-4 text-center transition hover:border-gold-400/40 hover:bg-plum-900"><span class="h-6 w-6 text-gold-400"><?php echo alookhor_cc_pdp_icon($f[0]);?></span><span class="text-sm font-black text-cream"><?php echo esc_html($f[1]);?></span><span class="text-[11px] text-lav"><?php echo esc_html($f[2]);?></span></div><?php endforeach;?>
     </div>
-    <div class="price-box rounded-2xl border border-white/8 bg-plum-950/50 p-4">
-     <div class="flex items-center justify-between gap-3"><span class="text-xs font-bold text-lav">قیمت محصول:</span><?php if($d['discount']>0):?><span class="rounded-full bg-plum-800 border border-berry/30 px-3 py-1 text-[10px] font-black text-berry-300"><?php echo esc_html($faNum($d['discount']));?>٪ تخفیف</span><?php endif;?></div>
-     <div class="mt-3 flex items-center justify-between gap-3">
-      <div class="flex flex-col items-start gap-0.5">
-        <span class="text-[11px] text-lav line-through opacity-70"><?php echo $price_old_html?:$price_now_html;?></span>
-        <span class="text-xl sm:text-2xl font-black text-gold-400 drop-shadow-[0_0_18px_rgba(247,179,43,0.65)] alp-price-now luminous-gold" data-single="<?php echo esc_attr($price_single);?>"><?php echo $price_now_html;?></span>
-      </div>
-      <div class="text-left">
-        <span class="text-[10px] text-lav">قیمت با تخفیف</span>
-      </div>
+    <div class="price-box rounded-2xl border border-white/8 bg-plum-950/50 p-4 text-center">
+     <div class="flex items-center justify-between gap-3"><span class="text-xs font-bold text-lav">قیمت محصول:</span><?php if($d['discount']>0):?><span class="rounded-full bg-[#e42a68] px-3 py-1 text-[11px] font-black text-white shadow-[0_4px_12px_rgba(228,42,104,.35)]"><?php echo esc_html($faNum($d['discount']));?>٪ تخفیف</span><?php endif;?></div>
+     <div class="mt-3 flex flex-col items-center justify-center gap-1">
+      <?php if($d['discount']>0):?><span class="text-[12px] text-lav/60 line-through"><?php echo $price_old_html;?></span><?php endif;?>
+      <span class="text-2xl sm:text-[28px] font-black text-gold-400 drop-shadow-[0_0_18px_rgba(247,179,43,0.65)] alp-price-now luminous-gold leading-tight" data-single="<?php echo esc_attr($price_single);?>"><?php echo $price_now_html;?></span>
      </div>
     </div>
     <?php if($show_weights):?>
@@ -302,21 +299,21 @@ function alookhor_cc_pdp_markup(){
     </div>
     <?php endif;?>
     <?php if($d['purchasable']&&$d['stock']!=='out'):?>
-    <div class="purchase-actions flex flex-col gap-3 rounded-2xl border border-white/8 bg-plum-900/30 p-3">
-      <div class="quantity-row flex items-center justify-between gap-3">
-        <div class="quantity-control flex items-center gap-1 rounded-full border border-white/10 bg-plum-950/70 p-1">
-          <button type="button" data-q="-" aria-label="کاهش تعداد" class="grid h-7 w-7 place-items-center rounded-full text-cream transition hover:bg-white/10 hover:text-gold-300"><span class="h-3 w-3"><?php echo alookhor_cc_pdp_icon('minus');?></span></button>
-          <span class="w-7 text-center text-sm font-black text-cream" id="alpQty">۱</span>
-          <button type="button" data-q="+" aria-label="افزایش تعداد" class="grid h-7 w-7 place-items-center rounded-full text-cream transition hover:bg-white/10 hover:text-gold-300"><span class="h-3 w-3"><?php echo alookhor_cc_pdp_icon('plus');?></span></button>
+    <div class="purchase-actions flex flex-col gap-2.5 rounded-2xl border border-white/8 bg-plum-900/30 p-3">
+      <div class="flex flex-wrap items-center gap-2">
+        <div class="quantity-row flex items-center gap-2 shrink-0">
+          <span class="quantity-label text-xs font-bold text-lav">تعداد:</span>
+          <div class="quantity-control flex items-center gap-1 rounded-full border border-white/10 bg-plum-950/70 p-1">
+            <button type="button" data-q="-" aria-label="کاهش تعداد" class="grid h-7 w-7 place-items-center rounded-full text-cream transition hover:bg-white/10 hover:text-gold-300"><span class="h-3 w-3"><?php echo alookhor_cc_pdp_icon('minus');?></span></button>
+            <span class="w-7 text-center text-sm font-black text-cream" id="alpQty">۱</span>
+            <button type="button" data-q="+" aria-label="افزایش تعداد" class="grid h-7 w-7 place-items-center rounded-full text-cream transition hover:bg-white/10 hover:text-gold-300"><span class="h-3 w-3"><?php echo alookhor_cc_pdp_icon('plus');?></span></button>
+          </div>
         </div>
-        <span class="quantity-label text-xs font-bold text-lav">تعداد:</span>
-      </div>
-      <div class="flex items-center gap-2">
-        <a id="alpAdd" href="<?php echo esc_url($d['add_url']);?>" data-base="<?php echo esc_attr($d['add_url']);?>" class="add-button flex h-11 flex-1 items-center justify-center gap-2 rounded-xl bg-gradient-to-l from-gold-300 via-gold-400 to-gold-500 text-sm font-black text-plum-950 shadow-[0_10px_30px_-10px_rgba(247,179,43,0.65)] transition hover:brightness-110 active:scale-[0.98]"><span>افزودن به سبد خرید</span><span class="h-5 w-5"><?php echo alookhor_cc_pdp_icon('cart');?></span></a>
+        <a id="alpAdd" href="<?php echo esc_url($d['add_url']);?>" data-base="<?php echo esc_attr($d['add_url']);?>" class="add-button flex h-10 flex-1 max-w-[200px] items-center justify-center gap-2 rounded-xl bg-gradient-to-l from-gold-300 via-gold-400 to-gold-500 text-[13px] font-black text-plum-950 shadow-[0_10px_30px_-10px_rgba(247,179,43,0.65)] transition hover:brightness-110 active:scale-[0.98]"><span>افزودن به سبد خرید</span><span class="h-4.5 w-4.5"><?php echo alookhor_cc_pdp_icon('cart');?></span></a>
         <div class="flex items-center gap-1.5 shrink-0">
-          <button type="button" class="share-btn grid h-11 w-11 place-items-center rounded-xl border border-white/10 bg-plum-950/70 text-lav transition hover:border-gold-400/40 hover:text-gold-300" data-share data-name="<?php echo esc_attr($d['name']);?>" data-url="<?php echo esc_url(get_permalink($d['id']));?>" aria-label="اشتراک‌گذاری"><span class="h-4.5 w-4.5"><?php echo alookhor_cc_pdp_icon('share');?></span></button>
-          <button type="button" class="compare-btn grid h-11 w-11 place-items-center rounded-xl border border-white/10 bg-plum-950/70 text-lav transition hover:border-gold-400/40 hover:text-gold-300" data-compare aria-label="مقایسه"><span class="h-4.5 w-4.5"><?php echo alookhor_cc_pdp_icon('compare');?></span></button>
-          <button type="button" class="wishlist-btn grid h-11 w-11 place-items-center rounded-xl border border-white/10 bg-plum-950/70 text-lav transition hover:border-berry/40 hover:text-berry" data-wish aria-pressed="false" aria-label="علاقه‌مندی"><span class="h-4.5 w-4.5"><?php echo alookhor_cc_pdp_icon('heart');?></span></button>
+          <button type="button" class="share-btn grid h-10 w-10 place-items-center rounded-xl border border-white/10 bg-plum-950/70 text-lav transition hover:border-gold-400/40 hover:text-gold-300" data-share data-name="<?php echo esc_attr($d['name']);?>" data-url="<?php echo esc_url(get_permalink($d['id']));?>" aria-label="اشتراک‌گذاری"><span class="h-4 w-4"><?php echo alookhor_cc_pdp_icon('share');?></span></button>
+          <button type="button" class="compare-btn grid h-10 w-10 place-items-center rounded-xl border border-white/10 bg-plum-950/70 text-lav transition hover:border-gold-400/40 hover:text-gold-300" data-compare aria-label="مقایسه"><span class="h-4 w-4"><?php echo alookhor_cc_pdp_icon('compare');?></span></button>
+          <button type="button" class="wishlist-btn grid h-10 w-10 place-items-center rounded-xl border border-white/10 bg-plum-950/70 text-lav transition hover:border-berry/40 hover:text-berry" data-wish aria-pressed="false" aria-label="علاقه‌مندی"><span class="h-4 w-4"><?php echo alookhor_cc_pdp_icon('heart');?></span></button>
         </div>
       </div>
       <div class="shipping-line flex flex-wrap items-center justify-between gap-2 text-[11px] font-bold"><span class="flex items-center gap-1.5 text-mint"><span class="relative flex h-2 w-2"><span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-mint opacity-60"></span><span class="relative inline-flex h-2 w-2 rounded-full bg-mint"></span></span>موجود در انبار</span><span class="text-lav/70">ارسال از ۱ روز کاری آینده</span></div>

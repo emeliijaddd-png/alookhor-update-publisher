@@ -1806,3 +1806,43 @@ body.alookhor-pdp-body .wd-product-info .wd-btn-arrow{display:none !important;vi
 #alookhor-pdp .guarantee-item{min-height:76px !important;padding:16px 12px !important;font-size:12px !important;font-weight:900 !important;border-radius:12px !important;background:rgba(22,10,32,.80) !important;border:1px solid rgba(255,255,255,.10) !important}
 #alookhor-pdp .guarantee-item svg{width:24px !important;height:24px !important;color:#f7b32b !important}
 #alookhor-pdp .guarantees{gap:12px !important}
+
+/* ===== v3.10.245 — RATING ONE ROW + PRICE CENTER PER REF + QTY RIGHT OF CART SMALLER + COMPACT + GUARANTEES ABOVE BANNER — MOCKUP PDP ===== */
+#alookhor-pdp .banner-slot{position:relative !important;z-index:1 !important;padding-bottom:0 !important}
+#alookhor-pdp .guarantees-glass-slot{margin-top:0 !important;position:relative !important;z-index:2 !important}
+#alookhor-pdp .guarantees-glass{border:1px solid rgba(247,179,43,.20) !important;background:rgba(38,18,50,.75) !important;backdrop-filter:blur(12px) !important;padding:16px !important;border-radius:16px !important;box-shadow:0 20px 50px -15px rgba(0,0,0,.80), 0 0 30px -10px rgba(247,179,43,.15) !important}
+#alookhor-pdp .guarantee-item{min-height:76px !important;padding:16px 12px !important;font-size:12px !important;font-weight:900 !important;border-radius:12px !important;background:rgba(22,10,32,.80) !important;border:1px solid rgba(255,255,255,.10) !important}
+#alookhor-pdp .guarantee-item svg{width:24px !important;height:24px !important;color:#f7b32b !important}
+#alookhor-pdp .guarantees{gap:12px !important}
+#alookhor-pdp .rating-row{gap:8px !important;display:flex !important;flex-direction:column !important}
+#alookhor-pdp .rating-row > div.flex-nowrap{flex-wrap:nowrap !important;gap:12px !important;display:flex !important;align-items:center !important}
+#alookhor-pdp .rating-summary{flex-shrink:0 !important;display:flex !important;align-items:center !important;gap:6px !important}
+#alookhor-pdp .favorite-action{flex-shrink:0 !important;white-space:nowrap !important;background:transparent !important;border:none !important;color:#c7b3da !important;font-size:12px !important;font-weight:700 !important}
+#alookhor-pdp .share-action{align-self:flex-start !important;background:transparent !important;border:none !important;color:#c7b3da !important;font-size:12px !important;font-weight:700 !important;display:flex !important;align-items:center !important;gap:6px !important}
+#alookhor-pdp .price-box{text-align:center !important;padding:16px !important;border-radius:16px !important;background:rgba(22,10,32,.60) !important}
+#alookhor-pdp .price-box .rounded-full.bg-\[\#e42a68\]{background:#e42a68 !important;color:#fff !important;padding:4px 12px !important;font-size:11px !important;font-weight:900 !important;border-radius:9999px !important;box-shadow:0 4px 12px rgba(228,42,104,.35) !important}
+#alookhor-pdp .price-box .mt-3{margin-top:12px !important;display:flex !important;flex-direction:column !important;align-items:center !important;justify-content:center !important;gap:4px !important}
+#alookhor-pdp .price-box .line-through{text-decoration:line-through !important;opacity:.60 !important;font-size:12px !important;color:#c7b3da !important}
+#alookhor-pdp .price-box .alp-price-now{font-size:28px !important;font-weight:900 !important;color:#f7b32b !important;filter:drop-shadow(0 0 18px rgba(247,179,43,.65)) !important;line-height:1.2 !important;text-shadow:0 0 12px rgba(247,179,43,.50) !important}
+#alookhor-pdp .product-panel{gap:16px !important;padding:20px !important}
+@media(min-width:640px){#alookhor-pdp .product-panel{padding:24px !important}}
+#alookhor-pdp .product-features{gap:10px !important}
+#alookhor-pdp .weight-qty-box{padding:12px !important;border-radius:16px !important}
+#alookhor-pdp .purchase-actions{gap:10px !important;padding:12px !important;border-radius:16px !important;background:rgba(38,18,50,.30) !important;border:1px solid rgba(255,255,255,.08) !important}
+#alookhor-pdp .purchase-actions > div.flex{flex-wrap:wrap !important;gap:8px !important;align-items:center !important}
+#alookhor-pdp .quantity-row{order:1 !important;flex-shrink:0 !important;display:flex !important;align-items:center !important;gap:8px !important}
+#alookhor-pdp .quantity-label{font-size:12px !important;font-weight:700 !important;color:#c7b3da !important}
+#alookhor-pdp .quantity-control{border-radius:9999px !important;background:rgba(22,10,32,.80) !important;border:1px solid rgba(255,255,255,.12) !important;padding:4px !important;gap:2px !important}
+#alookhor-pdp .quantity-control button{width:28px !important;height:28px !important;border-radius:9999px !important}
+#alookhor-pdp .add-button{order:2 !important;height:40px !important;min-height:40px !important;max-width:200px !important;flex:1 1 auto !important;font-size:13px !important;font-weight:900 !important;border-radius:12px !important;background:linear-gradient(90deg,#fbe9a0 0%,#f7b32b 45%,#d68a1f 100%) !important;color:#1a0a24 !important;box-shadow:0 12px 32px -12px rgba(247,179,43,.70) !important}
+#alookhor-pdp .purchase-actions .flex.gap-1\.5{order:3 !important;flex-shrink:0 !important;gap:6px !important}
+#alookhor-pdp .purchase-actions .share-btn,#alookhor-pdp .purchase-actions .compare-btn,#alookhor-pdp .purchase-actions .wishlist-btn{width:40px !important;height:40px !important;min-width:40px !important;min-height:40px !important;border-radius:12px !important;background:rgba(22,10,32,.85) !important;border:1px solid rgba(255,255,255,.12) !important}
+#alookhor-pdp .purchase-actions .share-btn svg,#alookhor-pdp .purchase-actions .compare-btn svg,#alookhor-pdp .purchase-actions .wishlist-btn svg{width:16px !important;height:16px !important}
+#alookhor-pdp .shipping-line{margin-top:2px !important}
+@media(max-width:640px){
+ #alookhor-pdp .rating-row > div.flex-nowrap{flex-wrap:wrap !important}
+ #alookhor-pdp .purchase-actions > div.flex{flex-wrap:wrap !important}
+ #alookhor-pdp .quantity-row{width:100% !important;justify-content:space-between !important}
+ #alookhor-pdp .add-button{max-width:100% !important;flex:1 1 100% !important}
+ #alookhor-pdp .purchase-actions .flex.gap-1\.5{width:100% !important;justify-content:flex-start !important}
+}

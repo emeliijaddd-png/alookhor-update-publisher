@@ -1259,3 +1259,10 @@
 - FIX: قراردادن دسترسی‌های `localStorage` داخل `try/catch` برای Safari ITP.
 - FIX: استفاده از `site_json_url` مطلق در WP Admin به‌جای `./config/site.json`.
 - Version bump `3.8.1` → `3.8.2`.
+## 3.10.245 — RATING ONE ROW + PRICE CENTER PER REF + QTY RIGHT OF CART SMALLER + COMPACT + GUARANTEES ABOVE BANNER
+- Rating: ستاره و علاقه‌مندی دقیقا در یک ردیف کنار هم — rating-row به flex-col با ردیف اول flex-nowrap شامل rating-summary + divider + favorite-action، ردیف دوم share-action self-start — Desktop/Mobile بدون overflow per دستور 1
+- Price per image-2.png: price-box text-center، بالا قیمت محصول: راست و قرص 13% تخفیف چپ bg #e42a68 سفید، پایین قیمت خط‌خورده 12px و قیمت طلایی 28px luminous gold وسط‌چین — رنگ/فونت/فاصله per ref per دستور 2
+- Qty right of cart: quantity-row [تعداد: + -1+ ] سمت راست سبد خرید — یک ردیف flex-wrap با qty order1 راست، add-button order2 وسط max-w 200px h-10 text 13px کوچک‌تر، 3 آیکون 40px order3 چپ — تراز عمودی هماهنگ per دستور 3 و 4
+- Compact: product-panel gap-6→gap-4 p-7→p-6، purchase-actions gap-3→2.5، فاصله ردیف‌ها کمتر ولی لوکس حفظ — per دستور 5
+- Guarantees above banner: left-col ترتیب gallery → guarantees-glass-slot → banner-slot — حذف -mt-8 و pb-24، ضمانت اصالت و مزایا بالای بنر خوشمزه زندگی کن — per دستور 6
+- CSS v3.10.245 MOCKUP PDP block با reset banner/guarantees و استایل‌های جدید

@@ -1,21 +1,46 @@
 {
-  "version": "3.10.244",
-  "previous": "3.10.225",
+  "version": "3.10.245",
+  "previous": "3.10.244",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "فیکس ریدکلر تابع goldify — حل خطای 500",
+  "description": "اجرای دقیق تغییرات صفحه محصول: ستاره و علاقه‌مندی یک ردیف، قیمت وسط‌چین per ref، تعداد راست سبد کوچک‌تر، فاصله compact، ضمانت بالای بنر",
   "changelog": [
     {
       "tag": "FIX",
-      "title": "حل خطای Cannot redeclare alookhor_cc_goldify",
-      "desc": "تابع تکراری حذف شد، سایت 500 بود"
+      "title": "ستاره و علاقه‌مندی در یک ردیف",
+      "desc": "rating-row به دو ردیف تقسیم شد: ردیف اول ستاره + جداکننده + علاقه‌مندی در یک ردیف flex-nowrap بدون overflow، ردیف دوم اشتراک‌گذاری جدا"
+    },
+    {
+      "tag": "UPDATE",
+      "title": "قیمت محصول وسط‌چین per تصویر مرجع",
+      "desc": "price-box text-center، بالا لیبل قیمت محصول راست و قرص تخفیف چپ با bg #e42a68، پایین قیمت خط‌خورده و قیمت طلایی بزرگ وسط‌چین با luminous gold"
+    },
+    {
+      "tag": "UPDATE",
+      "title": "تعداد سمت راست سبد خرید + سبد کوچک‌تر",
+      "desc": "purchase-actions یک ردیف: [تعداد: + کنترل -1+] سمت راست، سبد خرید max-w 200px h-10 text 13px وسط، 3 آیکون 40px چپ — تراز عمودی هماهنگ"
+    },
+    {
+      "tag": "TWEAK",
+      "title": "فاصله ردیف‌ها compact",
+      "desc": "product-panel gap-6→gap-4، p-7→p-6، purchase-actions gap-3→2.5، وزن و فیچر gap کمتر — لوکس حفظ، فضا کمتر"
+    },
+    {
+      "tag": "UPDATE",
+      "title": "ضمانت اصالت بالای بنر خوشمزه زندگی کن",
+      "desc": "left-col ترتیب: gallery → guarantees-glass-slot → banner-slot؛ حذف -mt-8 و pb-24، ضمانت‌ها بالای بنر قرار گرفتند"
+    },
+    {
+      "tag": "STYLE",
+      "title": "CSS v3.10.245 MOCKUP PDP",
+      "desc": "بلوک جدید با reset banner/guarantees، استایل قیمت وسط‌چین، rating یک ردیف، سبد کوچک، compact — شامل MOCKUP PDP برای CI"
     }
   ],
   "project": "ALOOKHOR",
-  "area": "Boutique Header Settings / Admin Menu Cleanup",
-  "reason": "بازخورد مالک بعد از v3.10.205: محتوا در هر دو حالت چسبیده به منو رفته و باید فاصله داشته باشد.",
+  "area": "Product Page PDP",
+  "reason": "دستور دقیق مالک: 6 تغییر الزامی صفحه محصول با تست Live قبل از تحویل",
   "files": [
     "docs/MASTER_DESIGN_DIRECTIVE.md",
     "plugin/alookhor-control-center/CHANGELOG.md",
@@ -37,6 +62,7 @@
     "plugin/alookhor-control-center/assets/css/frontend-managed-layout.css",
     "plugin/alookhor-control-center/assets/css/frontend-newsletter.css",
     "plugin/alookhor-control-center/assets/css/frontend-product.css",
+    "plugin/alookhor-control-center/assets/css/frontend-product-react.css",
     "plugin/alookhor-control-center/assets/css/frontend-sort-center.css",
     "plugin/alookhor-control-center/assets/css/frontend-why-alookhor.css",
     "plugin/alookhor-control-center/assets/fonts/vazirmatn-arabic-wght-normal.woff2",

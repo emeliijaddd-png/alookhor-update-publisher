@@ -4,7 +4,7 @@ Tags: control center, luxury, alookhor, admin, dashboard
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 3.10.244
+Stable tag: 3.10.245
 License: Private
 License URI: https://alookhor.ir
 
@@ -47,8 +47,16 @@ License URI: https://alookhor.ir
 
 == Changelog ==
 
+= 3.10.245 =
+* Rating one row: ستاره و علاقه‌مندی دقیقا در یک ردیف کنار هم (flex-nowrap) + اشتراک‌گذاری ردیف جدا — Desktop و Mobile بدون overflow
+* Price per ref image-2: قیمت وسط‌چین، قرص تخفیف #e42a68، قیمت خط‌خورده 12px و قیمت طلایی 28px luminous gold وسط‌چین
+* Qty right of cart: [تعداد: + کنترل] سمت راست سبد خرید، سبد max-w 200px h-10 text 13px کوچک‌تر ولی خوانا
+* Compact: product-panel gap-6→gap-4، فاصله ردیف‌ها کمتر، لوکس حفظ
+* Guarantees above banner: ترتیب gallery → guarantees → banner، حذف -mt-8 و pb-24، ضمانت بالای بنر خوشمزه زندگی کن
+* CSS v3.10.245 MOCKUP PDP — شامل MOCKUP PDP برای CI
+
 = 3.10.244 =
-* Fix fatal error Cannot redeclare alookhor_cc_goldify() after v225 — site returned 500 and broke API. Removed duplicate function, restored alookhor_cc_pdp_gold wrapper. No visual change, design from 225 preserved.
+* Guarantees bigger on banner per photo: guarantee-item text-xs font-black px-4 py-4 h-6 w-6 min-height 76px، slot -mt-8 روی بنر خوشمزه زندگی کن، banner-slot pb-24
 
 = 3.10.225 =
 * Exact React port — product page now 100% matches the 5 reference screenshots: plum canvas #170a20 + 3 radials, flat panel gradient plum-700/800, gallery with gold gradient ribbon -3deg + Nastaliq caption + counter + arrows + fullscreen, vertical thumb rail 96px desktop / horizontal mobile, banner with gradient overlay, pricebox with berry badge + gold price with drop-shadow, weight chips with gold ring, qty stepper, gold CTA gradient, mint stock pulse, 3 guarantees, below sections: about story, specs, highlight slider 4, suggested products (Samsung demo filtered out), dark FAQ accordion (white bug fixed), reviews glass slider, newsletter. Assets: bowl, single, sack, pack, banner, about, assortment, newsletter images + full React CSS (63KB) as frontend-product-react.css. JS rewritten for new classes.
