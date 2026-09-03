@@ -1,4 +1,12 @@
 
+## 3.10.242 — FIX 241 BUILD FAILURE + CART QTY PILL + PRICE + FEATURES 4 + GUARANTEES 4 UNDER IMAGE
+- Fixed build failure 33759886586 (exit 124) caused by extra zip files in root added via git add -A, cleaned root zips, reset to 3.10.240 and re-applied 241 changes cleanly.
+- Cart+Qty per photo1: quantity pill rounded-full - 1 + with label تعداد: right, control left, single id, purchase-actions glass border white/8 bg plum-900/30, gold cart full width + 3 icons share/compare/wishlist 44px dark glass.
+- Price per photo2: price-box p-4 bg rgba 22,10,32,.60, label قیمت محصول: + discount badge rounded-full, original line-through 11px lav, discounted 20-24px gold luminous.
+- Features per photo3: xl:grid-cols-4 (4 in row desktop) 2 mobile.
+- Guarantees per photo4: 4 items under image grid 2 sm:4, ضمانت اصالت/بسته‌بندی بهداشتی/7 روز بازگشت/پشتیبانی همیشگی.
+- Kept: breadcrumb 140px, panel 0.95fr image 1.22fr, images fill frame, MOCKUP PDP marker.
+
 ## 3.10.240 — GALLERY FILL FRAME + CART WITH 3 ICONS SHARE/COMPARE/WISHLIST + WEIGHT CARDS WITH PRICE + FEATURES 2x2 PER PHOTOS
 - User 4 photos 2026-09-03: (1) gallery thumbs must fill entire frame, (2) cart section like photo 2 with 3 icons share/compare/wishlist + gold cart, (3) weight selection like photo 3 with weight + price cards gold selected, (4) features like photo 4 with 2x2 grid.
 - Step-by-step executed:
