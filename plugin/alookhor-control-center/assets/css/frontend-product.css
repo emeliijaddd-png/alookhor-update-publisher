@@ -1735,3 +1735,22 @@ body.alookhor-pdp-body .wd-product-info .wd-btn-arrow{display:none !important;vi
 #alookhor-pdp .wishlist-btn,#alookhor-pdp .compare-btn{width:44px !important;height:44px !important;min-width:44px !important;min-height:44px !important;border-radius:12px !important;display:grid !important;place-items:center !important;background:rgba(34,17,44,.60) !important;border:1px solid rgba(255,255,255,.10) !important}
 #alookhor-pdp .gallery-frame img{width:100% !important;height:100% !important;object-fit:cover !important;display:block !important}
 #alookhor-pdp .gallery-thumbs img{width:100% !important;height:100% !important;object-fit:cover !important}
+
+
+/* ===== v3.10.239 — FEATURES PER PHOTO + CART GOLD + WISHLIST/COMPARE GOLD + PANEL NARROWER — MOCKUP PDP ===== */
+#alookhor-pdp .product-page-main{grid-template-columns:1.22fr 0.95fr !important}
+@media(max-width:1279px){#alookhor-pdp .product-page-main{grid-template-columns:1fr !important}}
+#alookhor-pdp .product-features{gap:12px !important}
+#alookhor-pdp .feature-item{padding:16px 10px !important;border-radius:16px !important;background:rgba(38,18,50,.70) !important;border:1px solid rgba(255,255,255,.08) !important;backdrop-filter:blur(8px) !important;box-shadow:0 8px 24px -12px rgba(0,0,0,.6) !important}
+#alookhor-pdp .feature-item svg{width:28px !important;height:28px !important;color:#f7b32b !important;filter:drop-shadow(0 0 8px rgba(247,179,43,.45)) !important}
+#alookhor-pdp .feature-item span.text-sm{font-size:12px !important;font-weight:900 !important;line-height:1.4 !important;color:#fbf3e2 !important}
+#alookhor-pdp .feature-item span.text-\[11px\]{font-size:10px !important;color:rgba(232,211,242,.75) !important;margin-top:2px !important;display:block !important}
+#alookhor-pdp .wishlist-btn,#alookhor-pdp .compare-btn{background:rgba(22,10,32,.85) !important;border:1px solid rgba(255,255,255,.12) !important;border-radius:14px !important;box-shadow:0 6px 20px -10px rgba(0,0,0,.7), inset 0 1px 0 rgba(255,255,255,.06) !important}
+#alookhor-pdp .wishlist-btn svg,#alookhor-pdp .compare-btn svg{color:#f7b32b !important;width:20px !important;height:20px !important}
+#alookhor-pdp .wishlist-btn:hover,#alookhor-pdp .compare-btn:hover{border-color:rgba(247,179,43,.45) !important;background:rgba(34,17,44,.90) !important}
+#alookhor-pdp .add-button{background:linear-gradient(90deg,#fbe9a0 0%,#f7b32b 45%,#d68a1f 100%) !important;color:#1a0a24 !important;font-weight:900 !important;font-size:14px !important;box-shadow:0 12px 32px -12px rgba(247,179,43,.70), inset 0 1px 0 rgba(255,255,255,.4) !important;border:1px solid rgba(247,179,43,.35) !important}
+#alookhor-pdp .add-button svg{color:#1a0a24 !important}
+#alookhor-pdp .left-col{flex:1.22 !important}
+#alookhor-pdp .panel-slot{flex:0.95 !important}
+#alookhor-pdp .product-panel{border-radius:20px !important}
+#alookhor-pdp .gallery-frame{border-radius:20px !important}

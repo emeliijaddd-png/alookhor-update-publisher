@@ -10,6 +10,7 @@ function alookhor_cc_pdp_icon($name){
   'share'=>'<circle cx="18" cy="5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="19" r="2.5"/><path d="m8.2 10.8 7.6-4.5"/><path d="m8.2 13.2 7.6 4.5"/>',
   'truck'=>'<path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.62l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/>',
   'box'=>'<path d="m21 8-9 5-9-5 9-5 9 5Z"/><path d="M3 8v8l9 5 9-5V8"/><path d="M12 13v8"/>',
+  'compare'=>'<path d="M3 7a2 2 0 0 1 4 0v5a2 2 0 0 1-4 0V7Z"/><path d="M17 7a2 2 0 0 1 4 0v5a2 2 0 0 1-4 0V7Z"/><path d="M12 3v18"/><path d="M2 10h6"/><path d="M16 10h6"/>',
   'shield'=>'<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>',
   'shield-check'=>'<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/>',
   'check'=>'<path d="m4 12.5 5 5L20 6.5"/>',
@@ -124,10 +125,10 @@ function alookhor_cc_pdp_data($product){
   ['کشور تولیدکننده','ایران'],
  ];
  $feats=[
-  ['truck','ارسال سریع','به سراسر کشور'],
-  ['shield','محصول ایرانی','حمایت از کشاورزان'],
-  ['gem','کیفیت ممتاز','درجه یک صادراتی'],
   ['leaf','۱۰۰٪ طبیعی','بدون مواد افزودنی'],
+  ['gem','کیفیت ممتاز','درجه یک صادراتی'],
+  ['shield','محصول ایرانی','حمایت از کشاورزان'],
+  ['truck','ارسال سریع','به سراسر کشور'],
   ['box','بسته‌بندی مطمئن','بسته‌بندی استاندارد'],
  ];
  $why=[
@@ -209,7 +210,7 @@ function alookhor_cc_pdp_markup(){
     <span class="font-bold text-gold-300"><?php echo esc_html($d['name']);?></span>
   </nav>
 </div>
- <main dir="ltr" class="product-page-main mx-auto grid max-w-[1440px] gap-6 px-4 py-6 xl:grid-cols-[1.02fr_1.12fr] xl:items-start xl:px-8 xl:py-8">
+ <main dir="ltr" class="product-page-main mx-auto grid max-w-[1440px] gap-6 px-4 py-6 xl:grid-cols-[1.22fr_0.95fr] xl:items-start xl:px-8 xl:py-8">
   <div dir="rtl" class="left-col order-1 xl:col-start-1 xl:flex xl:min-h-[720px] xl:h-full xl:w-full xl:flex-col xl:gap-5">
    <div class="gallery-slot">
     <div class="product-gallery flex gap-3 sm:gap-4">
@@ -315,7 +316,7 @@ function alookhor_cc_pdp_markup(){
       <div class="flex items-center gap-3">
         <div class="flex items-center gap-2">
           <button type="button" class="wishlist-btn grid h-11 w-11 place-items-center rounded-xl border border-white/10 bg-plum-900/60 text-lav transition hover:border-berry/50 hover:text-berry" data-wish aria-pressed="false" aria-label="علاقه‌مندی"><span class="h-5 w-5"><?php echo alookhor_cc_pdp_icon('heart');?></span></button>
-          <button type="button" class="compare-btn grid h-11 w-11 place-items-center rounded-xl border border-white/10 bg-plum-900/60 text-lav transition hover:border-gold-400/50 hover:text-gold-300" data-compare aria-label="مقایسه"><span class="h-5 w-5"><?php echo alookhor_cc_pdp_icon('box');?></span></button>
+          <button type="button" class="compare-btn grid h-11 w-11 place-items-center rounded-xl border border-white/10 bg-plum-900/60 text-lav transition hover:border-gold-400/50 hover:text-gold-300" data-compare aria-label="مقایسه"><span class="h-5 w-5"><?php echo alookhor_cc_pdp_icon('compare');?></span></button>
         </div>
         <a id="alpAdd" href="<?php echo esc_url($d['add_url']);?>" data-base="<?php echo esc_attr($d['add_url']);?>" class="add-button flex h-11 flex-1 items-center justify-center gap-2 rounded-xl bg-gradient-to-l from-gold-300 via-gold-400 to-gold-500 text-sm font-black text-plum-950 shadow-[0_10px_30px_-10px_rgba(247,179,43,0.65)] transition hover:brightness-110 active:scale-[0.98]"><span class="h-5 w-5"><?php echo alookhor_cc_pdp_icon('cart');?></span>افزودن به سبد خرید</a>
       </div>

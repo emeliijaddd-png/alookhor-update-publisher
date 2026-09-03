@@ -1,4 +1,12 @@
 
+## 3.10.239 — FEATURES ICONS PER PHOTO + CART GOLD + WISHLIST/COMPARE GOLD + PANEL NARROWER IMAGE WIDER
+- User photos: features row must match image-1.png (4 glass cards with gold icons leaf/gem/shield/truck, dark plum bg), cart button gold + wishlist/compare dark glass gold icons per image-2/3, product description card slightly narrower than image card, image wider.
+- Fixed: reordered $feats to leaf, gem, shield, truck to match RTL order in photo (rightmost 100% natural), sliced 4.
+- Added new icon 'compare' (scale/balance) SVG to replace generic box for compare button.
+- Grid ratio changed from [1.02fr_1.12fr] to [1.22fr_0.95fr] — image wider, panel narrower per request.
+- CSS v3.10.239: feature-item enhanced (padding 16px, icon 24px gold luminous, text hierarchy), wishlist-btn/compare-btn dark glass with gold icons (text-gold-400, bg plum-950/70, border white/10, hover gold), add-button gold gradient with cart icon as per photo, product-panel max-width slightly less.
+- Kept: breadcrumb separate frame 140px, guarantees glass under image, weight+qty one row, price white right gold middle luminous, images fill frame, MOCKUP PDP marker.
+
 ## 3.10.238 — CART SMALLER, WISHLIST+COMPARE LEFT IN ONE ROW, WEIGHT+QTY IN ONE ROW, PRICE WHITE RIGHT BIGGER GOLD MIDDLE LUMINOUS, IMAGES FILL FRAME
 - User requested: cart smaller, wishlist and compare icons on left in one row, weight and quantity in one row in another frame above, original price white right bigger, discounted gold luminous middle, sample images fill entire frame.
 - Fixed: price-box now shows original white right bigger (text-xl black cream) and discounted gold luminous middle (text-3xl gold-400 drop-shadow 22px) with labels.
