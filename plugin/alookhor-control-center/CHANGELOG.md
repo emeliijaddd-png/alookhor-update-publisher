@@ -1,4 +1,13 @@
 
+## 3.10.238 — CART SMALLER, WISHLIST+COMPARE LEFT IN ONE ROW, WEIGHT+QTY IN ONE ROW, PRICE WHITE RIGHT BIGGER GOLD MIDDLE LUMINOUS, IMAGES FILL FRAME
+- User requested: cart smaller, wishlist and compare icons on left in one row, weight and quantity in one row in another frame above, original price white right bigger, discounted gold luminous middle, sample images fill entire frame.
+- Fixed: price-box now shows original white right bigger (text-xl black cream) and discounted gold luminous middle (text-3xl gold-400 drop-shadow 22px) with labels.
+- Weight+Qty in one row: new div.weight-qty-box with flex row, weight-picker flex-1 and quantity-row together.
+- Cart smaller: add-button h-11 text-sm flex-1, with wishlist-btn and compare-btn 44px on left in same row (flex gap-2).
+- Added compare-btn with box icon and data-compare, JS will handle toast.
+- Images fill frame: gallery-frame img object-cover w-full h-full, ensured via CSS.
+- Kept previous: breadcrumb separate frame 2cm lower (140px), guarantees glass under image, description right image left, equal height 720px, MOCKUP PDP marker, header/footer untouched.
+
 ## 3.10.236 — BREADCRUMB DISTANCE FIX — not under menu, 1cm gap from product frames
 - User reported: breadcrumb goes under main menu, should have 1cm distance from product image and description frames and come down, not under menu.
 - Fixed: breadcrumb-wrapper now has margin-top 96px !important (to clear sticky header ~80px) and margin-bottom 16px !important (1cm approx) from product frames.

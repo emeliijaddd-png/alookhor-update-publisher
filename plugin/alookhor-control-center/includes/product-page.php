@@ -276,23 +276,50 @@ function alookhor_cc_pdp_markup(){
     </div>
     <div class="price-box rounded-2xl border border-white/8 bg-plum-950/50 p-5">
      <div class="flex items-center justify-between gap-3"><span class="text-sm font-bold text-lav">قیمت محصول :</span><?php if($d['discount']>0):?><span class="rounded-lg bg-berry px-3 py-1.5 text-xs font-black text-cream shadow-lg shadow-berry/30"><?php echo esc_html($faNum($d['discount']));?>٪ تخفیف</span><?php endif;?></div>
-     <div class="mt-3 flex flex-wrap items-end gap-x-4 gap-y-1">
-      <?php if($d['on_sale']&&$d['regular']>0):?><span class="text-sm font-medium text-lav line-through decoration-berry/80 decoration-2"><?php echo $price_old_html;?></span><?php endif;?>
-      <span class="text-3xl font-black text-gold-400 drop-shadow-[0_0_18px_rgba(247,179,43,0.45)] sm:text-4xl alp-price-now" data-single="<?php echo esc_attr($price_single);?>"><?php echo $price_now_html;?></span>
+     <div class="mt-3 flex items-center justify-between gap-4">
+      <div class="flex flex-col items-end gap-1">
+        <span class="text-xl font-black text-cream"><?php echo $price_old_html?:$price_now_html;?></span>
+        <span class="text-xs text-lav">قیمت اصلی</span>
+      </div>
+      <div class="flex flex-col items-center gap-1">
+        <span class="text-3xl font-black text-gold-400 drop-shadow-[0_0_22px_rgba(247,179,43,0.75)] sm:text-4xl alp-price-now luminous-gold" data-single="<?php echo esc_attr($price_single);?>"><?php echo $price_now_html;?></span>
+        <span class="text-xs text-gold-300">قیمت با تخفیف</span>
+      </div>
+      <div class="w-8"></div>
      </div>
     </div>
     <?php if($show_weights):?>
-    <div class="weight-picker"><span class="mb-3 block text-sm font-bold text-lav"><span class="desktop-weight-label">وزن محصول :</span><span class="mobile-weight-label hidden">انتخاب وزن :</span></span>
-     <div class="weight-options flex flex-wrap gap-2.5" role="radiogroup" aria-label="انتخاب وزن">
-      <?php foreach($d['options'] as $oi=>$o):?><button type="button" role="radio" aria-checked="<?php echo $oi===0?'true':'false';?>" class="weight-option rounded-xl border px-5 py-3 text-sm font-bold transition <?php echo $oi===0?'border-gold-400 bg-gold-400/10 text-gold-300 shadow-[0_0_0_3px_rgba(247,179,43,0.15)]':'border-white/10 bg-plum-900/60 text-lav hover:border-white/25 hover:text-cream';?>" data-vid="<?php echo esc_attr($o['id']);?>" data-price="<?php echo esc_attr($o['price_html']?:$price_now_html);?>"><span><?php echo esc_html($o['label']);?></span></button><?php endforeach;?>
-     </div>
+    <div class="weight-qty-box rounded-2xl border border-white/8 bg-plum-900/50 p-4 backdrop-blur-sm">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div class="weight-picker flex-1">
+          <span class="mb-2 block text-xs font-bold text-lav">وزن محصول :</span>
+          <div class="weight-options flex flex-wrap gap-2" role="radiogroup" aria-label="انتخاب وزن">
+            <?php foreach($d['options'] as $oi=>$o):?><button type="button" role="radio" aria-checked="<?php echo $oi===0?'true':'false';?>" class="weight-option rounded-xl border px-4 py-2 text-xs font-bold transition <?php echo $oi===0?'border-gold-400 bg-gold-400/10 text-gold-300 shadow-[0_0_0_3px_rgba(247,179,43,0.15)]':'border-white/10 bg-plum-900/60 text-lav hover:border-white/25 hover:text-cream';?>" data-vid="<?php echo esc_attr($o['id']);?>" data-price="<?php echo esc_attr($o['price_html']?:$price_now_html);?>"><span><?php echo esc_html($o['label']);?></span></button><?php endforeach;?>
+          </div>
+        </div>
+        <?php if($d['purchasable']&&$d['stock']!=='out'):?>
+        <div class="quantity-row flex items-center gap-2">
+          <span class="quantity-label text-xs font-bold text-lav">تعداد :</span>
+          <div class="quantity-control flex items-center gap-1 rounded-xl border border-white/10 bg-plum-950/60 p-1">
+            <button type="button" data-q="+" aria-label="افزایش تعداد" class="grid h-8 w-8 place-items-center rounded-lg text-cream transition hover:bg-white/10 hover:text-gold-300"><span class="h-3.5 w-3.5"><?php echo alookhor_cc_pdp_icon('plus');?></span></button>
+            <span class="w-8 text-center text-sm font-black text-cream" id="alpQty">۱</span>
+            <button type="button" data-q="-" aria-label="کاهش تعداد" class="grid h-8 w-8 place-items-center rounded-lg text-cream transition hover:bg-white/10 hover:text-gold-300"><span class="h-3.5 w-3.5"><?php echo alookhor_cc_pdp_icon('minus');?></span></button>
+          </div>
+        </div>
+        <?php endif;?>
+      </div>
     </div>
     <?php endif;?>
     <?php if($d['purchasable']&&$d['stock']!=='out'):?>
-    <div class="purchase-actions flex flex-col gap-4">
-     <div class="quantity-row flex items-center justify-between gap-3"><span class="quantity-label text-sm font-bold text-lav">تعداد :</span><div class="quantity-control flex items-center gap-1 rounded-xl border border-white/10 bg-plum-900/60 p-1"><button type="button" data-q="+" aria-label="افزایش تعداد" class="grid h-9 w-9 place-items-center rounded-lg text-cream transition hover:bg-white/10 hover:text-gold-300"><span class="h-4 w-4"><?php echo alookhor_cc_pdp_icon('plus');?></span></button><span class="w-10 text-center text-base font-black text-cream" id="alpQty">۱</span><button type="button" data-q="-" aria-label="کاهش تعداد" class="grid h-9 w-9 place-items-center rounded-lg text-cream transition hover:bg-white/10 hover:text-gold-300"><span class="h-4 w-4"><?php echo alookhor_cc_pdp_icon('minus');?></span></button></div></div>
-     <a id="alpAdd" href="<?php echo esc_url($d['add_url']);?>" data-base="<?php echo esc_attr($d['add_url']);?>" class="add-button flex h-14 w-full items-center justify-center gap-3 rounded-2xl bg-gradient-to-l from-gold-300 via-gold-400 to-gold-500 text-lg font-black text-plum-950 shadow-[0_15px_40px_-12px_rgba(247,179,43,0.65)] transition hover:brightness-110 active:scale-[0.98]"><span class="h-6 w-6"><?php echo alookhor_cc_pdp_icon('cart');?></span>افزودن به سبد خرید</a>
-     <div class="shipping-line flex flex-wrap items-center justify-between gap-2 text-xs font-bold"><span class="text-lav">ارسال از ۱ روز کاری آینده</span><span class="flex items-center gap-2 text-mint"><span class="relative flex h-2.5 w-2.5"><span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-mint opacity-60"></span><span class="relative inline-flex h-2.5 w-2.5 rounded-full bg-mint"></span></span>موجود در انبار</span></div>
+    <div class="purchase-actions flex flex-col gap-3">
+      <div class="flex items-center gap-3">
+        <div class="flex items-center gap-2">
+          <button type="button" class="wishlist-btn grid h-11 w-11 place-items-center rounded-xl border border-white/10 bg-plum-900/60 text-lav transition hover:border-berry/50 hover:text-berry" data-wish aria-pressed="false" aria-label="علاقه‌مندی"><span class="h-5 w-5"><?php echo alookhor_cc_pdp_icon('heart');?></span></button>
+          <button type="button" class="compare-btn grid h-11 w-11 place-items-center rounded-xl border border-white/10 bg-plum-900/60 text-lav transition hover:border-gold-400/50 hover:text-gold-300" data-compare aria-label="مقایسه"><span class="h-5 w-5"><?php echo alookhor_cc_pdp_icon('box');?></span></button>
+        </div>
+        <a id="alpAdd" href="<?php echo esc_url($d['add_url']);?>" data-base="<?php echo esc_attr($d['add_url']);?>" class="add-button flex h-11 flex-1 items-center justify-center gap-2 rounded-xl bg-gradient-to-l from-gold-300 via-gold-400 to-gold-500 text-sm font-black text-plum-950 shadow-[0_10px_30px_-10px_rgba(247,179,43,0.65)] transition hover:brightness-110 active:scale-[0.98]"><span class="h-5 w-5"><?php echo alookhor_cc_pdp_icon('cart');?></span>افزودن به سبد خرید</a>
+      </div>
+      <div class="shipping-line flex flex-wrap items-center justify-between gap-2 text-xs font-bold"><span class="text-lav">ارسال از ۱ روز کاری آینده</span><span class="flex items-center gap-2 text-mint"><span class="relative flex h-2.5 w-2.5"><span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-mint opacity-60"></span><span class="relative inline-flex h-2.5 w-2.5 rounded-full bg-mint"></span></span>موجود در انبار</span></div>
     </div>
     <?php endif;?>
     </section>

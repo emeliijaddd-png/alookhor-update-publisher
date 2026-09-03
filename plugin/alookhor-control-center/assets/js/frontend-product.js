@@ -152,6 +152,7 @@ function wishlistShare(){
    }catch(e){}
   });
  });
+ $$('[data-compare]').forEach(b=>b.addEventListener('click',()=>toast('به لیست مقایسه اضافه شد')));
  $$('[data-share]').forEach(b=>b.addEventListener('click',async()=>{
   const data={title:b.dataset.name||document.title,url:b.dataset.url||location.href};
   try{

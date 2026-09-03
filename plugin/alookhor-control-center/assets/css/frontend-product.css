@@ -1724,3 +1724,14 @@ body.alookhor-pdp-body .wd-product-info .wd-btn-arrow{display:none !important;vi
 #alookhor-pdp .breadcrumb-box{
   margin:0 !important;
 }
+
+
+/* ===== v3.10.238 — CART SMALLER, WEIGHT+QTY ONE ROW, PRICE WHITE RIGHT GOLD MIDDLE — MOCKUP PDP ===== */
+#alookhor-pdp .price-box .text-xl{font-size:20px !important;font-weight:900 !important;color:#fbf3e2 !important}
+#alookhor-pdp .price-box .luminous-gold{filter:drop-shadow(0 0 22px rgba(247,179,43,.75)) !important;text-shadow:0 0 12px rgba(247,179,43,.50) !important}
+#alookhor-pdp .weight-qty-box{border-radius:16px !important;border:1px solid rgba(255,255,255,.08) !important;background:rgba(34,17,44,.50) !important;backdrop-filter:blur(8px) !important;padding:16px !important}
+#alookhor-pdp .weight-qty-box .weight-options{gap:8px !important}
+#alookhor-pdp .add-button{height:44px !important;font-size:14px !important}
+#alookhor-pdp .wishlist-btn,#alookhor-pdp .compare-btn{width:44px !important;height:44px !important;min-width:44px !important;min-height:44px !important;border-radius:12px !important;display:grid !important;place-items:center !important;background:rgba(34,17,44,.60) !important;border:1px solid rgba(255,255,255,.10) !important}
+#alookhor-pdp .gallery-frame img{width:100% !important;height:100% !important;object-fit:cover !important;display:block !important}
+#alookhor-pdp .gallery-thumbs img{width:100% !important;height:100% !important;object-fit:cover !important}
