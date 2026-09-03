@@ -1,4 +1,7 @@
 
+## 3.10.234 — RE-PUBLISH 233 — fix manifest overwritten by 211
+- Previous 233 success was overwritten by failed 211 runs, manifest shows 211. Re-publish same fix: description right image left, distance from menu, equal height 720px, huge arrows fixed.
+
 ## 3.10.233 — TOP SECTION LAYOUT FIX — description right, image left, distance from menu, equal height
 - User reference photo shows: description (panel) on RIGHT, image (gallery) on LEFT, both frames equal height, with distance from main menu (not under header).
 - Fixed: swapped grid columns for RTL — left-col (gallery) now xl:col-start-2 (visually left), panel-slot xl:col-start-1 (visually right) — matches photo: توضیحات راست، عکس چپ.
