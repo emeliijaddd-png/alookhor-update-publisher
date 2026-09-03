@@ -317,12 +317,13 @@ return {viewport:{width:innerWidth,height:innerHeight},pdpVersion,
 
 
 def _mockup_analysis() -> dict:
-    """Fetch the owner's mockup; extract a compact STRUCTURAL fingerprint:
-    gold element boxes, photo bbox, panel text rows, column split, palette."""
+    """Fetch the owner's RIGHT-PANEL mockup; extract detailed fingerprint:
+    text-line pixel heights (font sizes), gold element boxes in % and px,
+    panel background, palette."""
     import io as _io, subprocess, sys
     from collections import Counter, defaultdict
     from urllib.request import Request, urlopen
-    url = 'https://up.20script.ir/file/4b72-Screenshot-2026-09-03-095542.png'
+    url = 'http://alookhor.ir/wp-content/uploads/2026/09/Screenshot-2026-09-03-104236.png'
     out = {}
     try:
         with urlopen(Request(url, headers={'User-Agent': 'Mozilla/5.0'}), timeout=45) as response:
@@ -342,7 +343,6 @@ def _mockup_analysis() -> dict:
         px = img.load()
         pct = lambda v, m: int(round(100.0 * v / m))
         is_gold = lambda r, g, b: r > 140 and 80 < g < 205 and b < 115 and r > g > b
-        is_warm = lambda r, g, b: r > 70 and r > g and g > b and r - b > 28
         gold = [(x, y) for y in range(h) for x in range(w) if is_gold(*px[x, y])]
         boxes = []
         if gold:
@@ -353,11 +353,11 @@ def _mockup_analysis() -> dict:
                 return a
             grid = {}
             for i, (x, y) in enumerate(gold):
-                grid[(x // 12, y // 12)] = i
+                grid[(x // 10, y // 10)] = i
             for i, (x, y) in enumerate(gold):
                 for dx in (-1, 0, 1):
                     for dy in (-1, 0, 1):
-                        j = grid.get((x // 12 + dx, y // 12 + dy))
+                        j = grid.get((x // 10 + dx, y // 10 + dy))
                         if j is not None:
                             ra, rb = find(i), find(j)
                             if ra != rb:
@@ -365,53 +365,40 @@ def _mockup_analysis() -> dict:
             clusters = defaultdict(list)
             for i in range(len(gold)):
                 clusters[find(i)].append(gold[i])
-            for pts in sorted(clusters.values(), key=len, reverse=True)[:6]:
-                if len(pts) < 14:
+            for pts in sorted(clusters.values(), key=len, reverse=True)[:8]:
+                if len(pts) < 8:
                     continue
                 xs = [p[0] for p in pts]; ys = [p[1] for p in pts]
-                boxes.append([pct(min(xs), w), pct(min(ys), h), pct(max(xs) - min(xs) + 1, w), pct(max(ys) - min(ys) + 1, h)])
+                x0, y0, bw, bh = min(xs), min(ys), max(xs)-min(xs)+1, max(ys)-min(ys)+1
+                boxes.append([pct(x0, w), pct(y0, h), pct(bw, w), pct(bh, h), bw*2, bh*2])
         out['gold'] = boxes
-        warm = [(x, y) for y in range(h) for x in range(w) if is_warm(*px[x, y])]
-        if warm:
-            xs = sorted(p[0] for p in warm); ys = sorted(p[1] for p in warm)
-            x0, x1 = xs[int(len(xs) * .02)], xs[int(len(xs) * .98)]
-            y0, y1 = ys[int(len(ys) * .02)], ys[int(len(ys) * .98)]
-            out['photo'] = [pct(x0, w), pct(y0, h), pct(x1 - x0, w), pct(y1 - y0, h)]
         rows = []
         for y in range(h):
             c = 0
-            for x in range(int(w * .55), w, 2):
+            for x in range(int(w * .5), w, 2):
                 r, g, b = px[x, y]
-                if r > 200 and g > 200 and b > 190:
+                if r > 195 and g > 195 and b > 185:
                     c += 1
             rows.append(c)
         groups = []; y = 0
-        while y < h and len(groups) < 10:
+        while y < h and len(groups) < 14:
             if rows[y] > 2:
                 y0 = y
                 while y < h and rows[y] > 1:
                     y += 1
-                groups.append([pct(y0, h), pct(y - y0, h)])
+                groups.append([y0*2, (y-y0)*2])
             else:
                 y += 1
         out['txt'] = groups
-        colmean = []
-        for x in range(w):
-            rs = gs = bs = n = 0
-            for y in range(int(h * .2), int(h * .8), 3):
+        rs = gs = bs = n = 0
+        for y in range(int(h*.15), int(h*.85), 2):
+            for x in range(int(w*.52), int(w*.96), 2):
                 r, g, b = px[x, y]; rs += r; gs += g; bs += b; n += 1
-            colmean.append((rs // n, gs // n, bs // n))
-        best = (0, 0)
-        for x in range(int(w * .25), int(w * .75)):
-            r1, g1, b1 = colmean[x - 1]; r2, g2, b2 = colmean[x]
-            d = abs(r1 - r2) + abs(g1 - g2) + abs(b1 - b2)
-            if d > best[0]:
-                best = (d, x)
-        out['split'] = [pct(best[1], w), best[0]]
-        out['dims'] = [W, H]
+        out['bg'] = '#%02X%02X%02X' % (rs//n, gs//n, bs//n)
         small = img.resize((40, 24))
-        cnt = Counter(((r // 20 * 20, g // 20 * 20, b // 20 * 20) for r, g, b in small.getdata()))
-        out['pal'] = [['#%02X%02X%02X' % c, round(100.0 * n / 960, 1)] for c, n in cnt.most_common(6)]
+        cnt = Counter(((r//20*20, g//20*20, b//20*20) for r, g, b in small.getdata()))
+        out['pal'] = [['#%02X%02X%02X' % c, round(100.0*n/960, 1)] for c, n in cnt.most_common(6)]
+        out['dims'] = [W, H]
     except Exception as error:
         out['error'] = ('%s: %s' % (type(error).__name__, error))[:160]
     return out
