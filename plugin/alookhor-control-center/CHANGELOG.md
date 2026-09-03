@@ -1,4 +1,12 @@
 
+## 3.10.236 — BREADCRUMB DISTANCE FIX — not under menu, 1cm gap from product frames
+- User reported: breadcrumb goes under main menu, should have 1cm distance from product image and description frames and come down, not under menu.
+- Fixed: breadcrumb-wrapper now has margin-top 96px !important (to clear sticky header ~80px) and margin-bottom 16px !important (1cm approx) from product frames.
+- Also added padding-top to #alookhor-pdp 20px and product-page-main margin-top reduced to 16px to create exact 1cm gap between breadcrumb box and product frames (gallery + panel).
+- Ensured breadcrumb box itself has backdrop-blur and glass styling, not overlapping header.
+- Kept previous: description right image left, equal height 720px, MOCKUP PDP marker, header/footer untouched.
+- Live verification pending new screenshot.
+
 ## 3.10.235 — BREADCRUMB SEPARATE FRAME ABOVE — per user photo
 - User requested: address/path (breadcrumb) should be in separate frame above product description and image frames, not inside panel.
 - Fixed: moved breadcrumb from inside product-panel to new div.breadcrumb-wrapper above product-page-main grid, with own glass box styling: rounded-2xl, border white/8, bg plum-900/50, px-5 py-3, backdrop-blur, shadow.
