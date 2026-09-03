@@ -244,7 +244,7 @@ function alookhor_cc_pdp_markup(){
 
     </section>
    </div>
-      <div class="guarantees-glass-slot mt-5">
+   <div class="guarantees-glass-slot mt-5">
     <div class="guarantees-glass rounded-2xl border border-white/8 bg-plum-900/50 p-3 backdrop-blur-md shadow-[0_15px_40px_-20px_rgba(0,0,0,0.7)]">
       <div class="guarantees grid grid-cols-2 gap-2.5 sm:grid-cols-4">
         <div class="guarantee-item flex items-center justify-center gap-2 rounded-xl border border-white/8 bg-plum-950/60 px-2 py-3 text-[10px] font-bold text-cream transition hover:border-gold-400/40"><span class="h-4.5 w-4.5 shrink-0 text-gold-400"><?php echo alookhor_cc_pdp_icon('shield-check');?></span>ضمانت اصالت</div>
@@ -253,7 +253,6 @@ function alookhor_cc_pdp_markup(){
         <div class="guarantee-item flex items-center justify-center gap-2 rounded-xl border border-white/8 bg-plum-950/60 px-2 py-3 text-[10px] font-bold text-cream transition hover:border-gold-400/40"><span class="h-4.5 w-4.5 shrink-0 text-gold-400"><?php echo alookhor_cc_pdp_icon('headset');?></span>پشتیبانی همیشگی</div>
       </div>
     </div>
-   </div>
    </div>
   </div>
   <div dir="rtl" class="panel-slot order-2 xl:col-start-2 xl:row-start-1 xl:flex xl:min-h-[720px] xl:h-full xl:w-full xl:flex-col">
@@ -277,7 +276,7 @@ function alookhor_cc_pdp_markup(){
     <div class="product-features grid grid-cols-2 gap-3 xl:grid-cols-4">
      <?php foreach(array_slice($d['feats'],0,4) as $f):?><div class="feature-item flex flex-col items-center gap-1.5 rounded-2xl border border-white/8 bg-plum-900/50 px-2 py-4 text-center transition hover:border-gold-400/40 hover:bg-plum-900"><span class="h-6 w-6 text-gold-400"><?php echo alookhor_cc_pdp_icon($f[0]);?></span><span class="text-sm font-black text-cream"><?php echo esc_html($f[1]);?></span><span class="text-[11px] text-lav"><?php echo esc_html($f[2]);?></span></div><?php endforeach;?>
     </div>
-        <div class="price-box rounded-2xl border border-white/8 bg-plum-950/50 p-4">
+    <div class="price-box rounded-2xl border border-white/8 bg-plum-950/50 p-4">
      <div class="flex items-center justify-between gap-3"><span class="text-xs font-bold text-lav">قیمت محصول:</span><?php if($d['discount']>0):?><span class="rounded-full bg-plum-800 border border-berry/30 px-3 py-1 text-[10px] font-black text-berry-300"><?php echo esc_html($faNum($d['discount']));?>٪ تخفیف</span><?php endif;?></div>
      <div class="mt-3 flex items-center justify-between gap-3">
       <div class="flex flex-col items-start gap-0.5">
@@ -289,8 +288,7 @@ function alookhor_cc_pdp_markup(){
       </div>
      </div>
     </div>
-    </div>
-        <?php if($show_weights):?>
+    <?php if($show_weights):?>
     <div class="weight-qty-box rounded-2xl border border-white/8 bg-plum-900/50 p-3 backdrop-blur-sm">
       <div class="weight-picker">
         <span class="mb-2.5 block text-xs font-bold text-lav">انتخاب وزن:</span>
@@ -303,10 +301,7 @@ function alookhor_cc_pdp_markup(){
       </div>
     </div>
     <?php endif;?>
-      </div>
-    </div>
-    <?php endif;?>
-        <?php if($d['purchasable']&&$d['stock']!=='out'):?>
+    <?php if($d['purchasable']&&$d['stock']!=='out'):?>
     <div class="purchase-actions flex flex-col gap-3 rounded-2xl border border-white/8 bg-plum-900/30 p-3">
       <div class="quantity-row flex items-center justify-between gap-3">
         <div class="quantity-control flex items-center gap-1 rounded-full border border-white/10 bg-plum-950/70 p-1">

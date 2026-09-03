@@ -1793,3 +1793,7 @@ body.alookhor-pdp-body .wd-product-info .wd-btn-arrow{display:none !important;vi
 
 /* ===== v3.10.242 — FIX BUILD + CART QTY PILL + PRICE + FEATURES 4 + GUARANTEES 4 — MOCKUP PDP ===== */
 #alookhor-pdp .purchase-actions{border:1px solid rgba(255,255,255,.08) !important;background:rgba(38,18,50,.30) !important}
+
+
+/* ===== v3.10.243 — RETRY CLEAN BUILD — MOCKUP PDP ===== */
+#alookhor-pdp .product-page-main{grid-template-columns:1.22fr 0.95fr !important}

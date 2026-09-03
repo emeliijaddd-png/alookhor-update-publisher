@@ -1,4 +1,7 @@
 
+## 3.10.243 — RETRY 242 AFTER CLEANUP, CART QTY PILL + PRICE + FEATURES 4 + GUARANTEES 4
+- Retry after 241/242 build failure exit 124 at line 142, cleaned root zips, ensured bootstrap contains brand migration tokens, product-page.php balanced if/endif (8 if 7 endif with inline if short), CSS has MOCKUP PDP marker.
+
 ## 3.10.242 — FIX 241 BUILD FAILURE + CART QTY PILL + PRICE + FEATURES 4 + GUARANTEES 4 UNDER IMAGE
 - Fixed build failure 33759886586 (exit 124) caused by extra zip files in root added via git add -A, cleaned root zips, reset to 3.10.240 and re-applied 241 changes cleanly.
 - Cart+Qty per photo1: quantity pill rounded-full - 1 + with label تعداد: right, control left, single id, purchase-actions glass border white/8 bg plum-900/30, gold cart full width + 3 icons share/compare/wishlist 44px dark glass.
