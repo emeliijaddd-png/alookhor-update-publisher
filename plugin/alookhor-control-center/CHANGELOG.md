@@ -1,4 +1,13 @@
 
+## 3.10.240 — GALLERY FILL FRAME + CART WITH 3 ICONS SHARE/COMPARE/WISHLIST + WEIGHT CARDS WITH PRICE + FEATURES 2x2 PER PHOTOS
+- User 4 photos 2026-09-03: (1) gallery thumbs must fill entire frame, (2) cart section like photo 2 with 3 icons share/compare/wishlist + gold cart, (3) weight selection like photo 3 with weight + price cards gold selected, (4) features like photo 4 with 2x2 grid.
+- Step-by-step executed:
+  1) Gallery fill: .gallery-frame img and .gallery-thumb img forced w-full h-full object-cover block, thumb border-2 gold selected, no padding, dark bg.
+  2) Cart per photo2: purchase-actions now flex gap-2 with add-button flex-1 gold gradient + 3 icons share-btn, compare-btn, wishlist-btn each 44px dark glass bg rgba 22,10,32,.85 border white/10 rounded-xl gold/white icons, order cart right (RTL primary) icons left as per previous requirement wishlist+compare left, now share added.
+  3) Weight per photo3: label changed to "انتخاب وزن:" , weight-options grid grid-cols-3 gap-2/3, each button flex-col weight bold 11-12px + price 9-10px lav, selected gold border bg gold/10 shadow gold, unselected dark bg plum-950/60 border white/10.
+  4) Features per photo4: product-features grid changed from 2 cols xl:4 cols to always 2 cols (grid-cols-2) matching 2x2 in photo, cards dark glass bg rgba 38,18,50,.70 border white/8, icon 28px gold luminous, title 12px black cream, subtitle 10px lav.
+- Kept: breadcrumb 140px separate frame, guarantees glass under image, price white right gold middle luminous, panel narrower 0.95fr image wider 1.22fr, images fill frame, MOCKUP PDP marker.
+
 ## 3.10.239 — FEATURES ICONS PER PHOTO + CART GOLD + WISHLIST/COMPARE GOLD + PANEL NARROWER IMAGE WIDER
 - User photos: features row must match image-1.png (4 glass cards with gold icons leaf/gem/shield/truck, dark plum bg), cart button gold + wishlist/compare dark glass gold icons per image-2/3, product description card slightly narrower than image card, image wider.
 - Fixed: reordered $feats to leaf, gem, shield, truck to match RTL order in photo (rightmost 100% natural), sliced 4.
