@@ -24,7 +24,11 @@
       index=(target+slides.length)%slides.length;
       slides.forEach((slide,i)=>{
         const active=i===index;
+        const relative=(i-index+slides.length)%slides.length;
         slide.classList.toggle('is-active',active);
+        slide.classList.toggle('is-before',relative===slides.length-1);
+        slide.classList.toggle('is-after',relative===1);
+        slide.classList.toggle('is-far',!active&&relative!==1&&relative!==slides.length-1);
         slide.setAttribute('aria-hidden',active?'false':'true');
         slide.querySelectorAll('a,button').forEach(control=>control.tabIndex=active?0:-1);
       });
