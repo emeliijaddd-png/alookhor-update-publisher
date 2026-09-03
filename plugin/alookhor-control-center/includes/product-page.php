@@ -240,7 +240,17 @@ function alookhor_cc_pdp_markup(){
       <div><h2 class="text-2xl font-black text-cream sm:text-3xl">خوشمزه‌تر زندگی کن...</h2><p class="mt-2 text-sm font-medium text-lav sm:text-base">با محصولات طبیعی الخور</p></div>
       <a href="<?php echo esc_url($shop);?>" class="flex shrink-0 items-center gap-2 rounded-xl bg-gradient-to-l from-gold-300 via-gold-400 to-gold-500 px-6 py-3.5 text-sm font-black text-plum-950 shadow-[0_12px_30px_-10px_rgba(247,179,43,0.7)] transition hover:brightness-110 active:scale-[0.98]"><?php echo alookhor_cc_pdp_icon('chevl');?><span>مشاهده همه محصولات</span></a>
      </div>
+
     </section>
+   </div>
+   <div class="guarantees-glass-slot mt-5">
+    <div class="guarantees-glass rounded-2xl border border-white/8 bg-plum-900/50 p-4 backdrop-blur-md shadow-[0_15px_40px_-20px_rgba(0,0,0,0.7)]">
+      <div class="guarantees grid gap-3 sm:grid-cols-3">
+        <div class="guarantee-item flex items-center justify-center gap-2 rounded-2xl border border-white/8 bg-plum-900/50 px-3 py-3.5 text-[11px] font-bold text-cream transition hover:border-gold-400/40"><span class="h-5 w-5 shrink-0 text-gold-400"><?php echo alookhor_cc_pdp_icon('shield-check');?></span>ضمانت اصالت کالا</div>
+        <div class="guarantee-item flex items-center justify-center gap-2 rounded-2xl border border-white/8 bg-plum-900/50 px-3 py-3.5 text-[11px] font-bold text-cream transition hover:border-gold-400/40"><span class="h-5 w-5 shrink-0 text-gold-400"><?php echo alookhor_cc_pdp_icon('return');?></span>۷ روز ضمانت بازگشت</div>
+        <div class="guarantee-item flex items-center justify-center gap-2 rounded-2xl border border-white/8 bg-plum-900/50 px-3 py-3.5 text-[11px] font-bold text-cream transition hover:border-gold-400/40"><span class="h-5 w-5 shrink-0 text-gold-400"><?php echo alookhor_cc_pdp_icon('headset');?></span>پشتیبانی آنلاین</div>
+      </div>
+    </div>
    </div>
   </div>
   <div dir="rtl" class="panel-slot order-2 xl:col-start-2 xl:row-start-1 xl:flex xl:min-h-[720px] xl:h-full xl:w-full xl:flex-col">
@@ -285,12 +295,7 @@ function alookhor_cc_pdp_markup(){
      <div class="shipping-line flex flex-wrap items-center justify-between gap-2 text-xs font-bold"><span class="text-lav">ارسال از ۱ روز کاری آینده</span><span class="flex items-center gap-2 text-mint"><span class="relative flex h-2.5 w-2.5"><span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-mint opacity-60"></span><span class="relative inline-flex h-2.5 w-2.5 rounded-full bg-mint"></span></span>موجود در انبار</span></div>
     </div>
     <?php endif;?>
-    <div class="guarantees grid gap-3 sm:grid-cols-3">
-     <div class="guarantee-item flex items-center justify-center gap-2 rounded-2xl border border-white/8 bg-plum-900/50 px-3 py-3.5 text-[11px] font-bold text-cream transition hover:border-gold-400/40"><span class="h-5 w-5 shrink-0 text-gold-400"><?php echo alookhor_cc_pdp_icon('shield-check');?></span>ضمانت اصالت کالا</div>
-     <div class="guarantee-item flex items-center justify-center gap-2 rounded-2xl border border-white/8 bg-plum-900/50 px-3 py-3.5 text-[11px] font-bold text-cream transition hover:border-gold-400/40"><span class="h-5 w-5 shrink-0 text-gold-400"><?php echo alookhor_cc_pdp_icon('return');?></span>۷ روز ضمانت بازگشت</div>
-     <div class="guarantee-item flex items-center justify-center gap-2 rounded-2xl border border-white/8 bg-plum-900/50 px-3 py-3.5 text-[11px] font-bold text-cream transition hover:border-gold-400/40"><span class="h-5 w-5 shrink-0 text-gold-400"><?php echo alookhor_cc_pdp_icon('headset');?></span>پشتیبانی آنلاین</div>
-    </div>
-   </section>
+    </section>
   </div>
  </main>
 
