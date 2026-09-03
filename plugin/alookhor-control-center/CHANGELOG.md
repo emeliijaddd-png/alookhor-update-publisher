@@ -1,4 +1,12 @@
 
+## 3.10.235 — BREADCRUMB SEPARATE FRAME ABOVE — per user photo
+- User requested: address/path (breadcrumb) should be in separate frame above product description and image frames, not inside panel.
+- Fixed: moved breadcrumb from inside product-panel to new div.breadcrumb-wrapper above product-page-main grid, with own glass box styling: rounded-2xl, border white/8, bg plum-900/50, px-5 py-3, backdrop-blur, shadow.
+- Kept breadcrumb content: خانه / محصولات / خشکبار / آلو کبرایی with chevron icons, last item gold bold.
+- Removed old breadcrumb inside panel to avoid duplication.
+- Kept previous fixes: description right image left, distance from menu 32px, equal height 720px, huge arrows fixed, white buttons fixed, MOCKUP PDP marker, header/footer untouched.
+- Live verification pending new screenshot for top section.
+
 ## 3.10.234 — RE-PUBLISH 233 — fix manifest overwritten by 211
 - Previous 233 success was overwritten by failed 211 runs, manifest shows 211. Re-publish same fix: description right image left, distance from menu, equal height 720px, huge arrows fixed.
 

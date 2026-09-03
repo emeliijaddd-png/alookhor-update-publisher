@@ -1685,3 +1685,22 @@ body.alookhor-pdp-body .wd-product-info .wd-btn-arrow{display:none !important;vi
 #alookhor-pdp .banner-slot{margin-top:auto !important}
 
 /* ===== v3.10.234 — RE-PUBLISH 233 — MOCKUP PDP ===== */
+
+
+/* ===== v3.10.235 — BREADCRUMB SEPARATE FRAME ABOVE — MOCKUP PDP ===== */
+#alookhor-pdp .breadcrumb-wrapper{max-width:1440px !important;margin:0 auto 24px auto !important;padding:0 16px !important}
+@media(min-width:1024px){#alookhor-pdp .breadcrumb-wrapper{padding:0 32px !important}}
+#alookhor-pdp .breadcrumb-box{
+  display:flex !important;flex-wrap:wrap !important;align-items:center !important;gap:6px !important;
+  border-radius:16px !important;
+  border:1px solid rgba(255,255,255,.08) !important;
+  background:rgba(34,17,44,.50) !important;
+  padding:12px 20px !important;
+  font-size:12px !important;font-weight:500 !important;color:#c7b3da !important;
+  backdrop-filter:blur(8px) !important;
+  box-shadow:0 10px 30px -15px rgba(0,0,0,.50) !important;
+}
+#alookhor-pdp .breadcrumb-box a{color:#c7b3da !important;transition:color .2s !important}
+#alookhor-pdp .breadcrumb-box a:hover{color:#f7b32b !important}
+#alookhor-pdp .breadcrumb-box .font-bold{color:#f7b32b !important;font-weight:700 !important}
+#alookhor-pdp .breadcrumb-box svg{width:14px !important;height:14px !important;color:rgba(199,179,218,.50) !important}

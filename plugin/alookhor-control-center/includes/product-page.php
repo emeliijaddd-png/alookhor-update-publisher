@@ -201,6 +201,14 @@ function alookhor_cc_pdp_markup(){
  ob_start();
 ?>
 <section id="alookhor-pdp" class="alookhor-alp app-bg min-h-screen" dir="rtl" data-cart="<?php echo esc_url($cart);?>" style="--alp-gold:<?php echo esc_attr($gold);?>">
+<div class="breadcrumb-wrapper mx-auto max-w-[1440px] px-4 lg:px-8 mb-6">
+  <nav aria-label="مسیر صفحه" class="breadcrumb-box flex flex-wrap items-center gap-1.5 rounded-2xl border border-white/8 bg-plum-900/50 px-5 py-3 text-xs font-medium text-lav shadow-[0_10px_30px_-15px_rgba(0,0,0,0.5)] backdrop-blur-sm">
+    <span class="flex items-center gap-1.5"><a href="<?php echo esc_url(home_url('/'));?>" class="transition hover:text-gold-300">خانه</a><?php echo alookhor_cc_pdp_icon('chevl');?></span>
+    <span class="flex items-center gap-1.5"><a href="<?php echo esc_url($shop);?>" class="transition hover:text-gold-300">محصولات</a><?php echo alookhor_cc_pdp_icon('chevl');?></span>
+    <?php if($d['first_cat']['name']):?><span class="flex items-center gap-1.5"><a href="<?php echo esc_url($d['first_cat']['link']);?>" class="transition hover:text-gold-300"><?php echo esc_html($d['first_cat']['name']);?></a><?php echo alookhor_cc_pdp_icon('chevl');?></span><?php endif;?>
+    <span class="font-bold text-gold-300"><?php echo esc_html($d['name']);?></span>
+  </nav>
+</div>
  <main dir="ltr" class="product-page-main mx-auto grid max-w-[1440px] gap-6 px-4 py-6 xl:grid-cols-[1.02fr_1.12fr] xl:items-start xl:px-8 xl:py-8">
   <div dir="rtl" class="left-col order-1 xl:col-start-1 xl:flex xl:min-h-[720px] xl:h-full xl:w-full xl:flex-col xl:gap-5">
    <div class="gallery-slot">
@@ -237,12 +245,6 @@ function alookhor_cc_pdp_markup(){
   </div>
   <div dir="rtl" class="panel-slot order-2 xl:col-start-2 xl:row-start-1 xl:flex xl:min-h-[720px] xl:h-full xl:w-full xl:flex-col">
    <section class="product-panel alpm-panel flex flex-col gap-6 rounded-3xl border border-white/8 bg-gradient-to-b from-plum-700/70 to-plum-800/60 p-5 shadow-[0_30px_80px_-40px_rgba(0,0,0,0.9)] sm:p-7">
-    <nav aria-label="مسیر صفحه" class="product-breadcrumb flex flex-wrap items-center gap-1.5 text-xs font-medium text-lav">
-     <span class="flex items-center gap-1.5"><a href="<?php echo esc_url(home_url('/'));?>" class="transition hover:text-gold-300">خانه</a><?php echo alookhor_cc_pdp_icon('chevl');?></span>
-     <span class="flex items-center gap-1.5"><a href="<?php echo esc_url($shop);?>" class="transition hover:text-gold-300">محصولات</a><?php echo alookhor_cc_pdp_icon('chevl');?></span>
-     <?php if($d['first_cat']['name']):?><span class="flex items-center gap-1.5"><a href="<?php echo esc_url($d['first_cat']['link']);?>" class="transition hover:text-gold-300"><?php echo esc_html($d['first_cat']['name']);?></a><?php echo alookhor_cc_pdp_icon('chevl');?></span><?php endif;?>
-     <span class="font-bold text-gold-300"><?php echo esc_html($d['name']);?></span>
-    </nav>
     <div class="product-heading">
      <button onclick="window.location.href='<?php echo esc_url($shop);?>'" class="mobile-category-badge hidden items-center gap-1.5 rounded-full border border-gold-400/30 bg-plum-900/70 px-3 py-1.5 text-xs font-black text-gold-300"><?php echo alookhor_cc_pdp_icon('leaf');?>آلو خشکبار</button>
      <div class="product-title-copy"><h1 class="text-3xl font-black text-cream sm:text-4xl"><?php echo esc_html($d['name']);?></h1><p class="mt-2 text-lg font-bold text-gold-400">طعم اصیل، سلامتی طبیعی</p></div>
