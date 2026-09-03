@@ -289,7 +289,7 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 | `scripts/generate_code_registry.py` | 293 | `cc820adb6cd74358acfe6eea9bcc5206a2262b91a53e053cc0794c47fec3026a` |
 | `scripts/header_visual_audit.py` | 315 | `125cf34405f1decd7e0b53689d70fc89b2e5d9fcc5336e7f2140fc13433c86ba` |
 | `scripts/wordpress_access_check.py` | 529 | `8b2d8fa1e2b20ba940d3b13c3e7e62072d5d30bcf8225af8f49ed8cd156cb20f` |
-| `scripts/wordpress_release_test.py` | 651 | `f05d542678c450dfd8fd600e2a4be4985cbe5a2fcdbaed20eb8f26003dbdc01f` |
+| `scripts/wordpress_release_test.py` | 760 | `9a953b1c85613bcd7b762c96628bb5009002ea3fb14a50b2eccc303600692da9` |
 
 # COMPLETE SOURCE SNAPSHOTS
 
@@ -16033,6 +16033,107 @@ return {viewport:{width:innerWidth,height:innerHeight},pdpVersion,
     return result
 
 
+def _mockup_analysis() -> dict:
+    """Fetch the owner's mockup; extract a compact STRUCTURAL fingerprint:
+    gold element boxes, photo bbox, panel text rows, column split, palette."""
+    import io as _io, subprocess, sys
+    from collections import Counter, defaultdict
+    from urllib.request import Request, urlopen
+    url = 'https://up.20script.ir/file/4b72-Screenshot-2026-09-03-095542.png'
+    out = {}
+    try:
+        with urlopen(Request(url, headers={'User-Agent': 'Mozilla/5.0'}), timeout=45) as response:
+            raw = response.read(12_000_000)
+        try:
+            from PIL import Image
+        except ImportError:
+            deps = '/tmp/pdp_deps'
+            subprocess.run([sys.executable, '-m', 'pip', 'install', '--quiet', '--target', deps,
+                            '--break-system-packages', 'pillow'], capture_output=True, timeout=240)
+            sys.path.insert(0, deps)
+            from PIL import Image
+        img0 = Image.open(_io.BytesIO(raw)).convert('RGB')
+        W, H = img0.size
+        img = img0.resize((W // 2, H // 2))
+        w, h = img.size
+        px = img.load()
+        pct = lambda v, m: int(round(100.0 * v / m))
+        is_gold = lambda r, g, b: r > 140 and 80 < g < 205 and b < 115 and r > g > b
+        is_warm = lambda r, g, b: r > 70 and r > g and g > b and r - b > 28
+        gold = [(x, y) for y in range(h) for x in range(w) if is_gold(*px[x, y])]
+        boxes = []
+        if gold:
+            parent = list(range(len(gold)))
+            def find(a):
+                while parent[a] != a:
+                    parent[a] = parent[parent[a]]; a = parent[a]
+                return a
+            grid = {}
+            for i, (x, y) in enumerate(gold):
+                grid[(x // 12, y // 12)] = i
+            for i, (x, y) in enumerate(gold):
+                for dx in (-1, 0, 1):
+                    for dy in (-1, 0, 1):
+                        j = grid.get((x // 12 + dx, y // 12 + dy))
+                        if j is not None:
+                            ra, rb = find(i), find(j)
+                            if ra != rb:
+                                parent[ra] = rb
+            clusters = defaultdict(list)
+            for i in range(len(gold)):
+                clusters[find(i)].append(gold[i])
+            for pts in sorted(clusters.values(), key=len, reverse=True)[:6]:
+                if len(pts) < 14:
+                    continue
+                xs = [p[0] for p in pts]; ys = [p[1] for p in pts]
+                boxes.append([pct(min(xs), w), pct(min(ys), h), pct(max(xs) - min(xs) + 1, w), pct(max(ys) - min(ys) + 1, h)])
+        out['gold'] = boxes
+        warm = [(x, y) for y in range(h) for x in range(w) if is_warm(*px[x, y])]
+        if warm:
+            xs = sorted(p[0] for p in warm); ys = sorted(p[1] for p in warm)
+            x0, x1 = xs[int(len(xs) * .02)], xs[int(len(xs) * .98)]
+            y0, y1 = ys[int(len(ys) * .02)], ys[int(len(ys) * .98)]
+            out['photo'] = [pct(x0, w), pct(y0, h), pct(x1 - x0, w), pct(y1 - y0, h)]
+        rows = []
+        for y in range(h):
+            c = 0
+            for x in range(int(w * .55), w, 2):
+                r, g, b = px[x, y]
+                if r > 200 and g > 200 and b > 190:
+                    c += 1
+            rows.append(c)
+        groups = []; y = 0
+        while y < h and len(groups) < 10:
+            if rows[y] > 2:
+                y0 = y
+                while y < h and rows[y] > 1:
+                    y += 1
+                groups.append([pct(y0, h), pct(y - y0, h)])
+            else:
+                y += 1
+        out['txt'] = groups
+        colmean = []
+        for x in range(w):
+            rs = gs = bs = n = 0
+            for y in range(int(h * .2), int(h * .8), 3):
+                r, g, b = px[x, y]; rs += r; gs += g; bs += b; n += 1
+            colmean.append((rs // n, gs // n, bs // n))
+        best = (0, 0)
+        for x in range(int(w * .25), int(w * .75)):
+            r1, g1, b1 = colmean[x - 1]; r2, g2, b2 = colmean[x]
+            d = abs(r1 - r2) + abs(g1 - g2) + abs(b1 - b2)
+            if d > best[0]:
+                best = (d, x)
+        out['split'] = [pct(best[1], w), best[0]]
+        out['dims'] = [W, H]
+        small = img.resize((40, 24))
+        cnt = Counter(((r // 20 * 20, g // 20 * 20, b // 20 * 20) for r, g, b in small.getdata()))
+        out['pal'] = [['#%02X%02X%02X' % c, round(100.0 * n / 960, 1)] for c, n in cnt.most_common(6)]
+    except Exception as error:
+        out['error'] = ('%s: %s' % (type(error).__name__, error))[:160]
+    return out
+
+
 report = {'target': TARGET, 'base_url': BASE, 'checks': {}}
 try:
     source, before = get_pre_update_status()
@@ -16355,6 +16456,10 @@ except Exception as error:
         report['pdp_browser_audit'] = _pdp_browser_audit()
     except Exception as _pdp_err:
         report['pdp_browser_audit'] = {'error': str(_pdp_err)[:200]}
+    try:
+        report['mockup_analysis'] = _mockup_analysis()
+    except Exception as _m_err:
+        report['mockup_analysis'] = {'error': str(_m_err)[:120]}
     REPORT_PATH.write_text(json.dumps(report, ensure_ascii=False, separators=(',', ':')) + '\n')
     print(json.dumps(report, ensure_ascii=False, separators=(',', ':')))
     raise
@@ -16364,6 +16469,10 @@ else:
         report['pdp_browser_audit'] = _pdp_browser_audit()
     except Exception as _pdp_err:
         report['pdp_browser_audit'] = {'error': str(_pdp_err)[:200]}
+    try:
+        report['mockup_analysis'] = _mockup_analysis()
+    except Exception as _m_err:
+        report['mockup_analysis'] = {'error': str(_m_err)[:120]}
     REPORT_PATH.write_text(json.dumps(report, ensure_ascii=False, separators=(',', ':')) + '\n')
     print(json.dumps(report, ensure_ascii=False, separators=(',', ':')))
 ````
