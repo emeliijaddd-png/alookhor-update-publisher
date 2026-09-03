@@ -89,6 +89,8 @@ function alookhor_cc_hero_defaults(){
         'text'=>'#FFFFFF',
         'muted'=>'#D9D1DA',
         'radius'=>32,
+        'panel_opacity'=>34,
+        'panel_blur'=>20,
         'slides'=>alookhor_cc_hero_slide_defaults(),
     ];
 }
@@ -135,13 +137,19 @@ function alookhor_cc_hero_markup($settings=null){
     if (empty($s['enabled'])) return '';
     $slides = array_slice(array_values((array)($s['slides'] ?? [])), 0, 4);
     if (count($slides) !== 4) return '';
+    $surface = sanitize_hex_color($s['surface'] ?? '') ?: '#21072F';
+    $surface_hex = ltrim($surface, '#');
+    $surface_rgb = hexdec(substr($surface_hex,0,2)).','.hexdec(substr($surface_hex,2,2)).','.hexdec(substr($surface_hex,4,2));
     $style = sprintf(
-        '--mh-gold:%s;--mh-surface:%s;--mh-text:%s;--mh-muted:%s;--mh-radius:%dpx',
+        '--mh-gold:%s;--mh-surface:%s;--mh-surface-rgb:%s;--mh-text:%s;--mh-muted:%s;--mh-radius:%dpx;--mh-panel-alpha:%.2F;--mh-panel-blur:%dpx',
         sanitize_hex_color($s['gold'] ?? '') ?: '#D4AF37',
-        sanitize_hex_color($s['surface'] ?? '') ?: '#09060D',
+        $surface,
+        $surface_rgb,
         sanitize_hex_color($s['text'] ?? '') ?: '#FFFFFF',
         sanitize_hex_color($s['muted'] ?? '') ?: '#D9D1DA',
-        max(16, min(40, absint($s['radius'] ?? 32)))
+        max(16, min(40, absint($s['radius'] ?? 32))),
+        max(10, min(85, absint($s['panel_opacity'] ?? 34))) / 100,
+        max(0, min(40, absint($s['panel_blur'] ?? 20)))
     );
     ob_start(); ?>
     <section id="alookhor-managed-hero" class="alookhor-mh" dir="rtl" style="<?php echo esc_attr($style); ?>"
@@ -162,7 +170,7 @@ function alookhor_cc_hero_markup($settings=null){
             <div class="alookhor-mh-content">
               <?php if(!empty($slide['kicker'])): ?><span class="alookhor-mh-kicker"><?php echo esc_html($slide['kicker']); ?></span><?php endif; ?>
               <h2><?php echo esc_html($slide['title'] ?? ''); ?><?php if(!empty($slide['highlight'])): ?><strong><?php echo esc_html($slide['highlight']); ?></strong><?php endif; ?></h2>
-              <?php if(!empty($slide['description'])): ?><p class="alookhor-mh-description"><?php echo esc_html($slide['description']); ?></p><?php endif; ?>
+              <?php if(!empty($slide['description'])): ?><p class="alookhor-mh-description"><?php echo nl2br(esc_html($slide['description'])); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></p><?php endif; ?>
               <div class="alookhor-mh-features">
                 <?php foreach(array_slice(array_pad((array)($slide['features'] ?? []),4,''),0,4) as $feature_index=>$feature): if($feature==='')continue; ?>
                 <span class="alookhor-mh-feature"><?php echo alookhor_cc_hero_icon($feature_index); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?><b><?php echo esc_html($feature); ?></b></span>
@@ -177,8 +185,8 @@ function alookhor_cc_hero_markup($settings=null){
           <?php endforeach; ?>
         </div>
         <?php if(!empty($s['show_arrows'])): ?>
-        <button type="button" class="alookhor-mh-arrow is-prev" aria-label="اسلاید قبلی"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg></button>
-        <button type="button" class="alookhor-mh-arrow is-next" aria-label="اسلاید بعدی"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></button>
+        <button type="button" class="alookhor-mh-arrow is-prev" aria-label="اسلاید قبلی"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></button>
+        <button type="button" class="alookhor-mh-arrow is-next" aria-label="اسلاید بعدی"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg></button>
         <?php endif; ?>
         <?php if(!empty($s['show_dots'])): ?><div class="alookhor-mh-dots" role="tablist" aria-label="انتخاب اسلاید"><?php for($i=0;$i<4;$i++): ?><button type="button" role="tab" data-slide="<?php echo esc_attr($i); ?>" class="<?php echo $i===0?'is-active':''; ?>" aria-selected="<?php echo $i===0?'true':'false'; ?>" aria-label="اسلاید <?php echo esc_attr($i+1); ?>"></button><?php endfor; ?></div><?php endif; ?>
         <span class="alookhor-mh-status screen-reader-text" aria-live="polite"></span>
@@ -195,6 +203,16 @@ function alookhor_cc_hero_shortcode(){
     return alookhor_cc_hero_markup($settings);
 }
 add_shortcode('alookhor_managed_hero','alookhor_cc_hero_shortcode');
+
+/**
+ * قرارداد واحد Hero: شورت‌کد قدیمی افزونه VIP نباید اسلایدر موازی بسازد.
+ * در اولویت انتهایی ثبت می‌شود تا مستقل از ترتیب بارگذاری افزونه‌ها باشد.
+ */
+function alookhor_cc_retire_legacy_vip_slider_shortcode() {
+    remove_shortcode('alookhor_vip_slider');
+    add_shortcode('alookhor_vip_slider', '__return_empty_string');
+}
+add_action('init', 'alookhor_cc_retire_legacy_vip_slider_shortcode', 999);
 
 function alookhor_cc_hero_template(){
     static $done=false;
