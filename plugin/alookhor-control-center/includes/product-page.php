@@ -1,5 +1,5 @@
 <?php
-/** ALOOKHOR PDP v3.10.259 exact per 3 ref images - price box pink 51% old crossed new gold 9k, weight chip 1kg 400k gold border, about orchard per image-2, suggested per image-3 4 cards 489k */
+/** ALOOKHOR PDP v3.10.260 exact per 3 ref images - price box pink 51% old crossed new gold 9k, weight chip 1kg 400k gold border, about orchard per image-2, suggested per image-3 4 cards 489k */
 if(!defined('ABSPATH'))exit;
 
 if(!function_exists('alookhor_cc_pdp_icon')){
@@ -409,7 +409,7 @@ function alookhor_cc_pdp_markup(){
     <?php if($d['purchasable']&&$d['stock']!=='out'):?>
     <div class="purchase-actions flex flex-col gap-2.5 rounded-2xl border border-white/8 bg-plum-900/30 p-3">
       <div class="flex flex-wrap items-center gap-2">
-        <div class="quantity-row flex items-center gap-2 shrink-0">
+              <div class="quantity-row flex items-center justify-between gap-2">
           <span class="quantity-label text-xs font-bold text-lav">تعداد:</span>
           <div class="quantity-control flex items-center gap-1 rounded-full border border-white/10 bg-plum-950/70 p-1">
             <button type="button" data-q="-" aria-label="کاهش تعداد" class="grid h-7 w-7 place-items-center rounded-full text-cream transition hover:bg-white/10 hover:text-gold-300"><span class="h-3 w-3"><?php echo alookhor_cc_pdp_icon('minus');?></span></button>
@@ -417,14 +417,15 @@ function alookhor_cc_pdp_markup(){
             <button type="button" data-q="+" aria-label="افزایش تعداد" class="grid h-7 w-7 place-items-center rounded-full text-cream transition hover:bg-white/10 hover:text-gold-300"><span class="h-3 w-3"><?php echo alookhor_cc_pdp_icon('plus');?></span></button>
           </div>
         </div>
-        <a id="alpAdd" href="<?php echo esc_url($d['add_url']);?>" data-base="<?php echo esc_attr($d['add_url']);?>" class="add-button flex h-10 flex-1 max-w-[200px] items-center justify-center gap-2 rounded-xl bg-gradient-to-l from-gold-300 via-gold-400 to-gold-500 text-[13px] font-black text-plum-950 shadow-[0_10px_30px_-10px_rgba(247,179,43,0.65)] transition hover:brightness-110 active:scale-[0.98]"><span>افزودن به سبد خرید</span><span class="h-4.5 w-4.5"><?php echo alookhor_cc_pdp_icon('cart');?></span></a>
-        <div class="flex items-center gap-1.5 shrink-0">
-          <button type="button" class="share-btn grid h-10 w-10 place-items-center rounded-xl border border-white/10 bg-plum-950/70 text-lav transition hover:border-gold-400/40 hover:text-gold-300" data-share data-name="<?php echo esc_attr($d['name']);?>" data-url="<?php echo esc_url(get_permalink($d['id']));?>" aria-label="اشتراک‌گذاری"><span class="h-4 w-4"><?php echo alookhor_cc_pdp_icon('share');?></span></button>
-          <button type="button" class="compare-btn grid h-10 w-10 place-items-center rounded-xl border border-white/10 bg-plum-950/70 text-lav transition hover:border-gold-400/40 hover:text-gold-300" data-compare aria-label="مقایسه"><span class="h-4 w-4"><?php echo alookhor_cc_pdp_icon('compare');?></span></button>
-          <button type="button" class="wishlist-btn grid h-10 w-10 place-items-center rounded-xl border border-white/10 bg-plum-950/70 text-lav transition hover:border-berry/40 hover:text-berry" data-wish aria-pressed="false" aria-label="علاقه‌مندی"><span class="h-4 w-4"><?php echo alookhor_cc_pdp_icon('heart');?></span></button>
+        <div class="cart-row flex items-center gap-2" dir="ltr">
+          <a id="alpAdd" href="<?php echo esc_url($d['add_url']);?>" data-base="<?php echo esc_attr($d['add_url']);?>" class="add-button flex h-11 flex-1 items-center justify-center gap-2 rounded-xl bg-gradient-to-l from-gold-300 via-gold-400 to-gold-500 text-[13px] font-black text-plum-950 shadow-[0_10px_30px_-10px_rgba(247,179,43,0.65)] transition hover:brightness-110 active:scale-[0.98]"><span>افزودن به سبد خرید</span><span class="h-4.5 w-4.5"><?php echo alookhor_cc_pdp_icon('cart');?></span></a>
+          <div class="flex items-center gap-1.5">
+            <button type="button" class="share-btn grid h-11 w-11 place-items-center rounded-xl border border-white/10 bg-plum-950/70 text-lav transition hover:border-gold-400/40 hover:text-gold-300" data-share data-name="<?php echo esc_attr($d['name']);?>" data-url="<?php echo esc_url(get_permalink($d['id']));?>" aria-label="اشتراک‌گذاری"><span class="h-4 w-4"><?php echo alookhor_cc_pdp_icon('share');?></span></button>
+            <button type="button" class="compare-btn grid h-11 w-11 place-items-center rounded-xl border border-white/10 bg-plum-950/70 text-lav transition hover:border-gold-400/40 hover:text-gold-300" data-compare aria-label="مقایسه"><span class="h-4 w-4"><?php echo alookhor_cc_pdp_icon('compare');?></span></button>
+            <button type="button" class="wishlist-btn grid h-11 w-11 place-items-center rounded-xl border border-white/10 bg-plum-950/70 text-lav transition hover:border-gold-400/40 hover:text-gold-300" data-wishlist aria-label="افزودن به علاقه‌مندی‌ها"><span class="h-4 w-4"><?php echo alookhor_cc_pdp_icon('heart');?></span></button>
+          </div>
         </div>
-      </div>
-      <div class="shipping-line flex flex-wrap items-center justify-between gap-2 text-[11px] font-bold"><span class="flex items-center gap-1.5 text-mint"><span class="relative flex h-2 w-2"><span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-mint opacity-60"></span><span class="relative inline-flex h-2 w-2 rounded-full bg-mint"></span></span>موجود در انبار</span><span class="text-lav/70">ارسال از ۱ روز کاری آینده</span></div>
+      <div class="shipping-line flex flex-wrap items-center justify-between gap-2 text-[11px] font-bold mt-3"><span class="flex items-center gap-1.5 text-mint"><span class="relative flex h-2 w-2"><span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-mint opacity-60"></span><span class="relative inline-flex h-2 w-2 rounded-full bg-mint"></span></span>موجود در انبار</span><span class="text-lav/70">ارسال از ۱ روز کاری آینده</span></div>
     </div>
     <?php endif;?>
     </section>
