@@ -607,6 +607,51 @@ add_action('wp_ajax_alookhor_cc_seed_products', function(){
     wp_send_json_success($res);
 });
 
+// Auto-seed on first load after deploy (if not seeded) - runs on init with lock to avoid race
+add_action('init', function(){
+    if(get_option('alookhor_cc_products_seeded_v251')) return;
+    if(!function_exists('wc_get_product')) return;
+    // Only auto-seed on admin or REST or cron to avoid frontend performance hit, but also allow one frontend hit after deploy
+    // Use transient lock 60s
+    if(get_transient('alookhor_cc_seeding_lock')) return;
+    // Check if we are in a context where seeding makes sense (admin, REST, or ?alookhor_auto_seed=1)
+    $is_auto_context = is_admin() || (defined('REST_REQUEST') && REST_REQUEST) || defined('DOING_CRON') || isset($_GET['alookhor_auto_seed']);
+    // Also allow one-time frontend seeding after deploy if ?seed query present or first 24h after version bump
+    // For simplicity, allow any init within 5 minutes after plugin version change
+    $last_version = get_option('alookhor_cc_last_version');
+    if($last_version !== ALOOKHOR_CC_VERSION){
+        update_option('alookhor_cc_last_version', ALOOKHOR_CC_VERSION);
+        $is_auto_context = true; // force on version change
+    }
+    if(!$is_auto_context) return;
+    set_transient('alookhor_cc_seeding_lock', 1, 120);
+    // Don't block request, schedule async if possible, else run directly
+    if(function_exists('wp_schedule_single_event') && !wp_next_scheduled('alookhor_cc_async_seed')){
+        wp_schedule_single_event(time()+5, 'alookhor_cc_async_seed');
+    } else {
+        // fallback direct
+        alookhor_cc_seed_products(false);
+    }
+}, 100);
+
+add_action('alookhor_cc_async_seed', function(){
+    alookhor_cc_seed_products(false);
+    delete_transient('alookhor_cc_seeding_lock');
+});
+
+// REST endpoint to trigger seeding externally (authenticated)
+add_action('rest_api_init', function(){
+    register_rest_route('alookhor-cc/v1', '/seed-products', [
+        'methods'=>'POST',
+        'permission_callback'=>function(){ return current_user_can('manage_options'); },
+        'callback'=>function($request){
+            $force = (bool)$request->get_param('force');
+            $res = alookhor_cc_seed_products($force);
+            return rest_ensure_response(['ok'=>true,'version'=>ALOOKHOR_CC_VERSION,'result'=>$res]);
+        }
+    ]);
+});
+
 // Add button in admin bar? We'll add via filter in control center page
 add_action('alookhor_cc_after_settings', function(){
     $seed_url = wp_nonce_url(admin_url('?alookhor_seed_products=1&force=1'), 'alookhor_seed');

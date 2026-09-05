@@ -1,3 +1,9 @@
+## 3.10.252 — AUTO SEED 5 PRODUCTS ON VERSION CHANGE + REST ENDPOINT
+- NEW AUTO SEED: در v3.10.251 ایجاد محصولات فقط با کلیک دستی بود — در v3.10.252 هوک init با بررسی alookhor_cc_last_version و transient lock و wp_schedule_single_event alookhor_cc_async_seed اضافه شد تا پس از دیپلوی به صورت خودکار 5 محصول ایجاد شود — بدون نیاز به ورود دستی
+- REST: POST /wp-json/alookhor-cc/v1/seed-products با احراز هویت manage_options و پارامتر force برای اجرای دستی از بیرون (برای CI و اتوماسیون)
+- FULL PRODUCTS: 5 محصول متغیر کامل: کشمش پلویی طلایی ممتاز، آلو بخارایی آفتابی نیشابور، لواشک خانگی چند میوه، گردو کاغذی تویسرکان، آلو بخارا جنگلی ترش — هر کدام 3 وزن 3/5/10 کیلویی با قیمت عادی و شگفت‌انگیز، توضیحات کوتاه/بلند با h2/h3 و لیست، دسته‌بندی، برچسب، تصاویر، موجودی، SKU، ویژگی‌ها، سئو
+- CSS v3.10.252 MOCKUP PDP — حفظ 3.10.250 + 3.10.249 + 3.10.248 + تب‌ها 3.10.247 + تک فوتر 3.10.246
+
 ## 3.10.251 — NEW PRODUCT SEEDER 5 FULL VARIABLE PRODUCTS 3/5/10 KG WITH ALL WOOCOMMERCE FEATURES
 - NEW: ماژول product-seeder.php — ایجاد خودکار 5 محصول نمونه کامل ووکامرس:
   1. کشمش پلویی طلایی ممتاز (AKH-KESH-001) — 3/5/10 کیلویی قیمت عادی 450k/720k/1.38M فروش ویژه 390k/650k/1.25M
