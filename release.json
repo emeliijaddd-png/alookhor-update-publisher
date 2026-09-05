@@ -1,31 +1,41 @@
 {
-  "version": "3.10.249",
-  "previous": "3.10.248",
+  "version": "3.10.250",
+  "previous": "3.10.249",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "فیکس ریشه‌ای عدم نمایش محتوا — باگ HTML و CSS تب‌ها که باعث مخفی شدن بخش توضیحات و... شده بود",
+  "description": "فیکس 4 بخش per اسکرین‌شات‌های کاربر: توضیحات محصول عناوین سبز→سفید Bold + متن کامل بدون فضای خالی چپ + اسلایدر فلش‌ها چپ/راست مرتب + FAQ سفید→دارک کنتراست + روش مصرف آیکون‌ها huge→استاندارد 48px",
   "changelog": [
     {
       "tag": "FIX",
-      "title": "باگ HTML تکراری below-product",
-      "desc": "در product-page.php خط <div class=\"below-product\"<div class=\"below-product\" دو بار باز شده بود بدون بستن > — باعث شکستن DOM و عدم رندر بخش تب‌ها در مرورگر کاربر — فیکس شد به یک div تمیز"
+      "title": "توضیحات محصول عناوین سبز و فضای خالی چپ",
+      "desc": "اسکرین‌شات 1 و 2: متن هر خط باید کامل و منظم، بدون فضای خالی نامتعارف چپ، عرض درست، فاصله پاراگراف‌ها مطابق مرجع — عناوین داخل توضیحات نباید سبز باشند، باید سفید Bold — فیکس: about-story-copy max-width 100% به جای 630px، desc-long-content width 100% text-align right، تمام h1-h6 و strong داخل desc به #fbf3e2 سفید Bold 16px با !important، حذف رنگ سبز mint، p ها #c7b3da 14.5px line-height 2.15، ul li مرتب"
     },
     {
       "tag": "FIX",
-      "title": "تب‌ها توسط CSS قدیمی مخفی شده بود",
-      "desc": "قانون body.alookhor-pdp-body .product-tabs-wrapper{display:none!important} برای مخفی کردن تب‌های پیش‌فرض ووکامرس/وودمارت بود اما چون نام کلاس تب‌های سفارشی ما هم product-tabs-wrapper بود، تب‌های ما را هم مخفی کرد — با #alookhor-pdp .product-tabs-wrapper{display:block!important visibility:visible opacity:1 z-index:2} اورراید شد"
+      "title": "اسلایدرها فلش‌ها روی هم و نامرتب",
+      "desc": "اسکرین‌شات 3: فلش‌ها باید یکی راست یکی چپ، مرتب هم‌تراز، فاصله استاندارد، اندازه متناسب، آیکون مدرن لوکس، Hover ظریف — فیکس: slider-shell padding-inline 44px overflow visible، slider-controls absolute inset 0 pointer-events none، slider-control 36px دایره‌ای dark glass + border gold + shadow + blur، prev right 6px، next left 6px، hover gold bg + scale 1.08، active scale .96، track scrollbar hidden، موبایل 30px right 2px left 2px بدون horizontal scroll — اعمال برای تمام اسلایدرها highlight/products/reviews"
+    },
+    {
+      "tag": "FIX",
+      "title": "سوالات متداول پس‌زمینه سفید متن نامرئی",
+      "desc": "اسکرین‌شات 4: FAQ پس‌زمینه سفید اما محتوا دیده نمی‌شود — فیکس: faq-item background rgba(34,17,44,.72) dark glass به جای سفید با !important، border white/09، hover gold/28، is-open dark + gold border + shadow، button #fbf3e2 13.5px Bold، answer p #c7b3da 13px، faq-icon 28px دایره‌ای gold/15 bg + gold border، is-open gold bg + dark text، حذف رنگ سبز ناخواسته، grid 2 ستونه desktop 1 ستونه mobile"
+    },
+    {
+      "tag": "FIX",
+      "title": "روش مصرف آیکون‌ها بیش از حد بزرگ",
+      "desc": "اسکرین‌شات 5: آیکون‌ها بخش عمده کارت را اشغال کرده — علت root: span h-8 w-8 بدون display fixed و svg width 100% — فیکس root: usage-card flex column، span:first-child display grid 48px fixed max 48px bg gold/12 border gold/22 rounded 12px overflow hidden، svg 24px fixed max 24px !important، h3 15px white Bold، p 13px lav، responsive mobile 44px/22px، نسبت آیکون/عنوان/متن/فضای خالی مطابق مرجع"
     },
     {
       "tag": "STYLE",
-      "title": "CSS v3.10.249 MOCKUP PDP",
-      "desc": "تضمین نمایش below-product + product-tabs-wrapper + nav + panes با !important + desc pane پیش‌فرض visible + no-js fallback — حفظ فیکس عناوین اسلایدر 3.10.248 + تب‌ها و مشاهده بیشتر 3.10.247 + تک فوتر و وسط‌چین 3.10.246 — شامل MOCKUP PDP برای CI"
+      "title": "CSS v3.10.250 MOCKUP PDP",
+      "desc": "بلوک جدید شامل 4 فیکس per اسکرین‌شات‌های کاربر — حفظ below-product + tabs visible 3.10.249 + عناوین اسلایدر 3.10.248 + تب‌ها و مشاهده بیشتر 3.10.247 + تک فوتر و وسط‌چین 3.10.246 — شامل MOCKUP PDP برای CI، بدون تغییر header/ساختار اصلی/desktop تأییدشده"
     }
   ],
   "project": "ALOOKHOR",
-  "area": "Product Page PDP - Critical HTML+CSS Fix",
-  "reason": "کاربر گزارش بازم چیزی نیامد با اسکرین‌شات بدون تب‌ها — علت ریشه‌ای HTML تکراری + CSS مخفی‌کننده تب‌ها — فیکس فوری",
+  "area": "Product Page PDP - 4 Fixes Per Screenshots",
+  "reason": "کاربر 5 اسکرین‌شات مرجع دقیق فرستاد با 4 مشکل: توضیحات محصول عناوین سبز + فضای خالی چپ، اسلایدر فلش‌ها روی هم، FAQ سفید نامرئی، روش مصرف آیکون‌ها huge — فیکس دقیق per اسکرین‌شات بدون تغییر بخش‌های تأییدشده",
   "files": [
     "docs/MASTER_DESIGN_DIRECTIVE.md",
     "plugin/alookhor-control-center/CHANGELOG.md",

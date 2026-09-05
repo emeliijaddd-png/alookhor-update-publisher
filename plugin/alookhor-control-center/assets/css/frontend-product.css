@@ -2166,3 +2166,377 @@ html{overflow-x:hidden !important}
 #alookhor-pdp.no-js .pdp-pane{
   display:block !important;
 }
+
+/* ===== v3.10.250 — FIX DESC TITLES GREEN→WHITE BOLD + SLIDER ARROWS LEFT/RIGHT + FAQ WHITE BG + USAGE ICONS HUGE — MOCKUP PDP ===== */
+/* 1. توضیحات محصول — دقیقا مطابق اسکرین‌شات مرجع */
+/* Remove max-width 630px that caused left empty space, use full width */
+#alookhor-pdp .about-story-copy{
+  max-width:100% !important;
+  width:100% !important;
+}
+#alookhor-pdp .about-story{
+  grid-template-columns:1.05fr .95fr !important;
+  gap:32px !important;
+  align-items:start !important;
+}
+#alookhor-pdp .desc-long-wrap{
+  width:100% !important;
+  max-width:100% !important;
+}
+#alookhor-pdp .desc-long-content{
+  width:100% !important;
+  max-width:100% !important;
+  text-align:right !important;
+  word-break:normal !important;
+  overflow-wrap:break-word !important;
+}
+#alookhor-pdp .desc-long-content p{
+  color:#c7b3da !important;
+  font-size:14.5px !important;
+  line-height:2.15 !important;
+  margin:0 0 14px !important;
+  text-align:right !important;
+  letter-spacing:0 !important;
+  max-width:100% !important;
+}
+#alookhor-pdp .desc-long-content p:last-child{
+  margin-bottom:0 !important;
+}
+/* Titles inside desc must be WHITE BOLD not green */
+#alookhor-pdp .desc-long-content h1,
+#alookhor-pdp .desc-long-content h2,
+#alookhor-pdp .desc-long-content h3,
+#alookhor-pdp .desc-long-content h4,
+#alookhor-pdp .desc-long-content h5,
+#alookhor-pdp .desc-long-content h6,
+#alookhor-pdp .desc-long-content strong,
+#alookhor-pdp .desc-long-content b{
+  color:#fbf3e2 !important;
+  font-weight:900 !important;
+  font-size:16px !important;
+  line-height:1.9 !important;
+  margin:18px 0 10px !important;
+  display:block !important;
+}
+#alookhor-pdp .desc-long-content h1:first-child,
+#alookhor-pdp .desc-long-content h2:first-child,
+#alookhor-pdp .desc-long-content h3:first-child{
+  margin-top:0 !important;
+}
+/* Remove any green/mint that was applied to headings */
+#alookhor-pdp .desc-long-content h1[style],
+#alookhor-pdp .desc-long-content h2[style],
+#alookhor-pdp .desc-long-content h3[style]{
+  color:#fbf3e2 !important;
+}
+#alookhor-pdp .desc-long-content a{
+  color:#f7b32b !important;
+  text-decoration:none !important;
+}
+#alookhor-pdp .desc-long-content ul,
+#alookhor-pdp .desc-long-content ol{
+  margin:12px 0 !important;
+  padding-right:18px !important;
+  list-style:disc !important;
+}
+#alookhor-pdp .desc-long-content ul li,
+#alookhor-pdp .desc-long-content ol li{
+  color:#c7b3da !important;
+  font-size:14px !important;
+  line-height:2.1 !important;
+  margin:6px 0 !important;
+  text-align:right !important;
+}
+#alookhor-pdp .about-checks{
+  width:100% !important;
+  max-width:100% !important;
+  margin-top:18px !important;
+}
+#alookhor-pdp .about-checks li{
+  color:#c7b3da !important;
+  font-size:13px !important;
+  line-height:2 !important;
+  text-align:right !important;
+}
+
+/* 2. اسلایدرها — فلش چپ و راست مرتب، فاصله استاندارد، اندازه متناسب، بدون روی هم */
+#alookhor-pdp .slider-shell{
+  position:relative !important;
+  padding-inline:44px !important;
+  overflow:visible !important;
+}
+#alookhor-pdp .slider-controls{
+  position:absolute !important;
+  inset:0 !important;
+  z-index:3 !important;
+  pointer-events:none !important;
+  display:block !important;
+}
+#alookhor-pdp .slider-control{
+  position:absolute !important;
+  top:50% !important;
+  transform:translateY(-50%) !important;
+  width:36px !important;
+  height:36px !important;
+  min-width:36px !important;
+  min-height:36px !important;
+  border-radius:9999px !important;
+  display:grid !important;
+  place-items:center !important;
+  background:rgba(23,10,32,.88) !important;
+  border:1px solid rgba(247,179,43,.45) !important;
+  color:#fbf3e2 !important;
+  box-shadow:0 8px 24px rgba(0,0,0,.45), 0 0 0 1px rgba(247,179,43,.15) inset !important;
+  pointer-events:auto !important;
+  transition:all .22s cubic-bezier(.2,.8,.2,1) !important;
+  backdrop-filter:blur(8px) !important;
+}
+#alookhor-pdp .slider-control:hover{
+  background:#f7b32b !important;
+  border-color:#f7b32b !important;
+  color:#170a20 !important;
+  transform:translateY(-50%) scale(1.08) !important;
+  box-shadow:0 10px 28px rgba(0,0,0,.55), 0 0 18px rgba(247,179,43,.45) !important;
+}
+#alookhor-pdp .slider-control:active{
+  transform:translateY(-50%) scale(.96) !important;
+}
+#alookhor-pdp .slider-control svg{
+  width:16px !important;
+  height:16px !important;
+  display:block !important;
+}
+/* Right arrow (prev in RTL) */
+#alookhor-pdp .slider-control-prev,
+#alookhor-pdp [data-hprev],
+#alookhor-pdp [data-pprev],
+#alookhor-pdp [data-rprev]{
+  right:6px !important;
+  left:auto !important;
+}
+/* Left arrow (next in RTL) */
+#alookhor-pdp .slider-control-next,
+#alookhor-pdp [data-hnext],
+#alookhor-pdp [data-pnext],
+#alookhor-pdp [data-rnext]{
+  left:6px !important;
+  right:auto !important;
+}
+/* Ensure tracks don't cause horizontal scroll */
+#alookhor-pdp .highlight-track,
+#alookhor-pdp .products-track,
+#alookhor-pdp .reviews-track{
+  overflow-x:auto !important;
+  overflow-y:hidden !important;
+  scrollbar-width:none !important;
+  -ms-overflow-style:none !important;
+  scroll-behavior:smooth !important;
+}
+#alookhor-pdp .highlight-track::-webkit-scrollbar,
+#alookhor-pdp .products-track::-webkit-scrollbar,
+#alookhor-pdp .reviews-track::-webkit-scrollbar{
+  display:none !important;
+}
+
+/* 3. سوالات متداول — پس‌زمینه سفید فیکس، کنتراست، آیکون قابل مشاهده */
+#alookhor-pdp .faq-section{
+  background:transparent !important;
+}
+#alookhor-pdp .faq-list{
+  display:grid !important;
+  grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+  gap:12px !important;
+}
+#alookhor-pdp .faq-item{
+  background:rgba(34,17,44,.72) !important;
+  border:1px solid rgba(255,255,255,.09) !important;
+  border-radius:14px !important;
+  overflow:hidden !important;
+  transition:all .22s ease !important;
+}
+#alookhor-pdp .faq-item:hover{
+  border-color:rgba(247,179,43,.28) !important;
+  background:rgba(47,26,63,.82) !important;
+}
+#alookhor-pdp .faq-item.is-open{
+  background:rgba(47,26,63,.92) !important;
+  border-color:rgba(247,179,43,.38) !important;
+  box-shadow:0 8px 24px rgba(0,0,0,.35) !important;
+}
+#alookhor-pdp .faq-item > button{
+  width:100% !important;
+  color:#fbf3e2 !important;
+  background:transparent !important;
+  text-align:right !important;
+  font-size:13.5px !important;
+  font-weight:800 !important;
+  line-height:1.8 !important;
+  padding:16px 18px !important;
+  display:flex !important;
+  justify-content:space-between !important;
+  align-items:center !important;
+  gap:12px !important;
+}
+#alookhor-pdp .faq-item > button span:first-child{
+  color:#fbf3e2 !important;
+  font-weight:800 !important;
+}
+#alookhor-pdp .faq-answer{
+  background:transparent !important;
+}
+#alookhor-pdp .faq-answer p{
+  color:#c7b3da !important;
+  font-size:13px !important;
+  line-height:2.05 !important;
+  padding:0 18px 16px !important;
+  text-align:right !important;
+}
+#alookhor-pdp .faq-icon{
+  width:28px !important;
+  height:28px !important;
+  min-width:28px !important;
+  min-height:28px !important;
+  border-radius:9999px !important;
+  display:grid !important;
+  place-items:center !important;
+  background:rgba(247,179,43,.15) !important;
+  border:1px solid rgba(247,179,43,.30) !important;
+  color:#f7b32b !important;
+  flex-shrink:0 !important;
+}
+#alookhor-pdp .faq-icon svg{
+  width:14px !important;
+  height:14px !important;
+}
+#alookhor-pdp .faq-item.is-open .faq-icon{
+  background:#f7b32b !important;
+  color:#170a20 !important;
+  border-color:#f7b32b !important;
+}
+/* Remove any green accidentally applied */
+#alookhor-pdp .faq-item *,
+#alookhor-pdp .faq-item h3,
+#alookhor-pdp .faq-item h4{
+  color:#fbf3e2 !important;
+}
+#alookhor-pdp .faq-item .faq-answer *,
+#alookhor-pdp .faq-item .faq-answer p{
+  color:#c7b3da !important;
+}
+
+/* 4. روش مصرف — آیکون‌ها بیش از حد بزرگ، استاندارد کن */
+#alookhor-pdp .usage-grid{
+  display:grid !important;
+  grid-template-columns:repeat(2,1fr) !important;
+  gap:16px !important;
+}
+#alookhor-pdp .usage-card{
+  display:flex !important;
+  flex-direction:column !important;
+  align-items:flex-start !important;
+  gap:0 !important;
+  padding:20px !important;
+  border-radius:16px !important;
+  border:1px solid rgba(255,255,255,.08) !important;
+  background:rgba(34,17,44,.60) !important;
+  min-height:160px !important;
+}
+#alookhor-pdp .usage-card > span:first-child{
+  display:grid !important;
+  place-items:center !important;
+  width:48px !important;
+  height:48px !important;
+  min-width:48px !important;
+  min-height:48px !important;
+  max-width:48px !important;
+  max-height:48px !important;
+  border-radius:12px !important;
+  background:rgba(247,179,43,.12) !important;
+  border:1px solid rgba(247,179,43,.22) !important;
+  color:#f7b32b !important;
+  flex-shrink:0 !important;
+  overflow:hidden !important;
+}
+#alookhor-pdp .usage-card > span:first-child svg{
+  width:24px !important;
+  height:24px !important;
+  min-width:24px !important;
+  min-height:24px !important;
+  max-width:24px !important;
+  max-height:24px !important;
+  display:block !important;
+}
+#alookhor-pdp .usage-card h3{
+  margin:14px 0 8px !important;
+  color:#fbf3e2 !important;
+  font-size:15px !important;
+  font-weight:900 !important;
+  line-height:1.6 !important;
+}
+#alookhor-pdp .usage-card p{
+  margin:0 !important;
+  color:#c7b3da !important;
+  font-size:13px !important;
+  line-height:2 !important;
+  text-align:right !important;
+}
+
+/* Responsive — Desktop/Mobile separate, no break */
+@media(max-width:1024px){
+  #alookhor-pdp .about-story{
+    grid-template-columns:1fr !important;
+    gap:20px !important;
+  }
+  #alookhor-pdp .faq-list{
+    grid-template-columns:1fr !important;
+  }
+  #alookhor-pdp .usage-grid{
+    grid-template-columns:1fr !important;
+  }
+}
+@media(max-width:640px){
+  #alookhor-pdp .slider-shell{
+    padding-inline:36px !important;
+  }
+  #alookhor-pdp .slider-control{
+    width:30px !important;
+    height:30px !important;
+    min-width:30px !important;
+    min-height:30px !important;
+  }
+  #alookhor-pdp .slider-control svg{
+    width:14px !important;
+    height:14px !important;
+  }
+  #alookhor-pdp .slider-control-prev{right:2px !important}
+  #alookhor-pdp .slider-control-next{left:2px !important}
+  #alookhor-pdp .desc-long-content p{
+    font-size:13px !important;
+    line-height:2.05 !important;
+  }
+  #alookhor-pdp .desc-long-content h1,
+  #alookhor-pdp .desc-long-content h2,
+  #alookhor-pdp .desc-long-content h3{
+    font-size:14.5px !important;
+  }
+  #alookhor-pdp .usage-card{
+    min-height:140px !important;
+    padding:16px !important;
+  }
+  #alookhor-pdp .usage-card > span:first-child{
+    width:44px !important;
+    height:44px !important;
+    min-width:44px !important;
+    min-height:44px !important;
+    max-width:44px !important;
+    max-height:44px !important;
+  }
+  #alookhor-pdp .usage-card > span:first-child svg{
+    width:22px !important;
+    height:22px !important;
+  }
+  #alookhor-pdp .faq-item > button{
+    font-size:12.5px !important;
+    padding:14px 14px !important;
+  }
+}

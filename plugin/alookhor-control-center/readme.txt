@@ -4,7 +4,7 @@ Tags: control center, luxury, alookhor, admin, dashboard
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 3.10.249
+Stable tag: 3.10.250
 License: Private
 License URI: https://alookhor.ir
 
@@ -47,10 +47,10 @@ License URI: https://alookhor.ir
 
 == Changelog ==
 
-= 3.10.249 =
+= 3.10.250 =
 * Fix slider title visibility: عنوان گزیده‌ای از بهترین آلو بخارایی در اسکرین‌شات image-1.png تیره و نامرئی بود — حالا #fbf3e2 کرم روشن + #f7b32b طلایی با !important + opacity:1 visibility:visible
 * Ensure tab content visible: کاربر گفت چرا توضیحات و نظرات و.. حذف شد و چیزی مشاهده نمیکنم — تب‌ها محتوا را hide/show می‌کنند per درخواست، اما تضمین شد .pdp-pane .below-section display:block + sliders خارج تب‌ها همیشه visible — محتوا حذف نشده، داخل تب‌هاست
-* CSS v3.10.249 MOCKUP PDP — فیکس رنگ عناوین اسلایدر، highlight-card کرم/لاوندری visible، تضمین نمایش tab panes — حفظ تب‌ها و مشاهده بیشتر 3.10.247 + تک فوتر و وسط‌چین 3.10.246
+* CSS v3.10.250 MOCKUP PDP — فیکس رنگ عناوین اسلایدر، highlight-card کرم/لاوندری visible، تضمین نمایش tab panes — حفظ تب‌ها و مشاهده بیشتر 3.10.247 + تک فوتر و وسط‌چین 3.10.246
 
 
 
