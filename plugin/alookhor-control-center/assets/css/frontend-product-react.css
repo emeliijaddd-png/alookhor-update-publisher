@@ -34,3 +34,8 @@
 #alookhor-pdp .about-story{direction:ltr!important;grid-template-columns:1fr 340px!important}
 #alookhor-pdp .about-story-copy{direction:rtl!important;order:1!important}
 #alookhor-pdp .about-story-media{order:2!important}
+
+/* v3.10.259 PRICE BOX PER 204335 */
+#alookhor-pdp .weight-option{min-height:44px!important}
+#alookhor-pdp .weight-options{grid-template-columns:repeat(3,1fr)!important}
+#alookhor-pdp .add-button{width:100%!important;max-width:100%!important}

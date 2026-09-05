@@ -1,5 +1,5 @@
 <?php
-/** ALOOKHOR PDP v3.10.258 exact per 3 ref images - price box pink 51% old crossed new gold 9k, weight chip 1kg 400k gold border, about orchard per image-2, suggested per image-3 4 cards 489k */
+/** ALOOKHOR PDP v3.10.259 exact per 3 ref images - price box pink 51% old crossed new gold 9k, weight chip 1kg 400k gold border, about orchard per image-2, suggested per image-3 4 cards 489k */
 if(!defined('ABSPATH'))exit;
 
 if(!function_exists('alookhor_cc_pdp_icon')){
@@ -391,16 +391,16 @@ function alookhor_cc_pdp_markup(){
         <div class="weight-options grid grid-cols-3 gap-2" role="radiogroup" aria-label="انتخاب وزن">
           <?php foreach($d['options'] as $oi=>$o):
             $clean_label = $o['label'];
-            // Normalize KG-3 style to Persian if needed, but keep original if it already contains کیلو
+            // Normalize KG-3 style to Persian if needed, but keep original if it already contains کیلو/گرم
             if(preg_match('/KG[-\s]*(\d+)/i',$clean_label,$m)){
               $num = $m[1];
               $clean_label = $faNum($num).' کیلوگرم';
             }
+            // Per new ref Screenshot 204335: weight chips show ONLY weight, no price
             $price_chip = $o['price_clean'] ?: $price_now_html;
             $regular_chip = $o['regular_clean'] ?? '';
-          ?><button type="button" role="radio" aria-checked="<?php echo $oi===0?'true':'false';?>" class="weight-option flex flex-col items-center justify-center gap-1 rounded-xl border px-2 py-2.5 text-center transition <?php echo $oi===0?'border-gold-400 bg-gold-400/10 text-gold-300 shadow-[0_0_0_3px_rgba(247,179,43,0.15)]':'border-white/10 bg-plum-950/60 text-lav hover:border-white/25 hover:text-cream';?>" data-vid="<?php echo esc_attr($o['id']);?>" data-price="<?php echo esc_attr($price_chip);?>" data-regular="<?php echo esc_attr($regular_chip);?>">
+          ?><button type="button" role="radio" aria-checked="<?php echo $oi===0?'true':'false';?>" class="weight-option flex items-center justify-center rounded-xl border px-3 py-3 text-center transition <?php echo $oi===0?'border-gold-400 bg-gold-400/10 text-gold-300 shadow-[0_0_0_3px_rgba(247,179,43,0.15)]':'border-white/10 bg-plum-950/60 text-lav hover:border-white/25 hover:text-cream';?>" data-vid="<?php echo esc_attr($o['id']);?>" data-price="<?php echo esc_attr($price_chip);?>" data-regular="<?php echo esc_attr($regular_chip);?>">
             <span class="weight-option__kg text-[12px] font-black leading-tight"><?php echo esc_html($clean_label);?></span>
-            <span class="weight-option__price text-[11px] font-bold leading-tight <?php echo $oi===0?'text-gold-300':'text-gold-400';?>"><?php echo $price_chip; ?></span>
           </button><?php endforeach;?>
         </div>
       </div>

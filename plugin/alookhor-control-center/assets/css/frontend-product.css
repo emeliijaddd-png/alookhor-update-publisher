@@ -2955,3 +2955,64 @@ html{overflow-x:hidden !important}
   #alookhor-pdp .about-story-copy{order:1!important}
   #alookhor-pdp .about-story-media{order:2!important}
 }
+
+/* ===== v3.10.259 — PRICE BOX EXACT PER SCREENSHOT 204335 — MOCKUP PDP ===== */
+#alookhor-pdp .price-box{
+  background:rgba(23,10,32,.70)!important;
+  border:1px solid rgba(255,255,255,.08)!important;
+  border-radius:16px!important;
+  padding:14px 16px!important;
+}
+#alookhor-pdp .price-box .flex.justify-between{margin-bottom:8px!important}
+#alookhor-pdp .weight-picker .text-xs.font-bold{margin-bottom:10px!important;color:#c7b3da!important}
+#alookhor-pdp .weight-options{
+  display:grid!important;
+  grid-template-columns:repeat(3,1fr)!important;
+  gap:8px!important;
+  margin-bottom:16px!important;
+}
+#alookhor-pdp .weight-option{
+  min-height:44px!important;
+  border-radius:12px!important;
+  background:rgba(22,10,32,.60)!important;
+  border:1px solid rgba(255,255,255,.10)!important;
+  font-size:12px!important;
+}
+#alookhor-pdp .weight-option.border-gold-400{
+  border-color:#f7b32b!important;
+  background:rgba(247,179,43,.12)!important;
+  box-shadow:0 0 0 2px rgba(247,179,43,.20)!important;
+  color:#ffd37a!important;
+}
+#alookhor-pdp .quantity-row{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  margin-bottom:12px!important;
+}
+#alookhor-pdp .quantity-control{
+  background:rgba(22,10,32,.70)!important;
+  border:1px solid rgba(255,255,255,.10)!important;
+  border-radius:9999px!important;
+  padding:4px!important;
+}
+#alookhor-pdp .add-button{
+  width:100%!important;
+  max-width:100%!important;
+  height:48px!important;
+  border-radius:12px!important;
+  background:linear-gradient(135deg,#f7b32b,#ef9f1f)!important;
+  color:#1a0a24!important;
+  font-size:14px!important;
+  font-weight:900!important;
+  box-shadow:0 8px 24px rgba(247,179,43,.35)!important;
+}
+#alookhor-pdp .price-box .line-through{
+  font-size:11px!important;
+  color:rgba(199,179,218,.50)!important;
+  margin-left:8px!important;
+}
+#alookhor-pdp .alp-price-now{
+  font-size:22px!important;
+  color:#f7b32b!important;
+}
