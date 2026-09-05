@@ -1,31 +1,31 @@
 {
-  "version": "3.10.248",
-  "previous": "3.10.247",
+  "version": "3.10.249",
+  "previous": "3.10.248",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "فیکس نمایش عناوین اسلایدر و تضمین نمایش محتوا تب‌ها — عناوین گزیده‌ای از بهترین آلو بخارایی که تیره بود حالا کرم روشن، تب‌ها محتوا واقعی",
+  "description": "فیکس ریشه‌ای عدم نمایش محتوا — باگ HTML و CSS تب‌ها که باعث مخفی شدن بخش توضیحات و... شده بود",
   "changelog": [
     {
       "tag": "FIX",
-      "title": "نمایش عناوین اسلایدر تیره روی پس‌زمینه تیره",
-      "desc": "در اسکرین‌شات کاربر image-1.png عنوان گزیده‌ای از بهترین آلو بخارایی تیره و نامرئی بود — با CSS v3.10.248 عناوین به #fbf3e2 کرم روشن + #f7b32b طلایی با !important و opacity:1 visibility:visible تضمین شد"
+      "title": "باگ HTML تکراری below-product",
+      "desc": "در product-page.php خط <div class=\"below-product\"<div class=\"below-product\" دو بار باز شده بود بدون بستن > — باعث شکستن DOM و عدم رندر بخش تب‌ها در مرورگر کاربر — فیکس شد به یک div تمیز"
     },
     {
-      "tag": "TWEAK",
-      "title": "تضمین نمایش محتوای تب‌ها",
-      "desc": "کاربر گزارش چیزی مشاهده نمی‌کنم — بررسی: تب‌ها محتوا را hide/show می‌کنند، اما CSS display:none !important ممکن است همه را مخفی کند — اضافه شد .pdp-pane .below-section display:block !important opacity:1 visibility:visible + sliders خارج تب‌ها همیشه visible"
+      "tag": "FIX",
+      "title": "تب‌ها توسط CSS قدیمی مخفی شده بود",
+      "desc": "قانون body.alookhor-pdp-body .product-tabs-wrapper{display:none!important} برای مخفی کردن تب‌های پیش‌فرض ووکامرس/وودمارت بود اما چون نام کلاس تب‌های سفارشی ما هم product-tabs-wrapper بود، تب‌های ما را هم مخفی کرد — با #alookhor-pdp .product-tabs-wrapper{display:block!important visibility:visible opacity:1 z-index:2} اورراید شد"
     },
     {
       "tag": "STYLE",
-      "title": "CSS v3.10.248 MOCKUP PDP",
-      "desc": "بلوک جدید با فیکس رنگ عناوین اسلایدر، highlight-card کرم/لاوندری visible، تضمین نمایش tab panes و below-section — شامل MOCKUP PDP برای CI، حفظ تب‌ها و مشاهده بیشتر 3.10.247"
+      "title": "CSS v3.10.249 MOCKUP PDP",
+      "desc": "تضمین نمایش below-product + product-tabs-wrapper + nav + panes با !important + desc pane پیش‌فرض visible + no-js fallback — حفظ فیکس عناوین اسلایدر 3.10.248 + تب‌ها و مشاهده بیشتر 3.10.247 + تک فوتر و وسط‌چین 3.10.246 — شامل MOCKUP PDP برای CI"
     }
   ],
   "project": "ALOOKHOR",
-  "area": "Product Page PDP - Slider Visibility & Tabs",
-  "reason": "گزارش کاربر: چرا چیزی مشاهده نمی‌کنم؟ + اسکرین‌شات اسلایدر با عنوان نامرئی تیره — فیکس رنگ + تضمین نمایش تب‌ها",
+  "area": "Product Page PDP - Critical HTML+CSS Fix",
+  "reason": "کاربر گزارش بازم چیزی نیامد با اسکرین‌شات بدون تب‌ها — علت ریشه‌ای HTML تکراری + CSS مخفی‌کننده تب‌ها — فیکس فوری",
   "files": [
     "docs/MASTER_DESIGN_DIRECTIVE.md",
     "plugin/alookhor-control-center/CHANGELOG.md",

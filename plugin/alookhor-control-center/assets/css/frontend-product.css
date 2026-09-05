@@ -2127,3 +2127,42 @@ html{overflow-x:hidden !important}
   opacity:1 !important;
   visibility:visible !important;
 }
+
+/* ===== v3.10.249 — FIX BROKEN HTML BELOW-PRODUCT + TABS WRAPPER HIDDEN BY BODY RULE — MOCKUP PDP ===== */
+/* Root cause: body.alookhor-pdp-body .product-tabs-wrapper{display:none!important} hid our custom tabs because we reused same class.
+   Also product-page.php had duplicated <div class="below-product" <div class="below-product" breaking HTML — fixed in PHP.
+   Now override to ensure custom tabs visible. */
+#alookhor-pdp .below-product{
+  display:block !important;
+  visibility:visible !important;
+  opacity:1 !important;
+}
+#alookhor-pdp .product-tabs-wrapper{
+  display:block !important;
+  visibility:visible !important;
+  opacity:1 !important;
+  margin:0 0 32px !important;
+  position:relative !important;
+  z-index:2 !important;
+}
+#alookhor-pdp .product-tabs-nav{
+  display:flex !important;
+  visibility:visible !important;
+  opacity:1 !important;
+}
+#alookhor-pdp .product-tabs-panes{
+  display:block !important;
+  visibility:visible !important;
+  opacity:1 !important;
+}
+/* Ensure at least desc pane visible by default */
+#alookhor-pdp .pdp-pane[data-pdp-pane="desc"]{
+  display:block !important;
+}
+#alookhor-pdp .pdp-pane[data-pdp-pane="desc"].is-active{
+  display:block !important;
+}
+/* If JS fails, show all panes stacked */
+#alookhor-pdp.no-js .pdp-pane{
+  display:block !important;
+}

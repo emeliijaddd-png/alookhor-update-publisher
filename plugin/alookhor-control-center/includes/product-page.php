@@ -323,7 +323,7 @@ function alookhor_cc_pdp_markup(){
   </div>
  </main>
 
- <div class="below-product mx-auto max-w-[1440px] px-4 lg:px-8"<div class="below-product mx-auto max-w-[1440px] px-4 lg:px-8">
+ <div class="below-product mx-auto max-w-[1440px] px-4 lg:px-8">
   <!-- ===== TABS NAV per screenshot: توضیحات محصول | مشخصات فنی | روش مصرف | نظرات (۱۳۳) | سوالات متداول ===== -->
   <div class="product-tabs-wrapper" data-pdp-tabs>
     <div class="product-tabs-nav" role="tablist" aria-label="بخش‌های محصول">
