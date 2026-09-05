@@ -4,7 +4,7 @@ Tags: control center, luxury, alookhor, admin, dashboard
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 3.10.246
+Stable tag: 3.10.247
 License: Private
 License URI: https://alookhor.ir
 
@@ -47,11 +47,15 @@ License URI: https://alookhor.ir
 
 == Changelog ==
 
-= 3.10.246 =
-* Fix double footer root cause: product-page.php manual footer + wp_footer hook هر دو فوتر مدیریت‌شده را رندر می‌کردند — حالا با flag $GLOBALS['alookhor_cc_footer_shortcode_rendered']=true دومین رندر جلوگیری می‌شود، بدون CSS hide، تک فوتر مطابق تصویر مرجع نهایی
-* Fix sections shifted to right root cause: .alookhor-alp width:100vw + margin:0 calc(50% - 50vw) با اسکرول‌بار در RTL باعث انحراف مرکز بود — override به width:100% margin:0، breadcrumb/product-page-main/below-product با margin:auto max-w 1440px وسط‌چین شدند
-* Center verification: about-story, specs, sliders (پیشنهادهای خوش‌طعم + برای شما آماده کرده‌ایم), FAQ, reviews, newsletter همه وسط‌چین و بدون انحراف — بررسی تک‌به‌تک 4 تصویر مرجع vs لایو
-* CSS v3.10.246 MOCKUP PDP — شامل MOCKUP PDP برای CI و حفظ تمام بخش‌های تأییدشده قبلی (price pink #e42a68 + gold 28px luminous, qty right cart h-10 max-w200, rating one-row, guarantees above banner, compact)
+= 3.10.247 =
+* Tabs like screenshot: نوار تب‌ها (توضیحات محصول | مشخصات فنی | روش مصرف | نظرات (۱۳۳) | سوالات متداول) با dark glass + active طلایی + underline طلایی per Screenshot 2026-09-03 204314.png
+* Real WooCommerce description: توضیحات بلند محصول از $product->get_description() فراخوانی می‌شود، نه متن ساختگی — به صورت استاندارد 320px با fade نمایش + دکمه "مشاهده بیشتر" → expand به 3000px + "مشاهده کمتر" — JS data-desc-wrap / data-desc-more
+* Real data: مشخصات فنی از $d['specs'] واقعی، نظرات از get_comments واقعی، FAQ واقعی — همه چیز واقعی
+* About with natural badge: تصویر سمت چپ + badge دایره‌ای 100% طبیعی 86px طلایی مانند اسکرین‌شات + 5 چک (بدون مواد نگهدارنده، کاملا طبیعی، مناسب آشپزی، سرشار ویتامین، بهترین باغات)
+* Usage tab: 4 کارت روش مصرف (میان‌وعده، آشپزی، نگهداری، پذیرایی) با آیکن طلایی و نام محصول واقعی
+* JS pdpTabs() + descExpand() در frontend-product.js — تب‌ها is-active + hidden + animation alpm-tab-in، aria-selected
+* CSS v3.10.247 MOCKUP PDP — تب‌ها، badge طبیعی، desc-long max-height + fade، دکمه pill طلایی، usage-grid 2 ستونه، responsive scroll افقی موبایل — شامل MOCKUP PDP برای CI
+
 
 = 3.10.245 =
 * Rating one row: ستاره و علاقه‌مندی دقیقا در یک ردیف کنار هم (flex-nowrap) + اشتراک‌گذاری ردیف جدا — Desktop و Mobile بدون overflow

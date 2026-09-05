@@ -1,36 +1,36 @@
 {
-  "version": "3.10.246",
-  "previous": "3.10.245",
+  "version": "3.10.247",
+  "previous": "3.10.246",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "رفع دو فوتر و انحراف راست: علت دو فوتر manual+wp_footer هوک، مرکز نشدن width 100vw + calc scrollbar در RTL — اصلاح ریشه‌ای بدون CSS hide و margin hack، تک فوتر و وسط‌چین مطابق 4 تصویر مرجع نهایی",
+  "description": "تب‌بندی توضیحات محصول مانند اسکرین‌شات: توضیحات/مشخصات/روش مصرف/نظرات/سوالات در یک بخش با کلیک، توضیحات بلند واقعی ووکامرس با مشاهده بیشتر/کمتر",
   "changelog": [
     {
-      "tag": "FIX",
-      "title": "رفع دو فوتر - علت ریشه‌ای",
-      "desc": "بررسی Woodmart/Elementor/Template/Display Conditions/Builder conflict — علت: product-page.php دستی footer را رندر + wp_footer هوک دومین فوتر — با flag GLOBALS['alookhor_cc_footer_shortcode_rendered']=true دومین رندر متوقف شد، بدون display:none، تک فوتر per تصویر مرجع نهایی"
+      "tag": "NEW",
+      "title": "تب‌بندی توضیحات محصول مانند اسکرین‌شات",
+      "desc": "نوار تب‌ها: توضیحات محصول | مشخصات فنی | روش مصرف | نظرات (۱۳۳) | سوالات متداول — dark glass + active طلایی + underline طلایی per Screenshot 2026-09-03 204314.png — کلیک روی هر تب توهمون بخش باز می‌شود"
     },
     {
-      "tag": "FIX",
-      "title": "رفع انحراف بخش‌ها به راست - علت ریشه‌ای",
-      "desc": "بررسی container width/max-width/Elementor Boxed-Full/margin/padding/RTL/flex/grid/justify/custom CSS/Woodmart/plugin/nested DOM/responsive — علت: .alookhor-alp width 100vw + margin calc(50%-50vw) با scrollbar در RTL مرکز را به راست می‌برد — override به width 100% margin 0 و margin:auto max-w 1440px وسط‌چین"
+      "tag": "UPDATE",
+      "title": "توضیحات بلند واقعی ووکامرس + مشاهده بیشتر",
+      "desc": "درباره آلو بخارایی الوخور با تصویر + badge 100% طبیعی دایره‌ای طلایی 86px مانند اسکرین‌شات + توضیحات اصلی از $product->get_description() واقعی فراخوانی می‌شود، به صورت استاندارد 320px با fade + دکمه مشاهده بیشتر → expand 3000px + مشاهده کمتر — JS data-desc-wrap"
     },
     {
       "tag": "TWEAK",
-      "title": "مقایسه تک‌به‌تک 4 تصویر مرجع vs لایو",
-      "desc": "image-1 درباره ما، image-2 اسلایدرها پیشنهادهای خوش‌طعم + برای شما آماده کرده‌ایم، image-3 FAQ + نظرات، ChatGPT Image Sep 2 نهایی full-page — همه وسط‌چین، تک فوتر، فاصله و عرض محتوا مطابق مرجع"
+      "title": "همه چیز واقعی + روش مصرف",
+      "desc": "مشخصات فنی از $d['specs'] واقعی، نظرات از get_comments واقعی، FAQ واقعی — روش مصرف 4 کارت (میان‌وعده، آشپزی، نگهداری، پذیرایی) با نام محصول واقعی"
     },
     {
       "tag": "STYLE",
-      "title": "CSS v3.10.246 MOCKUP PDP",
-      "desc": "بلوک جدید با fix width 100% + margin 0 برای .alookhor-alp، breadcrumb/product-page-main/below-product وسط‌چین max-w 1440px، about/specs/slider/FAQ/reviews/newsletter centered، overflow-x hidden، حفظ price pink #e42a68 + gold 28px luminous + qty right cart h-10 max-w200 — شامل MOCKUP PDP برای CI"
+      "title": "CSS v3.10.247 MOCKUP PDP + JS tabs",
+      "desc": "بلوک جدید: تب‌ها dark glass، badge طبیعی دایره‌ای، desc-long max-height + gradient fade، دکمه pill طلایی، usage-grid 2 ستونه، pdpTabs() + descExpand() با is-active/hidden/animation — شامل MOCKUP PDP برای CI، حفظ تک فوتر و وسط‌چین 3.10.246"
     }
   ],
   "project": "ALOOKHOR",
-  "area": "Product Page PDP - Footer & Centering",
-  "reason": "دستور مالک 2026-09-03: دو فوتر باید ریشه‌یابی و حذف شود، بخش‌ها به راست رفته باید ریشه‌یابی و وسط‌چین شود، مقایسه تک‌به‌تک 4 تصویر مرجع vs لایو، بدون شکستن بخش‌های تأییدشده قبلی، تست Live قبل از تحویل",
+  "area": "Product Page PDP - Tabs & Long Description",
+  "reason": "دستور مالک Screenshot 2026-09-03: توضیحات و مشخصات و نظرات به صورت تب مانند اسکرین‌شات قرار گیرد، روی هر تب توهمون بخش باز شود، توضیحات بلند با مشاهده بیشتر کامل شود، همه چیز واقعی از ووکامرس",
   "files": [
     "docs/MASTER_DESIGN_DIRECTIVE.md",
     "plugin/alookhor-control-center/CHANGELOG.md",

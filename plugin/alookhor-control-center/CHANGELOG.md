@@ -1,3 +1,11 @@
+## 3.10.247 — TABS LIKE SCREENSHOT + LONG DESC EXPAND WITH REAL WOOCOMMERCE DATA
+- NEW: تب‌بندی مانند اسکرین‌شات کاربر: نوار تب‌ها (توضیحات محصول | مشخصات فنی | روش مصرف | نظرات (۱۳۳) | سوالات متداول) با استایل dark glass + active طلایی + underline طلایی per screenshot Screenshot 2026-09-03 204314.png
+- DESC TAB: درباره آلو بخارایی الوخور با تصویر سمت چپ + badge 100% طبیعی دایره‌ای طلایی (مانند اسکرین‌شات) + توضیحات واقعی ووکامرس از $product->get_description() فراخوانی می‌شود، نه متن ساختگی. اگر توضیحات بلند باشد به صورت استاندارد 320px نمایش + fade + دکمه "مشاهده بیشتر" → با کلیک expand به 3000px و تغییر متن به "مشاهده کمتر" — JS data-desc-wrap / data-desc-more
+- REAL DATA: همه چیز واقعی — توضیحات از WooCommerce، مشخصات فنی از $d['specs'] (نوع محصول، منطقه تولید، بسته‌بندی، وزن، نگهداری، ماندگاری، کشور)، نظرات از get_comments واقعی با fallback mock فقط اگر کامنت واقعی نباشد، FAQ از $d['faqs']
+- USAGE TAB: روش مصرف جدید — 4 کارت (میان‌وعده سالم، در آشپزی و دسر، نگهداری، پذیرایی مجلسی) با آیکن طلایی و متن مرتبط با نام محصول واقعی
+- TABS JS: pdpTabs() در frontend-product.js — کلیک روی تب → pane مربوطه is-active + hidden مدیریت، animation alpm-tab-in .28s، aria-selected
+- CSS v3.10.247 MOCKUP PDP — شامل استایل تب‌ها، about-story با badge دایره‌ای 86px طلایی، desc-long-content max-height + gradient fade، دکمه مشاهده بیشتر pill طلایی، usage-grid 2 ستونه، responsive: تب‌ها scroll افقی در موبایل، about-story تک ستونه <1024px — شامل MOCKUP PDP برای CI
+
 
 ## 3.10.246 — FIX DOUBLE FOOTER ROOT CAUSE + CENTER SECTIONS PER 4 REF IMAGES
 - ROOT CAUSE DOUBLE FOOTER: investigated footer origins — Woodmart footer, Elementor template, Theme Builder display conditions, builder conflict, footer added inside page. Found: product-page.php template_redirect manually echoed alookhor_cc_footer_markup() then called wp_footer() which triggers alookhor_cc_render_managed_footer hooked to wp_footer/get_footer, both rendering managed footer → double footer. FIX: after manual echo set $GLOBALS['alookhor_cc_footer_shortcode_rendered']=true so second render skips. No CSS display:none hide — proper root cause removal, single footer exactly per final full-page reference ChatGPT Image Sep 2 2026 01_55_08 PM.png.

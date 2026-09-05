@@ -1912,3 +1912,172 @@ html{overflow-x:hidden !important}
 /* Preserve approved sections: header, price pink pill #e42a68 centered gold 28px luminous, qty right cart h-10 max-w200, rating one-row, guarantees above banner, compact gap-4 */
 #alookhor-pdp .price-box .rounded-full.bg-\[\#e42a68\]{background:#e42a68 !important}
 #alookhor-pdp .price-box .alp-price-now{color:#f7b32b !important;font-size:28px !important}
+
+/* ===== v3.10.247 — TABS LIKE SCREENSHOT + LONG DESC EXPAND — MOCKUP PDP ===== */
+/* Tab nav: dark glass bar, gold active underline per screenshot */
+#alookhor-pdp .product-tabs-wrapper{margin:0 0 32px !important}
+#alookhor-pdp .product-tabs-nav{
+  display:flex !important;
+  flex-wrap:wrap !important;
+  align-items:center !important;
+  gap:6px !important;
+  padding:8px !important;
+  border-radius:16px !important;
+  border:1px solid rgba(255,255,255,.08) !important;
+  background:rgba(34,17,44,.60) !important;
+  backdrop-filter:blur(12px) !important;
+  box-shadow:0 12px 32px -12px rgba(0,0,0,.7) !important;
+  margin-bottom:20px !important;
+}
+#alookhor-pdp .pdp-tab{
+  position:relative !important;
+  display:inline-flex !important;
+  align-items:center !important;
+  gap:6px !important;
+  padding:10px 18px !important;
+  border-radius:12px !important;
+  border:1px solid transparent !important;
+  background:transparent !important;
+  color:#c7b3da !important;
+  font-size:13px !important;
+  font-weight:700 !important;
+  cursor:pointer !important;
+  transition:all .22s ease !important;
+  white-space:nowrap !important;
+}
+#alookhor-pdp .pdp-tab small{
+  font-size:11px !important;
+  color:#a99bc0 !important;
+  font-weight:700 !important;
+}
+#alookhor-pdp .pdp-tab:hover{
+  background:rgba(255,255,255,.06) !important;
+  color:#fbf3e2 !important;
+  border-color:rgba(255,255,255,.10) !important;
+}
+#alookhor-pdp .pdp-tab.is-active{
+  background:rgba(247,179,43,.12) !important;
+  border-color:rgba(247,179,43,.35) !important;
+  color:#f7b32b !important;
+  box-shadow:0 0 0 2px rgba(247,179,43,.12) !important;
+}
+#alookhor-pdp .pdp-tab.is-active::after{
+  content:"" !important;
+  position:absolute !important;
+  bottom:-2px !important;
+  right:12px !important;
+  left:12px !important;
+  height:2px !important;
+  border-radius:2px !important;
+  background:linear-gradient(90deg,#f7b32b,#ef9f1f) !important;
+}
+#alookhor-pdp .product-tabs-panes{position:relative !important}
+#alookhor-pdp .pdp-pane{display:none !important;animation:alpm-tab-in .28s ease both !important}
+#alookhor-pdp .pdp-pane.is-active{display:block !important}
+@keyframes alpm-tab-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* About story with natural badge like screenshot */
+#alookhor-pdp .about-story{
+  display:grid !important;
+  grid-template-columns:1fr 1.1fr !important;
+  gap:24px !important;
+  align-items:start !important;
+  padding:20px !important;
+  border-radius:24px !important;
+  border:1px solid rgba(255,255,255,.08) !important;
+  background:linear-gradient(135deg,rgba(47,26,63,.72),rgba(34,17,44,.60)) !important;
+  backdrop-filter:blur(12px) !important;
+  box-shadow:0 24px 60px -20px rgba(0,0,0,.8) !important;
+}
+#alookhor-pdp .about-story-media{position:relative !important;border-radius:20px !important;overflow:hidden !important;border:1px solid rgba(255,255,255,.10) !important}
+#alookhor-pdp .about-story-media img{width:100% !important;height:100% !important;object-fit:cover !important;display:block !important;min-height:340px !important}
+#alookhor-pdp .about-natural-badge{
+  position:absolute !important;
+  top:16px !important;
+  right:16px !important;
+  display:flex !important;
+  flex-direction:column !important;
+  align-items:center !important;
+  justify-content:center !important;
+  width:86px !important;
+  height:86px !important;
+  border-radius:50% !important;
+  background:linear-gradient(135deg,#1a0a24 0%,#2f1a3f 100%) !important;
+  border:2px solid #f7b32b !important;
+  box-shadow:0 8px 24px rgba(0,0,0,.6),0 0 0 4px rgba(247,179,43,.15) !important;
+  color:#f7b32b !important;
+  font-weight:900 !important;
+  z-index:3 !important;
+}
+#alookhor-pdp .about-natural-badge span{font-size:22px !important;line-height:1 !important}
+#alookhor-pdp .about-natural-badge small{font-size:11px !important;font-weight:800 !important;margin-top:2px !important}
+
+/* Long desc with مشاهده بیشتر */
+#alookhor-pdp .desc-long-wrap{position:relative !important}
+#alookhor-pdp .desc-long-content{
+  max-height:320px !important;
+  overflow:hidden !important;
+  position:relative !important;
+  transition:max-height .45s cubic-bezier(.2,.8,.2,1) !important;
+}
+#alookhor-pdp .desc-long-content::after{
+  content:"" !important;
+  position:absolute !important;
+  bottom:0 !important;
+  left:0 !important;
+  right:0 !important;
+  height:90px !important;
+  background:linear-gradient(to top,rgba(34,17,44,1),rgba(34,17,44,0)) !important;
+  pointer-events:none !important;
+  transition:opacity .25s !important;
+}
+#alookhor-pdp .desc-long-wrap.is-expanded .desc-long-content{max-height:3000px !important}
+#alookhor-pdp .desc-long-wrap.is-expanded .desc-long-content::after{opacity:0 !important}
+#alookhor-pdp .desc-long-content p{margin:0 0 12px !important;color:#c7b3da !important;font-size:14px !important;line-height:2.1 !important}
+#alookhor-pdp .desc-long-content p:first-child{color:#fbf3e2 !important;font-size:15px !important;font-weight:500 !important}
+#alookhor-pdp .desc-more-btn{
+  margin-top:16px !important;
+  display:inline-flex !important;
+  align-items:center !important;
+  gap:8px !important;
+  padding:10px 20px !important;
+  border-radius:9999px !important;
+  border:1px solid rgba(247,179,43,.35) !important;
+  background:rgba(247,179,43,.10) !important;
+  color:#f7b32b !important;
+  font-size:13px !important;
+  font-weight:800 !important;
+  cursor:pointer !important;
+  transition:all .2s !important;
+}
+#alookhor-pdp .desc-more-btn:hover{background:rgba(247,179,43,.18) !important;border-color:#f7b32b !important}
+#alookhor-pdp .desc-more-btn .more-icon{transition:transform .25s !important;display:inline-flex !important}
+#alookhor-pdp .desc-long-wrap.is-expanded .desc-more-btn .more-icon{transform:rotate(180deg) !important}
+#alookhor-pdp .desc-long-wrap.is-expanded .more-label{content:"مشاهده کمتر" !important}
+
+/* Usage grid */
+#alookhor-pdp .usage-grid{display:grid !important;grid-template-columns:repeat(2,1fr) !important;gap:16px !important}
+#alookhor-pdp .usage-card{
+  padding:20px !important;
+  border-radius:16px !important;
+  border:1px solid rgba(255,255,255,.08) !important;
+  background:rgba(34,17,44,.55) !important;
+  transition:border-color .2s !important;
+}
+#alookhor-pdp .usage-card:hover{border-color:rgba(247,179,43,.35) !important}
+#alookhor-pdp .usage-card h3{margin:12px 0 8px !important;color:#fbf3e2 !important;font-size:15px !important;font-weight:900 !important}
+#alookhor-pdp .usage-card p{margin:0 !important;color:#c7b3da !important;font-size:13px !important;line-height:2 !important}
+
+@media(max-width:1024px){
+  #alookhor-pdp .about-story{grid-template-columns:1fr !important}
+  #alookhor-pdp .about-story-media img{min-height:240px !important}
+  #alookhor-pdp .usage-grid{grid-template-columns:1fr !important}
+}
+@media(max-width:640px){
+  #alookhor-pdp .product-tabs-nav{gap:4px !important;padding:6px !important;border-radius:14px !important;overflow-x:auto !important;flex-wrap:nowrap !important;scrollbar-width:none !important}
+  #alookhor-pdp .product-tabs-nav::-webkit-scrollbar{display:none !important}
+  #alookhor-pdp .pdp-tab{padding:8px 12px !important;font-size:12px !important;flex:none !important}
+  #alookhor-pdp .about-story{padding:14px !important;border-radius:18px !important}
+  #alookhor-pdp .desc-long-content{max-height:280px !important}
+  #alookhor-pdp .desc-long-content p{font-size:13px !important}
+}

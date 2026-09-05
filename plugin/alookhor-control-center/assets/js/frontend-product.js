@@ -205,3 +205,63 @@ function viewed(){
 function boot(){gallery();fullscreen();accordions();giftOpts();quantity();weights();wishlistShare();sliders();newsletter();viewed();}
 document.readyState==='loading'?document.addEventListener('DOMContentLoaded',boot):boot();
 })();
+
+/* ===== v3.10.247 — TABS + DESC EXPAND ===== */
+function pdpTabs(){
+  const wrap=document.querySelector('[data-pdp-tabs]'); if(!wrap) return;
+  const tabs=Array.from(wrap.querySelectorAll('[data-pdp-tab]'));
+  const panes=Array.from(wrap.querySelectorAll('[data-pdp-pane]'));
+  if(!tabs.length||!panes.length) return;
+  const activate=(id)=>{
+    tabs.forEach(t=>{
+      const on=t.dataset.pdpTab===id;
+      t.classList.toggle('is-active',on);
+      t.setAttribute('aria-selected',on?'true':'false');
+    });
+    panes.forEach(p=>{
+      const on=p.dataset.pdpPane===id;
+      p.classList.toggle('is-active',on);
+      p.hidden=!on;
+    });
+    // scroll into view of tabs wrapper if needed (smooth)
+    // wrap.scrollIntoView({behavior:'smooth',block:'start'});
+  };
+  tabs.forEach(t=>{
+    t.addEventListener('click',()=>{
+      const id=t.dataset.pdpTab;
+      if(id) activate(id);
+    });
+  });
+  // init hidden attr
+  panes.forEach(p=>{ if(!p.classList.contains('is-active')) p.hidden=true; });
+}
+
+function descExpand(){
+  const wrap=document.querySelector('[data-desc-wrap]');
+  const content=document.querySelector('[data-desc-content]');
+  const btn=document.querySelector('[data-desc-more]');
+  if(!wrap||!content||!btn) return;
+  // If content short, hide button
+  const check=()=>{
+    if(content.scrollHeight<=340){ btn.style.display='none'; wrap.classList.add('is-expanded'); }
+  };
+  check();
+  btn.addEventListener('click',()=>{
+    const expanded=wrap.classList.toggle('is-expanded');
+    const label=btn.querySelector('.more-label');
+    if(label) label.textContent=expanded?'مشاهده کمتر':'مشاهده بیشتر';
+    if(expanded){
+      // optional: scroll a bit
+    }
+  });
+}
+
+// extend boot
+const _origBoot = typeof boot==='function'?boot:null;
+if(typeof boot==='function'){
+  const oldBoot=boot;
+  // we already have boot defined above, so we hook via DOMContentLoaded again
+}
+document.addEventListener('DOMContentLoaded',()=>{ pdpTabs(); descExpand(); });
+// also run immediately if DOM already loaded
+if(document.readyState!=='loading'){ pdpTabs(); descExpand(); }
