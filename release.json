@@ -1,36 +1,31 @@
 {
-  "version": "3.10.247",
-  "previous": "3.10.246",
+  "version": "3.10.248",
+  "previous": "3.10.247",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "تب‌بندی توضیحات محصول مانند اسکرین‌شات: توضیحات/مشخصات/روش مصرف/نظرات/سوالات در یک بخش با کلیک، توضیحات بلند واقعی ووکامرس با مشاهده بیشتر/کمتر",
+  "description": "فیکس نمایش عناوین اسلایدر و تضمین نمایش محتوا تب‌ها — عناوین گزیده‌ای از بهترین آلو بخارایی که تیره بود حالا کرم روشن، تب‌ها محتوا واقعی",
   "changelog": [
     {
-      "tag": "NEW",
-      "title": "تب‌بندی توضیحات محصول مانند اسکرین‌شات",
-      "desc": "نوار تب‌ها: توضیحات محصول | مشخصات فنی | روش مصرف | نظرات (۱۳۳) | سوالات متداول — dark glass + active طلایی + underline طلایی per Screenshot 2026-09-03 204314.png — کلیک روی هر تب توهمون بخش باز می‌شود"
-    },
-    {
-      "tag": "UPDATE",
-      "title": "توضیحات بلند واقعی ووکامرس + مشاهده بیشتر",
-      "desc": "درباره آلو بخارایی الوخور با تصویر + badge 100% طبیعی دایره‌ای طلایی 86px مانند اسکرین‌شات + توضیحات اصلی از $product->get_description() واقعی فراخوانی می‌شود، به صورت استاندارد 320px با fade + دکمه مشاهده بیشتر → expand 3000px + مشاهده کمتر — JS data-desc-wrap"
+      "tag": "FIX",
+      "title": "نمایش عناوین اسلایدر تیره روی پس‌زمینه تیره",
+      "desc": "در اسکرین‌شات کاربر image-1.png عنوان گزیده‌ای از بهترین آلو بخارایی تیره و نامرئی بود — با CSS v3.10.248 عناوین به #fbf3e2 کرم روشن + #f7b32b طلایی با !important و opacity:1 visibility:visible تضمین شد"
     },
     {
       "tag": "TWEAK",
-      "title": "همه چیز واقعی + روش مصرف",
-      "desc": "مشخصات فنی از $d['specs'] واقعی، نظرات از get_comments واقعی، FAQ واقعی — روش مصرف 4 کارت (میان‌وعده، آشپزی، نگهداری، پذیرایی) با نام محصول واقعی"
+      "title": "تضمین نمایش محتوای تب‌ها",
+      "desc": "کاربر گزارش چیزی مشاهده نمی‌کنم — بررسی: تب‌ها محتوا را hide/show می‌کنند، اما CSS display:none !important ممکن است همه را مخفی کند — اضافه شد .pdp-pane .below-section display:block !important opacity:1 visibility:visible + sliders خارج تب‌ها همیشه visible"
     },
     {
       "tag": "STYLE",
-      "title": "CSS v3.10.247 MOCKUP PDP + JS tabs",
-      "desc": "بلوک جدید: تب‌ها dark glass، badge طبیعی دایره‌ای، desc-long max-height + gradient fade، دکمه pill طلایی، usage-grid 2 ستونه، pdpTabs() + descExpand() با is-active/hidden/animation — شامل MOCKUP PDP برای CI، حفظ تک فوتر و وسط‌چین 3.10.246"
+      "title": "CSS v3.10.248 MOCKUP PDP",
+      "desc": "بلوک جدید با فیکس رنگ عناوین اسلایدر، highlight-card کرم/لاوندری visible، تضمین نمایش tab panes و below-section — شامل MOCKUP PDP برای CI، حفظ تب‌ها و مشاهده بیشتر 3.10.247"
     }
   ],
   "project": "ALOOKHOR",
-  "area": "Product Page PDP - Tabs & Long Description",
-  "reason": "دستور مالک Screenshot 2026-09-03: توضیحات و مشخصات و نظرات به صورت تب مانند اسکرین‌شات قرار گیرد، روی هر تب توهمون بخش باز شود، توضیحات بلند با مشاهده بیشتر کامل شود، همه چیز واقعی از ووکامرس",
+  "area": "Product Page PDP - Slider Visibility & Tabs",
+  "reason": "گزارش کاربر: چرا چیزی مشاهده نمی‌کنم؟ + اسکرین‌شات اسلایدر با عنوان نامرئی تیره — فیکس رنگ + تضمین نمایش تب‌ها",
   "files": [
     "docs/MASTER_DESIGN_DIRECTIVE.md",
     "plugin/alookhor-control-center/CHANGELOG.md",

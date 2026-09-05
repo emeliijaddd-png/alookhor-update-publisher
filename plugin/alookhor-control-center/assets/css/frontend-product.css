@@ -2081,3 +2081,49 @@ html{overflow-x:hidden !important}
   #alookhor-pdp .desc-long-content{max-height:280px !important}
   #alookhor-pdp .desc-long-content p{font-size:13px !important}
 }
+
+/* ===== v3.10.248 — FIX SLIDER TITLE VISIBILITY + TABS ENSURE CONTENT VISIBLE — MOCKUP PDP ===== */
+/* User screenshot image-1.png shows slider titles dark on dark bg — make visible cream + gold */
+#alookhor-pdp .slider-glass .below-section-title span,
+#alookhor-pdp .slider-glass .below-section-title .text-gold-400,
+#alookhor-pdp .below-section .below-section-title span{
+  color:#f7b32b !important;
+  display:block !important;
+  font-size:12px !important;
+  font-weight:900 !important;
+}
+#alookhor-pdp .slider-glass .below-section-title h2,
+#alookhor-pdp .below-section .below-section-title h2{
+  color:#fbf3e2 !important;
+  font-size:20px !important;
+  font-weight:900 !important;
+  display:block !important;
+  opacity:1 !important;
+  visibility:visible !important;
+}
+#alookhor-pdp .highlight-card span,
+#alookhor-pdp .highlight-card .text-cream{
+  color:#fbf3e2 !important;
+  opacity:1 !important;
+}
+#alookhor-pdp .highlight-card .text-lav{
+  color:#c7b3da !important;
+  opacity:1 !important;
+}
+/* Ensure tab panes content not accidentally hidden by old CSS */
+#alookhor-pdp .pdp-pane .below-section,
+#alookhor-pdp .pdp-pane .specs-section,
+#alookhor-pdp .pdp-pane .reviews-section,
+#alookhor-pdp .pdp-pane .faq-section,
+#alookhor-pdp .pdp-pane .usage-section{
+  display:block !important;
+  opacity:1 !important;
+  visibility:visible !important;
+}
+/* If user says nothing visible, ensure sliders below tabs always visible */
+#alookhor-pdp .below-product > .below-section,
+#alookhor-pdp .below-product > section.below-section{
+  display:block !important;
+  opacity:1 !important;
+  visibility:visible !important;
+}

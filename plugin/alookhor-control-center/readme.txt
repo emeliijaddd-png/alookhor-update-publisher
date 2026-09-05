@@ -4,7 +4,7 @@ Tags: control center, luxury, alookhor, admin, dashboard
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 3.10.247
+Stable tag: 3.10.248
 License: Private
 License URI: https://alookhor.ir
 
@@ -47,14 +47,11 @@ License URI: https://alookhor.ir
 
 == Changelog ==
 
-= 3.10.247 =
-* Tabs like screenshot: نوار تب‌ها (توضیحات محصول | مشخصات فنی | روش مصرف | نظرات (۱۳۳) | سوالات متداول) با dark glass + active طلایی + underline طلایی per Screenshot 2026-09-03 204314.png
-* Real WooCommerce description: توضیحات بلند محصول از $product->get_description() فراخوانی می‌شود، نه متن ساختگی — به صورت استاندارد 320px با fade نمایش + دکمه "مشاهده بیشتر" → expand به 3000px + "مشاهده کمتر" — JS data-desc-wrap / data-desc-more
-* Real data: مشخصات فنی از $d['specs'] واقعی، نظرات از get_comments واقعی، FAQ واقعی — همه چیز واقعی
-* About with natural badge: تصویر سمت چپ + badge دایره‌ای 100% طبیعی 86px طلایی مانند اسکرین‌شات + 5 چک (بدون مواد نگهدارنده، کاملا طبیعی، مناسب آشپزی، سرشار ویتامین، بهترین باغات)
-* Usage tab: 4 کارت روش مصرف (میان‌وعده، آشپزی، نگهداری، پذیرایی) با آیکن طلایی و نام محصول واقعی
-* JS pdpTabs() + descExpand() در frontend-product.js — تب‌ها is-active + hidden + animation alpm-tab-in، aria-selected
-* CSS v3.10.247 MOCKUP PDP — تب‌ها، badge طبیعی، desc-long max-height + fade، دکمه pill طلایی، usage-grid 2 ستونه، responsive scroll افقی موبایل — شامل MOCKUP PDP برای CI
+= 3.10.248 =
+* Fix slider title visibility: عنوان گزیده‌ای از بهترین آلو بخارایی در اسکرین‌شات image-1.png تیره و نامرئی بود — حالا #fbf3e2 کرم روشن + #f7b32b طلایی با !important + opacity:1 visibility:visible
+* Ensure tab content visible: کاربر گفت چرا توضیحات و نظرات و.. حذف شد و چیزی مشاهده نمیکنم — تب‌ها محتوا را hide/show می‌کنند per درخواست، اما تضمین شد .pdp-pane .below-section display:block + sliders خارج تب‌ها همیشه visible — محتوا حذف نشده، داخل تب‌هاست
+* CSS v3.10.248 MOCKUP PDP — فیکس رنگ عناوین اسلایدر، highlight-card کرم/لاوندری visible، تضمین نمایش tab panes — حفظ تب‌ها و مشاهده بیشتر 3.10.247 + تک فوتر و وسط‌چین 3.10.246
+
 
 
 = 3.10.245 =

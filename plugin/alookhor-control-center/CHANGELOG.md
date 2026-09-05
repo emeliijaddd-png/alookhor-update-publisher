@@ -1,3 +1,8 @@
+## 3.10.248 — FIX SLIDER TITLE VISIBILITY + ENSURE TAB CONTENT VISIBLE PER USER REPORT چرا چیزی مشاهده نمیکنم
+- FIX: کاربر اسکرین‌شات image-1.png فرستاد با 4 کارت (خشکبار مجلسی، برگه زردآلو، قیسی آفتابی، آلو بخارایی) که عنوان "گزیده‌ای از بهترین آلو بخارایی" تیره و نامرئی روی پس‌زمینه تیره بود — علت Tailwind text color override — با CSS v3.10.248 عناوین به #fbf3e2 کرم + #f7b32b طلایی با !important + opacity:1 visibility:visible تضمین شد، highlight-card متن کرم/لاوندری visible
+- TWEAK: کاربر گفت چرا توضیحات و نظرات و.. حذف شد و نیست؟ و چرا چیزی مشاهده نمیکنم؟ — بررسی: تب‌ها محتوا را hide/show می‌کنند (per درخواست قبلی)، اما CSS display:none !important ممکن است همه را مخفی کند اگر JS لود نشود — اضافه شد تضمین نمایش: .pdp-pane .below-section display:block !important opacity:1 visibility:visible + sliders خارج تب‌ها همیشه visible — محتوا حذف نشده، داخل تب‌هاست و با کلیک نمایش داده می‌شود
+- CSS v3.10.248 MOCKUP PDP — شامل فیکس رنگ عناوین اسلایدر + تضمین نمایش — شامل MOCKUP PDP برای CI، حفظ تب‌ها و مشاهده بیشتر 3.10.247 + تک فوتر و وسط‌چین 3.10.246
+
 ## 3.10.247 — TABS LIKE SCREENSHOT + LONG DESC EXPAND WITH REAL WOOCOMMERCE DATA
 - NEW: تب‌بندی مانند اسکرین‌شات کاربر: نوار تب‌ها (توضیحات محصول | مشخصات فنی | روش مصرف | نظرات (۱۳۳) | سوالات متداول) با استایل dark glass + active طلایی + underline طلایی per screenshot Screenshot 2026-09-03 204314.png
 - DESC TAB: درباره آلو بخارایی الوخور با تصویر سمت چپ + badge 100% طبیعی دایره‌ای طلایی (مانند اسکرین‌شات) + توضیحات واقعی ووکامرس از $product->get_description() فراخوانی می‌شود، نه متن ساختگی. اگر توضیحات بلند باشد به صورت استاندارد 320px نمایش + fade + دکمه "مشاهده بیشتر" → با کلیک expand به 3000px و تغییر متن به "مشاهده کمتر" — JS data-desc-wrap / data-desc-more
