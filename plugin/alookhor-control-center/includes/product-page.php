@@ -1,5 +1,5 @@
 <?php
-/** ALOOKHOR PDP — v3.10.225: exact port of owner React design (convert-content zip) — plum/gold/berry/mint, gallery vertical rail, banner, below sections. */
+/** ALOOKHOR PDP — v3.10.253: fix weight price chips clean (no verbose Woo Persian text) + about-story apricot bowl.jpg per reference Screenshot 113637 side-by-side. */
 if(!defined('ABSPATH'))exit;
 
 if(!function_exists('alookhor_cc_pdp_icon')){
@@ -82,12 +82,58 @@ function alookhor_cc_pdp_data($product){
  $weight=$product->get_weight();
  $options=[];
  if($product->is_type('variable')){
-  foreach($product->get_available_variations() as $v){if(empty($v['variation_is_active']))continue;$label=implode(' / ',array_filter(array_map('trim',array_values((array)($v['attributes']??[]))))); if(!$label)$label='وزن '.count($options)+1; $options[]=['id'=>(int)$v['variation_id'],'label'=>$label,'price_html'=>wp_strip_all_tags((string)($v['price_html']??''))];}
+  foreach($product->get_available_variations() as $v){
+   if(empty($v['variation_is_active']))continue;
+   $label_raw = $v['attributes'] ?? [];
+   // Get clean label from pa_vazn term name if possible
+   $label = '';
+   foreach($label_raw as $attr_key=>$attr_val){
+     if(strpos($attr_key,'vazn')!==false || strpos($attr_key,'weight')!==false || strpos($attr_key,'وزن')!==false){
+       // attr_val is slug like 3-kg, need term name
+       $term = get_term_by('slug', $attr_val, 'pa_vazn');
+       if($term && !is_wp_error($term)) $label = $term->name;
+       else $label = $attr_val;
+       break;
+     }
+   }
+   if(!$label){
+     $label = implode(' / ', array_filter(array_map('trim', array_values((array)$label_raw))));
+   }
+   if(!$label) $label='وزن '.(count($options)+1);
+   // Clean numeric prices — avoid Woo verbose Persian text like "قیمت اصلی ... بود. قیمت فعلی ... است."
+   $display_price = isset($v['display_price']) ? (float)$v['display_price'] : (float)($v['display_regular_price'] ?? 0);
+   $display_regular = isset($v['display_regular_price']) ? (float)$v['display_regular_price'] : $display_price;
+   // Fallback to variation object if needed
+   if($display_price<=0 && !empty($v['variation_id'])){
+     $var_obj = wc_get_product((int)$v['variation_id']);
+     if($var_obj){
+       $display_price = (float)$var_obj->get_price();
+       $display_regular = (float)$var_obj->get_regular_price() ?: $display_price;
+     }
+   }
+   // Format clean price for display (number only, will be formatted in template with faNum)
+   $options[]=[
+     'id'=>(int)$v['variation_id'],
+     'label'=>$label,
+     'slug'=>sanitize_title($label),
+     'price'=>(float)$display_price,
+     'regular'=>(float)$display_regular,
+     'price_html'=>wp_strip_all_tags((string)($v['price_html']??'')),
+     'on_sale'=> $display_regular>0 && $display_price>0 && $display_price<$display_regular,
+   ];
+  }
+  // Sort by weight numeric ascending (3,5,10)
+  usort($options, function($a,$b){
+    $na = (int)filter_var($a['label'], FILTER_SANITIZE_NUMBER_INT);
+    $nb = (int)filter_var($b['label'], FILTER_SANITIZE_NUMBER_INT);
+    if($na==$nb) return 0;
+    return $na<$nb ? -1 : 1;
+  });
  }
  if(!$options){
   // try to parse weight attribute
-  if($weight)$options[]=['id'=>0,'label'=>wc_format_weight((float)$weight),'price_html'=>''];
-  else $options[]=['id'=>0,'label'=>'بستهٔ استاندارد','price_html'=>''];
+  if($weight)$options[]=['id'=>0,'label'=>wc_format_weight((float)$weight),'slug'=>'','price'=>$price,'regular'=>$regular,'price_html'=>'','on_sale'=>$discount>0];
+  else $options[]=['id'=>0,'label'=>'بستهٔ استاندارد','slug'=>'','price'=>$price,'regular'=>$regular,'price_html'=>'','on_sale'=>false];
  }
  // related — filter demo products
  $demo_ids=[67,94,111,128,145,162,179,196,197,198,1368,1369,1370];
@@ -191,14 +237,45 @@ function alookhor_cc_pdp_markup(){
  $shop=function_exists('wc_get_page_permalink')?wc_get_page_permalink('shop'):home_url('/');
  $cart=function_exists('wc_get_cart_url')?wc_get_cart_url():home_url('/cart/');
  $fa_th=function($n){return strtr(number_format((float)$n,0,'.','٬'),['0'=>'۰','1'=>'۱','2'=>'۲','3'=>'۳','4'=>'۴','5'=>'۵','6'=>'۶','7'=>'۷','8'=>'۸','9'=>'۹']);};
+ $faNum = function($v){ return strtr((string)$v, ['0'=>'۰','1'=>'۱','2'=>'۲','3'=>'۳','4'=>'۴','5'=>'۵','6'=>'۶','7'=>'۷','8'=>'۸','9'=>'۹']); };
  $cur=function_exists('get_woocommerce_currency')?get_woocommerce_currency():'';
  $toman_rate=$cur==='IRR'?10:($cur==='IRT'?1:0);
- $use_toman=$toman_rate>0&&!$product->is_type('variable')&&$d['price']>0;
- $price_now_html=$use_toman?$fa_th((int)round($d['price']/$toman_rate)).'<span class="alpm-cur">تومان</span>':wp_kses_post($d['price_html']);
- $price_old_html=($use_toman&&$d['regular']>0)?$fa_th((int)round($d['regular']/$toman_rate)).'<span class="alpm-cur">تومان</span>':wp_kses_post(wc_price($d['regular']));
- $price_single=$use_toman?wp_strip_all_tags($price_now_html):wp_strip_all_tags($d['price_html']);
- $show_weights=count($d['options'])>1||$product->is_type('variable')||!empty((float)$product->get_weight());
- $faNum = function($v){ $fa='۰۱۲۳۴۵۶۷۸۹'; return strtr((string)$v, ['0'=>'۰','1'=>'۱','2'=>'۲','3'=>'۳','4'=>'۴','5'=>'۵','6'=>'۶','7'=>'۷','8'=>'۸','9'=>'۹']); };
+ // Clean formatter: always use toman if possible, never Woo verbose HTML
+ $fmt_clean = function($amount) use($fa_th,$toman_rate){
+   $amount = (float)$amount;
+   if($amount<=0) return '';
+   if($toman_rate>0){
+     $toman = (int)round($amount/$toman_rate);
+     return $fa_th($toman).'<span class="alpm-cur">تومان</span>';
+   }
+   // fallback: format with Persian digits
+   return $fa_th($amount);
+ };
+ // Determine main price from first variation if variable
+ $is_variable = $product->is_type('variable');
+ $first_opt = !empty($d['options'][0]) ? $d['options'][0] : null;
+ if($is_variable && $first_opt && !empty($first_opt['price'])){
+   $main_price = (float)$first_opt['price'];
+   $main_regular = (float)($first_opt['regular'] ?? $main_price);
+   $main_on_sale = !empty($first_opt['on_sale']);
+ } else {
+   $main_price = (float)$d['price'];
+   $main_regular = (float)$d['regular'];
+   $main_on_sale = $d['discount']>0;
+ }
+ $use_toman = $toman_rate>0 && $main_price>0;
+ $price_now_html = $fmt_clean($main_price) ?: wp_kses_post($d['price_html']);
+ $price_old_html = $main_on_sale && $main_regular>0 ? $fmt_clean($main_regular) : '';
+ $price_single = wp_strip_all_tags($price_now_html);
+ $show_weights=count($d['options'])>1||$is_variable||!empty((float)$product->get_weight());
+ // Pre-format each option clean
+ foreach($d['options'] as &$opt_ref){
+   $opt_ref['price_clean'] = $fmt_clean($opt_ref['price'] ?? 0);
+   $opt_ref['regular_clean'] = !empty($opt_ref['on_sale']) ? $fmt_clean($opt_ref['regular'] ?? 0) : '';
+   // For JS data-price: only current price clean
+   $opt_ref['price_js'] = $opt_ref['price_clean'] ?: $price_now_html;
+ }
+ unset($opt_ref);
  ob_start();
 ?>
 <section id="alookhor-pdp" class="alookhor-alp app-bg min-h-screen" dir="rtl" data-cart="<?php echo esc_url($cart);?>" style="--alp-gold:<?php echo esc_attr($gold);?>">
@@ -279,9 +356,14 @@ function alookhor_cc_pdp_markup(){
      <?php foreach(array_slice($d['feats'],0,4) as $f):?><div class="feature-item flex flex-col items-center gap-1.5 rounded-2xl border border-white/8 bg-plum-900/50 px-2 py-4 text-center transition hover:border-gold-400/40 hover:bg-plum-900"><span class="h-6 w-6 text-gold-400"><?php echo alookhor_cc_pdp_icon($f[0]);?></span><span class="text-sm font-black text-cream"><?php echo esc_html($f[1]);?></span><span class="text-[11px] text-lav"><?php echo esc_html($f[2]);?></span></div><?php endforeach;?>
     </div>
     <div class="price-box rounded-2xl border border-white/8 bg-plum-950/50 p-4 text-center">
-     <div class="flex items-center justify-between gap-3"><span class="text-xs font-bold text-lav">قیمت محصول:</span><?php if($d['discount']>0):?><span class="rounded-full bg-[#e42a68] px-3 py-1 text-[11px] font-black text-white shadow-[0_4px_12px_rgba(228,42,104,.35)]"><?php echo esc_html($faNum($d['discount']));?>٪ تخفیف</span><?php endif;?></div>
+     <div class="flex items-center justify-between gap-3"><span class="text-xs font-bold text-lav">قیمت محصول:</span><?php
+       $disc_pct = 0;
+       if(!empty($first_opt) && !empty($first_opt['on_sale']) && !empty($first_opt['regular']) && !empty($first_opt['price'])){
+         $disc_pct = (int)round((1-($first_opt['price']/$first_opt['regular']))*100);
+       } elseif($d['discount']>0){ $disc_pct = (int)$d['discount']; }
+       if($disc_pct>0):?><span class="rounded-full bg-[#e42a68] px-3 py-1 text-[11px] font-black text-white shadow-[0_4px_12px_rgba(228,42,104,.35)]"><?php echo esc_html($faNum($disc_pct));?>٪ تخفیف</span><?php endif;?></div>
      <div class="mt-3 flex flex-col items-center justify-center gap-1">
-      <?php if($d['discount']>0):?><span class="text-[12px] text-lav/60 line-through"><?php echo $price_old_html;?></span><?php endif;?>
+      <?php if(!empty($price_old_html)):?><span class="text-[12px] text-lav/60 line-through"><?php echo $price_old_html;?></span><?php endif;?>
       <span class="text-2xl sm:text-[28px] font-black text-gold-400 drop-shadow-[0_0_18px_rgba(247,179,43,0.65)] alp-price-now luminous-gold leading-tight" data-single="<?php echo esc_attr($price_single);?>"><?php echo $price_now_html;?></span>
      </div>
     </div>
@@ -290,9 +372,19 @@ function alookhor_cc_pdp_markup(){
       <div class="weight-picker">
         <span class="mb-2.5 block text-xs font-bold text-lav">انتخاب وزن:</span>
         <div class="weight-options grid grid-cols-3 gap-2" role="radiogroup" aria-label="انتخاب وزن">
-          <?php foreach($d['options'] as $oi=>$o):?><button type="button" role="radio" aria-checked="<?php echo $oi===0?'true':'false';?>" class="weight-option flex flex-col items-center justify-center gap-1 rounded-xl border px-2 py-2.5 text-center transition <?php echo $oi===0?'border-gold-400 bg-gold-400/10 text-gold-300 shadow-[0_0_0_3px_rgba(247,179,43,0.15)]':'border-white/10 bg-plum-950/60 text-lav hover:border-white/25 hover:text-cream';?>" data-vid="<?php echo esc_attr($o['id']);?>" data-price="<?php echo esc_attr($o['price_html']?:$price_now_html);?>">
-            <span class="text-[11px] font-black leading-tight"><?php echo esc_html($o['label']);?></span>
-            <span class="text-[9px] font-bold text-lav/70"><?php echo $o['price_html']?wp_strip_all_tags($o['price_html']):wp_strip_all_tags($price_now_html);?></span>
+          <?php foreach($d['options'] as $oi=>$o):
+            $clean_label = $o['label'];
+            // Normalize KG-3 style to Persian if needed, but keep original if it already contains کیلو
+            if(preg_match('/KG[-\s]*(\d+)/i',$clean_label,$m)){
+              $num = $m[1];
+              $clean_label = $faNum($num).' کیلوگرم';
+            }
+            $price_chip = $o['price_clean'] ?: $price_now_html;
+            $regular_chip = $o['regular_clean'] ?? '';
+          ?><button type="button" role="radio" aria-checked="<?php echo $oi===0?'true':'false';?>" class="weight-option flex flex-col items-center justify-center gap-1 rounded-xl border px-2 py-2.5 text-center transition <?php echo $oi===0?'border-gold-400 bg-gold-400/10 text-gold-300 shadow-[0_0_0_3px_rgba(247,179,43,0.15)]':'border-white/10 bg-plum-950/60 text-lav hover:border-white/25 hover:text-cream';?>" data-vid="<?php echo esc_attr($o['id']);?>" data-price="<?php echo esc_attr($price_chip);?>" data-regular="<?php echo esc_attr($regular_chip);?>">
+            <span class="weight-option__kg text-[11px] font-black leading-tight"><?php echo esc_html($clean_label);?></span>
+            <span class="weight-option__price text-[10px] font-bold leading-tight <?php echo $oi===0?'text-gold-300':'text-lav/80';?>"><?php echo $price_chip; ?></span>
+            <?php if(!empty($regular_chip)):?><span class="text-[8px] line-through text-lav/50"><?php echo $regular_chip;?></span><?php endif;?>
           </button><?php endforeach;?>
         </div>
       </div>
@@ -338,7 +430,7 @@ function alookhor_cc_pdp_markup(){
       <div role="tabpanel" data-pdp-pane="desc" class="pdp-pane is-active">
         <section id="story" class="below-section about-story scroll-mt-28">
           <div class="about-story-media">
-            <img src="<?php echo esc_url($img.'about.jpg');?>" alt="آلوهای طبیعی الخور در کاسه چوبی" loading="lazy">
+            <img src="<?php echo esc_url($img.'bowl.jpg');?>" alt="آلو بخارایی طبیعی الخور در کاسه چوبی - ۱۰۰٪ طبیعی" loading="lazy">
             <div class="about-story-badge"><span class="h-6 w-6"><?php echo alookhor_cc_pdp_icon('leaf');?></span><strong>۱۰۰٪ خالص</strong><span>از باغ تا خانه شما</span></div>
             <div class="about-natural-badge"><span>100%</span><small>طبیعی</small></div>
           </div>

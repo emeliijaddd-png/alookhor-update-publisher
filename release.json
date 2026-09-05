@@ -1,31 +1,31 @@
 {
-  "version": "3.10.252",
-  "previous": "3.10.251",
+  "version": "3.10.253",
+  "previous": "3.10.252",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "فعال‌سازی خودکار ایجاد 5 محصول نمونه + REST endpoint + cron async — کشمش، آلو بخارا، لواشک، گردو با وزن‌های 3/5/10 کیلویی",
+  "description": "فیکس قیمت وزن‌ها تمیز بدون متن تکراری + عکس درباره آلو بخارایی نارنجی bowl.jpg مطابق رفرنس side-by-side",
   "changelog": [
     {
-      "tag": "NEW",
-      "title": "ایجاد خودکار 5 محصول نمونه پس از دیپلوی",
-      "desc": "در v3.10.251 فقط با کلیک دستی محصولات ایجاد می‌شد — در v3.10.252 با تغییر نسخه، هوک init با lock و wp_schedule_single_event alookhor_cc_async_seed به صورت خودکار محصولات را می‌سازد — همچنین REST POST /wp-json/alookhor-cc/v1/seed-products با احراز هویت مدیر برای اجرای دستی از بیرون"
+      "tag": "FIX",
+      "title": "قیمت انتخاب وزن تمیز بدون تکرار",
+      "desc": "رفع باگ قیمت‌های تکراری KG-3/KG-5/KG-10 با متن طولانی '۴۸۰،۰۰۰ ریال قیمت اصلی ... بود. ۴۲۰،۰۰۰ ریال قیمت فعلی است.' — حالا فقط قیمت تمیز تومان با اعداد فارسی + قیمت خط‌خورده در صورت تخفیف، داده از display_price/display_regular_price عددی نه price_html verbose"
     },
     {
-      "tag": "TWEAK",
-      "title": "محصولات کامل با تمام قابلیت‌های ووکامرس",
-      "desc": "5 محصول متغیر: کشمش پلویی طلایی ممتاز، آلو بخارایی آفتابی نیشابور، لواشک خانگی چند میوه، گردو کاغذی تویسرکان، آلو بخارا جنگلی ترش — هر کدام 3 وزن 3/5/10 کیلویی با قیمت عادی و شگفت‌انگیز، توضیحات کوتاه/بلند، ویژگی‌ها طعم/منطقه/بسته‌بندی/ماندگاری، دسته‌بندی، برچسب، تصاویر، موجودی، SKU، سئو، featured، default attributes، sync"
+      "tag": "FIX",
+      "title": "عکس بخش درباره آلو بخارایی مطابق رفرنس",
+      "desc": "تصویر about.jpg آلبالو تیره با کاسه تزیینی اشتباه بود — حالا bowl.jpg آلو بخارایی نارنجی در کاسه چوبی مطابق Screenshot 113637 رفرنس — badge 100% طبیعی + 100% خالص — layout side-by-side 1.05fr .95fr desktop"
     },
     {
       "tag": "STYLE",
-      "title": "CSS v3.10.252 MOCKUP PDP",
-      "desc": "حفظ تمام فیکس‌های 3.10.250 (توضیحات سفید Bold، اسلایدر فلش‌ها چپ/راست، FAQ دارک، آیکون روش مصرف 48px) + 3.10.249 + 3.10.248 + تب‌ها 3.10.247 + تک فوتر 3.10.246 — شامل MOCKUP PDP برای CI"
+      "title": "CSS v3.10.253 MOCKUP PDP",
+      "desc": "حفظ تمام فیکس‌های 3.10.250 + تب‌ها + تک فوتر + weight-option clean 72px + about-story apricot side-by-side — شامل MOCKUP PDP برای CI"
     }
   ],
   "project": "ALOOKHOR",
-  "area": "WooCommerce Product Seeder - Auto Seed",
-  "reason": "فعال‌سازی خودکار ایجاد 5 محصول نمونه پس از درخواست کاربر — بدون نیاز به کلیک دستی، با REST و cron",
+  "area": "PDP Price Chips + About Image Fix",
+  "reason": "باگ گزارش شده 2026-09-05: قیمت وزن‌ها تکراری با متن verbose فارسی + عکس درباره اشتباه (آلبالو تیره به جای آلو بخارایی نارنجی) — مطابق رفرنس image-3",
   "files": [
     "docs/MASTER_DESIGN_DIRECTIVE.md",
     "plugin/alookhor-control-center/CHANGELOG.md",

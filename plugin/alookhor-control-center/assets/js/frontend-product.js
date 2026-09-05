@@ -116,6 +116,8 @@ function quantity(){
 function weights(){
  const buttons=$$('.weight-option, .alpm-wchips button, .alp-weights button'); if(!buttons.length) return;
  const priceEl=$('.alp-price-now, .alpm-pnow'); const single=priceEl?priceEl.dataset.single||'':'';
+ const priceBox=priceEl?priceEl.closest('.price-box'):null;
+ const oldEl=priceBox?priceBox.querySelector('.line-through'):null;
  buttons.forEach(b=>b.addEventListener('click',()=>{
   buttons.forEach(x=>{x.classList.remove('is-on'); x.classList.remove('border-gold-400','bg-gold-400/10','text-gold-300','shadow-[0_0_0_3px_rgba(247,179,43,0.15)]'); x.classList.add('border-white/10','bg-plum-900/60','text-lav'); x.setAttribute('aria-checked','false');});
   b.classList.add('is-on'); b.classList.add('border-gold-400','bg-gold-400/10','text-gold-300','shadow-[0_0_0_3px_rgba(247,179,43,0.15)]'); b.classList.remove('border-white/10','bg-plum-900/60','text-lav'); b.setAttribute('aria-checked','true');
@@ -123,11 +125,17 @@ function weights(){
    const newPrice=b.dataset.price||'';
    if(newPrice) priceEl.innerHTML=newPrice;
    else if(single) priceEl.innerHTML=single;
+   if(oldEl){
+     const reg=b.dataset.regular||'';
+     if(reg){ oldEl.innerHTML=reg; oldEl.style.display=''; }
+     else { oldEl.innerHTML=''; oldEl.style.display='none'; }
+   }
   }
-  const vid=parseInt(b.dataset.vid,10);
+  const vid=parseInt(b.dataset.vid||b.dataset.id||'0',10);
   if(vid>0)$$('[data-base]').forEach(a=>{
    let base=a.dataset.base||a.getAttribute('href')||'';
    base=base.replace(/add-to-cart=\d+/,'add-to-cart='+vid);
+   if(!/add-to-cart=\d+/.test(base)){ base+=(base.includes('?')?'&':'?')+'add-to-cart='+vid; }
    a.dataset.base=base; a.setAttribute('href',base);
   });
  }));
