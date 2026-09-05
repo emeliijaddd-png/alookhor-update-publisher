@@ -2540,3 +2540,7 @@ html{overflow-x:hidden !important}
     padding:14px 14px !important;
   }
 }
+
+/* ===== v3.10.251 — PRODUCT SEEDER 5 FULL PRODUCTS + PRESERVE 250 FIXES — MOCKUP PDP ===== */
+#alookhor-pdp .product-seeder-note{display:none !important}
+
