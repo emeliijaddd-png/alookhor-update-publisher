@@ -9,3 +9,14 @@
 #alookhor-pdp .about-story-media{border-radius:20px!important;min-height:380px!important;max-height:520px!important;background:#22112c!important}
 #alookhor-pdp .about-story-media img{width:100%!important;height:100%!important;min-height:380px!important;object-fit:cover!important}
 @media(max-width:1024px){#alookhor-pdp .about-story{grid-template-columns:1fr!important}#alookhor-pdp .about-story-media{min-height:260px!important}#alookhor-pdp .about-story-media img{min-height:260px!important}}
+
+/* ===== v3.10.254 — FIX PRICE + ABOUT ORCHARD + SUGGESTED PER REF — MOCKUP PDP ===== */
+#alookhor-pdp .price-box{background:rgba(23,10,32,.65)!important;border-radius:16px!important;text-align:center!important}
+#alookhor-pdp .price-box .alp-price-now{font-size:26px!important;color:#f7b32b!important;filter:drop-shadow(0 0 18px rgba(247,179,43,.65))!important}
+#alookhor-pdp .weight-option{min-height:68px!important;border-radius:12px!important}
+#alookhor-pdp .about-story{grid-template-columns:1.05fr .95fr!important;gap:32px!important}
+#alookhor-pdp .about-story-media{min-height:400px!important}
+#alookhor-pdp .suggested-product{background:linear-gradient(150deg,rgba(47,26,63,.75),rgba(34,17,44,.85))!important;border-radius:16px!important}
+#alookhor-pdp .suggested-image{aspect-ratio:1/1!important}
+#alookhor-pdp .suggested-price{color:#f7b32b!important;font-weight:900!important}
+#alookhor-pdp .suggested-cart{background:#f7b32b!important;color:#1a0a24!important}

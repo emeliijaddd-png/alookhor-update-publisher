@@ -1,5 +1,5 @@
 <?php
-/** ALOOKHOR PDP — v3.10.253: fix weight price chips clean (no verbose Woo Persian text) + about-story apricot bowl.jpg per reference Screenshot 113637 side-by-side. */
+/** ALOOKHOR PDP — v3.10.254: exact per 3 ref images - price box per image-1 pink 51% old crossed new gold 9k, weight chip 1kg 400k gold border, about orchard per image-2, suggested per image-3 4 cards 489k
 if(!defined('ABSPATH'))exit;
 
 if(!function_exists('alookhor_cc_pdp_icon')){
@@ -214,11 +214,28 @@ function alookhor_cc_pdp_card($pid){
  $p=function_exists('wc_get_product')?wc_get_product((int)$pid):null;if(!$p)return '';
  $u=wp_get_attachment_image_url((int)$p->get_image_id(),'woocommerce_thumbnail');
  $u=$u?:ALOOKHOR_CC_URL.'assets/images/bowl.jpg';
- $r=(float)$p->get_average_rating();$rc=(int)$p->get_review_count();
- $price_html = $p->get_price_html();
+ // Clean single price: use min price for variable, with toman conversion per reference 489k style
+ $cur=function_exists('get_woocommerce_currency')?get_woocommerce_currency():'';
+ $toman_rate=$cur==='IRR'?10:($cur==='IRT'?1:0);
+ $fa_th2=function($n){return strtr(number_format((float)$n,0,'.','٬'),['0'=>'۰','1'=>'۱','2'=>'۲','3'=>'۳','4'=>'۴','5'=>'۵','6'=>'۶','7'=>'۷','8'=>'۸','9'=>'۹']);};
+ $price_val = (float)$p->get_price();
+ if($p->is_type('variable')){
+   $prices = $p->get_variation_prices();
+   if(!empty($prices['price'])){
+     $price_val = (float)min($prices['price']);
+   }
+ }
+ if($toman_rate>0 && $price_val>0){
+   $toman = (int)round($price_val/$toman_rate);
+   $price_clean = $fa_th2($toman).'<span class="alpm-cur"> تومان</span>';
+ } else {
+   $price_clean = $p->get_price_html() ? wp_strip_all_tags($p->get_price_html()) : $fa_th2($price_val);
+   $price_clean = esc_html($price_clean);
+ }
  // filter out demo check again
  $name=$p->get_name(); if(mb_strpos($name,'سامسونگ')!==false||mb_strpos($name,'گوشی')!==false)return '';
- $out='<article class="suggested-product group"><button onclick="window.location.href=\''.esc_url(get_permalink($p->get_id())).'\'" class="suggested-image" aria-label="مشاهده '.esc_attr($name).'"><img src="'.esc_url($u).'" alt="'.esc_attr($name).'" loading="lazy"><span class="product-tag">پیشنهاد الخور</span><span class="suggested-heart">'.alookhor_cc_pdp_icon('heart').'</span></button><div class="suggested-body"><div class="flex items-center justify-between gap-2"><span class="text-[10px] text-lav">'.esc_html($p->get_attribute('pa_brand')?:'خشکبار').'</span><span class="flex items-center gap-0.5 text-gold-400">'.str_repeat(alookhor_cc_pdp_icon('star'),5).'</span></div><h3>'.esc_html($name).'</h3><div class="suggested-footer"><span>'.wp_kses_post($price_html).'</span><button onclick="window.location.href=\''.esc_url($p->add_to_cart_url()).'\'" aria-label="افزودن '.esc_attr($name).'" class="suggested-cart">'.alookhor_cc_pdp_icon('cart').'</button></div></div></article>';
+ // Card per reference Screenshot 130508: dark glass, heart top-left, cart gold bottom-right, name white, price gold
+ $out='<article class="suggested-product group"><a href="'.esc_url(get_permalink($p->get_id())).'" class="suggested-image" aria-label="مشاهده '.esc_attr($name).'"><img src="'.esc_url($u).'" alt="'.esc_attr($name).'" loading="lazy"><span class="suggested-heart">'.alookhor_cc_pdp_icon('heart').'</span><span class="product-tag">پیشنهاد الخور</span></a><div class="suggested-body"><h3>'.esc_html($name).'</h3><div class="suggested-footer"><span class="suggested-price">'.$price_clean.'</span><button onclick="window.location.href=\''.esc_url($p->add_to_cart_url()).'\'" aria-label="افزودن '.esc_attr($name).'" class="suggested-cart">'.alookhor_cc_pdp_icon('cart').'</button></div></div></article>';
  return $out;
 }
 }
@@ -382,9 +399,8 @@ function alookhor_cc_pdp_markup(){
             $price_chip = $o['price_clean'] ?: $price_now_html;
             $regular_chip = $o['regular_clean'] ?? '';
           ?><button type="button" role="radio" aria-checked="<?php echo $oi===0?'true':'false';?>" class="weight-option flex flex-col items-center justify-center gap-1 rounded-xl border px-2 py-2.5 text-center transition <?php echo $oi===0?'border-gold-400 bg-gold-400/10 text-gold-300 shadow-[0_0_0_3px_rgba(247,179,43,0.15)]':'border-white/10 bg-plum-950/60 text-lav hover:border-white/25 hover:text-cream';?>" data-vid="<?php echo esc_attr($o['id']);?>" data-price="<?php echo esc_attr($price_chip);?>" data-regular="<?php echo esc_attr($regular_chip);?>">
-            <span class="weight-option__kg text-[11px] font-black leading-tight"><?php echo esc_html($clean_label);?></span>
-            <span class="weight-option__price text-[10px] font-bold leading-tight <?php echo $oi===0?'text-gold-300':'text-lav/80';?>"><?php echo $price_chip; ?></span>
-            <?php if(!empty($regular_chip)):?><span class="text-[8px] line-through text-lav/50"><?php echo $regular_chip;?></span><?php endif;?>
+            <span class="weight-option__kg text-[12px] font-black leading-tight"><?php echo esc_html($clean_label);?></span>
+            <span class="weight-option__price text-[11px] font-bold leading-tight <?php echo $oi===0?'text-gold-300':'text-gold-400';?>"><?php echo $price_chip; ?></span>
           </button><?php endforeach;?>
         </div>
       </div>
@@ -430,7 +446,7 @@ function alookhor_cc_pdp_markup(){
       <div role="tabpanel" data-pdp-pane="desc" class="pdp-pane is-active">
         <section id="story" class="below-section about-story scroll-mt-28">
           <div class="about-story-media">
-            <img src="<?php echo esc_url($img.'bowl.jpg');?>" alt="آلو بخارایی طبیعی الخور در کاسه چوبی - ۱۰۰٪ طبیعی" loading="lazy">
+            <img src="<?php echo esc_url($img.'about-apricot-orchard.jpg');?>" alt="آلو بخارایی طبیعی الخور در کاسه چوبی - باغ آلو - ۱۰۰٪ طبیعی" loading="lazy">
             <div class="about-story-badge"><span class="h-6 w-6"><?php echo alookhor_cc_pdp_icon('leaf');?></span><strong>۱۰۰٪ خالص</strong><span>از باغ تا خانه شما</span></div>
             <div class="about-natural-badge"><span>100%</span><small>طبیعی</small></div>
           </div>
@@ -483,10 +499,10 @@ function alookhor_cc_pdp_markup(){
     </div>
   </div>
 
-  <section class="below-section"><div class="slider-glass"><div class="below-section-title flex items-end justify-between gap-4"><div><span class="mb-2 block text-xs font-black tracking-wide text-gold-400">پیشنهادهای خوش‌طعم الخور</span><h2 class="text-xl font-black text-cream sm:text-2xl">گزیده‌ای از بهترین آلو بخارایی</h2></div></div><div class="slider-shell"><div class="slider-controls"><button type="button" class="slider-control slider-control-prev" data-hprev><span class="h-4 w-4"><?php echo alookhor_cc_pdp_icon('chevr');?></span></button><button type="button" class="slider-control slider-control-next" data-hnext><span class="h-4 w-4"><?php echo alookhor_cc_pdp_icon('chevl');?></span></button></div><div class="highlight-track horizontal-track" data-htrack><?php $highlights=[['title'=>'آلو بخارایی','sub'=>'ترش و شیرین','image'=>$img.'about.jpg'],['title'=>'قیسی آفتابی','sub'=>'نرم و طلایی','image'=>$img.'single.jpg'],['title'=>'برگه زردآلو','sub'=>'طبیعی و خوش‌عطر','image'=>$img.'sack.jpg'],['title'=>'خشکبار مجلسی','sub'=>'برای پذیرایی','image'=>$img.'assortment.jpg']]; foreach($highlights as $h):?><a href="<?php echo esc_url($shop);?>" class="highlight-card group"><div class="highlight-image"><img src="<?php echo esc_url($h['image']);?>" alt="<?php echo esc_attr($h['title']);?>" loading="lazy"><span class="highlight-arrow"><span class="h-4 w-4"><?php echo alookhor_cc_pdp_icon('chevl');?></span></span></div><span class="mt-3 block text-sm font-black text-cream"><?php echo esc_html($h['title']);?></span><span class="mt-1 block text-xs text-lav"><?php echo esc_html($h['sub']);?></span></a><?php endforeach;?></div></div></div></section>
+  <section class="below-section"><div class="slider-glass"><div class="below-section-title flex items-end justify-between gap-4"><div><span class="mb-2 block text-xs font-black tracking-wide text-gold-400">پیشنهادهای خوش‌طعم الخور</span><h2 class="text-xl font-black text-cream sm:text-2xl">گزیده‌ای از بهترین آلو بخارایی</h2></div><a href="<?php echo esc_url($shop);?>" class="hidden sm:inline-flex items-center gap-1.5 rounded-full border border-gold-400/40 bg-plum-900/60 px-4 py-2 text-xs font-black text-gold-300 hover:border-gold-400 hover:bg-gold-400/10 transition">مشاهده همه <span class="h-3 w-3"><?php echo alookhor_cc_pdp_icon('chevl');?></span></a></div><div class="slider-shell"><div class="slider-controls"><button type="button" class="slider-control slider-control-prev" data-hprev><span class="h-4 w-4"><?php echo alookhor_cc_pdp_icon('chevr');?></span></button><button type="button" class="slider-control slider-control-next" data-hnext><span class="h-4 w-4"><?php echo alookhor_cc_pdp_icon('chevl');?></span></button></div><div class="products-track horizontal-track" data-htrack><?php if(!empty($d['related'])){ foreach(array_slice($d['related'],0,4) as $rid) echo alookhor_cc_pdp_card($rid); } else { $fallbacks=[['title'=>'آلو سیاه ممتاز','img'=>$img.'about.jpg'],['title'=>'آلو طلایی','img'=>$img.'bowl.jpg'],['title'=>'آلو خورشتی','img'=>$img.'single.jpg'],['title'=>'آلو شابلون','img'=>$img.'assortment.jpg']]; foreach($fallbacks as $fb){ echo '<article class="suggested-product group"><a href="'.esc_url($shop).'" class="suggested-image"><img src="'.esc_url($fb['img']).'" alt="'.esc_attr($fb['title']).'" loading="lazy"><span class="suggested-heart">'.alookhor_cc_pdp_icon('heart').'</span><span class="product-tag">پرفروش</span></a><div class="suggested-body"><h3>'.esc_html($fb['title']).'</h3><div class="suggested-footer"><span class="suggested-price">۴۸۹,۰۰۰<span class="alpm-cur"> تومان</span></span><button class="suggested-cart">'.alookhor_cc_pdp_icon('cart').'</button></div></div></article>'; } } ?></div></div></div></section>
 
   <?php if(!empty($d['related'])):?>
-  <section class="below-section"><div class="slider-glass"><div class="below-section-title flex items-end justify-between gap-4"><div><span class="mb-2 block text-xs font-black tracking-wide text-gold-400">برای شما آماده کرده‌ایم</span><h2 class="text-xl font-black text-cream sm:text-2xl">محصولات پیشنهادی برای شما</h2></div></div><div class="slider-shell"><div class="slider-controls"><button type="button" class="slider-control slider-control-prev" data-pprev><span class="h-4 w-4"><?php echo alookhor_cc_pdp_icon('chevr');?></span></button><button type="button" class="slider-control slider-control-next" data-pnext><span class="h-4 w-4"><?php echo alookhor_cc_pdp_icon('chevl');?></span></button></div><div class="products-track horizontal-track" data-ptrack><?php foreach($d['related'] as $rid) echo alookhor_cc_pdp_card($rid);?></div></div></div></section>
+  <section class="below-section"><div class="slider-glass"><div class="below-section-title flex items-end justify-between gap-4"><div><span class="mb-2 block text-xs font-black tracking-wide text-gold-400">برای شما آماده کرده‌ایم</span><h2 class="text-xl font-black text-cream sm:text-2xl">محصولات پیشنهادی برای شما</h2></div><a href="<?php echo esc_url($shop);?>" class="hidden sm:inline-flex items-center gap-1.5 rounded-full border border-gold-400/40 bg-plum-900/60 px-4 py-2 text-xs font-black text-gold-300 hover:border-gold-400 hover:bg-gold-400/10 transition">مشاهده همه <span class="h-3 w-3"><?php echo alookhor_cc_pdp_icon('chevl');?></span></a></div><div class="slider-shell"><div class="slider-controls"><button type="button" class="slider-control slider-control-prev" data-pprev><span class="h-4 w-4"><?php echo alookhor_cc_pdp_icon('chevr');?></span></button><button type="button" class="slider-control slider-control-next" data-pnext><span class="h-4 w-4"><?php echo alookhor_cc_pdp_icon('chevl');?></span></button></div><div class="products-track horizontal-track" data-ptrack><?php foreach($d['related'] as $rid) echo alookhor_cc_pdp_card($rid);?></div></div></div></section>
   <?php endif;?>
 
   <section class="newsletter-section"><img src="<?php echo esc_url($img.'newsletter.jpg');?>" alt="آلوهای تازه الخور" loading="lazy"><div class="newsletter-overlay"></div><div class="newsletter-content"><span class="section-kicker">همیشه یک طعم تازه</span><h2>در خبرنامه الخور عضو شوید</h2><p>از تخفیف‌ها، محصولات تازه و قصه‌های باغ‌های ایران زودتر باخبر شوید.</p><form class="newsletter-form" data-newsletter><div><span class="h-4.5 w-4.5 text-gold-400"><?php echo alookhor_cc_pdp_icon('mail');?></span><input type="email" placeholder="ایمیل شما" aria-label="ایمیل شما" required></div><button type="submit">عضویت</button></form></div></section>
