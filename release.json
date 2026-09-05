@@ -1,31 +1,16 @@
 {
-  "version": "3.10.256",
-  "previous": "3.10.255",
+  "version": "3.10.257",
+  "previous": "3.10.256",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "فیکس دقیق قیمت باکس per image-1 + درباره با باغ per image-2 + محصولات پیشنهادی per image-3 + فیکس کامنت باز PHP Parse error",
+  "description": "فیکس درباره دقیقا مثل بنر کوچک عکس دوم - متن چپ عکس راست، 5 چک، بج طلایی ornate",
   "changelog": [
     {
       "tag": "FIX",
-      "title": "فیکس Parse error کامنت باز",
-      "desc": "خط 2 کامنت /** بدون */ بود — باعث PHP Parse error Unterminated comment و xargs exit 124 می‌شد — حالا بسته شد"
-    },
-    {
-      "tag": "FIX",
-      "title": "قیمت محصول دقیقا per image-1.png",
-      "desc": "باکس قیمت صورتی ۵۱٪، قدیم خط‌خورده، جدید طلایی وسط، چیپ وزن فقط قیمت جاری ۴۰۰,۰۰۰ تومان border طلایی"
-    },
-    {
-      "tag": "FIX",
-      "title": "درباره با باغ per image-2",
-      "desc": "about-apricot-orchard.jpg باغ سبز + کاسه نارنجی + بج 100% طبیعی"
-    },
-    {
-      "tag": "FIX",
-      "title": "محصولات پیشنهادی per image-3",
-      "desc": "4 کارت دارک، قلب چپ، قیمت ۴۸۹,۰۰۰ تومان تمیز، سبد طلایی، مشاهده همه pill"
+      "title": "درباره مثل بنر دوم",
+      "desc": "Layout از تصویر بزرگ به بنر کوچک افقی: متن چپ، عکس راست 340px، بج 100% طبیعی ornate طلایی، 5 چک با آیکون طلایی، دقیقا مثل Screenshot 113637 small banner"
     }
   ],
   "project": "ALOOKHOR",

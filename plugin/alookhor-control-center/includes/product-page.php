@@ -1,5 +1,5 @@
 <?php
-/** ALOOKHOR PDP v3.10.256 exact per 3 ref images - price box pink 51% old crossed new gold 9k, weight chip 1kg 400k gold border, about orchard per image-2, suggested per image-3 4 cards 489k */
+/** ALOOKHOR PDP v3.10.257 exact per 3 ref images - price box pink 51% old crossed new gold 9k, weight chip 1kg 400k gold border, about orchard per image-2, suggested per image-3 4 cards 489k */
 if(!defined('ABSPATH'))exit;
 
 if(!function_exists('alookhor_cc_pdp_icon')){
@@ -444,39 +444,34 @@ function alookhor_cc_pdp_markup(){
     <div class="product-tabs-panes">
       <!-- DESC TAB: real WooCommerce description + about story + مشاهده بیشتر -->
       <div role="tabpanel" data-pdp-pane="desc" class="pdp-pane is-active">
-        <section id="story" class="below-section about-story scroll-mt-28">
-          <div class="about-story-media">
-            <img src="<?php echo esc_url($img.'about-apricot-orchard.jpg');?>" alt="آلو بخارایی طبیعی الخور در کاسه چوبی - باغ آلو - ۱۰۰٪ طبیعی" loading="lazy">
-            <div class="about-story-badge"><span class="h-6 w-6"><?php echo alookhor_cc_pdp_icon('leaf');?></span><strong>۱۰۰٪ خالص</strong><span>از باغ تا خانه شما</span></div>
-            <div class="about-natural-badge"><span>100%</span><small>طبیعی</small></div>
-          </div>
+                <section id="story" class="below-section about-story scroll-mt-28">
           <div class="about-story-copy">
             <span class="section-kicker">از دل باغ‌های ایران</span>
-            <h2>درباره <?php echo esc_html($d['name']);?></h2>
+            <h2>درباره آلو بخارایی الخور</h2>
             <div class="desc-long-wrap" data-desc-wrap>
               <div class="desc-long-content" data-desc-content>
                 <?php
-                // Real WooCommerce description - must be real
-                if(!empty($d['desc'])){
-                  echo $d['desc'];
-                } elseif(!empty($d['short'])){
-                  echo '<p>'.esc_html(wp_strip_all_tags($d['short'])).'</p>';
+                $long_desc = $product->get_description() ?: $product->get_short_description();
+                if($long_desc){
+                  echo wp_kses_post($long_desc);
                 } else {
-                  echo '<p>'.esc_html($d['name']).' آلوخور، انتخابی بی‌نظیر از باغات ایران، با طعمی دلنشین و کیفیتی ممتاز. مناسب برای مصرف روزانه، آشپزی و پذیرایی؛ بدون هیچ افزودنی، رنگ یا شکر افزوده.</p>';
+                  echo '<p>آلو خشک بخارایی الخور، انتخابی بی‌نظیر از باغات ایران، با طعمی دلنشین و کیفیتی ممتاز، مناسب برای مصرف روزانه، شیرینی و پذیرایی، بدون هیچ افزودنی، رنگ یا شکر افزوده.</p>';
                 }
                 ?>
-                <p>ما در الخور باور داریم طعم واقعی، نیازی به پنهان شدن پشت افزودنی‌ها ندارد. آلوها را از باغدارهای مورد اعتماد شمال ایران تهیه می‌کنیم و با دقتی که شایسته سفره شماست، آماده می‌کنیم.</p>
-                <p>هر بسته الخور حاصل همراهی کشاورز، تجربه نسل‌ها و کنترل کیفیت دقیق است؛ تا هر بار که در بسته را باز می‌کنید، عطر یک محصول اصیل ایرانی را حس کنید.</p>
                 <ul class="about-checks">
-                  <li><span class="h-4 w-4 text-gold-400"><?php echo alookhor_cc_pdp_icon('check');?></span> بدون مواد نگهدارنده</li>
-                  <li><span class="h-4 w-4 text-gold-400"><?php echo alookhor_cc_pdp_icon('check');?></span> کاملا طبیعی و سالم</li>
-                  <li><span class="h-4 w-4 text-gold-400"><?php echo alookhor_cc_pdp_icon('check');?></span> مناسب انواع آشپزی و دسرها</li>
-                  <li><span class="h-4 w-4 text-gold-400"><?php echo alookhor_cc_pdp_icon('check');?></span> سرشار از ویتامین‌ها و مواد معدنی</li>
-                  <li><span class="h-4 w-4 text-gold-400"><?php echo alookhor_cc_pdp_icon('check');?></span> تولید شده از بهترین باغات ایران</li>
+                  <li><span class="check-icon">✓</span> بدون مواد نگهدارنده</li>
+                  <li><span class="check-icon">✓</span> کاملا طبیعی و سالم</li>
+                  <li><span class="check-icon">✓</span> مناسب انواع آشپزی و دسرها</li>
+                  <li><span class="check-icon">✓</span> سرشار از ویتامین‌ها و مواد معدنی</li>
+                  <li><span class="check-icon">✓</span> تولید شده از بهترین باغات ایران</li>
                 </ul>
               </div>
-              <button type="button" class="desc-more-btn" data-desc-more><span class="more-label">مشاهده بیشتر</span><span class="more-icon"><?php echo alookhor_cc_pdp_icon('chevl');?></span></button>
             </div>
+            <button type="button" class="desc-more-btn hidden" data-desc-toggle>مشاهده بیشتر</button>
+          </div>
+          <div class="about-story-media">
+            <img src="<?php echo esc_url($img.'about-apricot-orchard.jpg');?>" alt="آلو بخارایی طبیعی الخور در کاسه چوبی - باغ آلو - ۱۰۰٪ طبیعی" loading="lazy">
+            <div class="about-natural-badge ornate"><span>100%</span><small>طبیعی</small></div>
           </div>
         </section>
       </div>

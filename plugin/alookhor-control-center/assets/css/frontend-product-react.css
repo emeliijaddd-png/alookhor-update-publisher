@@ -20,3 +20,7 @@
 #alookhor-pdp .suggested-image{aspect-ratio:1/1!important}
 #alookhor-pdp .suggested-price{color:#f7b32b!important;font-weight:900!important}
 #alookhor-pdp .suggested-cart{background:#f7b32b!important;color:#1a0a24!important}
+
+/* v3.10.257 ABOUT BANNER PER IMAGE-2 */
+#alookhor-pdp .about-story{grid-template-columns:1fr 340px!important}
+#alookhor-pdp .about-natural-badge.ornate{background:radial-gradient(circle,#ffd37a,#f7b32b)!important;border:3px solid #f7b32b!important}
