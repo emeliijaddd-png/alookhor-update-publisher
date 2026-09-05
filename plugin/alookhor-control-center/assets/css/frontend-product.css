@@ -2935,3 +2935,23 @@ html{overflow-x:hidden !important}
   #alookhor-pdp .about-story-copy{order:2!important}
   #alookhor-pdp .about-checks{grid-template-columns:1fr!important}
 }
+
+/* ===== v3.10.258 — ABOUT FIX RTL: image right, text left visually — MOCKUP PDP ===== */
+#alookhor-pdp .about-story{
+  direction:ltr!important;
+  grid-template-columns:1fr 340px!important;
+}
+#alookhor-pdp .about-story-copy{
+  direction:rtl!important;
+  order:1!important;
+  text-align:right!important;
+}
+#alookhor-pdp .about-story-media{
+  direction:ltr!important;
+  order:2!important;
+}
+@media(max-width:768px){
+  #alookhor-pdp .about-story{grid-template-columns:1fr!important;direction:rtl!important}
+  #alookhor-pdp .about-story-copy{order:1!important}
+  #alookhor-pdp .about-story-media{order:2!important}
+}

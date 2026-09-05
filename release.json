@@ -1,16 +1,16 @@
 {
-  "version": "3.10.257",
-  "previous": "3.10.256",
+  "version": "3.10.258",
+  "previous": "3.10.257",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "فیکس درباره دقیقا مثل بنر کوچک عکس دوم - متن چپ عکس راست، 5 چک، بج طلایی ornate",
+  "description": "فیکس درباره: عکس سمت راست، توضیحات سمت چپ - RTL fix با direction ltr",
   "changelog": [
     {
       "tag": "FIX",
-      "title": "درباره مثل بنر دوم",
-      "desc": "Layout از تصویر بزرگ به بنر کوچک افقی: متن چپ، عکس راست 340px، بج 100% طبیعی ornate طلایی، 5 چک با آیکون طلایی، دقیقا مثل Screenshot 113637 small banner"
+      "title": "درباره عکس راست متن چپ",
+      "desc": "در RTL گرید برعکس می‌شد - حالا direction:ltr + grid 1fr 340px + copy order1 text left + media order2 image right - دقیقا مثل عکس دوم"
     }
   ],
   "project": "ALOOKHOR",
