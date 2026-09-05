@@ -1,31 +1,31 @@
 {
-  "version": "3.10.254",
-  "previous": "3.10.253",
+  "version": "3.10.255",
+  "previous": "3.10.254",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "فیکس دقیق قیمت باکس per image-1 + درباره با باغ per image-2 + محصولات پیشنهادی و گزیده بهترین آلو بخارایی per image-3 دقیق",
+  "description": "فیکس دقیق قیمت باکس per image-1 + درباره با باغ per image-2 + محصولات پیشنهادی per image-3 + فیکس کامنت باز PHP Parse error",
   "changelog": [
     {
       "tag": "FIX",
+      "title": "فیکس Parse error کامنت باز",
+      "desc": "خط 2 کامنت /** بدون */ بود — باعث PHP Parse error Unterminated comment و xargs exit 124 می‌شد — حالا بسته شد"
+    },
+    {
+      "tag": "FIX",
       "title": "قیمت محصول دقیقا per image-1.png",
-      "desc": "باکس قیمت: badge صورتی ۵۱٪ تخفیف چپ، label قیمت محصول راست، قیمت قدیم خط‌خورده وسط کوچک، قیمت جدید طلایی بزرگ وسط با glow — وزن چیپ فقط قیمت جاری تمیز تومان (۴۰۰,۰۰۰ تومان) با border طلایی selected، بدون regular تکراری — داده از display_price عددی"
+      "desc": "باکس قیمت صورتی ۵۱٪، قدیم خط‌خورده، جدید طلایی وسط، چیپ وزن فقط قیمت جاری ۴۰۰,۰۰۰ تومان border طلایی"
     },
     {
       "tag": "FIX",
-      "title": "درباره آلو بخارایی با باغ per image-2",
-      "desc": "عکس جدید about-apricot-orchard.jpg: آلو بخارایی نارنجی در کاسه چوبی روی گونی با بک‌گراند باغ زردآلو سبز — badge طلایی 100% طبیعی بالا راست، 100% خالص پایین چپ — layout side-by-side 1.05fr .95fr desktop per Screenshot 113637"
+      "title": "درباره با باغ per image-2",
+      "desc": "about-apricot-orchard.jpg باغ سبز + کاسه نارنجی + بج 100% طبیعی"
     },
     {
       "tag": "FIX",
-      "title": "محصولات پیشنهادی و گزیده بهترین آلو بخارایی per image-3 دقیق",
-      "desc": "هر دو اسلایدر حالا دقیقا مثل نمونه 3: کارت دارک glass 16px، قلب بالا چپ، تگ پرفروش/پیشنهاد الخور بالا راست، نام سفید، قیمت طلایی ۴۸۹,۰۰۰ تومان تمیز، دکمه سبد طلایی مربع پایین راست، فلش چپ/راست، مشاهده همه pill — کارت از alookhor_cc_pdp_card با قیمت تکی تومان نه رنج"
-    },
-    {
-      "tag": "STYLE",
-      "title": "CSS v3.10.254 MOCKUP PDP",
-      "desc": "حفظ فیکس‌های 3.10.250 + تب‌ها + تک فوتر + weight clean 68px + about orchard + suggested exact per ref — شامل MOCKUP PDP برای CI"
+      "title": "محصولات پیشنهادی per image-3",
+      "desc": "4 کارت دارک، قلب چپ، قیمت ۴۸۹,۰۰۰ تومان تمیز، سبد طلایی، مشاهده همه pill"
     }
   ],
   "project": "ALOOKHOR",
