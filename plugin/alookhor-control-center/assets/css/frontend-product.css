@@ -3050,3 +3050,169 @@ html{overflow-x:hidden !important}
 #alookhor-pdp .purchase-actions .compare-btn svg,
 #alookhor-pdp .purchase-actions .wishlist-btn svg{width:20px!important;height:20px!important}
 #alookhor-pdp .add-button{min-width:230px!important;max-width:250px!important}
+
+/* ===== v3.10.311 — MOBILE PER 2 MOCKUPS (media-query only, desktop >=1280 untouched) — MOCKUP PDP =====
+   Why phones were broken: later UNCONDITIONED !important rules (grid 1.22fr/0.95fr, equal-height 720px
+   columns, vertical 96px thumb rail, 560px frame) beat the old @media(max-width:1279px){1fr} rule, so a
+   390px phone rendered two crushed 188px/146px columns. Everything below is re-asserted INSIDE breakpoints.
+   Order per mockup-1: image (edge to edge) -> thumb strip -> breadcrumb -> panel -> guarantees 2x2 -> banner
+   Order per mockup-2: tabs bar -> about/description (specs swaps in via its tab) -> suggested products (2 col)
+                       -> curated (2 col) -> usage -> FAQ (1 col) -> reviews (stacked) -> newsletter.
+   usage/FAQ/reviews are always-visible standalone sections on phones; their tab buttons scroll to them (JS). */
+@media(max-width:1279px){
+  /* ---- single column flow: flatten <main> and .left-col so the breadcrumb can sit under the gallery ---- */
+  #alookhor-pdp{display:flex !important;flex-direction:column !important;padding-top:20px !important}
+  #alookhor-pdp .product-page-main,#alookhor-pdp .left-col{display:contents !important}
+  #alookhor-pdp .left-col .gallery-slot,#alookhor-pdp .gallery-slot{order:1 !important;display:block !important;width:100% !important;min-height:0 !important;flex:none !important;margin:0 !important;padding:0 !important}
+  #alookhor-pdp .breadcrumb-wrapper{order:2 !important;width:100% !important;margin:12px auto 0 !important;padding:0 16px !important}
+  #alookhor-pdp .panel-slot{order:3 !important;display:block !important;width:100% !important;min-height:0 !important;height:auto !important;flex:none !important;margin:14px 0 0 !important;padding:0 16px !important}
+  #alookhor-pdp .guarantees-glass-slot{order:4 !important;width:100% !important;margin:14px 0 0 !important;padding:0 16px !important}
+  #alookhor-pdp .banner-slot{order:5 !important;width:100% !important;margin:14px 0 0 !important;padding:0 16px !important}
+  #alookhor-pdp .below-product{order:6 !important;width:100% !important;margin:14px auto 0 !important}
+  /* ---- gallery: wide image, thumb strip under it ---- */
+  #alookhor-pdp .product-gallery{display:flex !important;flex-direction:column !important;gap:10px !important;min-height:0 !important;height:auto !important;flex:none !important}
+  #alookhor-pdp .product-gallery .gallery-frame{width:100% !important;flex:none !important;aspect-ratio:4/3 !important;min-height:0 !important;max-height:440px !important;border-radius:0 !important;border-inline:0 !important;box-shadow:none !important}
+  #alookhor-pdp .gallery-frame img{width:100% !important;height:100% !important;object-fit:cover !important}
+  #alookhor-pdp .product-gallery .gallery-thumbs{display:flex !important;flex-direction:row !important;justify-content:flex-start !important;width:100% !important;flex:none !important;gap:8px !important;max-height:none !important;overflow-x:auto !important;overflow-y:hidden !important;padding:0 16px 4px !important;scrollbar-width:none !important;-webkit-overflow-scrolling:touch !important}
+  #alookhor-pdp .gallery-thumbs::-webkit-scrollbar{display:none !important}
+  #alookhor-pdp .gallery-thumb{flex:1 1 0 !important;width:auto !important;min-width:52px !important;max-width:84px !important;height:auto !important;aspect-ratio:1/1 !important;border-radius:12px !important}
+  #alookhor-pdp .gallery-copy{inset:14px 16px auto auto !important;max-width:48% !important;text-align:right !important}
+  #alookhor-pdp .gallery-copy p{font-size:16px !important;line-height:1.85 !important}
+  #alookhor-pdp .gallery-frame .-rotate-3{left:14px !important;top:14px !important;padding:6px 10px !important}
+  #alookhor-pdp .gallery-frame .-rotate-3 span{font-size:11px !important}
+  #alookhor-pdp .gallery-frame button[data-gal-prev],#alookhor-pdp .gallery-frame button[data-gal-next]{width:38px !important;height:38px !important;min-width:38px !important;min-height:38px !important}
+  #alookhor-pdp .gallery-frame button.gallery-expand{width:36px !important;height:36px !important}
+  /* ---- panel ---- */
+  #alookhor-pdp .product-panel{min-height:0 !important;flex:none !important;gap:14px !important;padding:16px !important;border-radius:20px !important}
+  #alookhor-pdp .product-heading{display:flex !important;flex-direction:column !important;direction:rtl !important;gap:8px !important}
+  #alookhor-pdp .mobile-category-badge{display:inline-flex !important;align-self:flex-start !important;margin:0 0 2px !important}
+  #alookhor-pdp .product-title-copy h1{font-size:26px !important;line-height:1.3 !important}
+  #alookhor-pdp .product-title-copy p{font-size:15px !important;margin-top:4px !important}
+  #alookhor-pdp .product-heading>p{font-size:13px !important;line-height:1.9 !important;margin-top:6px !important;text-align:right !important}
+  /* rating: stars + count (right) and wishlist (left) on one line, share under it */
+  #alookhor-pdp .rating-row{display:flex !important;flex-direction:column !important;direction:rtl !important;gap:6px !important}
+  #alookhor-pdp .rating-row>div.flex-nowrap{display:flex !important;flex-wrap:wrap !important;justify-content:space-between !important;gap:6px 8px !important}
+  #alookhor-pdp .rating-row .rating-divider{display:none !important}
+  #alookhor-pdp .rating-summary{gap:4px !important}
+  #alookhor-pdp .rating-summary .relative.inline-block{width:15px !important;height:15px !important}
+  #alookhor-pdp .rating-summary .text-sm{font-size:13px !important}
+  #alookhor-pdp .rating-summary .text-xs{font-size:11px !important}
+  #alookhor-pdp .favorite-action,#alookhor-pdp .share-action{font-size:11px !important}
+  /* 4 feature tiles in ONE row */
+  #alookhor-pdp .product-features{grid-template-columns:repeat(4,minmax(0,1fr)) !important;gap:6px !important}
+  #alookhor-pdp .feature-item{min-height:0 !important;padding:10px 4px !important;border-radius:12px !important;gap:4px !important}
+  #alookhor-pdp .feature-item svg{width:22px !important;height:22px !important}
+  #alookhor-pdp .feature-item span.text-sm{font-size:10px !important;line-height:1.5 !important}
+  #alookhor-pdp .feature-item span.text-\[11px\]{font-size:8.5px !important;line-height:1.5 !important}
+  /* price */
+  #alookhor-pdp .price-box{padding:14px !important}
+  #alookhor-pdp .price-box .line-through+.alp-price-now del{display:none !important}
+  /* weights: label "وزن محصول" (mockup) + 3 chips */
+  #alookhor-pdp .weight-qty-box{padding:12px !important}
+  #alookhor-pdp .weight-picker>span:first-child{font-size:0 !important;line-height:0 !important;margin-bottom:8px !important;display:block !important}
+  #alookhor-pdp .weight-picker>span:first-child::before{content:"وزن محصول:";display:block;font-size:12px;line-height:1.6;font-weight:700;color:#c7b3da}
+  #alookhor-pdp .weight-options{grid-template-columns:repeat(3,minmax(0,1fr)) !important;gap:8px !important;margin-bottom:0 !important}
+  #alookhor-pdp .weight-option{min-height:42px !important;padding:8px 6px !important;justify-content:center !important}
+  /* buy row: qty pill (right) + gold CTA (left) on ONE line, delivery line under it */
+  #alookhor-pdp .purchase-actions{display:flex !important;flex-direction:column !important;align-items:stretch !important;padding:12px !important;gap:10px !important}
+  #alookhor-pdp .purchase-actions>div.flex{display:flex !important;flex-wrap:wrap !important;gap:8px 10px !important;align-items:center !important}
+  #alookhor-pdp .purchase-actions>div.flex .quantity-row,#alookhor-pdp .purchase-actions .quantity-row{order:1 !important;width:auto !important;flex:0 0 auto !important;flex-direction:row !important;justify-content:flex-start !important;gap:6px !important;margin:0 !important}
+  #alookhor-pdp .quantity-control button{width:32px !important;height:32px !important;min-width:32px !important;min-height:32px !important}
+  #alookhor-pdp .quantity-control #alpQty{width:28px !important}
+  #alookhor-pdp .purchase-actions .cart-row{order:2 !important;display:flex !important;flex:1 1 0 !important;min-width:0 !important;gap:6px !important;align-items:center !important}
+  #alookhor-pdp .add-button{flex:1 1 auto !important;width:auto !important;min-width:0 !important;max-width:none !important;height:44px !important;min-height:44px !important;font-size:13px !important}
+  #alookhor-pdp .purchase-actions .cart-row .share-btn,#alookhor-pdp .purchase-actions .cart-row .compare-btn,#alookhor-pdp .purchase-actions .cart-row .wishlist-btn{width:40px !important;height:40px !important;min-width:40px !important;min-height:40px !important}
+  #alookhor-pdp .shipping-line{order:3 !important;flex:1 1 100% !important;display:flex !important;flex-wrap:nowrap !important;font-size:11px !important;justify-content:space-between !important;align-items:center !important;gap:6px !important;margin-top:2px !important}
+  /* the old ".flex.gap-1.5{width:100%}" phone rule also matches the stock span inside .shipping-line -> keep it inline */
+  #alookhor-pdp .purchase-actions .shipping-line>span.flex.gap-1\.5{width:auto !important;flex:0 0 auto !important;justify-content:flex-start !important;white-space:nowrap !important}
+  #alookhor-pdp .purchase-actions .shipping-line>span:last-child{flex:0 1 auto !important;text-align:left !important}
+  /* guarantees: icon above label */
+  #alookhor-pdp .guarantees-glass{padding:12px !important;border-radius:16px !important}
+  #alookhor-pdp .guarantees{gap:10px !important}
+  #alookhor-pdp .guarantee-item{flex-direction:column !important;justify-content:center !important;text-align:center !important;min-height:72px !important;padding:12px 8px !important;font-size:11px !important;gap:6px !important;line-height:1.5 !important}
+  #alookhor-pdp .guarantee-item svg{width:22px !important;height:22px !important}
+  /* banner "خوشمزه‌تر زندگی کن" */
+  #alookhor-pdp .promo-banner,#alookhor-pdp .banner-slot .promo-banner{min-height:150px !important;border-radius:20px !important;margin:0 !important;width:100% !important}
+  #alookhor-pdp .promo-banner h2{font-size:22px !important}
+  #alookhor-pdp .promo-banner p{font-size:13px !important}
+  #alookhor-pdp .promo-banner a{padding:10px 16px !important;font-size:12px !important}
+  /* ---- below the fold: flatten the tabs wrapper so every pane is a stacked section ordered like mockup-2 ---- */
+  #alookhor-pdp .below-product{display:flex !important;flex-direction:column !important;padding:0 16px 8px !important}
+  #alookhor-pdp .below-product>*{margin-top:0 !important}
+  #alookhor-pdp .product-tabs-wrapper,#alookhor-pdp .product-tabs-panes{display:contents !important}
+  #alookhor-pdp .product-tabs-nav{order:1 !important;gap:4px !important;padding:6px !important;border-radius:14px !important;overflow-x:auto !important;flex-wrap:nowrap !important;scrollbar-width:none !important;margin:0 0 14px !important}
+  #alookhor-pdp .product-tabs-nav::-webkit-scrollbar{display:none !important}
+  #alookhor-pdp .pdp-tab{padding:8px 9px !important;font-size:12px !important;flex:none !important}
+  #alookhor-pdp .pdp-pane{scroll-margin-top:84px !important;margin-top:20px !important}
+  #alookhor-pdp .pdp-pane[data-pdp-pane="desc"]{order:2 !important;margin-top:0 !important}
+  #alookhor-pdp .pdp-pane[data-pdp-pane="specs"]{order:3 !important;margin-top:0 !important}
+  #alookhor-pdp .below-product>.below-section{order:4 !important;margin-top:20px !important}
+  #alookhor-pdp .below-product>.below-section:has([data-ptrack]){order:4 !important}
+  #alookhor-pdp .below-product>.below-section:has([data-htrack]){order:5 !important}
+  #alookhor-pdp .pdp-pane[data-pdp-pane="usage"]{display:block !important;order:6 !important}
+  #alookhor-pdp .pdp-pane[data-pdp-pane="faq"]{display:block !important;order:7 !important}
+  #alookhor-pdp .pdp-pane[data-pdp-pane="reviews"]{display:block !important;order:8 !important}
+  #alookhor-pdp .below-product>.newsletter-section{order:9 !important;margin-top:24px !important;min-height:200px !important}
+  #alookhor-pdp .pdp-pane .below-section{margin-top:0 !important}
+  #alookhor-pdp .usage-grid{grid-template-columns:1fr !important;gap:10px !important}
+  #alookhor-pdp .faq-list{grid-template-columns:1fr !important;gap:8px !important}
+  #alookhor-pdp .below-section-title h2{font-size:17px !important}
+  /* rails -> 2-column grids (mockup-2), arrows hidden */
+  #alookhor-pdp .slider-glass{padding:14px 12px 12px !important;border-radius:18px !important}
+  #alookhor-pdp .slider-glass .slider-shell{padding-inline:0 !important}
+  #alookhor-pdp .slider-glass .slider-controls{display:none !important}
+  #alookhor-pdp .highlight-track,#alookhor-pdp .products-track{display:grid !important;grid-template-columns:repeat(2,minmax(0,1fr)) !important;grid-auto-flow:row !important;grid-auto-columns:auto !important;gap:10px !important;overflow:visible !important;padding:0 !important;scroll-snap-type:none !important}
+  #alookhor-pdp .highlight-card,#alookhor-pdp .suggested-product{min-width:0 !important;width:auto !important}
+  #alookhor-pdp .suggested-body h3{font-size:12px !important;line-height:1.6 !important}
+  #alookhor-pdp .suggested-footer>span{font-size:11px !important}
+  /* reviews: summary on top, cards stacked */
+  #alookhor-pdp .reviews-content-row{flex-direction:column !important;padding:0 10px 10px !important}
+  #alookhor-pdp .reviews-content-row>.reviews-summary{flex:none !important;flex-basis:auto !important;width:100% !important;min-width:0 !important;flex-direction:row !important;flex-wrap:wrap !important;justify-content:center !important;gap:8px 12px !important;border-left:0 !important;padding:8px 0 12px !important}
+  #alookhor-pdp .reviews-slider-shell{padding-inline:0 !important}
+  #alookhor-pdp .reviews-slider-shell .slider-controls{display:none !important}
+  #alookhor-pdp .reviews-track{display:grid !important;grid-template-columns:1fr !important;grid-auto-flow:row !important;grid-auto-columns:auto !important;gap:10px !important;overflow:visible !important;scroll-snap-type:none !important}
+  #alookhor-pdp .newsletter-content{max-width:100% !important;padding:20px 16px !important}
+}
+/* image sits right under the header (66px header pulls content up 70px below 860px; 122px / -120px above) */
+@media(max-width:860px){
+  #alookhor-pdp .left-col .gallery-slot,#alookhor-pdp .gallery-slot{margin-top:50px !important}
+}
+@media(min-width:861px) and (max-width:1279px){
+  #alookhor-pdp .left-col .gallery-slot,#alookhor-pdp .gallery-slot{margin-top:116px !important}
+}
+@media(max-width:640px){
+  #alookhor-pdp .breadcrumb-box{padding:10px 14px !important;font-size:11px !important;border-radius:14px !important}
+  /* all 5 tabs on one line at 360-430px (mockup): tighter chips, review count hidden */
+  #alookhor-pdp .product-tabs-nav{gap:2px !important;padding:5px !important}
+  #alookhor-pdp .pdp-tab{flex:1 1 auto !important;justify-content:center !important;padding:8px 4px !important;font-size:10.5px !important;gap:3px !important;min-width:0 !important}
+  #alookhor-pdp .pdp-tab span{font-size:10px !important;letter-spacing:-.15px !important}
+  #alookhor-pdp .pdp-tab small{display:none !important}
+  #alookhor-pdp .pdp-tab.is-active::after{right:6px !important;left:6px !important}
+  #alookhor-pdp .product-gallery .gallery-frame{max-height:400px !important}
+  #alookhor-pdp .gallery-thumb{min-width:44px !important}
+  /* phones: qty label + the 3 secondary icons are not in the mockup; wishlist/share stay in the rating row */
+  #alookhor-pdp .quantity-label{display:none !important}
+  #alookhor-pdp .purchase-actions .cart-row>div.flex{display:none !important}
+  #alookhor-pdp .guarantees{grid-template-columns:repeat(2,minmax(0,1fr)) !important}
+  #alookhor-pdp .promo-banner>div.relative{flex-direction:column !important;align-items:flex-start !important;gap:14px !important;padding:22px 20px !important}
+  /* sticky buy bar (existing) must not cover the last content */
+  body.alookhor-pdp-body{padding-bottom:84px !important}
+}
+@media(min-width:641px) and (max-width:1279px){
+  /* tablet: same stacked order, roomier and framed */
+  #alookhor-pdp .breadcrumb-wrapper,#alookhor-pdp .panel-slot,#alookhor-pdp .guarantees-glass-slot,#alookhor-pdp .banner-slot{padding-left:24px !important;padding-right:24px !important}
+  #alookhor-pdp .left-col .gallery-slot,#alookhor-pdp .gallery-slot{padding:0 24px !important}
+  #alookhor-pdp .product-gallery .gallery-frame{aspect-ratio:16/10 !important;max-height:560px !important;border-radius:22px !important;border-inline:1px solid rgba(255,255,255,.10) !important}
+  #alookhor-pdp .product-gallery .gallery-thumbs{padding:0 0 4px !important}
+  #alookhor-pdp .gallery-thumb{min-width:64px !important;max-width:96px !important}
+  #alookhor-pdp .below-product{padding:0 24px 8px !important}
+  #alookhor-pdp .product-panel{padding:22px !important}
+  #alookhor-pdp .guarantees{grid-template-columns:repeat(4,minmax(0,1fr)) !important}
+  #alookhor-pdp .promo-banner>div.relative{flex-direction:row !important;align-items:center !important;justify-content:space-between !important;padding:28px !important}
+  #alookhor-pdp .highlight-track,#alookhor-pdp .products-track{grid-template-columns:repeat(3,minmax(0,1fr)) !important}
+  #alookhor-pdp .reviews-track{grid-template-columns:repeat(3,minmax(0,1fr)) !important}
+  #alookhor-pdp .usage-grid{grid-template-columns:repeat(2,1fr) !important}
+  #alookhor-pdp .faq-list{grid-template-columns:repeat(2,minmax(0,1fr)) !important}
+  #alookhor-pdp .add-button{flex:1 1 200px !important}
+}
+
