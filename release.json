@@ -1,16 +1,16 @@
 {
-  "version": "3.10.303",
-  "previous": "3.10.302",
+  "version": "3.10.304",
+  "previous": "3.10.303",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "فیکس قطعی سبد بهم ریخته - hero absolute fix + حذف دوبل + inline CSS حرفه‌ای",
+  "description": "فیکس قطعی سبد بهم ریخته - hero absolute + حذف دوبل فوتر و سبد قدیمی",
   "changelog": [
     {
       "tag": "FIX",
-      "title": "سبد بهم ریخته قطعی فیکس",
-      "desc": "hero-bg absolute inset fix، حذف template_include دوبل که باعث فوتر دوبل و سبد قدیمی می‌شد، فقط shortcode override، inline CSS کامل بدون Tailwind، cart-empty override برای حذف دسته‌بندی‌های Woodmart"
+      "title": "فیکس قطعی سبد",
+      "desc": "hero-bg absolute fix، حذف template_include دوبل، فقط shortcode، inline CSS لوکس بدون Tailwind، cart-empty override"
     }
   ],
   "project": "ALOOKHOR",
