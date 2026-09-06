@@ -1,16 +1,16 @@
 {
-  "version": "3.10.308",
-  "previous": "3.10.307",
+  "version": "3.10.309",
+  "previous": "3.10.308",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "فیکس سبد قدیمی + حذف سامسونگ",
+  "description": "فیکس سبد قدیمی و دسته‌بندی‌ها - template_include کامل",
   "changelog": [
     {
       "tag": "FIX",
-      "title": "حذف سبد قدیمی و سامسونگ",
-      "desc": "override cart/cart.php به luxury + فیلتر سامسونگ"
+      "title": "حذف سبد قدیمی و دسته‌بندی",
+      "desc": "template_include برمی‌گردد به templates/cart.php که فقط سبد لوکس دارد - بدون دسته‌بندی Woodmart، بدون سبد سفید"
     }
   ],
   "project": "ALOOKHOR",

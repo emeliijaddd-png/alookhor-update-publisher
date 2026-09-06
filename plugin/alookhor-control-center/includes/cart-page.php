@@ -1,5 +1,5 @@
 <?php
-/** ALOOKHOR CART — v3.10.308: luxury cart exact per 101216 — fixed hero + no duplicate */
+/** ALOOKHOR CART — v3.10.309: luxury cart exact per 101216 — fixed hero + no duplicate */
 if(!defined('ABSPATH'))exit;
 
 if(!function_exists('alookhor_cc_cart_icon')){
@@ -216,13 +216,14 @@ document.addEventListener('DOMContentLoaded',function(){
 }
 }
 
-// Only use shortcode override — disable template_include to avoid double header/footer
-remove_filter('template_include',function(){},PHP_INT_MAX);
+// Use full template for is_cart to avoid Woodmart categories and double cart - this is the correct way
 add_filter('template_include',function($template){
- // If Woodmart or other theme overrides, we still want to use our shortcode inside page.php, not our full template
- // So return original template to avoid double footer/header duplication
+ if(function_exists('is_cart')&&is_cart()){
+  $custom=ALOOKHOR_CC_DIR.'templates/cart.php';
+  if(file_exists($custom)) return $custom;
+ }
  return $template;
-},PHP_INT_MAX-1);
+},PHP_INT_MAX);
 
 add_action('wp_enqueue_scripts',function(){
  if(function_exists('is_cart')&&is_cart()){
