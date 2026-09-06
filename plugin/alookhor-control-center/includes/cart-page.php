@@ -247,15 +247,23 @@ add_filter('render_block',function($block_content,$block){
  return $block_content;
 },PHP_INT_MAX,2);
 
-// FORCE: Override Elementor cart widget via elementor/widget/render_content
+// FORCE: Override Elementor cart widget via elementor/widget/render_content - AGGRESSIVE
 add_filter('elementor/widget/render_content',function($content,$widget){
- if(function_exists('is_cart')&&is_cart()){
+ if(function_exists('is_cart')&&is_cart()&&!is_admin()){
    if(is_object($widget)){
      $name=$widget->get_name();
-     if(in_array($name,['woocommerce-cart','cart','wd_cart','wd_woocommerce_cart'])){
+     // List of all possible cart-related widget names
+     $cart_widgets=['woocommerce-cart','cart','wd_cart','wd_woocommerce_cart','wd_cart_table','wd_cart_totals','woocommerce_cart','cart_table','woocommerce-cart-totals','wd_woo_cart'];
+     if(in_array($name,$cart_widgets) || strpos($name,'cart')!==false){
        if(function_exists('alookhor_cc_cart_markup')){
          return alookhor_cc_cart_markup();
        }
+     }
+   }
+   // Also check content for old cart markers
+   if(strpos($content,'جمع جزء')!==false || strpos($content,'دیگران خریده اند')!==false || strpos($content,'ادامه جهت تسویه حساب')!==false){
+     if(function_exists('alookhor_cc_cart_markup')){
+       return alookhor_cc_cart_markup();
      }
    }
  }
@@ -281,6 +289,18 @@ add_filter('alookhor_cc_category_settings',function($s){
 add_action('wp',function(){
  if(function_exists('is_cart')&&is_cart()){
   remove_action('wp_footer','alookhor_cc_category_template',2);
+  // Remove Woodmart cart hooks that might render old cart
+  remove_action('woocommerce_cart_collaterals','woocommerce_cross_sell_display');
+  remove_action('woocommerce_cart_collaterals','woocommerce_cart_totals',10);
+  // Woodmart specific
+  if(function_exists('woodmart_woocommerce_cart_empty')){
+    remove_action('woocommerce_cart_is_empty','woodmart_woocommerce_cart_empty',10);
+  }
+  // Remove any Woodmart cart template actions
+  global $wp_filter;
+  if(isset($wp_filter['woocommerce_after_cart'])){
+    // keep it but ensure it doesn't output old cross-sells white
+  }
  }
 },1);
 
@@ -310,39 +330,62 @@ add_filter('woocommerce_cart_item_name',function($name,$cart_item,$cart_item_key
  if(mb_strpos($name,'سامسونگ')!==false||mb_strpos($name,'گوشی')!==false) return '';
  return $name;
 },10,3);
-// Extra JS to hide old Woodmart white cart + ensure footer is AFTER cart (fixes footer on top)
+// Extra JS to hide old Woodmart white cart AGGRESSIVELY + ensure footer is AFTER cart
 add_action('wp_footer',function(){
  if(!function_exists('is_cart')||!is_cart())return;
- echo '<script>document.addEventListener("DOMContentLoaded",function(){
- var lux=document.getElementById("alookhor-cart");
- if(lux){
-   // Hide old white cart
-   document.querySelectorAll(".woocommerce-cart-form, .cart-collaterals, .woocommerce-notices-wrapper, .wd-empty-cart, .wd-cart, .shop_table, .woocommerce-cart .woocommerce").forEach(function(el){
-     if(!lux.contains(el)&&!el.contains(lux)){
-       var txt=el.textContent||"";
-       if(txt.indexOf("جمع جزء")>-1||txt.indexOf("تکمیل خرید")>-1||txt.indexOf("دیگران خریده")>-1||el.classList.contains("woocommerce-cart-form")||el.classList.contains("cart-collaterals")){
-         el.style.display="none";
-       }
-     }
-   });
-   // FOOTER FIX: Ensure footer is after cart in DOM
-   var footers=document.querySelectorAll("footer, .whb-footer, .wd-footer, .site-footer, .footer-container");
-   footers.forEach(function(footer){
-     if(footer && lux && footer.compareDocumentPosition(lux) & Node.DOCUMENT_POSITION_FOLLOWING){
-       // footer is BEFORE cart - move it AFTER cart
-       var parent=footer.parentNode;
-       var cartParent=lux.parentNode;
-       if(parent && cartParent){
-         // Move footer to after cart container
-         try{
-           cartParent.parentNode.insertBefore(footer, cartParent.nextSibling);
-         }catch(e){
-           // fallback: append footer to body end
-           document.body.appendChild(footer);
-         }
-       }
-     }
-   });
- }
-});</script>';
+ echo '<script>
+document.addEventListener("DOMContentLoaded",function(){
+  var lux=document.getElementById("alookhor-cart");
+  if(!lux) return;
+  // AGGRESSIVE HIDE: hide ANY old white cart elements unconditionally
+  function hideOld(){
+    document.querySelectorAll(".woocommerce-cart-form, .cart-collaterals, .shop_table, .wd-cart, .wd-empty-cart, .wd-cart-content, .woocommerce-notices-wrapper, .cart-empty, .return-to-shop, .cross-sells, .wd-cross-sells").forEach(function(el){
+      if(lux && !lux.contains(el) && !el.contains(lux)){
+        el.style.setProperty("display","none","important");
+        el.style.setProperty("visibility","hidden","important");
+        el.style.setProperty("height","0","important");
+        el.style.setProperty("overflow","hidden","important");
+      }
+    });
+    // Hide any element containing old texts
+    document.querySelectorAll("div, section").forEach(function(el){
+      if(lux && lux.contains(el)) return;
+      var txt=(el.textContent||"").trim();
+      if(txt.indexOf("جمع جزء")>-1 && txt.indexOf("ریال")>-1 && el.children.length<10){
+        // likely old summary box
+        if(!el.closest("#alookhor-cart")){
+          el.style.setProperty("display","none","important");
+        }
+      }
+      if(txt==="دیگران خریده اند" || txt.indexOf("دیگران خریده اند")>-1){
+        var parent=el.closest(".wd-products, .products, section, div");
+        if(parent && !parent.closest("#alookhor-cart")){
+          // hide the whole cross-sells section if not our suggested
+          if(!parent.querySelector("#alookhor-cart")){
+            // check if this is Woodmart cross-sells (white cards)
+            if(parent.querySelector(".product-grid, .wd-product, .wd-products")){
+              parent.style.setProperty("display","none","important");
+            }
+          }
+        }
+      }
+    });
+  }
+  hideOld();
+  // MutationObserver for AJAX cart updates
+  var obs=new MutationObserver(hideOld);
+  obs.observe(document.body,{childList:true, subtree:true});
+  // FOOTER FIX
+  var footers=document.querySelectorAll("footer, .whb-footer, .wd-footer, .site-footer, .footer-container");
+  footers.forEach(function(footer){
+    if(footer && lux && footer.compareDocumentPosition(lux) & Node.DOCUMENT_POSITION_FOLLOWING){
+      try{ lux.parentNode.parentNode.insertBefore(footer, lux.parentNode.nextSibling); }catch(e){ document.body.appendChild(footer); }
+    }
+  });
+  // Ensure luxury visible
+  lux.style.setProperty("display","block","important");
+  lux.style.setProperty("visibility","visible","important");
+  lux.style.setProperty("opacity","1","important");
+});
+</script>';
 },100);

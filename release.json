@@ -1,16 +1,16 @@
 {
-  "version": "3.10.334",
-  "previous": "3.10.333",
+  "version": "3.10.335",
+  "previous": "3.10.334",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "حذف کامل سبد قدیمی وودمارت - فقط لوکس",
+  "description": "حذف کامل سبد سفید قدیمی - Override تهاجمی",
   "changelog": [
     {
       "tag": "FIX",
-      "title": "حذف کامل سبد قدیمی",
-      "desc": "Override the_content + render_block woocommerce/cart + elementor/widget/render_content + CSS aggressive hide - فقط سبد لوکس دارک"
+      "title": "حذف قطعی سبد قدیمی",
+      "desc": "the_content + render_block + elementor/widget/render_content تهاجمی + JS MutationObserver + CSS aggressive hide - فقط لوکس"
     }
   ],
   "project": "ALOOKHOR",
