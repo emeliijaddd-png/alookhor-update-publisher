@@ -3022,3 +3022,18 @@ html{overflow-x:hidden !important}
   font-size:22px!important;
   color:#f7b32b!important;
 }
+
+/* v3.10.301 — FIX mangled RTL price: Persian digits + U+066C separator inside RTL context
+   get reordered ("٬۳۰۰٬۱۳۰۰"). Isolate number with bidi isolation; old price above new price,
+   stacked and right-aligned inside price-box per owner reference. */
+#alookhor-pdp .price-box .mt-3flex,
+#alookhor-pdp .price-box .flex.flex-col.items-center.justify-center{direction:ltr!important}
+#alookhor-pdp .alp-price-now,
+#alookhor-pdp .price-box .line-through{
+  direction:ltr!important;
+  unicode-bidi:isolate!important;
+  display:inline-flex!important;
+  align-items:baseline!important;
+  gap:5px!important;
+}
+#alookhor-pdp .alpm-cur{direction:rtl!important;unicode-bidi:plaintext!important;font-weight:700!important}
