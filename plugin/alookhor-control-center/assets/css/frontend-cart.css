@@ -355,19 +355,31 @@
 #alookhor-cart .faq summary::-webkit-details-marker{display:none!important}
 #alookhor-cart .faq p{margin:10px 0 0!important;font-size:12px!important;color:#b8a0cf!important;line-height:1.7!important}
 
-/* Footer fix - ensure footer stays below */
-body.woocommerce-cart #alookhor-cart + * {clear:both!important}
-body.woocommerce-cart footer, body.woocommerce-cart .whb-footer, body.woocommerce-cart .site-footer {
-  position:relative!important; z-index:2!important; margin-top:0!important;
+/* Footer - ensure it stays at bottom, not on top */
+#alookhor-cart{
+  display:block!important;
+  clear:both!important;
+  width:100%!important;
+}
+body.woocommerce-cart footer,
+body.woocommerce-cart .whb-footer,
+body.woocommerce-cart .site-footer,
+body.woocommerce-cart .footer-container,
+body.woocommerce-cart .wd-footer{
+  display:block!important;
+  position:relative!important;
+  clear:both!important;
+  width:100%!important;
+  margin-top:40px!important;
+  z-index:1!important;
 }
 
-/* Hide old Woodmart cart completely */
-body.woocommerce-cart .woocommerce-cart-form,
-body.woocommerce-cart .cart-collaterals,
-body.woocommerce-cart .shop_table:not(#alookhor-cart .shop_table),
-body.woocommerce-cart .wd-cart,
-body.woocommerce-cart .wd-empty-cart .return-to-shop,
-body.woocommerce-cart .woocommerce-notices-wrapper {
+/* Hide ONLY old Woodmart white cart, NOT footer */
+body.woocommerce-cart .woocommerce-cart-form:not(#alookhor-cart .woocommerce-cart-form),
+body.woocommerce-cart .cart-collaterals:not(#alookhor-cart .cart-collaterals),
+body.woocommerce-cart .shop_table.woocommerce-cart-form__contents,
+body.woocommerce-cart .wd-cart-content,
+body.woocommerce-cart .wd-empty-cart-text + .return-to-shop{
   display:none!important;
 }
 

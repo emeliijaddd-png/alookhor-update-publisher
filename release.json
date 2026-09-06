@@ -1,26 +1,16 @@
 {
-  "version": "3.10.319",
-  "previous": "3.10.318",
+  "version": "3.10.320",
+  "previous": "3.10.319",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "فیکس سبد طبق موکاپ دقیق - اعمال طلایی، آیکون ارسال، رنگ زنده، کارد و نورپردازی + موبایل اسلایدی",
+  "description": "فیکس فوتر بالای صفحه - فوتر باید پایین بماند",
   "changelog": [
     {
       "tag": "FIX",
-      "title": "اعمال طلایی + آیکون ارسال",
-      "desc": "دکمه اعمال gradient gold، آیکون ارسال 44px gradient gold"
-    },
-    {
-      "tag": "UI",
-      "title": "رنگ زنده و کاردبندی طبق موکاپ",
-      "desc": "background radial با glow، کاردها gradient vivid با border و shadow"
-    },
-    {
-      "tag": "MOBILE",
-      "title": "اسلایدر موبایل حفظ",
-      "desc": "از 3.10.318 - محصولات پیشنهادی و گزیده اسلایدی روی موبایل"
+      "title": "فوتر بالای صفحه",
+      "desc": "حذف z-index 2 که باعث overlap می‌شد + clear both + margin-top 40px برای footer"
     }
   ],
   "project": "ALOOKHOR",
