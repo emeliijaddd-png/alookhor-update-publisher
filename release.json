@@ -1,16 +1,16 @@
 {
-  "version": "3.10.264",
-  "previous": "3.10.263",
+  "version": "3.10.265",
+  "previous": "3.10.264",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "فیکس سبد خرید - حذف override اشتباه cart/cart.php که باعث لود نشدن تمپلیت اصلی می‌شد",
+  "description": "فیکس سبد خرید - override شورت‌کد woocommerce_cart برای لود تمپلیت لوکس",
   "changelog": [
     {
       "tag": "FIX",
-      "title": "فیکس سبد خرید لوکس",
-      "desc": "حذف woocommerce_locate_template اشتباه که cart/cart.php را به تمپلیت کامل می‌برد - حالا فقط template_include برای is_cart - سبد خرید لوکس باید لود شود"
+      "title": "فیکس سبد خرید - شورت‌کد override",
+      "desc": "اضافه کردن remove_shortcode و add_shortcode برای woocommerce_cart تا حتی اگر template_include توسط تم override شود، محتوای سبد لوکس لود شود"
     }
   ],
   "project": "ALOOKHOR",

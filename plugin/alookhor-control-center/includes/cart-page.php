@@ -1,5 +1,5 @@
 <?php
-/** ALOOKHOR CART — v3.10.264: exact per Screenshot 2026-09-06 101216.png — luxury cart page with summary, products, suggestions, features, FAQ */
+/** ALOOKHOR CART — v3.10.265: exact per Screenshot 2026-09-06 101216.png — luxury cart page with summary, products, suggestions, features, FAQ */
 if(!defined('ABSPATH'))exit;
 
 if(!function_exists('alookhor_cc_cart_icon')){
@@ -293,3 +293,16 @@ add_action('wp_enqueue_scripts',function(){
 });
 
 // woocommerce_locate_template override removed - use template_include only for is_cart
+
+// Override WooCommerce cart shortcode to use our luxury markup
+add_action('init',function(){
+ if(function_exists('is_cart')){
+  // Remove default shortcode and add ours
+  if(shortcode_exists('woocommerce_cart')){
+   remove_shortcode('woocommerce_cart');
+  }
+  add_shortcode('woocommerce_cart',function(){
+   return alookhor_cc_cart_markup();
+  });
+ }
+},20);
