@@ -3037,3 +3037,13 @@ html{overflow-x:hidden !important}
   gap:5px!important;
 }
 #alookhor-pdp .alpm-cur{direction:rtl!important;unicode-bidi:plaintext!important;font-weight:700!important}
+
+/* v3.10.304 — quantity row moves ABOVE the CTA row; «تعداد:» label pinned right, stepper pinned left */
+#alookhor-pdp .purchase-actions > div.flex .quantity-row{
+  order:-1!important;
+  width:100%!important;
+  justify-content:space-between!important;
+  direction:rtl!important;
+}
+#alookhor-pdp .purchase-actions > div.flex .quantity-row .quantity-label{order:0!important;flex:0 0 auto!important;margin-inline-end:0!important}
+#alookhor-pdp .purchase-actions > div.flex .quantity-row .quantity-control{order:1!important;flex:0 0 auto!important}
