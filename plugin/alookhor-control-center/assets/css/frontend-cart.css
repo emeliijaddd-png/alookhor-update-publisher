@@ -626,3 +626,26 @@ body.woocommerce-cart #alookhor-cart .faq {
   opacity:1!important;
   height:auto!important;
 }
+
+/* v3.10.343 - hide top white bar "سبد خرید" that user sees */
+body.woocommerce-cart .wd-page-title,
+body.woocommerce-cart .wd-page-title.wd-style-default,
+body.woocommerce-cart .page-title,
+body.woocommerce-cart .entry-header,
+body.woocommerce-cart .wd-checkout-steps,
+body.woocommerce-cart .wd-checkout-steps-wrapper,
+body.woocommerce-cart .woocommerce-breadcrumb,
+body.woocommerce-cart .wd-breadcrumbs,
+body.woocommerce-cart .breadcrumbs,
+body.woocommerce-cart .page-heading,
+body.woocommerce-cart .wd-page-heading,
+body.woocommerce-cart .container > .wd-page-title,
+body.woocommerce-cart .main-page-wrapper > .wd-page-title {
+  display:none!important;
+  visibility:hidden!important;
+  height:0!important;
+  overflow:hidden!important;
+  margin:0!important;
+  padding:0!important;
+  opacity:0!important;
+}
