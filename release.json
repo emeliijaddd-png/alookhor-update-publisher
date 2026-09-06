@@ -1,16 +1,16 @@
 {
-  "version": "3.10.263",
-  "previous": "3.10.262",
+  "version": "3.10.264",
+  "previous": "3.10.263",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "فیکس حرفه‌ای سبد خرید - طراحی لوکس دارک با گرادیانت، بوردر، شدو، هاور - مثل عکس اصلی",
+  "description": "فیکس سبد خرید - حذف override اشتباه cart/cart.php که باعث لود نشدن تمپلیت اصلی می‌شد",
   "changelog": [
     {
       "tag": "FIX",
-      "title": "سبد خرید حرفه‌ای لوکس",
-      "desc": "CSS کامل برای cart-hero، cart-products-box، cart-item هاور، summary گرادیانت و شدو، suggested cards هاور، features، FAQ - دقیقا مثل عکس اصلی، نه بهم ریخته"
+      "title": "فیکس سبد خرید لوکس",
+      "desc": "حذف woocommerce_locate_template اشتباه که cart/cart.php را به تمپلیت کامل می‌برد - حالا فقط template_include برای is_cart - سبد خرید لوکس باید لود شود"
     }
   ],
   "project": "ALOOKHOR",
