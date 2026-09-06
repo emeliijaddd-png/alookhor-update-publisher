@@ -4,7 +4,7 @@ Tags: control center, luxury, alookhor, admin, dashboard
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 3.10.316
+Stable tag: 3.10.317
 License: Private
 License URI: https://alookhor.ir
 
@@ -46,6 +46,11 @@ License URI: https://alookhor.ir
 در `config/site.json` و `wp_options: alookhor_cc_settings` — همان حافظه واقعی که در چت قبلی ویرایش می‌شد.
 
 == Changelog ==
+
+= 3.10.317 =
+* Phone (<=640px) purchase box back to owner mockup-1: quantity pill (right) + gold add-to-cart (left) on one line, no icon row, delivery text right / "in stock" left. Needed because the 3.10.312 buy-box block has no media query and had re-flowed phones (qty row above the button, icons on a third row).
+* Scoped strictly to @media(max-width:640px) and appended after the 3.10.312 block: desktop 1440 verified 0 differing pixels vs the previous release; tablet 768/1024 unchanged.
+* JS: switching the weight chip no longer resets the chosen quantity in the add-to-cart / sticky-bar links.
 
 = 3.10.316 =
 * Mobile product page rebuilt per the two owner mockups (top + bottom): edge-to-edge image with thumb strip, breadcrumb, panel (badge, title, rating + wishlist, 4 features in one row, price, weight chips, qty pill + gold cart on one line, delivery line), guarantees 2x2, banner, tabs bar, description, suggested products 2-col, curated 2-col, usage, FAQ 1-col, reviews stacked, newsletter.

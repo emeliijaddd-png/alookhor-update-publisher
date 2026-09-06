@@ -190,9 +190,9 @@
     "export_text": "ارسال رایگان به بیش از ۱۵ کشور جهان",
     "support_text": "پشتیبانی ۲۴/۷"
   },
-  "updated_at": "2026-09-05T12:00:00Z",
-  "updated_by": "AI Assistant — v3.10.316 mobile PDP per 2 mockups (media-query only, desktop pixel-identical to 3.10.310)",
-  "version": "3.10.316",
+  "updated_at": "2026-09-06T12:50:00Z",
+  "updated_by": "AI Assistant — v3.10.317 phone buy box re-locked to mockup-1 after 3.10.312 layout (<=640 only, desktop/tablet 0 px change)",
+  "version": "3.10.317",
   "hero_settings": {
     "enabled": true,
     "hide_legacy": true,

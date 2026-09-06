@@ -3270,3 +3270,20 @@ html{overflow-x:hidden !important}
   #alookhor-pdp .purchase-actions .share-btn,#alookhor-pdp .purchase-actions .compare-btn,#alookhor-pdp .purchase-actions .wishlist-btn{width:44px!important;height:44px!important;min-width:44px!important;min-height:44px!important}
   #alookhor-pdp .purchase-actions .cart-row{flex-wrap:wrap!important}
 }
+
+/* ===== v3.10.317 — PHONE BUY BOX BACK TO MOCKUP-1 (media-query only) — MOCKUP PDP =====
+   The "OWNER FINAL LAYOUT" block above (3.10.312) is unconditioned, so it also re-flowed phones: qty pill stretched
+   to a full row above the CTA, the 3 icons dropped to a third row and the stock line flipped. Owner mockup-1 for
+   phones = qty pill (right) + gold CTA (left) on ONE line, no icon row, «ارسال…» right / «● موجود در انبار» left.
+   Only <=640px is touched; >=641px (tablet/desktop) keeps the 3.10.312 layout untouched. ===== */
+@media(max-width:640px){
+#alookhor-pdp .purchase-actions>div.flex{display:flex !important;flex-wrap:wrap !important;direction:rtl !important;gap:8px 10px !important;align-items:center !important}
+#alookhor-pdp .purchase-actions>div.flex .quantity-row{order:1 !important;width:auto !important;flex:0 0 auto !important;justify-content:flex-start !important;direction:rtl !important;margin:0 !important}
+#alookhor-pdp .purchase-actions>div.flex .quantity-row .quantity-label{display:none !important}
+#alookhor-pdp .purchase-actions .cart-row{order:2 !important;width:auto !important;flex:1 1 0 !important;min-width:0 !important;flex-wrap:nowrap !important;gap:6px !important;direction:ltr !important}
+#alookhor-pdp .purchase-actions .cart-row .add-button{flex:1 1 auto !important;width:auto !important;min-width:0 !important;height:44px !important;min-height:44px !important;font-size:13px !important}
+#alookhor-pdp .purchase-actions .cart-row>div.flex{display:none !important}
+#alookhor-pdp .purchase-actions .shipping-line{order:3 !important;flex:1 1 100% !important;direction:rtl !important;justify-content:space-between !important}
+#alookhor-pdp .purchase-actions .shipping-line>span.text-lav\/70{order:0 !important}
+#alookhor-pdp .purchase-actions .shipping-line>span.text-mint{order:1 !important}
+}

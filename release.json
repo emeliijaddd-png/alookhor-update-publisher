@@ -1,41 +1,26 @@
 {
-  "version": "3.10.316",
-  "previous": "3.10.315",
+  "version": "3.10.317",
+  "previous": "3.10.316",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "فیکس سبد طبق موکاپ - فوتر، ادامه خرید طلایی انیمیشنی، قیمت پیشنهادی بزرگ وسط چین",
+  "description": "جعبه خرید موبایل دوباره مطابق ماکاپ ۱ (فقط ≤640px) + حفظ تعداد هنگام تغییر وزن",
   "changelog": [
     {
       "tag": "FIX",
-      "title": "فوتر بالای صفحه فیکس",
-      "desc": "clear both + position relative برای footer"
+      "title": "جعبه خرید موبایل مطابق ماکاپ ۱",
+      "desc": "بلوک ۳.۱۰.۳۱۲ بدون media query چیدمان موبایل را شکسته بود؛ قوانین فقط ≤640px بعد از آن اضافه شد — دسکتاپ ۰ پیکسل تغییر"
     },
     {
-      "tag": "UI",
-      "title": "ادامه خرید طلایی سمت چپ انیمیشنی",
-      "desc": "btn-continue gradient gold با انیمیشن pulse و hover translateY"
-    },
-    {
-      "tag": "UI",
-      "title": "قیمت پیشنهادی بزرگ وسط چین",
-      "desc": "price 14px bold centered + add-btn gradient"
-    },
-    {
-      "tag": "UI",
-      "title": "نوار آدرس بزرگتر",
-      "desc": "breadcrumb 13px bold + tagline 14px با background gold"
-    },
-    {
-      "tag": "UI",
-      "title": "ارسال سریع طبق موکاپ",
-      "desc": "features با background و icon gradient gold"
+      "tag": "FIX",
+      "title": "تعداد هنگام تغییر وزن",
+      "desc": "لینک افزودن به سبد/نوار چسبان بعد از انتخاب چیپ وزن، quantity انتخاب‌شده را نگه می‌دارد"
     }
   ],
   "project": "ALOOKHOR",
-  "area": "Product Page PDP — Mobile per 2 mockups (desktop locked)",
-  "reason": "کاربر ۲ ماکاپ موبایل داد: موبایل باید دقیقاً مثل ماکاپ شود، دسکتاپ قفل و بدون تغییر، فقط media query؛ نسخه‌های ۳۰۰–۳۱۰ سشن‌های دیگر بلوک موبایل ۲۶۷/۲۶۸ را حذف کرده بودند — دوباره روی ۳۱۰ اعمال شد",
+  "area": "Product Page PDP — phone buy box (desktop locked)",
+  "reason": "کاربر گزینه الف را انتخاب کرد: ریلیز کوچک فقط موبایل، دسکتاپ بدون تغییر",
   "files": [
     "plugin/alookhor-control-center/CHANGELOG.md",
     "plugin/alookhor-control-center/alookhor-control-center.php",
