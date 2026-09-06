@@ -483,3 +483,54 @@ body.woocommerce-cart #alookhor-cart .suggested {
   opacity:1!important;
   height:auto!important;
 }
+
+/* v3.10.336 FINAL - hide ALL white product grids on cart, keep only luxury */
+body.woocommerce-cart .woocommerce .products,
+body.woocommerce-cart .wd-products,
+body.woocommerce-cart .wd-products-element,
+body.woocommerce-cart .products.wd-products,
+body.woocommerce-cart .elementor-widget-wd_products,
+body.woocommerce-cart .elementor-widget-products,
+body.woocommerce-cart [class*="products"] {
+  display:none!important;
+}
+body.woocommerce-cart #alookhor-cart .products,
+body.woocommerce-cart #alookhor-cart .wd-products,
+body.woocommerce-cart #alookhor-cart .suggested-grid,
+body.woocommerce-cart #alookhor-cart .suggested {
+  display:grid!important;
+  visibility:visible!important;
+  opacity:1!important;
+  height:auto!important;
+}
+/* Hide any section that contains "دیگران خریده اند" text outside luxury */
+body.woocommerce-cart div:has(> h2),
+body.woocommerce-cart section:has(h2) {
+  /* generic, will be filtered by JS */
+}
+/* Use :has to hide cross-sells wrappers */
+body.woocommerce-cart .cross-sells,
+body.woocommerce-cart div:has(> .cross-sells),
+body.woocommerce-cart section:has(.cross-sells),
+body.woocommerce-cart div:has(> h2:is(:contains("دیگران"))),
+body.woocommerce-cart *:has(> *:contains("دیگران خریده اند")) {
+  display:none!important;
+}
+body.woocommerce-cart #alookhor-cart *:has(> *:contains("دیگران")) {
+  display:block!important;
+}
+/* Ensure only ONE cart visible - hide any duplicate #alookhor-cart if more than one */
+body.woocommerce-cart #alookhor-cart ~ #alookhor-cart {
+  display:none!important;
+}
+/* Hide Woodmart's default cart page title and breadcrumb white */
+body.woocommerce-cart .woocommerce-cart-form + .cross-sells,
+body.woocommerce-cart .cart-collaterals + .cross-sells,
+body.woocommerce-cart .wd-page-title,
+body.woocommerce-cart .wd-breadcrumbs {
+  display:none!important;
+}
+body.woocommerce-cart #alookhor-cart .cart-hero,
+body.woocommerce-cart #alookhor-cart .breadcrumb {
+  display:flex!important;
+}
