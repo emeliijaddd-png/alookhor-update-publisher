@@ -1,16 +1,16 @@
 {
-  "version": "3.10.329",
-  "previous": "3.10.328",
+  "version": "3.10.330",
+  "previous": "3.10.329",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "فیکس فوتر پایین سبد - برگشت به template اصلی",
+  "description": "فیکس فوتر پایین + جابجایی DOM",
   "changelog": [
     {
       "tag": "FIX",
-      "title": "فوتر پایین سبد",
-      "desc": "برگشت به template اصلی وودمارت برای حفظ ساختار wrapper - فوتر پایین، سبد لوکس فقط، بدون سفید قدیمی"
+      "title": "فوتر پایین قطعی",
+      "desc": "برگشت به template اصلی + JS جابجایی فوتر بعد از سبد + حذف سفید قدیمی"
     }
   ],
   "project": "ALOOKHOR",

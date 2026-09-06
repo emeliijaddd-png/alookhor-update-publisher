@@ -274,8 +274,39 @@ add_filter('woocommerce_cart_item_name',function($name,$cart_item,$cart_item_key
  if(mb_strpos($name,'سامسونگ')!==false||mb_strpos($name,'گوشی')!==false) return '';
  return $name;
 },10,3);
-// Extra JS to hide old Woodmart white cart if it appears above
+// Extra JS to hide old Woodmart white cart + ensure footer is AFTER cart (fixes footer on top)
 add_action('wp_footer',function(){
  if(!function_exists('is_cart')||!is_cart())return;
- echo '<script>document.addEventListener("DOMContentLoaded",function(){var lux=document.getElementById("alookhor-cart");if(!lux)return;document.querySelectorAll(".woocommerce-cart-form, .cart-collaterals, .woocommerce-notices-wrapper, .wd-empty-cart, .wd-cart, .shop_table, .woocommerce-cart .woocommerce").forEach(function(el){if(!lux.contains(el)&&!el.contains(lux)){var txt=el.textContent||"";if(txt.indexOf("جمع جزء")>-1||txt.indexOf("تکمیل خرید")>-1||txt.indexOf("دیگران خریده")>-1){el.style.display="none";}}});});</script>';
+ echo '<script>document.addEventListener("DOMContentLoaded",function(){
+ var lux=document.getElementById("alookhor-cart");
+ if(lux){
+   // Hide old white cart
+   document.querySelectorAll(".woocommerce-cart-form, .cart-collaterals, .woocommerce-notices-wrapper, .wd-empty-cart, .wd-cart, .shop_table, .woocommerce-cart .woocommerce").forEach(function(el){
+     if(!lux.contains(el)&&!el.contains(lux)){
+       var txt=el.textContent||"";
+       if(txt.indexOf("جمع جزء")>-1||txt.indexOf("تکمیل خرید")>-1||txt.indexOf("دیگران خریده")>-1||el.classList.contains("woocommerce-cart-form")||el.classList.contains("cart-collaterals")){
+         el.style.display="none";
+       }
+     }
+   });
+   // FOOTER FIX: Ensure footer is after cart in DOM
+   var footers=document.querySelectorAll("footer, .whb-footer, .wd-footer, .site-footer, .footer-container");
+   footers.forEach(function(footer){
+     if(footer && lux && footer.compareDocumentPosition(lux) & Node.DOCUMENT_POSITION_FOLLOWING){
+       // footer is BEFORE cart - move it AFTER cart
+       var parent=footer.parentNode;
+       var cartParent=lux.parentNode;
+       if(parent && cartParent){
+         // Move footer to after cart container
+         try{
+           cartParent.parentNode.insertBefore(footer, cartParent.nextSibling);
+         }catch(e){
+           // fallback: append footer to body end
+           document.body.appendChild(footer);
+         }
+       }
+     }
+   });
+ }
+});</script>';
 },100);
