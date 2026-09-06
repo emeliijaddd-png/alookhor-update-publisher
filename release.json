@@ -1,16 +1,16 @@
 {
-  "version": "3.10.325",
-  "previous": "3.10.324",
+  "version": "3.10.326",
+  "previous": "3.10.325",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "فیکس سبد لوکس فقط - بدون سفید قدیمی + موبایل",
+  "description": "فیکس فوتر پایین - برگشت به template اصلی",
   "changelog": [
     {
       "tag": "FIX",
-      "title": "سبد لوکس فقط",
-      "desc": "فقط دارک حرفه‌ای"
+      "title": "فوتر پایین",
+      "desc": "template اصلی + CSS clear both + margin-top 50px"
     }
   ],
   "project": "ALOOKHOR",
