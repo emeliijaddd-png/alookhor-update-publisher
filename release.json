@@ -1,1 +1,45 @@
-{"version":"3.10.19","previous":"3.10.18","state":"ready","requires":"6.0","tested":"7.0","requires_php":"8.0","description":"تطبیق Top Bar و منوی اصلی Desktop با مرجع دو‌ردیفه Burgundy/Gold، با حفظ Node واقعی WordPress و Sticky Navigation.","changelog":[{"tag":"REFERENCE TOP BAR","title":"Support / Message / Phone","desc":"Top Bar شیشه‌ای با پشتیبانی در چپ، پیام ارسال در مرکز، تلفن در راست، جداسازهای ظریف و SVG هدست."},{"tag":"INTEGRATED NAV","title":"منوی واقعی داخل کپسول Desktop","desc":"همان .header-nav-center بدون Clone در حالت بالای صفحه داخل کپسول دیده می‌شود و هنگام Scroll به Sticky rail موجود بازمی‌گردد."},{"tag":"APPROVED PALETTE","title":"Burgundy / Gold","desc":"#0D0510، #1C1024، rgba(33,20,38,.75)، #D49A2E، #E8B84A، #F5F3F0 و #C8C2C9."},{"tag":"PRESERVED MOBILE","title":"دو ردیف بدون Navigation اضافه","desc":"Mobile همان Top Bar و Main Capsule را نگه می‌دارد؛ Cart، Account، Logo، Hamburger، Hero underlap و Drawer حفظ می‌شوند."}],"project":"ALOOKHOR","area":"Top Bar + Main Header Navigation / Desktop + Mobile","reason":"مالک سایت تصویر مرجع دو‌ردیفه را ارائه و تطبیق سریع Top Bar و نوار منوی اصلی با همان ساختار و پالت را درخواست کرد.","files":["plugin/alookhor-control-center/assets/css/frontend-header-scroll.css","plugin/alookhor-control-center/assets/css/frontend-header.css","plugin/alookhor-control-center/assets/js/frontend-topbar-manager.js","plugin/alookhor-control-center/alookhor-control-center.php","plugin/alookhor-control-center/assets/js/modules/settings.js","plugin/alookhor-control-center/includes/ajax.php","plugin/alookhor-control-center/includes/rest-api.php","plugin/alookhor-control-center/includes/shortcode-header.php","plugin/alookhor-control-center/config/site.json","scripts/header_visual_audit.py","scripts/wordpress_access_check.py","scripts/wordpress_release_test.py"]}
+{
+  "version": "3.10.20",
+  "previous": "3.10.19",
+  "state": "ready",
+  "requires": "6.0",
+  "tested": "7.0",
+  "requires_php": "8.0",
+  "description": "قاب خرید لوکس صفحه تکی محصول مطابق مرجع تصویری مالک: کارت قیمت با نشان تخفیف، Pills انتخاب وزن متصل به متغیرهای واقعی WooCommerce، استپر تعداد، دکمه طلایی با آیکون سبد، علاقه‌مندی/مقایسه/اشتراک و ردیف موجودی/ارسال — با حفظ کامل موتور بومی WooCommerce.",
+  "changelog": [
+    {
+      "tag": "LUXURY BUY BOX",
+      "title": "قاب کامل قیمت و خرید مطابق مرجع",
+      "desc": "کارت قیمت با نشان تخفیف صورتی، قیمت طلایی بزرگ و قیمت قدیمی خط‌خورده؛ استپر تعداد سه‌تکه؛ دکمه گرادیان طلایی با آیکون سبد؛ دکمه‌های علاقه‌مندی/مقایسه/اشتراک؛ ردیف وضعیت با نقطه سبز ضربان‌دار و متن ارسال."
+    },
+    {
+      "tag": "REAL VARIATIONS",
+      "title": "Pills وزن روی متغیرهای واقعی WooCommerce",
+      "desc": "Selectهای بومی Visually Hidden می‌مانند و موتور رسمی wc-add-to-cart-variation، قوانین موجودی و AJAX add-to-cart بدون هیچ تغییری کار می‌کنند؛ قیمت، نشان تخفیف و موجودی با رویداد found_variation و با ارقام فارسی زنده به‌روز می‌شوند."
+    },
+    {
+      "tag": "DUAL MOUNT",
+      "title": "Takeover خودکار + شورت‌کد [alookhor_buybox]",
+      "desc": "جایگزینی خودکار ناحیه قیمت/خرید در قالب استاندارد WooCommerce برای محصولات Simple و Variable، و شورت‌کد مستقل برای جایگذاری در قالب Elementor؛ Guard داخلی از رندر دوبل جلوگیری می‌کند و سایر تایپ‌های محصول دست‌نخورده می‌مانند."
+    },
+    {
+      "tag": "SCOPED DESIGN",
+      "title": "پالت Burgundy/Gold کاملاً Scoped",
+      "desc": "استایل تحت .alk-bb با متغیرهای برند (#0D0510، #1C1024، #D49A2E، #E8B84A)، ارقام فارسی مستقل از فارسی‌سازها، ریسپانسیو موبایل‌فرست، خنثی‌سازی استپر تزریقی Woodmart و رعایت WCAG (Focus، ARIA، prefers-reduced-motion)."
+    }
+  ],
+  "project": "ALOOKHOR",
+  "area": "Single Product — Price & Purchase Panel (Buy Box)",
+  "reason": "مالک سایت مرجع تصویری قاب قیمت لوکس را ارائه و بازسازی دقیق صفر تا صد آن را خواستار شد؛ نسخه کنونی Production این ساختار را مطابق مرجع نمایش نمی‌داد.",
+  "files": [
+    "plugin/alookhor-control-center/includes/single-product-buybox.php",
+    "plugin/alookhor-control-center/assets/css/frontend-buybox.css",
+    "plugin/alookhor-control-center/assets/js/frontend-buybox.js",
+    "plugin/alookhor-control-center/alookhor-control-center.php",
+    "plugin/alookhor-control-center/config/site.json",
+    "plugin/alookhor-control-center/readme.txt",
+    "plugin/alookhor-control-center/CHANGELOG.md",
+    "plugin/alookhor-control-center/templates/admin-control-center.php",
+    "scripts/generate_code_registry.py"
+  ]
+}

@@ -15,7 +15,7 @@
 ## Current Project State
 
 - CURRENT VERSION: `3.10.20`
-- LAST FUNCTIONAL CHANGE: ماژول «قاب خرید لوکس» صفحه تکی محصول مطابق مرجع تصویری مالک — کارت قیمت با نشان تخفیف، Pills انتخاب وزن متصل به متغیرهای واقعی WooCommerce، استپر تعداد، دکمه طلایی، علاقه‌مندی/مقایسه/اشتراک و ردیف موجودی/ارسال؛ هوک‌ها و اسکریپت بومی WooCommerce دست‌نخورده حفظ شده‌اند.
+- LAST FUNCTIONAL CHANGE: قاب خرید لوکس صفحه تکی محصول مطابق مرجع تصویری مالک: کارت قیمت با نشان تخفیف، Pills انتخاب وزن متصل به متغیرهای واقعی WooCommerce، استپر تعداد، دکمه طلایی با آیکون سبد، علاقه‌مندی/مقایسه/اشتراک و ردیف موجودی/ارسال — با حفظ کامل موتور بومی WooCommerce.
 - ACTIVE DESIGN: Luxury Black/Gold; actual component colors remain controlled by saved WordPress settings and existing module defaults.
 - ACTIVE SHORTCODES: `[alookhor_portal_header]`, `[alookhor_managed_categories]`, `[alookhor_managed_hero]`, `[alookhor_managed_features]`, `[alookhor_buybox]`.
 - ACTIVE PANELS: Main ALOOKHOR Control Center and Header/Top Bar submenu.
@@ -29,19 +29,9 @@
 PROJECT: ALOOKHOR
 AREA: Single Product — Price & Purchase Panel (Buy Box)
 CURRENT VERSION: 3.10.20
-CHANGE: قاب خرید لوکس جدید مطابق مرجع تصویری: کارت قیمت (نشان تخفیف صورتی + قیمت طلایی + قیمت قدیمی خط‌خورده)، Pills انتخاب وزن واقعی، استپر تعداد، دکمه طلایی با آیکون سبد، علاقه‌مندی/مقایسه/اشتراک، ردیف موجودی/ارسال؛ Takeover خودکار + شورت‌کد [alookhor_buybox]؛ موتور بومی variations حفظ شد.
-REASON: مالک سایت مرجع تصویری دارک لوکس قاب قیمت را ارائه و بازسازی صفر تا صد دقیق آن را درخواست کرد.
-FILES: plugin/alookhor-control-center/includes/single-product-buybox.php; plugin/alookhor-control-center/assets/css/frontend-buybox.css; plugin/alookhor-control-center/assets/js/frontend-buybox.js; plugin/alookhor-control-center/alookhor-control-center.php; plugin/alookhor-control-center/readme.txt; plugin/alookhor-control-center/CHANGELOG.md; plugin/alookhor-control-center/templates/admin-control-center.php
-STATUS: SOURCE READY — deployment requires owner approval (SemVer tag + release.json flow).
-```
-
-```text
-PROJECT: ALOOKHOR
-AREA: Top Bar + Main Header Navigation / Desktop + Mobile
-CURRENT VERSION: 3.10.19
-CHANGE: تطبیق Top Bar و منوی اصلی Desktop با مرجع دو‌ردیفه Burgundy/Gold، با حفظ Node واقعی WordPress و Sticky Navigation.
-REASON: مالک سایت تصویر مرجع دو‌ردیفه را ارائه و تطبیق سریع Top Bar و نوار منوی اصلی با همان ساختار و پالت را درخواست کرد.
-FILES: plugin/alookhor-control-center/assets/css/frontend-header-scroll.css; plugin/alookhor-control-center/assets/css/frontend-header.css; plugin/alookhor-control-center/assets/js/frontend-topbar-manager.js; plugin/alookhor-control-center/alookhor-control-center.php; plugin/alookhor-control-center/assets/js/modules/settings.js; plugin/alookhor-control-center/includes/ajax.php; plugin/alookhor-control-center/includes/rest-api.php; plugin/alookhor-control-center/includes/shortcode-header.php; plugin/alookhor-control-center/config/site.json; scripts/header_visual_audit.py; scripts/wordpress_access_check.py; scripts/wordpress_release_test.py
+CHANGE: قاب خرید لوکس صفحه تکی محصول مطابق مرجع تصویری مالک: کارت قیمت با نشان تخفیف، Pills انتخاب وزن متصل به متغیرهای واقعی WooCommerce، استپر تعداد، دکمه طلایی با آیکون سبد، علاقه‌مندی/مقایسه/اشتراک و ردیف موجودی/ارسال — با حفظ کامل موتور بومی WooCommerce.
+REASON: مالک سایت مرجع تصویری قاب قیمت لوکس را ارائه و بازسازی دقیق صفر تا صد آن را خواستار شد؛ نسخه کنونی Production این ساختار را مطابق مرجع نمایش نمی‌داد.
+FILES: plugin/alookhor-control-center/includes/single-product-buybox.php; plugin/alookhor-control-center/assets/css/frontend-buybox.css; plugin/alookhor-control-center/assets/js/frontend-buybox.js; plugin/alookhor-control-center/alookhor-control-center.php; plugin/alookhor-control-center/config/site.json; plugin/alookhor-control-center/readme.txt; plugin/alookhor-control-center/CHANGELOG.md; plugin/alookhor-control-center/templates/admin-control-center.php; scripts/generate_code_registry.py
 STATUS: SOURCE READY — deployment status must be verified separately.
 ```
 
@@ -49,34 +39,39 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 
 | ID | Type | Name | File | Used In | Version | Status |
 |---|---|---|---|---|---:|---|
-| SC-001 | Shortcode | `[alookhor_portal_header]` | `includes/shortcode-header.php` | Elementor Header Shortcode widget; exact template ID unavailable | 3.10.19 | Active / compatibility-preserving |
-| SC-002 | Shortcode | `[alookhor_managed_categories]` | `includes/product-categories.php` | Home page → Elementor Shortcode widget | 3.10.19 | Active |
-| SC-003 | Shortcode | `[alookhor_managed_hero]` | `includes/hero.php` | Home Elementor Shortcode widget / automatic Legacy-root replacement | 3.10.19 | Active |
-| SC-004 | Shortcode | `[alookhor_managed_features]` | `includes/site-features.php` | Home Elementor HTML widget / automatic Legacy-root replacement | 3.10.19 | Active |
+| SC-001 | Shortcode | `[alookhor_portal_header]` | `includes/shortcode-header.php` | Elementor Header Shortcode widget; exact template ID unavailable | 3.10.20 | Active / compatibility-preserving |
+| SC-002 | Shortcode | `[alookhor_managed_categories]` | `includes/product-categories.php` | Home page → Elementor Shortcode widget | 3.10.20 | Active |
+| SC-003 | Shortcode | `[alookhor_managed_hero]` | `includes/hero.php` | Home Elementor Shortcode widget / automatic Legacy-root replacement | 3.10.20 | Active |
+| SC-004 | Shortcode | `[alookhor_managed_features]` | `includes/site-features.php` | Home Elementor HTML widget / automatic Legacy-root replacement | 3.10.20 | Active |
+| SC-005 | Shortcode | `[alookhor_buybox]` | `includes/single-product-buybox.php` | Single Product page — automatic WooCommerce takeover or Elementor Shortcode widget | 3.10.20 | Active |
 | SC-EXT-001 | External shortcode | `[alookhor_categories_carousel]` | External plugin source unavailable | Former Home showcase | External | Replaced on Home / do not reconstruct |
-| PN-001 | Admin panel | ALOOKHOR Control Center | `includes/admin.php` | WP Admin top-level menu | 3.10.19 | Active |
-| PN-002 | Admin panel | Header & Top Bar | `includes/admin.php` | WP Admin submenu | 3.10.19 | Active mirror |
-| MOD-001 | Managed module | WooCommerce Categories | `includes/product-categories.php` | Home / Elementor / REST | 3.10.19 | Active |
-| MOD-002 | Managed module | Responsive Footer | `includes/footer.php` | Frontend footer / REST | 3.10.19 | Active |
-| MOD-003 | Managed module | Four-slide Hero | `includes/hero.php` | Home / Elementor / REST | 3.10.19 | Active |
-| MOD-004 | Managed module | Four-card Site Features | `includes/site-features.php` | Home / Elementor / REST | 3.10.19 | Active |
-| API-001 | REST API | `alookhor-cc/v1` | `includes/rest-api.php` | Public state + authenticated updater | 3.10.19 | Active |
-| UPD-001 | Updater | Private native updater | `includes/updater.php` | Control Center + GitHub Actions | 3.10.19 | Active |
-| CFG-001 | WordPress state | Main settings | `alookhor_cc_settings` | All managed modules | 3.10.19 | Active |
-| CFG-002 | WordPress state | Header settings | `alookhor_header_settings` | Header and Top Bar | 3.10.19 | Active |
-| CSS-001 | CSS | Managed Header | `assets/css/frontend-header.css` | `[alookhor_portal_header]` fallback renderer | 3.10.19 | Active |
-| JS-001 | JavaScript | Managed Header runtime | `assets/js/frontend-header.js` | `[alookhor_portal_header]` fallback renderer | 3.10.19 | Active |
-| JS-002 | JavaScript | Legacy Top Bar manager | `assets/js/frontend-topbar-manager.js` | Preserved legacy header provider | 3.10.19 | Active when legacy provider exists |
-| CSS-002 | CSS | WooCommerce Categories | `assets/css/frontend-categories.css` | `[alookhor_managed_categories]` | 3.10.19 | Active |
-| JS-003 | JavaScript | Categories carousel | `assets/js/frontend-categories.js` | `[alookhor_managed_categories]` | 3.10.19 | Active |
-| CSS-003 | CSS | Managed Footer | `assets/css/frontend-footer.css` | Managed Footer module | 3.10.19 | Active |
-| JS-004 | JavaScript | Managed Footer | `assets/js/frontend-footer.js` | Managed Footer module | 3.10.19 | Active |
-| CSS-004 | CSS | Control Center UI | `assets/css/luxury.css` | WP Admin ALOOKHOR pages | 3.10.19 | Active |
-| JS-005 | JavaScript | Control Center app | `assets/js/app.js` + modules | WP Admin ALOOKHOR pages | 3.10.19 | Active |
-| CSS-005 | CSS | Managed Hero | `assets/css/frontend-hero.css` | `[alookhor_managed_hero]` / automatic Home replacement | 3.10.19 | Active |
-| JS-006 | JavaScript | Managed Hero runtime | `assets/js/frontend-hero.js` | Four-slide replacement, controls and REST refresh | 3.10.19 | Active |
-| CSS-006 | CSS | Managed Site Features | `assets/css/frontend-features.css` | `[alookhor_managed_features]` / automatic Home replacement | 3.10.19 | Active |
-| JS-007 | JavaScript | Managed Site Features runtime | `assets/js/frontend-features.js` | Four-card replacement and REST refresh | 3.10.19 | Active |
+| PN-001 | Admin panel | ALOOKHOR Control Center | `includes/admin.php` | WP Admin top-level menu | 3.10.20 | Active |
+| PN-002 | Admin panel | Header & Top Bar | `includes/admin.php` | WP Admin submenu | 3.10.20 | Active mirror |
+| MOD-001 | Managed module | WooCommerce Categories | `includes/product-categories.php` | Home / Elementor / REST | 3.10.20 | Active |
+| MOD-002 | Managed module | Responsive Footer | `includes/footer.php` | Frontend footer / REST | 3.10.20 | Active |
+| MOD-003 | Managed module | Four-slide Hero | `includes/hero.php` | Home / Elementor / REST | 3.10.20 | Active |
+| MOD-004 | Managed module | Four-card Site Features | `includes/site-features.php` | Home / Elementor / REST | 3.10.20 | Active |
+| MOD-005 | Managed module | Single-Product Luxury Buy Box | `includes/single-product-buybox.php` | Single Product page (WooCommerce hooks + native forms) | 3.10.20 | Active |
+| API-001 | REST API | `alookhor-cc/v1` | `includes/rest-api.php` | Public state + authenticated updater | 3.10.20 | Active |
+| UPD-001 | Updater | Private native updater | `includes/updater.php` | Control Center + GitHub Actions | 3.10.20 | Active |
+| CFG-001 | WordPress state | Main settings | `alookhor_cc_settings` | All managed modules | 3.10.20 | Active |
+| CFG-002 | WordPress state | Header settings | `alookhor_header_settings` | Header and Top Bar | 3.10.20 | Active |
+| CFG-003 | WordPress state | Buy Box settings | `alookhor_cc_buybox_settings` | Single-Product Buy Box labels and toggles | 3.10.20 | Active |
+| CSS-001 | CSS | Managed Header | `assets/css/frontend-header.css` | `[alookhor_portal_header]` fallback renderer | 3.10.20 | Active |
+| JS-001 | JavaScript | Managed Header runtime | `assets/js/frontend-header.js` | `[alookhor_portal_header]` fallback renderer | 3.10.20 | Active |
+| JS-002 | JavaScript | Legacy Top Bar manager | `assets/js/frontend-topbar-manager.js` | Preserved legacy header provider | 3.10.20 | Active when legacy provider exists |
+| CSS-002 | CSS | WooCommerce Categories | `assets/css/frontend-categories.css` | `[alookhor_managed_categories]` | 3.10.20 | Active |
+| JS-003 | JavaScript | Categories carousel | `assets/js/frontend-categories.js` | `[alookhor_managed_categories]` | 3.10.20 | Active |
+| CSS-003 | CSS | Managed Footer | `assets/css/frontend-footer.css` | Managed Footer module | 3.10.20 | Active |
+| JS-004 | JavaScript | Managed Footer | `assets/js/frontend-footer.js` | Managed Footer module | 3.10.20 | Active |
+| CSS-004 | CSS | Control Center UI | `assets/css/luxury.css` | WP Admin ALOOKHOR pages | 3.10.20 | Active |
+| JS-005 | JavaScript | Control Center app | `assets/js/app.js` + modules | WP Admin ALOOKHOR pages | 3.10.20 | Active |
+| CSS-005 | CSS | Managed Hero | `assets/css/frontend-hero.css` | `[alookhor_managed_hero]` / automatic Home replacement | 3.10.20 | Active |
+| JS-006 | JavaScript | Managed Hero runtime | `assets/js/frontend-hero.js` | Four-slide replacement, controls and REST refresh | 3.10.20 | Active |
+| CSS-006 | CSS | Managed Site Features | `assets/css/frontend-features.css` | `[alookhor_managed_features]` / automatic Home replacement | 3.10.20 | Active |
+| JS-007 | JavaScript | Managed Site Features runtime | `assets/js/frontend-features.js` | Four-card replacement and REST refresh | 3.10.20 | Active |
+| CSS-007 | CSS | Luxury Buy Box | `assets/css/frontend-buybox.css` | `[alookhor_buybox]` / automatic single-product takeover | 3.10.20 | Active |
+| JS-008 | JavaScript | Buy Box runtime | `assets/js/frontend-buybox.js` | Variation Pills sync, live price/stock repaint, steppers and product actions | 3.10.20 | Active |
 
 ## SC-001 — Portal Header
 
@@ -162,6 +157,23 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 - **Created:** 3.10.16; **status:** source release pending tagged Production verification.
 - **Complete source:** see Source Snapshots for `includes/site-features.php`, `assets/css/frontend-features.css`, `assets/js/frontend-features.js`, `assets/js/modules/settings.js`, `includes/ajax.php`, and `includes/rest-api.php`.
 
+## SC-005 — Single-Product Luxury Buy Box
+
+- **Shortcode:** `[alookhor_buybox]`
+- **Renderer:** `alookhor_cc_buybox_render($return = false)`; hook bridge `alookhor_cc_buybox_hook_output()` at `woocommerce_single_product_summary` priority `10`.
+- **Registration:** `add_shortcode('alookhor_buybox', ...)` plus automatic takeover bootstrap on `template_redirect` for `is_product()` and product types `simple`/`variable` only; other product types keep native rendering untouched.
+- **PHP file:** `plugin/alookhor-control-center/includes/single-product-buybox.php`.
+- **WordPress use:** automatic replacement of the summary price/ATC area, or manual placement anywhere in the Elementor single-product template via the Shortcode widget. The historical Elementor/Code Snippets price block source is not in this Repository and is never guessed; the shortcode is the deliberate, explicit mount point for it.
+- **Composition:** 1) bordered price card — «قیمت محصول :» label (right), hot-pink gradient «٪ تخفیف» badge (left), large gold price + currency, muted struck old price; 2) variation Pills per attribute («انتخاب وزن :»); 3) quantity stepper (minus/value/plus) injected through `woocommerce_before/after_add_to_cart_quantity`; 4) gradient gold `single_add_to_cart_button` with cart icon plus wishlist/compare/share icon buttons injected through `woocommerce_after_add_to_cart_button`; 5) status row — stock state with pulsing dot and shipping note.
+- **Native-integrity rule:** `form.cart` / `form.variations_form` and the attribute `<select>`s remain in the DOM visually-hidden, so official `wc-add-to-cart-variation`, stock/backorder rules and AJAX add-to-cart keep running unchanged; Pills only drive the native selects and repaint from `found_variation`/`reset_data`.
+- **Persian digits:** prices are formatted server-side via `alookhor_cc_buybox_price_html()` (thousand separator `٬`) and client-side via the localized `ALOOKHOR_BUYBOX` payload, independent of any active Persianizer plugin; the sale badge builder `alookhor_cc_buybox_badge_text()` never feeds Persian digits into `%d`.
+- **Settings:** option `alookhor_cc_buybox_settings` (enabled toggle, all labels/texts, wishlist/compare/share visibility) with the `alookhor_cc_buybox_settings` filter; defaults ship in code.
+- **Anti-duplication:** a render guard prevents double output when both hook and shortcode exist, and quantity/action injections run once per page so secondary forms (e.g. sticky add-to-cart bars) stay native.
+- **CSS:** `assets/css/frontend-buybox.css`; fully scoped under `.alk-bb` with the approved Burgundy/Gold variables, mobile-first reduction below 420px, `prefers-reduced-motion`, visible focus and neutralized theme-injected quantity spinners (e.g. Woodmart).
+- **JavaScript:** `assets/js/frontend-buybox.js`; enqueued only on `is_product()` alongside the CSS at `ALOOKHOR_CC_BUILD`.
+- **Created:** 3.10.20; **status:** Active pending tagged Production verification.
+- **Complete source:** see Source Snapshots for `includes/single-product-buybox.php`, `assets/css/frontend-buybox.css`, and `assets/js/frontend-buybox.js`.
+
 ## SC-EXT-001 — Legacy Categories Carousel
 
 - **Shortcode:** `[alookhor_categories_carousel]`
@@ -183,7 +195,7 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 - **AJAX:** `alookhor_save_settings`, `alookhor_toggle_module`, `alookhor_save_header`, `alookhor_get_settings`, `alookhor_check_updates`.
 - **REST:** authenticated status/check/install plus public Top Bar/Hero/Site Features/Footer/Categories state.
 - **Database:** `alookhor_cc_settings` (including `hero_settings` and `feature_settings`), `alookhor_header_settings`, `alookhor_footer_subscribers`.
-- **Managed shortcodes:** `[alookhor_portal_header]`, `[alookhor_managed_categories]`, `[alookhor_managed_hero]`, `[alookhor_managed_features]`.
+- **Managed shortcodes:** `[alookhor_portal_header]`, `[alookhor_managed_categories]`, `[alookhor_managed_hero]`, `[alookhor_managed_features]`, `[alookhor_buybox]`.
 - **Status:** Active; every managed module setting remains in this main panel.
 
 ## PN-002 — Header and Top Bar Submenu
@@ -211,12 +223,13 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 |---|---:|---|
 | `.github/workflows/publish.yml` | 535 | `ea2a747b9787cb39313702fd50fd8940891a2ed64de3acac6c4e5d69912dec3d` |
 | `ops/wordpress-ci-bootstrap.php` | 215 | `409c23f2be99c6651b0e75dc877c91c884534e6b16f9985c177cf65d14fd4c95` |
-| `plugin/alookhor-control-center/alookhor-control-center.php` | 355 | `15d803a6330ba26750f4688d0fda1d01143cf01105510c22cd0e0959c4150c7d` |
+| `plugin/alookhor-control-center/alookhor-control-center.php` | 356 | `06f595d7f605ed3dc2102d67423610ca14ce14aa135bb7f1189a02081d34cd4e` |
+| `plugin/alookhor-control-center/assets/css/frontend-buybox.css` | 439 | `d57a2305a653f962fc6e6e53d9f839d2398c9af6e08becc1651299e9bbaebdf3` |
 | `plugin/alookhor-control-center/assets/css/frontend-categories.css` | 9 | `b811fb4f96023711a593cd593eb9ae3846ebfd9c912c57e3e623d0965f7d494a` |
 | `plugin/alookhor-control-center/assets/css/frontend-features.css` | 29 | `8431fcf85b5903bbe2335aa017e8a0a79d0038a7ce055189fa8ebe41e49b89ed` |
 | `plugin/alookhor-control-center/assets/css/frontend-footer.css` | 26 | `f0dd733870b626c5581fc84ad2d5311bcf37374ab351cfc74ade1808ae5b1089` |
 | `plugin/alookhor-control-center/assets/css/frontend-header-scroll.css` | 96 | `16d5ac8abcfda76b8f394a5c3b5e6ee80295c3482e2d2fb0fd1792392ac2ce71` |
-| `plugin/alookhor-control-center/assets/css/frontend-header.css` | 276 | `b5e2341d2c5bb6b927f7f81253b26b671c40c2a62a9a13de643798d9dcbc0f06` |
+| `plugin/alookhor-control-center/assets/css/frontend-header.css` | 346 | `bcd5f11fe0f46e3f02918bc19aaad53f08b81bb4dcb53d88147b73c54e592c82` |
 | `plugin/alookhor-control-center/assets/css/frontend-hero.css` | 72 | `bde6426b31d10f1d389999f0c8ec25185d08d595dd20e06a92fcd666052dc3c9` |
 | `plugin/alookhor-control-center/assets/css/luxury.css` | 564 | `eef0550c9d8b090dbe799d9a969518207519fdb585c9701e2d897a507e669f8f` |
 | `plugin/alookhor-control-center/assets/js/admin-wp.js` | 84 | `b8ff32723f2f46dc44add19fdc441eec1c611f5229ce7e13ac8b773457be6afc` |
@@ -224,10 +237,11 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 | `plugin/alookhor-control-center/assets/js/core/config.js` | 199 | `1c89b0d0d8121bce7fc7097f9d1974eb1e38d1ec7f6b0f6f6d5244ab60ea1e85` |
 | `plugin/alookhor-control-center/assets/js/core/responsive.js` | 52 | `0848ef0deef9aaa532581904c4adab9b45cbe8445a99fbeb71f92d358a1aa724` |
 | `plugin/alookhor-control-center/assets/js/core/updateSystem.js` | 187 | `1edac08564b844ab0c8358821fc66b9d0a0165b7c03eeb02f1b8d4336a9845f2` |
+| `plugin/alookhor-control-center/assets/js/frontend-buybox.js` | 284 | `2e1579d4c4e7dc08037dbc9771cf5f815ce59ca417851b8954b43baf73a9dddc` |
 | `plugin/alookhor-control-center/assets/js/frontend-categories.js` | 27 | `7ae122e4427522d6004a97f43cc22d271476a3a8dee4980bd2c05ca398e75bb0` |
 | `plugin/alookhor-control-center/assets/js/frontend-features.js` | 62 | `e611fe59f35f43e061a98cff77685eba514564c98b2ea6b44bd31fe8c4d0f746` |
 | `plugin/alookhor-control-center/assets/js/frontend-footer.js` | 75 | `70b41991fca96014f6951a81012d6163222839cf6914cd7efbed186088168542` |
-| `plugin/alookhor-control-center/assets/js/frontend-header.js` | 106 | `85929c6fc5c92d9f7b79378b4542f0407306fb337ac61d7797fd267a330971cd` |
+| `plugin/alookhor-control-center/assets/js/frontend-header.js` | 188 | `e7965e9745df07d4240e7fe25bdd24e18518afccd3a1d4102661c7c25742f262` |
 | `plugin/alookhor-control-center/assets/js/frontend-hero.js` | 133 | `4238be2204142f59552efe695d5cb619d40c1f1c2ca1404eed9590a275934091` |
 | `plugin/alookhor-control-center/assets/js/frontend-topbar-manager.js` | 415 | `27fdbee79de3a0520543dc2c0df10815552600aba1bcd9e88ea8cb9d6ff526dd` |
 | `plugin/alookhor-control-center/assets/js/modules/analytics.js` | 21 | `5e35bdba45de5750af08d6cfea337fd7a6eb8cc852ef1c955ee5ba1e7a56bf0c` |
@@ -236,7 +250,7 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 | `plugin/alookhor-control-center/assets/js/modules/orders.js` | 19 | `0ccd8376c69ba37fb50d3261f002789488042e17a0b1b37539bab86abda374eb` |
 | `plugin/alookhor-control-center/assets/js/modules/settings.js` | 740 | `12712606676ffc77d967faff00900b6b634a159cad075434458beea918820513` |
 | `plugin/alookhor-control-center/assets/js/modules/users.js` | 20 | `6fb96546faf00ea831ace016d09b10f903a501db647bae20d0f570034ac36946` |
-| `plugin/alookhor-control-center/config/site.json` | 285 | `732e835dfe1dcbc462e20f27b151487a03c2ed70ffe84e2f12fd95144b9944e6` |
+| `plugin/alookhor-control-center/config/site.json` | 285 | `f2d3c9499a373554abbf83ea10171562d672f94d02f94c3db320f72589271c8b` |
 | `plugin/alookhor-control-center/includes/admin.php` | 251 | `ed17e1b42a6e014112872ff3db1e4c7c22802ebec0f44027a1e8f2e6467b885e` |
 | `plugin/alookhor-control-center/includes/ajax.php` | 385 | `5c65fd9ed419b2d9120d6b4ce7f31228c175f4f99b1004282982db6f97337a2d` |
 | `plugin/alookhor-control-center/includes/footer.php` | 269 | `50c7a6e7d67a8905b5d88486d42d9ad7381caf8c60fc49dd37e3db2a17a347f8` |
@@ -244,12 +258,13 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 | `plugin/alookhor-control-center/includes/product-categories.php` | 88 | `64d42189315d77e8bda401a945e37d18d16bcf2346159f8cabe0022920dba2cb` |
 | `plugin/alookhor-control-center/includes/rest-api.php` | 334 | `771be7cb71efdcb57ae5c2459bcb10dffb7c88f6fc53428af371c5d9e81734e4` |
 | `plugin/alookhor-control-center/includes/shortcode-header.php` | 361 | `08ead590352d5d9539d2075ca4d06a6aa5f0f34adce45a1e4f80a2bd50567fce` |
+| `plugin/alookhor-control-center/includes/single-product-buybox.php` | 321 | `533d1f4bfcee74eac1e0617750f589ce728f44d4729a72220be58ae4b7e6d6da` |
 | `plugin/alookhor-control-center/includes/site-features.php` | 133 | `8c0f550195121550d1085b5415fd63291fcf1e8d17bfaf0bca491e2df7468c72` |
 | `plugin/alookhor-control-center/includes/updater.php` | 385 | `15521824f3c64db2b516150ffd05773799c6a3a0cfb9f6f55c1ed68974cbd5e6` |
-| `plugin/alookhor-control-center/templates/admin-control-center.php` | 388 | `c4450ab6e703b3845327118522efc2e650b2bab9d6e188c3b4e0e320de75f0aa` |
+| `plugin/alookhor-control-center/templates/admin-control-center.php` | 388 | `8a4b583477c7172e9f35b19216e0bf1b42caa529f7b09040e2595ea4d2e2f6e0` |
 | `plugin/alookhor-control-center/uninstall.php` | 6 | `d69282a9ab7c0865b6c60e6fca272d0859433e9c8730754fb2995295209ff84c` |
 | `scripts/build_release.py` | 101 | `f07af70658e73dd9e42f018cfa3e2ca35a7287599d7e6a4cf8e06951665126d8` |
-| `scripts/generate_code_registry.py` | 293 | `cc820adb6cd74358acfe6eea9bcc5206a2262b91a53e053cc0794c47fec3026a` |
+| `scripts/generate_code_registry.py` | 316 | `129f43c4df09c6e5dcfbeb53ea196ce05a52f1c1d90c0c1c70e0c7cc658410d4` |
 | `scripts/header_visual_audit.py` | 191 | `bcec9fbeff9b90ed51aab240cd93820c7436343ebea7bec5e3c5fc4c1e533883` |
 | `scripts/wordpress_access_check.py` | 530 | `bcb8e3c38456dd6161683792fc306e737a38e1be349d9f7e8a66347652b3393f` |
 | `scripts/wordpress_release_test.py` | 266 | `3e7a2c1f21cffefbebb6bfd9e236fd71f3249b9c4171e4d242c2fc5b70331ac0` |
@@ -1026,7 +1041,7 @@ add_action('rest_api_init', function(){
  * Plugin Name: ALOOKHOR Control Center
  * Plugin URI: https://alookhor.ir
  * Description: کنترل سنتر لوکس و ماژولار آلوخور — مدیریت کامل سایت (هدر، اسلایدر، سورت، محصولات، مشتریان VIP، مالی، آنالیتیکس) با آپدیت آنی بدون رفرش. تمام تنظیمات چت قبلی + شورت‌کد [alookhor_portal_header] اینجا مدیریت می‌شود.
- * Version: 3.10.19
+ * Version: 3.10.20
  * Author: ALOOKHOR Team — Luxury Modular
  * Author URI: https://alookhor.ir
  * Update URI: https://alookhor.ir/alookhor-control-center
@@ -1039,8 +1054,8 @@ add_action('rest_api_init', function(){
 
 if (!defined('ABSPATH')) exit;
 
-define('ALOOKHOR_CC_VERSION', '3.10.19');
-define('ALOOKHOR_CC_BUILD', '3.10.19');
+define('ALOOKHOR_CC_VERSION', '3.10.20');
+define('ALOOKHOR_CC_BUILD', '3.10.20');
 define('ALOOKHOR_CC_FILE', __FILE__);
 define('ALOOKHOR_CC_DIR', plugin_dir_path(__FILE__));
 define('ALOOKHOR_CC_URL', plugin_dir_url(__FILE__));
@@ -1082,6 +1097,7 @@ require_once ALOOKHOR_CC_DIR . 'includes/footer.php';
 require_once ALOOKHOR_CC_DIR . 'includes/product-categories.php';
 require_once ALOOKHOR_CC_DIR . 'includes/hero.php';
 require_once ALOOKHOR_CC_DIR . 'includes/site-features.php';
+require_once ALOOKHOR_CC_DIR . 'includes/single-product-buybox.php';
 
 // ——— Enqueue برای فرانت (هدر لوکس، کاملاً Scoped) ———
 // فایل کامل luxury.css مخصوص کنترل سنتر است و نباید body/theme فرانت را override کند.
@@ -1376,6 +1392,450 @@ function alookhor_cc_migrate_header_reference_31019(){
     update_option(ALOOKHOR_CC_OPTION,$main);
 }
 add_action('init','alookhor_cc_migrate_header_reference_31019',122);
+````
+
+## Source Snapshot — `plugin/alookhor-control-center/assets/css/frontend-buybox.css`
+
+````css
+/* ==========================================================================
+   ALOOKHOR Luxury Buy Box — Single Product (scoped, zero theme bleed)
+   Reference: owner-supplied dark luxe price panel (Burgundy/Gold family)
+   ========================================================================== */
+
+.alk-bb{
+    --bb-text:        #F5F3F0;
+    --bb-muted:       #C8C2C9;
+    --bb-label:       #B3A2CE;
+    --bb-card-1:      #221532;
+    --bb-card-2:      #191024;
+    --bb-border:      rgba(255,255,255,.09);
+    --bb-pill-bg:     #20142F;
+    --bb-pill-border: #3B2B52;
+    --bb-pill-text:   #DCD3EA;
+    --bb-gold:        #E8B84A;
+    --bb-gold-deep:   #D49A2E;
+    --bb-cta-1:       #F5C356;
+    --bb-cta-2:       #DC9216;
+    --bb-cta-text:    #2B1804;
+    --bb-sale-1:      #F75AA1;
+    --bb-sale-2:      #E2337E;
+    --bb-green:       #3ED97E;
+    --bb-red:         #F1606B;
+    --bb-ship:        #B593D9;
+    --bb-radius:      14px;
+
+    direction: rtl;
+    width: 100%;
+    font-family: "Vazirmatn","Samim","Dana","IRANSansX","IRANSans",Tahoma,sans-serif;
+    color: var(--bb-text);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+.alk-bb, .alk-bb *{ box-sizing: border-box; }
+.alk-bb button{ font-family: inherit; cursor: pointer; }
+.alk-bb button:focus-visible, .alk-bb input:focus-visible{
+    outline: 2px solid var(--bb-gold);
+    outline-offset: 2px;
+}
+
+/* ——— لیبل‌های مشترک (قیمت محصول / انتخاب وزن / تعداد) ——— */
+.alk-bb-label{
+    color: var(--bb-label);
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.9;
+}
+
+/* ==========================================================================
+   ۱) کارت قیمت
+   ========================================================================== */
+.alk-bb-price-card{
+    background: linear-gradient(180deg, var(--bb-card-1), var(--bb-card-2));
+    border: 1px solid var(--bb-border);
+    border-radius: 18px;
+    padding: 16px 20px 18px;
+    margin-bottom: 16px;
+    box-shadow: 0 14px 34px rgba(0,0,0,.30), inset 0 0 22px rgba(212,154,46,.03);
+}
+.alk-bb-price-head{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+.alk-bb-sale-badge{
+    display: inline-flex;
+    align-items: center;
+    height: 26px;
+    padding: 0 13px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, var(--bb-sale-1), var(--bb-sale-2));
+    color: #fff;
+    font-size: 12.5px;
+    font-weight: 800;
+    letter-spacing: -.01em;
+    box-shadow: 0 6px 16px rgba(226,51,126,.35);
+    white-space: nowrap;
+}
+.alk-bb-sale-badge[hidden]{ display: none; }
+
+.alk-bb-price-body{
+    text-align: center;
+    padding-top: 10px;
+}
+.alk-bb-price-now{ line-height: 1.25; }
+.alk-bb-price-range{
+    display: inline-block;
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--bb-gold);
+}
+.alk-bb-price-range .woocommerce-Price-amount,
+.alk-bb-price-range bdi{ color: inherit; font-weight: inherit; font-size: inherit; }
+.alk-bb-price-range del{ color: var(--bb-muted); opacity: .8; font-size: .7em; display: block; }
+.alk-bb-price-range ins{ text-decoration: none; display: block; }
+
+.alk-bb-amount--now .alk-bb-amount__num{
+    font-size: 32px;
+    font-weight: 900;
+    color: var(--bb-gold);
+    letter-spacing: -.01em;
+    text-shadow: 0 0 22px rgba(232,184,74,.28);
+}
+.alk-bb-amount--now .alk-bb-amount__cur{
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--bb-gold);
+}
+.alk-bb-price-old{ margin-top: 2px; }
+.alk-bb-price-old[hidden]{ display: none; }
+.alk-bb-price-old del{
+    color: #9A829B;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration-thickness: 1.5px;
+}
+.alk-bb-amount--old .alk-bb-amount__num,
+.alk-bb-amount--old .alk-bb-amount__cur{
+    font-size: inherit;
+    font-weight: inherit;
+    color: inherit;
+}
+
+/* ==========================================================================
+   ۲) انتخاب وزن — Pills (همگام با Selectهای بومی WooCommerce)
+   ========================================================================== */
+.alk-bb-attr{ margin: 14px 0 4px; }
+.alk-bb-attr > .alk-bb-label{ display: block; margin-bottom: 9px; }
+.alk-bb-pills{
+    display: flex;
+    gap: 10px;
+}
+.alk-bb-pill{
+    flex: 1 1 0;
+    min-width: 0;
+    min-height: 48px;
+    padding: 6px 10px;
+    border-radius: 13px;
+    border: 1px solid var(--bb-pill-border);
+    background: var(--bb-pill-bg);
+    color: var(--bb-pill-text);
+    font-size: 14.5px;
+    font-weight: 700;
+    line-height: 1.4;
+    transition: border-color .22s ease, color .22s ease, box-shadow .22s ease, background .22s ease, transform .22s ease;
+}
+.alk-bb-pill:hover{
+    border-color: var(--bb-gold-deep);
+    color: var(--bb-text);
+}
+.alk-bb-pill.is-active{
+    border: 1.5px solid var(--bb-gold);
+    color: var(--bb-gold);
+    background: color-mix(in srgb, var(--bb-gold) 9%, var(--bb-pill-bg));
+    box-shadow: 0 8px 22px rgba(212,154,46,.16), inset 0 0 14px rgba(232,184,74,.06);
+}
+.alk-bb-pill:disabled{
+    opacity: .38;
+    cursor: not-allowed;
+    text-decoration: line-through;
+}
+
+/* ==========================================================================
+   ۳/۴) فرم خرید — Selectها و قیمت بومی متغیرها پنهان، بقیه استایل لوکس
+   ========================================================================== */
+.alk-bb-form{ margin-top: 14px; }
+
+/* جدول خاصیت‌ها و خروجی بومی variation فقط برای اسکریپت WooCommerce زنده می‌مانند */
+.alk-bb form.variations_form table.variations,
+.alk-bb form.variations_form table.variations tbody{
+    position: absolute !important;
+    width: 1px !important; height: 1px !important;
+    overflow: hidden !important;
+    clip: rect(0 0 0 0) !important;
+    clip-path: inset(50%) !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    margin: 0 !important; padding: 0 !important; border: 0 !important;
+}
+.alk-bb .single_variation{
+    position: absolute !important;
+    width: 1px !important; height: 1px !important;
+    overflow: hidden !important;
+    clip: rect(0 0 0 0) !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    margin: 0 !important; padding: 0 !important; border: 0 !important;
+}
+.alk-bb .reset_variations{ display: none !important; }
+
+/* ظرف اکشن‌ها: لیبل تعداد (ردیف کامل) ← استپر ← آیکون‌ها + دکمه طلایی */
+.alk-bb form.cart:not(.variations_form),
+.alk-bb .woocommerce-variation-add-to-cart{
+    display: flex !important;
+    flex-wrap: wrap;
+    align-items: center;
+    align-content: flex-start;
+    gap: 14px 12px;
+    margin: 0 !important;
+}
+/* ناحیه استپر/دکمه همیشه دیده شود؛ تا انتخاب وزن، خودِ دکمه توسط WooCommerce غیرفعال می‌ماند */
+.alk-bb .single_variation_wrap{ display: block !important; }
+
+.alk-bb-qty-label{
+    order: 0;
+    flex: 0 0 100%;
+    text-align: right;
+}
+
+/* ——— استپر تعداد: چیدمان بصری چپ→راست [−][عدد][+] ——— */
+.alk-bb .quantity{
+    order: 2;
+    margin: 0 !important;
+    display: flex !important;
+    align-items: stretch;
+    width: auto;
+    height: 52px;
+    background: var(--bb-pill-bg);
+    border: 1px solid var(--bb-pill-border);
+    border-radius: 0;
+    float: none !important;
+}
+.alk-bb-qbtn{
+    width: 52px;
+    height: 52px;
+    padding: 0;
+    border: 1px solid var(--bb-pill-border);
+    background: var(--bb-pill-bg);
+    color: var(--bb-pill-text);
+    font-size: 21px;
+    font-weight: 800;
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: color .2s ease, border-color .2s ease, background .2s ease;
+}
+.alk-bb-qbtn:hover{ color: var(--bb-gold); border-color: var(--bb-gold-deep); }
+.alk-bb-qbtn--plus { order: 1; margin-inline-start: auto; border-radius: 0 12px 12px 0; border-left: none; }
+.alk-bb-qbtn--minus{ order: 3; border-radius: 12px 0 0 12px; border-right: none; }
+.alk-bb .quantity input.qty,
+.alk-bb .quantity input.input-text{
+    width: 64px;
+    height: 50px;
+    border: none !important;
+    background: transparent !important;
+    color: var(--bb-text) !important;
+    text-align: center;
+    font-size: 16.5px;
+    font-weight: 800;
+    padding: 0;
+    box-shadow: none !important;
+    outline-offset: -2px;
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+.alk-bb .quantity input.qty::-webkit-outer-spin-button,
+.alk-bb .quantity input.qty::-webkit-inner-spin-button{
+    -webkit-appearance: none;
+    margin: 0;
+}
+/* استپرهای تزریقی قالب (مثل Woodmart) داخل سلول عدد دیده نمی‌شوند؛ استپر مالک ما است */
+.alk-bb .quantity > label,
+.alk-bb .quantity > span,
+.alk-bb .quantity > br{ display: none !important; }
+
+/* ——— دکمه طلایی افزودن به سبد خرید ——— */
+.alk-bb .single_add_to_cart_button{
+    order: 20;
+    flex: 1 1 62%;
+    min-height: 54px;
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 0 22px;
+    border: none !important;
+    border-radius: var(--bb-radius) !important;
+    background: linear-gradient(135deg, var(--bb-cta-1) 0%, var(--bb-cta-2) 58%, #C97F0E 100%) !important;
+    color: var(--bb-cta-text) !important;
+    font-size: 16.5px !important;
+    font-weight: 900 !important;
+    text-shadow: 0 1px 0 rgba(255,255,255,.22);
+    box-shadow: 0 12px 28px rgba(220,146,22,.34), inset 0 1px 0 rgba(255,255,255,.35);
+    transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
+    white-space: nowrap;
+}
+.alk-bb .single_add_to_cart_button::before{
+    content: "";
+    width: 21px;
+    height: 21px;
+    flex: 0 0 21px;
+    background: currentColor;
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='8' cy='21' r='1'/%3E%3Ccircle cx='19' cy='21' r='1'/%3E%3Cpath d='M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12'/%3E%3C/svg%3E") center / contain no-repeat;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='8' cy='21' r='1'/%3E%3Ccircle cx='19' cy='21' r='1'/%3E%3Cpath d='M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+.alk-bb .single_add_to_cart_button:hover{
+    transform: translateY(-2px);
+    filter: brightness(1.05);
+    box-shadow: 0 16px 34px rgba(220,146,22,.44), inset 0 1px 0 rgba(255,255,255,.4);
+}
+.alk-bb .single_add_to_cart_button:active{ transform: translateY(0); }
+.alk-bb .single_add_to_cart_button.disabled,
+.alk-bb .single_add_to_cart_button:disabled{
+    opacity: .5;
+    filter: saturate(.5);
+    box-shadow: none;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* ——— سه آیکون اکشن: قلب، مقایسه، اشتراک (از راست) ——— */
+.alk-bb-actions{ display: contents; }
+.alk-bb-iconbtn{
+    width: 54px;
+    height: 54px;
+    flex: 0 0 54px;
+    padding: 0;
+    border: 1px solid var(--bb-pill-border);
+    border-radius: var(--bb-radius);
+    background: var(--bb-pill-bg);
+    color: #CFC4DE;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: color .2s ease, border-color .2s ease, transform .2s ease, box-shadow .2s ease;
+}
+.alk-bb-iconbtn svg{ width: 21px; height: 21px; }
+.alk-bb-iconbtn:hover{
+    color: var(--bb-gold);
+    border-color: var(--bb-gold-deep);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(0,0,0,.3);
+}
+.alk-bb-iconbtn--wishlist{ order: 10; }
+.alk-bb-iconbtn--compare { order: 11; }
+.alk-bb-iconbtn--share   { order: 12; }
+.alk-bb-iconbtn.is-on{
+    color: var(--bb-gold);
+    border-color: var(--bb-gold);
+    box-shadow: 0 0 0 1px rgba(232,184,74,.35), 0 8px 18px rgba(212,154,46,.18);
+}
+.alk-bb-iconbtn--wishlist.is-on svg{ fill: currentColor; }
+
+/* ==========================================================================
+   ۵) ردیف وضعیت: موجودی + ارسال
+   ========================================================================== */
+.alk-bb-status{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 16px;
+    padding: 0 2px;
+}
+.alk-bb-stock{
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 700;
+}
+.alk-bb-stock__dot{
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: currentColor;
+    position: relative;
+    flex: 0 0 9px;
+}
+.alk-bb-stock--in{ color: var(--bb-green); }
+.alk-bb-stock--in .alk-bb-stock__dot::after{
+    content: "";
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    border: 1.5px solid currentColor;
+    opacity: .55;
+    animation: alk-bb-pulse 1.8s ease-out infinite;
+}
+.alk-bb-stock--backorder{ color: var(--bb-gold); }
+.alk-bb-stock--out{ color: var(--bb-red); }
+.alk-bb-ship{
+    color: var(--bb-ship);
+    font-size: 13px;
+    font-weight: 600;
+}
+@keyframes alk-bb-pulse{
+    0%{ transform: scale(.6); opacity: .8; }
+    70%{ transform: scale(1.6); opacity: 0; }
+    100%{ transform: scale(1.6); opacity: 0; }
+}
+
+/* ——— Toast داخلی (اشتراک/علاقه‌مندی) ——— */
+.alk-bb-toast{
+    position: fixed;
+    inset-inline: 0;
+    bottom: 26px;
+    margin: 0 auto;
+    width: max-content;
+    max-width: min(420px, 88vw);
+    padding: 11px 22px;
+    border-radius: 999px;
+    background: #241633;
+    color: var(--bb-text, #F5F3F0);
+    border: 1px solid rgba(232,184,74,.45);
+    font-family: "Vazirmatn","Samim","Dana",Tahoma,sans-serif;
+    font-size: 13.5px;
+    font-weight: 700;
+    text-align: center;
+    box-shadow: 0 14px 40px rgba(0,0,0,.5);
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity .25s ease, transform .25s ease;
+    pointer-events: none;
+    z-index: 99999;
+    direction: rtl;
+}
+.alk-bb-toast.is-visible{ opacity: 1; transform: translateY(0); }
+
+/* ==========================================================================
+   Responsive + Accessibility
+   ========================================================================== */
+@media (max-width: 420px){
+    .alk-bb-amount--now .alk-bb-amount__num{ font-size: 27px; }
+    .alk-bb-amount--now .alk-bb-amount__cur{ font-size: 14px; }
+    .alk-bb-pill{ min-height: 44px; font-size: 13px; }
+    .alk-bb .quantity{ height: 48px; }
+    .alk-bb .quantity input.qty{ height: 46px; width: 56px; }
+    .alk-bb-qbtn{ width: 46px; height: 48px; }
+    .alk-bb .single_add_to_cart_button{ min-height: 50px; font-size: 15px !important; }
+    .alk-bb-iconbtn{ width: 50px; height: 50px; flex-basis: 50px; }
+    .alk-bb-status{ font-size: 12px; }
+}
+@media (prefers-reduced-motion: reduce){
+    .alk-bb *{ transition: none !important; animation: none !important; }
+}
 ````
 
 ## Source Snapshot — `plugin/alookhor-control-center/assets/css/frontend-categories.css`
@@ -1837,6 +2297,76 @@ body.alookhor-menu-open{overflow:hidden!important}
 @media(min-width:1024px){.alookhor-portal-header .alookhor-nav-shell{display:grid;grid-template-columns:190px 270px minmax(0,1fr) 48px;grid-template-areas:"actions logo navigation menu";direction:ltr}.alookhor-portal-header .alookhor-nav-actions{grid-area:actions;justify-self:start;direction:ltr}.alookhor-portal-header .alookhor-nav-logo{grid-area:logo;justify-self:start;max-width:270px;direction:rtl}.alookhor-portal-header .alookhor-desktop-nav{grid-area:navigation;justify-self:end;direction:rtl}.alookhor-portal-header .alookhor-nav-spacer{display:none}.alookhor-portal-header .alookhor-menu-toggle{grid-area:menu;justify-self:end}.alookhor-portal-header .alookhor-primary-menu{justify-content:flex-end}}
 @media(max-width:1023px){.alookhor-portal-header .alookhor-topbar-inner{width:calc(100% - 28px);grid-template-columns:minmax(0,1fr) minmax(0,1.6fr) minmax(0,1fr);grid-template-areas:"support message phone";gap:8px}.alookhor-portal-header .alookhor-nav-shell{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);grid-template-areas:"actions logo menu";direction:ltr}.alookhor-portal-header .alookhor-nav-actions{grid-area:actions;justify-self:start;direction:ltr;gap:8px}.alookhor-portal-header .alookhor-nav-logo{grid-area:logo;justify-self:center;direction:rtl}.alookhor-portal-header .alookhor-menu-toggle{grid-area:menu;justify-self:end}.alookhor-portal-header .alookhor-nav-spacer{display:none}}
 @media(max-width:767px){.alookhor-fallback-support{font-size:8px;gap:4px}.alookhor-fallback-support svg{width:12px;height:12px}.alookhor-portal-header .alookhor-trade-meta{padding-inline:5px;border-inline:0}.alookhor-portal-header .alookhor-export-note{font-size:8px}.alookhor-portal-header .alookhor-contact-meta{font-size:8px}.alookhor-portal-header .alookhor-nav-stage{min-height:70px;padding:0 8px}.alookhor-portal-header .alookhor-nav-shell{width:100%;min-height:60px;padding:6px 10px;border-radius:28px}.alookhor-fallback-cart,.alookhor-portal-header .alookhor-account-link{width:38px;height:38px}.alookhor-fallback-cart svg,.alookhor-portal-header .alookhor-account-link svg{width:24px;height:24px}}
+
+
+/* ALOOKHOR PREMIUM DEEP PURPLE GLASS v3.10.19 */
+.alookhor-portal-header{
+  --alookhor-gold:#D4AF37;
+  --alookhor-gold-soft:#F2D675;
+  --alookhor-gold-line:rgba(212,175,55,.34);
+  --alookhor-gold-faint:rgba(212,175,55,.13);
+  --alookhor-ink:#09020F;
+  --alookhor-plum:#160027;
+  --alookhor-panel:#210038;
+  --alookhor-text:#FBF7FF;
+  --alookhor-muted:#C9B7D6;
+  background:linear-gradient(180deg,#08010D 0%,#12001F 42%,#08010D 100%);
+}
+.alookhor-topbar{
+  background:linear-gradient(90deg,rgba(13,0,24,.96),rgba(46,0,74,.9),rgba(13,0,24,.96));
+  border-bottom:1px solid rgba(212,175,55,.42);
+  box-shadow:0 10px 34px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.035);
+}
+.alookhor-nav-stage{
+  background:linear-gradient(180deg,rgba(8,1,14,.94),rgba(18,0,31,.76) 62%,rgba(8,1,14,0));
+  padding-top:6px;
+}
+.alookhor-nav-shell{
+  width:min(1360px,calc(100% - 48px));
+  min-height:72px;
+  padding:7px 14px;
+  border:1px solid rgba(212,175,55,.32);
+  border-top-color:rgba(242,214,117,.55);
+  border-radius:34px;
+  background:
+    radial-gradient(720px 130px at 50% -20%,rgba(129,28,190,.32),transparent 70%),
+    linear-gradient(135deg,rgba(77,10,111,.52),rgba(22,0,38,.72) 55%,rgba(65,8,94,.42));
+  -webkit-backdrop-filter:blur(28px) saturate(170%);
+  backdrop-filter:blur(28px) saturate(170%);
+  box-shadow:0 18px 50px rgba(0,0,0,.55),0 0 38px rgba(103,20,155,.18),inset 0 1px 0 rgba(255,255,255,.11),inset 0 -1px 0 rgba(0,0,0,.2);
+}
+.alookhor-nav-shell::before{
+  content:"";
+  position:absolute;
+  inset:1px;
+  border-radius:33px;
+  pointer-events:none;
+  background:linear-gradient(110deg,rgba(255,255,255,.08),transparent 28%,transparent 70%,rgba(212,175,55,.055));
+}
+.alookhor-primary-menu>li>a{color:#F3EAF8!important;font-weight:650;letter-spacing:.01em}
+.alookhor-primary-menu>li:hover>a,.alookhor-primary-menu>li.current-menu-item>a,.alookhor-primary-menu>li.current-menu-ancestor>a{color:#F2D675!important;text-shadow:0 0 16px rgba(212,175,55,.22)}
+.alookhor-primary-menu .sub-menu{
+  width:250px;
+  border-color:rgba(212,175,55,.3);
+  border-radius:18px;
+  background:linear-gradient(145deg,rgba(47,5,68,.96),rgba(15,2,25,.97));
+  box-shadow:0 25px 60px rgba(0,0,0,.62),0 0 28px rgba(96,13,142,.18),inset 0 1px 0 rgba(255,255,255,.06);
+  -webkit-backdrop-filter:blur(26px) saturate(160%);
+  backdrop-filter:blur(26px) saturate(160%);
+}
+.alookhor-primary-menu .sub-menu a:hover{background:linear-gradient(90deg,rgba(212,175,55,.14),rgba(112,20,158,.18));color:#F2D675!important}
+.alookhor-account-link,.alookhor-menu-toggle{border-color:rgba(212,175,55,.4);background:linear-gradient(135deg,rgba(212,175,55,.11),rgba(91,12,131,.24));box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 6px 18px rgba(0,0,0,.22)}
+.alookhor-account-link:hover,.alookhor-menu-toggle:hover{border-color:#D4AF37;background:linear-gradient(135deg,rgba(212,175,55,.18),rgba(112,20,158,.3));box-shadow:0 0 24px rgba(212,175,55,.12)}
+.alookhor-nav-logo-mark,.alookhor-drawer-brand>img,.alookhor-drawer-brand>span{border-color:rgba(212,175,55,.42);background:radial-gradient(circle at 35% 25%,#5A087D,#170021 70%);box-shadow:0 0 24px rgba(112,20,158,.2)}
+.alookhor-menu-drawer{background:radial-gradient(620px 360px at 0 0,rgba(117,21,163,.28),transparent 64%),linear-gradient(180deg,#210035,#0B0112 78%);border-right-color:rgba(212,175,55,.35);box-shadow:30px 0 90px rgba(0,0,0,.7),0 0 45px rgba(95,10,137,.16)}
+.alookhor-drawer-backdrop{background:rgba(7,0,12,.72);-webkit-backdrop-filter:blur(10px) saturate(125%);backdrop-filter:blur(10px) saturate(125%)}
+@media(max-width:1100px){.alookhor-nav-shell{width:min(100%,calc(100% - 24px));gap:10px}.alookhor-primary-menu>li>a{padding-inline:11px}}
+@media(max-width:782px){
+  .alookhor-nav-stage{padding:5px 10px 0;min-height:69px}
+  .alookhor-nav-shell{width:100%;min-height:62px;border-radius:28px;padding:6px 9px}
+  .alookhor-topbar-inner{width:calc(100% - 20px)}
+  .alookhor-topbar{height:34px}
+}
 ````
 
 ## Source Snapshot — `plugin/alookhor-control-center/assets/css/frontend-hero.css`
@@ -3357,6 +3887,295 @@ export function initUpdater({ onAvailable, onChecked } = {}) {
 }
 ````
 
+## Source Snapshot — `plugin/alookhor-control-center/assets/js/frontend-buybox.js`
+
+````javascript
+/* ==========================================================================
+   ALOOKHOR Luxury Buy Box — Frontend controller
+   - Pills فقط روی Selectهای بومی WooCommerce سوار می‌شوند؛ موتور رسمی
+     wc-add-to-cart-variation بدون تغییر پادشاه است (موجودی/قیمت/AX).
+   - قیمت کارت با رویداد found_variation به‌صورت زنده و با ارقام فارسی جایگذاری می‌شود.
+   ========================================================================== */
+(function ($) {
+    'use strict';
+
+    if (typeof $ !== 'function') return;
+
+    var CFG = window.ALOOKHOR_BUYBOX || {};
+    var FA_DIGITS = '۰۱۲۳۴۵۶۷۸۹';
+
+    function faDigits(value) {
+        return String(value).replace(/[0-9]/g, function (d) { return FA_DIGITS[+d]; });
+    }
+
+    function formatPrice(amount) {
+        var decimals = parseInt(CFG.decimals, 10);
+        if (isNaN(decimals) || decimals < 0) decimals = 0;
+        var sep = CFG.thousand_sep || '٬';
+        var currency = $('<span/>').text(CFG.currency || '').html();
+        var num = Number(amount || 0);
+        if (isNaN(num)) num = 0;
+        var fixed = num.toFixed(decimals);
+        var parts = fixed.split('.');
+        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, sep);
+        var human = faDigits(decimals ? parts.join('٫') : parts[0]);
+        return '<span class="alk-bb-amount alk-bb-amount--now">' +
+               '<bdi class="alk-bb-amount__num">' + human + '</bdi>' +
+               ' <span class="alk-bb-amount__cur">' + currency + '</span></span>';
+    }
+
+    function formatOldPrice(amount) {
+        var html = formatPrice(amount).replace('alk-bb-amount--now', 'alk-bb-amount--old');
+        return '<del>' + html + '</del>';
+    }
+
+    function saleBadgeText(percent) {
+        var tpl = CFG.sale_badge || '%d٪ تخفیف';
+        return tpl.replace(/%d|%s/, faDigits(percent));
+    }
+
+    /* ——— Toast سبک داخلی ——— */
+    var toastTimer = null;
+    function toast(message) {
+        var $t = $('.alk-bb-toast');
+        if (!$t.length) {
+            $t = $('<div/>', { 'class': 'alk-bb-toast', role: 'status', 'aria-live': 'polite' }).appendTo('body');
+        }
+        $t.text(message).addClass('is-visible');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(function () { $t.removeClass('is-visible'); }, 2200);
+    }
+
+    /* ——— علاقه‌مندی/مقایسه سبک‌وزن (localStorage) ——— */
+    function readSet(key) {
+        try { return JSON.parse(window.localStorage.getItem(key) || '[]'); } catch (e) { return []; }
+    }
+    function writeSet(key, arr) {
+        try { window.localStorage.setItem(key, JSON.stringify(arr)); } catch (e) { /* private mode */ }
+    }
+    function toggleSet(key, id) {
+        var arr = readSet(key);
+        var idx = arr.indexOf(id);
+        var on = idx === -1;
+        if (on) { arr.push(id); } else { arr.splice(idx, 1); }
+        writeSet(key, arr);
+        return on;
+    }
+
+    function buyboxInit() {
+        var $box = $('.alk-bb');
+        if (!$box.length) return;
+        if ($box.data('alk-init')) return; // جلوگیری از بایند دوباره روی AJAX re-init
+        $box.data('alk-init', 1);
+
+        var $form = $box.find('form.variations_form').first();
+        var $priceNow = $box.find('.alk-bb-price-now').first();
+        var $priceOld = $box.find('.alk-bb-price-old').first();
+        var $badge = $box.find('.alk-bb-sale-badge').first();
+        var $stock = $box.find('.alk-bb-stock').first();
+        var $stockText = $stock.find('.alk-bb-stock__text').first();
+
+        // اسنپ‌شات وضعیت اولیه برای reset_data
+        var initial = {
+            priceNow: $priceNow.html(),
+            oldHtml: $priceOld.html(),
+            oldHidden: $priceOld.prop('hidden'),
+            badgeHtml: $badge.html(),
+            badgeHidden: $badge.prop('hidden'),
+            stockClass: $stock.attr('class'),
+            stockText: $stockText.text()
+        };
+
+        /* ——— Selectهای بومی: قابل‌دسترس برای موتور، خارج از Tab order ظاهری ——— */
+        $box.find('.variations select').attr('tabindex', '-1');
+        $box.find('.variations').attr('aria-hidden', 'true');
+
+        /* ——— همگام‌سازی Pills از روی Selectها ——— */
+        function syncPills() {
+            $box.find('.alk-bb-attr').each(function () {
+                var name = $(this).data('attribute-name');
+                var $sel = $form.find('select[name="' + name + '"]');
+                var current = $sel.length ? $sel.val() : '';
+                $(this).find('.alk-bb-pill').each(function () {
+                    var $p = $(this);
+                    var isOn = String($p.data('value')) === String(current) && current !== '';
+                    $p.toggleClass('is-active', isOn).attr('aria-pressed', isOn ? 'true' : 'false');
+                });
+            });
+        }
+
+        // «آپدیت دسترس‌پذیری گزینه‌ها» توسط خودِ WooCommerce روی optionهای select اعمال می‌شود؛
+        // state غیرفعال هر Pill از روی option متناظرش خوانده می‌شود.
+        function syncPillsAvailability() {
+            $box.find('.alk-bb-attr').each(function () {
+                var name = $(this).data('attribute-name');
+                var $opts = $form.find('select[name="' + name + '"] option');
+                var map = {};
+                $opts.each(function () {
+                    var o = $(this);
+                    map[String(o.attr('value'))] = !o.prop('disabled') && !o.hasClass('disabled');
+                });
+                $(this).find('.alk-bb-pill').each(function () {
+                    var $p = $(this);
+                    var val = String($p.data('value'));
+                    var available = map.hasOwnProperty(val) ? map[val] : true;
+                    $p.prop('disabled', !available);
+                });
+            });
+        }
+
+        /* ——— کلیک Pill → تنظیم Select بومی + رویداد رسمی ——— */
+        $box.on('click', '.alk-bb-pill', function () {
+            var $p = $(this);
+            if ($p.prop('disabled')) return;
+            var name = $p.data('attribute');
+            var value = String($p.data('value'));
+            var $sel = $form.find('select[name="' + name + '"]');
+            if (!$sel.length) return;
+            var next = ($p.hasClass('is-active')) ? '' : value; // کلیک مجدد = لغو انتخاب
+            $sel.val(next).trigger('change');
+        });
+
+        $form.on('change', '.variations select', syncPills);
+
+        $form.on('update_variation_values', function () {
+            syncPills();
+            syncPillsAvailability();
+        });
+
+        /* ——— قیمت زنده با یافتن متغیر ——— */
+        $form.on('found_variation', function (e, variation) {
+            if (!variation) return;
+            var price = parseFloat(variation.display_price);
+            var regular = parseFloat(variation.display_regular_price);
+            var pct = 0;
+            if (!isNaN(price) && !isNaN(regular) && regular > price && price >= 0) {
+                pct = Math.round(((regular - price) / regular) * 100);
+            }
+
+            $priceNow.html(formatPrice(isNaN(price) ? 0 : price));
+            $box.attr('data-alk-state', 'ready');
+
+            if (pct > 0 && !isNaN(regular)) {
+                $priceOld.html(formatOldPrice(regular)).prop('hidden', false);
+                $badge.html(saleBadgeText(pct)).prop('hidden', false);
+            } else {
+                $priceOld.prop('hidden', true);
+                $badge.prop('hidden', true);
+            }
+
+            var inStock = !!variation.is_in_stock;
+            var backorder = /backorder/i.test(String(variation.availability_html || ''));
+            var cls = inStock ? (backorder ? 'backorder' : 'in') : 'out';
+            var map = CFG.i18n || {};
+            $stock.attr('class', 'alk-bb-stock alk-bb-stock--' + cls);
+            $stockText.text(
+                cls === 'in' ? (map.in_stock || '') :
+                cls === 'backorder' ? (map.on_backorder || '') : (map.out_of_stock || '')
+            );
+        });
+
+        // بازگشت به حالت اولیه وقتی انتخاب کنسلی/ناقص شد
+        $form.on('reset_data hide_variation', function () {
+            $priceNow.html(initial.priceNow);
+            $priceOld.html(initial.oldHtml).prop('hidden', initial.oldHidden);
+            $badge.html(initial.badgeHtml).prop('hidden', initial.badgeHidden);
+            $stock.attr('class', initial.stockClass);
+            $stockText.text(initial.stockText);
+            $box.attr('data-alk-state', 'pending');
+            syncPills();
+            syncPillsAvailability();
+        });
+
+        /* ——— استپر تعداد (اتصال به input.qty بومی) ——— */
+        $box.on('click', '.alk-bb-qbtn', function () {
+            var $btn = $(this);
+            var $qty = $btn.siblings('.quantity').find('input.qty');
+            if (!$qty.length) {
+                $qty = $btn.closest('form').find('input.qty');
+            }
+            if (!$qty.length) return;
+
+            var step = parseFloat($qty.attr('step')) || 1;
+            var min = parseFloat($qty.attr('min'));
+            if (isNaN(min)) min = 1;
+            var max = parseFloat($qty.attr('max'));
+            var val = parseFloat($qty.val());
+            if (isNaN(val)) val = min;
+
+            val += $btn.hasClass('alk-bb-qbtn--plus') ? step : -step;
+            if (!isNaN(max) && max > 0) val = Math.min(val, max);
+            val = Math.max(val, min);
+
+            $qty.val(val).trigger('change');
+        });
+
+        /* ——— علاقه‌مندی / مقایسه ——— */
+        var WKEY = 'alkBbWishlist', CKEY = 'alkBbCompare';
+
+        function paintToggle($btn, on) {
+            $btn.toggleClass('is-on', on).attr('aria-pressed', on ? 'true' : 'false');
+        }
+
+        $box.find('.alk-bb-iconbtn--wishlist').each(function () {
+            var $b = $(this);
+            paintToggle($b, readSet(WKEY).indexOf(String($b.data('product-id'))) !== -1);
+        });
+        $box.find('.alk-bb-iconbtn--compare').each(function () {
+            var $b = $(this);
+            paintToggle($b, readSet(CKEY).indexOf(String($b.data('product-id'))) !== -1);
+        });
+
+        $box.on('click', '.alk-bb-iconbtn--wishlist', function () {
+            var on = toggleSet(WKEY, String($(this).data('product-id')));
+            paintToggle($(this), on);
+            toast(on ? (CFG.i18n.wishlist_on || '') : (CFG.i18n.wishlist_off || ''));
+        });
+        $box.on('click', '.alk-bb-iconbtn--compare', function () {
+            var on = toggleSet(CKEY, String($(this).data('product-id')));
+            paintToggle($(this), on);
+            toast(on ? (CFG.i18n.compare_on || '') : (CFG.i18n.compare_off || ''));
+        });
+
+        /* ——— اشتراک‌گذاری: Web Share API ← Clipboard ——— */
+        $box.on('click', '.alk-bb-iconbtn--share', function () {
+            var data = { title: document.title, url: window.location.href };
+            if (navigator.share) {
+                navigator.share(data).catch(function () { /* کاربر لغو کرد */ });
+                return;
+            }
+            var done = function () { toast(CFG.i18n.link_copied || ''); };
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(data.url).then(done).catch(function () { legacyCopy(data.url, done); });
+            } else {
+                legacyCopy(data.url, done);
+            }
+        });
+
+        function legacyCopy(text, done) {
+            var tmp = document.createElement('textarea');
+            tmp.value = text;
+            tmp.style.position = 'fixed';
+            tmp.style.opacity = '0';
+            document.body.appendChild(tmp);
+            tmp.select();
+            try { document.execCommand('copy'); done(); } catch (e) { /* silent */ }
+            document.body.removeChild(tmp);
+        }
+
+        // وضع اولیه Pills از روی Selectها (پشتیبانی از Default Attribute وردپرس)
+        syncPills();
+        syncPillsAvailability();
+    }
+
+    $(function () {
+        buyboxInit();
+        // صفحات AJAXی/Country-generated: اگر قاب دیر تزریق شد دوباره init شود
+        $(document.body).on('woocommerce_variations_loaded', buyboxInit);
+    });
+})(jQuery);
+````
+
 ## Source Snapshot — `plugin/alookhor-control-center/assets/js/frontend-categories.js`
 
 ````javascript
@@ -3540,8 +4359,8 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 
 ````javascript
 /**
- * ALOOKHOR Portal Header — accessible drawer and menu accordions.
- * No dependencies; exits immediately when the recovered shortcode is absent.
+ * ALOOKHOR Portal Header — accessible drawer + dynamic WordPress Mega Menu.
+ * No dependencies. Menu data remains WordPress wp_nav_menu output.
  */
 (() => {
   'use strict';
@@ -3550,6 +4369,88 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
     'a[href]', 'button:not([disabled])', 'input:not([disabled])',
     'select:not([disabled])', 'textarea:not([disabled])', '[tabindex]:not([tabindex="-1"])'
   ].join(',');
+
+  function injectMegaMenuStyles() {
+    if (document.getElementById('alookhor-mega-menu-runtime')) return;
+    const style = document.createElement('style');
+    style.id = 'alookhor-mega-menu-runtime';
+    style.textContent = `
+      .alookhor-primary-menu > li.menu-item-has-children > .sub-menu {
+        width: min(760px, calc(100vw - 40px));
+        min-width: 430px;
+        padding: 18px !important;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 8px 10px;
+        right: 50%;
+        transform: translate(50%, 8px);
+        background: linear-gradient(145deg, rgba(28,16,36,.98), rgba(10,6,15,.98));
+        border-color: rgba(212,154,46,.34);
+        border-radius: 22px;
+        box-shadow: 0 28px 70px rgba(0,0,0,.58), inset 0 1px 0 rgba(255,255,255,.045), 0 0 36px rgba(212,154,46,.06);
+      }
+      .alookhor-primary-menu > li.menu-item-has-children:hover > .sub-menu,
+      .alookhor-primary-menu > li.menu-item-has-children:focus-within > .sub-menu {
+        transform: translate(50%, 0);
+      }
+      .alookhor-primary-menu > li.menu-item-has-children > .sub-menu > li {
+        min-width: 0;
+      }
+      .alookhor-primary-menu > li.menu-item-has-children > .sub-menu > li > a {
+        min-height: 44px;
+        align-items: center;
+        padding: 11px 13px;
+        border: 1px solid transparent;
+        background: rgba(255,255,255,.018);
+        border-radius: 12px;
+        font-weight: 700;
+      }
+      .alookhor-primary-menu > li.menu-item-has-children > .sub-menu > li > a:hover {
+        border-color: rgba(212,154,46,.22);
+        background: linear-gradient(90deg, rgba(212,154,46,.12), rgba(255,255,255,.025));
+      }
+      .alookhor-primary-menu > li.menu-item-has-children > .sub-menu > li.menu-item-has-children > .sub-menu {
+        position: static;
+        width: auto;
+        min-width: 0;
+        margin: 2px 4px 4px !important;
+        padding: 3px !important;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+        display: block;
+        background: transparent;
+        border: 0;
+        box-shadow: none;
+        backdrop-filter: none;
+      }
+      .alookhor-primary-menu > li.menu-item-has-children > .sub-menu > li.menu-item-has-children > .sub-menu a {
+        padding: 7px 10px;
+        font-size: 10.5px;
+        color: var(--alookhor-capsule-muted, #c8c2c9) !important;
+      }
+      .alookhor-primary-menu > li.menu-item-has-children > .sub-menu > li.menu-item-has-children > .sub-menu a:hover {
+        color: var(--alookhor-capsule-gold-light, #e8b84a) !important;
+        background: rgba(212,154,46,.07);
+      }
+      @media (max-width: 1050px) {
+        .alookhor-primary-menu > li.menu-item-has-children > .sub-menu {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          min-width: 390px;
+          width: min(620px, calc(100vw - 32px));
+        }
+      }
+      @media (max-width: 760px) {
+        .alookhor-primary-menu > li.menu-item-has-children > .sub-menu {
+          display: block;
+          min-width: 0;
+          width: min(330px, calc(100vw - 28px));
+          padding: 12px !important;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+  }
 
   function initHeader(root) {
     if (root.dataset.alookhorReady === '1') return;
@@ -3624,6 +4525,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
   }
 
   function initAll(scope = document) {
+    injectMegaMenuStyles();
     scope.querySelectorAll('.alookhor-portal-header').forEach(initHeader);
   }
 
@@ -3633,7 +4535,6 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
     initAll();
   }
 
-  // Elementor can inject templates after DOMContentLoaded.
   const observer = new MutationObserver(mutations => {
     for (const mutation of mutations) {
       for (const node of mutation.addedNodes) {
@@ -5392,7 +6293,7 @@ export const usersModule = {
   },
   "updated_at": "2026-08-10T16:20:00Z",
   "updated_by": "AI Assistant — recovered from previous chat",
-  "version": "3.10.19",
+  "version": "3.10.20",
   "hero_settings": {
     "enabled": true,
     "hide_legacy": true,
@@ -7480,6 +8381,332 @@ function alookhor_cc_register_portal_header_shortcode(){
 add_action('init', 'alookhor_cc_register_portal_header_shortcode', 100);
 ````
 
+## Source Snapshot — `plugin/alookhor-control-center/includes/single-product-buybox.php`
+
+````php
+<?php
+/**
+ * ALOOKHOR Luxury Buy Box — Single Product Price & Purchase Panel
+ *
+ * صفر تا صد قاب قیمت محصول تکی (مطابق مرجع تصویری مالک):
+ *  1) کارت قیمت: لیبل راست + نشان تخفیف صورتی چپ + قیمت طلایی بزرگ + قیمت قدیمی خط‌خورده
+ *  2) انتخاب وزن با Pills (همگام با متغیرهای واقعی WooCommerce؛ Selectهای بومی حفظ می‌شوند)
+ *  3) استپر تعداد (minus / value / plus) متصل به input.qty بومی
+ *  4) ردیف اکشن: دکمه طلایی افزودن به سبد (بومی WooCommerce) + علاقه‌مندی/مقایسه/اشتراک
+ *  5) ردیف وضعیت: موجودی انبار (نقطه سبز) + متن ارسال
+ *
+ * Safety rules:
+ *  - Native WooCommerce form (.cart / .variations_form) هرگز حذف نمی‌شود؛ فقط Selectها
+ *    به‌صورت Visually Hidden نگه داشته می‌شوند تا اسکریپت رسمی wc-add-to-cart-variation
+ *    بدون هیچ تغییری کار کند (سازگار با AJAX add-to-cart و قوانین موجودی).
+ *  - رندر دوباره‌بار ندارد (guard)؛ در صورت نبود WooCommerce یا محصول Simple/Variable،
+ *    خروجی بومی دست‌نخورده می‌ماند و هیچ Takeoverای انجام نمی‌شود.
+ *
+ * Shortcode: [alookhor_buybox]
+ */
+
+if (!defined('ABSPATH')) exit;
+
+// —————————————————————————————————————————————
+// Settings
+// —————————————————————————————————————————————
+function alookhor_cc_buybox_settings(){
+    $defaults = [
+        'enabled'         => true,  // Takeover خودکار ناحیه قیمت+خرید در خلاصه محصول
+        'label_price'     => 'قیمت محصول :',
+        'label_attribute' => 'انتخاب %s :', // %s = برچسب خاصیت (مثل «وزن»)
+        'label_qty'       => 'تعداد :',
+        'sale_badge'      => '%d٪ تخفیف',
+        'in_stock'        => 'موجود در انبار',
+        'on_backorder'    => 'موجود با پیش‌خرید',
+        'out_of_stock'    => 'ناموجود',
+        'shipping_note'   => 'ارسال از ۱ روز کاری آینده',
+        'show_share'      => true,
+        'show_compare'    => true,
+        'show_wishlist'   => true,
+    ];
+    $saved = get_option('alookhor_cc_buybox_settings', []);
+    if (!is_array($saved)) $saved = [];
+    $merged = array_merge($defaults, $saved);
+    return apply_filters('alookhor_cc_buybox_settings', $merged);
+}
+
+/** تبدیل ارقام لاتین به فارسی — روی رشته نهاییِHTML-safe اعمال می‌شود */
+function alookhor_cc_buybox_fa_digits($text){
+    return str_replace(
+        ['0','1','2','3','4','5','6','7','8','9'],
+        ['۰','۱','۲','۳','۴','۵','۶','۷','۸','۹'],
+        (string) $text
+    );
+}
+
+/** قالب قیمت لوکس: «۱۸۵٬۰۰۰ تومان» — مستقل از افزونه‌های فارسی‌ساز، بدون دورخیز رقم لاتین */
+function alookhor_cc_buybox_price_html($amount, $size = 'now'){
+    if ($amount === '' || $amount === null) return '';
+    $decimals = function_exists('wc_get_price_decimals') ? wc_get_price_decimals() : 0;
+    $number = number_format((float) $amount, $decimals, '.', '٬');
+    $number = alookhor_cc_buybox_fa_digits($number);
+    $symbol = get_woocommerce_currency_symbol();
+    return '<span class="alk-bb-amount alk-bb-amount--' . esc_attr($size) . '">'
+         . '<bdi class="alk-bb-amount__num">' . esc_html($number) . '</bdi>'
+         . ' <span class="alk-bb-amount__cur">' . esc_html($symbol) . '</span>'
+         . '</span>';
+}
+
+/** درصد تخفیف از روی قیمت regular/sale */
+function alookhor_cc_buybox_discount_percent($regular, $sale){
+    $regular = (float) $regular; $sale = (float) $sale;
+    if ($regular <= 0 || $sale <= 0 || $sale >= $regular) return 0;
+    return (int) round((($regular - $sale) / $regular) * 100);
+}
+
+/** متن نشان تخفیف با ارقام فارسی — %d نباید رشته فارسی بگیرد (جلوگیری از cast به صفر) */
+function alookhor_cc_buybox_badge_text($template, $percent){
+    $template = str_replace(['%d','%1$d','%1$s'], '%s', (string) $template);
+    return sprintf($template, alookhor_cc_buybox_fa_digits($percent));
+}
+
+/** وضعیت موجودی محصول/متغیر → [متن، کلاس] */
+function alookhor_cc_buybox_stock_state($product, $settings){
+    if (!$product) return [$settings['out_of_stock'], 'out'];
+    if ($product->is_on_backorder()) return [$settings['on_backorder'], 'backorder'];
+    if ($product->is_in_stock())    return [$settings['in_stock'], 'in'];
+    return [$settings['out_of_stock'], 'out'];
+}
+
+// —————————————————————————————————————————————
+// Takeover bootstrap — فقط در صفحه تکی محصول و فقط برای Simple/Variable
+// —————————————————————————————————————————————
+add_action('template_redirect', function(){
+    if (!function_exists('is_product') || !is_product()) return;
+
+    $product = wc_get_product(get_the_ID());
+    if (!$product || !$product->is_type(['simple', 'variable'])) return;
+
+    $settings = alookhor_cc_buybox_settings();
+    if (empty($settings['enabled'])) return; // غیرفعال = صفر تماس با DOM/هوک‌های صفحه محصول
+
+    // خروجی بومی «قیمت» و «افزودن به سبد» از خلاصه برداشته می‌شود و قاب لوکس جایگزین می‌گردد.
+    remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_price', 10);
+    remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_add_to_cart', 30);
+    add_action('woocommerce_single_product_summary', 'alookhor_cc_buybox_hook_output', 10);
+
+    // استپر تعداد + آیکون‌های اکشن، داخل خودِ فرم بومی WooCommerce تزریق می‌شوند.
+    add_action('woocommerce_before_add_to_cart_quantity', 'alookhor_cc_buybox_before_qty');
+    add_action('woocommerce_after_add_to_cart_quantity', 'alookhor_cc_buybox_after_qty');
+    add_action('woocommerce_after_add_to_cart_button', 'alookhor_cc_buybox_after_button');
+});
+
+function alookhor_cc_buybox_hook_output(){
+    alookhor_cc_buybox_render();
+}
+
+add_shortcode('alookhor_buybox', function(){
+    // جلوگیری از رندر دوبل اگر هم هوک و هم شورت‌کد در یک صفحه باشند
+    if (!empty($GLOBALS['alookhor_cc_buybox_rendered'])) return '';
+    return alookhor_cc_buybox_render(true);
+});
+
+// —————————————————————————————————————————————
+// Main renderer
+// —————————————————————————————————————————————
+function alookhor_cc_buybox_render($return = false){
+    if (!empty($GLOBALS['alookhor_cc_buybox_rendered'])) return $return ? '' : null;
+    if (!function_exists('wc_get_product')) return $return ? '' : null;
+
+    $product = wc_get_product(get_the_ID());
+    if (!$product || !$product->is_type(['simple', 'variable'])) return $return ? '' : null;
+
+    $GLOBALS['alookhor_cc_buybox_rendered'] = true;
+    $settings = alookhor_cc_buybox_settings();
+
+    // ——— داده‌های اولیه قیمت/موجودی (برای محصول متغیر: متغیر پیش‌فرض اگر انتخاب شده باشد) ———
+    $variation  = null;
+    $is_variable = $product->is_type('variable');
+    if ($is_variable){
+        $defaults = $product->get_default_attributes();
+        if (!empty($defaults)){
+            $found = (new \WC_Product_Data_Store_CPT())->find_matching_product_variation($product, $defaults);
+            if ($found) $variation = wc_get_product($found);
+        }
+    }
+    $src = $variation ?: $product; // منبع قیمت و موجودی برای رندر اولیه
+
+    $regular     = (float) $src->get_regular_price();
+    $current     = (float) $src->get_price();
+    $has_range   = $is_variable && !$variation;
+    $percent     = $has_range ? 0 : alookhor_cc_buybox_discount_percent($regular, $current);
+    [$stock_text, $stock_class] = alookhor_cc_buybox_stock_state($src, $settings);
+
+    ob_start();
+    ?>
+    <div class="alk-bb" id="alk-bb" data-product-id="<?php echo (int) $product->get_id(); ?>" data-alk-state="<?php echo $has_range ? 'pending' : 'ready'; ?>">
+
+        <!-- ۱) کارت قیمت -->
+        <div class="alk-bb-price-card">
+            <div class="alk-bb-price-head">
+                <span class="alk-bb-label"><?php echo esc_html($settings['label_price']); ?></span>
+                <span class="alk-bb-sale-badge" <?php echo $percent ? '' : 'hidden'; ?>><?php echo esc_html(alookhor_cc_buybox_badge_text($settings['sale_badge'], $percent)); ?></span>
+            </div>
+            <div class="alk-bb-price-body">
+                <div class="alk-bb-price-now">
+                    <?php
+                    if ($has_range){
+                        // تا انتخاب وزن: بازه قیمت بومی — با انتخاب معتبر توسط JS به قیمت دقیق تبدیل می‌شود
+                        echo '<span class="alk-bb-price-range">' . wp_kses_post($product->get_price_html()) . '</span>';
+                    } else {
+                        echo alookhor_cc_buybox_price_html($current, 'now'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                    }
+                    ?>
+                </div>
+                <div class="alk-bb-price-old" <?php echo (!$has_range && $percent) ? '' : 'hidden'; ?>>
+                    <del><?php echo alookhor_cc_buybox_price_html($regular, 'old'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></del>
+                </div>
+            </div>
+        </div>
+
+        <?php
+        // ——— ۲) Pills انتخاب وزن (متغیر) ———
+        if ($is_variable){
+            $variation_attributes = $product->get_variation_attributes();
+            foreach ($variation_attributes as $attribute_name => $options){
+                $attr_label = wc_attribute_label($attribute_name, $product);
+                $selected   = $product->get_variation_default_attribute($attribute_name);
+                $input_name = 'attribute_' . sanitize_title($attribute_name);
+                if (isset($_REQUEST['attribute_' . sanitize_title($attribute_name)])){
+                    $selected = wc_clean( wp_unslash( $_REQUEST['attribute_' . sanitize_title($attribute_name)] ) );
+                }
+                echo '<div class="alk-bb-attr" data-attribute-name="' . esc_attr($input_name) . '">';
+                echo '<span class="alk-bb-label">' . esc_html(sprintf($settings['label_attribute'], $attr_label)) . '</span>';
+                echo '<div class="alk-bb-pills" role="group" aria-label="' . esc_attr($attr_label) . '">';
+                foreach ($options as $option){
+                    $term_name = $option;
+                    if (taxonomy_exists($attribute_name)){
+                        $term = get_term_by('slug', $option, $attribute_name);
+                        if ($term && !is_wp_error($term)) $term_name = $term->name;
+                    }
+                    $is_on = ($selected !== '' && $selected === $option);
+                    printf(
+                        '<button type="button" class="alk-bb-pill%1$s" data-attribute="%2$s" data-value="%3$s" aria-pressed="%4$s">%5$s</button>',
+                        $is_on ? ' is-active' : '',
+                        esc_attr($input_name),
+                        esc_attr($option),
+                        $is_on ? 'true' : 'false',
+                        esc_html(alookhor_cc_buybox_fa_digits($term_name))
+                    );
+                }
+                echo '</div></div>';
+            }
+        }
+        ?>
+
+        <!-- ۳و۴) فرم بومی خرید WooCommerce: Selectها پنهان، استپر/دکمه/آیکون‌ها استایل می‌شوند -->
+        <div class="alk-bb-form" data-label-qty="<?php echo esc_attr($settings['label_qty']); ?>">
+            <?php
+            ob_start();
+            woocommerce_template_single_add_to_cart();
+            echo ob_get_clean(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+            ?>
+        </div>
+
+        <!-- ۵) ردیف وضعیت -->
+        <div class="alk-bb-status">
+            <span class="alk-bb-stock alk-bb-stock--<?php echo esc_attr($stock_class); ?>">
+                <i class="alk-bb-stock__dot" aria-hidden="true"></i>
+                <span class="alk-bb-stock__text"><?php echo esc_html($stock_text); ?></span>
+            </span>
+            <?php if (!empty($settings['shipping_note'])): ?>
+                <span class="alk-bb-ship"><?php echo esc_html($settings['shipping_note']); ?></span>
+            <?php endif; ?>
+        </div>
+    </div>
+    <?php
+    $html = ob_get_clean();
+    if ($return) return $html;
+    echo $html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+    return null;
+}
+
+// —————————————————————————————————————————————
+// Injected pieces داخل فرم بومی (هوک‌های رسمی WooCommerce)
+// —————————————————————————————————————————————
+// یک‌بار رندر در هر صفحه — جلوگیری از تکثیر در فرم‌های دوم (مثل Sticky Add-to-Cart وودمارت)
+function alookhor_cc_buybox_before_qty(){
+    static $done = false; if ($done) return; $done = true;
+    $settings = alookhor_cc_buybox_settings();
+    echo '<span class="alk-bb-qty-label alk-bb-label">' . esc_html($settings['label_qty']) . '</span>';
+    echo '<button type="button" class="alk-bb-qbtn alk-bb-qbtn--minus" aria-label="' . esc_attr__('کاهش تعداد', 'alookhor-cc') . '">−</button>';
+}
+
+function alookhor_cc_buybox_after_qty(){
+    static $done = false; if ($done) return; $done = true;
+    echo '<button type="button" class="alk-bb-qbtn alk-bb-qbtn--plus" aria-label="' . esc_attr__('افزایش تعداد', 'alookhor-cc') . '">+</button>';
+}
+
+function alookhor_cc_buybox_after_button(){
+    static $done = false; if ($done) return; $done = true;
+    $settings  = alookhor_cc_buybox_settings();
+    $product_id = get_the_ID();
+    $svg = function($path){
+        return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' . $path . '</svg>';
+    };
+    echo '<span class="alk-bb-actions">';
+
+    if (!empty($settings['show_wishlist'])){
+        printf(
+            '<button type="button" class="alk-bb-iconbtn alk-bb-iconbtn--wishlist" data-product-id="%1$d" aria-label="%2$s" aria-pressed="false">%3$s</button>',
+            (int) $product_id,
+            esc_attr__('افزودن به علاقه‌مندی‌ها', 'alookhor-cc'),
+            $svg('<path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>') // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+        );
+    }
+    if (!empty($settings['show_compare'])){
+        printf(
+            '<button type="button" class="alk-bb-iconbtn alk-bb-iconbtn--compare" data-product-id="%1$d" aria-label="%2$s" aria-pressed="false">%3$s</button>',
+            (int) $product_id,
+            esc_attr__('افزودن به مقایسه', 'alookhor-cc'),
+            $svg('<path d="M8 3 4 7l4 4"/><path d="M4 7h16"/><path d="m16 21 4-4-4-4"/><path d="M20 17H4"/>') // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+        );
+    }
+    if (!empty($settings['show_share'])){
+        printf(
+            '<button type="button" class="alk-bb-iconbtn alk-bb-iconbtn--share" aria-label="%1$s">%2$s</button>',
+            esc_attr__('اشتراک‌گذاری محصول', 'alookhor-cc'),
+            $svg('<circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>') // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+        );
+    }
+    echo '</span>';
+}
+
+// —————————————————————————————————————————————
+// Assets — فقط صفحه تکی محصول
+// —————————————————————————————————————————————
+add_action('wp_enqueue_scripts', function(){
+    if (!function_exists('is_product') || !is_product()) return;
+
+    wp_enqueue_style('alookhor-cc-buybox', ALOOKHOR_CC_URL . 'assets/css/frontend-buybox.css', [], ALOOKHOR_CC_BUILD);
+    wp_enqueue_script('alookhor-cc-buybox', ALOOKHOR_CC_URL . 'assets/js/frontend-buybox.js', ['jquery'], ALOOKHOR_CC_BUILD, true);
+
+    wp_localize_script('alookhor-cc-buybox', 'ALOOKHOR_BUYBOX', [
+        'currency'     => get_woocommerce_currency_symbol(),
+        'decimals'     => function_exists('wc_get_price_decimals') ? wc_get_price_decimals() : 0,
+        'thousand_sep' => '٬',
+        'sale_badge'   => alookhor_cc_buybox_settings()['sale_badge'] ?? '%d٪ تخفیف',
+        'i18n'         => [
+            'in_stock'      => alookhor_cc_buybox_settings()['in_stock'],
+            'on_backorder'  => alookhor_cc_buybox_settings()['on_backorder'],
+            'out_of_stock'  => alookhor_cc_buybox_settings()['out_of_stock'],
+            'wishlist_on'   => __('به علاقه‌مندی‌ها اضافه شد', 'alookhor-cc'),
+            'wishlist_off'  => __('از علاقه‌مندی‌ها حذف شد', 'alookhor-cc'),
+            'compare_on'    => __('به مقایسه اضافه شد', 'alookhor-cc'),
+            'compare_off'   => __('از مقایسه حذف شد', 'alookhor-cc'),
+            'link_copied'   => __('لینک محصول کپی شد', 'alookhor-cc'),
+            'select_attr'   => __('لطفاً ابتدا گزینه را انتخاب کنید', 'alookhor-cc'),
+        ],
+    ]);
+}, 25);
+````
+
 ## Source Snapshot — `plugin/alookhor-control-center/includes/site-features.php`
 
 ````php
@@ -8039,7 +9266,7 @@ add_action('upgrader_process_complete', function($upgrader, $options){
       <div class="header-actions">
         <div class="version-badge" title="نسخه فعلی">
           <span style="width:6px; height:6px; border-radius:50%; background:#3DD68C; box-shadow:0 0 0 4px rgba(61,214,140,0.15); display:inline-block"></span>
-          <span id="headerVersion">v3.10.19</span>
+          <span id="headerVersion">v3.10.20</span>
           <span style="opacity:0.5">•</span>
           <span id="bpIndicator" style="font-family:monospace; font-size:11px">—</span>
         </div>
@@ -8219,7 +9446,7 @@ add_action('upgrader_process_complete', function($upgrader, $options){
           <span style="margin-right:auto; font-size:10px; background:var(--gold); color:#1A1206; font-weight:800; padding:2px 7px; border-radius:999px">PRO</span>
         </div>
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:10px">
-          <div style="background:rgba(255,255,255,0.04); border:1px solid var(--gold-border); border-radius:10px; padding:8px; text-align:center"><div style="font-size:11px; color:var(--text-faint)">نسخه</div><b id="versionBadgeText" style="font-family:monospace; font-size:12px; color:var(--text-primary)">v3.10.19</b></div>
+          <div style="background:rgba(255,255,255,0.04); border:1px solid var(--gold-border); border-radius:10px; padding:8px; text-align:center"><div style="font-size:11px; color:var(--text-faint)">نسخه</div><b id="versionBadgeText" style="font-family:monospace; font-size:12px; color:var(--text-primary)">v3.10.20</b></div>
           <div style="background:rgba(255,255,255,0.04); border:1px solid var(--gold-border); border-radius:10px; padding:8px; text-align:center"><div style="font-size:11px; color:var(--text-faint)">ماژول</div><b style="font-size:12px; color:var(--gold-soft)">۱۹ فعال</b></div>
         </div>
         <div style="height:6px; background:rgba(255,255,255,0.06); border-radius:999px; overflow:hidden; margin-top:10px"><div style="width:100%; height:100%; background:linear-gradient(90deg,#C9A86A,#E8D5B5)"></div></div>
@@ -8294,7 +9521,7 @@ add_action('upgrader_process_complete', function($upgrader, $options){
 
       <!-- Footer luxury -->
       <div style="margin-top:18px; padding:14px 16px; display:flex; flex-wrap:wrap; gap:10px; justify-content:space-between; align-items:center; background:rgba(255,255,255,0.02); border:1px solid var(--gold-border); border-radius:14px; font-size:12px; color:var(--text-muted)">
-        <span>© 2026 ALOOKHOR — Control Center v3.10.19 • <span id="pageTitle" style="color:var(--gold-soft); font-weight:700">داشبورد</span> • معماری ماژولار حفظ شد</span>
+        <span>© 2026 ALOOKHOR — Control Center v3.10.20 • <span id="pageTitle" style="color:var(--gold-soft); font-weight:700">داشبورد</span> • معماری ماژولار حفظ شد</span>
         <span style="display:flex; gap:8px; align-items:center">
           <span style="width:7px; height:7px; border-radius:50%; background:#3DD68C; display:inline-block"></span> سیستم پایدار
           <span style="opacity:0.4">|</span> <a href="<?php echo esc_url(ALOOKHOR_CC_URL . 'docs/PROJECT_MEMORY.md'); ?>" target="_blank" rel="noopener" style="color:var(--gold-soft); text-decoration:underline; text-underline-offset:3px">حافظه پروژه</a>
@@ -8313,7 +9540,7 @@ add_action('upgrader_process_complete', function($upgrader, $options){
           </div>
           <div>
             <h3>Update Center</h3>
-            <div style="font-size:12px; color:var(--text-muted); margin-top:2px" id="modalVersion">v3.10.19 — به‌روز</div>
+            <div style="font-size:12px; color:var(--text-muted); margin-top:2px" id="modalVersion">v3.10.20 — به‌روز</div>
           </div>
         </div>
         <button class="icon-btn" id="btnCloseModal" style="width:34px; height:34px">✕</button>
@@ -8534,7 +9761,7 @@ ROOT = Path(__file__).resolve().parents[1]
 PLUGIN = ROOT / 'plugin' / 'alookhor-control-center'
 OUTPUT = ROOT / 'docs' / 'MASTER_CODE_REGISTRY.md'
 REGISTRY_VERSION = '1.0.0'
-GENERATED_DATE = '2026-08-14'
+GENERATED_DATE = '2026-09-06'
 
 
 def fence_language(path: Path) -> str:
@@ -8582,15 +9809,16 @@ def render() -> str:
     add('- **Update channel:** `https://updates.alookhor.ir/manifest.json`')
     add('- **Authoritative option:** `alookhor_cc_settings`')
     add('- **Header option:** `alookhor_header_settings`')
+    add('- **Buy Box option:** `alookhor_cc_buybox_settings`')
     add('')
     add('## Current Project State')
     add('')
     add(f'- CURRENT VERSION: `{version}`')
     add(f'- LAST FUNCTIONAL CHANGE: {release.get("description", "Not recorded")}')
     add('- ACTIVE DESIGN: Luxury Black/Gold; actual component colors remain controlled by saved WordPress settings and existing module defaults.')
-    add('- ACTIVE SHORTCODES: `[alookhor_portal_header]`, `[alookhor_managed_categories]`, `[alookhor_managed_hero]`, `[alookhor_managed_features]`.')
+    add('- ACTIVE SHORTCODES: `[alookhor_portal_header]`, `[alookhor_managed_categories]`, `[alookhor_managed_hero]`, `[alookhor_managed_features]`, `[alookhor_buybox]`.')
     add('- ACTIVE PANELS: Main ALOOKHOR Control Center and Header/Top Bar submenu.')
-    add('- ACTIVE COMPONENTS: Header/Top Bar manager, managed four-slide Hero, managed four-card site features, WooCommerce categories, managed footer, private native updater.')
+    add('- ACTIVE COMPONENTS: Header/Top Bar manager, managed four-slide Hero, managed four-card site features, WooCommerce categories, managed footer, single-product luxury Buy Box, private native updater.')
     add('- KNOWN EXTERNAL LEGACY: `[alookhor_categories_carousel]` belongs to `alookhor-categories-manager`; its source is not in this repository and is not reconstructed here.')
     add('- KNOWN SOURCE GAP: Elementor template export/internal element IDs and historical Code Snippets source are not present in this repository.')
     add('')
@@ -8615,6 +9843,7 @@ def render() -> str:
         ('SC-002','Shortcode','`[alookhor_managed_categories]`','`includes/product-categories.php`','Home page → Elementor Shortcode widget',version,'Active'),
         ('SC-003','Shortcode','`[alookhor_managed_hero]`','`includes/hero.php`','Home Elementor Shortcode widget / automatic Legacy-root replacement',version,'Active'),
         ('SC-004','Shortcode','`[alookhor_managed_features]`','`includes/site-features.php`','Home Elementor HTML widget / automatic Legacy-root replacement',version,'Active'),
+        ('SC-005','Shortcode','`[alookhor_buybox]`','`includes/single-product-buybox.php`','Single Product page — automatic WooCommerce takeover or Elementor Shortcode widget',version,'Active'),
         ('SC-EXT-001','External shortcode','`[alookhor_categories_carousel]`','External plugin source unavailable','Former Home showcase', 'External','Replaced on Home / do not reconstruct'),
         ('PN-001','Admin panel','ALOOKHOR Control Center','`includes/admin.php`','WP Admin top-level menu',version,'Active'),
         ('PN-002','Admin panel','Header & Top Bar','`includes/admin.php`','WP Admin submenu',version,'Active mirror'),
@@ -8622,10 +9851,12 @@ def render() -> str:
         ('MOD-002','Managed module','Responsive Footer','`includes/footer.php`','Frontend footer / REST',version,'Active'),
         ('MOD-003','Managed module','Four-slide Hero','`includes/hero.php`','Home / Elementor / REST',version,'Active'),
         ('MOD-004','Managed module','Four-card Site Features','`includes/site-features.php`','Home / Elementor / REST',version,'Active'),
+        ('MOD-005','Managed module','Single-Product Luxury Buy Box','`includes/single-product-buybox.php`','Single Product page (WooCommerce hooks + native forms)',version,'Active'),
         ('API-001','REST API','`alookhor-cc/v1`','`includes/rest-api.php`','Public state + authenticated updater',version,'Active'),
         ('UPD-001','Updater','Private native updater','`includes/updater.php`','Control Center + GitHub Actions',version,'Active'),
         ('CFG-001','WordPress state','Main settings','`alookhor_cc_settings`','All managed modules',version,'Active'),
         ('CFG-002','WordPress state','Header settings','`alookhor_header_settings`','Header and Top Bar',version,'Active'),
+        ('CFG-003','WordPress state','Buy Box settings','`alookhor_cc_buybox_settings`','Single-Product Buy Box labels and toggles',version,'Active'),
         ('CSS-001','CSS','Managed Header','`assets/css/frontend-header.css`','`[alookhor_portal_header]` fallback renderer',version,'Active'),
         ('JS-001','JavaScript','Managed Header runtime','`assets/js/frontend-header.js`','`[alookhor_portal_header]` fallback renderer',version,'Active'),
         ('JS-002','JavaScript','Legacy Top Bar manager','`assets/js/frontend-topbar-manager.js`','Preserved legacy header provider',version,'Active when legacy provider exists'),
@@ -8639,6 +9870,8 @@ def render() -> str:
         ('JS-006','JavaScript','Managed Hero runtime','`assets/js/frontend-hero.js`','Four-slide replacement, controls and REST refresh',version,'Active'),
         ('CSS-006','CSS','Managed Site Features','`assets/css/frontend-features.css`','`[alookhor_managed_features]` / automatic Home replacement',version,'Active'),
         ('JS-007','JavaScript','Managed Site Features runtime','`assets/js/frontend-features.js`','Four-card replacement and REST refresh',version,'Active'),
+        ('CSS-007','CSS','Luxury Buy Box','`assets/css/frontend-buybox.css`','`[alookhor_buybox]` / automatic single-product takeover',version,'Active'),
+        ('JS-008','JavaScript','Buy Box runtime','`assets/js/frontend-buybox.js`','Variation Pills sync, live price/stock repaint, steppers and product actions',version,'Active'),
     ]
     for row in rows:
         add('| ' + ' | '.join(str(cell) for cell in row) + ' |')
@@ -8727,6 +9960,23 @@ def render() -> str:
     add('- **Created:** 3.10.16; **status:** source release pending tagged Production verification.')
     add('- **Complete source:** see Source Snapshots for `includes/site-features.php`, `assets/css/frontend-features.css`, `assets/js/frontend-features.js`, `assets/js/modules/settings.js`, `includes/ajax.php`, and `includes/rest-api.php`.')
     add('')
+    add('## SC-005 — Single-Product Luxury Buy Box')
+    add('')
+    add('- **Shortcode:** `[alookhor_buybox]`')
+    add('- **Renderer:** `alookhor_cc_buybox_render($return = false)`; hook bridge `alookhor_cc_buybox_hook_output()` at `woocommerce_single_product_summary` priority `10`.')
+    add('- **Registration:** `add_shortcode(\'alookhor_buybox\', ...)` plus automatic takeover bootstrap on `template_redirect` for `is_product()` and product types `simple`/`variable` only; other product types keep native rendering untouched.')
+    add('- **PHP file:** `plugin/alookhor-control-center/includes/single-product-buybox.php`.')
+    add('- **WordPress use:** automatic replacement of the summary price/ATC area, or manual placement anywhere in the Elementor single-product template via the Shortcode widget. The historical Elementor/Code Snippets price block source is not in this Repository and is never guessed; the shortcode is the deliberate, explicit mount point for it.')
+    add('- **Composition:** 1) bordered price card — «قیمت محصول :» label (right), hot-pink gradient «٪ تخفیف» badge (left), large gold price + currency, muted struck old price; 2) variation Pills per attribute («انتخاب وزن :»); 3) quantity stepper (minus/value/plus) injected through `woocommerce_before/after_add_to_cart_quantity`; 4) gradient gold `single_add_to_cart_button` with cart icon plus wishlist/compare/share icon buttons injected through `woocommerce_after_add_to_cart_button`; 5) status row — stock state with pulsing dot and shipping note.')
+    add('- **Native-integrity rule:** `form.cart` / `form.variations_form` and the attribute `<select>`s remain in the DOM visually-hidden, so official `wc-add-to-cart-variation`, stock/backorder rules and AJAX add-to-cart keep running unchanged; Pills only drive the native selects and repaint from `found_variation`/`reset_data`.')
+    add('- **Persian digits:** prices are formatted server-side via `alookhor_cc_buybox_price_html()` (thousand separator `٬`) and client-side via the localized `ALOOKHOR_BUYBOX` payload, independent of any active Persianizer plugin; the sale badge builder `alookhor_cc_buybox_badge_text()` never feeds Persian digits into `%d`.')
+    add('- **Settings:** option `alookhor_cc_buybox_settings` (enabled toggle, all labels/texts, wishlist/compare/share visibility) with the `alookhor_cc_buybox_settings` filter; defaults ship in code.')
+    add('- **Anti-duplication:** a render guard prevents double output when both hook and shortcode exist, and quantity/action injections run once per page so secondary forms (e.g. sticky add-to-cart bars) stay native.')
+    add('- **CSS:** `assets/css/frontend-buybox.css`; fully scoped under `.alk-bb` with the approved Burgundy/Gold variables, mobile-first reduction below 420px, `prefers-reduced-motion`, visible focus and neutralized theme-injected quantity spinners (e.g. Woodmart).')
+    add('- **JavaScript:** `assets/js/frontend-buybox.js`; enqueued only on `is_product()` alongside the CSS at `ALOOKHOR_CC_BUILD`.')
+    add('- **Created:** 3.10.20; **status:** Active pending tagged Production verification.')
+    add('- **Complete source:** see Source Snapshots for `includes/single-product-buybox.php`, `assets/css/frontend-buybox.css`, and `assets/js/frontend-buybox.js`.')
+    add('')
     add('## SC-EXT-001 — Legacy Categories Carousel')
     add('')
     add('- **Shortcode:** `[alookhor_categories_carousel]`')
@@ -8748,7 +9998,7 @@ def render() -> str:
     add('- **AJAX:** `alookhor_save_settings`, `alookhor_toggle_module`, `alookhor_save_header`, `alookhor_get_settings`, `alookhor_check_updates`.')
     add('- **REST:** authenticated status/check/install plus public Top Bar/Hero/Site Features/Footer/Categories state.')
     add('- **Database:** `alookhor_cc_settings` (including `hero_settings` and `feature_settings`), `alookhor_header_settings`, `alookhor_footer_subscribers`.')
-    add('- **Managed shortcodes:** `[alookhor_portal_header]`, `[alookhor_managed_categories]`, `[alookhor_managed_hero]`, `[alookhor_managed_features]`.')
+    add('- **Managed shortcodes:** `[alookhor_portal_header]`, `[alookhor_managed_categories]`, `[alookhor_managed_hero]`, `[alookhor_managed_features]`, `[alookhor_buybox]`.')
     add('- **Status:** Active; every managed module setting remains in this main panel.')
     add('')
     add('## PN-002 — Header and Top Bar Submenu')
