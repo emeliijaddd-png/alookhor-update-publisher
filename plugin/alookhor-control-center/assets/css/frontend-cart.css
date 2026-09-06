@@ -545,3 +545,84 @@ body.woocommerce-cart #alookhor-cart .suggested,
 body.woocommerce-cart #alookhor-cart .suggested-grid {
   display:grid!important;
 }
+
+/* v3.10.341 FINAL FIX - user sees broken white + dark - hide ALL white wrappers */
+body.woocommerce-cart {
+  background: #0d0510!important;
+  background-color: #0d0510!important;
+}
+body.woocommerce-cart .main-page-wrapper,
+body.woocommerce-cart .site-content,
+body.woocommerce-cart .container,
+body.woocommerce-cart .wd-page-content,
+body.woocommerce-cart .wd-content-area,
+body.woocommerce-cart .site-main,
+body.woocommerce-cart #main-content,
+body.woocommerce-cart .entry-content,
+body.woocommerce-cart .woocommerce {
+  background: transparent!important;
+  background-color: transparent!important;
+  border: none!important;
+  box-shadow: none!important;
+}
+/* Hide Woodmart's default cart title, steps, and any white boxes */
+body.woocommerce-cart .wd-page-title,
+body.woocommerce-cart .wd-page-title * ,
+body.woocommerce-cart .wd-checkout-steps,
+body.woocommerce-cart .woocommerce-breadcrumb,
+body.woocommerce-cart .wd-breadcrumbs,
+body.woocommerce-cart .page-title,
+body.woocommerce-cart .entry-header,
+body.woocommerce-cart .woocommerce-notices-wrapper,
+body.woocommerce-cart .wd-empty-cart,
+body.woocommerce-cart .cart-empty,
+body.woocommerce-cart .return-to-shop,
+body.woocommerce-cart .woocommerce-cart-form,
+body.woocommerce-cart .cart-collaterals,
+body.woocommerce-cart .shop_table,
+body.woocommerce-cart .wd-cart,
+body.woocommerce-cart .wd-cart-content,
+body.woocommerce-cart .wd-cart-totals,
+body.woocommerce-cart .cart_totals,
+body.woocommerce-cart .woocommerce-cart-form__contents,
+body.woocommerce-cart .cross-sells,
+body.woocommerce-cart .wd-cross-sells,
+body.woocommerce-cart .related,
+body.woocommerce-cart .up-sells {
+  display:none!important;
+  visibility:hidden!important;
+  height:0!important;
+  overflow:hidden!important;
+  opacity:0!important;
+  pointer-events:none!important;
+  margin:0!important;
+  padding:0!important;
+  border:none!important;
+}
+/* Show ONLY luxury */
+body.woocommerce-cart #alookhor-cart {
+  display:block!important;
+  visibility:visible!important;
+  opacity:1!important;
+  height:auto!important;
+  overflow:visible!important;
+  pointer-events:auto!important;
+  background: radial-gradient(120% 120% at 20% -10%,rgba(140,60,180,.28),transparent 50%), radial-gradient(100% 100% at 80% 0%,rgba(247,179,43,.12),transparent 40%), linear-gradient(180deg,#1e0d2e 0%,#1a0a24 30%,#0d0510 100%)!important;
+}
+body.woocommerce-cart #alookhor-cart * {
+  visibility:visible!important;
+}
+body.woocommerce-cart #alookhor-cart .cart-hero,
+body.woocommerce-cart #alookhor-cart .cart-main-grid,
+body.woocommerce-cart #alookhor-cart .cart-products,
+body.woocommerce-cart #alookhor-cart .cart-summary,
+body.woocommerce-cart #alookhor-cart .suggested,
+body.woocommerce-cart #alookhor-cart .features,
+body.woocommerce-cart #alookhor-cart .faq {
+  display:block!important;
+  display:flex!important;
+  display:grid!important;
+  visibility:visible!important;
+  opacity:1!important;
+  height:auto!important;
+}

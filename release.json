@@ -1,21 +1,16 @@
 {
-  "version": "3.10.340",
-  "previous": "3.10.339",
+  "version": "3.10.341",
+  "previous": "3.10.340",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "فقط یک سبد لوکس + فیکس seeder قیمت متغیر",
+  "description": "فقط سبد لوکس - حذف تمام سفیدهای وودمارت",
   "changelog": [
     {
       "tag": "FIX",
-      "title": "فقط یک سبد لوکس",
-      "desc": "template کامل + rendered flag + CSS/JS aggressive hide - فقط یک سبد پایین"
-    },
-    {
-      "tag": "FIX",
-      "title": "قیمت محصولات متغیر seed",
-      "desc": "class_exists به‌جای function_exists + lookup قبل sync + والد instock"
+      "title": "حذف کامل سفید وودمارت",
+      "desc": "بک‌گراند تیره برای body + مخفی تمام wrapperهای سفید + فقط #alookhor-cart نمایش"
     }
   ],
   "project": "ALOOKHOR",
