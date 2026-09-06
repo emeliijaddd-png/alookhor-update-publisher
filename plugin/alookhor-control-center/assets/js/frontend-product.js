@@ -105,7 +105,7 @@ function quantity(){
   });
  };
  $$('[data-q]').forEach(b=>b.addEventListener('click',()=>{
-  const dir=parseInt(b.dataset.q,10)||0;
+  const raw=String(b.dataset.q||'').trim(); const dir=raw==='+'?1:(raw==='-'||raw==='\u2212')?-1:(parseInt(raw,10)||0); /* v3.10.268: markup uses data-q="+"/"-" */
   // note: in new design + is first button, - is last, but we support both
   // original had + as +1, - as -1; we keep same
   n=Math.min(max,Math.max(min,n+dir)); apply();
@@ -273,3 +273,53 @@ if(typeof boot==='function'){
 document.addEventListener('DOMContentLoaded',()=>{ pdpTabs(); descExpand(); });
 // also run immediately if DOM already loaded
 if(document.readyState!=='loading'){ pdpTabs(); descExpand(); }
+
+/* ===== v3.10.268 — MOBILE (<=1279px) ONLY: usage / FAQ / reviews are always-visible standalone sections on phones
+   (mockup-2), so their tab buttons scroll to them; description <-> specs still swap. Guarded by matchMedia — on
+   desktop this listener returns before the original tab handler runs, so desktop behaviour is untouched. ===== */
+(function(){
+  if(!window.matchMedia) return;
+  var mq=window.matchMedia('(max-width:1279px)');
+  var wrap=document.querySelector('[data-pdp-tabs]'); if(!wrap) return;
+  var tabs=Array.prototype.slice.call(wrap.querySelectorAll('[data-pdp-tab]'));
+  var panes=Array.prototype.slice.call(wrap.querySelectorAll('[data-pdp-pane]'));
+  if(!tabs.length||!panes.length) return;
+  var STANDALONE={usage:1,faq:1,reviews:1};
+  function paneOf(id){ return wrap.querySelector('[data-pdp-pane="'+id+'"]'); }
+  function mobileSync(){ panes.forEach(function(p){ if(STANDALONE[p.getAttribute('data-pdp-pane')]) p.hidden=false; }); }
+  function restore(){
+    var act=tabs.filter(function(t){ return t.classList.contains('is-active'); })[0];
+    var id=act?act.getAttribute('data-pdp-tab'):panes[0].getAttribute('data-pdp-pane');
+    panes.forEach(function(p){ var on=p.getAttribute('data-pdp-pane')===id; p.classList.toggle('is-active',on); p.hidden=!on; });
+  }
+  tabs.forEach(function(t){
+    t.addEventListener('click',function(e){
+      if(!mq.matches) return;
+      e.stopImmediatePropagation();
+      var id=t.getAttribute('data-pdp-tab');
+      if(STANDALONE[id]){
+        var p=paneOf(id);
+        if(p){ p.hidden=false; if(p.scrollIntoView) p.scrollIntoView({behavior:'smooth',block:'start'}); }
+        return;
+      }
+      tabs.forEach(function(x){ if(STANDALONE[x.getAttribute('data-pdp-tab')]) return; var on=x===t; x.classList.toggle('is-active',on); x.setAttribute('aria-selected',on?'true':'false'); });
+      panes.forEach(function(p){ if(STANDALONE[p.getAttribute('data-pdp-pane')]) return; var on=p.getAttribute('data-pdp-pane')===id; p.classList.toggle('is-active',on); p.hidden=!on; });
+    },true);
+  });
+  function sync(){ if(mq.matches) mobileSync(); else restore(); }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',function(){ setTimeout(sync,0); }); else setTimeout(sync,0);
+  if(mq.addEventListener) mq.addEventListener('change',sync); else if(mq.addListener) mq.addListener(sync);
+})();
+
+/* ===== v3.10.268 — make the existing "مشاهده بیشتر" button work: markup uses data-desc-toggle while descExpand()
+   only knows data-desc-more, so the button did nothing. Behaviour only — nothing changes until it is clicked. ===== */
+(function(){
+  var btn=document.querySelector('[data-desc-toggle]'), wrap=document.querySelector('[data-desc-wrap]');
+  if(!btn||!wrap) return;
+  btn.addEventListener('click',function(){
+    var on=wrap.classList.toggle('is-expanded');
+    btn.textContent=on?'مشاهده کمتر':'مشاهده بیشتر';
+    btn.setAttribute('aria-expanded',on?'true':'false');
+  });
+})();
+
