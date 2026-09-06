@@ -1,16 +1,16 @@
 {
-  "version": "3.10.314",
-  "previous": "3.10.313",
+  "version": "3.10.315",
+  "previous": "3.10.314",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "فیکس سبد قدیمی بالای صفحه - hide Woodmart white cart",
+  "description": "فیکس سبد قدیمی بالا و دسته‌بندی پایین",
   "changelog": [
     {
       "tag": "FIX",
-      "title": "حذف سبد قدیمی بالای صفحه",
-      "desc": "اضافه کردن JS که اگر سبد سفید قدیمی Woodmart با جمع جزء و تکمیل خرید دیده شد، مخفی می‌کند - فقط سبد لوکس دارک می‌ماند"
+      "title": "حذف سبد قدیمی",
+      "desc": "CSS hide old cart + categories"
     }
   ],
   "project": "ALOOKHOR",

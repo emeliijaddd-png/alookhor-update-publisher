@@ -313,3 +313,7 @@
  #alookhor-cart{padding:12px 10px 40px!important}
  #alookhor-cart .cart-item{grid-template-columns:1fr!important}
 }
+
+/* Hide Woodmart old white cart and categories */
+.woocommerce-cart-form, .cart-collaterals, .shop_table, .wd-cart, .wd-empty-cart, .woocommerce-notices-wrapper {display:none!important}
+#alookhor-cart ~ div img[src*="category-"] {display:none!important}
