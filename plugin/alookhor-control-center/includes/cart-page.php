@@ -220,10 +220,11 @@ document.addEventListener('DOMContentLoaded',function(){
 }
 }
 
-// FIX: Return original theme template to keep footer at BOTTOM - luxury comes from multiple overrides
-// Use original template but FORCE content to luxury via the_content + block filters
+// FIX: Use FULL custom template to ensure ONLY luxury, no old white - with footer fix JS
 add_filter('template_include',function($template){
  if(function_exists('is_cart')&&is_cart()){
+   $custom=ALOOKHOR_CC_DIR.'templates/cart.php';
+   if(file_exists($custom)) return $custom;
    return $template;
  }
  return $template;

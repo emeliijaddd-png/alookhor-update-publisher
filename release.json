@@ -1,16 +1,16 @@
 {
-  "version": "3.10.338",
-  "previous": "3.10.337",
+  "version": "3.10.339",
+  "previous": "3.10.338",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "فقط یک سبد لوکس - جلوگیری از 3 سبد",
+  "description": "فقط سبد لوکس با template کامل + فوتر پایین",
   "changelog": [
     {
       "tag": "FIX",
-      "title": "فقط یک سبد",
-      "desc": "static rendered flag + GLOBALS guard - جلوگیری از 3 بار رندر لوکس"
+      "title": "template کامل لوکس",
+      "desc": "برگشت به template کامل get_header+luxury+get_footer + JS جابجایی فوتر + جلوگیری از 3 سبد"
     }
   ],
   "project": "ALOOKHOR",
