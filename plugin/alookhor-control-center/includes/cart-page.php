@@ -216,13 +216,12 @@ document.addEventListener('DOMContentLoaded',function(){
 }
 }
 
-// Use original theme template (page.php) for is_cart - keeps header/footer in correct position
-// Luxury cart is output via shortcode + wc_get_template override, so footer stays at bottom
+// Use full luxury template for is_cart - ensures only luxury cart, no old white
+// Footer fix via CSS clear both
 add_filter('template_include',function($template){
  if(function_exists('is_cart')&&is_cart()){
-  // Return original template to preserve Woodmart header/footer structure
-  // Our luxury cart comes from shortcode override
-  return $template;
+  $custom=ALOOKHOR_CC_DIR.'templates/cart.php';
+  if(file_exists($custom)) return $custom;
  }
  return $template;
 },PHP_INT_MAX);
