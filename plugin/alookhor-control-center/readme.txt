@@ -4,7 +4,7 @@ Tags: control center, luxury, alookhor, admin, dashboard
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 3.10.317
+Stable tag: 3.10.318
 License: Private
 License URI: https://alookhor.ir
 
@@ -46,6 +46,11 @@ License URI: https://alookhor.ir
 در `config/site.json` و `wp_options: alookhor_cc_settings` — همان حافظه واقعی که در چت قبلی ویرایش می‌شد.
 
 == Changelog ==
+
+= 3.10.318 =
+* Phone (<=640px): "suggested products" and "curated best plums" rails are horizontal swipe sliders again (one card + a peek of the next, scroll-snap, round arrows shown) instead of the 2-column grids introduced in 3.10.311 - owner request.
+* JS: slider arrows now follow the writing direction (on RTL rails the left arrow scrolls to the next card, the right arrow back - they were inverted); on phones the step equals one card width.
+* Scoped to @media(max-width:640px); desktop 1440 verified 0 differing pixels vs 3.10.317, tablet 768/1024 unchanged.
 
 = 3.10.317 =
 * Phone (<=640px) purchase box back to owner mockup-1: quantity pill (right) + gold add-to-cart (left) on one line, no icon row, delivery text right / "in stock" left. Needed because the 3.10.312 buy-box block has no media query and had re-flowed phones (qty row above the button, icons on a third row).

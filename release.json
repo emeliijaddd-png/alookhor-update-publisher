@@ -1,26 +1,26 @@
 {
-  "version": "3.10.317",
-  "previous": "3.10.316",
+  "version": "3.10.318",
+  "previous": "3.10.317",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "جعبه خرید موبایل دوباره مطابق ماکاپ ۱ (فقط ≤640px) + حفظ تعداد هنگام تغییر وزن",
+  "description": "موبایل: محصولات پیشنهادی و گزیده بهترین‌ها اسلایدی (فقط ≤640px)",
   "changelog": [
     {
       "tag": "FIX",
-      "title": "جعبه خرید موبایل مطابق ماکاپ ۱",
-      "desc": "بلوک ۳.۱۰.۳۱۲ بدون media query چیدمان موبایل را شکسته بود؛ قوانین فقط ≤640px بعد از آن اضافه شد — دسکتاپ ۰ پیکسل تغییر"
+      "title": "ریل‌های موبایل اسلایدی",
+      "desc": "دو بخش پیشنهادی/گزیده روی موبایل اسلایدر افقی با snap و فلش شدند — دسکتاپ ۰ پیکسل تغییر"
     },
     {
       "tag": "FIX",
-      "title": "تعداد هنگام تغییر وزن",
-      "desc": "لینک افزودن به سبد/نوار چسبان بعد از انتخاب چیپ وزن، quantity انتخاب‌شده را نگه می‌دارد"
+      "title": "جهت فلش‌های اسلایدر",
+      "desc": "فلش‌ها در RTL درست کار می‌کنند و گام موبایل = یک کارت"
     }
   ],
   "project": "ALOOKHOR",
-  "area": "Product Page PDP — phone buy box (desktop locked)",
-  "reason": "کاربر گزینه الف را انتخاب کرد: ریلیز کوچک فقط موبایل، دسکتاپ بدون تغییر",
+  "area": "Product Page PDP — phone rails (desktop locked)",
+  "reason": "درخواست مالک: در حالت موبایل محصولات پیشنهادی و گزیده بهترین محصولات باید اسلایدی باشد",
   "files": [
     "plugin/alookhor-control-center/CHANGELOG.md",
     "plugin/alookhor-control-center/alookhor-control-center.php",

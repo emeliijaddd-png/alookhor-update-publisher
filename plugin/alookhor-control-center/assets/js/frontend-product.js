@@ -177,9 +177,13 @@ function sliders(){
  const bind=(trackSel,prevSel,nextSel)=>{
   const track=$(trackSel); if(!track) return;
   const prev=$(prevSel), next=$(nextSel);
-  const step=310;
-  if(prev) prev.addEventListener('click',()=>track.scrollBy({left:-step,behavior:'smooth'}));
-  if(next) next.addEventListener('click',()=>track.scrollBy({left:step,behavior:'smooth'}));
+  /* v3.10.318: arrows follow the writing direction (RTL: "next" = scroll left, "prev" = scroll right; before, both
+     were inverted on RTL rails) and on phones (<=640px, where the rails are 1-card sliders) step = one card + gap. */
+  const phone=window.matchMedia?window.matchMedia('(max-width:640px)'):null;
+  const stepOf=()=>{ if(phone&&phone.matches){ const c=track.firstElementChild; if(c){ const g=parseFloat(getComputedStyle(track).columnGap)||10; return c.getBoundingClientRect().width+g; } } return 310; };
+  const sign=()=>getComputedStyle(track).direction==='rtl'?-1:1;
+  if(prev) prev.addEventListener('click',()=>track.scrollBy({left:-stepOf()*sign(),behavior:'smooth'}));
+  if(next) next.addEventListener('click',()=>track.scrollBy({left:stepOf()*sign(),behavior:'smooth'}));
  };
  bind('[data-htrack]','[data-hprev]','[data-hnext]');
  bind('[data-ptrack]','[data-pprev]','[data-pnext]');

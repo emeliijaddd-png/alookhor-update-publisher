@@ -3287,3 +3287,15 @@ html{overflow-x:hidden !important}
 #alookhor-pdp .purchase-actions .shipping-line>span.text-lav\/70{order:0 !important}
 #alookhor-pdp .purchase-actions .shipping-line>span.text-mint{order:1 !important}
 }
+
+/* ===== v3.10.318 — PHONE (<=640px): «گزیده‌ای از بهترین…» + «محصولات پیشنهادی» are swipe SLIDERS again (owner
+   request 2026-09-06). 3.10.311 had turned both rails into 2-column grids on phones; the owner wants the carousel:
+   one card + a peek of the next (70% width, snap), swipe + the existing round arrows. Desktop/tablet untouched. ===== */
+@media(max-width:640px){
+#alookhor-pdp .slider-glass .slider-shell{padding-inline:0 !important;overflow:visible !important}
+#alookhor-pdp .slider-glass .slider-controls{display:block !important}
+#alookhor-pdp .slider-glass .slider-control-prev{right:4px !important}
+#alookhor-pdp .slider-glass .slider-control-next{left:4px !important}
+#alookhor-pdp .highlight-track,#alookhor-pdp .products-track{display:grid !important;grid-auto-flow:column !important;grid-template-columns:none !important;grid-auto-columns:70% !important;gap:10px !important;overflow-x:auto !important;overflow-y:hidden !important;scroll-snap-type:x mandatory !important;scroll-padding-inline:2px !important;overscroll-behavior-inline:contain !important;-webkit-overflow-scrolling:touch;padding:2px 2px 8px !important;scrollbar-width:none !important}
+#alookhor-pdp .highlight-card,#alookhor-pdp .suggested-product{scroll-snap-align:start !important;min-width:0 !important;width:auto !important}
+}
