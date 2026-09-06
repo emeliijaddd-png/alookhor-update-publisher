@@ -1,0 +1,44 @@
+/* ALOOKHOR CART — v3.10.262 — exact per Screenshot 2026-09-06 101216.png — MOCKUP PDP */
+#alookhor-cart{
+  --cart-bg:rgba(47,26,63,.45);
+  --cart-card:#1C1024;
+  --cart-gold:#D49A2E;
+  --cart-gold-light:#E8B84A;
+  --cart-berry:#E42A68;
+  --cart-mint:#4ADE80;
+}
+#alookhor-cart .cart-hero{
+  background:linear-gradient(135deg,rgba(47,26,63,.85),rgba(23,10,32,.70))!important;
+  border:1px solid rgba(255,255,255,.10)!important;
+  border-radius:16px!important;
+}
+#alookhor-cart .cart-main-grid{
+  display:grid!important;
+  grid-template-columns:1fr 360px!important;
+  gap:24px!important;
+  align-items:start!important;
+}
+#alookhor-cart .cart-products-box{
+  background:rgba(47,26,63,.50)!important;
+  border:1px solid rgba(255,255,255,.10)!important;
+  border-radius:16px!important;
+  overflow:hidden!important;
+}
+#alookhor-cart .cart-item{
+  transition:background .2s!important;
+}
+#alookhor-cart .cart-item:hover{
+  background:rgba(255,255,255,.02)!important;
+}
+#alookhor-cart .cart-summary > div{
+  background:rgba(47,26,63,.70)!important;
+  border:1px solid rgba(255,255,255,.10)!important;
+  border-radius:16px!important;
+}
+#alookhor-cart .cart-summary .rounded-xl{
+  border-radius:12px!important;
+}
+@media(max-width:1024px){
+  #alookhor-cart .cart-main-grid{grid-template-columns:1fr!important}
+  #alookhor-cart .cart-summary > div{position:static!important}
+}

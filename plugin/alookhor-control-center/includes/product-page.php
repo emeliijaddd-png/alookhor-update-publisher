@@ -1,5 +1,5 @@
 <?php
-/** ALOOKHOR PDP v3.10.261 exact per 3 ref images - price box pink 51% old crossed new gold 9k, weight chip 1kg 400k gold border, about orchard per image-2, suggested per image-3 4 cards 489k */
+/** ALOOKHOR PDP v3.10.262 exact per 3 ref images - price box pink 51% old crossed new gold 9k, weight chip 1kg 400k gold border, about orchard per image-2, suggested per image-3 4 cards 489k */
 if(!defined('ABSPATH'))exit;
 
 if(!function_exists('alookhor_cc_pdp_icon')){
