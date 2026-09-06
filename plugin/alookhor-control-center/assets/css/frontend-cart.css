@@ -465,3 +465,30 @@ body.woocommerce-cart .footer-container{
   top:auto!important;
   bottom:0!important;
 }
+
+/* v3.10.328 - Hide managed categories on cart page completely */
+body.woocommerce-cart #alookhor-managed-categories,
+body.woocommerce-cart #alookhor-managed-categories-template,
+body.woocommerce-cart .alookhor-mc,
+body.woocommerce-cart .alookhor-mc-enabled .alookhor-mc {
+  display:none!important;
+  visibility:hidden!important;
+  height:0!important;
+  overflow:hidden!important;
+}
+/* Hide any category cards that leak */
+body.woocommerce-cart [class*="category-"],
+body.woocommerce-cart img[src*="category-"] {
+  display:none!important;
+}
+body.woocommerce-cart #alookhor-cart ~ * img[src*="category-"] {
+  display:none!important;
+}
+/* Ensure old white cart NEVER shows */
+body.woocommerce-cart .woocommerce-cart-form,
+body.woocommerce-cart .cart-collaterals,
+body.woocommerce-cart .wd-cart,
+body.woocommerce-cart .wd-empty-cart,
+body.woocommerce-cart .woocommerce-notices-wrapper {
+  display:none!important;
+}

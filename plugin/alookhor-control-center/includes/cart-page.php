@@ -235,6 +235,17 @@ add_action('init',function(){
  add_shortcode('woocommerce_cart',function(){ return alookhor_cc_cart_markup(); });
 },20);
 
+// Disable product categories showcase on cart page — prevents آلو خشکبار etc appearing
+add_filter('alookhor_cc_category_settings',function($s){
+ if(function_exists('is_cart')&&is_cart()){ $s['enabled']=false; }
+ return $s;
+},PHP_INT_MAX);
+add_action('wp',function(){
+ if(function_exists('is_cart')&&is_cart()){
+  remove_action('wp_footer','alookhor_cc_category_template',2);
+ }
+},1);
+
 // Also override empty cart template to prevent Woodmart categories showing
 // Override BOTH cart and cart-empty to use our luxury markup - prevents old Woodmart cart
 add_filter('wc_get_template',function($template,$template_name,$args,$template_path,$default_path){
