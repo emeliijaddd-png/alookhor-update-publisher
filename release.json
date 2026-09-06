@@ -1,16 +1,16 @@
 {
-  "version": "3.10.320",
-  "previous": "3.10.319",
+  "version": "3.10.321",
+  "previous": "3.10.320",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "فیکس فوتر بالای صفحه - فوتر باید پایین بماند",
+  "description": "فیکس فوتر بالای صفحه - برگشت به template اصلی برای حفظ فوتر پایین",
   "changelog": [
     {
       "tag": "FIX",
-      "title": "فوتر بالای صفحه",
-      "desc": "حذف z-index 2 که باعث overlap می‌شد + clear both + margin-top 40px برای footer"
+      "title": "فوتر پایین",
+      "desc": "template_include برمی‌گردد به template اصلی Woodmart تا فوتر پایین بماند - سبد لوکس از shortcode می‌آید"
     }
   ],
   "project": "ALOOKHOR",

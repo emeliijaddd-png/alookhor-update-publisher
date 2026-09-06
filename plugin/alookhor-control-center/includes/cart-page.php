@@ -216,11 +216,13 @@ document.addEventListener('DOMContentLoaded',function(){
 }
 }
 
-// Use full template for is_cart to avoid Woodmart categories and double cart - this is the correct way
+// Use original theme template (page.php) for is_cart - keeps header/footer in correct position
+// Luxury cart is output via shortcode + wc_get_template override, so footer stays at bottom
 add_filter('template_include',function($template){
  if(function_exists('is_cart')&&is_cart()){
-  $custom=ALOOKHOR_CC_DIR.'templates/cart.php';
-  if(file_exists($custom)) return $custom;
+  // Return original template to preserve Woodmart header/footer structure
+  // Our luxury cart comes from shortcode override
+  return $template;
  }
  return $template;
 },PHP_INT_MAX);
