@@ -400,3 +400,10 @@ body.woocommerce-cart .wd-empty-cart-text + .return-to-shop{
  #alookhor-cart .cart-item{grid-template-columns:1fr!important}
  #alookhor-cart .cart-hero-left img{width:56px!important;height:56px!important}
 }
+
+/* Hide Woodmart categories that appear below cart */
+body.woocommerce-cart .wd-empty-cart,
+body.woocommerce-cart .return-to-shop,
+body.woocommerce-cart .wd-empty-cart + div,
+#alookhor-cart ~ div:has(img[src*="category-"]) {display:none!important}
+img[src*="category-plums"], img[src*="category-fruit"], img[src*="category-natural"], img[src*="category-nuts"] {display:none!important}

@@ -1,16 +1,16 @@
 {
-  "version": "3.10.322",
-  "previous": "3.10.321",
+  "version": "3.10.323",
+  "previous": "3.10.322",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "فیکس سبد قدیمی - برگشت به template لوکس کامل برای حذف سبد سفید",
+  "description": "فیکس سبد - فقط لوکس، بدون سفید قدیمی، بدون دسته‌بندی",
   "changelog": [
     {
       "tag": "FIX",
-      "title": "حذف سبد سفید قدیمی",
-      "desc": "template_include برمی‌گردد به templates/cart.php لوکس کامل - فقط سبد دارک حرفه‌ای"
+      "title": "حذف سبد سفید و دسته‌بندی",
+      "desc": "فقط سبد لوکس دارک - template کامل"
     }
   ],
   "project": "ALOOKHOR",
