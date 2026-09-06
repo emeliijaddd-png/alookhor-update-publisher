@@ -3047,3 +3047,16 @@ html{overflow-x:hidden !important}
 }
 #alookhor-pdp .purchase-actions > div.flex .quantity-row .quantity-label{order:0!important;flex:0 0 auto!important;margin-inline-end:0!important}
 #alookhor-pdp .purchase-actions > div.flex .quantity-row .quantity-control{order:1!important;flex:0 0 auto!important}
+
+/* v3.10.305 — owner tweaks: bigger icon squares, slightly wider CTA */
+#alookhor-pdp .purchase-actions .share-btn,
+#alookhor-pdp .purchase-actions .compare-btn,
+#alookhor-pdp .purchase-actions .wishlist-btn{
+  width:48px!important;height:48px!important;min-width:48px!important;min-height:48px!important;
+}
+#alookhor-pdp .purchase-actions .share-btn svg,
+#alookhor-pdp .purchase-actions .compare-btn svg,
+#alookhor-pdp .purchase-actions .wishlist-btn svg{
+  width:20px!important;height:20px!important;
+}
+#alookhor-pdp .add-button{min-width:230px!important;max-width:250px!important}
