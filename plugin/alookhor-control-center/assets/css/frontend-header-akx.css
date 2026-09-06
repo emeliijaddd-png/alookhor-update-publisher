@@ -1,0 +1,1046 @@
+/* ===== ALOOKHOR AKX Luxury Header ===== */
+/* Purple/gold design — fully scoped to #akx-header (matches reference exactly) */
+
+/* v3.10.78: هدر بچسبد به بالای صفحه — حذف فاصله سفید بالای هدر
+   (port قوانین تثبیت‌شده‌ی حالت Legacy؛ فقط روی صفحاتی که هدر AKX رویشان رندر شده) */
+html:has(#akx-header[data-akx-live="1"]),
+body:has(#akx-header[data-akx-live="1"]) {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+/* پس‌زمینه صفحه را هدر تغییر نمی‌دهد؛ فضای دو طرف کپسول باید کاملاً بدون رنگ باشد. */
+.website-wrapper:has(#akx-header[data-akx-live="1"]),
+.main-page-wrapper:has(#akx-header[data-akx-live="1"]),
+#main-content:has(#akx-header[data-akx-live="1"]) {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+body:has(#akx-header[data-akx-live="1"]) .whb-header {
+  display: none !important;
+}
+
+/* Box-sizing reset scoped to header */
+body #akx-header,
+body #akx-header * {
+  box-sizing: border-box !important;
+  font-family: Vazirmatn, IRANSansX, Tahoma, sans-serif !important;
+}
+
+/* Outer container */
+body #akx-header {
+  width: 100vw !important;
+  max-width: 100vw !important;
+  margin-right: calc(50% - 50vw) !important;
+  margin-left: calc(50% - 50vw) !important;
+  position: relative !important;
+  z-index: 99999 !important;
+  color: #fff !important;
+  background: #17041f !important;
+  direction: rtl !important;
+}
+
+body #akx-header a {
+  text-decoration: none !important;
+}
+
+body #akx-header svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+body #akx-header .akx-wrap {
+  /* v3.10.71: نوار اولی (Topbar) تمام‌عرض می‌ماند — بدون هیچ تغییر */
+  width: 100% !important;
+  margin: 0 auto !important;
+  padding-right: 24px !important;
+  padding-left: 24px !important;
+}
+
+/* v3.10.71: نوار دوم (Mainbar منوی اصلی) — محتوا داخل کانتینر وسط‌چین، نه تمام‌عرض؛ پس‌زمینه همان تمام‌عرض می‌ماند */
+body #akx-header .akx-mainbar .akx-wrap {
+  width: min(1380px, 100%) !important;
+  margin-right: auto !important;
+  margin-left: auto !important;
+}
+
+/* Topbar */
+body #akx-header .akx-topbar {
+  min-height: 43px;
+  display: flex;
+  align-items: center;
+  background:
+    radial-gradient(circle at 80% -80%, rgba(137, 39, 190, .34), transparent 35%),
+    linear-gradient(90deg, #1a0527 0%, #2d0d4a 48%, #1c0629 100%);
+  border-bottom: 1px solid rgba(212, 175, 55, .13);
+}
+
+body #akx-header .akx-topbar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 43px;
+  gap: 15px;
+}
+
+body #akx-header .akx-topbar-right,
+body #akx-header .akx-topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+body #akx-header .akx-topbar-left {
+  direction: ltr;
+  color: rgba(255,255,255,.75);
+  font-size: 13px;
+}
+
+body #akx-header .akx-topbar-left a {
+  color: rgba(255,255,255,.82) !important;
+  white-space: nowrap;
+}
+
+body #akx-header .akx-topbar-left .akx-phone {
+  color: #e5c45d !important;
+  font-weight: 800;
+}
+
+body #akx-header .akx-mini-icon {
+  color: #d7a932;
+  display: flex;
+  opacity: .95;
+}
+
+body #akx-header .akx-mini-icon svg {
+  width: 14px;
+  height: 14px;
+}
+
+body #akx-header .akx-divider {
+  width: 1px;
+  height: 16px;
+  background: rgba(212,175,55,.25);
+}
+
+body #akx-header .akx-top-whatsapp {
+  width: 37px;
+  height: 37px;
+  display: grid;
+  place-items: center;
+  color: #27e67a !important;
+  border-radius: 50%;
+  background: rgba(7, 47, 29, .7);
+  border: 1px solid rgba(39, 230, 122, .42);
+  box-shadow: 0 0 16px rgba(39,230,122,.26);
+}
+
+body #akx-header .akx-top-whatsapp svg {
+  width: 21px;
+  height: 21px;
+  fill: currentColor;
+  stroke: none;
+}
+
+body #akx-header .akx-wholesale {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  color: #210a2c !important;
+  font-size: 12.5px;
+  font-weight: 900;
+  padding: 8px 18px;
+  border-radius: 25px;
+  background: linear-gradient(135deg,#f4d56d,#cf9c21);
+  box-shadow: 0 0 18px rgba(212,175,55,.22);
+}
+
+body #akx-header .akx-wholesale svg {
+  width: 14px;
+  height: 14px;
+}
+
+body #akx-header .akx-export-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: #f1d468 !important;
+  border: 1px solid rgba(212,175,55,.32);
+  border-radius: 24px;
+  padding: 7px 15px;
+  font-size: 12px;
+  white-space: nowrap;
+  background: rgba(33, 8, 49, .33);
+}
+
+body #akx-header .akx-export-link svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Main Bar */
+body #akx-header .akx-mainbar {
+  min-height: 78px;
+  display: flex;
+  align-items: center;
+  background:
+    radial-gradient(circle at 10% 20%, rgba(123,23,174,.18), transparent 26%),
+    linear-gradient(90deg,#16031f,#21072f 52%,#14021d);
+}
+
+/* v3.10.68: نوار دوم (Mainbar) چسبان — وقتی Topbar از دید خارج شد، Mainbar به بالای صفحه می‌چسبد */
+body #akx-header .akx-mainbar.is-stuck {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 99990;
+  /* خود نوار سراسری نباید هاله یا سایه تمام‌عرض بسازد؛ سایه فقط متعلق به کپسول است. */
+  box-shadow: none !important;
+  filter: none !important;
+  animation: akx-stuck-in .18s ease-out;
+}
+body.admin-bar #akx-header .akx-mainbar.is-stuck { top: 32px; }
+@media (max-width: 782px) {
+  body.admin-bar #akx-header .akx-mainbar.is-stuck { top: 46px; }
+}
+@keyframes akx-stuck-in {
+  from { transform: translateY(-6px); opacity: .82; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+/* جایگزین ارتفاع Mainbar هنگام چسبیدن تا محتوا نپرد */
+body #akx-header .akx-mainbar-spacer { height: 0; }
+body #akx-header.akx-has-stuck-bar .akx-mainbar-spacer { display: block; }
+@media (prefers-reduced-motion: reduce) {
+  body #akx-header .akx-mainbar.is-stuck { animation: none; }
+}
+
+body #akx-header .akx-main-inner {
+  min-height: 78px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  position: relative;
+}
+
+body #akx-header .akx-logo {
+  width: 77px;
+  min-width: 77px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+body #akx-header .akx-logo img {
+  width: 74px;
+  max-height: 61px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 10px rgba(212,175,55,.28));
+}
+
+body #akx-header .akx-nav-capsule {
+  flex: 1;
+  min-height: 57px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 6px 10px 6px 11px;
+  border-radius: 35px;
+  border: 1px solid rgba(212,175,55,.27);
+  background:
+    linear-gradient(180deg, rgba(91,41,110,.44), rgba(34,12,49,.63)),
+    rgba(24,7,37,.58);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.10),
+    0 9px 28px rgba(0,0,0,.33),
+    0 0 20px rgba(138,35,183,.08);
+  backdrop-filter: blur(18px) saturate(145%);
+  -webkit-backdrop-filter: blur(18px) saturate(145%);
+}
+
+body #akx-header .akx-menu-button {
+  min-width: 72px;
+  height: 42px;
+  border: 0;
+  border-radius: 23px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: #210825;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 900;
+  background: linear-gradient(135deg,#f2d66c,#c99821);
+  box-shadow: 0 0 16px rgba(212,175,55,.22);
+}
+
+body #akx-header .akx-menu-button i {
+  width: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+body #akx-header .akx-menu-button b {
+  display: block;
+  width: 15px;
+  height: 2px;
+  border-radius: 3px;
+  background: #28102e;
+}
+
+body #akx-header .akx-nav > ul {
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+body #akx-header .akx-nav > ul > li {
+  list-style: none !important;
+  position: relative;
+}
+
+body #akx-header .akx-nav > ul > li > a {
+  min-height: 42px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0 11px;
+  color: rgba(255,255,255,.68) !important;
+  font-size: 15px;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: .25s ease;
+  position: relative;
+}
+
+body #akx-header .akx-nav > ul > li > a svg {
+  width: 13px;
+  height: 13px;
+}
+
+body #akx-header .akx-nav > ul > li > a:hover {
+  color: #fff !important;
+}
+
+body #akx-header .akx-nav > ul > li.akx-active > a {
+  color: #efcf56 !important;
+  font-weight: 900;
+  text-shadow: 0 0 12px rgba(230,190,58,.55);
+}
+
+body #akx-header .akx-nav > ul > li.akx-active > a:after {
+  content: "";
+  position: absolute;
+  right: 14px;
+  left: 14px;
+  bottom: 1px;
+  height: 2px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, transparent,#e7bb32,#ffe77b,#e7bb32,transparent);
+  box-shadow: 0 0 9px rgba(234,192,53,.8);
+}
+
+/* Tools */
+body #akx-header .akx-tools {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-inline-start: auto;
+  padding-inline-start: 14px;
+  border-inline-start: 1px solid rgba(212,175,55,.17);
+}
+
+body #akx-header .akx-circle-btn {
+  width: 37px;
+  height: 37px;
+  padding: 0;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  position: relative;
+  color: rgba(255,255,255,.73) !important;
+  background: rgba(15,5,28,.54);
+  border: 1px solid rgba(212,175,55,.22);
+  transition: .25s ease;
+}
+
+body #akx-header .akx-circle-btn:hover {
+  color: #f0d164 !important;
+  transform: translateY(-2px);
+  border-color: rgba(212,175,55,.72);
+  box-shadow: 0 0 18px rgba(212,175,55,.25);
+}
+
+body #akx-header .akx-circle-btn svg {
+  width: 17px;
+  height: 17px;
+}
+
+body #akx-header .akx-circle-btn em {
+  position: absolute;
+  top: -7px;
+  right: -3px;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  color: #2a0c33;
+  font-size: 9px;
+  font-style: normal;
+  font-weight: 900;
+  background: #e3bb37;
+  box-shadow: 0 0 10px rgba(225,181,48,.65);
+}
+
+/* Mega Menu — Custom (NOT WP sub-menu) */
+body #akx-header .akx-mega-menu {
+  position: absolute;
+  top: calc(100% + 13px);
+  right: 50%;
+  width: min(1120px, calc(100vw - 34px));
+  padding: 20px;
+  transform: translateX(50%) translateY(12px);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr) 225px;
+  gap: 16px;
+  direction: rtl;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  border-radius: 17px;
+  border: 1px solid rgba(212,175,55,.29);
+  background:
+    linear-gradient(145deg,rgba(41,10,55,.95),rgba(12,4,20,.98)),
+    #13051b;
+  box-shadow: 0 26px 65px rgba(0,0,0,.75);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  transition: .28s ease;
+  z-index: 999999;
+}
+
+body #akx-header .akx-has-mega:hover .akx-mega-menu,
+body #akx-header .akx-has-mega:focus-within .akx-mega-menu {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateX(50%) translateY(0);
+}
+
+body #akx-header .akx-mega-col {
+  min-height: 175px;
+  padding: 3px 14px;
+  border-left: 1px solid rgba(212,175,55,.12);
+}
+
+body #akx-header .akx-mega-col h4 {
+  color: #efc94d;
+  font-size: 16.5px;
+  margin: 0 0 12px !important;
+  padding: 0 0 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(212,175,55,.14);
+}
+
+body #akx-header .akx-mega-col h4 span {
+  font-size: 12px;
+  color: #d8a72b;
+}
+
+body #akx-header .akx-mega-col a {
+  display: block;
+  color: rgba(255,255,255,.67) !important;
+  padding: 8px 0;
+  font-size: 14.5px;
+  transition: .2s ease;
+}
+
+body #akx-header .akx-mega-col a:before {
+  content: "•";
+  color: #d7a92d;
+  padding-left: 7px;
+}
+
+body #akx-header .akx-mega-col a:hover {
+  color: #f3d65d !important;
+  padding-right: 5px;
+}
+
+body #akx-header .akx-promo-card {
+  padding: 14px;
+  display: flex;
+  min-height: 225px;
+  flex-direction: column;
+  text-align: center;
+  border-radius: 14px;
+  border: 1px solid rgba(212,175,55,.35);
+  background: linear-gradient(145deg,rgba(84,30,73,.4),rgba(10,5,17,.7));
+}
+
+body #akx-header .akx-promo-image {
+  height: 58px;
+  border-radius: 9px;
+  margin-bottom: 9px;
+  background:
+    linear-gradient(90deg,rgba(9,5,14,.14),rgba(9,5,14,.55)),
+    url("https://alookhor.ir/wp-content/uploads/2026/08/LOGO2.png") center/contain no-repeat,
+    #271128;
+}
+
+body #akx-header .akx-promo-card h4 {
+  color: #fff;
+  font-size: 13px;
+  margin: 0 0 7px !important;
+}
+
+body #akx-header .akx-promo-card p {
+  color: rgba(255,255,255,.61);
+  font-size: 12.5px;
+  line-height: 1.9;
+  margin: 0 0 12px !important;
+}
+
+body #akx-header .akx-promo-card a {
+  margin-top: auto;
+  display: block;
+  padding: 9px;
+  color: #261128 !important;
+  font-size: 13.5px;
+  font-weight: 900;
+  border-radius: 20px;
+  background: linear-gradient(135deg,#f0cf56,#cc9520);
+}
+
+/* Search */
+body #akx-header .akx-search-panel {
+  position: absolute;
+  left: 24px;
+  bottom: -55px;
+  display: none;
+  align-items: center;
+  gap: 7px;
+  padding: 8px;
+  border-radius: 13px;
+  background: #1c0928;
+  border: 1px solid rgba(212,175,55,.34);
+  box-shadow: 0 15px 35px rgba(0,0,0,.5);
+  z-index: 999999;
+}
+
+body #akx-header .akx-search-panel.is-open {
+  display: flex;
+}
+
+body #akx-header .akx-search-panel input {
+  width: 240px;
+  height: 35px;
+  padding: 0 12px;
+  color: #fff;
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 8px;
+  outline: none;
+}
+
+body #akx-header .akx-search-panel button {
+  height: 35px;
+  padding: 0 12px;
+  border: 0;
+  cursor: pointer;
+  border-radius: 8px;
+  color: #250b2d;
+  font-weight: 800;
+  background: #d7ae34;
+}
+
+/* ===== APP-LIKE MOBILE DRAWER ===== */
+.akx-mob-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  z-index: 9999998;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.akx-mob-backdrop.is-open {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.akx-mob-drawer {
+  position: fixed;
+  top: 0;
+  right: -340px;
+  width: 300px;
+  max-width: 82vw;
+  height: 100vh;
+  background: linear-gradient(180deg, #150826 0%, #0d0218 100%);
+  z-index: 9999999;
+  transition: right 0.38s cubic-bezier(0.2, 0.8, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  padding: 20px 16px;
+  box-shadow: -8px 0 35px rgba(0,0,0,0.65);
+  direction: rtl !important;
+}
+
+.akx-mob-drawer.is-open {
+  right: 0 !important;
+}
+
+.akx-mob-drawer-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.akx-mob-close {
+  background: rgba(255, 255, 255, 0.08);
+  border: none;
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  color: #a0a3b5;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: 0.2s;
+}
+
+.akx-mob-close:hover {
+  background: rgba(255, 255, 255, 0.16);
+  color: #fff;
+}
+
+.akx-mob-close svg {
+  width: 18px;
+  height: 18px;
+}
+
+.akx-mob-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.akx-mob-brand-text {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+}
+
+.akx-mob-brand-text strong {
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.akx-mob-brand-text span {
+  color: #d7a932;
+  font-size: 11.5px;
+}
+
+.akx-mob-brand-badge {
+  background: linear-gradient(135deg, #d32f2f, #ff5252);
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  font-size: 19px;
+  box-shadow: 0 0 15px rgba(211,47,47,0.4);
+}
+
+.akx-mob-search form {
+  display: flex;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+  padding: 4px 14px;
+  margin-bottom: 20px;
+}
+
+.akx-mob-search input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: #fff;
+  padding: 9px 0;
+  outline: none;
+  font-family: inherit;
+  font-size: 13px;
+}
+
+.akx-mob-search button {
+  background: transparent;
+  border: none;
+  color: #7b809a;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+}
+
+.akx-mob-search button svg {
+  width: 16px;
+  height: 16px;
+  stroke: currentColor;
+}
+
+.akx-mob-label {
+  color: #c39a3e;
+  font-size: 12.5px;
+  margin-bottom: 12px;
+  padding-right: 4px;
+  font-weight: bold;
+}
+
+.akx-mob-scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding-left: 4px;
+}
+
+.akx-mob-scroll::-webkit-scrollbar {
+  width: 3px;
+}
+
+.akx-mob-scroll::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.15);
+  border-radius: 3px;
+}
+
+.akx-mob-list {
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.akx-mob-list li {
+  margin-bottom: 6px;
+}
+
+.akx-mob-list a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 4px;
+  color: #ffffff !important;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+  transition: 0.2s;
+}
+
+.akx-mob-item-main {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.akx-mob-icon {
+  background: rgba(255,255,255,0.06);
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  font-size: 16px;
+}
+
+.akx-mob-title {
+  font-size: 15.5px;
+  font-weight: 500;
+}
+
+.akx-mob-arrow {
+  color: #535873;
+  font-size: 14px;
+  background: rgba(255,255,255,0.03);
+  padding: 3px 8px;
+  border-radius: 6px;
+}
+
+.akx-mob-sub {
+  list-style: none !important;
+  padding: 6px 48px 6px 0 !important;
+  margin: 0 !important;
+  display: none;
+}
+
+.akx-mob-has-sub.is-open .akx-mob-sub {
+  display: block;
+}
+
+.akx-mob-sub a {
+  font-size: 13.5px;
+  color: rgba(255,255,255,0.65) !important;
+  padding: 6px 0;
+}
+
+.akx-mob-footer {
+  display: flex;
+  gap: 10px;
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255,255,255,0.05);
+}
+
+.akx-mob-footer a {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  padding: 11px;
+  border-radius: 14px;
+  color: #fff !important;
+  text-decoration: none;
+  font-size: 13.5px;
+  transition: 0.2s;
+}
+
+.akx-mob-footer a:hover {
+  background: rgba(255,255,255,0.12);
+}
+
+.akx-foot-ic {
+  color: #a0a3b5;
+  font-size: 15px;
+}
+
+/* Responsive */
+@media (max-width: 1240px) {
+  body #akx-header .akx-route-text {
+    display: none;
+  }
+  body #akx-header .akx-nav > ul > li > a {
+    padding: 0 7px;
+    font-size: 12.5px;
+  }
+}
+
+@media (max-width: 860px) {
+  body #akx-header .akx-topbar {
+    display: none;
+  }
+  body #akx-header .akx-mainbar,
+  body #akx-header .akx-main-inner {
+    min-height: 70px;
+  }
+  body #akx-header .akx-logo {
+    order: 1;
+  }
+  body #akx-header .akx-nav-capsule {
+    order: 2;
+    margin-right: auto;
+    flex: 0 1 auto;
+  }
+  body #akx-header .akx-nav {
+    display: none;
+  }
+  body #akx-header .akx-tools {
+    margin-inline-start: 0;
+    padding-inline-start: 0;
+    border-inline-start: 0;
+  }
+  body #akx-header .akx-circle-btn {
+    width: 35px;
+    height: 35px;
+  }
+  body #akx-header .akx-menu-button {
+    min-width: 68px;
+    height: 38px;
+  }
+}
+
+@media (max-width: 520px) {
+  body #akx-header .akx-wrap {
+    padding-right: 10px !important;
+    padding-left: 10px !important;
+  }
+  body #akx-header .akx-logo {
+    width: 58px;
+    min-width: 58px;
+  }
+  body #akx-header .akx-logo img {
+    width: 55px;
+  }
+  body #akx-header .akx-tools .akx-circle-btn:nth-child(1) {
+    display: none;
+  }
+  body #akx-header .akx-tools .akx-circle-btn {
+    width: 32px;
+    height: 32px;
+  }
+  body #akx-header .akx-nav-capsule {
+    min-height: 52px;
+    padding: 5px 7px;
+    gap: 7px;
+  }
+  body #akx-header .akx-menu-button {
+    min-width: 59px;
+    height: 34px;
+    font-size: 11px;
+  }
+}
+
+/* v3.10.78: محتوای بعدی (Hero/Slider) به اندازه Mainbar بالا می‌آید و زیر کپسول قرار می‌گیرد. */
+body #akx-header {
+  /* 78px ارتفاع Mainbar + 42px offset واقعی کانتینر Woodmart/Elementor */
+  margin-bottom: -120px !important;
+}
+@media (max-width: 860px) {
+  body #akx-header { margin-bottom: -70px !important; }
+}
+
+/* Theme controls — values are emitted safely by shortcode-header.php. */
+body #akx-header { color: var(--akx-text, #fff) !important; background: transparent !important; }
+body #akx-header .akx-topbar { background: var(--akx-topbar-bg, #1c0629) !important; border-bottom-color: var(--akx-topbar-border, #d4af37) !important; color: var(--akx-topbar-text, #f5f3f0) !important; }
+body #akx-header .akx-topbar-left,
+body #akx-header .akx-topbar-left a { color: var(--akx-topbar-text, #f5f3f0) !important; }
+body #akx-header .akx-wholesale { background: var(--akx-topbar-button, #d4af37) !important; color: var(--akx-topbar-button-text, #210a2c) !important; }
+body #akx-header .akx-export-link,
+body #akx-header .akx-phone,
+body #akx-header .akx-mini-icon { color: var(--akx-gold-light, #f1d468) !important; }
+/* نوار سراسری هیچ سطح رنگی ندارد؛ فقط خود کپسول منو می‌تواند شیشه‌ای باشد. */
+body #akx-header .akx-mainbar,
+body #akx-header.akx-glass-enabled .akx-mainbar {
+  background: transparent !important;
+  color: var(--akx-text, #fff) !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+body #akx-header .akx-nav-capsule {
+  background: var(--akx-capsule, #16031f) !important;
+  border-color: color-mix(in srgb, var(--akx-gold, #d4af37) 35%, transparent) !important;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+body #akx-header.akx-glass-enabled .akx-nav-capsule {
+  background: var(--akx-capsule-glass, rgba(22,3,31,.72)) !important;
+  backdrop-filter: blur(var(--akx-blur, 18px)) saturate(145%);
+  -webkit-backdrop-filter: blur(var(--akx-blur, 18px)) saturate(145%);
+}
+body #akx-header .akx-menu-button { background: linear-gradient(135deg, var(--akx-gold-light, #f1d468), var(--akx-gold, #d4af37)) !important; color: var(--akx-topbar-button-text, #210a2c) !important; }
+body #akx-header .akx-nav > ul > li > a { color: var(--akx-capsule-muted, #c8c2c9) !important; }
+body #akx-header .akx-nav > ul > li > a:hover { color: var(--akx-capsule-text, #fff) !important; }
+body #akx-header .akx-nav > ul > li.akx-active > a,
+body #akx-header .akx-mega-col h4 { color: var(--akx-gold-light, #f1d468) !important; }
+body #akx-header .akx-mega-menu { background: color-mix(in srgb, var(--akx-card, #2d0d4a) 92%, #000) !important; border-color: color-mix(in srgb, var(--akx-gold, #d4af37) 35%, transparent) !important; }
+body #akx-header .akx-mega-menu a { color: var(--akx-capsule-muted, #c8c2c9) !important; }
+body #akx-header .akx-mega-menu a:hover { color: var(--akx-capsule-text, #fff) !important; }
+body #akx-header .akx-circle-btn { color: var(--akx-muted, #c8c2c9) !important; background: color-mix(in srgb, var(--akx-capsule, #16031f) 70%, transparent) !important; border-color: color-mix(in srgb, var(--akx-gold, #d4af37) 28%, transparent) !important; }
+
+/* v3.10.111 — unified luxury glass capsule matching the approved navigation reference. */
+body #akx-header .akx-mainbar .akx-wrap{width:min(1380px,calc(100% - 28px))!important;padding:0!important}
+body #akx-header .akx-main-inner{gap:0!important}
+body #akx-header .akx-nav-capsule{position:relative!important;min-height:72px!important;padding:7px 13px!important;gap:11px!important;border-radius:28px!important;border:1px solid color-mix(in srgb,var(--akx-gold) 32%,rgba(255,255,255,.22))!important;background:linear-gradient(135deg,rgba(45,13,74,.68),rgba(20,4,29,.78))!important;-webkit-backdrop-filter:blur(var(--akx-blur,18px)) saturate(155%)!important;backdrop-filter:blur(var(--akx-blur,18px)) saturate(155%)!important;box-shadow:0 16px 38px rgba(10,1,15,.42),0 0 22px color-mix(in srgb,var(--akx-gold) 10%,transparent),inset 0 1px rgba(255,255,255,.12)!important;overflow:visible}
+body #akx-header .akx-nav-capsule:before{content:"";position:absolute;top:0;left:14%;right:14%;height:1px;background:linear-gradient(90deg,transparent,var(--akx-gold),transparent);opacity:.55;pointer-events:none}
+body #akx-header .akx-logo{order:0!important;width:142px!important;min-width:142px!important;height:58px!important;padding:2px 8px!important;border-left:1px solid color-mix(in srgb,var(--akx-gold) 18%,transparent);display:flex!important;align-items:center!important;justify-content:center!important}
+body #akx-header .akx-logo img{width:126px!important;max-width:126px!important;height:58px!important;max-height:58px!important;object-fit:contain!important;filter:drop-shadow(0 0 9px color-mix(in srgb,var(--akx-gold) 30%,transparent))!important}
+body #akx-header .akx-menu-button{order:1!important;min-width:68px!important;height:43px!important;border:1px solid color-mix(in srgb,var(--akx-gold) 38%,transparent)!important;background:linear-gradient(145deg,rgba(212,175,55,.16),rgba(45,13,74,.58))!important;color:var(--akx-gold-light,#f1d468)!important;box-shadow:inset 0 1px rgba(255,255,255,.08),0 6px 16px rgba(0,0,0,.2)!important}
+body #akx-header .akx-menu-button b{background:currentColor!important}
+body #akx-header .akx-nav{order:2!important;flex:1;display:flex;justify-content:center}
+body #akx-header .akx-tools{order:3!important;margin-inline-start:auto!important;padding-inline-start:0!important;padding-inline-end:14px!important;border-inline-start:0!important;border-inline-end:1px solid color-mix(in srgb,var(--akx-gold) 18%,transparent)!important}
+body #akx-header .akx-circle-btn{width:42px!important;height:42px!important;background:rgba(10,3,16,.42)!important;border-color:rgba(255,255,255,.11)!important}
+@media(max-width:860px){body #akx-header .akx-mainbar .akx-wrap{width:calc(100% - 16px)!important}body #akx-header .akx-nav-capsule{min-height:60px!important;padding:5px 7px!important;border-radius:22px!important}body #akx-header .akx-logo{width:82px!important;min-width:82px!important;height:50px!important;padding:2px!important}body #akx-header .akx-logo img{width:76px!important;max-width:76px!important;height:48px!important;max-height:48px!important}body #akx-header .akx-menu-button{min-width:58px!important;height:40px!important}body #akx-header .akx-tools{padding-inline-end:7px!important}}
+
+/* v3.10.140 — thin continuous luminous frame around the main glass capsule. */
+body #akx-header .akx-nav-capsule:after{content:"";position:absolute;z-index:7;inset:-1px;border:1px solid color-mix(in srgb,var(--akx-gold,#D4AF37) 58%,rgba(255,255,255,.24));border-radius:inherit;pointer-events:none;box-shadow:0 0 7px color-mix(in srgb,var(--akx-gold,#D4AF37) 34%,transparent),inset 0 0 6px color-mix(in srgb,var(--akx-gold,#D4AF37) 13%,transparent);opacity:.82}
+body #akx-header .akx-nav-capsule:hover:after{opacity:1;box-shadow:0 0 10px color-mix(in srgb,var(--akx-gold-light,#F5D76E) 40%,transparent),inset 0 0 7px color-mix(in srgb,var(--akx-gold,#D4AF37) 16%,transparent)}
+@media(prefers-reduced-motion:no-preference){body #akx-header .akx-nav-capsule:after{transition:opacity .35s ease,box-shadow .35s ease}}
+
+/* v3.10.140 — animated gold navigation indicator. */
+body #akx-header .akx-nav>ul{position:relative!important}
+body #akx-header .akx-nav>ul.akx-indicator-ready:after{content:""!important;display:block!important;position:absolute!important;z-index:4!important;left:var(--akx-indicator-x,0)!important;bottom:0!important;width:var(--akx-indicator-width,0)!important;height:2px!important;border-radius:999px!important;background:linear-gradient(90deg,transparent,var(--akx-gold,#D4AF37) 22%,var(--akx-gold-light,#F5D76E) 50%,var(--akx-gold,#D4AF37) 78%,transparent)!important;box-shadow:0 0 7px color-mix(in srgb,var(--akx-gold,#D4AF37) 70%,transparent),0 0 14px color-mix(in srgb,var(--akx-gold,#D4AF37) 28%,transparent)!important;pointer-events:none!important;transition:left .34s cubic-bezier(.22,.8,.3,1),width .34s cubic-bezier(.22,.8,.3,1),opacity .2s ease!important}
+body #akx-header .akx-nav>ul.akx-indicator-ready>li.akx-active>a:after{display:none!important}
+@media(max-width:860px){body #akx-header .akx-nav>ul:after{display:none!important}}
+@media(prefers-reduced-motion:reduce){body #akx-header .akx-nav>ul.akx-indicator-ready:after{transition:none!important}}
+
+/* v3.10.154 — lock every desktop navigation item to one optical baseline. */
+body #akx-header .akx-nav,body #akx-header .akx-nav>ul,body #akx-header .akx-nav>ul>li{align-items:center!important}
+body #akx-header .akx-nav>ul>li{display:flex!important;height:42px!important;margin:0!important;padding:0!important;top:auto!important;bottom:auto!important;transform:none!important;vertical-align:middle!important}
+body #akx-header .akx-nav>ul>li>a{display:flex!important;align-items:center!important;justify-content:center!important;height:42px!important;min-height:42px!important;margin:0!important;padding-top:0!important;padding-bottom:0!important;line-height:1!important;top:auto!important;bottom:auto!important;transform:none!important;vertical-align:middle!important}
+body #akx-header .akx-nav>ul>li:last-child,body #akx-header .akx-nav>ul>li:last-child>a{margin-top:0!important;margin-bottom:0!important}
+
+/* v3.10.154 — mobile-first Header UX and accessible drawer. */
+html.akx-mobile-menu-open,body.akx-mobile-menu-open{overflow:hidden!important;overscroll-behavior:none!important}
+@media(max-width:860px){
+ body #akx-header .akx-topbar{display:none!important}
+ body #akx-header .akx-mainbar,body #akx-header .akx-main-inner{min-height:66px!important;height:66px!important}
+ body #akx-header .akx-mainbar .akx-wrap{width:calc(100% - 12px)!important;max-width:none!important;margin-inline:6px!important;padding:0!important}
+ body #akx-header .akx-nav-capsule{width:100%!important;min-width:0!important;min-height:58px!important;height:58px!important;padding:4px 7px!important;display:grid!important;grid-template-columns:minmax(0,1fr) 48px 72px!important;grid-template-areas:"tools menu logo"!important;align-items:center!important;gap:5px!important;border-radius:20px!important;overflow:visible!important}
+ body #akx-header .akx-logo{grid-area:logo!important;order:unset!important;width:72px!important;min-width:0!important;height:49px!important;padding:2px 4px!important;border-left:0!important;border-right:1px solid color-mix(in srgb,var(--akx-gold) 18%,transparent)!important}
+ body #akx-header .akx-logo img{width:64px!important;max-width:64px!important;height:46px!important;max-height:46px!important;object-fit:contain!important}
+ body #akx-header .akx-menu-button{grid-area:menu!important;order:unset!important;width:44px!important;min-width:44px!important;height:44px!important;padding:0!important;border-radius:14px!important;gap:0!important}
+ body #akx-header .akx-menu-button>span{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+ body #akx-header .akx-menu-button i{width:19px!important;gap:4px!important}body #akx-header .akx-menu-button b{width:19px!important;height:2px!important}
+ body #akx-header .akx-nav{display:none!important}
+ body #akx-header .akx-tools{grid-area:tools!important;order:unset!important;width:100%!important;min-width:0!important;margin:0!important;padding:0 5px 0 0!important;border:0!important;display:flex!important;justify-content:flex-start!important;gap:5px!important;direction:ltr!important}
+ body #akx-header .akx-tools .akx-circle-btn{display:grid!important;width:42px!important;min-width:42px!important;height:42px!important;min-height:42px!important;margin:0!important}
+ body #akx-header .akx-tools .akx-circle-btn svg{width:18px!important;height:18px!important}
+ body #akx-header .akx-search-panel{position:fixed!important;top:72px!important;right:10px!important;left:10px!important;width:auto!important;max-width:none!important}
+ .akx-mob-backdrop{background:rgba(28,16,37,.72)!important;-webkit-backdrop-filter:blur(8px)!important;backdrop-filter:blur(8px)!important}
+ .akx-mob-drawer{top:0!important;right:0!important;width:min(300px,80vw)!important;max-width:80vw!important;height:100dvh!important;padding:max(18px,env(safe-area-inset-top)) 16px max(16px,env(safe-area-inset-bottom))!important;background:linear-gradient(180deg,#1C1025,#1D1126)!important;border-left:1px solid rgba(212,175,55,.24)!important;box-shadow:-14px 0 38px rgba(28,16,37,.45)!important;transform:translateX(105%)!important;transition:transform .34s cubic-bezier(.22,.8,.3,1)!important;visibility:hidden!important}
+ .akx-mob-drawer.is-open{right:0!important;transform:translateX(0)!important;visibility:visible!important}
+ .akx-mob-close{width:44px!important;height:44px!important;border:1px solid rgba(212,175,55,.2)!important;background:#26213D!important;color:#E5E5E5!important}
+ .akx-mob-brand-badge{background:#26213D!important;color:#D4AF37!important;box-shadow:none!important;border:1px solid rgba(212,175,55,.25)!important}
+ .akx-mob-search form{min-height:48px!important;margin-bottom:16px!important;background:#26213D!important;border-color:rgba(212,175,55,.18)!important}
+ .akx-mob-search input{font-size:16px!important;color:#FFFFFF!important}
+ .akx-mob-list li{margin:0 0 5px!important}.akx-mob-list a{min-height:48px!important;padding:6px 7px!important;border-bottom-color:rgba(212,175,55,.08)!important}.akx-mob-title{font-size:15px!important;font-weight:600!important}.akx-mob-icon{width:38px!important;height:38px!important;background:#26213D!important;color:#D4AF37!important;border:1px solid rgba(212,175,55,.13)!important}
+ .akx-mob-toggle{min-width:44px!important;min-height:44px!important;display:grid!important;place-items:center!important}.akx-mob-sub{padding:5px 46px 8px 0!important}.akx-mob-sub a{min-height:44px!important;font-size:14px!important;color:#E5E5E5!important}
+ .akx-mob-footer a{min-height:48px!important;background:#26213D!important;border-color:rgba(212,175,55,.16)!important;font-size:14px!important}
+}
+@media(max-width:360px){body #akx-header .akx-nav-capsule{grid-template-columns:minmax(0,1fr) 46px 66px!important}body #akx-header .akx-logo{width:66px!important}body #akx-header .akx-logo img{width:58px!important}body #akx-header .akx-tools{gap:3px!important;padding-right:2px!important}body #akx-header .akx-tools .akx-circle-btn{width:38px!important;min-width:38px!important;height:38px!important;min-height:38px!important}}
+@media(prefers-reduced-motion:reduce){.akx-mob-drawer{transition:none!important}}
+
+/* v3.10.154 — deterministic RTL mobile order: logo and hamburger stay on the right. */
+@media(max-width:860px){
+ body #akx-header .akx-nav-capsule{display:flex!important;flex-direction:row!important;direction:rtl!important;grid-template-columns:none!important;grid-template-areas:none!important;justify-content:flex-start!important;align-items:center!important}
+ body #akx-header .akx-logo{order:1!important;grid-area:auto!important;flex:0 0 72px!important;border-right:0!important;border-left:1px solid color-mix(in srgb,var(--akx-gold) 18%,transparent)!important}
+ body #akx-header .akx-menu-button{order:2!important;grid-area:auto!important;flex:0 0 44px!important}
+ body #akx-header .akx-tools{order:3!important;grid-area:auto!important;flex:1 1 auto!important;direction:ltr!important;justify-content:flex-start!important;margin:0!important;margin-right:auto!important;padding:0!important;min-width:0!important}
+ body #akx-header .akx-nav{order:4!important}
+}
+@media(max-width:360px){body #akx-header .akx-logo{flex-basis:64px!important;width:64px!important}body #akx-header .akx-menu-button{flex-basis:42px!important;width:42px!important;min-width:42px!important}}
+
+/* v3.10.179 — narrower mobile drawer + gold logout/login entry (owner directive) */
+.akx-mob-footer{flex-wrap:wrap}
+.akx-mob-footer a{padding:11px 8px}
+.akx-mob-auth{flex:1 0 100%!important;min-height:48px;border:1px solid rgba(212,175,55,.42)!important;background:linear-gradient(135deg,rgba(212,175,55,.14),rgba(38,33,61,.6))!important;color:#F5D76E!important;font-weight:800}
+.akx-mob-auth:hover{border-color:rgba(245,215,110,.75)!important;box-shadow:0 8px 22px rgba(212,175,55,.22)}
+.akx-foot-ic-svg{display:inline-grid;place-items:center;color:#F5D76E}
+.akx-foot-ic-svg svg{width:19px;height:19px;fill:none!important;stroke:currentColor!important;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 5px rgba(245,215,110,.6)) drop-shadow(0 0 12px rgba(212,175,55,.35))}
+/* v3.10.180 — theme-proof luminous gold close icon (pure CSS X, replaces fragile SVG) */
+.akx-mob-close{position:relative;overflow:hidden;border:1px solid rgba(212,175,55,.5)!important;background:#26213D!important;color:#F5D76E!important}
+.akx-mob-close svg{display:none!important}
+.akx-mob-close:before,.akx-mob-close:after{content:"";position:absolute;top:50%;left:50%;width:16px;height:2.4px;border-radius:3px;background:linear-gradient(180deg,#F5D76E,#D4AF37);box-shadow:0 0 6px rgba(245,215,110,.55),0 0 14px rgba(212,175,55,.3);transform:translate(-50%,-50%) rotate(45deg);transition:box-shadow .25s,transform .2s}
+.akx-mob-close:after{transform:translate(-50%,-50%) rotate(-45deg)}
+.akx-mob-close:hover:before,.akx-mob-close:hover:after{box-shadow:0 0 9px rgba(245,215,110,.85),0 0 18px rgba(212,175,55,.5)}
+.akx-mob-close:active:before{transform:translate(-50%,-50%) rotate(45deg) scale(.86)}
+.akx-mob-close:active:after{transform:translate(-50%,-50%) rotate(-45deg) scale(.86)}
+@media(prefers-reduced-motion:reduce){.akx-mob-close:before,.akx-mob-close:after{transition:none}}

@@ -38,6 +38,18 @@ checks = {
 if set(checks.values()) != {VERSION}:
     raise SystemExit(f'Version mismatch: {checks}')
 
+# ——— Header palette guard (owner-approved Burgundy/Gold only) ———
+# The experimental deep purple glass override was removed in 3.10.19. The
+# approved palette must stay present in the fallback renderer stylesheet and
+# the purple tokens must never return.
+header_css = (PLUGIN / 'assets' / 'css' / 'frontend-header.css').read_text(encoding='utf-8')
+for token in ('rgba(33,20,38,.75)', '#D49A2E', '#E8B84A', '#0D0510', '#1C1024'):
+    if token not in header_css:
+        raise SystemExit(f'Header palette guard: missing approved token {token!r} in frontend-header.css')
+for token in ('DEEP PURPLE', '#160027', '#210038', '#FBF7FF', '#C9B7D6', '#F2D675', '#09020F'):
+    if token in header_css:
+        raise SystemExit(f'Header palette guard: forbidden token {token!r} found in frontend-header.css')
+
 tag = os.environ.get('GITHUB_REF_NAME', '')
 if tag.startswith('v') and tag[1:] != VERSION:
     raise SystemExit(f'Git tag {tag} does not match plugin version {VERSION}')

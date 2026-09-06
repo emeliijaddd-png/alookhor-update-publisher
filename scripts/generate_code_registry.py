@@ -11,7 +11,7 @@ ROOT = Path(__file__).resolve().parents[1]
 PLUGIN = ROOT / 'plugin' / 'alookhor-control-center'
 OUTPUT = ROOT / 'docs' / 'MASTER_CODE_REGISTRY.md'
 REGISTRY_VERSION = '1.0.0'
-GENERATED_DATE = '2026-09-06'
+GENERATED_DATE = '2026-08-14'
 
 
 def fence_language(path: Path) -> str:
@@ -59,16 +59,15 @@ def render() -> str:
     add('- **Update channel:** `https://updates.alookhor.ir/manifest.json`')
     add('- **Authoritative option:** `alookhor_cc_settings`')
     add('- **Header option:** `alookhor_header_settings`')
-    add('- **Buy Box option:** `alookhor_cc_buybox_settings`')
     add('')
     add('## Current Project State')
     add('')
     add(f'- CURRENT VERSION: `{version}`')
     add(f'- LAST FUNCTIONAL CHANGE: {release.get("description", "Not recorded")}')
     add('- ACTIVE DESIGN: Luxury Black/Gold; actual component colors remain controlled by saved WordPress settings and existing module defaults.')
-    add('- ACTIVE SHORTCODES: `[alookhor_portal_header]`, `[alookhor_managed_categories]`, `[alookhor_managed_hero]`, `[alookhor_managed_features]`, `[alookhor_buybox]`.')
+    add('- ACTIVE SHORTCODES: `[alookhor_portal_header]`, `[alookhor_managed_categories]`, `[alookhor_managed_hero]`, `[alookhor_managed_features]`.')
     add('- ACTIVE PANELS: Main ALOOKHOR Control Center and Header/Top Bar submenu.')
-    add('- ACTIVE COMPONENTS: Header/Top Bar manager, managed four-slide Hero, managed four-card site features, WooCommerce categories, managed footer, single-product luxury Buy Box, private native updater.')
+    add('- ACTIVE COMPONENTS: Header/Top Bar manager, managed four-slide Hero, managed four-card site features, WooCommerce categories, managed footer, private native updater.')
     add('- KNOWN EXTERNAL LEGACY: `[alookhor_categories_carousel]` belongs to `alookhor-categories-manager`; its source is not in this repository and is not reconstructed here.')
     add('- KNOWN SOURCE GAP: Elementor template export/internal element IDs and historical Code Snippets source are not present in this repository.')
     add('')
@@ -93,7 +92,6 @@ def render() -> str:
         ('SC-002','Shortcode','`[alookhor_managed_categories]`','`includes/product-categories.php`','Home page → Elementor Shortcode widget',version,'Active'),
         ('SC-003','Shortcode','`[alookhor_managed_hero]`','`includes/hero.php`','Home Elementor Shortcode widget / automatic Legacy-root replacement',version,'Active'),
         ('SC-004','Shortcode','`[alookhor_managed_features]`','`includes/site-features.php`','Home Elementor HTML widget / automatic Legacy-root replacement',version,'Active'),
-        ('SC-005','Shortcode','`[alookhor_buybox]`','`includes/single-product-buybox.php`','Single Product page — automatic WooCommerce takeover or Elementor Shortcode widget',version,'Active'),
         ('SC-EXT-001','External shortcode','`[alookhor_categories_carousel]`','External plugin source unavailable','Former Home showcase', 'External','Replaced on Home / do not reconstruct'),
         ('PN-001','Admin panel','ALOOKHOR Control Center','`includes/admin.php`','WP Admin top-level menu',version,'Active'),
         ('PN-002','Admin panel','Header & Top Bar','`includes/admin.php`','WP Admin submenu',version,'Active mirror'),
@@ -101,12 +99,10 @@ def render() -> str:
         ('MOD-002','Managed module','Responsive Footer','`includes/footer.php`','Frontend footer / REST',version,'Active'),
         ('MOD-003','Managed module','Four-slide Hero','`includes/hero.php`','Home / Elementor / REST',version,'Active'),
         ('MOD-004','Managed module','Four-card Site Features','`includes/site-features.php`','Home / Elementor / REST',version,'Active'),
-        ('MOD-005','Managed module','Single-Product Luxury Buy Box','`includes/single-product-buybox.php`','Single Product page (WooCommerce hooks + native forms)',version,'Active'),
         ('API-001','REST API','`alookhor-cc/v1`','`includes/rest-api.php`','Public state + authenticated updater',version,'Active'),
         ('UPD-001','Updater','Private native updater','`includes/updater.php`','Control Center + GitHub Actions',version,'Active'),
         ('CFG-001','WordPress state','Main settings','`alookhor_cc_settings`','All managed modules',version,'Active'),
         ('CFG-002','WordPress state','Header settings','`alookhor_header_settings`','Header and Top Bar',version,'Active'),
-        ('CFG-003','WordPress state','Buy Box settings','`alookhor_cc_buybox_settings`','Single-Product Buy Box labels and toggles',version,'Active'),
         ('CSS-001','CSS','Managed Header','`assets/css/frontend-header.css`','`[alookhor_portal_header]` fallback renderer',version,'Active'),
         ('JS-001','JavaScript','Managed Header runtime','`assets/js/frontend-header.js`','`[alookhor_portal_header]` fallback renderer',version,'Active'),
         ('JS-002','JavaScript','Legacy Top Bar manager','`assets/js/frontend-topbar-manager.js`','Preserved legacy header provider',version,'Active when legacy provider exists'),
@@ -120,8 +116,6 @@ def render() -> str:
         ('JS-006','JavaScript','Managed Hero runtime','`assets/js/frontend-hero.js`','Four-slide replacement, controls and REST refresh',version,'Active'),
         ('CSS-006','CSS','Managed Site Features','`assets/css/frontend-features.css`','`[alookhor_managed_features]` / automatic Home replacement',version,'Active'),
         ('JS-007','JavaScript','Managed Site Features runtime','`assets/js/frontend-features.js`','Four-card replacement and REST refresh',version,'Active'),
-        ('CSS-007','CSS','Luxury Buy Box','`assets/css/frontend-buybox.css`','`[alookhor_buybox]` / automatic single-product takeover',version,'Active'),
-        ('JS-008','JavaScript','Buy Box runtime','`assets/js/frontend-buybox.js`','Variation Pills sync, live price/stock repaint, steppers and product actions',version,'Active'),
     ]
     for row in rows:
         add('| ' + ' | '.join(str(cell) for cell in row) + ' |')
@@ -210,23 +204,6 @@ def render() -> str:
     add('- **Created:** 3.10.16; **status:** source release pending tagged Production verification.')
     add('- **Complete source:** see Source Snapshots for `includes/site-features.php`, `assets/css/frontend-features.css`, `assets/js/frontend-features.js`, `assets/js/modules/settings.js`, `includes/ajax.php`, and `includes/rest-api.php`.')
     add('')
-    add('## SC-005 — Single-Product Luxury Buy Box')
-    add('')
-    add('- **Shortcode:** `[alookhor_buybox]`')
-    add('- **Renderer:** `alookhor_cc_buybox_render($return = false)`; hook bridge `alookhor_cc_buybox_hook_output()` at `woocommerce_single_product_summary` priority `10`.')
-    add('- **Registration:** `add_shortcode(\'alookhor_buybox\', ...)` plus automatic takeover bootstrap on `template_redirect` for `is_product()` and product types `simple`/`variable` only; other product types keep native rendering untouched.')
-    add('- **PHP file:** `plugin/alookhor-control-center/includes/single-product-buybox.php`.')
-    add('- **WordPress use:** automatic replacement of the summary price/ATC area, or manual placement anywhere in the Elementor single-product template via the Shortcode widget. The historical Elementor/Code Snippets price block source is not in this Repository and is never guessed; the shortcode is the deliberate, explicit mount point for it.')
-    add('- **Composition:** 1) bordered price card — «قیمت محصول :» label (right), hot-pink gradient «٪ تخفیف» badge (left), large gold price + currency, muted struck old price; 2) variation Pills per attribute («انتخاب وزن :»); 3) quantity stepper (minus/value/plus) injected through `woocommerce_before/after_add_to_cart_quantity`; 4) gradient gold `single_add_to_cart_button` with cart icon plus wishlist/compare/share icon buttons injected through `woocommerce_after_add_to_cart_button`; 5) status row — stock state with pulsing dot and shipping note.')
-    add('- **Native-integrity rule:** `form.cart` / `form.variations_form` and the attribute `<select>`s remain in the DOM visually-hidden, so official `wc-add-to-cart-variation`, stock/backorder rules and AJAX add-to-cart keep running unchanged; Pills only drive the native selects and repaint from `found_variation`/`reset_data`.')
-    add('- **Persian digits:** prices are formatted server-side via `alookhor_cc_buybox_price_html()` (thousand separator `٬`) and client-side via the localized `ALOOKHOR_BUYBOX` payload, independent of any active Persianizer plugin; the sale badge builder `alookhor_cc_buybox_badge_text()` never feeds Persian digits into `%d`.')
-    add('- **Settings:** option `alookhor_cc_buybox_settings` (enabled toggle, all labels/texts, wishlist/compare/share visibility) with the `alookhor_cc_buybox_settings` filter; defaults ship in code.')
-    add('- **Anti-duplication:** a render guard prevents double output when both hook and shortcode exist, and quantity/action injections run once per page so secondary forms (e.g. sticky add-to-cart bars) stay native.')
-    add('- **CSS:** `assets/css/frontend-buybox.css`; fully scoped under `.alk-bb` with the approved Burgundy/Gold variables, mobile-first reduction below 420px, `prefers-reduced-motion`, visible focus and neutralized theme-injected quantity spinners (e.g. Woodmart).')
-    add('- **JavaScript:** `assets/js/frontend-buybox.js`; enqueued only on `is_product()` alongside the CSS at `ALOOKHOR_CC_BUILD`.')
-    add('- **Created:** 3.10.20; **status:** Active pending tagged Production verification.')
-    add('- **Complete source:** see Source Snapshots for `includes/single-product-buybox.php`, `assets/css/frontend-buybox.css`, and `assets/js/frontend-buybox.js`.')
-    add('')
     add('## SC-EXT-001 — Legacy Categories Carousel')
     add('')
     add('- **Shortcode:** `[alookhor_categories_carousel]`')
@@ -248,7 +225,7 @@ def render() -> str:
     add('- **AJAX:** `alookhor_save_settings`, `alookhor_toggle_module`, `alookhor_save_header`, `alookhor_get_settings`, `alookhor_check_updates`.')
     add('- **REST:** authenticated status/check/install plus public Top Bar/Hero/Site Features/Footer/Categories state.')
     add('- **Database:** `alookhor_cc_settings` (including `hero_settings` and `feature_settings`), `alookhor_header_settings`, `alookhor_footer_subscribers`.')
-    add('- **Managed shortcodes:** `[alookhor_portal_header]`, `[alookhor_managed_categories]`, `[alookhor_managed_hero]`, `[alookhor_managed_features]`, `[alookhor_buybox]`.')
+    add('- **Managed shortcodes:** `[alookhor_portal_header]`, `[alookhor_managed_categories]`, `[alookhor_managed_hero]`, `[alookhor_managed_features]`.')
     add('- **Status:** Active; every managed module setting remains in this main panel.')
     add('')
     add('## PN-002 — Header and Top Bar Submenu')

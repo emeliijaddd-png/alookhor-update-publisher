@@ -6,8 +6,8 @@ function alookhor_cc_category_defaults(){
     return [
         'enabled'=>true,'hide_legacy'=>true,'hide_empty'=>false,'parent_only'=>true,
         'selected_ids'=>[38,39,40,41],'limit'=>8,'orderby'=>'include','order'=>'ASC',
-        'kicker'=>'دسته‌بندی محصولات','title'=>'محصولات طبیعی، کیفیت صادراتی',
-        'subtitle'=>'انتخاب مستقیم از باغ‌های خراسان، آماده ارسال به سراسر جهان',
+        'kicker'=>'ALOOKHOR PRODUCT CATEGORIES','title'=>'دسته‌بندی محصولات',
+        'subtitle'=>'',
         'button_text'=>'مشاهده محصولات','show_description'=>true,'show_count'=>false,
         'show_icons'=>true,'show_arrows'=>true,'show_dots'=>true,'autoplay'=>true,
         'autoplay_interval'=>5000,'desktop_cards'=>4,'desktop_gap'=>18,'image_height'=>285,
@@ -26,7 +26,12 @@ function alookhor_cc_category_defaults(){
 function alookhor_cc_get_category_settings(){
     $main=alookhor_cc_get_settings();
     $saved=is_array($main['category_settings']??null)?$main['category_settings']:[];
-    return apply_filters('alookhor_cc_category_settings',array_replace_recursive(alookhor_cc_category_defaults(),$saved));
+    $settings=array_replace_recursive(alookhor_cc_category_defaults(),$saved);
+    // انتقال خودکار عنوان قدیمی به هویت Editorial جدید؛ مقادیر سفارشی دیگر حفظ می‌شوند.
+    if(in_array(trim((string)($settings['kicker']??'')),['دسته‌بندی محصولات','دسته بندی محصولات'],true))$settings['kicker']='ALOOKHOR PRODUCT CATEGORIES';
+    if(in_array(trim((string)($settings['title']??'')),['محصولات طبیعی، کیفیت صادراتی','محصولات منتخب آلوخور'],true))$settings['title']='دسته‌بندی محصولات';
+    if(trim((string)($settings['subtitle']??''))==='انتخاب مستقیم از باغ‌های خراسان، آماده ارسال به سراسر جهان')$settings['subtitle']='';
+    return apply_filters('alookhor_cc_category_settings',$settings);
 }
 
 function alookhor_cc_category_terms($settings=null){
@@ -53,7 +58,11 @@ function alookhor_cc_category_markup($settings=null){
     $style=sprintf('--mc-bg:%s;--mc-card:%s;--mc-gold:%s;--mc-text:%s;--mc-muted:%s;--mc-border:%s;--mc-btn:%s;--mc-cards:%d;--mc-gap:%dpx;--mc-image:%dpx;--mc-mobile-width:%d;--mc-mobile-gap:%dpx;--mc-mobile-image:%dpx;--mc-mobile-radius:%dpx;--mc-mobile-peek:%d',
         sanitize_hex_color($s['section_background'])?:'#090610',sanitize_hex_color($s['card_background'])?:'#0D0916',sanitize_hex_color($s['gold'])?:'#D4A436',sanitize_hex_color($s['text'])?:'#F7F2EA',sanitize_hex_color($s['muted'])?:'#B8B0BD',sanitize_hex_color($s['border'])?:'#6F5426',sanitize_hex_color($s['button_background'])?:'#120B1C',max(2,min(6,absint($s['desktop_cards']))),max(8,min(40,absint($s['desktop_gap']))),max(180,min(430,absint($s['image_height']))),max(72,min(94,absint($s['mobile_card_width']))),max(8,min(28,absint($s['mobile_gap']))),max(170,min(330,absint($s['mobile_image_height']))),max(10,min(32,absint($s['mobile_radius']))),max(3,min(14,absint($s['mobile_peek']))));
     $count=count($terms);$pages=(int)ceil($count/max(1,absint($s['desktop_cards'])));
-    ob_start(); ?>
+    ob_start();
+    // Elementor ممکن است شورت‌کد را پس از wp_head رندر کند؛ CSS Scoped همراه خروجی تضمین می‌شود.
+    static $inline_style_printed=false;
+    if(!$inline_style_printed && alookhor_cc_should_inline_shortcode_css()){$inline_style_printed=true;$css_file=ALOOKHOR_CC_DIR.'assets/css/frontend-categories.css';if(file_exists($css_file))echo '<style id="alookhor-categories-inline">'.file_get_contents($css_file).'</style>';}
+    ?>
     <section id="alookhor-managed-categories" class="alookhor-mc" dir="rtl" style="<?php echo esc_attr($style); ?>" data-version="<?php echo esc_attr(ALOOKHOR_CC_VERSION); ?>" data-autoplay="<?php echo !empty($s['autoplay'])?'1':'0'; ?>" data-interval="<?php echo esc_attr(max(2500,min(15000,absint($s['autoplay_interval'])))); ?>">
       <div class="alookhor-mc-shell">
         <header class="alookhor-mc-head"><span class="alookhor-mc-kicker"><i></i><b>◆</b><?php echo esc_html($s['kicker']); ?><b>◆</b><i></i></span><h2><?php echo esc_html($s['title']); ?></h2><p><?php echo esc_html($s['subtitle']); ?></p><span class="alookhor-mc-divider"><i></i><b>◆</b><i></i></span></header>
@@ -81,8 +90,10 @@ function alookhor_cc_category_shortcode(){
     return alookhor_cc_category_markup($s);
 }
 add_shortcode('alookhor_managed_categories','alookhor_cc_category_shortcode');
+// تثبیت مالکیت شورت‌کد در برابر افزونه دسته‌بندی قدیمی.
+add_action('init',function(){remove_shortcode('alookhor_managed_categories');add_shortcode('alookhor_managed_categories','alookhor_cc_category_shortcode');},999);
 
-function alookhor_cc_category_template(){static $done=false;if($done||is_admin()||!empty($GLOBALS['alookhor_cc_category_shortcode_rendered']))return;$s=alookhor_cc_get_category_settings();if(empty($s['enabled']))return;$done=true;echo '<template id="alookhor-managed-categories-template">'.alookhor_cc_category_markup($s).'</template><noscript><style>.category-carousel-section{display:block!important}</style></noscript>';}
+function alookhor_cc_category_template(){static $done=false;if($done||is_admin())return;if(!empty($GLOBALS['alookhor_cc_category_shortcode_rendered'])){$done=true;echo '<template id="alookhor-managed-categories-template"></template>';return;}$s=alookhor_cc_get_category_settings();if(empty($s['enabled']))return;$done=true;echo '<template id="alookhor-managed-categories-template">'.alookhor_cc_category_markup($s).'</template><noscript><style>.category-carousel-section{display:block!important}</style></noscript>';}
 add_action('wp_footer','alookhor_cc_category_template',2);
 add_filter('body_class',function($classes){$s=alookhor_cc_get_category_settings();if(!empty($s['enabled']))$classes[]='alookhor-mc-enabled';if(!empty($s['enabled'])&&!empty($s['hide_legacy']))$classes[]='alookhor-mc-hide-legacy';return array_values(array_unique($classes));});
 add_action('wp_enqueue_scripts',function(){ $s=alookhor_cc_get_category_settings();if(empty($s['enabled']))return;wp_enqueue_style('alookhor-cc-managed-categories',ALOOKHOR_CC_URL.'assets/css/frontend-categories.css',[],ALOOKHOR_CC_BUILD);wp_enqueue_script('alookhor-cc-managed-categories',ALOOKHOR_CC_URL.'assets/js/frontend-categories.js',[],ALOOKHOR_CC_BUILD,true);wp_localize_script('alookhor-cc-managed-categories','ALOOKHOR_CATEGORIES',['endpoint'=>rest_url('alookhor-cc/v1/product-categories'),'version'=>ALOOKHOR_CC_VERSION,'hide_legacy'=>!empty($s['hide_legacy'])]);},31);
