@@ -563,11 +563,26 @@ function alookhor_cc_seed_products($force=false){
         ];
         update_post_meta($product_id, '_default_attributes', $default_attrs);
 
-        // Sync variable product prices (min/max)
-        if(function_exists('WC_Product_Variable')){
+        // Sync variable product prices (min/max) - FIX: class_exists not function_exists + lookup before sync
+        if(class_exists('WC_Product_Variable')){
+            // Ensure variation lookup rows exist before sync (prevents outofstock parent)
+            if(function_exists('wc_update_product_lookup_tables')){
+                wc_update_product_lookup_tables($product_id);
+            }
             $product_obj = wc_get_product($product_id);
             if($product_obj){
-                // This will sync
+                WC_Product_Variable::sync($product_id);
+                // Ensure parent in stock after sync
+                update_post_meta($product_id, '_stock_status', 'instock');
+                if(method_exists($product_obj, 'set_stock_status')){
+                    $product_obj->set_stock_status('instock');
+                    $product_obj->save();
+                }
+            }
+            // Self-heal: ensure price meta exists
+            $min_price = get_post_meta($product_id, '_min_variation_price', true);
+            if(!$min_price){
+                // fallback sync
                 WC_Product_Variable::sync($product_id);
             }
         }
