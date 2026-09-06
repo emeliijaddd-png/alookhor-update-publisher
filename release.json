@@ -1,16 +1,21 @@
 {
-  "version": "3.10.341",
-  "previous": "3.10.340",
+  "version": "3.10.342",
+  "previous": "3.10.341",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "فقط سبد لوکس - حذف تمام سفیدهای وودمارت",
+  "description": "فقط یک سبد لوکس نهایی - حذف تمام سفیدها",
   "changelog": [
     {
       "tag": "FIX",
-      "title": "حذف کامل سفید وودمارت",
-      "desc": "بک‌گراند تیره برای body + مخفی تمام wrapperهای سفید + فقط #alookhor-cart نمایش"
+      "title": "فقط یک سبد لوکس",
+      "desc": "template کامل + rendered flag + hide تمام wrapper سفید وودمارت + بک‌گراند تیره - فقط لوکس پایین"
+    },
+    {
+      "tag": "FIX",
+      "title": "seeder + موبایل",
+      "desc": "class_exists + lookup + والد instock + پولیش موبایل 323"
     }
   ],
   "project": "ALOOKHOR",
