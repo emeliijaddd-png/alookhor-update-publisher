@@ -1,5 +1,5 @@
 <?php
-/** ALOOKHOR CART — v3.10.301: exact per Screenshot 2026-09-06 101216.png — luxury cart page with summary, products, suggestions, features, FAQ */
+/** ALOOKHOR CART — v3.10.302: exact per Screenshot 2026-09-06 101216.png — luxury cart page with summary, products, suggestions, features, FAQ */
 if(!defined('ABSPATH'))exit;
 
 if(!function_exists('alookhor_cc_cart_icon')){
@@ -92,7 +92,10 @@ function alookhor_cc_cart_markup(){
  $fmt=$d['fmt']; $fa_th=$d['fa_th'];
  $img=ALOOKHOR_CC_URL.'assets/images/';
  ob_start();
+$__cart_css=file_get_contents(ALOOKHOR_CC_DIR.'assets/css/frontend-cart.css');
+if($__cart_css) echo '<style id="alookhor-cart-inline">'. $__cart_css .'</style>';
 ?>
+
 <div id="alookhor-cart" class="alookhor-alp app-bg min-h-screen" dir="rtl">
   <!-- HERO BANNER -->
   <div class="cart-hero relative overflow-hidden rounded-2xl border border-white/10 bg-plum-900/60 p-4 mb-6">

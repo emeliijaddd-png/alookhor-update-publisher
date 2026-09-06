@@ -1,16 +1,16 @@
 {
-  "version": "3.10.301",
-  "previous": "3.10.300",
+  "version": "3.10.302",
+  "previous": "3.10.301",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "فیکس قیمت پیشنهادی ۰ تومان - variable min price + سبد لوکس حرفه‌ای",
+  "description": "فیکس سبد بهم ریخته - inline CSS لوکس برای اطمینان لود استایل حتی با کش",
   "changelog": [
     {
       "tag": "FIX",
-      "title": "قیمت پیشنهادی سبد خرید",
-      "desc": "برای variable products از get_variation_price min استفاده - قیمت ۰ تومان فیکس شد"
+      "title": "سبد بهم ریخته - inline CSS",
+      "desc": "اضافه کردن inline <style> داخل markup تا حتی اگر enqueue توسط کش بلاک شود، طراحی لوکس دارک لود شود - گرادیانت، بوردر، شدو"
     }
   ],
   "project": "ALOOKHOR",
