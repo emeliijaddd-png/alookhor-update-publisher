@@ -1,16 +1,16 @@
 {
-  "version": "3.10.265",
-  "previous": "3.10.264",
+  "version": "3.10.266",
+  "previous": "3.10.265",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "فیکس سبد خرید - override شورت‌کد woocommerce_cart برای لود تمپلیت لوکس",
+  "description": "فیکس قیمت پیشنهادی سبد خرید - variable products قیمت min",
   "changelog": [
     {
       "tag": "FIX",
-      "title": "فیکس سبد خرید - شورت‌کد override",
-      "desc": "اضافه کردن remove_shortcode و add_shortcode برای woocommerce_cart تا حتی اگر template_include توسط تم override شود، محتوای سبد لوکس لود شود"
+      "title": "فیکس قیمت ۰ تومان پیشنهادی",
+      "desc": "برای محصولات variable از get_variation_price min استفاده می‌شود - قیمت‌ها واقعی نمایش داده می‌شود"
     }
   ],
   "project": "ALOOKHOR",
