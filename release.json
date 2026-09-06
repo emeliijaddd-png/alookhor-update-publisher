@@ -1,16 +1,16 @@
 {
-  "version": "3.10.333",
-  "previous": "3.10.330",
+  "version": "3.10.334",
+  "previous": "3.10.333",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "فیکس نهایی سبد - فوتر پایین + فقط لوکس + بازسازی فایل‌ها",
+  "description": "حذف کامل سبد قدیمی وودمارت - فقط لوکس",
   "changelog": [
     {
       "tag": "FIX",
-      "title": "سبد لوکس نهایی",
-      "desc": "بازسازی از پایه سالم 3.10.325 + فوتر پایین قطعی + حذف سفید قدیمی + بدون دسته‌بندی + بدون بهم‌ریختگی"
+      "title": "حذف کامل سبد قدیمی",
+      "desc": "Override the_content + render_block woocommerce/cart + elementor/widget/render_content + CSS aggressive hide - فقط سبد لوکس دارک"
     }
   ],
   "project": "ALOOKHOR",

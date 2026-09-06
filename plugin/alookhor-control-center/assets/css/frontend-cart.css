@@ -446,3 +446,40 @@ body.woocommerce-cart #alookhor-managed-categories,
 body.woocommerce-cart .alookhor-mc{
   display:none!important;
 }
+
+/* v3.10.334 AGGRESSIVE HIDE old Woodmart white cart - user still sees old */
+body.woocommerce-cart .woocommerce-cart-form,
+body.woocommerce-cart .cart-collaterals,
+body.woocommerce-cart .shop_table,
+body.woocommerce-cart .wd-cart,
+body.woocommerce-cart .wd-empty-cart,
+body.woocommerce-cart .woocommerce-notices-wrapper,
+body.woocommerce-cart .cart-empty,
+body.woocommerce-cart .return-to-shop,
+body.woocommerce-cart .wd-cart-content,
+body.woocommerce-cart [class*="wd-empty"],
+body.woocommerce-cart .woocommerce-cart-form__contents,
+body.woocommerce-cart .woocommerce > .woocommerce-notices-wrapper,
+body.woocommerce-cart .woocommerce > .cart-empty,
+body.woocommerce-cart .woocommerce > .return-to-shop {
+  display:none!important;
+  visibility:hidden!important;
+  height:0!important;
+  overflow:hidden!important;
+  opacity:0!important;
+  pointer-events:none!important;
+}
+/* Hide Woodmart cross-sells "دیگران خریده اند" if not part of luxury */
+body.woocommerce-cart .cross-sells,
+body.woocommerce-cart .wd-cross-sells,
+body.woocommerce-cart .related,
+body.woocommerce-cart .wd-related {
+  display:none!important;
+}
+body.woocommerce-cart #alookhor-cart .cross-sells,
+body.woocommerce-cart #alookhor-cart .suggested {
+  display:block!important;
+  visibility:visible!important;
+  opacity:1!important;
+  height:auto!important;
+}

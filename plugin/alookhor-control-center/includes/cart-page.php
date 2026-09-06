@@ -216,15 +216,51 @@ document.addEventListener('DOMContentLoaded',function(){
 }
 }
 
-// FIX: Return original theme template to keep footer at BOTTOM - luxury comes from wc_get_template override
-// Custom template get_header()+get_footer() caused footer to appear ABOVE cart due to Woodmart wrapper structure
+// FIX: Return original theme template to keep footer at BOTTOM - luxury comes from multiple overrides
+// Use original template but FORCE content to luxury via the_content + block filters
 add_filter('template_include',function($template){
  if(function_exists('is_cart')&&is_cart()){
-   // Always return original template (page.php) - Woodmart structure ensures footer after main content
    return $template;
  }
  return $template;
 },PHP_INT_MAX);
+
+// FORCE: Override page content on cart to luxury - prevents Elementor/Gutenberg old white cart
+add_filter('the_content',function($content){
+ if(function_exists('is_cart')&&is_cart()&&!is_admin()&&in_the_loop()&&is_main_query()){
+   if(function_exists('alookhor_cc_cart_markup')){
+     return alookhor_cc_cart_markup();
+   }
+ }
+ return $content;
+},PHP_INT_MAX);
+
+// FORCE: Override WooCommerce Cart Block (Gutenberg) to luxury
+add_filter('render_block',function($block_content,$block){
+ if(function_exists('is_cart')&&is_cart()){
+   if(isset($block['blockName'])&&$block['blockName']==='woocommerce/cart'){
+     if(function_exists('alookhor_cc_cart_markup')){
+       return alookhor_cc_cart_markup();
+     }
+   }
+ }
+ return $block_content;
+},PHP_INT_MAX,2);
+
+// FORCE: Override Elementor cart widget via elementor/widget/render_content
+add_filter('elementor/widget/render_content',function($content,$widget){
+ if(function_exists('is_cart')&&is_cart()){
+   if(is_object($widget)){
+     $name=$widget->get_name();
+     if(in_array($name,['woocommerce-cart','cart','wd_cart','wd_woocommerce_cart'])){
+       if(function_exists('alookhor_cc_cart_markup')){
+         return alookhor_cc_cart_markup();
+       }
+     }
+   }
+ }
+ return $content;
+},PHP_INT_MAX,2);
 
 add_action('wp_enqueue_scripts',function(){
  if(function_exists('is_cart')&&is_cart()){
