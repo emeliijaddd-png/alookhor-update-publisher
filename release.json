@@ -1,16 +1,16 @@
 {
-  "version": "3.10.344",
-  "previous": "3.10.343",
+  "version": "3.10.345",
+  "previous": "3.10.344",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "حذف کامل تمام سفیدها - فقط لوکس",
+  "description": "حذف نوار سفید بالا و باکس سفید چپ - فقط لوکس",
   "changelog": [
     {
       "tag": "FIX",
-      "title": "حذف نهایی سفیدها",
-      "desc": "JS تهاجمی + CSS + MutationObserver + setTimeout 500/1500ms - فقط یک سبد لوکس"
+      "title": "حذف سفید بالا و چپ",
+      "desc": "JS نهایی + CSS - فقط یک سبد لوکس دارک"
     }
   ],
   "project": "ALOOKHOR",
