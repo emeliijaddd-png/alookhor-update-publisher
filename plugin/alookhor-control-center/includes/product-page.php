@@ -425,7 +425,7 @@ function alookhor_cc_pdp_markup(){
             <button type="button" class="wishlist-btn grid h-11 w-11 place-items-center rounded-xl border border-white/10 bg-plum-950/70 text-lav transition hover:border-gold-400/40 hover:text-gold-300" data-wishlist aria-label="افزودن به علاقه‌مندی‌ها"><span class="h-4 w-4"><?php echo alookhor_cc_pdp_icon('heart');?></span></button>
           </div>
         </div>
-      <div class="shipping-line flex flex-wrap items-center justify-between gap-2 text-[11px] font-bold mt-3"><span class="flex items-center gap-1.5 text-mint"><span class="relative flex h-2 w-2"><span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-mint opacity-60"></span><span class="relative inline-flex h-2 w-2 rounded-full bg-mint"></span></span>موجود در انبار</span><span class="text-lav/70">ارسال از ۱ روز کاری آینده</span></div>
+      <div class="shipping-line flex flex-wrap items-center justify-between gap-2 text-[11px] font-bold mt-3"><span class="text-lav/70">ارسال از ۱ روز کاری آینده</span><span class="flex items-center gap-1.5 text-mint"><span class="relative flex h-2 w-2"><span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-mint opacity-60"></span><span class="relative inline-flex h-2 w-2 rounded-full bg-mint"></span></span>موجود در انبار</span></div>
     </div>
     <?php endif;?>
     </section>

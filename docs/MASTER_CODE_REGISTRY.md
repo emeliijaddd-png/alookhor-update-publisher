@@ -3,7 +3,7 @@
 > این سند از روی فایل‌های واقعی Repository تولید می‌شود. Source اصلی همچنان فایل‌های اجرایی است؛ Snapshotهای کامل زیر برای بازیابی، ممیزی و انتقال دانش نگهداری می‌شوند.
 
 - **Registry version:** `1.0.0`
-- **Plugin/source version:** `3.10.310`
+- **Plugin/source version:** `3.10.313`
 - **Generated:** `2026-08-14`
 - **Repository:** `alookhor-update-publisher`
 - **Production:** `https://alookhor.ir`
@@ -13,8 +13,8 @@
 
 ## Current Project State
 
-- CURRENT VERSION: `3.10.310`
-- LAST FUNCTIONAL CHANGE: فیکس نهایی سبد - حذف کامل سبد سفید قدیمی
+- CURRENT VERSION: `3.10.313`
+- LAST FUNCTIONAL CHANGE: فیکس سبد قدیمی + ترکیب با 3.10.312 buy-box نهایی
 - ACTIVE DESIGN: Luxury Black/Gold; actual component colors remain controlled by saved WordPress settings and existing module defaults.
 - ACTIVE SHORTCODES: `[alookhor_portal_header]`, `[alookhor_managed_categories]`, `[alookhor_managed_hero]`, `[alookhor_managed_features]`.
 - ACTIVE PANELS: Main ALOOKHOR Control Center and Header/Top Bar submenu.
@@ -27,9 +27,9 @@
 ```text
 PROJECT: ALOOKHOR
 AREA: Product Page PDP — Mobile per 2 mockups (desktop locked)
-CURRENT VERSION: 3.10.310
-CHANGE: فیکس نهایی سبد - حذف کامل سبد سفید قدیمی
-REASON: کاربر ۲ ماکاپ موبایل داد: موبایل باید دقیقاً مثل ماکاپ شود، دسکتاپ قفل و بدون تغییر، فقط media query؛ تست موبایل/تبلت/دسکتاپ/کنسول/سبد/تعداد/علاقه‌مندی قبل از اعلام انجام
+CURRENT VERSION: 3.10.313
+CHANGE: فیکس سبد قدیمی + ترکیب با 3.10.312 buy-box نهایی
+REASON: کاربر ۲ ماکاپ موبایل داد: موبایل باید دقیقاً مثل ماکاپ شود، دسکتاپ قفل و بدون تغییر، فقط media query؛ نسخه‌های ۳۰۰–۳۱۰ سشن‌های دیگر بلوک موبایل ۲۶۷/۲۶۸ را حذف کرده بودند — دوباره روی ۳۱۰ اعمال شد
 FILES: plugin/alookhor-control-center/CHANGELOG.md; plugin/alookhor-control-center/alookhor-control-center.php; plugin/alookhor-control-center/assets/css/frontend-product.css; plugin/alookhor-control-center/assets/js/app.js; plugin/alookhor-control-center/assets/js/core/updateSystem.js; plugin/alookhor-control-center/assets/js/frontend-product.js; plugin/alookhor-control-center/assets/js/modules/dashboard.js; plugin/alookhor-control-center/assets/js/modules/settings.js; plugin/alookhor-control-center/config/site.json; plugin/alookhor-control-center/readme.txt; release.json
 STATUS: SOURCE READY — deployment status must be verified separately.
 ```
@@ -38,34 +38,34 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 
 | ID | Type | Name | File | Used In | Version | Status |
 |---|---|---|---|---|---:|---|
-| SC-001 | Shortcode | `[alookhor_portal_header]` | `includes/shortcode-header.php` | Elementor Header Shortcode widget; exact template ID unavailable | 3.10.310 | Active / compatibility-preserving |
-| SC-002 | Shortcode | `[alookhor_managed_categories]` | `includes/product-categories.php` | Home page → Elementor Shortcode widget | 3.10.310 | Active |
-| SC-003 | Shortcode | `[alookhor_managed_hero]` | `includes/hero.php` | Home Elementor Shortcode widget / automatic Legacy-root replacement | 3.10.310 | Active |
-| SC-004 | Shortcode | `[alookhor_managed_features]` | `includes/site-features.php` | Home Elementor HTML widget / automatic Legacy-root replacement | 3.10.310 | Active |
+| SC-001 | Shortcode | `[alookhor_portal_header]` | `includes/shortcode-header.php` | Elementor Header Shortcode widget; exact template ID unavailable | 3.10.313 | Active / compatibility-preserving |
+| SC-002 | Shortcode | `[alookhor_managed_categories]` | `includes/product-categories.php` | Home page → Elementor Shortcode widget | 3.10.313 | Active |
+| SC-003 | Shortcode | `[alookhor_managed_hero]` | `includes/hero.php` | Home Elementor Shortcode widget / automatic Legacy-root replacement | 3.10.313 | Active |
+| SC-004 | Shortcode | `[alookhor_managed_features]` | `includes/site-features.php` | Home Elementor HTML widget / automatic Legacy-root replacement | 3.10.313 | Active |
 | SC-EXT-001 | External shortcode | `[alookhor_categories_carousel]` | External plugin source unavailable | Former Home showcase | External | Replaced on Home / do not reconstruct |
-| PN-001 | Admin panel | ALOOKHOR Control Center | `includes/admin.php` | WP Admin top-level menu | 3.10.310 | Active |
-| PN-002 | Admin panel | Header & Top Bar | `includes/admin.php` | WP Admin submenu | 3.10.310 | Active mirror |
-| MOD-001 | Managed module | WooCommerce Categories | `includes/product-categories.php` | Home / Elementor / REST | 3.10.310 | Active |
-| MOD-002 | Managed module | Responsive Footer | `includes/footer.php` | Frontend footer / REST | 3.10.310 | Active |
-| MOD-003 | Managed module | Four-slide Hero | `includes/hero.php` | Home / Elementor / REST | 3.10.310 | Active |
-| MOD-004 | Managed module | Four-card Site Features | `includes/site-features.php` | Home / Elementor / REST | 3.10.310 | Active |
-| API-001 | REST API | `alookhor-cc/v1` | `includes/rest-api.php` | Public state + authenticated updater | 3.10.310 | Active |
-| UPD-001 | Updater | Private native updater | `includes/updater.php` | Control Center + GitHub Actions | 3.10.310 | Active |
-| CFG-001 | WordPress state | Main settings | `alookhor_cc_settings` | All managed modules | 3.10.310 | Active |
-| CFG-002 | WordPress state | Header settings | `alookhor_header_settings` | Header and Top Bar | 3.10.310 | Active |
-| CSS-001 | CSS | Managed Header | `assets/css/frontend-header.css` | `[alookhor_portal_header]` fallback renderer | 3.10.310 | Active |
-| JS-001 | JavaScript | Managed Header runtime | `assets/js/frontend-header.js` | `[alookhor_portal_header]` fallback renderer | 3.10.310 | Active |
-| JS-002 | JavaScript | Legacy Top Bar manager | `assets/js/frontend-topbar-manager.js` | Preserved legacy header provider | 3.10.310 | Active when legacy provider exists |
-| CSS-002 | CSS | WooCommerce Categories | `assets/css/frontend-categories.css` | `[alookhor_managed_categories]` | 3.10.310 | Active |
-| JS-003 | JavaScript | Categories carousel | `assets/js/frontend-categories.js` | `[alookhor_managed_categories]` | 3.10.310 | Active |
-| CSS-003 | CSS | Managed Footer | `assets/css/frontend-footer.css` | Managed Footer module | 3.10.310 | Active |
-| JS-004 | JavaScript | Managed Footer | `assets/js/frontend-footer.js` | Managed Footer module | 3.10.310 | Active |
-| CSS-004 | CSS | Control Center UI | `assets/css/luxury.css` | WP Admin ALOOKHOR pages | 3.10.310 | Active |
-| JS-005 | JavaScript | Control Center app | `assets/js/app.js` + modules | WP Admin ALOOKHOR pages | 3.10.310 | Active |
-| CSS-005 | CSS | Managed Hero | `assets/css/frontend-hero.css` | `[alookhor_managed_hero]` / automatic Home replacement | 3.10.310 | Active |
-| JS-006 | JavaScript | Managed Hero runtime | `assets/js/frontend-hero.js` | Four-slide replacement, controls and REST refresh | 3.10.310 | Active |
-| CSS-006 | CSS | Managed Site Features | `assets/css/frontend-features.css` | `[alookhor_managed_features]` / automatic Home replacement | 3.10.310 | Active |
-| JS-007 | JavaScript | Managed Site Features runtime | `assets/js/frontend-features.js` | Four-card replacement and REST refresh | 3.10.310 | Active |
+| PN-001 | Admin panel | ALOOKHOR Control Center | `includes/admin.php` | WP Admin top-level menu | 3.10.313 | Active |
+| PN-002 | Admin panel | Header & Top Bar | `includes/admin.php` | WP Admin submenu | 3.10.313 | Active mirror |
+| MOD-001 | Managed module | WooCommerce Categories | `includes/product-categories.php` | Home / Elementor / REST | 3.10.313 | Active |
+| MOD-002 | Managed module | Responsive Footer | `includes/footer.php` | Frontend footer / REST | 3.10.313 | Active |
+| MOD-003 | Managed module | Four-slide Hero | `includes/hero.php` | Home / Elementor / REST | 3.10.313 | Active |
+| MOD-004 | Managed module | Four-card Site Features | `includes/site-features.php` | Home / Elementor / REST | 3.10.313 | Active |
+| API-001 | REST API | `alookhor-cc/v1` | `includes/rest-api.php` | Public state + authenticated updater | 3.10.313 | Active |
+| UPD-001 | Updater | Private native updater | `includes/updater.php` | Control Center + GitHub Actions | 3.10.313 | Active |
+| CFG-001 | WordPress state | Main settings | `alookhor_cc_settings` | All managed modules | 3.10.313 | Active |
+| CFG-002 | WordPress state | Header settings | `alookhor_header_settings` | Header and Top Bar | 3.10.313 | Active |
+| CSS-001 | CSS | Managed Header | `assets/css/frontend-header.css` | `[alookhor_portal_header]` fallback renderer | 3.10.313 | Active |
+| JS-001 | JavaScript | Managed Header runtime | `assets/js/frontend-header.js` | `[alookhor_portal_header]` fallback renderer | 3.10.313 | Active |
+| JS-002 | JavaScript | Legacy Top Bar manager | `assets/js/frontend-topbar-manager.js` | Preserved legacy header provider | 3.10.313 | Active when legacy provider exists |
+| CSS-002 | CSS | WooCommerce Categories | `assets/css/frontend-categories.css` | `[alookhor_managed_categories]` | 3.10.313 | Active |
+| JS-003 | JavaScript | Categories carousel | `assets/js/frontend-categories.js` | `[alookhor_managed_categories]` | 3.10.313 | Active |
+| CSS-003 | CSS | Managed Footer | `assets/css/frontend-footer.css` | Managed Footer module | 3.10.313 | Active |
+| JS-004 | JavaScript | Managed Footer | `assets/js/frontend-footer.js` | Managed Footer module | 3.10.313 | Active |
+| CSS-004 | CSS | Control Center UI | `assets/css/luxury.css` | WP Admin ALOOKHOR pages | 3.10.313 | Active |
+| JS-005 | JavaScript | Control Center app | `assets/js/app.js` + modules | WP Admin ALOOKHOR pages | 3.10.313 | Active |
+| CSS-005 | CSS | Managed Hero | `assets/css/frontend-hero.css` | `[alookhor_managed_hero]` / automatic Home replacement | 3.10.313 | Active |
+| JS-006 | JavaScript | Managed Hero runtime | `assets/js/frontend-hero.js` | Four-slide replacement, controls and REST refresh | 3.10.313 | Active |
+| CSS-006 | CSS | Managed Site Features | `assets/css/frontend-features.css` | `[alookhor_managed_features]` / automatic Home replacement | 3.10.313 | Active |
+| JS-007 | JavaScript | Managed Site Features runtime | `assets/js/frontend-features.js` | Four-card replacement and REST refresh | 3.10.313 | Active |
 
 ## SC-001 — Portal Header
 
@@ -200,7 +200,7 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 |---|---:|---|
 | `.github/workflows/publish.yml` | 535 | `ea2a747b9787cb39313702fd50fd8940891a2ed64de3acac6c4e5d69912dec3d` |
 | `ops/wordpress-ci-bootstrap.php` | 215 | `409c23f2be99c6651b0e75dc877c91c884534e6b16f9985c177cf65d14fd4c95` |
-| `plugin/alookhor-control-center/alookhor-control-center.php` | 441 | `f34b32fc3b30e53b4fcae5c920ca5fe330771257726fe19d3fd73e6cb71b7b4c` |
+| `plugin/alookhor-control-center/alookhor-control-center.php` | 441 | `9fdf2ebc1fced508de8d8f608af6ba07da2d2763d0f455bec1769dbdb9b824f9` |
 | `plugin/alookhor-control-center/assets/css/frontend-about-page.css` | 37 | `4a895038f4ede91f1172279e86e10ed6939a8a406c16ee780c326f6f4f5df5c2` |
 | `plugin/alookhor-control-center/assets/css/frontend-app-banner.css` | 1 | `244970e53ef04849a0a52d3930427bc7be986c818a258efcfb9afbd16b187898` |
 | `plugin/alookhor-control-center/assets/css/frontend-bestsellers.css` | 24 | `cf27fd12f8c8d7ebff96e50093e77e9d43cad86f88944a9ee983fd47a622184d` |
@@ -223,16 +223,16 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 | `plugin/alookhor-control-center/assets/css/frontend-managed-layout.css` | 29 | `215444c878e19ed0cfd336484ef1d1baec7eb2f71069daf3a26a3742a800c903` |
 | `plugin/alookhor-control-center/assets/css/frontend-newsletter.css` | 7 | `20d9fd105e74dedf48fd5c4cdf7e338420d21738813d87120e0f0bb3587a654e` |
 | `plugin/alookhor-control-center/assets/css/frontend-product-react.css` | 41 | `0246887708ce93f554c548ec7d30ead6c84619868d9031dcfc2fa77ad42daaac` |
-| `plugin/alookhor-control-center/assets/css/frontend-product.css` | 3024 | `444abb64e681f51c71e84bfb3aeca9e45b0e67c907982c213d84f805b3fb9719` |
+| `plugin/alookhor-control-center/assets/css/frontend-product.css` | 3272 | `4946c7d0151726b46e685bc0b77fe527f69a1938b6a20d4d1c1e24d960a6d412` |
 | `plugin/alookhor-control-center/assets/css/frontend-responsive-v2.css` | 24 | `7b14f78244e19b84ec35bbee0065c9c87d76d8416024b7f7ad768c5a7ec4bdf9` |
 | `plugin/alookhor-control-center/assets/css/frontend-sort-center.css` | 6 | `235119cbc8575b4794f5bf1dde93cf14a3c5055feff58191956e0c67daa65c3c` |
 | `plugin/alookhor-control-center/assets/css/frontend-why-alookhor.css` | 45 | `5a09aa03fd1ae4fc6a345c71f38139ce3e7c992944c46fd97214d29a5cea0195` |
 | `plugin/alookhor-control-center/assets/css/luxury.css` | 564 | `eef0550c9d8b090dbe799d9a969518207519fdb585c9701e2d897a507e669f8f` |
 | `plugin/alookhor-control-center/assets/js/admin-wp.js` | 84 | `b8ff32723f2f46dc44add19fdc441eec1c611f5229ce7e13ac8b773457be6afc` |
-| `plugin/alookhor-control-center/assets/js/app.js` | 325 | `ae98ceaa59336678bcfd5ac581595081fd9cd0b20f586ca22a99aeca3e83f124` |
+| `plugin/alookhor-control-center/assets/js/app.js` | 325 | `f9cf86664072c6d5e596d035ebb0d1723706cb182fb0d3809d443f868ac2aa64` |
 | `plugin/alookhor-control-center/assets/js/core/config.js` | 199 | `1c89b0d0d8121bce7fc7097f9d1974eb1e38d1ec7f6b0f6f6d5244ab60ea1e85` |
 | `plugin/alookhor-control-center/assets/js/core/responsive.js` | 52 | `0848ef0deef9aaa532581904c4adab9b45cbe8445a99fbeb71f92d358a1aa724` |
-| `plugin/alookhor-control-center/assets/js/core/updateSystem.js` | 298 | `53d9320bc89d4b236b44d20341ff3dc0d8aa512476fdce7d55c3eda723cb4ede` |
+| `plugin/alookhor-control-center/assets/js/core/updateSystem.js` | 298 | `4e8d09923278108cc7750bc98868a167f360b40928b61cff3e53261684f98d52` |
 | `plugin/alookhor-control-center/assets/js/frontend-about-page.js` | 7 | `67eb9861385f661036e8cd67fea01439f57d6f50325ec92d0a75cdc7cabcc1e0` |
 | `plugin/alookhor-control-center/assets/js/frontend-bestsellers.js` | 1 | `df2ac32d9938f428c20f972f6c45ae7570e8773d821649f45a09daed6cc227a8` |
 | `plugin/alookhor-control-center/assets/js/frontend-campaign-slider.js` | 1 | `e7d2e5652230a7cf079be7eeb9bd40734d4e2ac60cd2f07c98e8b83cfbf64d12` |
@@ -250,17 +250,17 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 | `plugin/alookhor-control-center/assets/js/frontend-magazine.js` | 1 | `3a8f6a1ff0d4c5180465d78ff3ca3636be9242149415233d652c60693ea8bd1a` |
 | `plugin/alookhor-control-center/assets/js/frontend-managed-layout.js` | 1 | `f3a28a9872c98c7991a90db8752264b5e79fc6ecf8e36b22fcc224c1581d661b` |
 | `plugin/alookhor-control-center/assets/js/frontend-newsletter.js` | 1 | `178b736d4b89d6c9fd4a38f42171f38357b0e24415e53a31f1ef4c1373e71a8c` |
-| `plugin/alookhor-control-center/assets/js/frontend-product.js` | 275 | `8a514a2b0fb5c9ee7ec9595a4051894becdcc33c6f502eaadb8f9ec3a5eb93bf` |
+| `plugin/alookhor-control-center/assets/js/frontend-product.js` | 325 | `fe85498c3ace8ab7447a0309d9b102175ab460ba572512e079c0538349178ef4` |
 | `plugin/alookhor-control-center/assets/js/frontend-sort-center.js` | 1 | `1ac9b916a723d57f5c2c6a5dac3af1059cdcf1fbde81925020df0dcb20fb1462` |
 | `plugin/alookhor-control-center/assets/js/frontend-topbar-manager.js` | 464 | `45980b0d4bcdf219ecb7665bbad95e69c874400047a12b526b7a0248231d0aa9` |
 | `plugin/alookhor-control-center/assets/js/frontend-why-alookhor.js` | 1 | `56302efb357de366650abbfe9f80c9439772e63a5ad1f637fac65beb8de13155` |
 | `plugin/alookhor-control-center/assets/js/modules/analytics.js` | 21 | `5e35bdba45de5750af08d6cfea337fd7a6eb8cc852ef1c955ee5ba1e7a56bf0c` |
-| `plugin/alookhor-control-center/assets/js/modules/dashboard.js` | 173 | `f8f998298439eca4ad19d572c03a79c6b85c206d6ca7cac7be7c9058f393c971` |
+| `plugin/alookhor-control-center/assets/js/modules/dashboard.js` | 173 | `c73b03f5ecb9de2c4ec0e939f8948a83cd99248e44ae007b6141efadaf9fc426` |
 | `plugin/alookhor-control-center/assets/js/modules/inventory.js` | 30 | `e1c39f880a1e7985fa8ea64b07ec72ce69c416165fb514ad9fb7d9f8e8e93723` |
 | `plugin/alookhor-control-center/assets/js/modules/orders.js` | 19 | `0ccd8376c69ba37fb50d3261f002789488042e17a0b1b37539bab86abda374eb` |
-| `plugin/alookhor-control-center/assets/js/modules/settings.js` | 794 | `faec5a170f2f267defd0022fa06fb7ba413522c11502a0e248e295ff0da8783a` |
+| `plugin/alookhor-control-center/assets/js/modules/settings.js` | 794 | `4dacf43f9fb787272701a05556dc2dc458282420b7c7ec841661f8204f49f011` |
 | `plugin/alookhor-control-center/assets/js/modules/users.js` | 20 | `6fb96546faf00ea831ace016d09b10f903a501db647bae20d0f570034ac36946` |
-| `plugin/alookhor-control-center/config/site.json` | 328 | `32fa1181f5b120c41116d9f5dc3ced6ae28348b61f50de849db0dfef1ca459b1` |
+| `plugin/alookhor-control-center/config/site.json` | 328 | `bd57cc3622a93f8a091fe780b35f9a956615f14067f977f9e7b7ea743debb790` |
 | `plugin/alookhor-control-center/includes/about-page.php` | 161 | `c6550866eeb1d48ff70085c42b84ec251afb3ce764b0b005c0c80a9751ae266b` |
 | `plugin/alookhor-control-center/includes/admin-export-banner.php` | 180 | `fff84102b3dc84cb69c7318312395993a8adf6255a5d7f056d4c7bf7dce8e1b2` |
 | `plugin/alookhor-control-center/includes/admin-pages.php` | 210 | `6cf25d85284e99d73dbfade4504c8fa4d3e98e1ddbc2d6cc5fcd8845e2edb4e1` |
@@ -269,7 +269,7 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 | `plugin/alookhor-control-center/includes/app-banner.php` | 31 | `2ec9a950fa6d9fa713789c9ad91dd09aacbdb26605f82a8c1134876e5d2f9c40` |
 | `plugin/alookhor-control-center/includes/bestselling-products.php` | 14 | `9c46ee8f461a1b8437713eda03e65e8f9f3c9182d70e0c05f497b5723f5e5f0c` |
 | `plugin/alookhor-control-center/includes/campaign-slider.php` | 11 | `e4e389f2847efcd3892dfd45b1f935725d874fb6bf17af7f9c4f14c614e812df` |
-| `plugin/alookhor-control-center/includes/cart-page.php` | 264 | `b9f17689a3e7984fc4886a0b7fee1732d4bebfe193c79c70759d08d5608aa52c` |
+| `plugin/alookhor-control-center/includes/cart-page.php` | 264 | `632dfdce9cd646d3f972a3f5d32dd6a3280f47c2c8673400326323d3b97e11fa` |
 | `plugin/alookhor-control-center/includes/contact-page.php` | 148 | `dbdc47b38b74a77be5e6b084ed9c3ac148673b7a4230b54c099e61fb54ef82bb` |
 | `plugin/alookhor-control-center/includes/featured-products.php` | 22 | `5b11934474373e394479f0b579688d6fd8fd16eeb6cde120738a0ca8daf363b7` |
 | `plugin/alookhor-control-center/includes/footer.php` | 282 | `7553bf1b0282e5c5d21b53ca527c446dcbe4f2663de5f615fc08286ea37e38ae` |
@@ -279,7 +279,7 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 | `plugin/alookhor-control-center/includes/newsletter.php` | 11 | `c164526a1deccb24ff8211e439b73ad6dda497cc3064c5e3f5d5c1fc01797321` |
 | `plugin/alookhor-control-center/includes/pages-settings.php` | 103 | `3f105b8014498e90b3e6a7bc6f60f667ee2eab40fd28fca2e9d03c3f087965b1` |
 | `plugin/alookhor-control-center/includes/product-categories.php` | 99 | `72b7cf6900ad70a75c104f4e613e3357db91a8c05190af5847ebd9da674aa106` |
-| `plugin/alookhor-control-center/includes/product-page.php` | 575 | `f0f8a65ef5eb63133b883ebf87cd72416f83b6bdefeec31797decb4276d29aff` |
+| `plugin/alookhor-control-center/includes/product-page.php` | 575 | `fbc14507f2e5c392b4aef8a0036f30709597694d605cdca1cc36294e4c4caf51` |
 | `plugin/alookhor-control-center/includes/product-seeder.php` | 665 | `1929aa4d3059832a529d1b3509d54d7652281e492d092b6294aeec00e9360029` |
 | `plugin/alookhor-control-center/includes/responsive-v2.php` | 11 | `985285a845f5baf476cdbf587b3c308d1b9ff4c0381bc69483b37652a55a3065` |
 | `plugin/alookhor-control-center/includes/rest-api.php` | 418 | `e656b53287b05ff3f8177a5b35401db47fb5017637a410e4c5d11a628f30f2f4` |
@@ -292,7 +292,8 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 | `plugin/alookhor-control-center/includes/updater.php` | 401 | `e4992b48eceeaa9d6656c77fc7445fe625bc728c3152f7de2b3a9c9088289ce6` |
 | `plugin/alookhor-control-center/includes/why-alookhor.php` | 12 | `e1418530fd162abd57f54217be340c22c8940d724e247ae032831a728d51770f` |
 | `plugin/alookhor-control-center/templates/admin-control-center.php` | 387 | `1c815c82b21172d40d313aa73e0ee1330706646735185d5d50627c5e0658a74b` |
-| `plugin/alookhor-control-center/templates/cart-empty-override.php` | 1 | `c685dd811a49c2d6b3b08029c7f361c3a4dd0575d528d1b2a8b75942d8083673` |
+| `plugin/alookhor-control-center/templates/cart-empty-override.php` | 1 | `dd2d22b9cec228cba326a2c65ae2dbdaae2dbc4548927c48546de804a394c4b7` |
+| `plugin/alookhor-control-center/templates/cart-partial.php` | 1 | `fbbb5f1faa88be04a9fc483f2f00a10b6c3437da0fbf09fbb2436e3386b6bb88` |
 | `plugin/alookhor-control-center/templates/cart.php` | 6 | `bfe50d6b874b199f783d34e494885ddab54b2bfea2bee95b6d6fb054ca5c34ab` |
 | `plugin/alookhor-control-center/templates/single-product.php` | 7 | `ce0dfde67e5a3ea2a5201e37afc7778748974fb518316d2a7a3313ab6c1eec1d` |
 | `plugin/alookhor-control-center/uninstall.php` | 6 | `d69282a9ab7c0865b6c60e6fca272d0859433e9c8730754fb2995295209ff84c` |
@@ -1074,7 +1075,7 @@ add_action('rest_api_init', function(){
  * Plugin Name: ALOOKHOR Control Center
  * Plugin URI: https://alookhor.ir
  * Description: کنترل سنتر لوکس و ماژولار آلوخور — مدیریت کامل سایت (هدر، اسلایدر، سورت، محصولات، مشتریان VIP، مالی، آنالیتیکس) با آپدیت آنی بدون رفرش. تمام تنظیمات چت قبلی + شورت‌کد [alookhor_portal_header] اینجا مدیریت می‌شود.
- * Version: 3.10.310
+ * Version: 3.10.313
  * Author: ALOOKHOR Team — Luxury Modular
  * Author URI: https://alookhor.ir
  * Update URI: https://alookhor.ir/alookhor-control-center
@@ -1087,8 +1088,8 @@ add_action('rest_api_init', function(){
 
 if (!defined('ABSPATH')) exit;
 
-define('ALOOKHOR_CC_VERSION', '3.10.310');
-define('ALOOKHOR_CC_BUILD', '3.10.310');
+define('ALOOKHOR_CC_VERSION', '3.10.313');
+define('ALOOKHOR_CC_BUILD', '3.10.313');
 define('ALOOKHOR_CC_FILE', __FILE__);
 define('ALOOKHOR_CC_DIR', plugin_dir_path(__FILE__));
 define('ALOOKHOR_CC_URL', plugin_dir_url(__FILE__));
@@ -7635,6 +7636,254 @@ html{overflow-x:hidden !important}
   font-size:22px!important;
   color:#f7b32b!important;
 }
+
+/* v3.10.308 — bidi-safe prices (Persian digits + U+066C), qty row above CTA, bigger icons */
+#alookhor-pdp .alp-price-now,
+#alookhor-pdp .price-box .line-through{
+  direction:ltr!important;
+  unicode-bidi:isolate!important;
+  display:inline-flex!important;
+  align-items:baseline!important;
+  gap:5px!important;
+}
+#alookhor-pdp .alpm-cur{direction:rtl!important;unicode-bidi:plaintext!important;font-weight:700!important}
+#alookhor-pdp .purchase-actions > div.flex .quantity-row{
+  order:-1!important;
+  width:100%!important;
+  justify-content:space-between!important;
+  direction:rtl!important;
+}
+#alookhor-pdp .purchase-actions > div.flex .quantity-row .quantity-label{order:0!important;flex:0 0 auto!important;margin-inline-end:0!important}
+#alookhor-pdp .purchase-actions > div.flex .quantity-row .quantity-control{order:1!important;flex:0 0 auto!important}
+#alookhor-pdp .purchase-actions .share-btn,
+#alookhor-pdp .purchase-actions .compare-btn,
+#alookhor-pdp .purchase-actions .wishlist-btn{
+  width:48px!important;height:48px!important;min-width:48px!important;min-height:48px!important;
+}
+#alookhor-pdp .purchase-actions .share-btn svg,
+#alookhor-pdp .purchase-actions .compare-btn svg,
+#alookhor-pdp .purchase-actions .wishlist-btn svg{width:20px!important;height:20px!important}
+#alookhor-pdp .add-button{min-width:230px!important;max-width:250px!important}
+
+/* ===== v3.10.311 — MOBILE PER 2 MOCKUPS (media-query only, desktop >=1280 untouched) — MOCKUP PDP =====
+   Why phones were broken: later UNCONDITIONED !important rules (grid 1.22fr/0.95fr, equal-height 720px
+   columns, vertical 96px thumb rail, 560px frame) beat the old @media(max-width:1279px){1fr} rule, so a
+   390px phone rendered two crushed 188px/146px columns. Everything below is re-asserted INSIDE breakpoints.
+   Order per mockup-1: image (edge to edge) -> thumb strip -> breadcrumb -> panel -> guarantees 2x2 -> banner
+   Order per mockup-2: tabs bar -> about/description (specs swaps in via its tab) -> suggested products (2 col)
+                       -> curated (2 col) -> usage -> FAQ (1 col) -> reviews (stacked) -> newsletter.
+   usage/FAQ/reviews are always-visible standalone sections on phones; their tab buttons scroll to them (JS). */
+@media(max-width:1279px){
+  /* ---- single column flow: flatten <main> and .left-col so the breadcrumb can sit under the gallery ---- */
+  #alookhor-pdp{display:flex !important;flex-direction:column !important;padding-top:20px !important}
+  #alookhor-pdp .product-page-main,#alookhor-pdp .left-col{display:contents !important}
+  #alookhor-pdp .left-col .gallery-slot,#alookhor-pdp .gallery-slot{order:1 !important;display:block !important;width:100% !important;min-height:0 !important;flex:none !important;margin:0 !important;padding:0 !important}
+  #alookhor-pdp .breadcrumb-wrapper{order:2 !important;width:100% !important;margin:12px auto 0 !important;padding:0 16px !important}
+  #alookhor-pdp .panel-slot{order:3 !important;display:block !important;width:100% !important;min-height:0 !important;height:auto !important;flex:none !important;margin:14px 0 0 !important;padding:0 16px !important}
+  #alookhor-pdp .guarantees-glass-slot{order:4 !important;width:100% !important;margin:14px 0 0 !important;padding:0 16px !important}
+  #alookhor-pdp .banner-slot{order:5 !important;width:100% !important;margin:14px 0 0 !important;padding:0 16px !important}
+  #alookhor-pdp .below-product{order:6 !important;width:100% !important;margin:14px auto 0 !important}
+  /* ---- gallery: wide image, thumb strip under it ---- */
+  #alookhor-pdp .product-gallery{display:flex !important;flex-direction:column !important;gap:10px !important;min-height:0 !important;height:auto !important;flex:none !important}
+  #alookhor-pdp .product-gallery .gallery-frame{width:100% !important;flex:none !important;aspect-ratio:4/3 !important;min-height:0 !important;max-height:440px !important;border-radius:0 !important;border-inline:0 !important;box-shadow:none !important}
+  #alookhor-pdp .gallery-frame img{width:100% !important;height:100% !important;object-fit:cover !important}
+  #alookhor-pdp .product-gallery .gallery-thumbs{display:flex !important;flex-direction:row !important;justify-content:flex-start !important;width:100% !important;flex:none !important;gap:8px !important;max-height:none !important;overflow-x:auto !important;overflow-y:hidden !important;padding:0 16px 4px !important;scrollbar-width:none !important;-webkit-overflow-scrolling:touch !important}
+  #alookhor-pdp .gallery-thumbs::-webkit-scrollbar{display:none !important}
+  #alookhor-pdp .gallery-thumb{flex:1 1 0 !important;width:auto !important;min-width:52px !important;max-width:84px !important;height:auto !important;aspect-ratio:1/1 !important;border-radius:12px !important}
+  #alookhor-pdp .gallery-copy{inset:14px 16px auto auto !important;max-width:48% !important;text-align:right !important}
+  #alookhor-pdp .gallery-copy p{font-size:16px !important;line-height:1.85 !important}
+  #alookhor-pdp .gallery-frame .-rotate-3{left:14px !important;top:14px !important;padding:6px 10px !important}
+  #alookhor-pdp .gallery-frame .-rotate-3 span{font-size:11px !important}
+  #alookhor-pdp .gallery-frame button[data-gal-prev],#alookhor-pdp .gallery-frame button[data-gal-next]{width:38px !important;height:38px !important;min-width:38px !important;min-height:38px !important}
+  #alookhor-pdp .gallery-frame button.gallery-expand{width:36px !important;height:36px !important}
+  /* ---- panel ---- */
+  #alookhor-pdp .product-panel{min-height:0 !important;flex:none !important;gap:14px !important;padding:16px !important;border-radius:20px !important}
+  #alookhor-pdp .product-heading{display:flex !important;flex-direction:column !important;direction:rtl !important;gap:8px !important}
+  #alookhor-pdp .mobile-category-badge{display:inline-flex !important;align-self:flex-start !important;margin:0 0 2px !important}
+  #alookhor-pdp .product-title-copy h1{font-size:26px !important;line-height:1.3 !important}
+  #alookhor-pdp .product-title-copy p{font-size:15px !important;margin-top:4px !important}
+  #alookhor-pdp .product-heading>p{font-size:13px !important;line-height:1.9 !important;margin-top:6px !important;text-align:right !important}
+  /* rating: stars + count (right) and wishlist (left) on one line, share under it */
+  #alookhor-pdp .rating-row{display:flex !important;flex-direction:column !important;direction:rtl !important;gap:6px !important}
+  #alookhor-pdp .rating-row>div.flex-nowrap{display:flex !important;flex-wrap:wrap !important;justify-content:space-between !important;gap:6px 8px !important}
+  #alookhor-pdp .rating-row .rating-divider{display:none !important}
+  #alookhor-pdp .rating-summary{gap:4px !important}
+  #alookhor-pdp .rating-summary .relative.inline-block{width:15px !important;height:15px !important}
+  #alookhor-pdp .rating-summary .text-sm{font-size:13px !important}
+  #alookhor-pdp .rating-summary .text-xs{font-size:11px !important}
+  #alookhor-pdp .favorite-action,#alookhor-pdp .share-action{font-size:11px !important}
+  /* 4 feature tiles in ONE row */
+  #alookhor-pdp .product-features{grid-template-columns:repeat(4,minmax(0,1fr)) !important;gap:6px !important}
+  #alookhor-pdp .feature-item{min-height:0 !important;padding:10px 4px !important;border-radius:12px !important;gap:4px !important}
+  #alookhor-pdp .feature-item svg{width:22px !important;height:22px !important}
+  #alookhor-pdp .feature-item span.text-sm{font-size:10px !important;line-height:1.5 !important}
+  #alookhor-pdp .feature-item span.text-\[11px\]{font-size:8.5px !important;line-height:1.5 !important}
+  /* price */
+  #alookhor-pdp .price-box{padding:14px !important}
+  #alookhor-pdp .price-box .line-through+.alp-price-now del{display:none !important}
+  /* weights: label "وزن محصول" (mockup) + 3 chips */
+  #alookhor-pdp .weight-qty-box{padding:12px !important}
+  #alookhor-pdp .weight-picker>span:first-child{font-size:0 !important;line-height:0 !important;margin-bottom:8px !important;display:block !important}
+  #alookhor-pdp .weight-picker>span:first-child::before{content:"وزن محصول:";display:block;font-size:12px;line-height:1.6;font-weight:700;color:#c7b3da}
+  #alookhor-pdp .weight-options{grid-template-columns:repeat(3,minmax(0,1fr)) !important;gap:8px !important;margin-bottom:0 !important}
+  #alookhor-pdp .weight-option{min-height:42px !important;padding:8px 6px !important;justify-content:center !important}
+  /* buy row: qty pill (right) + gold CTA (left) on ONE line, delivery line under it */
+  #alookhor-pdp .purchase-actions{display:flex !important;flex-direction:column !important;align-items:stretch !important;padding:12px !important;gap:10px !important}
+  #alookhor-pdp .purchase-actions>div.flex{display:flex !important;flex-wrap:wrap !important;gap:8px 10px !important;align-items:center !important}
+  #alookhor-pdp .purchase-actions>div.flex .quantity-row,#alookhor-pdp .purchase-actions .quantity-row{order:1 !important;width:auto !important;flex:0 0 auto !important;flex-direction:row !important;justify-content:flex-start !important;gap:6px !important;margin:0 !important}
+  #alookhor-pdp .quantity-control button{width:32px !important;height:32px !important;min-width:32px !important;min-height:32px !important}
+  #alookhor-pdp .quantity-control #alpQty{width:28px !important}
+  #alookhor-pdp .purchase-actions .cart-row{order:2 !important;display:flex !important;flex:1 1 0 !important;min-width:0 !important;gap:6px !important;align-items:center !important}
+  #alookhor-pdp .add-button{flex:1 1 auto !important;width:auto !important;min-width:0 !important;max-width:none !important;height:44px !important;min-height:44px !important;font-size:13px !important}
+  #alookhor-pdp .purchase-actions .cart-row .share-btn,#alookhor-pdp .purchase-actions .cart-row .compare-btn,#alookhor-pdp .purchase-actions .cart-row .wishlist-btn{width:40px !important;height:40px !important;min-width:40px !important;min-height:40px !important}
+  #alookhor-pdp .shipping-line{order:3 !important;flex:1 1 100% !important;display:flex !important;flex-wrap:nowrap !important;font-size:11px !important;justify-content:space-between !important;align-items:center !important;gap:6px !important;margin-top:2px !important}
+  /* the old ".flex.gap-1.5{width:100%}" phone rule also matches the stock span inside .shipping-line -> keep it inline */
+  #alookhor-pdp .purchase-actions .shipping-line>span.flex.gap-1\.5{width:auto !important;flex:0 0 auto !important;justify-content:flex-start !important;white-space:nowrap !important}
+  #alookhor-pdp .purchase-actions .shipping-line>span:last-child{flex:0 1 auto !important;text-align:left !important}
+  /* guarantees: icon above label */
+  #alookhor-pdp .guarantees-glass{padding:12px !important;border-radius:16px !important}
+  #alookhor-pdp .guarantees{gap:10px !important}
+  #alookhor-pdp .guarantee-item{flex-direction:column !important;justify-content:center !important;text-align:center !important;min-height:72px !important;padding:12px 8px !important;font-size:11px !important;gap:6px !important;line-height:1.5 !important}
+  #alookhor-pdp .guarantee-item svg{width:22px !important;height:22px !important}
+  /* banner "خوشمزه‌تر زندگی کن" */
+  #alookhor-pdp .promo-banner,#alookhor-pdp .banner-slot .promo-banner{min-height:150px !important;border-radius:20px !important;margin:0 !important;width:100% !important}
+  #alookhor-pdp .promo-banner h2{font-size:22px !important}
+  #alookhor-pdp .promo-banner p{font-size:13px !important}
+  #alookhor-pdp .promo-banner a{padding:10px 16px !important;font-size:12px !important}
+  /* ---- below the fold: flatten the tabs wrapper so every pane is a stacked section ordered like mockup-2 ---- */
+  #alookhor-pdp .below-product{display:flex !important;flex-direction:column !important;padding:0 16px 8px !important}
+  #alookhor-pdp .below-product>*{margin-top:0 !important}
+  #alookhor-pdp .product-tabs-wrapper,#alookhor-pdp .product-tabs-panes{display:contents !important}
+  #alookhor-pdp .product-tabs-nav{order:1 !important;gap:4px !important;padding:6px !important;border-radius:14px !important;overflow-x:auto !important;flex-wrap:nowrap !important;scrollbar-width:none !important;margin:0 0 14px !important}
+  #alookhor-pdp .product-tabs-nav::-webkit-scrollbar{display:none !important}
+  #alookhor-pdp .pdp-tab{padding:8px 9px !important;font-size:12px !important;flex:none !important}
+  #alookhor-pdp .pdp-pane{scroll-margin-top:84px !important;margin-top:20px !important}
+  #alookhor-pdp .pdp-pane[data-pdp-pane="desc"]{order:2 !important;margin-top:0 !important}
+  #alookhor-pdp .pdp-pane[data-pdp-pane="specs"]{order:3 !important;margin-top:0 !important}
+  #alookhor-pdp .below-product>.below-section{order:4 !important;margin-top:20px !important}
+  #alookhor-pdp .below-product>.below-section:has([data-ptrack]){order:4 !important}
+  #alookhor-pdp .below-product>.below-section:has([data-htrack]){order:5 !important}
+  #alookhor-pdp .pdp-pane[data-pdp-pane="usage"]{display:block !important;order:6 !important}
+  #alookhor-pdp .pdp-pane[data-pdp-pane="faq"]{display:block !important;order:7 !important}
+  #alookhor-pdp .pdp-pane[data-pdp-pane="reviews"]{display:block !important;order:8 !important}
+  #alookhor-pdp .below-product>.newsletter-section{order:9 !important;margin-top:24px !important;min-height:200px !important}
+  #alookhor-pdp .pdp-pane .below-section{margin-top:0 !important}
+  #alookhor-pdp .usage-grid{grid-template-columns:1fr !important;gap:10px !important}
+  #alookhor-pdp .faq-list{grid-template-columns:1fr !important;gap:8px !important}
+  #alookhor-pdp .below-section-title h2{font-size:17px !important}
+  /* rails -> 2-column grids (mockup-2), arrows hidden */
+  #alookhor-pdp .slider-glass{padding:14px 12px 12px !important;border-radius:18px !important}
+  #alookhor-pdp .slider-glass .slider-shell{padding-inline:0 !important}
+  #alookhor-pdp .slider-glass .slider-controls{display:none !important}
+  #alookhor-pdp .highlight-track,#alookhor-pdp .products-track{display:grid !important;grid-template-columns:repeat(2,minmax(0,1fr)) !important;grid-auto-flow:row !important;grid-auto-columns:auto !important;gap:10px !important;overflow:visible !important;padding:0 !important;scroll-snap-type:none !important}
+  #alookhor-pdp .highlight-card,#alookhor-pdp .suggested-product{min-width:0 !important;width:auto !important}
+  #alookhor-pdp .suggested-body h3{font-size:12px !important;line-height:1.6 !important}
+  #alookhor-pdp .suggested-footer>span{font-size:11px !important}
+  /* reviews: summary on top, cards stacked */
+  #alookhor-pdp .reviews-content-row{flex-direction:column !important;padding:0 10px 10px !important}
+  #alookhor-pdp .reviews-content-row>.reviews-summary{flex:none !important;flex-basis:auto !important;width:100% !important;min-width:0 !important;flex-direction:row !important;flex-wrap:wrap !important;justify-content:center !important;gap:8px 12px !important;border-left:0 !important;padding:8px 0 12px !important}
+  #alookhor-pdp .reviews-slider-shell{padding-inline:0 !important}
+  #alookhor-pdp .reviews-slider-shell .slider-controls{display:none !important}
+  #alookhor-pdp .reviews-track{display:grid !important;grid-template-columns:1fr !important;grid-auto-flow:row !important;grid-auto-columns:auto !important;gap:10px !important;overflow:visible !important;scroll-snap-type:none !important}
+  #alookhor-pdp .newsletter-content{max-width:100% !important;padding:20px 16px !important}
+}
+/* image sits right under the header (66px header pulls content up 70px below 860px; 122px / -120px above) */
+@media(max-width:860px){
+  #alookhor-pdp .left-col .gallery-slot,#alookhor-pdp .gallery-slot{margin-top:50px !important}
+}
+@media(min-width:861px) and (max-width:1279px){
+  #alookhor-pdp .left-col .gallery-slot,#alookhor-pdp .gallery-slot{margin-top:116px !important}
+}
+@media(max-width:640px){
+  #alookhor-pdp .breadcrumb-box{padding:10px 14px !important;font-size:11px !important;border-radius:14px !important}
+  /* all 5 tabs on one line at 360-430px (mockup): tighter chips, review count hidden */
+  #alookhor-pdp .product-tabs-nav{gap:2px !important;padding:5px !important}
+  #alookhor-pdp .pdp-tab{flex:1 1 auto !important;justify-content:center !important;padding:8px 4px !important;font-size:10.5px !important;gap:3px !important;min-width:0 !important}
+  #alookhor-pdp .pdp-tab span{font-size:10px !important;letter-spacing:-.15px !important}
+  #alookhor-pdp .pdp-tab small{display:none !important}
+  #alookhor-pdp .pdp-tab.is-active::after{right:6px !important;left:6px !important}
+  #alookhor-pdp .product-gallery .gallery-frame{max-height:400px !important}
+  #alookhor-pdp .gallery-thumb{min-width:44px !important}
+  /* phones: qty label + the 3 secondary icons are not in the mockup; wishlist/share stay in the rating row */
+  #alookhor-pdp .quantity-label{display:none !important}
+  #alookhor-pdp .purchase-actions .cart-row>div.flex{display:none !important}
+  #alookhor-pdp .guarantees{grid-template-columns:repeat(2,minmax(0,1fr)) !important}
+  #alookhor-pdp .promo-banner>div.relative{flex-direction:column !important;align-items:flex-start !important;gap:14px !important;padding:22px 20px !important}
+  /* sticky buy bar (existing) must not cover the last content */
+  body.alookhor-pdp-body{padding-bottom:84px !important}
+}
+@media(min-width:641px) and (max-width:1279px){
+  /* tablet: same stacked order, roomier and framed */
+  #alookhor-pdp .breadcrumb-wrapper,#alookhor-pdp .panel-slot,#alookhor-pdp .guarantees-glass-slot,#alookhor-pdp .banner-slot{padding-left:24px !important;padding-right:24px !important}
+  #alookhor-pdp .left-col .gallery-slot,#alookhor-pdp .gallery-slot{padding:0 24px !important}
+  #alookhor-pdp .product-gallery .gallery-frame{aspect-ratio:16/10 !important;max-height:560px !important;border-radius:22px !important;border-inline:1px solid rgba(255,255,255,.10) !important}
+  #alookhor-pdp .product-gallery .gallery-thumbs{padding:0 0 4px !important}
+  #alookhor-pdp .gallery-thumb{min-width:64px !important;max-width:96px !important}
+  #alookhor-pdp .below-product{padding:0 24px 8px !important}
+  #alookhor-pdp .product-panel{padding:22px !important}
+  #alookhor-pdp .guarantees{grid-template-columns:repeat(4,minmax(0,1fr)) !important}
+  #alookhor-pdp .promo-banner>div.relative{flex-direction:row !important;align-items:center !important;justify-content:space-between !important;padding:28px !important}
+  #alookhor-pdp .highlight-track,#alookhor-pdp .products-track{grid-template-columns:repeat(3,minmax(0,1fr)) !important}
+  #alookhor-pdp .reviews-track{grid-template-columns:repeat(3,minmax(0,1fr)) !important}
+  #alookhor-pdp .usage-grid{grid-template-columns:repeat(2,1fr) !important}
+  #alookhor-pdp .faq-list{grid-template-columns:repeat(2,minmax(0,1fr)) !important}
+  #alookhor-pdp .add-button{flex:1 1 200px !important}
+}
+
+
+/* ===== OWNER FINAL LAYOUT (target screenshot 2026-09-06) =====
+   1) qty row above CTA: «تعداد :» right, stepper pill LEFT
+   2) icons: share(rightmost) / compare / heart — big squares, same row as CTA
+   3) CTA gold, big, filling remaining width on the LEFT of icons
+   4) status row: «ارسال…» right, «● موجود در انبار» LEFT */
+#alookhor-pdp .purchase-actions > div.flex{
+  display:flex!important;flex-wrap:wrap!important;direction:rtl!important;gap:10px!important;
+}
+#alookhor-pdp .purchase-actions > div.flex .quantity-row{
+  order:0!important;width:100%!important;flex:0 0 100%!important;
+  display:flex!important;flex-direction:row!important;justify-content:space-between!important;
+  align-items:center!important;direction:rtl!important;
+}
+#alookhor-pdp .purchase-actions > div.flex .quantity-row .quantity-label{order:0!important;flex:0 0 auto!important}
+#alookhor-pdp .purchase-actions > div.flex .quantity-row .quantity-control{order:1!important;flex:0 0 auto!important}
+#alookhor-pdp .purchase-actions .cart-row{
+  order:1!important;width:100%!important;flex:0 0 100%!important;
+  display:flex!important;flex-wrap:nowrap!important;align-items:center!important;gap:8px!important;direction:ltr!important;
+}
+/* LTR row → first child (CTA) leftmost, icon group rightmost */
+#alookhor-pdp .purchase-actions .cart-row .add-button,#alookhor-pdp .add-button{
+  flex:1 1 auto!important;width:auto!important;min-width:0!important;max-width:none!important;
+  height:48px!important;min-height:48px!important;border-radius:12px!important;
+  background:linear-gradient(135deg,#ffd37a,#f7b32b 45%,#e99a15)!important;color:#1a0a24!important;
+  font-size:14px!important;font-weight:900!important;
+  box-shadow:0 10px 28px rgba(247,179,43,.40),inset 0 1px 0 rgba(255,255,255,.45)!important;
+  white-space:nowrap!important;
+}
+#alookhor-pdp .purchase-actions .cart-row > div.flex{
+  display:flex!important;flex-shrink:0!important;gap:8px!important;direction:ltr!important;
+}
+/* order inside icon group: heart LEFT(next to CTA), compare middle, share rightmost */
+#alookhor-pdp .purchase-actions .wishlist-btn{order:0!important}
+#alookhor-pdp .purchase-actions .compare-btn{order:1!important}
+#alookhor-pdp .purchase-actions .share-btn{order:2!important}
+#alookhor-pdp .purchase-actions .share-btn,
+#alookhor-pdp .purchase-actions .compare-btn,
+#alookhor-pdp .purchase-actions .wishlist-btn{
+  width:46px!important;height:46px!important;min-width:46px!important;min-height:46px!important;
+  border-radius:12px!important;background:rgba(22,10,32,.85)!important;
+  border:1px solid rgba(255,255,255,.14)!important;color:#c7b3da!important;
+}
+#alookhor-pdp .purchase-actions .share-btn svg,
+#alookhor-pdp .purchase-actions .compare-btn svg,
+#alookhor-pdp .purchase-actions .wishlist-btn svg{width:19px!important;height:19px!important}
+#alookhor-pdp .shipping-line{direction:ltr!important}
+#alookhor-pdp .shipping-line > span.text-mint{order:0!important}      /* ● موجود در انبار → LEFT */
+#alookhor-pdp .shipping-line > span.text-lav\/70{order:1!important}  /* ارسال… → RIGHT  */
+@media(max-width:640px){
+  #alookhor-pdp .purchase-actions .cart-row > div.flex{display:flex!important} /* never hide icons */
+  #alookhor-pdp .purchase-actions .share-btn,#alookhor-pdp .purchase-actions .compare-btn,#alookhor-pdp .purchase-actions .wishlist-btn{width:44px!important;height:44px!important;min-width:44px!important;min-height:44px!important}
+  #alookhor-pdp .purchase-actions .cart-row{flex-wrap:wrap!important}
+}
 ````
 
 ## Source Snapshot — `plugin/alookhor-control-center/assets/css/frontend-responsive-v2.css`
@@ -8389,15 +8638,15 @@ tr:last-child td{border-bottom:0}
 
 ````javascript
 // Release query prevents stale ES Modules after a WordPress-native update.
-import { initResponsive } from './core/responsive.js?v=3.10.244';
-import { initUpdater, Updater } from './core/updateSystem.js?v=3.10.244';
-import { Config } from './core/config.js?v=3.10.244';
-import { dashboardModule } from './modules/dashboard.js?v=3.10.244';
-import { inventoryModule } from './modules/inventory.js?v=3.10.244';
-import { ordersModule } from './modules/orders.js?v=3.10.244';
-import { usersModule } from './modules/users.js?v=3.10.244';
-import { analyticsModule } from './modules/analytics.js?v=3.10.244';
-import { settingsModule } from './modules/settings.js?v=3.10.244';
+import { initResponsive } from './core/responsive.js?v=3.10.311';
+import { initUpdater, Updater } from './core/updateSystem.js?v=3.10.311';
+import { Config } from './core/config.js?v=3.10.311';
+import { dashboardModule } from './modules/dashboard.js?v=3.10.311';
+import { inventoryModule } from './modules/inventory.js?v=3.10.311';
+import { ordersModule } from './modules/orders.js?v=3.10.311';
+import { usersModule } from './modules/users.js?v=3.10.311';
+import { analyticsModule } from './modules/analytics.js?v=3.10.311';
+import { settingsModule } from './modules/settings.js?v=3.10.311';
 
 const modules = {
   dashboard: dashboardModule,
@@ -8983,7 +9232,7 @@ export function initResponsive() {
 // UI/state remain modular; version discovery and installation are delegated to WordPress.
 
 const runtimeConfig = window.ALOOKHOR_CC || {};
-const runtimeVersion = String(runtimeConfig.version || '3.10.244');
+const runtimeVersion = String(runtimeConfig.version || '3.10.311');
 
 function normalizeResult(data = {}) {
   const current = String(data.current || runtimeVersion);
@@ -10267,7 +10516,7 @@ function quantity(){
   });
  };
  $$('[data-q]').forEach(b=>b.addEventListener('click',()=>{
-  const dir=parseInt(b.dataset.q,10)||0;
+  const raw=String(b.dataset.q||'').trim(); const dir=raw==='+'?1:(raw==='-'||raw==='\u2212')?-1:(parseInt(raw,10)||0); /* v3.10.311: markup uses data-q="+"/"-" */
   // note: in new design + is first button, - is last, but we support both
   // original had + as +1, - as -1; we keep same
   n=Math.min(max,Math.max(min,n+dir)); apply();
@@ -10435,6 +10684,55 @@ if(typeof boot==='function'){
 document.addEventListener('DOMContentLoaded',()=>{ pdpTabs(); descExpand(); });
 // also run immediately if DOM already loaded
 if(document.readyState!=='loading'){ pdpTabs(); descExpand(); }
+
+/* ===== v3.10.311 — MOBILE (<=1279px) ONLY: usage / FAQ / reviews are always-visible standalone sections on phones
+   (mockup-2), so their tab buttons scroll to them; description <-> specs still swap. Guarded by matchMedia — on
+   desktop this listener returns before the original tab handler runs, so desktop behaviour is untouched. ===== */
+(function(){
+  if(!window.matchMedia) return;
+  var mq=window.matchMedia('(max-width:1279px)');
+  var wrap=document.querySelector('[data-pdp-tabs]'); if(!wrap) return;
+  var tabs=Array.prototype.slice.call(wrap.querySelectorAll('[data-pdp-tab]'));
+  var panes=Array.prototype.slice.call(wrap.querySelectorAll('[data-pdp-pane]'));
+  if(!tabs.length||!panes.length) return;
+  var STANDALONE={usage:1,faq:1,reviews:1};
+  function paneOf(id){ return wrap.querySelector('[data-pdp-pane="'+id+'"]'); }
+  function mobileSync(){ panes.forEach(function(p){ if(STANDALONE[p.getAttribute('data-pdp-pane')]) p.hidden=false; }); }
+  function restore(){
+    var act=tabs.filter(function(t){ return t.classList.contains('is-active'); })[0];
+    var id=act?act.getAttribute('data-pdp-tab'):panes[0].getAttribute('data-pdp-pane');
+    panes.forEach(function(p){ var on=p.getAttribute('data-pdp-pane')===id; p.classList.toggle('is-active',on); p.hidden=!on; });
+  }
+  tabs.forEach(function(t){
+    t.addEventListener('click',function(e){
+      if(!mq.matches) return;
+      e.stopImmediatePropagation();
+      var id=t.getAttribute('data-pdp-tab');
+      if(STANDALONE[id]){
+        var p=paneOf(id);
+        if(p){ p.hidden=false; if(p.scrollIntoView) p.scrollIntoView({behavior:'smooth',block:'start'}); }
+        return;
+      }
+      tabs.forEach(function(x){ if(STANDALONE[x.getAttribute('data-pdp-tab')]) return; var on=x===t; x.classList.toggle('is-active',on); x.setAttribute('aria-selected',on?'true':'false'); });
+      panes.forEach(function(p){ if(STANDALONE[p.getAttribute('data-pdp-pane')]) return; var on=p.getAttribute('data-pdp-pane')===id; p.classList.toggle('is-active',on); p.hidden=!on; });
+    },true);
+  });
+  function sync(){ if(mq.matches) mobileSync(); else restore(); }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',function(){ setTimeout(sync,0); }); else setTimeout(sync,0);
+  if(mq.addEventListener) mq.addEventListener('change',sync); else if(mq.addListener) mq.addListener(sync);
+})();
+
+/* ===== v3.10.311 — make the existing "مشاهده بیشتر" button work: markup uses data-desc-toggle while descExpand()
+   only knows data-desc-more, so the button did nothing. Behaviour only — nothing changes until it is clicked. ===== */
+(function(){
+  var btn=document.querySelector('[data-desc-toggle]'), wrap=document.querySelector('[data-desc-wrap]');
+  if(!btn||!wrap) return;
+  btn.addEventListener('click',function(){
+    var on=wrap.classList.toggle('is-expanded');
+    btn.textContent=on?'مشاهده کمتر':'مشاهده بیشتر';
+    btn.setAttribute('aria-expanded',on?'true':'false');
+  });
+})();
 ````
 
 ## Source Snapshot — `plugin/alookhor-control-center/assets/js/frontend-sort-center.js`
@@ -10947,7 +11245,7 @@ export const analyticsModule = {
 ## Source Snapshot — `plugin/alookhor-control-center/assets/js/modules/dashboard.js`
 
 ````javascript
-import { Config } from '../core/config.js?v=3.10.244';
+import { Config } from '../core/config.js?v=3.10.311';
 
 const escapeHTML = value => String(value ?? '').replace(/[&<>'"]/g, char => ({
   '&':'&amp;', '<':'&lt;', '>':'&gt;', "'":'&#039;', '"':'&quot;'
@@ -11184,7 +11482,7 @@ export const ordersModule = {
 ## Source Snapshot — `plugin/alookhor-control-center/assets/js/modules/settings.js`
 
 ````javascript
-import { Config } from '../core/config.js?v=3.10.244';
+import { Config } from '../core/config.js?v=3.10.311';
 
 const escapeAttr = value => String(value ?? '').replace(/[&<>'"]/g, char => ({
   '&':'&amp;', '<':'&lt;', '>':'&gt;', "'":'&#039;', '"':'&quot;'
@@ -12201,8 +12499,8 @@ export const usersModule = {
     "support_text": "پشتیبانی ۲۴/۷"
   },
   "updated_at": "2026-09-05T12:00:00Z",
-  "updated_by": "AI Assistant — v3.10.310 fix weight price chips + about apricot",
-  "version": "3.10.310",
+  "updated_by": "AI Assistant — v3.10.313 mobile PDP per 2 mockups (media-query only, desktop pixel-identical to 3.10.310)",
+  "version": "3.10.313",
   "hero_settings": {
     "enabled": true,
     "hide_legacy": true,
@@ -13515,7 +13813,7 @@ add_shortcode('alookhor_campaign_slider','alookhor_cc_campaign_shortcode');add_a
 
 ````php
 <?php
-/** ALOOKHOR CART — v3.10.310: luxury cart exact per 101216 — fixed hero + no duplicate */
+/** ALOOKHOR CART — v3.10.309: luxury cart exact per 101216 — fixed hero + no duplicate */
 if(!defined('ABSPATH'))exit;
 
 if(!function_exists('alookhor_cc_cart_icon')){
@@ -15189,7 +15487,7 @@ function alookhor_cc_pdp_markup(){
             <button type="button" class="wishlist-btn grid h-11 w-11 place-items-center rounded-xl border border-white/10 bg-plum-950/70 text-lav transition hover:border-gold-400/40 hover:text-gold-300" data-wishlist aria-label="افزودن به علاقه‌مندی‌ها"><span class="h-4 w-4"><?php echo alookhor_cc_pdp_icon('heart');?></span></button>
           </div>
         </div>
-      <div class="shipping-line flex flex-wrap items-center justify-between gap-2 text-[11px] font-bold mt-3"><span class="flex items-center gap-1.5 text-mint"><span class="relative flex h-2 w-2"><span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-mint opacity-60"></span><span class="relative inline-flex h-2 w-2 rounded-full bg-mint"></span></span>موجود در انبار</span><span class="text-lav/70">ارسال از ۱ روز کاری آینده</span></div>
+      <div class="shipping-line flex flex-wrap items-center justify-between gap-2 text-[11px] font-bold mt-3"><span class="text-lav/70">ارسال از ۱ روز کاری آینده</span><span class="flex items-center gap-1.5 text-mint"><span class="relative flex h-2 w-2"><span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-mint opacity-60"></span><span class="relative inline-flex h-2 w-2 rounded-full bg-mint"></span></span>موجود در انبار</span></div>
     </div>
     <?php endif;?>
     </section>
@@ -18308,7 +18606,13 @@ add_shortcode('alookhor_why_alookhor','alookhor_cc_why_shortcode');add_shortcode
 ## Source Snapshot — `plugin/alookhor-control-center/templates/cart-empty-override.php`
 
 ````php
-<?php // empty override to prevent Woodmart categories
+<?php // empty override
+````
+
+## Source Snapshot — `plugin/alookhor-control-center/templates/cart-partial.php`
+
+````php
+<?php if(!defined("ABSPATH"))exit; echo function_exists("alookhor_cc_cart_markup")?alookhor_cc_cart_markup():""; ?>
 ````
 
 ## Source Snapshot — `plugin/alookhor-control-center/templates/cart.php`

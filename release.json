@@ -1,21 +1,26 @@
 {
-  "version": "3.10.310",
-  "previous": "3.10.309",
+  "version": "3.10.313",
+  "previous": "3.10.312",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "فیکس نهایی سبد - حذف کامل سبد سفید قدیمی",
+  "description": "فیکس سبد قدیمی + ترکیب با 3.10.312 buy-box نهایی",
   "changelog": [
     {
       "tag": "FIX",
-      "title": "حذف سبد سفید قدیمی",
-      "desc": "template_include کامل + wc_get_template override + CSS hide برای اطمینان"
+      "title": "سبد قدیمی حذف",
+      "desc": "template_include + wc_get_template override به سبد لوکس - فقط دارک حرفه‌ای"
+    },
+    {
+      "tag": "LOCK",
+      "title": "buy-box 3.10.312 حفظ",
+      "desc": "از 3.10.312 - دسکتاپ قفل، موبایل دقیق"
     }
   ],
   "project": "ALOOKHOR",
   "area": "Product Page PDP — Mobile per 2 mockups (desktop locked)",
-  "reason": "کاربر ۲ ماکاپ موبایل داد: موبایل باید دقیقاً مثل ماکاپ شود، دسکتاپ قفل و بدون تغییر، فقط media query؛ تست موبایل/تبلت/دسکتاپ/کنسول/سبد/تعداد/علاقه‌مندی قبل از اعلام انجام",
+  "reason": "کاربر ۲ ماکاپ موبایل داد: موبایل باید دقیقاً مثل ماکاپ شود، دسکتاپ قفل و بدون تغییر، فقط media query؛ نسخه‌های ۳۰۰–۳۱۰ سشن‌های دیگر بلوک موبایل ۲۶۷/۲۶۸ را حذف کرده بودند — دوباره روی ۳۱۰ اعمال شد",
   "files": [
     "plugin/alookhor-control-center/CHANGELOG.md",
     "plugin/alookhor-control-center/alookhor-control-center.php",

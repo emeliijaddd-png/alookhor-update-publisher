@@ -1,5 +1,5 @@
 <?php
-/** ALOOKHOR CART — v3.10.310: luxury cart exact per 101216 — fixed hero + no duplicate */
+/** ALOOKHOR CART — v3.10.309: luxury cart exact per 101216 — fixed hero + no duplicate */
 if(!defined('ABSPATH'))exit;
 
 if(!function_exists('alookhor_cc_cart_icon')){

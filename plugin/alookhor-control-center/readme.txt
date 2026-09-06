@@ -4,7 +4,7 @@ Tags: control center, luxury, alookhor, admin, dashboard
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 3.10.310
+Stable tag: 3.10.313
 License: Private
 License URI: https://alookhor.ir
 
@@ -46,6 +46,12 @@ License URI: https://alookhor.ir
 در `config/site.json` و `wp_options: alookhor_cc_settings` — همان حافظه واقعی که در چت قبلی ویرایش می‌شد.
 
 == Changelog ==
+
+= 3.10.313 =
+* Mobile product page rebuilt per the two owner mockups (top + bottom): edge-to-edge image with thumb strip, breadcrumb, panel (badge, title, rating + wishlist, 4 features in one row, price, weight chips, qty pill + gold cart on one line, delivery line), guarantees 2x2, banner, tabs bar, description, suggested products 2-col, curated 2-col, usage, FAQ 1-col, reviews stacked, newsletter.
+* Every rule lives inside @media(max-width:1279px) (+ 640px / 641-1279px bands): desktop >=1280 is pixel-identical to 3.10.310 (verified 0 differing pixels at 1440x4186, including the 3.10.310 buy-box tweaks).
+* Tablet 641-1279px: same stacked order, framed 16/10 gallery, guarantees 4-col, 3-col product grids.
+* JS: quantity +/- buttons now work (markup uses data-q="+"/"-", parseInt returned NaN); "مشاهده بیشتر" button (data-desc-toggle) now expands the description; on <=1279px the usage/FAQ/reviews tabs scroll to their always-visible sections (desktop tab behaviour unchanged).
 
 = 3.10.252 =
 * Fix slider title visibility: عنوان گزیده‌ای از بهترین آلو بخارایی در اسکرین‌شات image-1.png تیره و نامرئی بود — حالا #fbf3e2 کرم روشن + #f7b32b طلایی با !important + opacity:1 visibility:visible
