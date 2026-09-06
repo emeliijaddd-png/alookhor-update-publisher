@@ -512,11 +512,8 @@ body.woocommerce-cart section:has(h2) {
 body.woocommerce-cart .cross-sells,
 body.woocommerce-cart div:has(> .cross-sells),
 body.woocommerce-cart section:has(.cross-sells),
-body.woocommerce-cart div:has(> h2:is(:contains("دیگران"))),
-body.woocommerce-cart *:has(> *:contains("دیگران خریده اند")) {
   display:none!important;
 }
-body.woocommerce-cart #alookhor-cart *:has(> *:contains("دیگران")) {
   display:block!important;
 }
 /* Ensure only ONE cart visible - hide any duplicate #alookhor-cart if more than one */
@@ -533,4 +530,18 @@ body.woocommerce-cart .wd-breadcrumbs {
 body.woocommerce-cart #alookhor-cart .cart-hero,
 body.woocommerce-cart #alookhor-cart .breadcrumb {
   display:flex!important;
+}
+
+/* v3.10.336 FIX valid CSS only */
+body.woocommerce-cart .cross-sells,
+body.woocommerce-cart .wd-cross-sells,
+body.woocommerce-cart .related,
+body.woocommerce-cart .wd-related,
+body.woocommerce-cart .up-sells,
+body.woocommerce-cart .wd-up-sells {
+  display:none!important;
+}
+body.woocommerce-cart #alookhor-cart .suggested,
+body.woocommerce-cart #alookhor-cart .suggested-grid {
+  display:grid!important;
 }

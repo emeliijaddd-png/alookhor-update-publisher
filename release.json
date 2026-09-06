@@ -1,16 +1,16 @@
 {
-  "version": "3.10.336",
-  "previous": "3.10.335",
+  "version": "3.10.337",
+  "previous": "3.10.336",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "فقط یک سبد - حذف 2 سبد سفید اضافی",
+  "description": "فقط یک سبد لوکس - CSS valid",
   "changelog": [
     {
       "tag": "FIX",
-      "title": "فقط یک سبد لوکس",
-      "desc": "حذف تمام گریدهای سفید محصولات خارج از #alookhor-cart - فقط سبد لوکس پایین بماند"
+      "title": "CSS valid + یک سبد",
+      "desc": "حذف :contains نامعتبر + hide cross-sells/up-sells/related خارج از لوکس"
     }
   ],
   "project": "ALOOKHOR",
