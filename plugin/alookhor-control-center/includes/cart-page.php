@@ -216,10 +216,12 @@ document.addEventListener('DOMContentLoaded',function(){
 }
 }
 
-// Use original theme template to keep footer at bottom - luxury comes from shortcode + wc_get_template override
+// FIX: Return original theme template to keep footer at BOTTOM - luxury comes from wc_get_template override
+// Custom template get_header()+get_footer() caused footer to appear ABOVE cart due to Woodmart wrapper structure
 add_filter('template_include',function($template){
  if(function_exists('is_cart')&&is_cart()){
-   $custom=ALOOKHOR_CC_DIR.'templates/cart.php'; if(file_exists($custom)) return $custom; return $template;
+   // Always return original template (page.php) - Woodmart structure ensures footer after main content
+   return $template;
  }
  return $template;
 },PHP_INT_MAX);

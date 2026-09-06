@@ -492,3 +492,49 @@ body.woocommerce-cart .wd-empty-cart,
 body.woocommerce-cart .woocommerce-notices-wrapper {
   display:none!important;
 }
+
+/* v3.10.329 - FOOTER BOTTOM FIX - return original template */
+body.woocommerce-cart .main-page-wrapper,
+body.woocommerce-cart #main-content,
+body.woocommerce-cart .site-content,
+body.woocommerce-cart .container {
+  display:block!important;
+  width:100%!important;
+}
+body.woocommerce-cart #alookhor-cart {
+  display:block!important;
+  width:100%!important;
+  clear:both!important;
+  position:relative!important;
+  z-index:2!important;
+  margin-bottom:50px!important;
+}
+body.woocommerce-cart footer,
+body.woocommerce-cart .whb-footer,
+body.woocommerce-cart .wd-footer,
+body.woocommerce-cart .site-footer,
+body.woocommerce-cart .footer-container,
+body.woocommerce-cart .main-footer {
+  display:block!important;
+  position:relative!important;
+  clear:both!important;
+  width:100%!important;
+  margin-top:0!important;
+  top:auto!important;
+  bottom:auto!important;
+  z-index:1!important;
+  order:10!important;
+}
+/* Ensure old white cart hidden when using original template */
+body.woocommerce-cart .woocommerce-cart-form,
+body.woocommerce-cart .cart-collaterals,
+body.woocommerce-cart .shop_table.cart,
+body.woocommerce-cart .wd-cart,
+body.woocommerce-cart .woocommerce-notices-wrapper {
+  display:none!important;
+}
+body.woocommerce-cart #alookhor-cart {
+  display:block!important;
+  visibility:visible!important;
+  opacity:1!important;
+}
