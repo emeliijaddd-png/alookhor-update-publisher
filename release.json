@@ -1,16 +1,16 @@
 {
-  "version": "3.10.307",
-  "previous": "3.10.306",
+  "version": "3.10.308",
+  "previous": "3.10.307",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "فیکس قطعی سبد قدیمی - override کامل cart.php",
+  "description": "فیکس سبد قدیمی + حذف سامسونگ",
   "changelog": [
     {
       "tag": "FIX",
-      "title": "حذف سبد قدیمی",
-      "desc": "override cart/cart.php + cart-empty به luxury - فقط سبد دارک حرفه‌ای"
+      "title": "حذف سبد قدیمی و سامسونگ",
+      "desc": "override cart/cart.php به luxury + فیلتر سامسونگ"
     }
   ],
   "project": "ALOOKHOR",

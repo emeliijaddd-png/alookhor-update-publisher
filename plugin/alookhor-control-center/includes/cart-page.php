@@ -1,5 +1,5 @@
 <?php
-/** ALOOKHOR CART — v3.10.307: luxury cart exact per 101216 — fixed hero + no duplicate */
+/** ALOOKHOR CART — v3.10.308: luxury cart exact per 101216 — fixed hero + no duplicate */
 if(!defined('ABSPATH'))exit;
 
 if(!function_exists('alookhor_cc_cart_icon')){
@@ -256,3 +256,8 @@ add_filter('woocommerce_locate_template',function($template,$template_name,$temp
  }
  return $template;
 },PHP_INT_MAX,3);
+// Filter Samsung out of cart display
+add_filter('woocommerce_cart_item_name',function($name,$cart_item,$cart_item_key){
+ if(mb_strpos($name,'سامسونگ')!==false||mb_strpos($name,'گوشی')!==false) return '';
+ return $name;
+},10,3);
