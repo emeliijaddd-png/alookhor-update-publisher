@@ -15,8 +15,8 @@
     --bb-pill-text:   #DCD3EA;
     --bb-gold:        #E8B84A;
     --bb-gold-deep:   #D49A2E;
-    --bb-cta-1:       #F5C356;
-    --bb-cta-2:       #DC9216;
+    --bb-cta-1:       #F7C85E;
+    --bb-cta-2:       #E09A1A;
     --bb-cta-text:    #2B1804;
     --bb-sale-1:      #F75AA1;
     --bb-sale-2:      #E2337E;
@@ -53,8 +53,8 @@
 .alk-bb-price-card{
     background: linear-gradient(180deg, var(--bb-card-1), var(--bb-card-2));
     border: 1px solid var(--bb-border);
-    border-radius: 18px;
-    padding: 16px 20px 18px;
+    border-radius: 14px;
+    padding: 20px 22px 22px;
     margin-bottom: 16px;
     box-shadow: 0 14px 34px rgba(0,0,0,.30), inset 0 0 22px rgba(212,154,46,.03);
 }
@@ -81,8 +81,15 @@
 .alk-bb-sale-badge[hidden]{ display: none; }
 
 .alk-bb-price-body{
-    text-align: center;
-    padding-top: 10px;
+    display: flex;
+    justify-content: center;
+    padding-top: 12px;
+}
+/* استک قیمت: کل مجموعه وسط، اما قیمت قدیمی هم‌تراز با لبه راست قیمت جدید (مطابق مرجع) */
+.alk-bb-price-stack{
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start; /* RTL ⇒ چسبیده به راست */
 }
 .alk-bb-price-now{ line-height: 1.25; }
 .alk-bb-price-range{
@@ -97,7 +104,7 @@
 .alk-bb-price-range ins{ text-decoration: none; display: block; }
 
 .alk-bb-amount--now .alk-bb-amount__num{
-    font-size: 32px;
+    font-size: 34px;
     font-weight: 900;
     color: var(--bb-gold);
     letter-spacing: -.01em;
@@ -108,7 +115,7 @@
     font-weight: 700;
     color: var(--bb-gold);
 }
-.alk-bb-price-old{ margin-top: 2px; }
+.alk-bb-price-old{ margin-top: 6px; }
 .alk-bb-price-old[hidden]{ display: none; }
 .alk-bb-price-old del{
     color: #9A829B;
@@ -153,8 +160,8 @@
 .alk-bb-pill.is-active{
     border: 1.5px solid var(--bb-gold);
     color: var(--bb-gold);
-    background: color-mix(in srgb, var(--bb-gold) 9%, var(--bb-pill-bg));
-    box-shadow: 0 8px 22px rgba(212,154,46,.16), inset 0 0 14px rgba(232,184,74,.06);
+    background: color-mix(in srgb, var(--bb-gold) 20%, var(--bb-pill-bg));
+    box-shadow: 0 10px 26px rgba(212,154,46,.24), inset 0 0 18px rgba(232,184,74,.10);
 }
 .alk-bb-pill:disabled{
     opacity: .38;
@@ -278,7 +285,7 @@
     padding: 0 22px;
     border: none !important;
     border-radius: var(--bb-radius) !important;
-    background: linear-gradient(135deg, var(--bb-cta-1) 0%, var(--bb-cta-2) 58%, #C97F0E 100%) !important;
+    background: linear-gradient(135deg, var(--bb-cta-1) 0%, var(--bb-cta-2) 62%, #D18A10 100%) !important;
     color: var(--bb-cta-text) !important;
     font-size: 16.5px !important;
     font-weight: 900 !important;

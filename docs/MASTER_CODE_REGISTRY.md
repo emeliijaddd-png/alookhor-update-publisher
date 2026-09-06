@@ -224,7 +224,7 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 | `.github/workflows/publish.yml` | 535 | `ea2a747b9787cb39313702fd50fd8940891a2ed64de3acac6c4e5d69912dec3d` |
 | `ops/wordpress-ci-bootstrap.php` | 215 | `409c23f2be99c6651b0e75dc877c91c884534e6b16f9985c177cf65d14fd4c95` |
 | `plugin/alookhor-control-center/alookhor-control-center.php` | 356 | `06f595d7f605ed3dc2102d67423610ca14ce14aa135bb7f1189a02081d34cd4e` |
-| `plugin/alookhor-control-center/assets/css/frontend-buybox.css` | 439 | `d57a2305a653f962fc6e6e53d9f839d2398c9af6e08becc1651299e9bbaebdf3` |
+| `plugin/alookhor-control-center/assets/css/frontend-buybox.css` | 446 | `257f11912982f972c176309552c2ca763a425c67e71cc3cac642487776ca2884` |
 | `plugin/alookhor-control-center/assets/css/frontend-categories.css` | 9 | `b811fb4f96023711a593cd593eb9ae3846ebfd9c912c57e3e623d0965f7d494a` |
 | `plugin/alookhor-control-center/assets/css/frontend-features.css` | 29 | `8431fcf85b5903bbe2335aa017e8a0a79d0038a7ce055189fa8ebe41e49b89ed` |
 | `plugin/alookhor-control-center/assets/css/frontend-footer.css` | 26 | `f0dd733870b626c5581fc84ad2d5311bcf37374ab351cfc74ade1808ae5b1089` |
@@ -258,7 +258,7 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 | `plugin/alookhor-control-center/includes/product-categories.php` | 88 | `64d42189315d77e8bda401a945e37d18d16bcf2346159f8cabe0022920dba2cb` |
 | `plugin/alookhor-control-center/includes/rest-api.php` | 334 | `771be7cb71efdcb57ae5c2459bcb10dffb7c88f6fc53428af371c5d9e81734e4` |
 | `plugin/alookhor-control-center/includes/shortcode-header.php` | 361 | `08ead590352d5d9539d2075ca4d06a6aa5f0f34adce45a1e4f80a2bd50567fce` |
-| `plugin/alookhor-control-center/includes/single-product-buybox.php` | 321 | `533d1f4bfcee74eac1e0617750f589ce728f44d4729a72220be58ae4b7e6d6da` |
+| `plugin/alookhor-control-center/includes/single-product-buybox.php` | 323 | `5da35239c6783c50286767ec36404f313b5e2aba62edaceb6b6a6258c85cf22d` |
 | `plugin/alookhor-control-center/includes/site-features.php` | 133 | `8c0f550195121550d1085b5415fd63291fcf1e8d17bfaf0bca491e2df7468c72` |
 | `plugin/alookhor-control-center/includes/updater.php` | 385 | `15521824f3c64db2b516150ffd05773799c6a3a0cfb9f6f55c1ed68974cbd5e6` |
 | `plugin/alookhor-control-center/templates/admin-control-center.php` | 388 | `8a4b583477c7172e9f35b19216e0bf1b42caa529f7b09040e2595ea4d2e2f6e0` |
@@ -1414,8 +1414,8 @@ add_action('init','alookhor_cc_migrate_header_reference_31019',122);
     --bb-pill-text:   #DCD3EA;
     --bb-gold:        #E8B84A;
     --bb-gold-deep:   #D49A2E;
-    --bb-cta-1:       #F5C356;
-    --bb-cta-2:       #DC9216;
+    --bb-cta-1:       #F7C85E;
+    --bb-cta-2:       #E09A1A;
     --bb-cta-text:    #2B1804;
     --bb-sale-1:      #F75AA1;
     --bb-sale-2:      #E2337E;
@@ -1452,8 +1452,8 @@ add_action('init','alookhor_cc_migrate_header_reference_31019',122);
 .alk-bb-price-card{
     background: linear-gradient(180deg, var(--bb-card-1), var(--bb-card-2));
     border: 1px solid var(--bb-border);
-    border-radius: 18px;
-    padding: 16px 20px 18px;
+    border-radius: 14px;
+    padding: 20px 22px 22px;
     margin-bottom: 16px;
     box-shadow: 0 14px 34px rgba(0,0,0,.30), inset 0 0 22px rgba(212,154,46,.03);
 }
@@ -1480,8 +1480,15 @@ add_action('init','alookhor_cc_migrate_header_reference_31019',122);
 .alk-bb-sale-badge[hidden]{ display: none; }
 
 .alk-bb-price-body{
-    text-align: center;
-    padding-top: 10px;
+    display: flex;
+    justify-content: center;
+    padding-top: 12px;
+}
+/* استک قیمت: کل مجموعه وسط، اما قیمت قدیمی هم‌تراز با لبه راست قیمت جدید (مطابق مرجع) */
+.alk-bb-price-stack{
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start; /* RTL ⇒ چسبیده به راست */
 }
 .alk-bb-price-now{ line-height: 1.25; }
 .alk-bb-price-range{
@@ -1496,7 +1503,7 @@ add_action('init','alookhor_cc_migrate_header_reference_31019',122);
 .alk-bb-price-range ins{ text-decoration: none; display: block; }
 
 .alk-bb-amount--now .alk-bb-amount__num{
-    font-size: 32px;
+    font-size: 34px;
     font-weight: 900;
     color: var(--bb-gold);
     letter-spacing: -.01em;
@@ -1507,7 +1514,7 @@ add_action('init','alookhor_cc_migrate_header_reference_31019',122);
     font-weight: 700;
     color: var(--bb-gold);
 }
-.alk-bb-price-old{ margin-top: 2px; }
+.alk-bb-price-old{ margin-top: 6px; }
 .alk-bb-price-old[hidden]{ display: none; }
 .alk-bb-price-old del{
     color: #9A829B;
@@ -1552,8 +1559,8 @@ add_action('init','alookhor_cc_migrate_header_reference_31019',122);
 .alk-bb-pill.is-active{
     border: 1.5px solid var(--bb-gold);
     color: var(--bb-gold);
-    background: color-mix(in srgb, var(--bb-gold) 9%, var(--bb-pill-bg));
-    box-shadow: 0 8px 22px rgba(212,154,46,.16), inset 0 0 14px rgba(232,184,74,.06);
+    background: color-mix(in srgb, var(--bb-gold) 20%, var(--bb-pill-bg));
+    box-shadow: 0 10px 26px rgba(212,154,46,.24), inset 0 0 18px rgba(232,184,74,.10);
 }
 .alk-bb-pill:disabled{
     opacity: .38;
@@ -1677,7 +1684,7 @@ add_action('init','alookhor_cc_migrate_header_reference_31019',122);
     padding: 0 22px;
     border: none !important;
     border-radius: var(--bb-radius) !important;
-    background: linear-gradient(135deg, var(--bb-cta-1) 0%, var(--bb-cta-2) 58%, #C97F0E 100%) !important;
+    background: linear-gradient(135deg, var(--bb-cta-1) 0%, var(--bb-cta-2) 62%, #D18A10 100%) !important;
     color: var(--bb-cta-text) !important;
     font-size: 16.5px !important;
     font-weight: 900 !important;
@@ -8549,18 +8556,20 @@ function alookhor_cc_buybox_render($return = false){
                 <span class="alk-bb-sale-badge" <?php echo $percent ? '' : 'hidden'; ?>><?php echo esc_html(alookhor_cc_buybox_badge_text($settings['sale_badge'], $percent)); ?></span>
             </div>
             <div class="alk-bb-price-body">
-                <div class="alk-bb-price-now">
-                    <?php
-                    if ($has_range){
-                        // تا انتخاب وزن: بازه قیمت بومی — با انتخاب معتبر توسط JS به قیمت دقیق تبدیل می‌شود
-                        echo '<span class="alk-bb-price-range">' . wp_kses_post($product->get_price_html()) . '</span>';
-                    } else {
-                        echo alookhor_cc_buybox_price_html($current, 'now'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-                    }
-                    ?>
-                </div>
-                <div class="alk-bb-price-old" <?php echo (!$has_range && $percent) ? '' : 'hidden'; ?>>
-                    <del><?php echo alookhor_cc_buybox_price_html($regular, 'old'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></del>
+                <div class="alk-bb-price-stack">
+                    <div class="alk-bb-price-now">
+                        <?php
+                        if ($has_range){
+                            // تا انتخاب وزن: بازه قیمت بومی — با انتخاب معتبر توسط JS به قیمت دقیق تبدیل می‌شود
+                            echo '<span class="alk-bb-price-range">' . wp_kses_post($product->get_price_html()) . '</span>';
+                        } else {
+                            echo alookhor_cc_buybox_price_html($current, 'now'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                        }
+                        ?>
+                    </div>
+                    <div class="alk-bb-price-old" <?php echo (!$has_range && $percent) ? '' : 'hidden'; ?>>
+                        <del><?php echo alookhor_cc_buybox_price_html($regular, 'old'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></del>
+                    </div>
                 </div>
             </div>
         </div>
@@ -8609,15 +8618,15 @@ function alookhor_cc_buybox_render($return = false){
             ?>
         </div>
 
-        <!-- ۵) ردیف وضعیت -->
+        <!-- ۵) ردیف وضعیت: مطابق مرجع — ارسال راست، موجودی چپ با نقطه سبز در انتهای متن -->
         <div class="alk-bb-status">
-            <span class="alk-bb-stock alk-bb-stock--<?php echo esc_attr($stock_class); ?>">
-                <i class="alk-bb-stock__dot" aria-hidden="true"></i>
-                <span class="alk-bb-stock__text"><?php echo esc_html($stock_text); ?></span>
-            </span>
             <?php if (!empty($settings['shipping_note'])): ?>
                 <span class="alk-bb-ship"><?php echo esc_html($settings['shipping_note']); ?></span>
             <?php endif; ?>
+            <span class="alk-bb-stock alk-bb-stock--<?php echo esc_attr($stock_class); ?>">
+                <span class="alk-bb-stock__text"><?php echo esc_html($stock_text); ?></span>
+                <i class="alk-bb-stock__dot" aria-hidden="true"></i>
+            </span>
         </div>
     </div>
     <?php

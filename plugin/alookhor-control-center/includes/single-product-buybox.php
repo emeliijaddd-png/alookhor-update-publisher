@@ -163,18 +163,20 @@ function alookhor_cc_buybox_render($return = false){
                 <span class="alk-bb-sale-badge" <?php echo $percent ? '' : 'hidden'; ?>><?php echo esc_html(alookhor_cc_buybox_badge_text($settings['sale_badge'], $percent)); ?></span>
             </div>
             <div class="alk-bb-price-body">
-                <div class="alk-bb-price-now">
-                    <?php
-                    if ($has_range){
-                        // تا انتخاب وزن: بازه قیمت بومی — با انتخاب معتبر توسط JS به قیمت دقیق تبدیل می‌شود
-                        echo '<span class="alk-bb-price-range">' . wp_kses_post($product->get_price_html()) . '</span>';
-                    } else {
-                        echo alookhor_cc_buybox_price_html($current, 'now'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-                    }
-                    ?>
-                </div>
-                <div class="alk-bb-price-old" <?php echo (!$has_range && $percent) ? '' : 'hidden'; ?>>
-                    <del><?php echo alookhor_cc_buybox_price_html($regular, 'old'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></del>
+                <div class="alk-bb-price-stack">
+                    <div class="alk-bb-price-now">
+                        <?php
+                        if ($has_range){
+                            // تا انتخاب وزن: بازه قیمت بومی — با انتخاب معتبر توسط JS به قیمت دقیق تبدیل می‌شود
+                            echo '<span class="alk-bb-price-range">' . wp_kses_post($product->get_price_html()) . '</span>';
+                        } else {
+                            echo alookhor_cc_buybox_price_html($current, 'now'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                        }
+                        ?>
+                    </div>
+                    <div class="alk-bb-price-old" <?php echo (!$has_range && $percent) ? '' : 'hidden'; ?>>
+                        <del><?php echo alookhor_cc_buybox_price_html($regular, 'old'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></del>
+                    </div>
                 </div>
             </div>
         </div>
@@ -223,15 +225,15 @@ function alookhor_cc_buybox_render($return = false){
             ?>
         </div>
 
-        <!-- ۵) ردیف وضعیت -->
+        <!-- ۵) ردیف وضعیت: مطابق مرجع — ارسال راست، موجودی چپ با نقطه سبز در انتهای متن -->
         <div class="alk-bb-status">
-            <span class="alk-bb-stock alk-bb-stock--<?php echo esc_attr($stock_class); ?>">
-                <i class="alk-bb-stock__dot" aria-hidden="true"></i>
-                <span class="alk-bb-stock__text"><?php echo esc_html($stock_text); ?></span>
-            </span>
             <?php if (!empty($settings['shipping_note'])): ?>
                 <span class="alk-bb-ship"><?php echo esc_html($settings['shipping_note']); ?></span>
             <?php endif; ?>
+            <span class="alk-bb-stock alk-bb-stock--<?php echo esc_attr($stock_class); ?>">
+                <span class="alk-bb-stock__text"><?php echo esc_html($stock_text); ?></span>
+                <i class="alk-bb-stock__dot" aria-hidden="true"></i>
+            </span>
         </div>
     </div>
     <?php
