@@ -1,31 +1,26 @@
 {
-  "version": "3.10.317",
-  "previous": "3.10.316",
+  "version": "3.10.319",
+  "previous": "3.10.318",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "فیکس سبد طبق موکاپ دقیق - اعمال طلایی، آیکون ارسال، رنگ‌های زنده، کاردبندی و نورپردازی",
+  "description": "فیکس سبد طبق موکاپ دقیق - اعمال طلایی، آیکون ارسال، رنگ زنده، کارد و نورپردازی + موبایل اسلایدی",
   "changelog": [
     {
       "tag": "FIX",
-      "title": "دکمه اعمال طلایی",
-      "desc": "اعمال الان gradient gold با shadow"
-    },
-    {
-      "tag": "FIX",
-      "title": "آیکون ارسال به سراسر کشور",
-      "desc": "icon 44px با gradient gold و shadow - دیگه غیب نیست"
+      "title": "اعمال طلایی + آیکون ارسال",
+      "desc": "دکمه اعمال gradient gold، آیکون ارسال 44px gradient gold"
     },
     {
       "tag": "UI",
-      "title": "رنگ‌های زنده طبق موکاپ",
-      "desc": "background radial با glow بنفش و طلایی، کاردها gradient با border 14% و shadow و inner glow"
+      "title": "رنگ زنده و کاردبندی طبق موکاپ",
+      "desc": "background radial با glow، کاردها gradient vivid با border و shadow"
     },
     {
-      "tag": "UI",
-      "title": "کاردبندی و نورپردازی دقیق",
-      "desc": "تمام کاردها border و shadow و hover طبق نمونه موکاپ"
+      "tag": "MOBILE",
+      "title": "اسلایدر موبایل حفظ",
+      "desc": "از 3.10.318 - محصولات پیشنهادی و گزیده اسلایدی روی موبایل"
     }
   ],
   "project": "ALOOKHOR",
