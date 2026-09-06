@@ -1,8 +1,8 @@
 {
   "site": {
-    "name": "ALOOKHOR",
-    "subtitle": "Control Center • Luxury",
-    "logoLetter": "A",
+    "name": "آلوخور",
+    "subtitle": "پایتخت تولید آلو خشک ایران",
+    "logoLetter": "آ",
     "description": "بوتیک تخصصی آلو بخارا — سورت، بسته‌بندی و صادرات",
     "headerSticky": true,
     "goldAccent": "#D49A2E"
@@ -29,10 +29,10 @@
       "order": 4
     },
     "export": {
-      "enabled": false,
-      "title": "محصولات ممبر صادراتی",
+      "enabled": true,
+      "title": "بنر صادراتی آلوخور",
       "order": 5,
-      "note": "فقط برای ممبرها"
+      "note": "شورت‌کد مدیریت‌شده صادرات"
     },
     "sort": {
       "enabled": true,
@@ -52,10 +52,20 @@
       ]
     },
     "app": {
-      "enabled": false,
+      "enabled": true,
       "title": "دانلود اپلیکیشن آلوخور",
       "order": 8,
-      "link": "https://alookhor.ir/app"
+      "description": "خرید آسان، استعلام سریع قیمت عمده و دسترسی به تخفیف‌های ویژه صادرکنندگان خشکبار",
+      "bazaar_url": "https://cafebazaar.ir/",
+      "myket_url": "https://myket.ir/",
+      "ios_url": "",
+      "more_url": "",
+      "background": "#100A1B",
+      "surface": "#181022",
+      "gold": "#F2A900",
+      "text": "#FFFFFF",
+      "muted": "#B8B0BD",
+      "radius": 24
     },
     "hero": {
       "enabled": true,
@@ -64,10 +74,40 @@
       "slides": 4,
       "autoplay": true
     },
+    "campaign": {
+      "enabled": true,
+      "title": "اسلایدر کمپین‌ها",
+      "order": 11
+    },
+    "bestsellers": {
+      "enabled": true,
+      "title": "پرفروش‌ترین محصولات",
+      "order": 12
+    },
+    "newsletter": {
+      "enabled": true,
+      "title": "خبرنامه حرفه‌ای",
+      "order": 13
+    },
+    "magazine": {
+      "enabled": true,
+      "title": "مجله آلوخور",
+      "order": 14
+    },
+    "why_alookhor": {
+      "enabled": true,
+      "title": "چرا آلوخور؟",
+      "order": 15
+    },
+    "standards": {
+      "enabled": true,
+      "title": "استانداردهای بین‌المللی",
+      "order": 16
+    },
     "auto": {
       "enabled": true,
       "title": "بروزرسانی خودکار افزونه",
-      "order": 11,
+      "order": 17,
       "schedule": "03:00"
     },
     "site_features": {
@@ -122,8 +162,8 @@
     ]
   },
   "header_settings": {
-    "logo_text": "ALOOKHOR",
-    "logo_sub": "Control Center • Luxury",
+    "logo_text": "آلوخور",
+    "logo_sub": "پایتخت تولید آلو خشک ایران",
     "sticky": true,
     "header_surface": "#0D0510",
     "header_text_color": "#F5F3F0",
@@ -145,11 +185,14 @@
     "topbar_text_color": "#F5F3F0",
     "topbar_border_color": "#D49A2E",
     "topbar_button_bg": "#D49A2E",
-    "topbar_button_text": "#0D0510"
+    "topbar_button_text": "#0D0510",
+    "phone": "09159513173",
+    "export_text": "ارسال رایگان به بیش از ۱۵ کشور جهان",
+    "support_text": "پشتیبانی ۲۴/۷"
   },
-  "updated_at": "2026-08-10T16:20:00Z",
-  "updated_by": "AI Assistant — recovered from previous chat",
-  "version": "3.10.19",
+  "updated_at": "2026-09-05T12:00:00Z",
+  "updated_by": "AI Assistant — v3.10.310 fix weight price chips + about apricot",
+  "version": "3.10.310",
   "hero_settings": {
     "enabled": true,
     "hide_legacy": true,
