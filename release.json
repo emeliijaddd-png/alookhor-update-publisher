@@ -1,21 +1,16 @@
 {
-  "version": "3.10.313",
-  "previous": "3.10.312",
+  "version": "3.10.314",
+  "previous": "3.10.313",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "فیکس سبد قدیمی + ترکیب با 3.10.312 buy-box نهایی",
+  "description": "فیکس سبد قدیمی بالای صفحه - hide Woodmart white cart",
   "changelog": [
     {
       "tag": "FIX",
-      "title": "سبد قدیمی حذف",
-      "desc": "template_include + wc_get_template override به سبد لوکس - فقط دارک حرفه‌ای"
-    },
-    {
-      "tag": "LOCK",
-      "title": "buy-box 3.10.312 حفظ",
-      "desc": "از 3.10.312 - دسکتاپ قفل، موبایل دقیق"
+      "title": "حذف سبد قدیمی بالای صفحه",
+      "desc": "اضافه کردن JS که اگر سبد سفید قدیمی Woodmart با جمع جزء و تکمیل خرید دیده شد، مخفی می‌کند - فقط سبد لوکس دارک می‌ماند"
     }
   ],
   "project": "ALOOKHOR",

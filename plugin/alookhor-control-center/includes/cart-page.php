@@ -262,3 +262,8 @@ add_filter('woocommerce_cart_item_name',function($name,$cart_item,$cart_item_key
  if(mb_strpos($name,'سامسونگ')!==false||mb_strpos($name,'گوشی')!==false) return '';
  return $name;
 },10,3);
+// Extra JS to hide old Woodmart white cart if it appears above
+add_action('wp_footer',function(){
+ if(!function_exists('is_cart')||!is_cart())return;
+ echo '<script>document.addEventListener("DOMContentLoaded",function(){var lux=document.getElementById("alookhor-cart");if(!lux)return;document.querySelectorAll(".woocommerce-cart-form, .cart-collaterals, .woocommerce-notices-wrapper, .wd-empty-cart, .wd-cart, .shop_table, .woocommerce-cart .woocommerce").forEach(function(el){if(!lux.contains(el)&&!el.contains(lux)){var txt=el.textContent||"";if(txt.indexOf("جمع جزء")>-1||txt.indexOf("تکمیل خرید")>-1||txt.indexOf("دیگران خریده")>-1){el.style.display="none";}}});});</script>';
+},100);
