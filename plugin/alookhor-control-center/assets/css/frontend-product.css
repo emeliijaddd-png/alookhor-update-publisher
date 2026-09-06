@@ -3023,11 +3023,7 @@ html{overflow-x:hidden !important}
   color:#f7b32b!important;
 }
 
-/* v3.10.301 — FIX mangled RTL price: Persian digits + U+066C separator inside RTL context
-   get reordered ("٬۳۰۰٬۱۳۰۰"). Isolate number with bidi isolation; old price above new price,
-   stacked and right-aligned inside price-box per owner reference. */
-#alookhor-pdp .price-box .mt-3flex,
-#alookhor-pdp .price-box .flex.flex-col.items-center.justify-center{direction:ltr!important}
+/* v3.10.308 — bidi-safe prices (Persian digits + U+066C), qty row above CTA, bigger icons */
 #alookhor-pdp .alp-price-now,
 #alookhor-pdp .price-box .line-through{
   direction:ltr!important;
@@ -3037,8 +3033,6 @@ html{overflow-x:hidden !important}
   gap:5px!important;
 }
 #alookhor-pdp .alpm-cur{direction:rtl!important;unicode-bidi:plaintext!important;font-weight:700!important}
-
-/* v3.10.304 — quantity row moves ABOVE the CTA row; «تعداد:» label pinned right, stepper pinned left */
 #alookhor-pdp .purchase-actions > div.flex .quantity-row{
   order:-1!important;
   width:100%!important;
@@ -3047,8 +3041,6 @@ html{overflow-x:hidden !important}
 }
 #alookhor-pdp .purchase-actions > div.flex .quantity-row .quantity-label{order:0!important;flex:0 0 auto!important;margin-inline-end:0!important}
 #alookhor-pdp .purchase-actions > div.flex .quantity-row .quantity-control{order:1!important;flex:0 0 auto!important}
-
-/* v3.10.305 — owner tweaks: bigger icon squares, slightly wider CTA */
 #alookhor-pdp .purchase-actions .share-btn,
 #alookhor-pdp .purchase-actions .compare-btn,
 #alookhor-pdp .purchase-actions .wishlist-btn{
@@ -3056,7 +3048,5 @@ html{overflow-x:hidden !important}
 }
 #alookhor-pdp .purchase-actions .share-btn svg,
 #alookhor-pdp .purchase-actions .compare-btn svg,
-#alookhor-pdp .purchase-actions .wishlist-btn svg{
-  width:20px!important;height:20px!important;
-}
+#alookhor-pdp .purchase-actions .wishlist-btn svg{width:20px!important;height:20px!important}
 #alookhor-pdp .add-button{min-width:230px!important;max-width:250px!important}
