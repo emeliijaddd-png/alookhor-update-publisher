@@ -4,7 +4,7 @@ Tags: control center, luxury, alookhor, admin, dashboard
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 3.10.19
+Stable tag: 3.10.20
 License: Private
 License URI: https://alookhor.ir
 
@@ -18,6 +18,7 @@ License URI: https://alookhor.ir
 *   **جایگاه دسته‌بندی در Elementor:** بخش واقعی WooCommerce را با `[alookhor_managed_categories]` در هر محل دلخواه قرار دهید
 *   **Hero چهاراسلایدی مدیریت‌شده:** تصویر Media Library، نوشته‌ها، ویژگی‌ها و CTAهای مستقل با `[alookhor_managed_hero]` و جایگزینی خودکار Slider قدیمی
 *   **ویژگی‌های چهارکارته سایت:** `[alookhor_managed_features]` با جایگزینی خودکار Trust Bar، چهار کارت یک‌ردیفه و پالت Burgundy/Gold قابل مدیریت
+*   **قاب خرید لوکس صفحه تکی محصول:** کارت قیمت با نشان تخفیف، انتخاب وزن با Pills واقعی متغیرها، استپر تعداد، دکمه طلایی و علاقه‌مندی/مقایسه/اشتراک — خودکار یا با `[alookhor_buybox]`
 *   **فهرست‌های خودکار WordPress:** فهرست اصلی از جایگاه Primary/Header و تمام فهرست‌ها داخل Hamburger حرفه‌ای فراخوانی می‌شوند
 *   **آپدیت آنی (Hot-Swap):** هر تغییری بدون رفرش ذخیره و روی سایت اعمال می‌شود (AJAX + LocalStorage)
 *   **سایدبار PRO فشرده:** ۶ دسته جمع‌شونده، بدون لیست طولانی، با جستجوی زنده
@@ -46,6 +47,12 @@ License URI: https://alookhor.ir
 در `config/site.json` و `wp_options: alookhor_cc_settings` — همان حافظه واقعی که در چت قبلی ویرایش می‌شد.
 
 == Changelog ==
+
+= 3.10.20 =
+* ماژول جدید «قاب خرید لوکس» صفحه تکی محصول مطابق مرجع تصویری مالک: کارت قیمت (لیبل + نشان تخفیف صورتی + قیمت طلایی بزرگ + قیمت قدیمی خط‌خورده)، Pills انتخاب وزن متصل به متغیرهای واقعی WooCommerce، استپر تعداد، دکمه طلایی افزودن به سبد با آیکون سبد، دکمه‌های علاقه‌مندی/مقایسه/اشتراک‌گذاری، و ردیف وضعیت موجودی + متن ارسال
+* Selectهای بومی WooCommerce Visually Hidden می‌مانند تا موتور رسمی wc-add-to-cart-variation، AJAX add-to-cart و قوانین موجودی بدون هیچ تغییری کار کنند؛ قیمت/تخفیف/موجودی با رویداد found_variation به‌صورت زنده و با ارقام فارسی به‌روز می‌شود
+* شورت‌کد `[alookhor_buybox]` برای جایگذاری دستی در قالب Elementor + Takeover خودکار ناحیه قیمت/خرید برای قالب‌های استاندارد WooCommerce؛ رندر دوباره‌بار با guard جلوگیری می‌شود
+* استایل کاملاً Scoped با متغیرهای CSS (پالت Burgundy/Gold برند)، Responsive موبایل‌فرست، رعایت WCAG (Focus، ARIA، prefers-reduced-motion) و سازگاری با استپر داخلی Woodmart
 
 = 3.10.19 =
 * Top Bar شیشه‌ای Burgundy/Gold با ترتیب پشتیبانی، پیام و تلفن مطابق مرجع

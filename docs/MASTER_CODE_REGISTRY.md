@@ -3,26 +3,37 @@
 > این سند از روی فایل‌های واقعی Repository تولید می‌شود. Source اصلی همچنان فایل‌های اجرایی است؛ Snapshotهای کامل زیر برای بازیابی، ممیزی و انتقال دانش نگهداری می‌شوند.
 
 - **Registry version:** `1.0.0`
-- **Plugin/source version:** `3.10.19`
-- **Generated:** `2026-08-14`
+- **Plugin/source version:** `3.10.20`
+- **Generated:** `2026-09-06`
 - **Repository:** `alookhor-update-publisher`
 - **Production:** `https://alookhor.ir`
 - **Update channel:** `https://updates.alookhor.ir/manifest.json`
 - **Authoritative option:** `alookhor_cc_settings`
 - **Header option:** `alookhor_header_settings`
+- **Buy Box option:** `alookhor_cc_buybox_settings`
 
 ## Current Project State
 
-- CURRENT VERSION: `3.10.19`
-- LAST FUNCTIONAL CHANGE: تطبیق Top Bar و منوی اصلی Desktop با مرجع دو‌ردیفه Burgundy/Gold، با حفظ Node واقعی WordPress و Sticky Navigation.
+- CURRENT VERSION: `3.10.20`
+- LAST FUNCTIONAL CHANGE: ماژول «قاب خرید لوکس» صفحه تکی محصول مطابق مرجع تصویری مالک — کارت قیمت با نشان تخفیف، Pills انتخاب وزن متصل به متغیرهای واقعی WooCommerce، استپر تعداد، دکمه طلایی، علاقه‌مندی/مقایسه/اشتراک و ردیف موجودی/ارسال؛ هوک‌ها و اسکریپت بومی WooCommerce دست‌نخورده حفظ شده‌اند.
 - ACTIVE DESIGN: Luxury Black/Gold; actual component colors remain controlled by saved WordPress settings and existing module defaults.
-- ACTIVE SHORTCODES: `[alookhor_portal_header]`, `[alookhor_managed_categories]`, `[alookhor_managed_hero]`, `[alookhor_managed_features]`.
+- ACTIVE SHORTCODES: `[alookhor_portal_header]`, `[alookhor_managed_categories]`, `[alookhor_managed_hero]`, `[alookhor_managed_features]`, `[alookhor_buybox]`.
 - ACTIVE PANELS: Main ALOOKHOR Control Center and Header/Top Bar submenu.
-- ACTIVE COMPONENTS: Header/Top Bar manager, managed four-slide Hero, managed four-card site features, WooCommerce categories, managed footer, private native updater.
+- ACTIVE COMPONENTS: Header/Top Bar manager, managed four-slide Hero, managed four-card site features, WooCommerce categories, managed footer, single-product luxury Buy Box, private native updater.
 - KNOWN EXTERNAL LEGACY: `[alookhor_categories_carousel]` belongs to `alookhor-categories-manager`; its source is not in this repository and is not reconstructed here.
 - KNOWN SOURCE GAP: Elementor template export/internal element IDs and historical Code Snippets source are not present in this repository.
 
 ## Change Record
+
+```text
+PROJECT: ALOOKHOR
+AREA: Single Product — Price & Purchase Panel (Buy Box)
+CURRENT VERSION: 3.10.20
+CHANGE: قاب خرید لوکس جدید مطابق مرجع تصویری: کارت قیمت (نشان تخفیف صورتی + قیمت طلایی + قیمت قدیمی خط‌خورده)، Pills انتخاب وزن واقعی، استپر تعداد، دکمه طلایی با آیکون سبد، علاقه‌مندی/مقایسه/اشتراک، ردیف موجودی/ارسال؛ Takeover خودکار + شورت‌کد [alookhor_buybox]؛ موتور بومی variations حفظ شد.
+REASON: مالک سایت مرجع تصویری دارک لوکس قاب قیمت را ارائه و بازسازی صفر تا صد دقیق آن را درخواست کرد.
+FILES: plugin/alookhor-control-center/includes/single-product-buybox.php; plugin/alookhor-control-center/assets/css/frontend-buybox.css; plugin/alookhor-control-center/assets/js/frontend-buybox.js; plugin/alookhor-control-center/alookhor-control-center.php; plugin/alookhor-control-center/readme.txt; plugin/alookhor-control-center/CHANGELOG.md; plugin/alookhor-control-center/templates/admin-control-center.php
+STATUS: SOURCE READY — deployment requires owner approval (SemVer tag + release.json flow).
+```
 
 ```text
 PROJECT: ALOOKHOR

@@ -1,5 +1,13 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.20 — 2026-09-06 — Luxury Single-Product Buy Box (Reference Match)
+- MODULE: new `includes/single-product-buybox.php` rebuilds the single-product price/purchase panel exactly like the owner's dark luxe reference: bordered price card (label «قیمت محصول :», hot-pink «٪ تخفیف» badge, large gold price + «تومان», muted struck old price), attribute Pills («انتخاب وزن :»), quantity stepper, gradient gold «افزودن به سبد خرید» with cart icon, wishlist/compare/share icon buttons, and the status row («● موجود در انبار» + «ارسال از ۱ روز کاری آینده»).
+- INTEGRITY: native `form.cart` / `form.variations_form` and attribute `<select>`s stay in the DOM visually-hidden, so official `wc-add-to-cart-variation`, stock rules and AJAX add-to-cart keep working untouched; pill clicks drive the native selects, and `found_variation`/`reset_data` repaint price, discount badge and stock in Persian digits.
+- PLACEMENT: automatic takeover of the summary price/ATC area for Simple & Variable products (other types keep native rendering), plus `[alookhor_buybox]` shortcode for manual placement inside Elementor product templates; a render guard prevents duplicate output.
+- UI/UX: all module CSS is scoped under `.alk-bb` with the approved Burgundy/Gold variables (`#0D0510/#1C1024/#D49A2E/#E8B84A` family), mobile-first responsive reduction under 420px, `prefers-reduced-motion` respect, visible focus and ARIA states; theme-injected quantity spinners (e.g. Woodmart) are neutralized inside the cell.
+- ASSETS: `assets/css/frontend-buybox.css` + `assets/js/frontend-buybox.js` enqueue only on `is_product()`; dynamic strings come from the `alookhor_cc_buybox_settings` option (filterable via `alookhor_cc_buybox_settings`).
+- VERIFY: `node --check` passes for the JS module; PHP 8 syntax reviewed (no `php -l` binary in sandbox). Browser acceptance follows after owner preview.
+
 ## v3.10.19 — 2026-08-16 — Two-Row Header Reference Match
 - TOP BAR: Burgundy glass surface, 18px Blur, subtle Gold separators and physical order Support (left), shipping/export message (center), Phone (right).
 - ICON: support dot replaced by a scoped headset SVG while existing Phone/Globe content remains dynamic.
