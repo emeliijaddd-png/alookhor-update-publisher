@@ -355,44 +355,39 @@ add_action('wp_footer',function(){
 document.addEventListener("DOMContentLoaded",function(){
   var lux=document.getElementById("alookhor-cart");
   if(!lux) return;
-  // AGGRESSIVE HIDE: hide ANY old white cart elements unconditionally
   function hideOld(){
-    document.querySelectorAll(".woocommerce-cart-form, .cart-collaterals, .shop_table, .wd-cart, .wd-empty-cart, .wd-cart-content, .woocommerce-notices-wrapper, .cart-empty, .return-to-shop, .cross-sells, .wd-cross-sells").forEach(function(el){
-      if(lux && !lux.contains(el) && !el.contains(lux)){
+    // Hide ALL white Woodmart wrappers
+    document.querySelectorAll(".wd-page-title, .wd-checkout-steps, .wd-checkout-steps-wrapper, .woocommerce-breadcrumb, .wd-breadcrumbs, .page-title, .entry-header, .wd-page-heading, .page-heading, .woocommerce-cart-form, .cart-collaterals, .shop_table, .wd-cart, .wd-empty-cart, .wd-cart-content, .wd-cart-totals, .cart_totals, .woocommerce-cart-form__contents, .cross-sells, .wd-cross-sells, .related, .up-sells, .wd-related, .wd-up-sells, .cart-empty, .return-to-shop, .woocommerce-notices-wrapper, [class*=\"wd-empty\"], .wd-products, .products").forEach(function(el){
+      if(lux && lux.contains(el)) return;
+      if(el.closest("#alookhor-cart")) return;
+      // Keep header/footer
+      if(el.closest("header") || el.closest("footer") || el.closest(".whb-header") || el.closest(".whb-footer") || el.closest(".wd-footer")) return;
+      // Hide if outside luxury
+      var isWhite = el.classList.contains("wd-page-title") || el.classList.contains("wd-checkout-steps") || el.classList.contains("woocommerce-cart-form") || el.classList.contains("cart-collaterals") || el.classList.contains("cross-sells");
+      var hasOldText = (el.textContent||"").indexOf("جمع جزء")>-1 || (el.textContent||"").indexOf("دیگران خریده اند")>-1 || (el.textContent||"").indexOf("ادامه جهت تسویه")>-1;
+      if(isWhite || hasOldText || el.matches(".wd-page-title, .wd-checkout-steps, .page-title, .cart-empty, .return-to-shop")){
         el.style.setProperty("display","none","important");
         el.style.setProperty("visibility","hidden","important");
         el.style.setProperty("height","0","important");
         el.style.setProperty("overflow","hidden","important");
+        el.style.setProperty("margin","0","important");
+        el.style.setProperty("padding","0","important");
       }
     });
-    // Hide any element containing old texts
-    document.querySelectorAll("div, section").forEach(function(el){
-      if(lux && lux.contains(el)) return;
+    // Hide top white bar specifically
+    document.querySelectorAll("body > div, .main-page-wrapper > div, .wd-page-content > div").forEach(function(el){
+      if(lux.contains(el)) return;
       var txt=(el.textContent||"").trim();
-      if(txt.indexOf("جمع جزء")>-1 && txt.indexOf("ریال")>-1 && el.children.length<10){
-        // likely old summary box
-        if(!el.closest("#alookhor-cart")){
-          el.style.setProperty("display","none","important");
-        }
-      }
-      if(txt==="دیگران خریده اند" || txt.indexOf("دیگران خریده اند")>-1){
-        var parent=el.closest(".wd-products, .products, section, div");
-        if(parent && !parent.closest("#alookhor-cart")){
-          // hide the whole cross-sells section if not our suggested
-          if(!parent.querySelector("#alookhor-cart")){
-            // check if this is Woodmart cross-sells (white cards)
-            if(parent.querySelector(".product-grid, .wd-product, .wd-products")){
-              parent.style.setProperty("display","none","important");
-            }
-          }
-        }
+      if(txt==="سبد خرید" && el.offsetHeight<100 && el.offsetWidth>500){
+        el.style.setProperty("display","none","important");
       }
     });
   }
   hideOld();
-  // MutationObserver for AJAX cart updates
   var obs=new MutationObserver(hideOld);
   obs.observe(document.body,{childList:true, subtree:true});
+  setTimeout(hideOld,500);
+  setTimeout(hideOld,1500);
   // FOOTER FIX
   var footers=document.querySelectorAll("footer, .whb-footer, .wd-footer, .site-footer, .footer-container");
   footers.forEach(function(footer){
@@ -400,7 +395,6 @@ document.addEventListener("DOMContentLoaded",function(){
       try{ lux.parentNode.parentNode.insertBefore(footer, lux.parentNode.nextSibling); }catch(e){ document.body.appendChild(footer); }
     }
   });
-  // Ensure luxury visible
   lux.style.setProperty("display","block","important");
   lux.style.setProperty("visibility","visible","important");
   lux.style.setProperty("opacity","1","important");

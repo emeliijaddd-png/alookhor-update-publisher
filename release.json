@@ -1,16 +1,16 @@
 {
-  "version": "3.10.343",
-  "previous": "3.10.342",
+  "version": "3.10.344",
+  "previous": "3.10.343",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "حذف نوار سفید بالای سبد",
+  "description": "حذف کامل تمام سفیدها - فقط لوکس",
   "changelog": [
     {
       "tag": "FIX",
-      "title": "حذف نوار سفید سبد خرید",
-      "desc": "wd-page-title + wd-checkout-steps + breadcrumb سفید بالا حذف - فقط لوکس"
+      "title": "حذف نهایی سفیدها",
+      "desc": "JS تهاجمی + CSS + MutationObserver + setTimeout 500/1500ms - فقط یک سبد لوکس"
     }
   ],
   "project": "ALOOKHOR",
