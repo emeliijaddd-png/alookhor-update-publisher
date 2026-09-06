@@ -84,6 +84,10 @@ function alookhor_cc_cart_data(){
 
 if(!function_exists('alookhor_cc_cart_markup')){
 function alookhor_cc_cart_markup(){
+ static $rendered=false;
+ if($rendered) return ''; // Prevent 3 carts - only one luxury
+ $rendered=true;
+ $GLOBALS['alookhor_cc_cart_rendered']=true;
  $d=alookhor_cc_cart_data(); if(!$d)return '<div class="alookhor-cart-empty">سبد خرید خالی است</div>';
  $fmt=$d['fmt']; $fa_th=$d['fa_th'];
  $img=ALOOKHOR_CC_URL.'assets/images/';
@@ -225,45 +229,58 @@ add_filter('template_include',function($template){
  return $template;
 },PHP_INT_MAX);
 
-// FORCE: Override page content on cart to luxury - prevents Elementor/Gutenberg old white cart
+// FORCE: Override page content on cart to luxury - prevents Elementor/Gutenberg old white cart - only once
 add_filter('the_content',function($content){
  if(function_exists('is_cart')&&is_cart()&&!is_admin()&&in_the_loop()&&is_main_query()){
+   if(!empty($GLOBALS['alookhor_cc_cart_rendered'])) return ''; // already rendered
    if(function_exists('alookhor_cc_cart_markup')){
-     return alookhor_cc_cart_markup();
+     $m=alookhor_cc_cart_markup();
+     if($m) return $m;
    }
  }
  return $content;
 },PHP_INT_MAX);
 
-// FORCE: Override WooCommerce Cart Block (Gutenberg) to luxury
+// FORCE: Override WooCommerce Cart Block (Gutenberg) to luxury - only once
 add_filter('render_block',function($block_content,$block){
  if(function_exists('is_cart')&&is_cart()){
    if(isset($block['blockName'])&&$block['blockName']==='woocommerce/cart'){
+     if(!empty($GLOBALS['alookhor_cc_cart_rendered'])) return '';
      if(function_exists('alookhor_cc_cart_markup')){
-       return alookhor_cc_cart_markup();
+       $m=alookhor_cc_cart_markup();
+       if($m) return $m;
      }
    }
  }
  return $block_content;
 },PHP_INT_MAX,2);
 
-// FORCE: Override Elementor cart widget via elementor/widget/render_content - AGGRESSIVE
+// FORCE: Override Elementor cart widget - only once, prevents 3 carts
 add_filter('elementor/widget/render_content',function($content,$widget){
  if(function_exists('is_cart')&&is_cart()&&!is_admin()){
+   if(!empty($GLOBALS['alookhor_cc_cart_rendered'])){
+     // If already rendered, hide any other cart widgets
+     if(is_object($widget)){
+       $name=$widget->get_name();
+       if(strpos($name,'cart')!==false) return '';
+     }
+     if(strpos($content,'جمع جزء')!==false || strpos($content,'دیگران خریده اند')!==false) return '';
+     return $content;
+   }
    if(is_object($widget)){
      $name=$widget->get_name();
-     // List of all possible cart-related widget names
      $cart_widgets=['woocommerce-cart','cart','wd_cart','wd_woocommerce_cart','wd_cart_table','wd_cart_totals','woocommerce_cart','cart_table','woocommerce-cart-totals','wd_woo_cart'];
      if(in_array($name,$cart_widgets) || strpos($name,'cart')!==false){
        if(function_exists('alookhor_cc_cart_markup')){
-         return alookhor_cc_cart_markup();
+         $m=alookhor_cc_cart_markup();
+         if($m) return $m;
        }
      }
    }
-   // Also check content for old cart markers
    if(strpos($content,'جمع جزء')!==false || strpos($content,'دیگران خریده اند')!==false || strpos($content,'ادامه جهت تسویه حساب')!==false){
      if(function_exists('alookhor_cc_cart_markup')){
-       return alookhor_cc_cart_markup();
+       $m=alookhor_cc_cart_markup();
+       if($m) return $m;
      }
    }
  }
