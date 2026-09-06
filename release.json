@@ -1,16 +1,36 @@
 {
-  "version": "3.10.315",
-  "previous": "3.10.314",
+  "version": "3.10.316",
+  "previous": "3.10.315",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "فیکس سبد قدیمی بالا و دسته‌بندی پایین",
+  "description": "فیکس سبد طبق موکاپ - فوتر، ادامه خرید طلایی انیمیشنی، قیمت پیشنهادی بزرگ وسط چین",
   "changelog": [
     {
       "tag": "FIX",
-      "title": "حذف سبد قدیمی",
-      "desc": "CSS hide old cart + categories"
+      "title": "فوتر بالای صفحه فیکس",
+      "desc": "clear both + position relative برای footer"
+    },
+    {
+      "tag": "UI",
+      "title": "ادامه خرید طلایی سمت چپ انیمیشنی",
+      "desc": "btn-continue gradient gold با انیمیشن pulse و hover translateY"
+    },
+    {
+      "tag": "UI",
+      "title": "قیمت پیشنهادی بزرگ وسط چین",
+      "desc": "price 14px bold centered + add-btn gradient"
+    },
+    {
+      "tag": "UI",
+      "title": "نوار آدرس بزرگتر",
+      "desc": "breadcrumb 13px bold + tagline 14px با background gold"
+    },
+    {
+      "tag": "UI",
+      "title": "ارسال سریع طبق موکاپ",
+      "desc": "features با background و icon gradient gold"
     }
   ],
   "project": "ALOOKHOR",
