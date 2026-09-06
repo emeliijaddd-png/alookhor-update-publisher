@@ -1,16 +1,16 @@
 {
-  "version": "3.10.305",
-  "previous": "3.10.304",
+  "version": "3.10.306",
+  "previous": "3.10.305",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "فیکس قطعی سبد بهم ریخته - hero absolute fix + حذف دوبل",
+  "description": "فیکس قطعی سبد قدیمی - override cart/cart.php + cart-empty.php به سبد لوکس",
   "changelog": [
     {
       "tag": "FIX",
-      "title": "سبد بهم ریخته قطعی",
-      "desc": "hero-bg absolute، حذف template_include دوبل، inline CSS لوکس، cart-empty override"
+      "title": "حذف سبد قدیمی Woodmart",
+      "desc": "override wc_get_template و woocommerce_locate_template برای cart/cart.php و cart-empty.php به cart-partial.php که فقط سبد لوکس را لود می‌کند - دیگه سبد سفید قدیمی دیده نمی‌شود"
     }
   ],
   "project": "ALOOKHOR",

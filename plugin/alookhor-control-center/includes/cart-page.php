@@ -1,5 +1,5 @@
 <?php
-/** ALOOKHOR CART — v3.10.305: luxury cart exact per 101216 — fixed hero + no duplicate */
+/** ALOOKHOR CART — v3.10.306: luxury cart exact per 101216 — fixed hero + no duplicate */
 if(!defined('ABSPATH'))exit;
 
 if(!function_exists('alookhor_cc_cart_icon')){
@@ -236,12 +236,23 @@ add_action('init',function(){
 },20);
 
 // Also override empty cart template to prevent Woodmart categories showing
+// Override BOTH cart and cart-empty to use our luxury markup - prevents old Woodmart cart
 add_filter('wc_get_template',function($template,$template_name,$args,$template_path,$default_path){
- if($template_name==='cart/cart-empty.php'){
-  // Return empty file to prevent default empty cart with categories
-  $custom=ALOOKHOR_CC_DIR.'templates/cart-empty-override.php';
-  if(!file_exists($custom)){ file_put_contents($custom,'<?php // overridden empty'); }
+ if(in_array($template_name,['cart/cart.php','cart/cart-empty.php'])){
+  $custom=ALOOKHOR_CC_DIR.'templates/cart-partial.php';
+  if(!file_exists($custom)){
+   file_put_contents($custom,'<?php if(!defined("ABSPATH"))exit; echo function_exists("alookhor_cc_cart_markup")?alookhor_cc_cart_markup():""; ?>');
+  }
   return $custom;
  }
  return $template;
 },PHP_INT_MAX,5);
+
+// Also override woocommerce_locate_template for extra safety
+add_filter('woocommerce_locate_template',function($template,$template_name,$template_path){
+ if(in_array($template_name,['cart/cart.php','cart/cart-empty.php'])){
+  $custom=ALOOKHOR_CC_DIR.'templates/cart-partial.php';
+  if(file_exists($custom)) return $custom;
+ }
+ return $template;
+},PHP_INT_MAX,3);
