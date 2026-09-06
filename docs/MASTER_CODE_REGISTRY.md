@@ -224,7 +224,7 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 | `.github/workflows/publish.yml` | 535 | `ea2a747b9787cb39313702fd50fd8940891a2ed64de3acac6c4e5d69912dec3d` |
 | `ops/wordpress-ci-bootstrap.php` | 215 | `409c23f2be99c6651b0e75dc877c91c884534e6b16f9985c177cf65d14fd4c95` |
 | `plugin/alookhor-control-center/alookhor-control-center.php` | 356 | `06f595d7f605ed3dc2102d67423610ca14ce14aa135bb7f1189a02081d34cd4e` |
-| `plugin/alookhor-control-center/assets/css/frontend-buybox.css` | 446 | `257f11912982f972c176309552c2ca763a425c67e71cc3cac642487776ca2884` |
+| `plugin/alookhor-control-center/assets/css/frontend-buybox.css` | 462 | `97a146c93c36c379eee1c9825ba4221bf489cfbb1841613bca58d59aac65cfb8` |
 | `plugin/alookhor-control-center/assets/css/frontend-categories.css` | 9 | `b811fb4f96023711a593cd593eb9ae3846ebfd9c912c57e3e623d0965f7d494a` |
 | `plugin/alookhor-control-center/assets/css/frontend-features.css` | 29 | `8431fcf85b5903bbe2335aa017e8a0a79d0038a7ce055189fa8ebe41e49b89ed` |
 | `plugin/alookhor-control-center/assets/css/frontend-footer.css` | 26 | `f0dd733870b626c5581fc84ad2d5311bcf37374ab351cfc74ade1808ae5b1089` |
@@ -258,7 +258,7 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 | `plugin/alookhor-control-center/includes/product-categories.php` | 88 | `64d42189315d77e8bda401a945e37d18d16bcf2346159f8cabe0022920dba2cb` |
 | `plugin/alookhor-control-center/includes/rest-api.php` | 334 | `771be7cb71efdcb57ae5c2459bcb10dffb7c88f6fc53428af371c5d9e81734e4` |
 | `plugin/alookhor-control-center/includes/shortcode-header.php` | 361 | `08ead590352d5d9539d2075ca4d06a6aa5f0f34adce45a1e4f80a2bd50567fce` |
-| `plugin/alookhor-control-center/includes/single-product-buybox.php` | 323 | `5da35239c6783c50286767ec36404f313b5e2aba62edaceb6b6a6258c85cf22d` |
+| `plugin/alookhor-control-center/includes/single-product-buybox.php` | 325 | `e6b891c1be838d9a40f1852c9200f5b39a17f2ab325299cb71f4b58b99f2e0ca` |
 | `plugin/alookhor-control-center/includes/site-features.php` | 133 | `8c0f550195121550d1085b5415fd63291fcf1e8d17bfaf0bca491e2df7468c72` |
 | `plugin/alookhor-control-center/includes/updater.php` | 385 | `15521824f3c64db2b516150ffd05773799c6a3a0cfb9f6f55c1ed68974cbd5e6` |
 | `plugin/alookhor-control-center/templates/admin-control-center.php` | 388 | `8a4b583477c7172e9f35b19216e0bf1b42caa529f7b09040e2595ea4d2e2f6e0` |
@@ -1603,16 +1603,28 @@ add_action('init','alookhor_cc_migrate_header_reference_31019',122);
     flex-wrap: wrap;
     align-items: center;
     align-content: flex-start;
-    gap: 14px 12px;
+    column-gap: 0;
+    row-gap: 14px;
     margin: 0 !important;
 }
 /* ناحیه استپر/دکمه همیشه دیده شود؛ تا انتخاب وزن، خودِ دکمه توسط WooCommerce غیرفعال می‌ماند */
 .alk-bb .single_variation_wrap{ display: block !important; }
 
+/* ردیف ۱: لیبل «تعداد :» راست + استپر چپ  |  ردیف ۲: دکمه راست + آیکون‌ها چپ (مطابق مرجع) */
 .alk-bb-qty-label{
     order: 0;
-    flex: 0 0 100%;
+    flex: 0 0 auto;
     text-align: right;
+    margin-inline-end: auto;
+}
+.alk-bb-break{
+    order: 4;
+    flex: 0 0 100%;
+    width: 100%;
+    height: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
 }
 
 /* ——— استپر تعداد: چیدمان بصری چپ→راست [−][عدد][+] ——— */
@@ -1622,15 +1634,17 @@ add_action('init','alookhor_cc_migrate_header_reference_31019',122);
     display: flex !important;
     align-items: stretch;
     width: auto;
-    height: 52px;
+    height: 48px;
     background: var(--bb-pill-bg);
     border: 1px solid var(--bb-pill-border);
+    border-left: none !important;
+    border-right: none !important;
     border-radius: 0;
     float: none !important;
 }
 .alk-bb-qbtn{
-    width: 52px;
-    height: 52px;
+    width: 48px;
+    height: 48px;
     padding: 0;
     border: 1px solid var(--bb-pill-border);
     background: var(--bb-pill-bg);
@@ -1644,12 +1658,12 @@ add_action('init','alookhor_cc_migrate_header_reference_31019',122);
     transition: color .2s ease, border-color .2s ease, background .2s ease;
 }
 .alk-bb-qbtn:hover{ color: var(--bb-gold); border-color: var(--bb-gold-deep); }
-.alk-bb-qbtn--plus { order: 1; margin-inline-start: auto; border-radius: 0 12px 12px 0; border-left: none; }
-.alk-bb-qbtn--minus{ order: 3; border-radius: 12px 0 0 12px; border-right: none; }
+.alk-bb-qbtn--plus { order: 1; border-radius: 0 12px 12px 0; }
+.alk-bb-qbtn--minus{ order: 3; border-radius: 12px 0 0 12px; }
 .alk-bb .quantity input.qty,
 .alk-bb .quantity input.input-text{
-    width: 64px;
-    height: 50px;
+    width: 52px;
+    height: 46px;
     border: none !important;
     background: transparent !important;
     color: var(--bb-text) !important;
@@ -1672,10 +1686,11 @@ add_action('init','alookhor_cc_migrate_header_reference_31019',122);
 .alk-bb .quantity > span,
 .alk-bb .quantity > br{ display: none !important; }
 
-/* ——— دکمه طلایی افزودن به سبد خرید ——— */
+/* ——— دکمه طلایی افزودن به سبد خرید — جمع‌وجور، کنار آیکون‌ها ——— */
 .alk-bb .single_add_to_cart_button{
-    order: 20;
-    flex: 1 1 62%;
+    order: 8;
+    flex: 0 1 auto;
+    margin-inline-start: 12px !important;
     min-height: 54px;
     display: inline-flex !important;
     align-items: center;
@@ -1693,8 +1708,9 @@ add_action('init','alookhor_cc_migrate_header_reference_31019',122);
     transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
     white-space: nowrap;
 }
-.alk-bb .single_add_to_cart_button::before{
+.alk-bb .single_add_to_cart_button::after{
     content: "";
+    order: -1;
     width: 21px;
     height: 21px;
     flex: 0 0 21px;
@@ -1740,9 +1756,9 @@ add_action('init','alookhor_cc_migrate_header_reference_31019',122);
     transform: translateY(-2px);
     box-shadow: 0 8px 18px rgba(0,0,0,.3);
 }
-.alk-bb-iconbtn--wishlist{ order: 10; }
-.alk-bb-iconbtn--compare { order: 11; }
-.alk-bb-iconbtn--share   { order: 12; }
+.alk-bb-iconbtn--wishlist{ order: 7; margin-inline-start: 10px; }
+.alk-bb-iconbtn--compare { order: 6; margin-inline-start: 10px; }
+.alk-bb-iconbtn--share   { order: 5; }
 .alk-bb-iconbtn.is-on{
     color: var(--bb-gold);
     border-color: var(--bb-gold);
@@ -8650,6 +8666,8 @@ function alookhor_cc_buybox_before_qty(){
 function alookhor_cc_buybox_after_qty(){
     static $done = false; if ($done) return; $done = true;
     echo '<button type="button" class="alk-bb-qbtn alk-bb-qbtn--plus" aria-label="' . esc_attr__('افزایش تعداد', 'alookhor-cc') . '">+</button>';
+    // شکست ردیف: استپر بالا، ردیف اکشن (دکمه + آیکون‌ها) پایین — مطابق مرجع
+    echo '<span class="alk-bb-break" aria-hidden="true"></span>';
 }
 
 function alookhor_cc_buybox_after_button(){

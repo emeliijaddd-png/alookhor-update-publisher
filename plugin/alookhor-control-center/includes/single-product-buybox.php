@@ -257,6 +257,8 @@ function alookhor_cc_buybox_before_qty(){
 function alookhor_cc_buybox_after_qty(){
     static $done = false; if ($done) return; $done = true;
     echo '<button type="button" class="alk-bb-qbtn alk-bb-qbtn--plus" aria-label="' . esc_attr__('افزایش تعداد', 'alookhor-cc') . '">+</button>';
+    // شکست ردیف: استپر بالا، ردیف اکشن (دکمه + آیکون‌ها) پایین — مطابق مرجع
+    echo '<span class="alk-bb-break" aria-hidden="true"></span>';
 }
 
 function alookhor_cc_buybox_after_button(){
