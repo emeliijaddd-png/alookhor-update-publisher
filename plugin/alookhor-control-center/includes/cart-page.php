@@ -1,5 +1,5 @@
 <?php
-/** ALOOKHOR CART — v3.10.302: exact per Screenshot 2026-09-06 101216.png — luxury cart page with summary, products, suggestions, features, FAQ */
+/** ALOOKHOR CART — v3.10.303: luxury cart exact per 101216 — fixed hero + no duplicate */
 if(!defined('ABSPATH'))exit;
 
 if(!function_exists('alookhor_cc_cart_icon')){
@@ -9,18 +9,15 @@ function alookhor_cc_cart_icon($name){
   'heart'=>'<path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>',
   'trash'=>'<path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M10 11v6"/><path d="M14 11v6"/>',
   'share'=>'<circle cx="18" cy="5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="19" r="2.5"/><path d="m8.2 10.8 7.6-4.5"/><path d="m8.2 13.2 7.6 4.5"/>',
-  'compare'=>'<path d="M7 7h10"/><path d="M7 12h10"/><path d="M7 17h10"/><path d="M12 7l-3-3 3-3"/><path d="M12 17l3 3-3 3"/>',
   'plus'=>'<path d="M12 5v14"/><path d="M5 12h14"/>',
   'minus'=>'<path d="M5 12h14"/>',
   'chevr'=>'<path d="m9 18 6-6-6-6"/>',
-  'chevl'=>'<path d="m15 18-6-6 6-6"/>',
   'arrowl'=>'<path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/>',
   'leaf'=>'<path d="M12 2C7 2 3 6 3 11c0 5 4 9 9 9s9-4 9-9c0-5-4-9-9-9Z"/><path d="M12 2c0 0-3 3-3 7s3 7 3 7"/>',
   'truck'=>'<path d="M1 3h15v13H1z"/><path d="M16 8h4l3 6v3h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/>',
   'shield'=>'<path d="M12 2L3 6v6c0 5 4 9 9 10 5-1 9-5 9-10V6l-9-4Z"/><path d="M9 12l2 2 4-4"/>',
   'return'=>'<path d="M3 7v6h6"/><path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13"/>',
   'headset'=>'<path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3z"/><path d="M3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/>',
-  'bag'=>'<path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/>',
  ];
  $d=$p[$name]??'<circle cx="12" cy="12" r="8"/>';
  return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">'.$d.'</svg>';
@@ -71,7 +68,6 @@ function alookhor_cc_cart_data(){
  $subtotal=(float)$cart->get_subtotal();
  $discount=(float)$cart->get_discount_total();
  $total=(float)$cart->get_total('edit');
- // Fallback totals if empty
  if($subtotal<=0){ foreach($items as $it) $subtotal+=$it['subtotal']; }
  if($total<=0) $total=$subtotal-$discount;
  return [
@@ -92,189 +88,125 @@ function alookhor_cc_cart_markup(){
  $fmt=$d['fmt']; $fa_th=$d['fa_th'];
  $img=ALOOKHOR_CC_URL.'assets/images/';
  ob_start();
-$__cart_css=file_get_contents(ALOOKHOR_CC_DIR.'assets/css/frontend-cart.css');
-if($__cart_css) echo '<style id="alookhor-cart-inline">'. $__cart_css .'</style>';
+ $__css=file_get_contents(ALOOKHOR_CC_DIR.'assets/css/frontend-cart.css');
+ if($__css) echo '<style id="alookhor-cart-inline">'.$__css.'</style>';
 ?>
-
-<div id="alookhor-cart" class="alookhor-alp app-bg min-h-screen" dir="rtl">
-  <!-- HERO BANNER -->
-  <div class="cart-hero relative overflow-hidden rounded-2xl border border-white/10 bg-plum-900/60 p-4 mb-6">
-    <img src="<?php echo esc_url($img.'bowl.jpg');?>" alt="آلو خشک" class="absolute inset-0 h-full w-full object-cover opacity-20">
-    <div class="relative flex items-center justify-between gap-4">
-      <div class="flex items-center gap-3">
-        <img src="<?php echo esc_url($img.'bowl.jpg');?>" alt="کاسه آلو" class="h-16 w-16 rounded-xl object-cover border border-white/10">
+<div id="alookhor-cart" dir="rtl">
+  <div class="cart-hero">
+    <img src="<?php echo esc_url($img.'bowl.jpg');?>" alt="" class="cart-hero-bg">
+    <div class="cart-hero-content">
+      <div class="cart-hero-left">
+        <img src="<?php echo esc_url($img.'bowl.jpg');?>" alt="کاسه آلو">
         <div>
-          <div class="flex items-center gap-2 text-xs text-lav"><a href="<?php echo esc_url(home_url('/'));?>" class="hover:text-gold-300">خانه</a><span>›</span><span>سبد خرید</span></div>
-          <h1 class="mt-1 flex items-center gap-2 text-xl font-black text-cream sm:text-2xl"><span class="h-6 w-6 text-gold-400"><?php echo alookhor_cc_cart_icon('cart');?></span> سبد خرید شما</h1>
-          <p class="mt-1 text-xs text-lav">محصولات منتخب شما در یک نگاه و با اطمینان خرید کنید</p>
+          <div class="breadcrumb"><a href="<?php echo esc_url(home_url('/'));?>">خانه</a><span>›</span><span>سبد خرید</span></div>
+          <h1><span><?php echo alookhor_cc_cart_icon('cart');?></span> سبد خرید شما</h1>
+          <p>محصولات منتخب شما در یک نگاه و با اطمینان خرید کنید</p>
         </div>
       </div>
-      <div class="hidden sm:flex items-center gap-2 text-xs font-bold text-gold-300"><span class="h-4 w-4"><?php echo alookhor_cc_cart_icon('leaf');?></span> طعم اصالت از دل طبیعت ایران</div>
+      <div class="cart-hero-tagline"><span><?php echo alookhor_cc_cart_icon('leaf');?></span> طعم اصالت از دل طبیعت ایران</div>
     </div>
   </div>
 
-  <div class="cart-main-grid grid gap-6 lg:grid-cols-[1fr_360px]">
-    <!-- PRODUCTS LIST (right side in RTL) -->
+  <div class="cart-main-grid">
     <div class="cart-products">
-      <div class="cart-products-box rounded-2xl border border-white/10 bg-plum-900/50 backdrop-blur-sm overflow-hidden">
-        <div class="hidden sm:grid grid-cols-[2fr_1fr_1fr_1fr_1fr_80px] gap-2 border-b border-white/10 bg-plum-950/50 px-4 py-3 text-[11px] font-bold text-lav">
+      <div class="cart-products-box">
+        <div class="cart-products-header">
           <span>محصول</span><span>وزن / بسته‌بندی</span><span>قیمت واحد</span><span>تعداد</span><span>مبلغ کل</span><span>عملیات</span>
         </div>
-        <div class="divide-y divide-white/5">
+        <div>
           <?php foreach($d['items'] as $it):?>
-          <div class="cart-item grid gap-3 px-4 py-4 sm:grid-cols-[2fr_1fr_1fr_1fr_1fr_80px] sm:items-center">
-            <div class="flex items-center gap-3">
-              <img src="<?php echo esc_url($it['img']);?>" alt="<?php echo esc_attr($it['name']);?>" class="h-16 w-16 rounded-xl object-cover border border-white/10">
+          <div class="cart-item">
+            <div class="cart-item-prod">
+              <img src="<?php echo esc_url($it['img']);?>" alt="<?php echo esc_attr($it['name']);?>">
               <div>
-                <a href="<?php echo esc_url($it['permalink']);?>" class="block text-sm font-bold text-cream hover:text-gold-300"><?php echo esc_html($it['name']);?></a>
-                <span class="mt-1 inline-flex rounded bg-gold-400/20 px-2 py-0.5 text-[10px] font-bold text-gold-300">بیشتر</span>
+                <a href="<?php echo esc_url($it['permalink']);?>"><?php echo esc_html($it['name']);?></a>
+                <span class="badge">بیشتر</span>
               </div>
             </div>
-            <div>
-              <select class="w-full rounded-lg border border-white/10 bg-plum-950/70 px-2 py-1.5 text-xs text-cream">
-                <option><?php echo esc_html($it['weight']);?></option>
-                <option>۲۵۰ گرم</option>
-                <option>۵۰۰ گرم</option>
-                <option>۱ کیلوگرم</option>
-              </select>
-            </div>
-            <div class="text-xs font-bold text-cream"><span class="sm:hidden text-lav">قیمت: </span><?php echo $fmt($it['price']);?> تومان</div>
-            <div class="flex items-center gap-1">
-              <div class="flex items-center gap-1 rounded-full border border-white/10 bg-plum-950/70 p-1">
-                <button type="button" data-cart-qty="+" data-key="<?php echo esc_attr($it['key']);?>" class="grid h-6 w-6 place-items-center rounded-full text-cream hover:bg-white/10"><span class="h-3 w-3"><?php echo alookhor_cc_cart_icon('plus');?></span></button>
-                <span class="w-6 text-center text-xs font-black text-cream"><?php echo $fa_th($it['qty']);?></span>
-                <button type="button" data-cart-qty="-" data-key="<?php echo esc_attr($it['key']);?>" class="grid h-6 w-6 place-items-center rounded-full text-cream hover:bg-white/10"><span class="h-3 w-3"><?php echo alookhor_cc_cart_icon('minus');?></span></button>
-              </div>
-            </div>
-            <div class="text-xs font-black text-gold-300"><span class="sm:hidden text-lav">جمع: </span><?php echo $fmt($it['subtotal']);?> تومان</div>
-            <div class="flex items-center gap-1.5">
-              <button type="button" class="grid h-8 w-8 place-items-center rounded-lg border border-white/10 bg-plum-950/50 text-lav hover:text-berry" data-wishlist><span class="h-4 w-4"><?php echo alookhor_cc_cart_icon('heart');?></span></button>
-              <button type="button" class="grid h-8 w-8 place-items-center rounded-lg border border-white/10 bg-plum-950/50 text-lav hover:text-red-400" data-cart-remove="<?php echo esc_attr($it['key']);?>"><span class="h-4 w-4"><?php echo alookhor_cc_cart_icon('trash');?></span></button>
-            </div>
+            <div><select><option><?php echo esc_html($it['weight']);?></option><option>۲۵۰ گرم</option><option>۵۰۰ گرم</option><option>۱ کیلوگرم</option></select></div>
+            <div class="price"><?php echo $fmt($it['price']);?> تومان</div>
+            <div><div class="cart-qty"><button type="button" data-cart-qty="-" data-key="<?php echo esc_attr($it['key']);?>"><span><?php echo alookhor_cc_cart_icon('minus');?></span></button><span><?php echo $fa_th($it['qty']);?></span><button type="button" data-cart-qty="+" data-key="<?php echo esc_attr($it['key']);?>"><span><?php echo alookhor_cc_cart_icon('plus');?></span></button></div></div>
+            <div class="price-total"><?php echo $fmt($it['subtotal']);?> تومان</div>
+            <div class="cart-actions"><button type="button" data-wishlist><span><?php echo alookhor_cc_cart_icon('heart');?></span></button><button type="button" data-cart-remove="<?php echo esc_attr($it['key']);?>"><span><?php echo alookhor_cc_cart_icon('trash');?></span></button></div>
           </div>
           <?php endforeach;?>
           <?php if(empty($d['items'])):?>
-          <div class="p-8 text-center text-lav">سبد خرید شما خالی است — <a href="<?php echo esc_url($d['shop']);?>" class="text-gold-300 underline">رفتن به فروشگاه</a></div>
+          <div style="padding:28px;text-align:center;color:#a48db8;font-size:13px">سبد خرید شما خالی است — <a href="<?php echo esc_url($d['shop']);?>" style="color:#f7b32b">رفتن به فروشگاه</a></div>
           <?php endif;?>
         </div>
-        <div class="flex flex-wrap items-center justify-between gap-3 border-t border-white/10 bg-plum-950/30 px-4 py-3">
-          <a href="<?php echo esc_url($d['shop']);?>" class="inline-flex items-center gap-1.5 rounded-xl border border-white/10 bg-plum-900/60 px-4 py-2 text-xs font-bold text-cream hover:border-gold-400/40"><span class="h-4 w-4"><?php echo alookhor_cc_cart_icon('arrowl');?></span> ادامه خرید</a>
-          <button type="button" class="inline-flex items-center gap-1.5 text-xs font-bold text-gold-300 hover:text-gold-200"><span class="h-4 w-4"><?php echo alookhor_cc_cart_icon('share');?></span> سبد خرید را به اشتراک بگذارید</button>
+        <div class="cart-products-footer">
+          <a href="<?php echo esc_url($d['shop']);?>" class="btn-continue"><span><?php echo alookhor_cc_cart_icon('arrowl');?></span> ادامه خرید</a>
+          <button type="button" class="btn-share"><span><?php echo alookhor_cc_cart_icon('share');?></span> سبد خرید را به اشتراک بگذارید</button>
         </div>
       </div>
 
-      <!-- SUGGESTED COMPLETE PURCHASE -->
-      <div class="mt-6 rounded-2xl border border-white/10 bg-plum-900/40 p-4">
-        <h2 class="flex items-center gap-2 text-sm font-black text-cream"><span class="h-5 w-5 text-gold-400"><?php echo alookhor_cc_cart_icon('cart');?></span> پیشنهاد تکمیل خرید <span class="text-xs font-normal text-lav">این محصولات را هم امتحان کنید</span></h2>
-        <div class="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
+      <div class="suggested">
+        <h2><span><?php echo alookhor_cc_cart_icon('cart');?></span> پیشنهاد تکمیل خرید <small>این محصولات را هم امتحان کنید</small></h2>
+        <div class="suggested-grid">
           <?php
-          $related_ids = [];
-          if(!empty($d['items'])){
-            $first_pid = $d['items'][0]['id'];
-            $prod = wc_get_product($first_pid);
-            if($prod){
-              $related_ids = wc_get_related_products($first_pid, 4);
-            }
-          }
-          if(empty($related_ids)){
-            $related_ids = wc_get_products(['limit'=>4,'return'=>'ids','status'=>'publish']);
-          }
+          $related_ids=[];
+          if(!empty($d['items'])){ $first_pid=$d['items'][0]['id']; $prod=wc_get_product($first_pid); if($prod){ $related_ids=wc_get_related_products($first_pid,4);} }
+          if(empty($related_ids)){ $related_ids=wc_get_products(['limit'=>4,'return'=>'ids','status'=>'publish']); }
           foreach(array_slice($related_ids,0,4) as $rid){
-            $rp = wc_get_product($rid); if(!$rp)continue;
-            $ru = wp_get_attachment_image_url($rp->get_image_id(),'woocommerce_thumbnail');
-            $ru = $ru ?: $img.'bowl.jpg';
-            $rprice = (float)$rp->get_price();
-            if(!$rprice && $rp->is_type('variable')){
-              $rprice = (float)$rp->get_variation_price('min',True);
-              if(!$rprice) $rprice = (float)$rp->get_variation_regular_price('min',True);
-            }
-            $rname = $rp->get_name(); if(mb_strpos($rname,'سامسونگ')!==false)continue;
+            $rp=wc_get_product($rid); if(!$rp)continue;
+            $ru=wp_get_attachment_image_url($rp->get_image_id(),'woocommerce_thumbnail'); $ru=$ru?:$img.'bowl.jpg';
+            $rprice=(float)$rp->get_price(); if(!$rprice && $rp->is_type('variable')){ $rprice=(float)$rp->get_variation_price('min',true); if(!$rprice) $rprice=(float)$rp->get_variation_regular_price('min',true); }
+            $rname=$rp->get_name(); if(mb_strpos($rname,'سامسونگ')!==false)continue;
           ?>
-          <div class="group rounded-xl border border-white/10 bg-plum-950/60 overflow-hidden hover:border-gold-400/30 transition">
-            <div class="relative aspect-square overflow-hidden bg-plum-900">
-              <img src="<?php echo esc_url($ru);?>" alt="<?php echo esc_attr($rname);?>" class="h-full w-full object-cover group-hover:scale-105 transition duration-300">
-              <span class="absolute top-2 left-2 grid h-6 w-6 place-items-center rounded-full bg-plum-950/70 text-cream border border-white/10"><span class="h-3 w-3"><?php echo alookhor_cc_cart_icon('heart');?></span></span>
-              <span class="absolute top-2 right-2 rounded bg-[#e42a68] px-2 py-0.5 text-[9px] font-black text-white">۱۰٪ تخفیف</span>
-            </div>
-            <div class="p-2.5">
-              <span class="block text-[11px] font-bold text-cream line-clamp-1"><?php echo esc_html($rname);?></span>
-              <span class="mt-1 block text-[11px] font-black text-gold-300"><?php echo $fmt($rprice);?> تومان</span>
-              <button type="button" class="mt-2 flex w-full items-center justify-center gap-1 rounded-lg bg-gold-400 py-1.5 text-[11px] font-black text-plum-950 hover:brightness-110"><span class="h-3 w-3"><?php echo alookhor_cc_cart_icon('cart');?></span> افزودن</button>
-            </div>
+          <div class="suggested-card">
+            <div class="img-wrap"><img src="<?php echo esc_url($ru);?>" alt="<?php echo esc_attr($rname);?>"><span class="heart"><span><?php echo alookhor_cc_cart_icon('heart');?></span></span><span class="discount">۱۰٪ تخفیف</span></div>
+            <div class="info"><span class="name"><?php echo esc_html($rname);?></span><span class="price"><?php echo $fmt($rprice);?> تومان</span><button type="button" class="add-btn"><span><?php echo alookhor_cc_cart_icon('cart');?></span> افزودن</button></div>
           </div>
           <?php } ?>
         </div>
       </div>
 
-      <!-- FEATURES + FAQ -->
-      <div class="mt-6 grid gap-6">
-        <div class="grid grid-cols-2 gap-3 rounded-2xl border border-white/10 bg-plum-900/30 p-3 sm:grid-cols-4">
-          <div class="flex items-center gap-2 text-[11px] font-bold text-lav"><span class="grid h-8 w-8 place-items-center rounded-full bg-plum-950/70 text-gold-400 border border-white/10"><span class="h-4 w-4"><?php echo alookhor_cc_cart_icon('truck');?></span></span> ارسال سریع<br><small class="text-[9px] text-lav/60">تحویل فوری</small></div>
-          <div class="flex items-center gap-2 text-[11px] font-bold text-lav"><span class="grid h-8 w-8 place-items-center rounded-full bg-plum-950/70 text-gold-400 border border-white/10"><span class="h-4 w-4"><?php echo alookhor_cc_cart_icon('shield');?></span></span> ضمانت اصالت کالا<br><small class="text-[9px] text-lav/60">تضمین کیفیت و اصالت</small></div>
-          <div class="flex items-center gap-2 text-[11px] font-bold text-lav"><span class="grid h-8 w-8 place-items-center rounded-full bg-plum-950/70 text-gold-400 border border-white/10"><span class="h-4 w-4"><?php echo alookhor_cc_cart_icon('return');?></span></span> ضمانت بازگشت کالا<br><small class="text-[9px] text-lav/60">۷ روز بدون قید و شرط</small></div>
-          <div class="flex items-center gap-2 text-[11px] font-bold text-lav"><span class="grid h-8 w-8 place-items-center rounded-full bg-plum-950/70 text-gold-400 border border-white/10"><span class="h-4 w-4"><?php echo alookhor_cc_cart_icon('headset');?></span></span> پشتیبانی ۲۴ ساعته<br><small class="text-[9px] text-lav/60">همیشه پاسخگوی شما هستیم</small></div>
-        </div>
-        <div class="rounded-2xl border border-white/10 bg-plum-900/30 p-4">
-          <h3 class="flex items-center gap-2 text-sm font-black text-cream"><span class="h-4 w-4 text-gold-400">؟</span> سوالات متداول</h3>
-          <div class="mt-3 divide-y divide-white/5">
-            <details class="py-2"><summary class="flex cursor-pointer items-center justify-between text-xs font-bold text-cream">هزینه ارسال سفارشم چقدر است؟<span class="h-4 w-4 text-lav"><?php echo alookhor_cc_cart_icon('chevr');?></span></summary><p class="mt-2 text-[11px] text-lav">هزینه ارسال بر اساس وزن و مقصد محاسبه می‌شود و در خلاصه سفارش نمایش داده می‌شود. ارسال رایگان برای سفارش‌های بالای ۵۰۰ هزار تومان.</p></details>
-            <details class="py-2"><summary class="flex cursor-pointer items-center justify-between text-xs font-bold text-cream">چطور می‌توانم سفارشم را دستم برسانم؟<span class="h-4 w-4 text-lav"><?php echo alookhor_cc_cart_icon('chevr');?></span></summary><p class="mt-2 text-[11px] text-lav">پس از ثبت سفارش، کد رهگیری برای شما پیامک می‌شود و می‌توانید وضعیت را در حساب کاربری پیگیری کنید.</p></details>
-            <details class="py-2"><summary class="flex cursor-pointer items-center justify-between text-xs font-bold text-cream">آیا امکان بازگشت کالا وجود دارد؟<span class="h-4 w-4 text-lav"><?php echo alookhor_cc_cart_icon('chevr');?></span></summary><p class="mt-2 text-[11px] text-lav">بله، تا ۷ روز پس از تحویل امکان بازگشت کالا در صورت عدم رضایت وجود دارد.</p></details>
-          </div>
-        </div>
+      <div class="features">
+        <div class="feature"><span class="icon"><span><?php echo alookhor_cc_cart_icon('truck');?></span></span><div>ارسال سریع<br><small>تحویل فوری</small></div></div>
+        <div class="feature"><span class="icon"><span><?php echo alookhor_cc_cart_icon('shield');?></span></span><div>ضمانت اصالت کالا<br><small>تضمین کیفیت و اصالت</small></div></div>
+        <div class="feature"><span class="icon"><span><?php echo alookhor_cc_cart_icon('return');?></span></span><div>ضمانت بازگشت کالا<br><small>۷ روز بدون قید و شرط</small></div></div>
+        <div class="feature"><span class="icon"><span><?php echo alookhor_cc_cart_icon('headset');?></span></span><div>پشتیبانی ۲۴ ساعته<br><small>همیشه پاسخگوی شما هستیم</small></div></div>
+      </div>
+
+      <div class="faq">
+        <h3><span>؟</span> سوالات متداول</h3>
+        <details><summary>هزینه ارسال سفارشم چقدر است؟<span><?php echo alookhor_cc_cart_icon('chevr');?></span></summary><p>هزینه ارسال بر اساس وزن و مقصد محاسبه می‌شود و در خلاصه سفارش نمایش داده می‌شود. ارسال رایگان برای سفارش‌های بالای ۵۰۰ هزار تومان.</p></details>
+        <details><summary>چطور می‌توانم سفارشم را دستم برسانم؟<span><?php echo alookhor_cc_cart_icon('chevr');?></span></summary><p>پس از ثبت سفارش، کد رهگیری برای شما پیامک می‌شود و می‌توانید وضعیت را در حساب کاربری پیگیری کنید.</p></details>
+        <details><summary>آیا امکان بازگشت کالا وجود دارد؟<span><?php echo alookhor_cc_cart_icon('chevr');?></span></summary><p>بله، تا ۷ روز پس از تحویل امکان بازگشت کالا در صورت عدم رضایت وجود دارد.</p></details>
       </div>
     </div>
 
-    <!-- SUMMARY SIDEBAR (left side in RTL) -->
     <div class="cart-summary">
-      <div class="rounded-2xl border border-white/10 bg-plum-900/60 backdrop-blur-sm p-4 sticky top-4">
-        <h2 class="flex items-center gap-2 text-sm font-black text-cream"><span class="h-5 w-5 rounded bg-gold-400/20 text-gold-300 grid place-items-center">≡</span> خلاصه سفارش</h2>
-        <div class="mt-4 space-y-2.5 text-xs">
-          <div class="flex justify-between"><span class="text-lav">جمع مبلغ کالاها</span><span class="font-bold text-cream"><?php echo $fmt($d['subtotal']);?> تومان</span></div>
-          <div class="flex justify-between"><span class="text-lav">تخفیف</span><span class="font-bold text-mint"><?php echo $fmt($d['discount']);?> تومان</span></div>
-          <div class="flex justify-between"><span class="text-lav">هزینه ارسال</span><span class="font-bold text-mint">رایگان</span></div>
-          <div class="my-3 h-px bg-white/10"></div>
-          <div class="flex justify-between text-sm"><span class="font-bold text-cream">مبلغ قابل پرداخت</span><span class="font-black text-gold-300"><?php echo $fmt($d['total']);?> تومان</span></div>
+      <div>
+        <div class="summary-title"><span class="icon">≡</span> خلاصه سفارش</div>
+        <div class="summary-rows">
+          <div class="summary-row"><span class="label">جمع مبلغ کالاها</span><span class="value"><?php echo $fmt($d['subtotal']);?> تومان</span></div>
+          <div class="summary-row"><span class="label">تخفیف</span><span class="value mint"><?php echo $fmt($d['discount']);?> تومان</span></div>
+          <div class="summary-row"><span class="label">هزینه ارسال</span><span class="value mint">رایگان</span></div>
+          <div class="summary-divider"></div>
+          <div class="summary-total"><span class="label">مبلغ قابل پرداخت</span><span class="value"><?php echo $fmt($d['total']);?> تومان</span></div>
         </div>
-        <a href="<?php echo esc_url($d['checkout']);?>" class="mt-4 flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-l from-gold-300 to-gold-500 py-3 text-sm font-black text-plum-950 shadow-[0_10px_30px_-10px_rgba(247,179,43,0.6)] hover:brightness-110"><span>ادامه و ثبت سفارش</span><span class="h-4 w-4"><?php echo alookhor_cc_cart_icon('arrowl');?></span></a>
-
-        <div class="mt-5 rounded-xl border border-white/10 bg-plum-950/50 p-3">
-          <span class="flex items-center gap-1.5 text-xs font-bold text-cream"><span class="h-4 w-4 text-gold-400">٪</span> کد تخفیف دارید؟</span>
-          <div class="mt-2 flex gap-2">
-            <input type="text" placeholder="کد تخفیف را وارد کنید ..." class="flex-1 rounded-lg border border-white/10 bg-plum-900/60 px-3 py-2 text-xs text-cream placeholder:text-lav/50">
-            <button type="button" class="rounded-lg border border-white/10 bg-plum-900/80 px-4 py-2 text-xs font-black text-cream hover:border-gold-400/40">اعمال</button>
-          </div>
-        </div>
-
-        <div class="mt-4 flex items-center gap-2 rounded-xl border border-white/10 bg-plum-950/40 p-3 text-xs">
-          <span class="grid h-8 w-8 place-items-center rounded-full bg-plum-900/70 text-gold-400 border border-white/10"><span class="h-4 w-4"><?php echo alookhor_cc_cart_icon('truck');?></span></span>
-          <div><span class="block font-bold text-cream">ارسال به سراسر کشور</span><span class="block text-[11px] text-lav/70">تحویل سریع و مطمئن در کمترین زمان</span></div>
-        </div>
+        <a href="<?php echo esc_url($d['checkout']);?>" class="btn-checkout"><span>ادامه و ثبت سفارش</span><span><?php echo alookhor_cc_cart_icon('arrowl');?></span></a>
+        <div class="coupon-box"><div class="title"><span>٪</span> کد تخفیف دارید؟</div><div class="row"><input type="text" placeholder="کد تخفیف را وارد کنید ..."><button type="button">اعمال</button></div></div>
+        <div class="shipping-info"><span class="icon"><span><?php echo alookhor_cc_cart_icon('truck');?></span></span><div><span style="display:block;font-weight:700;color:#fbf3e2;font-size:12px">ارسال به سراسر کشور</span><span style="display:block;font-size:11px;color:rgba(164,141,184,.70)">تحویل سریع و مطمئن در کمترین زمان</span></div></div>
       </div>
     </div>
   </div>
 </div>
-
 <script>
 document.addEventListener('DOMContentLoaded',function(){
-  // qty +/- for cart
   document.querySelectorAll('[data-cart-qty]').forEach(function(btn){
     btn.addEventListener('click',function(){
-      var key=this.getAttribute('data-key');
-      var dir=this.getAttribute('data-cart-qty');
-      var input=this.parentElement.querySelector('span');
-      var cur=parseInt(input.textContent.replace(/[^0-9]/g,''))||1;
+      var key=this.getAttribute('data-key'); var dir=this.getAttribute('data-cart-qty');
+      var span=this.parentElement.querySelector('span:nth-child(2)'); var cur=parseInt(span.textContent.replace(/[^0-9]/g,''))||1;
       if(dir==='+')cur=Math.min(99,cur+1); else cur=Math.max(1,cur-1);
-      // update via wc-ajax
-      fetch('<?php echo esc_url(home_url('/?wc-ajax=update_cart'));?>',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:'cart['+encodeURIComponent(key)+'][qty]='+cur})
-        .then(()=>location.reload());
+      fetch('<?php echo esc_url(home_url('/?wc-ajax=update_cart'));?>',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:'cart['+encodeURIComponent(key)+'][qty]='+cur}).then(()=>location.reload());
     });
   });
   document.querySelectorAll('[data-cart-remove]').forEach(function(btn){
     btn.addEventListener('click',function(){
       var key=this.getAttribute('data-cart-remove');
-      fetch('<?php echo esc_url(home_url('/?wc-ajax=remove_from_cart'));?>',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:'cart_key='+encodeURIComponent(key)})
-        .then(()=>location.reload());
+      fetch('<?php echo esc_url(home_url('/?wc-ajax=remove_from_cart'));?>',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:'cart_key='+encodeURIComponent(key)}).then(()=>location.reload());
     });
   });
 });
@@ -284,32 +216,32 @@ document.addEventListener('DOMContentLoaded',function(){
 }
 }
 
-// Template override for is_cart
+// Only use shortcode override — disable template_include to avoid double header/footer
+remove_filter('template_include',function(){},PHP_INT_MAX);
 add_filter('template_include',function($template){
- if(function_exists('is_cart')&&is_cart()){
-  if(file_exists(ALOOKHOR_CC_DIR.'templates/cart.php')) return ALOOKHOR_CC_DIR.'templates/cart.php';
- }
+ // If Woodmart or other theme overrides, we still want to use our shortcode inside page.php, not our full template
+ // So return original template to avoid double footer/header duplication
  return $template;
-},PHP_INT_MAX);
+},PHP_INT_MAX-1);
 
 add_action('wp_enqueue_scripts',function(){
  if(function_exists('is_cart')&&is_cart()){
   wp_enqueue_style('alookhor-cc-cart',ALOOKHOR_CC_URL.'assets/css/frontend-cart.css',[],ALOOKHOR_CC_BUILD);
-  wp_enqueue_script('alookhor-cc-cart',ALOOKHOR_CC_URL.'assets/js/frontend-cart.js',[],ALOOKHOR_CC_BUILD,true);
- }
-});
-
-// woocommerce_locate_template override removed - use template_include only for is_cart
-
-// Override WooCommerce cart shortcode to use our luxury markup
-add_action('init',function(){
- if(function_exists('is_cart')){
-  // Remove default shortcode and add ours
-  if(shortcode_exists('woocommerce_cart')){
-   remove_shortcode('woocommerce_cart');
-  }
-  add_shortcode('woocommerce_cart',function(){
-   return alookhor_cc_cart_markup();
-  });
  }
 },20);
+
+add_action('init',function(){
+ if(shortcode_exists('woocommerce_cart')) remove_shortcode('woocommerce_cart');
+ add_shortcode('woocommerce_cart',function(){ return alookhor_cc_cart_markup(); });
+},20);
+
+// Also override empty cart template to prevent Woodmart categories showing
+add_filter('wc_get_template',function($template,$template_name,$args,$template_path,$default_path){
+ if($template_name==='cart/cart-empty.php'){
+  // Return empty file to prevent default empty cart with categories
+  $custom=ALOOKHOR_CC_DIR.'templates/cart-empty-override.php';
+  if(!file_exists($custom)){ file_put_contents($custom,'<?php // overridden empty'); }
+  return $custom;
+ }
+ return $template;
+},PHP_INT_MAX,5);
