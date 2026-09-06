@@ -219,7 +219,7 @@ document.addEventListener('DOMContentLoaded',function(){
 // Use original theme template to keep footer at bottom - luxury comes from shortcode + wc_get_template override
 add_filter('template_include',function($template){
  if(function_exists('is_cart')&&is_cart()){
-  return $template; // original page.php keeps footer bottom
+   $custom=ALOOKHOR_CC_DIR.'templates/cart.php'; if(file_exists($custom)) return $custom; return $template;
  }
  return $template;
 },PHP_INT_MAX);

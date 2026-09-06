@@ -1,16 +1,16 @@
 {
-  "version": "3.10.326",
-  "previous": "3.10.325",
+  "version": "3.10.327",
+  "previous": "3.10.326",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "فیکس فوتر پایین - برگشت به template اصلی",
+  "description": "فیکس نهایی سبد - فقط لوکس، حذف کامل سفید قدیمی، فوتر پایین",
   "changelog": [
     {
       "tag": "FIX",
-      "title": "فوتر پایین",
-      "desc": "template اصلی + CSS clear both + margin-top 50px"
+      "title": "حذف کامل سبد سفید قدیمی",
+      "desc": "فقط سبد لوکس دارک - template کامل + CSS hide قوی + فوتر پایین"
     }
   ],
   "project": "ALOOKHOR",

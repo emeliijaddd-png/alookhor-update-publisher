@@ -429,3 +429,39 @@ body.woocommerce-cart .footer-container{
   right:auto!important;
   transform:none!important;
 }
+
+/* FINAL: Hide old Woodmart white cart completely - only luxury */
+body.woocommerce-cart .woocommerce-cart-form,
+body.woocommerce-cart .cart-collaterals,
+body.woocommerce-cart .shop_table.woocommerce-cart-form__contents,
+body.woocommerce-cart .wd-cart,
+body.woocommerce-cart .wd-empty-cart .woocommerce-notices-wrapper,
+body.woocommerce-cart .woocommerce-notices-wrapper {
+  display:none!important;
+  visibility:hidden!important;
+  height:0!important;
+  overflow:hidden!important;
+}
+/* Ensure luxury cart visible */
+#alookhor-cart{
+  display:block!important;
+  visibility:visible!important;
+  opacity:1!important;
+}
+/* Footer at bottom - not top */
+body.woocommerce-cart #alookhor-cart{
+  margin-bottom:60px!important;
+}
+body.woocommerce-cart .site-footer,
+body.woocommerce-cart footer,
+body.woocommerce-cart .whb-footer,
+body.woocommerce-cart .wd-footer,
+body.woocommerce-cart .footer-container{
+  display:block!important;
+  visibility:visible!important;
+  position:relative!important;
+  clear:both!important;
+  margin-top:0!important;
+  top:auto!important;
+  bottom:0!important;
+}
