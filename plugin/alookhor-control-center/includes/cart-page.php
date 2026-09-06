@@ -181,6 +181,10 @@ function alookhor_cc_cart_markup(){
             $ru = wp_get_attachment_image_url($rp->get_image_id(),'woocommerce_thumbnail');
             $ru = $ru ?: $img.'bowl.jpg';
             $rprice = (float)$rp->get_price();
+            if(!$rprice && $rp->is_type('variable')){
+              $rprice = (float)$rp->get_variation_price('min',True);
+              if(!$rprice) $rprice = (float)$rp->get_variation_regular_price('min',True);
+            }
             $rname = $rp->get_name(); if(mb_strpos($rname,'سامسونگ')!==false)continue;
           ?>
           <div class="group rounded-xl border border-white/10 bg-plum-950/60 overflow-hidden hover:border-gold-400/30 transition">
