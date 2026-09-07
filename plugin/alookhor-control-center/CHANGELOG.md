@@ -1334,3 +1334,10 @@
 - FIX: قراردادن دسترسی‌های `localStorage` داخل `try/catch` برای Safari ITP.
 - FIX: استفاده از `site_json_url` مطلق در WP Admin به‌جای `./config/site.json`.
 - Version bump `3.8.1` → `3.8.2`.
+
+## 3.10.353 — رفع باگ سبد خرید PDP
+- ROOT CAUSE: افزودن به سبد خرید کار نمی‌کرد چون add_url والد (product permalink بدون add-to-cart) بود و JS وزن پیش‌فرض را init نمی‌کرد؛ href فقط ?quantity=1 داشت.
+- FIX PHP: alookhor_cc_pdp_data اکنون attr_key/attr_slug واقعی (attribute_pa_vazn => 3-kg) را ذخیره و add_url را برای variable به صورت ?add-to-cart=parent&variation_id=vid&attribute_pa_vazn=slug می‌سازد؛ اولین واریشن به صورت پیش‌فرض انتخاب می‌شود.
+- FIX JS: frontend-product.js وزن پیش‌فرض را auto-init می‌کند، quantity را حفظ می‌کند، و URL سبد را با variation_id + attribute_pa_vazn + quantity به صورت صحیح می‌سازد؛ هر دو دکمه #alpAdd و .alp-cta به‌روز می‌شوند.
+- VERIFY: کلیک روی وزن (3/5/10 کیلویی) + تعداد + افزودن به سبد باید واریشن را به WC cart اضافه کند؛ تست با simple product و variable.
+- PRESERVE: هدر/فوتر/گالری/بنر دست‌نخورده؛ فقط PDP add-to-cart.

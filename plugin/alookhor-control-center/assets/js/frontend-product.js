@@ -92,23 +92,65 @@ function giftOpts(){
  $$('[data-opt]').forEach(o=>o.addEventListener('click',()=>o.classList.toggle('is-on')));
 }
 
+/* v3.10.353: quantity + cart URL builder - preserves variation */
+let _alpQty=1;
+let _alpCurrent={vid:0,parent:'',attrKey:'',attrVal:''};
+function _alpBuildUrl(qty){
+  qty = qty || _alpQty || 1;
+  const cur = _alpCurrent;
+  const vid = parseInt(cur.vid||0,10);
+  const parent = cur.parent||'';
+  const attrKey = cur.attrKey||'';
+  const attrVal = cur.attrVal||'';
+  // If variable with vid+parent, build proper Woo URL
+  if(vid>0 && parent){
+    const basePath = (location.pathname || '/');
+    const params = new URLSearchParams();
+    params.set('add-to-cart', parent);
+    params.set('variation_id', String(vid));
+    if(attrKey && attrVal){
+      let k = attrKey;
+      if(k.indexOf('attribute_')!==0) k='attribute_'+k;
+      params.set(k, attrVal);
+    }
+    params.set('quantity', String(qty));
+    return basePath + '?' + params.toString();
+  } else if(vid>0){
+    const basePath = (location.pathname || '/');
+    const params = new URLSearchParams();
+    params.set('add-to-cart', String(vid));
+    params.set('quantity', String(qty));
+    return basePath + '?' + params.toString();
+  } else {
+    // simple: use data-base
+    const a0 = document.querySelector('[data-base]');
+    let url = (a0 && (a0.dataset.base||a0.getAttribute('href')))||location.href;
+    // strip existing quantity and rebuild
+    url = url.replace(/([?&])quantity=\d*/,'$1').replace(/[?&]$/,'').replace(/\?$/,'');
+    // also keep add-to-cart if present
+    if(qty){
+      if(/[?&]quantity=\d+/.test(url)) url=url.replace(/([?&])quantity=\d+/, '$1quantity='+qty);
+      else url+=(url.indexOf('?')>-1?'&':'?')+'quantity='+qty;
+    }
+    return url;
+  }
+}
+function _alpApplyQty(){
+  const q=$('#alpQty'); if(q) q.textContent=faNum(_alpQty);
+  const url = _alpBuildUrl(_alpQty);
+  $$('[data-base]').forEach(a=>{
+    // keep base for reference but href is built
+    a.setAttribute('href',url);
+  });
+}
 function quantity(){
  const q=$('#alpQty'); if(!q) return;
- let n=1; const min=1,max=10;
- const apply=()=>{
-  q.textContent=faNum(n);
-  $$('[data-base]').forEach(a=>{
-   let url=a.dataset.base||a.getAttribute('href')||'';
-   url=url.replace(/([?&])quantity=\d*/,'$1quantity='+n);
-   if(!/[?&]quantity=/.test(url)) url+=(url.includes('?')?'&':'?')+'quantity='+n;
-   a.setAttribute('href',url);
-  });
- };
+ const min=1,max=10;
+ _alpQty=1;
+ const apply=()=>{ _alpApplyQty(); };
  $$('[data-q]').forEach(b=>b.addEventListener('click',()=>{
-  const raw=String(b.dataset.q||'').trim(); const dir=raw==='+'?1:(raw==='-'||raw==='\u2212')?-1:(parseInt(raw,10)||0); /* v3.10.311: markup uses data-q="+"/"-" */
-  // note: in new design + is first button, - is last, but we support both
-  // original had + as +1, - as -1; we keep same
-  n=Math.min(max,Math.max(min,n+dir)); apply();
+  const raw=String(b.dataset.q||'').trim(); const dir=raw==='+'?1:(raw==='-'||raw==='\u2212')?-1:(parseInt(raw,10)||0);
+  _alpQty=Math.min(max,Math.max(min,_alpQty+dir)); apply();
  }));
  apply();
 }
@@ -118,7 +160,8 @@ function weights(){
  const priceEl=$('.alp-price-now, .alpm-pnow'); const single=priceEl?priceEl.dataset.single||'':'';
  const priceBox=priceEl?priceEl.closest('.price-box'):null;
  const oldEl=priceBox?priceBox.querySelector('.line-through'):null;
- buttons.forEach(b=>b.addEventListener('click',()=>{
+ const select=(b,init)=>{
+  if(!b) return;
   buttons.forEach(x=>{x.classList.remove('is-on'); x.classList.remove('border-gold-400','bg-gold-400/10','text-gold-300','shadow-[0_0_0_3px_rgba(247,179,43,0.15)]'); x.classList.add('border-white/10','bg-plum-900/60','text-lav'); x.setAttribute('aria-checked','false');});
   b.classList.add('is-on'); b.classList.add('border-gold-400','bg-gold-400/10','text-gold-300','shadow-[0_0_0_3px_rgba(247,179,43,0.15)]'); b.classList.remove('border-white/10','bg-plum-900/60','text-lav'); b.setAttribute('aria-checked','true');
   if(priceEl){
@@ -132,15 +175,23 @@ function weights(){
    }
   }
   const vid=parseInt(b.dataset.vid||b.dataset.id||'0',10);
-  if(vid>0)$$('[data-base]').forEach(a=>{
-   let base=a.dataset.base||a.getAttribute('href')||'';
-   base=base.replace(/add-to-cart=\d+/,'add-to-cart='+vid);
-   if(!/add-to-cart=\d+/.test(base)){ base+=(base.includes('?')?'&':'?')+'add-to-cart='+vid; }
-   /* v3.10.317: keep the quantity the user already picked when switching weight (href was reset to base -> qty 1) */
-   const keepQ=((a.getAttribute('href')||'').match(/[?&]quantity=(\d+)/)||[])[1];
-   a.dataset.base=base; a.setAttribute('href',keepQ?base+(base.includes('?')?'&':'?')+'quantity='+keepQ:base);
+  const parent=b.dataset.parent||b.getAttribute('data-parent')||'';
+  const attrKey=b.dataset.attrKey||b.dataset.attrkey||b.getAttribute('data-attr-key')||'';
+  const attrVal=b.dataset.attrVal||b.dataset.attrval||b.getAttribute('data-attr-val')||'';
+  _alpCurrent={vid:vid,parent:parent,attrKey:attrKey,attrVal:attrVal};
+  // update data-base to keep reference but href is built via _alpBuildUrl
+  const newUrl=_alpBuildUrl(_alpQty);
+  $$('[data-base]').forEach(a=>{
+    // store the clean base without quantity for future
+    let baseForStore = newUrl.replace(/([?&])quantity=\d+/,'').replace(/[?&]$/,'');
+    a.dataset.base=baseForStore;
+    a.setAttribute('href',newUrl);
   });
- }));
+ };
+ buttons.forEach(b=>b.addEventListener('click',()=>select(b,false)));
+ // v3.10.353: auto-init first weight on load so add-to-cart works without extra click
+ let first = buttons.find(x=>x.getAttribute('aria-checked')==='true') || buttons[0];
+ if(first){ select(first,true); }
 }
 
 function wishlistShare(){

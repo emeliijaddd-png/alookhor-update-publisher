@@ -1,24 +1,25 @@
 {
-  "version": "3.10.352",
-  "previous": "3.10.351",
+  "version": "3.10.353",
+  "previous": "3.10.352",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "حذف نوار سفید سبد خرید - CSS نهایی",
+  "description": "رفع باگ سبد خرید PDP - انتخاب وزن خودکار + URL متغیر صحیح",
   "changelog": [
     {
       "tag": "FIX",
-      "title": "حذف نوار سفید بالا",
-      "desc": "CSS تهاجمی - wd-page-title + whb-page-title + entities-title"
+      "title": "سبد خرید PDP کار نمی‌کرد",
+      "desc": "PHP add_url اکنون اولین واریشن (variation_id + attribute_pa_vazn) را می‌سازد؛ JS وزن پیش‌فرض را auto-init می‌کند و quantity را حفظ می‌کند؛ افزودن به سبد خرید متغیر اکنون درست کار می‌کند"
     }
   ],
   "project": "ALOOKHOR",
-  "area": "PDP about card (desktop, ordered) + Product seeder + PDP phone",
-  "reason": "دستور مستقیم مالک برای تبدیل بخش «درباره» به ماکاپ Screenshot 113637؛ تگ‌های موازی بلوک‌های سشن PDP را نداشتند",
+  "area": "PDP add-to-cart + cart",
+  "reason": "کاربر گزارش داد افزودن به سبد خرید هیچ کاری نمی‌کند؛ علت add_url والد + عدم init وزن؛ رفع با auto-select و URL صحیح",
   "files": [
     "plugin/alookhor-control-center/CHANGELOG.md",
     "plugin/alookhor-control-center/alookhor-control-center.php",
+    "plugin/alookhor-control-center/assets/css/frontend-cart.css",
     "plugin/alookhor-control-center/assets/css/frontend-product.css",
     "plugin/alookhor-control-center/assets/js/app.js",
     "plugin/alookhor-control-center/assets/js/core/updateSystem.js",
@@ -26,8 +27,8 @@
     "plugin/alookhor-control-center/assets/js/modules/dashboard.js",
     "plugin/alookhor-control-center/assets/js/modules/settings.js",
     "plugin/alookhor-control-center/config/site.json",
+    "plugin/alookhor-control-center/includes/cart-page.php",
     "plugin/alookhor-control-center/includes/product-page.php",
-    "plugin/alookhor-control-center/includes/product-seeder.php",
     "plugin/alookhor-control-center/readme.txt",
     "release.json"
   ]

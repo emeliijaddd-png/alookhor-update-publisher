@@ -96,6 +96,17 @@ function alookhor_cc_pdp_data($product){
        break;
      }
    }
+   // v3.10.353: capture real attribute key/slug for proper add-to-cart URL
+   $attr_key_found=''; $attr_slug_found='';
+   foreach($label_raw as $ak=>$av){
+     if(strpos($ak,'vazn')!==false || strpos($ak,'pa_')!==false || strpos($ak,'attribute_')===0){
+       $attr_key_found=$ak; $attr_slug_found=$av; break;
+     }
+   }
+   if(!$attr_key_found && !empty($label_raw)){
+     $attr_key_found=array_key_first($label_raw);
+     $attr_slug_found=$label_raw[$attr_key_found];
+   }
    if(!$label){
      $label = implode(' / ', array_filter(array_map('trim', array_values((array)$label_raw))));
    }
@@ -116,6 +127,8 @@ function alookhor_cc_pdp_data($product){
      'id'=>(int)$v['variation_id'],
      'label'=>$label,
      'slug'=>sanitize_title($label),
+     'attr_key'=>$attr_key_found,
+     'attr_slug'=>$attr_slug_found,
      'price'=>(float)$display_price,
      'regular'=>(float)$display_regular,
      'price_html'=>wp_strip_all_tags((string)($v['price_html']??'')),
@@ -193,7 +206,33 @@ function alookhor_cc_pdp_data($product){
    $reviews[]=['name'=>$cm->comment_author?:'مشتری آلوخور','date'=>date_i18n('j F Y',strtotime($cm->comment_date)),'rating'=>$r,'text'=>wp_strip_all_tags($cm->comment_content),'verified'=>$verified];
   }
  }
- return [
+ 
+ // v3.10.353: proper add-to-cart URL for variable products (parent + variation_id + attribute)
+ $computed_add_url = $product->add_to_cart_url();
+ if($product->is_type('variable') && !empty($options) && !empty($options[0]['id'])){
+   $first_opt = $options[0];
+   $first_vid = (int)($first_opt['id'] ?? 0);
+   $first_attr_key = $first_opt['attr_key'] ?? '';
+   $first_attr_slug = $first_opt['attr_slug'] ?? '';
+   if($first_attr_key && strpos($first_attr_key,'attribute_')!==0){
+     $first_attr_key = 'attribute_'.$first_attr_key;
+   }
+   if($first_vid>0){
+     $base_permalink = get_permalink($id) ?: $product->get_permalink();
+     $args = ['add-to-cart'=>$id, 'variation_id'=>$first_vid];
+     if($first_attr_key && $first_attr_slug){
+       $args[$first_attr_key] = $first_attr_slug;
+     }
+     // Use add_query_arg if available
+     if(function_exists('add_query_arg')){
+       $computed_add_url = add_query_arg($args, $base_permalink);
+     } else {
+       $computed_add_url = $base_permalink . '?' . http_build_query($args);
+     }
+   }
+ }
+
+return [
   'id'=>$id,'name'=>$product->get_name(),'sku'=>$product->get_sku()?:'—',
   'price_html'=>$product->get_price_html()?$product->get_price_html():wc_price($price),
   'regular'=>$regular,'price'=>$price,'discount'=>$discount,'on_sale'=>$product->is_on_sale(),
@@ -202,7 +241,7 @@ function alookhor_cc_pdp_data($product){
   'rating_counts'=>[5=>(int)$product->get_rating_count(5),4=>(int)$product->get_rating_count(4),3=>(int)$product->get_rating_count(3),2=>(int)$product->get_rating_count(2),1=>(int)$product->get_rating_count(1)],
   'short'=>$product->get_short_description()?:'','desc'=>$desc_html?wp_kses_post(wpautop($desc_html)):'','cats'=>$cats,'first_cat'=>$first_cat,
   'slides'=>$slides,'options'=>$options,'related'=>$related,'reviews_list'=>$reviews,
-  'add_url'=>$product->add_to_cart_url(),'purchasable'=>$product->is_purchasable(),'featured'=>$product->is_featured(),
+  'add_url'=>$computed_add_url,'purchasable'=>$product->is_purchasable(),'featured'=>$product->is_featured(),
   'faqs'=>$faqs,'specs'=>$specs,'feats'=>$feats,'why'=>$why,'dried'=>$dried,
  ];
 }
@@ -399,7 +438,7 @@ function alookhor_cc_pdp_markup(){
             // Per new ref Screenshot 204335: weight chips show ONLY weight, no price
             $price_chip = $o['price_clean'] ?: $price_now_html;
             $regular_chip = $o['regular_clean'] ?? '';
-          ?><button type="button" role="radio" aria-checked="<?php echo $oi===0?'true':'false';?>" class="weight-option flex items-center justify-center rounded-xl border px-3 py-3 text-center transition <?php echo $oi===0?'border-gold-400 bg-gold-400/10 text-gold-300 shadow-[0_0_0_3px_rgba(247,179,43,0.15)]':'border-white/10 bg-plum-950/60 text-lav hover:border-white/25 hover:text-cream';?>" data-vid="<?php echo esc_attr($o['id']);?>" data-price="<?php echo esc_attr($price_chip);?>" data-regular="<?php echo esc_attr($regular_chip);?>">
+          ?><button type="button" role="radio" aria-checked="<?php echo $oi===0?'true':'false';?>" class="weight-option flex items-center justify-center rounded-xl border px-3 py-3 text-center transition <?php echo $oi===0?'border-gold-400 bg-gold-400/10 text-gold-300 shadow-[0_0_0_3px_rgba(247,179,43,0.15)]':'border-white/10 bg-plum-950/60 text-lav hover:border-white/25 hover:text-cream';?>" data-vid="<?php echo esc_attr($o['id']);?>" data-parent="<?php echo esc_attr($d['id']);?>" data-attr-key="<?php echo esc_attr($o['attr_key'] ?? ''); ?>" data-attr-val="<?php echo esc_attr($o['attr_slug'] ?? ''); ?>" data-price="<?php echo esc_attr($price_chip);?>" data-regular="<?php echo esc_attr($regular_chip);?>">
             <span class="weight-option__kg text-[12px] font-black leading-tight"><?php echo esc_html($clean_label);?></span>
           </button><?php endforeach;?>
         </div>

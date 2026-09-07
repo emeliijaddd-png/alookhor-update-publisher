@@ -4,7 +4,7 @@ Tags: control center, luxury, alookhor, admin, dashboard
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 3.10.352
+Stable tag: 3.10.353
 License: Private
 License URI: https://alookhor.ir
 
@@ -47,7 +47,7 @@ License URI: https://alookhor.ir
 
 == Changelog ==
 
-= 3.10.352 =
+= 3.10.353 =
 * Built on 3.10.345 (the last green, live release); the parallel 3.10.346-3.10.349 tags failed CI at "Validate source syntax" and were never deployed.
 * Desktop (>=1280px) "درباره آلو بخارایی الخور" card rebuilt per the owner mockup: one compact two-column card — copy on the left (kicker, title, intro paragraph, five gold check items one per line), orchard-bowl photo on the right filling the full card height with the round "100% طبیعی" badge at its top-right; no "مشاهده بیشتر" button and no empty plum area (root cause: `.pdp-pane .below-section{display:block}` out-specified the `.about-story{display:grid}` rules, so the photo rendered as a banner under the text). Phone/tablet layout of the section unchanged (all rules inside @media(min-width:1280px)); the rest of the desktop page is pixel-identical.
 * Arena PDP session, re-applied on top of 3.10.345: seeder self-heal (per-product wc_product_meta_lookup rows + price/stock sync of seeded variable products, triggered on init / rest_api_init / after seeding / REST heal_only) and the 3.10.323 phone polish CSS/JS (breadcrumb above image, share next to wishlist, crossed-out old price, glowing gold banner title, justified about text, 1s auto-slide rails). No desktop change; cart/footer work of the parallel releases untouched.
