@@ -92,7 +92,7 @@ function giftOpts(){
  $$('[data-opt]').forEach(o=>o.addEventListener('click',()=>o.classList.toggle('is-on')));
 }
 
-/* v3.10.353: quantity + cart URL builder - preserves variation */
+/* v3.10.354: quantity + cart URL builder - preserves variation */
 let _alpQty=1;
 let _alpCurrent={vid:0,parent:'',attrKey:'',attrVal:''};
 function _alpBuildUrl(qty){
@@ -189,7 +189,7 @@ function weights(){
   });
  };
  buttons.forEach(b=>b.addEventListener('click',()=>select(b,false)));
- // v3.10.353: auto-init first weight on load so add-to-cart works without extra click
+ // v3.10.354: auto-init first weight on load so add-to-cart works without extra click
  let first = buttons.find(x=>x.getAttribute('aria-checked')==='true') || buttons[0];
  if(first){ select(first,true); }
 }

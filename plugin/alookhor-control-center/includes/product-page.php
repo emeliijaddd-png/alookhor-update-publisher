@@ -96,7 +96,7 @@ function alookhor_cc_pdp_data($product){
        break;
      }
    }
-   // v3.10.353: capture real attribute key/slug for proper add-to-cart URL
+   // v3.10.354: capture real attribute key/slug for proper add-to-cart URL
    $attr_key_found=''; $attr_slug_found='';
    foreach($label_raw as $ak=>$av){
      if(strpos($ak,'vazn')!==false || strpos($ak,'pa_')!==false || strpos($ak,'attribute_')===0){
@@ -207,7 +207,7 @@ function alookhor_cc_pdp_data($product){
   }
  }
  
- // v3.10.353: proper add-to-cart URL for variable products (parent + variation_id + attribute)
+ // v3.10.354: proper add-to-cart URL for variable products (parent + variation_id + attribute)
  $computed_add_url = $product->add_to_cart_url();
  if($product->is_type('variable') && !empty($options) && !empty($options[0]['id'])){
    $first_opt = $options[0];

@@ -1341,3 +1341,9 @@
 - FIX JS: frontend-product.js وزن پیش‌فرض را auto-init می‌کند، quantity را حفظ می‌کند، و URL سبد را با variation_id + attribute_pa_vazn + quantity به صورت صحیح می‌سازد؛ هر دو دکمه #alpAdd و .alp-cta به‌روز می‌شوند.
 - VERIFY: کلیک روی وزن (3/5/10 کیلویی) + تعداد + افزودن به سبد باید واریشن را به WC cart اضافه کند؛ تست با simple product و variable.
 - PRESERVE: هدر/فوتر/گالری/بنر دست‌نخورده؛ فقط PDP add-to-cart.
+
+## 3.10.354 — رفع باگ سبد خرید PDP + باکس قیمت بزرگ‌تر (ادغام 353a و 353b)
+- FIX CART: ریشه‌یابی سبد خالی — add_url والد + عدم init وزن؛ PHP اکنون variation_id + attribute_pa_vazn + parent را می‌سازد؛ JS وزن پیش‌فرض را auto-init و quantity را حفظ می‌کند.
+- FEATURE PRICE BOX: طبق دستور مالک (2026-09-07) قیمت اصلی بزرگ‌تر سفید خط‌خورده (16-18px) و قیمت تخفیف بزرگ‌تر (26-32px طلایی) هر دو در ردیف بالا کنار «قیمت محصول:» قرار گرفتند؛ نشان تخفیف far-left؛ موبایل label+badge ردیف 1 و قیمت‌ها ردیف 2.
+- PRESERVE: هدر/فوتر/گالری/بنر دست‌نخورده؛ cart white-bar fix از 352 حفظ شد.
+- BUILD: 117 فایل، MOCKUP PDP در CSS.

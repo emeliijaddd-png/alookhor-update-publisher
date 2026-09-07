@@ -3530,3 +3530,65 @@ html{overflow-x:hidden !important}
   #alookhor-pdp .about-story-media .about-natural-badge span{font-size:21px !important;font-weight:900 !important;line-height:1 !important;color:#1a0a24 !important}
   #alookhor-pdp .about-story-media .about-natural-badge small{font-size:11px !important;font-weight:800 !important;line-height:1.2 !important;margin-top:2px !important;color:#1a0a24 !important}
 }
+
+/* ===== v3.10.354 — PRICE BOX per owner order (2026-09-07, screenshot of the live box): the crossed-out regular price
+   becomes bigger and WHITE, the discounted price becomes bigger, and both move UP into the top row next to
+   «قیمت محصول:» (label right — old price — new price — discount badge far left). Nothing else in the box changes:
+   same background, border, radius, padding, badge, label. Technique: the two inner wrappers become display:contents
+   so label, both prices and the badge are flex items of the box itself — no markup change, the weight-switcher JS
+   keeps updating the same two spans. Phone (<=640px) keeps label+badge on line 1 and the two prices on line 2
+   (no room for four items), only bigger/white. MOCKUP PDP ===== */
+@media(min-width:641px){
+  #alookhor-pdp .price-box{
+    display:flex !important;
+    flex-direction:row !important;
+    flex-wrap:nowrap !important;
+    align-items:center !important;
+    justify-content:flex-start !important;
+    gap:8px 10px !important;
+    direction:rtl !important;
+    text-align:right !important;
+    min-width:0 !important;
+  }
+  #alookhor-pdp .price-box>.flex.justify-between,
+  #alookhor-pdp .price-box .mt-3{display:contents !important}
+  #alookhor-pdp .price-box>.flex.justify-between>span:first-child{order:0 !important;flex:0 0 auto !important;white-space:nowrap !important}
+  #alookhor-pdp .price-box .line-through{order:1 !important}
+  #alookhor-pdp .price-box .alp-price-now{order:2 !important}
+  #alookhor-pdp .price-box>.flex.justify-between>.rounded-full{order:3 !important;flex:0 0 auto !important;margin-inline-start:auto !important;white-space:nowrap !important}
+}
+#alookhor-pdp .price-box .line-through{
+  display:inline-flex !important;
+  align-items:baseline !important;
+  gap:4px !important;
+  margin:0 !important;
+  font-size:clamp(16px,1.25vw,18px) !important;
+  font-weight:800 !important;
+  color:#ffffff !important;
+  opacity:1 !important;
+  text-decoration:line-through !important;
+  text-decoration-color:#e42a68 !important;
+  text-decoration-thickness:2px !important;
+  line-height:1.2 !important;
+  white-space:nowrap !important;
+  flex:0 0 auto !important;
+}
+#alookhor-pdp .price-box .line-through:empty{display:none !important}
+#alookhor-pdp .price-box .line-through .alpm-cur{font-size:.6em !important;font-weight:700 !important;color:#ffffff !important}
+#alookhor-pdp .price-box .alp-price-now{
+  display:inline-flex !important;
+  align-items:baseline !important;
+  gap:5px !important;
+  margin:0 !important;
+  font-size:clamp(26px,2.1vw,32px) !important;
+  font-weight:900 !important;
+  line-height:1.15 !important;
+  white-space:nowrap !important;
+  flex:0 0 auto !important;
+}
+@media(max-width:640px){
+  #alookhor-pdp .price-box .mt-3{margin-top:8px !important;gap:4px 12px !important}
+  #alookhor-pdp .price-box .line-through{font-size:16px !important}
+  #alookhor-pdp .price-box .alp-price-now{font-size:28px !important}
+}
+/* MOCKUP PDP v3.10.354 */

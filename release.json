@@ -1,21 +1,26 @@
 {
-  "version": "3.10.353",
-  "previous": "3.10.352",
+  "version": "3.10.354",
+  "previous": "3.10.353",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "رفع باگ سبد خرید PDP - انتخاب وزن خودکار + URL متغیر صحیح",
+  "description": "رفع باگ سبد خرید PDP + باکس قیمت بزرگ‌تر طبق دستور مالک",
   "changelog": [
     {
       "tag": "FIX",
       "title": "سبد خرید PDP کار نمی‌کرد",
       "desc": "PHP add_url اکنون اولین واریشن (variation_id + attribute_pa_vazn) را می‌سازد؛ JS وزن پیش‌فرض را auto-init می‌کند و quantity را حفظ می‌کند؛ افزودن به سبد خرید متغیر اکنون درست کار می‌کند"
+    },
+    {
+      "tag": "FEATURE",
+      "title": "باکس قیمت: قیمت‌ها بزرگ‌تر و در ردیف بالا",
+      "desc": "قیمت اصلی ۱۸px سفید خط‌خورده، قیمت جدید تا ۳۲px طلایی، هر دو کنار «قیمت محصول:»؛ نشان تخفیف، پس‌زمینه و حاشیه دست‌نخورده"
     }
   ],
   "project": "ALOOKHOR",
-  "area": "PDP add-to-cart + cart",
-  "reason": "کاربر گزارش داد افزودن به سبد خرید هیچ کاری نمی‌کند؛ علت add_url والد + عدم init وزن؛ رفع با auto-select و URL صحیح",
+  "area": "PDP add-to-cart + price box + cart white bar",
+  "reason": "کاربر گزارش سبد خالی + دستور مالک برای باکس قیمت بزرگ‌تر؛ ادغام دو فیکس 353 در 354",
   "files": [
     "plugin/alookhor-control-center/CHANGELOG.md",
     "plugin/alookhor-control-center/alookhor-control-center.php",
