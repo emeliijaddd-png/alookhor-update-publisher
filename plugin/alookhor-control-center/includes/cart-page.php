@@ -348,10 +348,11 @@ add_filter('woocommerce_cart_item_name',function($name,$cart_item,$cart_item_key
  if(mb_strpos($name,'سامسونگ')!==false||mb_strpos($name,'گوشی')!==false) return '';
  return $name;
 },10,3);
-// ULTRA AGGRESSIVE HIDE - wp_head CSS + wp_footer JS - hide white top bar "سبد خرید"
+// ULTRA AGGRESSIVE HIDE - wp_head CSS + wp_footer JS - hide white top bar "سبد خرید" - safe PHP output
 add_action('wp_head',function(){
  if(!function_exists('is_cart')||!is_cart())return;
- echo '<style id="alookhor-cart-kill-white">
+?>
+<style id="alookhor-cart-kill-white">
 body.woocommerce-cart{background:#0d0510!important;background-color:#0d0510!important}
 body.woocommerce-cart .main-page-wrapper,
 body.woocommerce-cart .site-content,
@@ -382,21 +383,21 @@ body.woocommerce-cart .shop_table,
 body.woocommerce-cart .wd-cart,
 body.woocommerce-cart .wd-empty-cart,
 body.woocommerce-cart .cart-empty,
-body.woocommerce-cart .return-to-shop,
-body.woocommerce-cart [class*="wd-empty"]{display:none!important;visibility:hidden!important;height:0!important;overflow:hidden!important;margin:0!important;padding:0!important;opacity:0!important;pointer-events:none!important}
+body.woocommerce-cart .return-to-shop{ display:none!important; visibility:hidden!important; height:0!important; overflow:hidden!important; margin:0!important; padding:0!important; opacity:0!important; pointer-events:none!important }
 body.woocommerce-cart #alookhor-cart{display:block!important;visibility:visible!important;opacity:1!important}
 body.woocommerce-cart #alookhor-cart *{visibility:visible!important}
-</style>';
+</style>
+<?php
 },9999);
 
 add_action('wp_footer',function(){
  if(!function_exists('is_cart')||!is_cart())return;
- echo '<script>
+?>
+<script>
 (function(){
   function killWhite(){
     var lux=document.getElementById("alookhor-cart");
     if(!lux) return;
-    // Hide by selectors
     var sels=[".wd-page-title",".wd-page-title.wd-style-default",".wd-page-title.wd-style-centered",".page-title",".entry-header",".wd-page-heading",".page-heading",".wd-checkout-steps",".wd-checkout-steps-wrapper",".wd-entities-title",".title-design-default",".whb-page-title",".woocommerce-breadcrumb",".wd-breadcrumbs",".woocommerce-cart-form",".cart-collaterals",".shop_table",".wd-cart",".wd-empty-cart",".cart-empty",".return-to-shop"];
     sels.forEach(function(sel){
       document.querySelectorAll(sel).forEach(function(el){
@@ -405,18 +406,15 @@ add_action('wp_footer',function(){
         el.style.setProperty("visibility","hidden","important");
       });
     });
-    // Hide white rounded bar with text "سبد خرید"
     document.querySelectorAll("div,section,h1,h2").forEach(function(el){
       if(el.closest("#alookhor-cart")||el.closest("header")||el.closest("footer"))return;
       var txt=(el.innerText||el.textContent||"").trim();
       if(txt==="سبد خرید"){
-        // Check if white background
         var cs=window.getComputedStyle(el);
         var bg=cs.backgroundColor;
-        var isWhite = bg==="rgb(255, 255, 255)" || bg==="rgba(255, 255, 255, 1)" || el.offsetHeight<120 && el.offsetWidth>300;
+        var isWhite = bg==="rgb(255, 255, 255)" || bg==="rgba(255, 255, 255, 1)" || (el.offsetHeight<120 && el.offsetWidth>300);
         if(isWhite || el.children.length<=1){
           el.style.setProperty("display","none","important");
-          // hide parents up to 2 levels if they are white containers
           var p=el.parentElement;
           for(var i=0;i<3&&p;i++){
             if(p.closest("#alookhor-cart"))break;
@@ -429,7 +427,6 @@ add_action('wp_footer',function(){
         }
       }
     });
-    // Force dark
     document.body.style.setProperty("background","#0d0510","important");
   }
   killWhite();
@@ -441,5 +438,6 @@ add_action('wp_footer',function(){
   setTimeout(killWhite,1500);
   setTimeout(killWhite,3000);
 })();
-</script>';
+</script>
+<?php
 },100);
