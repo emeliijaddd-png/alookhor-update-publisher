@@ -9,3 +9,10 @@ add_action('wp_enqueue_scripts',function(){
  if(is_admin())return;
  wp_enqueue_style('alookhor-cc-r2',ALOOKHOR_CC_URL.'assets/css/frontend-responsive-v2.css',[],ALOOKHOR_CC_BUILD);
 },9999);
+
+// v3.10.354 — PDP breadcrumb presentation layer.
+// Scoped to the managed PDP; semantic BreadcrumbList/SEO markup is untouched.
+add_action('wp_enqueue_scripts',function(){
+ if(is_admin())return;
+ wp_enqueue_style('alookhor-cc-pdp-breadcrumb',ALOOKHOR_CC_URL.'assets/css/frontend-pdp-breadcrumb.css',['alookhor-cc-r2'],ALOOKHOR_CC_BUILD);
+},10000);
