@@ -278,6 +278,7 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 | `plugin/alookhor-control-center/includes/magazine.php` | 11 | `6b2bb5f4bcda9f078d3cc35423eca453b95527ba7ad9c73ca0c9e05cbd945c23` |
 | `plugin/alookhor-control-center/includes/newsletter.php` | 11 | `c164526a1deccb24ff8211e439b73ad6dda497cc3064c5e3f5d5c1fc01797321` |
 | `plugin/alookhor-control-center/includes/pages-settings.php` | 103 | `3f105b8014498e90b3e6a7bc6f60f667ee2eab40fd28fca2e9d03c3f087965b1` |
+| `plugin/alookhor-control-center/includes/pdp-breadcrumb-fix.php` | 117 | `38564d67af5894fe9f503bb06191f23f3be53f19b73b6a560228395afcf71778` |
 | `plugin/alookhor-control-center/includes/product-categories.php` | 99 | `72b7cf6900ad70a75c104f4e613e3357db91a8c05190af5847ebd9da674aa106` |
 | `plugin/alookhor-control-center/includes/product-page.php` | 615 | `f5c907e557dd456a077ab409b297a0bcb88dbd5ad51af91ddeb3253d6ac327ad` |
 | `plugin/alookhor-control-center/includes/product-seeder.php` | 777 | `3885bda6a4d7f7fbc12f6943782783cae558c379c1c334007e322fb63c96668c` |
@@ -15636,6 +15637,128 @@ function alookhor_cc_goldify($text){
  if($pos===false)return $safe;
  return mb_substr($safe,0,$pos).'<b>'.mb_substr($safe,$pos,5).'</b>'.mb_substr($safe,$pos+5);
 }
+````
+
+## Source Snapshot — `plugin/alookhor-control-center/includes/pdp-breadcrumb-fix.php`
+
+````php
+<?php
+if (!defined('ABSPATH')) exit;
+
+/**
+ * Canonical PDP breadcrumb correction.
+ * The PDP has two production render paths (template_include and the legacy
+ * template_redirect renderer), so this is attached globally after all PDP
+ * assets have been enqueued. It deliberately targets the actual breadcrumb
+ * markup emitted by alookhor_cc_pdp_markup().
+ */
+add_action('wp_enqueue_scripts', function(){
+    if (!function_exists('is_product') || !is_product()) return;
+
+    $css = <<<'CSS'
+/* ALOOKHOR PDP — canonical breadcrumb final correction */
+body.alookhor-managed-product-page .alookhor-alp > .breadcrumb-wrapper,
+body.alookhor-pdp-body .alookhor-alp > .breadcrumb-wrapper,
+.alookhor-alp > .breadcrumb-wrapper{
+  position:relative!important;
+  z-index:80!important;
+  transform:translateY(125px)!important;
+  margin-top:0!important;
+  margin-bottom:59px!important;
+  padding-left:16px!important;
+  padding-right:16px!important;
+}
+body.alookhor-managed-product-page .breadcrumb-box,
+body.alookhor-pdp-body .breadcrumb-box,
+.alookhor-alp .breadcrumb-box{
+  color:#fff!important;
+  font-family:Dana,Vazirmatn,IRANSansX,Tahoma,sans-serif!important;
+  font-size:20px!important;
+  font-weight:800!important;
+  line-height:1.9!important;
+  min-height:58px!important;
+  display:flex!important;
+  align-items:center!important;
+  gap:.6rem!important;
+  padding:15px 20px!important;
+  opacity:1!important;
+  visibility:visible!important;
+  background:rgba(35,14,49,.82)!important;
+  border:1px solid rgba(212,175,55,.22)!important;
+  border-radius:18px!important;
+  box-shadow:0 16px 38px rgba(0,0,0,.28)!important;
+  backdrop-filter:blur(14px)!important;
+  -webkit-backdrop-filter:blur(14px)!important;
+}
+body.alookhor-managed-product-page .breadcrumb-box a,
+body.alookhor-managed-product-page .breadcrumb-box span,
+body.alookhor-managed-product-page .breadcrumb-box strong,
+body.alookhor-pdp-body .breadcrumb-box a,
+body.alookhor-pdp-body .breadcrumb-box span,
+body.alookhor-pdp-body .breadcrumb-box strong,
+.alookhor-alp .breadcrumb-box a,
+.alookhor-alp .breadcrumb-box span,
+.alookhor-alp .breadcrumb-box strong{
+  color:#fff!important;
+  font-family:Dana,Vazirmatn,IRANSansX,Tahoma,sans-serif!important;
+  font-size:20px!important;
+  font-weight:800!important;
+  line-height:1.9!important;
+  opacity:1!important;
+}
+.alookhor-alp .breadcrumb-box > span:last-child,
+.alookhor-alp .breadcrumb-box > span:last-child a{
+  font-weight:900!important;
+}
+.alookhor-alp .breadcrumb-box svg{
+  color:#fff!important;
+  stroke:#fff!important;
+  width:19px!important;
+  height:19px!important;
+  flex:none!important;
+}
+@media (max-width:767px){
+  body.alookhor-managed-product-page .alookhor-alp > .breadcrumb-wrapper,
+  body.alookhor-pdp-body .alookhor-alp > .breadcrumb-wrapper,
+  .alookhor-alp > .breadcrumb-wrapper{
+    transform:translateY(78px)!important;
+    margin-top:0!important;
+    margin-bottom:43px!important;
+    padding-left:10px!important;
+    padding-right:10px!important;
+  }
+  body.alookhor-managed-product-page .breadcrumb-box,
+  body.alookhor-pdp-body .breadcrumb-box,
+  .alookhor-alp .breadcrumb-box{
+    min-height:50px!important;
+    padding:11px 12px!important;
+    border-radius:15px!important;
+    font-size:16px!important;
+    line-height:1.9!important;
+    gap:.35rem!important;
+  }
+  body.alookhor-managed-product-page .breadcrumb-box a,
+  body.alookhor-managed-product-page .breadcrumb-box span,
+  body.alookhor-managed-product-page .breadcrumb-box strong,
+  body.alookhor-pdp-body .breadcrumb-box a,
+  body.alookhor-pdp-body .breadcrumb-box span,
+  body.alookhor-pdp-body .breadcrumb-box strong,
+  .alookhor-alp .breadcrumb-box a,
+  .alookhor-alp .breadcrumb-box span,
+  .alookhor-alp .breadcrumb-box strong{
+    font-size:16px!important;
+  }
+  .alookhor-alp .breadcrumb-box svg{width:15px!important;height:15px!important}
+}
+CSS;
+
+    if (wp_style_is('alookhor-cc-pdp', 'enqueued')) {
+        wp_add_inline_style('alookhor-cc-pdp', $css);
+    } else {
+        wp_enqueue_style('alookhor-cc-pdp', ALOOKHOR_CC_URL.'assets/css/frontend-product.css', [], ALOOKHOR_CC_BUILD);
+        wp_add_inline_style('alookhor-cc-pdp', $css);
+    }
+}, 10000);
 ````
 
 ## Source Snapshot — `plugin/alookhor-control-center/includes/product-categories.php`
