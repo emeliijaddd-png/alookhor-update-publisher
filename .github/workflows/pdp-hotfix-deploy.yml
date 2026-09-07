@@ -2,7 +2,7 @@ name: ALOOKHOR PDP Hotfix Deploy
 
 on:
   push:
-    branches: [pdp-exclusive-renderer-final]
+    branches: [pdp-exclusive-renderer-final, main]
 
 permissions:
   contents: read
