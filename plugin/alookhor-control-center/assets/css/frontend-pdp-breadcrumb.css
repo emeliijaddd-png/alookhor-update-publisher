@@ -1,0 +1,63 @@
+/* ALOOKHOR PDP Breadcrumb — v3.10.354
+ * Scoped presentation-only layer.
+ * No DOM/SEO semantics are changed; existing BreadcrumbList markup remains untouched.
+ */
+.alookhor-alp .alp-crumbs{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  flex-wrap:wrap;
+  margin:18px 0 0;
+  padding:12px 4px 18px;
+  color:#fff;
+  font-family:Dana,"Dana VF","Dana 2",Vazirmatn,IRANSansX,Tahoma,sans-serif;
+  font-size:13px;
+  font-weight:500;
+  line-height:1.9;
+  direction:rtl;
+}
+.alookhor-alp .alp-crumbs a{
+  color:#fff;
+  font-family:inherit;
+  font-weight:500;
+  text-decoration:none;
+  transition:color .2s ease,opacity .2s ease;
+}
+.alookhor-alp .alp-crumbs a:hover{
+  color:#E8C766;
+}
+.alookhor-alp .alp-crumbs span{
+  color:#fff;
+  font-family:inherit;
+  font-weight:700;
+}
+.alookhor-alp .alp-crumbs i{
+  color:rgba(255,255,255,.5);
+  font-family:inherit;
+  font-style:normal;
+}
+@media(max-width:640px){
+  .alookhor-alp .alp-crumbs{
+    gap:5px 7px;
+    margin-top:14px;
+    padding:10px 2px 15px;
+    font-size:12px;
+    line-height:1.85;
+  }
+  .alookhor-alp .alp-crumbs a,
+  .alookhor-alp .alp-crumbs span,
+  .alookhor-alp .alp-crumbs i{
+    min-height:24px;
+    display:inline-flex;
+    align-items:center;
+  }
+}
+@media(max-width:390px){
+  .alookhor-alp .alp-crumbs{
+    gap:4px 6px;
+    font-size:11.5px;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  .alookhor-alp .alp-crumbs a{transition:none}
+}
