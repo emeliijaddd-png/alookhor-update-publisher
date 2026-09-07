@@ -85,6 +85,7 @@ jobs:
           common=['set cmd:fail-exit true','set net:max-retries 2','set net:timeout 20','set ftp:passive-mode true','set ftp:ssl-auth TLS','set ftp:ssl-force true','set ftp:ssl-protect-data true','set ssl:verify-certificate true',f'open -p {port} "{auth}"']
           files={
            '/tmp/package.lftp':common+[f'put public/releases/{package} -o releases/{package}','bye'],
+           '/tmp/verify.lftp':common+[f'get releases/{package} -o /tmp/remote.zip','bye'],
            '/tmp/meta.lftp':common+['put public/releases/SHA256SUMS.txt -o releases/SHA256SUMS.txt','put public/index.html -o index.html','put public/changelog.html -o changelog.html','put public/.htaccess -o .htaccess','bye'],
            '/tmp/manifest.lftp':common+['put public/manifest.json -o manifest.json.next','mv manifest.json.next manifest.json','bye']}
           for path,commands in files.items():
@@ -94,27 +95,28 @@ jobs:
       - name: Upload release package
         run: lftp -f /tmp/package.lftp
 
-      - name: Verify remote package
+      - name: Verify remote package over FTPS
         env:
-          GITHUB_RUN_ID: ${{ github.run_id }}
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+          FTP_PORT: ${{ secrets.FTP_PORT }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
         run: |
+          set -euo pipefail
+          rm -f /tmp/remote.zip
+          lftp -f /tmp/verify.lftp
           python3 - <<'PY'
-          import hashlib,json,os,time,urllib.request
+          import hashlib,json
           from pathlib import Path
           from zipfile import ZipFile
-          m=json.loads(Path('public/manifest.json').read_text()); url=m['download_url']+'?deploy='+os.environ['GITHUB_RUN_ID']; target=Path('/tmp/remote.zip')
-          for attempt in range(6):
-           try:
-            with urllib.request.urlopen(url,timeout=30) as r: target.write_bytes(r.read())
-            assert hashlib.sha256(target.read_bytes()).hexdigest()==m['sha256']
-            with ZipFile(target) as z:
-             assert z.testzip() is None
-             tpl=z.read('alookhor-control-center/templates/single-product.php').decode()
-             assert 'alookhor_cc_render_akx_header' in tpl and 'alookhor-pdp-breadcrumb-refinement' in tpl
-            print('Remote package verification: PASS'); break
-           except Exception:
-            if attempt==5: raise
-            time.sleep(10)
+          m=json.loads(Path('public/manifest.json').read_text())
+          target=Path('/tmp/remote.zip')
+          assert hashlib.sha256(target.read_bytes()).hexdigest()==m['sha256']
+          with ZipFile(target) as z:
+              assert z.testzip() is None
+              tpl=z.read('alookhor-control-center/templates/single-product.php').decode()
+              assert 'alookhor_cc_render_akx_header' in tpl and 'alookhor-pdp-breadcrumb-refinement' in tpl
+          print('Remote package verification over FTPS: PASS',m['version'])
           PY
 
       - name: Publish metadata and manifest
@@ -131,9 +133,12 @@ jobs:
           from pathlib import Path
           e=json.loads(Path('public/manifest.json').read_text()); u=f"https://updates.alookhor.ir/manifest.json?deploy={os.environ['GITHUB_RUN_ID']}"
           for attempt in range(6):
-           with urllib.request.urlopen(u,timeout=20) as r: a=json.load(r)
-           if a.get('version')==e['version'] and a.get('sha256')==e['sha256']:
-            print('Production manifest verification: PASS',a['version']); break
+           try:
+            with urllib.request.urlopen(u,timeout=20) as r: a=json.load(r)
+            if a.get('version')==e['version'] and a.get('sha256')==e['sha256']:
+             print('Production manifest verification: PASS',a['version']); break
+           except Exception as exc:
+            if attempt==5: raise
            if attempt==5: raise SystemExit(f'Production manifest mismatch: {a}')
            time.sleep(10)
           PY
