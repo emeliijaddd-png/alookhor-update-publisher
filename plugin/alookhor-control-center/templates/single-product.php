@@ -8,10 +8,13 @@ if(!defined('ABSPATH'))exit;
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <?php wp_head(); ?>
   <style id="alookhor-pdp-breadcrumb-refinement">
-    /* PDP breadcrumb: visually separated from the Arena header, lower, larger and white. */
+    /* PDP breadcrumb: force a visible, responsive offset below the Arena header. */
     .alookhor-managed-product-page .alookhor-alp .breadcrumb-wrapper{
-      margin-top:18px!important;
-      margin-bottom:20px!important;
+      position:relative!important;
+      top:24px!important;
+      margin-top:0!important;
+      margin-bottom:44px!important;
+      z-index:2!important;
     }
     .alookhor-managed-product-page .alookhor-alp .breadcrumb-box{
       color:#fff!important;
@@ -41,8 +44,9 @@ if(!defined('ABSPATH'))exit;
     }
     @media (max-width:767px){
       .alookhor-managed-product-page .alookhor-alp .breadcrumb-wrapper{
-        margin-top:12px!important;
-        margin-bottom:16px!important;
+        top:14px!important;
+        margin-top:0!important;
+        margin-bottom:30px!important;
       }
       .alookhor-managed-product-page .alookhor-alp .breadcrumb-box{
         font-size:14px!important;
