@@ -1,0 +1,159 @@
+name: Deploy PDP header verified package
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: alookhor-pdp-header-deploy-v2
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Validate source and build
+        run: |
+          set -euo pipefail
+          python3 -m py_compile scripts/*.py
+          find plugin/alookhor-control-center -name '*.php' -type f -print0 | xargs -0 -n1 php -l
+          python3 scripts/generate_code_registry.py --check
+          python3 - <<'PY'
+          from pathlib import Path
+          t=Path('plugin/alookhor-control-center/templates/single-product.php').read_text(encoding='utf-8')
+          p=Path('plugin/alookhor-control-center/includes/product-page.php').read_text(encoding='utf-8')
+          h=Path('plugin/alookhor-control-center/includes/shortcode-header.php').read_text(encoding='utf-8')
+          assert 'alookhor_cc_render_akx_header' in t
+          assert 'alookhor_cc_pdp_markup();' in t
+          assert "return ALOOKHOR_CC_DIR.'templates/single-product.php';" in p
+          assert 'function alookhor_cc_render_akx_header()' in h
+          print('PDP canonical Arena/AKX header contract: PASS')
+          PY
+          python3 scripts/build_release.py
+
+      - name: Verify package
+        run: |
+          python3 - <<'PY'
+          import hashlib,json
+          from pathlib import Path
+          from zipfile import ZipFile
+          m=json.loads(Path('public/manifest.json').read_text())
+          p=Path('public/releases')/Path(m['download_url']).name
+          assert hashlib.sha256(p.read_bytes()).hexdigest()==m['sha256']
+          with ZipFile(p) as z:
+              assert z.testzip() is None
+              boot=z.read('alookhor-control-center/alookhor-control-center.php').decode()
+              tpl=z.read('alookhor-control-center/templates/single-product.php').decode()
+              assert f"Version: {m['version']}" in boot
+              assert 'alookhor_cc_render_akx_header' in tpl
+              assert 'alookhor_cc_pdp_markup();' in tpl
+          print('Package SHA and canonical header verification: PASS',m['version'])
+          PY
+
+      - name: Install FTPS client
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq lftp
+
+      - name: Prepare FTPS publish scripts
+        env:
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+          FTP_PORT: ${{ secrets.FTP_PORT }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+        run: |
+          python3 - <<'PY'
+          import json,os,re
+          from pathlib import Path
+          from urllib.parse import quote
+          server=os.environ['FTP_SERVER'].strip(); port=os.environ['FTP_PORT'].strip(); user=os.environ['FTP_USERNAME'].strip(); password=os.environ['FTP_PASSWORD']
+          if not all([server,port,user,password]): raise SystemExit('Missing FTPS secret')
+          if '\n' in password or '\r' in password: raise SystemExit('FTP password contains newline')
+          if not re.fullmatch(r'[A-Za-z0-9.-]+',server) or not port.isdigit(): raise SystemExit('Invalid FTPS endpoint')
+          auth=f'ftp://{quote(user,safe="")}:{quote(password,safe="")}@{server}'
+          m=json.loads(Path('public/manifest.json').read_text()); package=Path(m['download_url']).name
+          common=['set cmd:fail-exit true','set net:max-retries 2','set net:timeout 20','set ftp:passive-mode true','set ftp:ssl-auth TLS','set ftp:ssl-force true','set ftp:ssl-protect-data true','set ssl:verify-certificate true',f'open -p {port} "{auth}"']
+          files={
+           '/tmp/package.lftp':common+[f'put public/releases/{package} -o releases/{package}','bye'],
+           '/tmp/meta.lftp':common+['put public/releases/SHA256SUMS.txt -o releases/SHA256SUMS.txt','put public/index.html -o index.html','put public/changelog.html -o changelog.html','put public/.htaccess -o .htaccess','bye'],
+           '/tmp/manifest.lftp':common+['put public/manifest.json -o manifest.json.next','mv manifest.json.next manifest.json','bye']}
+          for path,commands in files.items():
+           p=Path(path); p.write_text(';\n'.join(commands)+';\n'); p.chmod(0o600)
+          PY
+
+      - name: Upload release package
+        run: lftp -f /tmp/package.lftp
+
+      - name: Verify remote package
+        env:
+          GITHUB_RUN_ID: ${{ github.run_id }}
+        run: |
+          python3 - <<'PY'
+          import hashlib,json,os,time,urllib.request
+          from pathlib import Path
+          from zipfile import ZipFile
+          m=json.loads(Path('public/manifest.json').read_text()); url=m['download_url']+'?deploy='+os.environ['GITHUB_RUN_ID']; target=Path('/tmp/remote.zip')
+          for attempt in range(6):
+           try:
+            with urllib.request.urlopen(url,timeout=30) as r: target.write_bytes(r.read())
+            assert hashlib.sha256(target.read_bytes()).hexdigest()==m['sha256']
+            with ZipFile(target) as z:
+             assert z.testzip() is None
+             tpl=z.read('alookhor-control-center/templates/single-product.php').decode()
+             assert 'alookhor_cc_render_akx_header' in tpl and 'alookhor_cc_pdp_markup();' in tpl
+            print('Remote package verification: PASS'); break
+           except Exception:
+            if attempt==5: raise
+            time.sleep(10)
+          PY
+
+      - name: Publish metadata and manifest
+        run: |
+          lftp -f /tmp/meta.lftp
+          lftp -f /tmp/manifest.lftp
+
+      - name: Verify production manifest
+        env:
+          GITHUB_RUN_ID: ${{ github.run_id }}
+        run: |
+          python3 - <<'PY'
+          import json,os,time,urllib.request
+          from pathlib import Path
+          e=json.loads(Path('public/manifest.json').read_text()); u=f"https://updates.alookhor.ir/manifest.json?deploy={os.environ['GITHUB_RUN_ID']}"
+          for attempt in range(6):
+           with urllib.request.urlopen(u,timeout=20) as r: a=json.load(r)
+           if a.get('version')==e['version'] and a.get('sha256')==e['sha256']:
+            print('Production manifest verification: PASS',a['version']); break
+           if attempt==5: raise SystemExit(f'Production manifest mismatch: {a}')
+           time.sleep(10)
+          PY
+
+      - name: Install and verify WordPress release
+        env:
+          WP_BASE_URL: ${{ secrets.WP_BASE_URL }}
+          WP_USERNAME: ${{ secrets.WP_USERNAME }}
+          WP_APP_PASSWORD: ${{ secrets.WP_APP_PASSWORD }}
+          WP_REPORT_PATH: /tmp/wordpress-report.json
+        run: python3 scripts/wordpress_release_test.py
+
+      - name: Enforce production PDP header result
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          r=json.loads(Path('/tmp/wordpress-report.json').read_text())
+          assert r.get('ok') is True, r.get('failed_checks')
+          p=r.get('product',{})
+          required=['pdp_rendered','portal_header','theme_header_chrome','desktop_browser','mobile_browser']
+          missing=[k for k in required if p.get(k) is not True]
+          if missing: raise SystemExit(f'Production PDP/header verification failed: {missing}')
+          print('PRODUCTION PDP + CANONICAL ARENA HEADER: PASS')
+          print('Version:',r.get('target'))
+          print('Failed checks:',r.get('failed_checks'))
+          PY
