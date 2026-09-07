@@ -190,9 +190,9 @@
     "export_text": "ارسال رایگان به بیش از ۱۵ کشور جهان",
     "support_text": "پشتیبانی ۲۴/۷"
   },
-  "updated_at": "2026-09-05T12:00:00Z",
-  "updated_by": "AI Assistant — v3.10.349 mobile PDP per 2 mockups (media-query only, desktop pixel-identical to 3.10.310)",
-  "version": "3.10.349",
+  "updated_at": "2026-09-07T09:10:00Z",
+  "updated_by": "AI Assistant — v3.10.351 desktop about card per owner mockup + seeder self-heal + 3.10.323 phone polish on top of 3.10.345",
+  "version": "3.10.351",
   "hero_settings": {
     "enabled": true,
     "hide_legacy": true,

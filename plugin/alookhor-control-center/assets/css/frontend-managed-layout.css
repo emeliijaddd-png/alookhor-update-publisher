@@ -1,0 +1,29 @@
+/* Managed shortcode hosts: remove Elementor's reserved white gaps without touching unrelated content. */
+html body .alookhor-managed-module-widget,
+html body .alookhor-managed-module-widget>.elementor-widget-container,
+html body .alookhor-managed-module-host{
+  margin-top:0!important;margin-bottom:0!important;padding-top:0!important;padding-bottom:0!important;
+  background:#0B0713!important;--padding-top:0!important;--padding-bottom:0!important;--margin-top:0!important;--margin-bottom:0!important;
+}
+html body .alookhor-managed-module-host{--gap:0px!important;--row-gap:0px!important;--column-gap:0px!important;gap:0!important}
+html body .alookhor-managed-module-widget:before,
+html body .alookhor-managed-module-widget:after{display:none!important}
+/* Each module controls its own internal breathing room; outer shortcode margins must never create white strips. */
+html body :is(.alookhor-mh,.alookhor-sf,.alookhor-sort-center,.alookhor-xb,.alookhor-app-banner,.alookhor-fp,.alookhor-campaign-wrap,.alookhor-bs,.alookhor-newsletter,.alookhor-mag,.alookhor-mc,.alookhor-mf){margin-top:0!important;margin-bottom:0!important}
+html body .alookhor-managed-module-host+ .alookhor-managed-module-host{border-top:0!important}
+@media(max-width:767px){html body .alookhor-managed-module-host{min-height:0!important}}
+
+/* v3.10.116 — remove residual Woodmart/Elementor white seams between module containers. */
+html body.alookhor-managed-page,
+html body.alookhor-managed-page .website-wrapper,
+html body.alookhor-managed-page .main-page-wrapper,
+html body.alookhor-managed-page #main-content,
+html body.alookhor-managed-page .page-title-default,
+html body .alookhor-managed-module-surface{
+  background-color:#0B0713!important;
+  background-image:none!important;
+}
+html body .alookhor-managed-module-surface>.elementor-element,
+html body .alookhor-managed-module-surface>.e-con-inner{border-top-color:transparent!important;border-bottom-color:transparent!important}
+html body.alookhor-managed-page .elementor-widget-spacer .elementor-spacer-inner{background:#0B0713!important}
+html body.alookhor-managed-page hr{border-color:rgba(212,175,55,.12)!important;background:#0B0713!important}

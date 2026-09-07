@@ -1,21 +1,21 @@
 {
-  "version": "3.10.349",
-  "previous": "3.10.345",
+  "version": "3.10.351",
+  "previous": "3.10.350",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "حذف نوار سفید سبد خرید - CSS",
+  "description": "تست 351 - فقط نسخه",
   "changelog": [
     {
-      "tag": "FIX",
-      "title": "حذف نوار سفید",
-      "desc": "CSS تهاجمی"
+      "tag": "TEST",
+      "title": "تست",
+      "desc": "فقط نسخه"
     }
   ],
   "project": "ALOOKHOR",
-  "area": "Product Page PDP — Mobile per 2 mockups (desktop locked)",
-  "reason": "کاربر ۲ ماکاپ موبایل داد: موبایل باید دقیقاً مثل ماکاپ شود، دسکتاپ قفل و بدون تغییر، فقط media query؛ نسخه‌های ۳۰۰–۳۱۰ سشن‌های دیگر بلوک موبایل ۲۶۷/۲۶۸ را حذف کرده بودند — دوباره روی ۳۱۰ اعمال شد",
+  "area": "PDP about card (desktop, ordered) + Product seeder + PDP phone",
+  "reason": "دستور مستقیم مالک برای تبدیل بخش «درباره» به ماکاپ Screenshot 113637؛ تگ‌های موازی بلوک‌های سشن PDP را نداشتند",
   "files": [
     "plugin/alookhor-control-center/CHANGELOG.md",
     "plugin/alookhor-control-center/alookhor-control-center.php",
@@ -26,6 +26,8 @@
     "plugin/alookhor-control-center/assets/js/modules/dashboard.js",
     "plugin/alookhor-control-center/assets/js/modules/settings.js",
     "plugin/alookhor-control-center/config/site.json",
+    "plugin/alookhor-control-center/includes/product-page.php",
+    "plugin/alookhor-control-center/includes/product-seeder.php",
     "plugin/alookhor-control-center/readme.txt",
     "release.json"
   ]

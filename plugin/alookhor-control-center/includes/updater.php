@@ -7,8 +7,8 @@
  *
  * Expected manifest (JSON):
  * {
- *   "version": "3.10.19",
- *   "download_url": "https://updates.alookhor.ir/releases/alookhor-control-center-3.10.19.zip",
+ *   "version": "3.10.57",
+ *   "download_url": "https://updates.alookhor.ir/releases/alookhor-control-center-3.10.57.zip",
  *   "details_url": "https://example.com/changelog",
  *   "requires": "6.0",
  *   "tested": "7.0",
@@ -382,4 +382,20 @@ add_action('upgrader_process_complete', function($upgrader, $options){
         'upgrader_process_complete'
     );
     unset($GLOBALS['alookhor_cc_pre_update_activation']);
+
+    // v3.10.69: کش صفحه را بعد از آپدیت خود افزونه پاک کن تا HTML جدید با URL نسخه‌ی
+    // جدید CSS/JS لود شود (LiteSpeed/W3TC در صورت وجود + Object Cache).
+    // v3.10.186: پوشش کامل افزونه‌های کش صفحه رایج (WP Rocket و…) — کش قدیمی برای
+    // کاربران مرورگری نسخهٔ کهنهٔ صفحه محصول را نشان می‌داد (بات‌ها از کش رد می‌شدند).
+    if (function_exists('wp_cache_flush')) wp_cache_flush();
+    if (function_exists('litespeed_purge_all')) litespeed_purge_all();
+    do_action('litespeed_purge_all');
+    if (class_exists('W3TC')) { if (function_exists('w3tc_flush_all')) w3tc_flush_all(); }
+    if (function_exists('rocket_clean_domain')) rocket_clean_domain();
+    if (function_exists('sg_cachepress_purge_everything')) sg_cachepress_purge_everything();
+    if (function_exists('wpfc_clear_cache')) wpfc_clear_cache(true);
+    if (function_exists('wp_cache_clear_cache')) wp_cache_clear_cache();
+    if (function_exists('w3tc_flush_all')) w3tc_flush_all();
+    if (function_exists('f2_purge_all')) f2_purge_all();
+    if (defined('LSCWP_DIR')) do_action('litespeed_purge_all');
 }, 20, 2);

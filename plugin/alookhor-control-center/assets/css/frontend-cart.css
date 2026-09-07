@@ -649,20 +649,3 @@ body.woocommerce-cart .main-page-wrapper > .wd-page-title {
   padding:0!important;
   opacity:0!important;
 }
-
-/* v3.10.349 FINAL - hide white top bar "سبد خرید" - extra */
-body.woocommerce-cart .wd-page-title,
-body.woocommerce-cart .wd-page-title.wd-style-default,
-body.woocommerce-cart .whb-page-title,
-body.woocommerce-cart .wd-entities-title,
-body.woocommerce-cart h1.wd-entities-title,
-body.woocommerce-cart .title-design-default,
-body.woocommerce-cart .wd-page-title .container,
-body.woocommerce-cart .container > .wd-page-title {
-  display:none!important;
-  visibility:hidden!important;
-  height:0!important;
-  overflow:hidden!important;
-  margin:0!important;
-  padding:0!important;
-}
