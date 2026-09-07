@@ -48,7 +48,7 @@ if(!defined('ABSPATH'))exit;
 <body <?php body_class('alookhor-managed-product-page'); ?>>
 <?php wp_body_open(); ?>
 <?php
-/* Do not call get_header(): that would reintroduce WoodMart's theme header. */
+/* Canonical Arena/AKX header only; the WoodMart theme header is intentionally bypassed. */
 if(function_exists('alookhor_cc_render_akx_header')) echo alookhor_cc_render_akx_header();
 
 $alookhor_pdp=alookhor_cc_pdp_markup();
