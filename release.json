@@ -1,16 +1,16 @@
 {
-  "version": "3.10.346",
-  "previous": "3.10.345",
+  "version": "3.10.347",
+  "previous": "3.10.346",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "حذف نوار سفید سبد خرید - نهایی",
+  "description": "حذف نوار سفید سبد خرید - نهایی 2",
   "changelog": [
     {
       "tag": "FIX",
       "title": "حذف نوار سفید بالا",
-      "desc": "wp_head CSS + JS تهاجمی - مخفی کردن wd-page-title و هر باکس سفید با متن سبد خرید"
+      "desc": "wp_head CSS + JS تهاجمی - مخفی کردن wd-page-title"
     }
   ],
   "project": "ALOOKHOR",
