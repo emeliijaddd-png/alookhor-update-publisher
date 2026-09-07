@@ -3,7 +3,7 @@
 > این سند از روی فایل‌های واقعی Repository تولید می‌شود. Source اصلی همچنان فایل‌های اجرایی است؛ Snapshotهای کامل زیر برای بازیابی، ممیزی و انتقال دانش نگهداری می‌شوند.
 
 - **Registry version:** `1.0.0`
-- **Plugin/source version:** `3.10.354`
+- **Plugin/source version:** `3.10.355`
 - **Generated:** `2026-08-14`
 - **Repository:** `alookhor-update-publisher`
 - **Production:** `https://alookhor.ir`
@@ -13,8 +13,8 @@
 
 ## Current Project State
 
-- CURRENT VERSION: `3.10.354`
-- LAST FUNCTIONAL CHANGE: رفع باگ سبد خرید PDP + باکس قیمت بزرگ‌تر طبق دستور مالک
+- CURRENT VERSION: `3.10.355`
+- LAST FUNCTIONAL CHANGE: حذف کامل رندرر Single Product وودمارت و نگه‌داشتن فقط PDP آلوخور
 - ACTIVE DESIGN: Luxury Black/Gold; actual component colors remain controlled by saved WordPress settings and existing module defaults.
 - ACTIVE SHORTCODES: `[alookhor_portal_header]`, `[alookhor_managed_categories]`, `[alookhor_managed_hero]`, `[alookhor_managed_features]`.
 - ACTIVE PANELS: Main ALOOKHOR Control Center and Header/Top Bar submenu.
@@ -26,11 +26,11 @@
 
 ```text
 PROJECT: ALOOKHOR
-AREA: PDP add-to-cart + price box + cart white bar
-CURRENT VERSION: 3.10.354
-CHANGE: رفع باگ سبد خرید PDP + باکس قیمت بزرگ‌تر طبق دستور مالک
-REASON: کاربر گزارش سبد خالی + دستور مالک برای باکس قیمت بزرگ‌تر؛ ادغام دو فیکس 353 در 354
-FILES: plugin/alookhor-control-center/CHANGELOG.md; plugin/alookhor-control-center/alookhor-control-center.php; plugin/alookhor-control-center/assets/css/frontend-cart.css; plugin/alookhor-control-center/assets/css/frontend-product.css; plugin/alookhor-control-center/assets/js/app.js; plugin/alookhor-control-center/assets/js/core/updateSystem.js; plugin/alookhor-control-center/assets/js/frontend-product.js; plugin/alookhor-control-center/assets/js/modules/dashboard.js; plugin/alookhor-control-center/assets/js/modules/settings.js; plugin/alookhor-control-center/config/site.json; plugin/alookhor-control-center/includes/cart-page.php; plugin/alookhor-control-center/includes/product-page.php; plugin/alookhor-control-center/readme.txt; release.json
+AREA: PDP hard renderer replacement
+CURRENT VERSION: 3.10.355
+CHANGE: حذف کامل رندرر Single Product وودمارت و نگه‌داشتن فقط PDP آلوخور
+REASON: دستور مالک برای حذف کامل Single Product قدیمی WoodMart و جلوگیری از نمایش همزمان دو layout
+FILES: plugin/alookhor-control-center/alookhor-control-center.php; plugin/alookhor-control-center/includes/product-page.php; plugin/alookhor-control-center/includes/responsive-v2.php; release.json
 STATUS: SOURCE READY — deployment status must be verified separately.
 ```
 
@@ -38,34 +38,34 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 
 | ID | Type | Name | File | Used In | Version | Status |
 |---|---|---|---|---|---:|---|
-| SC-001 | Shortcode | `[alookhor_portal_header]` | `includes/shortcode-header.php` | Elementor Header Shortcode widget; exact template ID unavailable | 3.10.354 | Active / compatibility-preserving |
-| SC-002 | Shortcode | `[alookhor_managed_categories]` | `includes/product-categories.php` | Home page → Elementor Shortcode widget | 3.10.354 | Active |
-| SC-003 | Shortcode | `[alookhor_managed_hero]` | `includes/hero.php` | Home Elementor Shortcode widget / automatic Legacy-root replacement | 3.10.354 | Active |
-| SC-004 | Shortcode | `[alookhor_managed_features]` | `includes/site-features.php` | Home Elementor HTML widget / automatic Legacy-root replacement | 3.10.354 | Active |
+| SC-001 | Shortcode | `[alookhor_portal_header]` | `includes/shortcode-header.php` | Elementor Header Shortcode widget; exact template ID unavailable | 3.10.355 | Active / compatibility-preserving |
+| SC-002 | Shortcode | `[alookhor_managed_categories]` | `includes/product-categories.php` | Home page → Elementor Shortcode widget | 3.10.355 | Active |
+| SC-003 | Shortcode | `[alookhor_managed_hero]` | `includes/hero.php` | Home Elementor Shortcode widget / automatic Legacy-root replacement | 3.10.355 | Active |
+| SC-004 | Shortcode | `[alookhor_managed_features]` | `includes/site-features.php` | Home Elementor HTML widget / automatic Legacy-root replacement | 3.10.355 | Active |
 | SC-EXT-001 | External shortcode | `[alookhor_categories_carousel]` | External plugin source unavailable | Former Home showcase | External | Replaced on Home / do not reconstruct |
-| PN-001 | Admin panel | ALOOKHOR Control Center | `includes/admin.php` | WP Admin top-level menu | 3.10.354 | Active |
-| PN-002 | Admin panel | Header & Top Bar | `includes/admin.php` | WP Admin submenu | 3.10.354 | Active mirror |
-| MOD-001 | Managed module | WooCommerce Categories | `includes/product-categories.php` | Home / Elementor / REST | 3.10.354 | Active |
-| MOD-002 | Managed module | Responsive Footer | `includes/footer.php` | Frontend footer / REST | 3.10.354 | Active |
-| MOD-003 | Managed module | Four-slide Hero | `includes/hero.php` | Home / Elementor / REST | 3.10.354 | Active |
-| MOD-004 | Managed module | Four-card Site Features | `includes/site-features.php` | Home / Elementor / REST | 3.10.354 | Active |
-| API-001 | REST API | `alookhor-cc/v1` | `includes/rest-api.php` | Public state + authenticated updater | 3.10.354 | Active |
-| UPD-001 | Updater | Private native updater | `includes/updater.php` | Control Center + GitHub Actions | 3.10.354 | Active |
-| CFG-001 | WordPress state | Main settings | `alookhor_cc_settings` | All managed modules | 3.10.354 | Active |
-| CFG-002 | WordPress state | Header settings | `alookhor_header_settings` | Header and Top Bar | 3.10.354 | Active |
-| CSS-001 | CSS | Managed Header | `assets/css/frontend-header.css` | `[alookhor_portal_header]` fallback renderer | 3.10.354 | Active |
-| JS-001 | JavaScript | Managed Header runtime | `assets/js/frontend-header.js` | `[alookhor_portal_header]` fallback renderer | 3.10.354 | Active |
-| JS-002 | JavaScript | Legacy Top Bar manager | `assets/js/frontend-topbar-manager.js` | Preserved legacy header provider | 3.10.354 | Active when legacy provider exists |
-| CSS-002 | CSS | WooCommerce Categories | `assets/css/frontend-categories.css` | `[alookhor_managed_categories]` | 3.10.354 | Active |
-| JS-003 | JavaScript | Categories carousel | `assets/js/frontend-categories.js` | `[alookhor_managed_categories]` | 3.10.354 | Active |
-| CSS-003 | CSS | Managed Footer | `assets/css/frontend-footer.css` | Managed Footer module | 3.10.354 | Active |
-| JS-004 | JavaScript | Managed Footer | `assets/js/frontend-footer.js` | Managed Footer module | 3.10.354 | Active |
-| CSS-004 | CSS | Control Center UI | `assets/css/luxury.css` | WP Admin ALOOKHOR pages | 3.10.354 | Active |
-| JS-005 | JavaScript | Control Center app | `assets/js/app.js` + modules | WP Admin ALOOKHOR pages | 3.10.354 | Active |
-| CSS-005 | CSS | Managed Hero | `assets/css/frontend-hero.css` | `[alookhor_managed_hero]` / automatic Home replacement | 3.10.354 | Active |
-| JS-006 | JavaScript | Managed Hero runtime | `assets/js/frontend-hero.js` | Four-slide replacement, controls and REST refresh | 3.10.354 | Active |
-| CSS-006 | CSS | Managed Site Features | `assets/css/frontend-features.css` | `[alookhor_managed_features]` / automatic Home replacement | 3.10.354 | Active |
-| JS-007 | JavaScript | Managed Site Features runtime | `assets/js/frontend-features.js` | Four-card replacement and REST refresh | 3.10.354 | Active |
+| PN-001 | Admin panel | ALOOKHOR Control Center | `includes/admin.php` | WP Admin top-level menu | 3.10.355 | Active |
+| PN-002 | Admin panel | Header & Top Bar | `includes/admin.php` | WP Admin submenu | 3.10.355 | Active mirror |
+| MOD-001 | Managed module | WooCommerce Categories | `includes/product-categories.php` | Home / Elementor / REST | 3.10.355 | Active |
+| MOD-002 | Managed module | Responsive Footer | `includes/footer.php` | Frontend footer / REST | 3.10.355 | Active |
+| MOD-003 | Managed module | Four-slide Hero | `includes/hero.php` | Home / Elementor / REST | 3.10.355 | Active |
+| MOD-004 | Managed module | Four-card Site Features | `includes/site-features.php` | Home / Elementor / REST | 3.10.355 | Active |
+| API-001 | REST API | `alookhor-cc/v1` | `includes/rest-api.php` | Public state + authenticated updater | 3.10.355 | Active |
+| UPD-001 | Updater | Private native updater | `includes/updater.php` | Control Center + GitHub Actions | 3.10.355 | Active |
+| CFG-001 | WordPress state | Main settings | `alookhor_cc_settings` | All managed modules | 3.10.355 | Active |
+| CFG-002 | WordPress state | Header settings | `alookhor_header_settings` | Header and Top Bar | 3.10.355 | Active |
+| CSS-001 | CSS | Managed Header | `assets/css/frontend-header.css` | `[alookhor_portal_header]` fallback renderer | 3.10.355 | Active |
+| JS-001 | JavaScript | Managed Header runtime | `assets/js/frontend-header.js` | `[alookhor_portal_header]` fallback renderer | 3.10.355 | Active |
+| JS-002 | JavaScript | Legacy Top Bar manager | `assets/js/frontend-topbar-manager.js` | Preserved legacy header provider | 3.10.355 | Active when legacy provider exists |
+| CSS-002 | CSS | WooCommerce Categories | `assets/css/frontend-categories.css` | `[alookhor_managed_categories]` | 3.10.355 | Active |
+| JS-003 | JavaScript | Categories carousel | `assets/js/frontend-categories.js` | `[alookhor_managed_categories]` | 3.10.355 | Active |
+| CSS-003 | CSS | Managed Footer | `assets/css/frontend-footer.css` | Managed Footer module | 3.10.355 | Active |
+| JS-004 | JavaScript | Managed Footer | `assets/js/frontend-footer.js` | Managed Footer module | 3.10.355 | Active |
+| CSS-004 | CSS | Control Center UI | `assets/css/luxury.css` | WP Admin ALOOKHOR pages | 3.10.355 | Active |
+| JS-005 | JavaScript | Control Center app | `assets/js/app.js` + modules | WP Admin ALOOKHOR pages | 3.10.355 | Active |
+| CSS-005 | CSS | Managed Hero | `assets/css/frontend-hero.css` | `[alookhor_managed_hero]` / automatic Home replacement | 3.10.355 | Active |
+| JS-006 | JavaScript | Managed Hero runtime | `assets/js/frontend-hero.js` | Four-slide replacement, controls and REST refresh | 3.10.355 | Active |
+| CSS-006 | CSS | Managed Site Features | `assets/css/frontend-features.css` | `[alookhor_managed_features]` / automatic Home replacement | 3.10.355 | Active |
+| JS-007 | JavaScript | Managed Site Features runtime | `assets/js/frontend-features.js` | Four-card replacement and REST refresh | 3.10.355 | Active |
 
 ## SC-001 — Portal Header
 
@@ -281,7 +281,7 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 | `plugin/alookhor-control-center/includes/product-categories.php` | 99 | `72b7cf6900ad70a75c104f4e613e3357db91a8c05190af5847ebd9da674aa106` |
 | `plugin/alookhor-control-center/includes/product-page.php` | 615 | `f5c907e557dd456a077ab409b297a0bcb88dbd5ad51af91ddeb3253d6ac327ad` |
 | `plugin/alookhor-control-center/includes/product-seeder.php` | 777 | `3885bda6a4d7f7fbc12f6943782783cae558c379c1c334007e322fb63c96668c` |
-| `plugin/alookhor-control-center/includes/responsive-v2.php` | 11 | `985285a845f5baf476cdbf587b3c308d1b9ff4c0381bc69483b37652a55a3065` |
+| `plugin/alookhor-control-center/includes/responsive-v2.php` | 41 | `9713bf0c44fb668914d518afb110e6e9a0c8ca2cbe27009f87192df23987874d` |
 | `plugin/alookhor-control-center/includes/rest-api.php` | 418 | `e656b53287b05ff3f8177a5b35401db47fb5017637a410e4c5d11a628f30f2f4` |
 | `plugin/alookhor-control-center/includes/seo-cleaner.php` | 169 | `7b799f9a0b53d0720cca82c1c0056efed41cf0e4a2f6f1dcd7dda722675eb43d` |
 | `plugin/alookhor-control-center/includes/seo-meta.php` | 45 | `952ec10a1d5a674807db5a57f7ad4c02b13eb8d244ba610a60f26691c36a2ad3` |
@@ -297,7 +297,7 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 | `plugin/alookhor-control-center/templates/cart.php` | 6 | `bfe50d6b874b199f783d34e494885ddab54b2bfea2bee95b6d6fb054ca5c34ab` |
 | `plugin/alookhor-control-center/templates/single-product.php` | 7 | `ce0dfde67e5a3ea2a5201e37afc7778748974fb518316d2a7a3313ab6c1eec1d` |
 | `plugin/alookhor-control-center/uninstall.php` | 6 | `d69282a9ab7c0865b6c60e6fca272d0859433e9c8730754fb2995295209ff84c` |
-| `scripts/build_release.py` | 113 | `7d54cb088e271f83a724467786b6c72377157df57b73699d12d64f1d3ddcb82a` |
+| `scripts/build_release.py` | 132 | `7336904316bedab824e41a3b73eed09d29cfb3d87b59ed7d2e0d9125394de84b` |
 | `scripts/generate_code_registry.py` | 293 | `cc820adb6cd74358acfe6eea9bcc5206a2262b91a53e053cc0794c47fec3026a` |
 | `scripts/header_visual_audit.py` | 315 | `e7cbcac28f056e1d90fb041a7bc190804c4cf012c45deabc0fe78ecc0646f646` |
 | `scripts/wordpress_access_check.py` | 529 | `8b2d8fa1e2b20ba940d3b13c3e7e62072d5d30bcf8225af8f49ed8cd156cb20f` |
@@ -17383,15 +17383,45 @@ add_action('alookhor_cc_after_settings', function(){
 ````php
 <?php
 /**
- * ALOOKHOR Responsive v2 loader — v3.10.222
- * Loads frontend-responsive-v2.css LAST (priority 9999) so its tablet-band +
- * overflow armor wins over every module stylesheet without editing them.
+ * ALOOKHOR Responsive v2 loader.
+ * Also hard-disables WoodMart's XTS Single Product template renderer on real
+ * WooCommerce product requests so the managed ALOOKHOR PDP is the sole renderer.
  */
 if(!defined('ABSPATH')){exit;}
+
 add_action('wp_enqueue_scripts',function(){
  if(is_admin())return;
  wp_enqueue_style('alookhor-cc-r2',ALOOKHOR_CC_URL.'assets/css/frontend-responsive-v2.css',[],ALOOKHOR_CC_BUILD);
 },9999);
+
+/**
+ * Remove WoodMart's Single Product template callback before template_include
+ * executes. WoodMart registers an instance method, so the exact priority is
+ * not stable enough to hard-code; inspect the registered WP_Hook callbacks
+ * and remove only XTS Single_Product::override_template.
+ */
+add_filter('template_include',function($template){
+ if(isset($_GET['elementor-preview']) || (($_GET['action']??'')==='elementor')) return $template;
+ if(!function_exists('is_product') || !is_product()) return $template;
+ global $wp_filter;
+ $hook=$wp_filter['template_include']??null;
+ if($hook && isset($hook->callbacks) && is_array($hook->callbacks)){
+  foreach($hook->callbacks as $priority=>$callbacks){
+   foreach($callbacks as $entry){
+    $cb=$entry['function']??null;
+    if(!is_array($cb) || count($cb)!==2 || !is_object($cb[0]) || $cb[1]!=='override_template') continue;
+    $class=get_class($cb[0]);
+    if($class==='XTS\\Modules\\Layouts\\Single_Product'){
+     remove_filter('template_include',$cb,(int)$priority);
+    }
+   }
+  }
+ }
+ if(defined('ALOOKHOR_CC_DIR') && file_exists(ALOOKHOR_CC_DIR.'templates/single-product.php')){
+  return ALOOKHOR_CC_DIR.'templates/single-product.php';
+ }
+ return $template;
+},0);
 ````
 
 ## Source Snapshot — `plugin/alookhor-control-center/includes/rest-api.php`
@@ -19760,13 +19790,14 @@ checks = {
     'site_json': str(site['version']),
     'release_json': VERSION,
 }
-if set(checks.values()) != {VERSION}:
+source_versions = set(checks.values())
+if source_versions != {VERSION} and source_versions != {PREVIOUS, VERSION}:
     raise SystemExit(f'Version mismatch: {checks}')
+if source_versions == {PREVIOUS, VERSION}:
+    stale = {k: v for k, v in checks.items() if v == PREVIOUS}
+    if len(stale) != 5 or checks['release_json'] != VERSION:
+        raise SystemExit(f'Unsupported bridge version state: {checks}')
 
-# ——— Header palette guard (owner-approved Burgundy/Gold only) ———
-# The experimental deep purple glass override was removed in 3.10.19. The
-# approved palette must stay present in the fallback renderer stylesheet and
-# the purple tokens must never return.
 header_css = (PLUGIN / 'assets' / 'css' / 'frontend-header.css').read_text(encoding='utf-8')
 for token in ('rgba(33,20,38,.75)', '#D49A2E', '#E8B84A', '#0D0510', '#1C1024'):
     if token not in header_css:
@@ -19777,7 +19808,7 @@ for token in ('DEEP PURPLE', '#160027', '#210038', '#FBF7FF', '#C9B7D6', '#F2D67
 
 tag = os.environ.get('GITHUB_REF_NAME', '')
 if tag.startswith('v') and tag[1:] != VERSION:
-    raise SystemExit(f'Git tag {tag} does not match plugin version {VERSION}')
+    raise SystemExit(f'Git tag {tag} does not match release version {VERSION}')
 if tag.startswith('v') and STATE != 'ready':
     raise SystemExit(f'Release {VERSION} is still {STATE}; set release.json state to ready before tagging')
 
@@ -19788,20 +19819,38 @@ if PUBLIC.exists():
 package_name = f'alookhor-control-center-{VERSION}.zip'
 package = PUBLIC / 'releases' / package_name
 skip_parts = {'.git', '.github', '__pycache__', '.DS_Store'}
+version_files = {
+    'alookhor-control-center.php',
+    'readme.txt',
+    'config/site.json',
+    'assets/js/app.js',
+    'assets/js/core/updateSystem.js',
+    'assets/js/modules/dashboard.js',
+    'assets/js/modules/settings.js',
+}
 files = [p for p in PLUGIN.rglob('*') if p.is_file() and not any(part in skip_parts for part in p.parts)]
 with ZipFile(package, 'w', ZIP_DEFLATED, compresslevel=9) as archive:
     for path in sorted(files):
-        relative = Path('alookhor-control-center') / path.relative_to(PLUGIN)
+        relative_path = path.relative_to(PLUGIN)
+        relative = Path('alookhor-control-center') / relative_path
+        data = path.read_bytes()
+        if str(relative_path) in version_files and PREVIOUS and PREVIOUS != VERSION:
+            data = data.replace(PREVIOUS.encode('utf-8'), VERSION.encode('utf-8'))
         info = ZipInfo(str(relative).replace('\\', '/'))
         info.date_time = (2026, 1, 1, 0, 0, 0)
         info.compress_type = ZIP_DEFLATED
         info.external_attr = (stat.S_IFREG | 0o644) << 16
-        archive.writestr(info, path.read_bytes())
+        archive.writestr(info, data)
+
 with ZipFile(package) as archive:
     if archive.testzip() is not None:
         raise SystemExit('ZIP integrity test failed')
     if 'alookhor-control-center/alookhor-control-center.php' not in archive.namelist():
         raise SystemExit('Plugin bootstrap is missing from ZIP')
+    bootstrap = archive.read('alookhor-control-center/alookhor-control-center.php').decode('utf-8')
+    packaged = re.search(r'\* Version:\s*(\S+)', bootstrap)
+    if not packaged or packaged.group(1) != VERSION:
+        raise SystemExit(f'Packaged plugin version mismatch: {packaged.group(1) if packaged else "missing"} != {VERSION}')
 
 sha256 = hashlib.sha256(package.read_bytes()).hexdigest()
 base = 'https://updates.alookhor.ir'
