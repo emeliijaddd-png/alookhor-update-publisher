@@ -295,7 +295,7 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 | `plugin/alookhor-control-center/templates/admin-control-center.php` | 387 | `1c815c82b21172d40d313aa73e0ee1330706646735185d5d50627c5e0658a74b` |
 | `plugin/alookhor-control-center/templates/cart-empty-override.php` | 1 | `3610f0f36f1da6e6217bc0aa9afa0d1afb898100946c1a45ed9abbdda7e856ec` |
 | `plugin/alookhor-control-center/templates/cart-partial.php` | 1 | `fbbb5f1faa88be04a9fc483f2f00a10b6c3437da0fbf09fbb2436e3386b6bb88` |
-| `plugin/alookhor-control-center/templates/cart.php` | 138 | `a22a51d294fb369c1143c9730bfba7e8bc8ed11fec5a2ace9396048f537d8c0f` |
+| `plugin/alookhor-control-center/templates/cart.php` | 108 | `39cf89c38eabe13a152d5ae86e3eeaaf50f8ff83735f3458f70c8f08fb496250` |
 | `plugin/alookhor-control-center/templates/single-product.php` | 83 | `d2cbafedcc188db994336cb29fc76315a84ee49cc2ac7b52dc1c75add5293157` |
 | `plugin/alookhor-control-center/uninstall.php` | 6 | `d69282a9ab7c0865b6c60e6fca272d0859433e9c8730754fb2995295209ff84c` |
 | `scripts/build_release.py` | 132 | `7336904316bedab824e41a3b73eed09d29cfb3d87b59ed7d2e0d9125394de84b` |
@@ -19269,29 +19269,55 @@ add_shortcode('alookhor_why_alookhor','alookhor_cc_why_shortcode');add_shortcode
 
 ````php
 <?php
-/** ALOOKHOR luxury cart template — canonical managed shell, same channel as PDP. */
+/** ALOOKHOR luxury cart template — permanent custom cart shell, independent from WoodMart. */
 if(!defined('ABSPATH'))exit;
 
-// Keep the existing cart renderer; only the page shell is changed so Cart uses the
-// exact same canonical header/footer route as the managed single-product page.
-$alookhor_cart_name_guard = null;
+/*
+ * This file is the ONLY visual cart shell. WooCommerce/WoodMart cart templates,
+ * Elementor cart widgets and theme page containers must never become visible here.
+ */
+$alookhor_cart_name_guard=null;
 if(function_exists('alookhor_cc_cart_markup')){
-    $alookhor_cart_name_guard = static function($name){
-        return str_replace(['سامسونگ','گوشی'], ['سام‌سونگ','گوشی‌'], $name);
+    /* Legacy cart-data code had an accidental Samsung/phone name exclusion.
+       Keep the real product name available while the custom renderer builds its data. */
+    $alookhor_cart_name_guard=static function($name){
+        return str_replace(['سامسونگ','گوشی'],['سام‌سونگ','گوشی‌'],$name);
     };
     add_filter('woocommerce_product_get_name',$alookhor_cart_name_guard,PHP_INT_MAX,1);
     add_filter('woocommerce_product_variation_get_name',$alookhor_cart_name_guard,PHP_INT_MAX,1);
 }
+
+/* Prevent WooCommerce/WoodMart from rendering a second cart through hooks. */
+if(function_exists('is_cart')&&is_cart()){
+    remove_action('woocommerce_cart_collaterals','woocommerce_cross_sell_display');
+    remove_action('woocommerce_cart_collaterals','woocommerce_cart_totals',10);
+    remove_action('woocommerce_after_cart','woocommerce_cross_sell_display');
+    remove_action('woocommerce_cart_is_empty','woocommerce_cart_is_empty',10);
+    if(function_exists('woodmart_woocommerce_cart_empty')) remove_action('woocommerce_cart_is_empty','woodmart_woocommerce_cart_empty',10);
+}
+
+/* Dequeue only WooCommerce/cart presentation assets; the ALOOKHOR header/footer remain intact. */
+add_action('wp_print_styles',static function(){
+    if(!function_exists('is_cart')||!is_cart())return;
+    global $wp_styles;
+    if(!$wp_styles)return;
+    foreach((array)$wp_styles->queue as $handle){
+        $h=strtolower((string)$handle);
+        if(str_contains($h,'woocommerce-cart')||str_contains($h,'wd-cart')||str_contains($h,'wd-woocommerce-cart')||str_contains($h,'woocommerce-smallscreen')){
+            wp_dequeue_style($handle);
+        }
+    }
+},PHP_INT_MAX);
 ?><!doctype html>
 <html <?php language_attributes(); ?>>
 <head>
   <meta charset="<?php bloginfo('charset'); ?>">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <?php wp_head(); ?>
-  <style id="alookhor-managed-cart-shell">
+  <style id="alookhor-permanent-cart-shell">
     html,body{margin:0!important;padding:0!important;min-height:0!important;background:#0D0510!important}
     body.alookhor-managed-cart-page{overflow-x:hidden!important;background:#0D0510!important;color:#F5F3F0!important}
-    /* Same page-shell strategy as the working managed PDP: theme wrappers never paint a white surface. */
+    /* Kill every theme surface/container around the custom cart. */
     body.alookhor-managed-cart-page #page,
     body.alookhor-managed-cart-page .page-wrapper,
     body.alookhor-managed-cart-page .main-page-wrapper,
@@ -19308,11 +19334,11 @@ if(function_exists('alookhor_cc_cart_markup')){
     body.alookhor-managed-cart-page .woocommerce-cart,
     body.alookhor-managed-cart-page .woocommerce-cart-form,
     body.alookhor-managed-cart-page .wd-content-layout,
-    body.alookhor-managed-cart-page .wd-entry-content{
-      background:transparent!important;
-      border:0!important;
-      box-shadow:none!important;
-      min-height:0!important;
+    body.alookhor-managed-cart-page .wd-entry-content,
+    body.alookhor-managed-cart-page .wd-cart-content,
+    body.alookhor-managed-cart-page .cart-collaterals,
+    body.alookhor-managed-cart-page .shop_table{
+      background:transparent!important;border:0!important;box-shadow:none!important;min-height:0!important;
     }
     body.alookhor-managed-cart-page .main-page-wrapper,
     body.alookhor-managed-cart-page .site-content,
@@ -19321,82 +19347,26 @@ if(function_exists('alookhor_cc_cart_markup')){
     body.alookhor-managed-cart-page .content-area,
     body.alookhor-managed-cart-page .site-main,
     body.alookhor-managed-cart-page .wd-content-layout,
-    body.alookhor-managed-cart-page .wd-entry-content{
-      padding:0!important;margin:0!important;
-    }
-    body.alookhor-managed-cart-page #alookhor-cart-main{
-      display:block!important;width:100%!important;max-width:none!important;
-      margin:0!important;padding:0!important;background:#0D0510!important;
-      border:0!important;box-shadow:none!important;min-height:0!important;
-    }
-    body.alookhor-managed-cart-page #alookhor-cart{
-      display:block!important;width:100%!important;max-width:none!important;
-      margin:0!important;border:0!important;outline:0!important;
-      box-shadow:none!important;
-    }
-    /* Cart breadcrumb uses the exact visual language of the PDP breadcrumb. */
-    body.alookhor-managed-cart-page .alookhor-cart-breadcrumb{
-      width:min(1440px,calc(100% - 40px));
-      margin:28px auto 0!important;
-      padding:0!important;
-      position:relative!important;
-      z-index:20!important;
-      direction:rtl!important;
-    }
-    body.alookhor-managed-cart-page .alookhor-cart-breadcrumb .breadcrumb-box{
-      color:#fff!important;
-      font-family:Dana,Vazirmatn,IRANSansX,Tahoma,sans-serif!important;
-      font-size:19px!important;
-      font-weight:700!important;
-      line-height:1.9!important;
-      padding:16px 0!important;
-      opacity:1!important;
-      visibility:visible!important;
-    }
-    body.alookhor-managed-cart-page .alookhor-cart-breadcrumb a,
-    body.alookhor-managed-cart-page .alookhor-cart-breadcrumb span,
-    body.alookhor-managed-cart-page .alookhor-cart-breadcrumb strong{
-      color:#fff!important;
-      font-family:Dana,Vazirmatn,IRANSansX,Tahoma,sans-serif!important;
-      font-size:19px!important;
-      font-weight:700!important;
-      text-decoration:none!important;
-    }
-    body.alookhor-managed-cart-page .alookhor-cart-breadcrumb svg{color:#fff!important;stroke:#fff!important;width:18px!important;height:18px!important}
-    body.alookhor-managed-cart-page footer,
-    body.alookhor-managed-cart-page .footer-container{margin-top:0!important}
-    body.alookhor-managed-cart-page footer:before,
-    body.alookhor-managed-cart-page .footer-container:before{display:none!important}
+    body.alookhor-managed-cart-page .wd-entry-content{padding:0!important;margin:0!important}
+    body.alookhor-managed-cart-page #alookhor-cart-main{display:block!important;width:100%!important;max-width:none!important;margin:0!important;padding:0!important;background:#0D0510!important;border:0!important;box-shadow:none!important;min-height:0!important}
+    body.alookhor-managed-cart-page #alookhor-cart{display:block!important;width:100%!important;max-width:none!important;margin:0!important;border:0!important;outline:0!important;box-shadow:none!important}
+    body.alookhor-managed-cart-page .alookhor-cart-breadcrumb{width:min(1440px,calc(100% - 40px));margin:28px auto 0!important;padding:0!important;position:relative!important;z-index:20!important;direction:rtl!important}
+    body.alookhor-managed-cart-page .alookhor-cart-breadcrumb .breadcrumb-box{color:#fff!important;font-family:Dana,Vazirmatn,IRANSansX,Tahoma,sans-serif!important;font-size:19px!important;font-weight:700!important;line-height:1.9!important;padding:16px 0!important;opacity:1!important;visibility:visible!important}
+    body.alookhor-managed-cart-page .alookhor-cart-breadcrumb a,body.alookhor-managed-cart-page .alookhor-cart-breadcrumb span,body.alookhor-managed-cart-page .alookhor-cart-breadcrumb strong{color:#fff!important;font-family:Dana,Vazirmatn,IRANSansX,Tahoma,sans-serif!important;font-size:19px!important;font-weight:700!important;text-decoration:none!important}
+    body.alookhor-managed-cart-page footer,body.alookhor-managed-cart-page .footer-container{margin-top:0!important}
+    body.alookhor-managed-cart-page footer:before,body.alookhor-managed-cart-page .footer-container:before{display:none!important}
     @media(max-width:767px){
       body.alookhor-managed-cart-page .alookhor-cart-breadcrumb{width:calc(100% - 24px);margin-top:16px!important}
-      body.alookhor-managed-cart-page .alookhor-cart-breadcrumb .breadcrumb-box,
-      body.alookhor-managed-cart-page .alookhor-cart-breadcrumb a,
-      body.alookhor-managed-cart-page .alookhor-cart-breadcrumb span,
-      body.alookhor-managed-cart-page .alookhor-cart-breadcrumb strong{font-size:16px!important;line-height:1.9!important}
+      body.alookhor-managed-cart-page .alookhor-cart-breadcrumb .breadcrumb-box,body.alookhor-managed-cart-page .alookhor-cart-breadcrumb a,body.alookhor-managed-cart-page .alookhor-cart-breadcrumb span,body.alookhor-managed-cart-page .alookhor-cart-breadcrumb strong{font-size:16px!important;line-height:1.9!important}
       body.alookhor-managed-cart-page .alookhor-cart-breadcrumb .breadcrumb-box{padding:13px 0!important}
-      body.alookhor-managed-cart-page .alookhor-cart-breadcrumb svg{width:15px!important;height:15px!important}
     }
   </style>
 </head>
 <body <?php body_class('alookhor-managed-cart-page'); ?>>
 <?php wp_body_open(); ?>
-<?php
-/* Canonical Arena/AKX header — exactly the same entry point used by the managed PDP. */
-if(function_exists('alookhor_cc_render_akx_header')) echo alookhor_cc_render_akx_header();
-?>
-
-<div class="alookhor-cart-breadcrumb" aria-label="موقعیت صفحه">
-  <div class="breadcrumb-box">
-    <a href="<?php echo esc_url(home_url('/')); ?>">خانه</a>
-    <span aria-hidden="true"> / </span>
-    <span>سبد خرید</span>
-  </div>
-</div>
-
-<main id="alookhor-cart-main" class="alookhor-cart-main" role="main">
-  <?php echo alookhor_cc_cart_markup(); ?>
-</main>
-
+<?php if(function_exists('alookhor_cc_render_akx_header')) echo alookhor_cc_render_akx_header(); ?>
+<div class="alookhor-cart-breadcrumb" aria-label="موقعیت صفحه"><div class="breadcrumb-box"><a href="<?php echo esc_url(home_url('/')); ?>">خانه</a><span aria-hidden="true"> / </span><span>سبد خرید</span></div></div>
+<main id="alookhor-cart-main" class="alookhor-cart-main" role="main"><?php echo alookhor_cc_cart_markup(); ?></main>
 <?php
 if($alookhor_cart_name_guard){
     remove_filter('woocommerce_product_get_name',$alookhor_cart_name_guard,PHP_INT_MAX);
