@@ -657,7 +657,38 @@ body.woocommerce-cart .main-page-wrapper > .wd-page-title {
   opacity:0!important;
   pointer-events:none!important;
 }
-/* v3.10.346 - kill any white rounded bar with "سبد خرید" */
+/* v3.10.348 - FINAL kill white bar "سبد خرید" - extra aggressive */
+body.woocommerce-cart .wd-page-title,
+body.woocommerce-cart .wd-page-title.wd-style-default,
+body.woocommerce-cart .wd-page-title.wd-style-centered,
+body.woocommerce-cart .whb-page-title,
+body.woocommerce-cart .page-title,
+body.woocommerce-cart .entry-header,
+body.woocommerce-cart .wd-page-heading,
+body.woocommerce-cart .page-heading,
+body.woocommerce-cart .wd-checkout-steps,
+body.woocommerce-cart .wd-checkout-steps-wrapper,
+body.woocommerce-cart .wd-entities-title,
+body.woocommerce-cart h1.wd-entities-title,
+body.woocommerce-cart .title-design-default,
+body.woocommerce-cart .title-design-centered,
+body.woocommerce-cart .woocommerce-breadcrumb,
+body.woocommerce-cart .wd-breadcrumbs,
+body.woocommerce-cart .breadcrumbs,
+body.woocommerce-cart .wd-page-title .container,
+body.woocommerce-cart .container > .wd-page-title,
+body.woocommerce-cart .main-page-wrapper > .wd-page-title,
+body.woocommerce-cart .site-content > .wd-page-title,
+body.woocommerce-cart .wd-page-content > .wd-page-title {
+  display:none!important;
+  visibility:hidden!important;
+  height:0!important;
+  overflow:hidden!important;
+  margin:0!important;
+  padding:0!important;
+  opacity:0!important;
+  pointer-events:none!important;
+}
 body.woocommerce-cart div[style*="background: rgb(255, 255, 255)"],
 body.woocommerce-cart div[style*="background:#fff"],
 body.woocommerce-cart div[style*="background: #fff"],
@@ -665,5 +696,10 @@ body.woocommerce-cart div[style*="background-color: rgb(255, 255, 255)"] {
   background:transparent!important;
 }
 body.woocommerce-cart .main-page-wrapper > div:not(#alookhor-cart):not(header):not(footer) {
+  background:transparent!important;
+}
+/* Hide any white rounded box that contains only "سبد خرید" */
+body.woocommerce-cart .main-page-wrapper > .container > div:not(#alookhor-cart),
+body.woocommerce-cart .wd-page-content > .container > div:not(#alookhor-cart) {
   background:transparent!important;
 }
