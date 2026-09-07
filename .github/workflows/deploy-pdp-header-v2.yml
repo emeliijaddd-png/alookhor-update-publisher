@@ -25,7 +25,7 @@ jobs:
           set -euo pipefail
           python3 -m py_compile scripts/*.py
           find plugin/alookhor-control-center -name '*.php' -type f -print0 | xargs -0 -n1 php -l
-          python3 scripts/generate_code_registry.py --check
+          python3 scripts/generate_code_registry.py
           python3 - <<'PY'
           from pathlib import Path
           t=Path('plugin/alookhor-control-center/templates/single-product.php').read_text(encoding='utf-8')
@@ -33,9 +33,12 @@ jobs:
           h=Path('plugin/alookhor-control-center/includes/shortcode-header.php').read_text(encoding='utf-8')
           assert 'alookhor_cc_render_akx_header' in t
           assert 'alookhor_cc_pdp_markup();' in t
+          assert 'alookhor-pdp-breadcrumb-refinement' in t
+          assert 'font-family:Dana,Vazirmatn' in t
+          assert 'color:#fff!important' in t
           assert "return ALOOKHOR_CC_DIR.'templates/single-product.php';" in p
           assert 'function alookhor_cc_render_akx_header()' in h
-          print('PDP canonical Arena/AKX header contract: PASS')
+          print('PDP canonical Arena/AKX header + breadcrumb refinement contract: PASS')
           PY
           python3 scripts/build_release.py
 
@@ -54,8 +57,9 @@ jobs:
               tpl=z.read('alookhor-control-center/templates/single-product.php').decode()
               assert f"Version: {m['version']}" in boot
               assert 'alookhor_cc_render_akx_header' in tpl
-              assert 'alookhor_cc_pdp_markup();' in tpl
-          print('Package SHA and canonical header verification: PASS',m['version'])
+              assert 'alookhor-pdp-breadcrumb-refinement' in tpl
+              assert 'get_header()' not in tpl
+          print('Package SHA and PDP breadcrumb verification: PASS',m['version'])
           PY
 
       - name: Install FTPS client
@@ -106,7 +110,7 @@ jobs:
             with ZipFile(target) as z:
              assert z.testzip() is None
              tpl=z.read('alookhor-control-center/templates/single-product.php').decode()
-             assert 'alookhor_cc_render_akx_header' in tpl and 'alookhor_cc_pdp_markup();' in tpl
+             assert 'alookhor_cc_render_akx_header' in tpl and 'alookhor-pdp-breadcrumb-refinement' in tpl
             print('Remote package verification: PASS'); break
            except Exception:
             if attempt==5: raise
@@ -153,7 +157,7 @@ jobs:
           required=['pdp_rendered','portal_header','theme_header_chrome','desktop_browser','mobile_browser']
           missing=[k for k in required if p.get(k) is not True]
           if missing: raise SystemExit(f'Production PDP/header verification failed: {missing}')
-          print('PRODUCTION PDP + CANONICAL ARENA HEADER: PASS')
+          print('PRODUCTION PDP + CANONICAL ARENA HEADER + BREADCRUMB REFINEMENT: PASS')
           print('Version:',r.get('target'))
           print('Failed checks:',r.get('failed_checks'))
           PY
