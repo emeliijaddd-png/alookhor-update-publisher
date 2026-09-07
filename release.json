@@ -1,1 +1,33 @@
-{"version":"3.10.19","previous":"3.10.18","state":"ready","requires":"6.0","tested":"7.0","requires_php":"8.0","description":"تطبیق Top Bar و منوی اصلی Desktop با مرجع دو‌ردیفه Burgundy/Gold، با حفظ Node واقعی WordPress و Sticky Navigation.","changelog":[{"tag":"REFERENCE TOP BAR","title":"Support / Message / Phone","desc":"Top Bar شیشه‌ای با پشتیبانی در چپ، پیام ارسال در مرکز، تلفن در راست، جداسازهای ظریف و SVG هدست."},{"tag":"INTEGRATED NAV","title":"منوی واقعی داخل کپسول Desktop","desc":"همان .header-nav-center بدون Clone در حالت بالای صفحه داخل کپسول دیده می‌شود و هنگام Scroll به Sticky rail موجود بازمی‌گردد."},{"tag":"APPROVED PALETTE","title":"Burgundy / Gold","desc":"#0D0510، #1C1024، rgba(33,20,38,.75)، #D49A2E، #E8B84A، #F5F3F0 و #C8C2C9."},{"tag":"PRESERVED MOBILE","title":"دو ردیف بدون Navigation اضافه","desc":"Mobile همان Top Bar و Main Capsule را نگه می‌دارد؛ Cart، Account، Logo، Hamburger، Hero underlap و Drawer حفظ می‌شوند."}],"project":"ALOOKHOR","area":"Top Bar + Main Header Navigation / Desktop + Mobile","reason":"مالک سایت تصویر مرجع دو‌ردیفه را ارائه و تطبیق سریع Top Bar و نوار منوی اصلی با همان ساختار و پالت را درخواست کرد.","files":["plugin/alookhor-control-center/assets/css/frontend-header-scroll.css","plugin/alookhor-control-center/assets/css/frontend-header.css","plugin/alookhor-control-center/assets/js/frontend-topbar-manager.js","plugin/alookhor-control-center/alookhor-control-center.php","plugin/alookhor-control-center/assets/js/modules/settings.js","plugin/alookhor-control-center/includes/ajax.php","plugin/alookhor-control-center/includes/rest-api.php","plugin/alookhor-control-center/includes/shortcode-header.php","plugin/alookhor-control-center/config/site.json","scripts/header_visual_audit.py","scripts/wordpress_access_check.py","scripts/wordpress_release_test.py"]}
+{
+  "version": "3.10.355",
+  "previous": "3.10.354",
+  "state": "ready",
+  "requires": "6.0",
+  "tested": "7.0",
+  "requires_php": "8.0",
+  "description": "PDP گالری: زوم روی عکس با موس + چرخش خودکار هر 4 ثانیه",
+  "changelog": [
+    {
+      "tag": "FEATURE",
+      "title": "زوم عکس محصول روی هاور",
+      "desc": "وقتی موس روی عکس اصلی می‌رود تصویر با scale 2 زوم می‌شود و transform-origin با حرکت موس جابجا می‌شود؛ روی موبایل/تبلت غیرفعال برای UX لمسی"
+    },
+    {
+      "tag": "FEATURE",
+      "title": "چرخش خودکار گالری هر 4 ثانیه",
+      "desc": "هر 4 ثانیه عکس اصلی با عکس بعدی از بخش کناری عوض می‌شود؛ با کلیک روی بندانگشتی یا فلش‌ها، هاور زوم، یا اسکرول، 6 ثانیه pause می‌شود؛ وقتی تب مخفی است متوقف می‌شود"
+    }
+  ],
+  "project": "ALOOKHOR",
+  "area": "PDP gallery zoom + auto-rotate",
+  "reason": "درخواست مالک: زوم روی هاور + اسلاید خودکار هر 4 ثانیه با عکس‌های کناری",
+  "files": [
+    "plugin/alookhor-control-center/CHANGELOG.md",
+    "plugin/alookhor-control-center/alookhor-control-center.php",
+    "plugin/alookhor-control-center/assets/css/frontend-product.css",
+    "plugin/alookhor-control-center/assets/js/frontend-product.js",
+    "plugin/alookhor-control-center/config/site.json",
+    "plugin/alookhor-control-center/readme.txt",
+    "release.json"
+  ]
+}
