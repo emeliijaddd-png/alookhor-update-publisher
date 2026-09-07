@@ -34,6 +34,8 @@ jobs:
           assert 'alookhor_cc_render_akx_header' in t
           assert 'alookhor_cc_pdp_markup();' in t
           assert 'alookhor-pdp-breadcrumb-refinement' in t
+          assert 'breadcrumb-wrapper' in t
+          assert 'breadcrumb-box' in t
           assert 'font-family:Dana,Vazirmatn' in t
           assert 'color:#fff!important' in t
           assert "return ALOOKHOR_CC_DIR.'templates/single-product.php';" in p
@@ -58,6 +60,8 @@ jobs:
               assert f"Version: {m['version']}" in boot
               assert 'alookhor_cc_render_akx_header' in tpl
               assert 'alookhor-pdp-breadcrumb-refinement' in tpl
+              assert 'breadcrumb-wrapper' in tpl
+              assert 'breadcrumb-box' in tpl
               assert 'get_header()' not in tpl
           print('Package SHA and PDP breadcrumb verification: PASS',m['version'])
           PY
@@ -116,6 +120,7 @@ jobs:
               assert z.testzip() is None
               tpl=z.read('alookhor-control-center/templates/single-product.php').decode()
               assert 'alookhor_cc_render_akx_header' in tpl and 'alookhor-pdp-breadcrumb-refinement' in tpl
+              assert 'breadcrumb-wrapper' in tpl and 'breadcrumb-box' in tpl
           print('Remote package verification over FTPS: PASS',m['version'])
           PY
 
