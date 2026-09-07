@@ -3299,3 +3299,234 @@ html{overflow-x:hidden !important}
 #alookhor-pdp .highlight-track,#alookhor-pdp .products-track{display:grid !important;grid-auto-flow:column !important;grid-template-columns:none !important;grid-auto-columns:70% !important;gap:10px !important;overflow-x:auto !important;overflow-y:hidden !important;scroll-snap-type:x mandatory !important;scroll-padding-inline:2px !important;overscroll-behavior-inline:contain !important;-webkit-overflow-scrolling:touch;padding:2px 2px 8px !important;scrollbar-width:none !important}
 #alookhor-pdp .highlight-card,#alookhor-pdp .suggested-product{scroll-snap-align:start !important;min-width:0 !important;width:auto !important}
 }
+
+/* ===== v3.10.323 — PHONE POLISH per owner (2026-09-06) — all inside @media(max-width:640px), desktop/tablet untouched:
+   1) breadcrumb moves ABOVE the product image (was under the gallery since 3.10.311)
+   2) share button sits on the wishlist row (stars + count on line 1; wishlist | share on line 2)
+   3) original price clearly visible, crossed out in red, beside the discounted price
+   4) banner title «خوشمزه‌تر زندگی کن...» bright glowing gold
+   5) "about" description justified (both edges aligned)
+   — the 1-second auto-advance of the two product rails is JS (frontend-product.js, phone only) ===== */
+@media(max-width:640px){
+/* 1) breadcrumb first (order 0), gallery after it; the header overlap offset moves from the gallery to the breadcrumb */
+#alookhor-pdp .breadcrumb-wrapper{order:0 !important;margin:58px auto 0 !important;padding:0 12px !important}
+#alookhor-pdp .left-col .gallery-slot,#alookhor-pdp .gallery-slot{order:1 !important;margin-top:10px !important}
+#alookhor-pdp .breadcrumb-box{padding:8px 12px !important;font-size:11px !important;border-radius:12px !important;flex-wrap:nowrap !important;overflow-x:auto !important;white-space:nowrap !important;scrollbar-width:none !important;direction:rtl !important}
+#alookhor-pdp .breadcrumb-box::-webkit-scrollbar{display:none !important}
+#alookhor-pdp .breadcrumb-box>span{flex:0 0 auto !important}
+/* 2) rating row: flatten the inner wrapper so all four items are siblings, then order them */
+#alookhor-pdp .rating-row{display:flex !important;flex-direction:row !important;flex-wrap:wrap !important;align-items:center !important;justify-content:flex-start !important;gap:8px 12px !important;direction:rtl !important}
+#alookhor-pdp .rating-row>div.flex-nowrap{display:contents !important}
+#alookhor-pdp .rating-row .rating-summary{order:0 !important;flex:1 1 100% !important;justify-content:flex-start !important}
+#alookhor-pdp .rating-row .favorite-action{order:1 !important;flex:0 0 auto !important;margin:0 !important}
+#alookhor-pdp .rating-row .rating-divider{order:2 !important;display:block !important;flex:0 0 auto !important;width:1px !important;height:14px !important}
+#alookhor-pdp .rating-row .share-action{order:3 !important;flex:0 0 auto !important;align-self:center !important;margin:0 !important}
+/* 3) crossed-out regular price: same row as the new price (new price right, old price left), red strike, readable */
+#alookhor-pdp .price-box .mt-3{flex-direction:row-reverse !important;flex-wrap:wrap !important;align-items:baseline !important;justify-content:center !important;gap:4px 12px !important}
+#alookhor-pdp .price-box .line-through{display:inline-flex !important;font-size:15px !important;font-weight:700 !important;color:#d9c9ea !important;opacity:1 !important;text-decoration:line-through !important;text-decoration-color:#e42a68 !important;text-decoration-thickness:2px !important;margin:0 !important;gap:3px !important}
+#alookhor-pdp .price-box .line-through .alpm-cur{font-size:.7em !important;font-weight:700 !important}
+/* 4) glowing gold banner title */
+#alookhor-pdp .promo-banner h2{color:#f7b32b !important;background:linear-gradient(90deg,#ffe9a8,#f7b32b 45%,#ffd36a 70%,#ef9f1f) !important;-webkit-background-clip:text !important;background-clip:text !important;-webkit-text-fill-color:transparent !important;filter:drop-shadow(0 0 8px rgba(247,179,43,.8)) drop-shadow(0 0 20px rgba(247,179,43,.45)) !important;font-weight:900 !important}
+/* 5) justified about text */
+#alookhor-pdp .desc-long-content,#alookhor-pdp .desc-long-content p,#alookhor-pdp .desc-long-content li{text-align:justify !important;text-justify:inter-word !important;text-align-last:start !important}
+}
+
+/* ===== v3.10.350 — ABOUT CARD per owner mockup Screenshot 113637 (2026-09-06) — DESKTOP >=1280px ONLY, explicitly ordered.
+   Target: one compact two-column card — copy on the LEFT half (title, paragraph, then the five gold check items stacked
+   one per line), the orchard-bowl photo on the RIGHT half filling the full card height with the round "100% طبیعی" badge
+   at its top-right corner. No "مشاهده بیشتر" button, no tall empty plum area under the text.
+   Mobile (<=640px) and tablet (641-1279px) keep the stacked layout from v3.10.311/323 (everything below is inside
+   @media(min-width:1280px)). MOCKUP PDP ===== */
+@media(min-width:1280px){
+  /* specificity note: "#alookhor-pdp .pdp-pane .below-section{display:block}" (1,2,0) used to beat every
+     "#alookhor-pdp .about-story{display:grid}" (1,1,0) — that is why the photo rendered as a full-width banner
+     under the text on the live site. This selector is (1,2,1) and comes later, so the grid finally applies. */
+  #alookhor-pdp .pdp-pane section.about-story,
+  #alookhor-pdp .below-product section.about-story{
+    display:grid !important;
+    grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr) !important;
+    grid-template-rows:minmax(0,1fr) !important;
+    direction:ltr !important;
+    align-items:stretch !important;
+    gap:0 !important;
+    padding:0 !important;
+    overflow:hidden !important;
+    border-radius:26px !important;
+    border:1px solid rgba(247,179,43,.22) !important;
+    background:linear-gradient(135deg,rgba(47,26,63,.92),rgba(34,17,44,.88)) !important;
+    box-shadow:0 26px 60px -30px rgba(0,0,0,.9) !important;
+    min-height:0 !important;
+    height:auto !important;
+  }
+  #alookhor-pdp .about-story-copy{
+    order:1 !important;
+    direction:rtl !important;
+    text-align:right !important;
+    display:flex !important;
+    flex-direction:column !important;
+    justify-content:center !important;
+    align-items:stretch !important;
+    min-width:0 !important;
+    max-width:100% !important;
+    padding:32px 34px 30px 34px !important;
+    box-sizing:border-box !important;
+  }
+  #alookhor-pdp .about-story-copy .section-kicker{
+    display:inline-flex !important;
+    align-items:center !important;
+    gap:8px !important;
+    margin:0 0 10px !important;
+    color:#f7b32b !important;
+    font-size:12px !important;
+    font-weight:800 !important;
+    letter-spacing:.2px !important;
+  }
+  #alookhor-pdp .about-story-copy h2{
+    margin:0 0 14px !important;
+    color:#fbf3e2 !important;
+    font-size:26px !important;
+    font-weight:900 !important;
+    line-height:1.5 !important;
+  }
+  #alookhor-pdp .about-story-copy .desc-long-wrap{position:static !important;width:100% !important;max-width:100% !important}
+  #alookhor-pdp .about-story-copy .desc-long-content,
+  #alookhor-pdp .about-story-copy .desc-long-wrap.is-expanded .desc-long-content{
+    max-height:none !important;
+    overflow:visible !important;
+    transition:none !important;
+  }
+  #alookhor-pdp .about-story-copy .desc-long-content::after{display:none !important;content:none !important}
+  /* prose: clamp the long WooCommerce description to the first heading + paragraphs (checks stay fully visible) */
+  #alookhor-pdp .about-story-copy .desc-long-text{
+    display:block !important;
+    max-height:236px !important;
+    overflow:hidden !important;
+    position:relative !important;
+    margin:0 0 18px !important;
+    -webkit-mask-image:linear-gradient(to bottom,#000 86%,transparent 100%) !important;
+    mask-image:linear-gradient(to bottom,#000 86%,transparent 100%) !important;
+  }
+  #alookhor-pdp .about-story-copy .desc-long-text p:last-of-type{margin-bottom:0 !important}
+  #alookhor-pdp .about-story-copy .desc-long-text>h1:first-child,
+  #alookhor-pdp .about-story-copy .desc-long-text>h2:first-child,
+  #alookhor-pdp .about-story-copy .desc-long-text>h3:first-child{display:none !important}
+  /* mockup = intro paragraph(s) + the five checks; the "ویژگی‌ها / روش مصرف / نگهداری" sub-sections of the WooCommerce
+     description are duplicated by the checks, the usage tab and the specs tab, so on the desktop card they stay folded */
+  #alookhor-pdp .about-story-copy .desc-long-text>h3:not(:first-child),
+  #alookhor-pdp .about-story-copy .desc-long-text>h3:not(:first-child)~*{display:none !important}
+  #alookhor-pdp .about-story-copy .desc-long-text p{
+    margin:0 0 12px !important;
+    color:#c7b3da !important;
+    font-size:14.5px !important;
+    line-height:2.05 !important;
+    text-align:justify !important;
+    text-align-last:right !important;
+  }
+  #alookhor-pdp .about-story-copy .desc-long-text p:first-of-type{color:#e9dcf5 !important;font-size:15px !important}
+  #alookhor-pdp .about-story-copy .desc-long-text h1,
+  #alookhor-pdp .about-story-copy .desc-long-text h2,
+  #alookhor-pdp .about-story-copy .desc-long-text h3,
+  #alookhor-pdp .about-story-copy .desc-long-text h4{
+    margin:12px 0 6px !important;
+    font-size:15px !important;
+    line-height:1.8 !important;
+  }
+  #alookhor-pdp .about-story-copy .desc-long-text ul,
+  #alookhor-pdp .about-story-copy .desc-long-text ol{margin:6px 0 10px !important}
+  #alookhor-pdp .about-story-copy .desc-long-text li{font-size:13.5px !important;line-height:1.9 !important;margin:2px 0 !important}
+  /* five check items — one per line, gold round check icons */
+  #alookhor-pdp .about-story-copy .about-checks{
+    display:flex !important;
+    flex-direction:column !important;
+    gap:9px !important;
+    margin:0 !important;
+    padding:0 !important;
+    list-style:none !important;
+    width:100% !important;
+    max-width:100% !important;
+  }
+  #alookhor-pdp .about-story-copy .about-checks li{
+    display:flex !important;
+    align-items:center !important;
+    gap:10px !important;
+    margin:0 !important;
+    color:#fbf3e2 !important;
+    font-size:14px !important;
+    font-weight:700 !important;
+    line-height:1.7 !important;
+    text-align:right !important;
+    text-align-last:right !important;
+  }
+  #alookhor-pdp .about-story-copy .about-checks .check-icon{
+    width:20px !important;
+    height:20px !important;
+    font-size:11px !important;
+    display:grid !important;
+    place-items:center !important;
+    border-radius:50% !important;
+    color:#1a0a24 !important;
+    background:linear-gradient(135deg,#ffd37a,#f7b32b) !important;
+    border:1px solid rgba(255,211,122,.9) !important;
+    box-shadow:0 0 0 3px rgba(247,179,43,.16) !important;
+    flex:0 0 auto !important;
+  }
+  /* the toggle button is not part of the mockup on desktop; the JS keeps working on phone/tablet */
+  #alookhor-pdp .about-story-copy .desc-more-btn{display:none !important}
+  /* right half: photo fills the full card height, badge pinned at the top-right corner */
+  #alookhor-pdp .about-story-media{
+    order:2 !important;
+    direction:ltr !important;
+    position:relative !important;
+    align-self:stretch !important;
+    height:100% !important;
+    min-height:420px !important;
+    max-height:none !important;
+    border:0 !important;
+    border-radius:0 !important;
+    overflow:hidden !important;
+    background:#22112c !important;
+    box-shadow:none !important;
+  }
+  #alookhor-pdp .about-story-media img{
+    position:absolute !important;
+    inset:0 !important;
+    width:100% !important;
+    height:100% !important;
+    min-height:0 !important;
+    max-height:none !important;
+    object-fit:cover !important;
+    object-position:center !important;
+    display:block !important;
+  }
+  #alookhor-pdp .about-story-media::before{
+    content:"" !important;
+    position:absolute !important;
+    inset:0 !important;
+    z-index:1 !important;
+    pointer-events:none !important;
+    background:linear-gradient(to right,rgba(34,17,44,.55),rgba(34,17,44,0) 26%) !important;
+  }
+  #alookhor-pdp .about-story-media .about-natural-badge,
+  #alookhor-pdp .about-story-media .about-natural-badge.ornate{
+    position:absolute !important;
+    top:18px !important;
+    right:18px !important;
+    left:auto !important;
+    bottom:auto !important;
+    width:84px !important;
+    height:84px !important;
+    z-index:3 !important;
+    border-radius:50% !important;
+    display:flex !important;
+    flex-direction:column !important;
+    align-items:center !important;
+    justify-content:center !important;
+    gap:1px !important;
+    background:radial-gradient(circle at 30% 30%,#ffd37a,#f7b32b 45%,#d49a2e 100%) !important;
+    border:3px solid #ffe2a3 !important;
+    box-shadow:0 0 0 4px rgba(34,17,44,.75),0 8px 22px rgba(0,0,0,.45),0 0 26px rgba(247,179,43,.45) !important;
+    color:#1a0a24 !important;
+  }
+  #alookhor-pdp .about-story-media .about-natural-badge span{font-size:21px !important;font-weight:900 !important;line-height:1 !important;color:#1a0a24 !important}
+  #alookhor-pdp .about-story-media .about-natural-badge small{font-size:11px !important;font-weight:800 !important;line-height:1.2 !important;margin-top:2px !important;color:#1a0a24 !important}
+}

@@ -451,14 +451,15 @@ function alookhor_cc_pdp_markup(){
             <h2>درباره آلو بخارایی الخور</h2>
             <div class="desc-long-wrap" data-desc-wrap>
               <div class="desc-long-content" data-desc-content>
-                <?php
+                <div class="desc-long-text" data-desc-text><?php
+                /* v3.10.350: description text wrapped so the desktop card (>=1280px) can clamp the prose only and keep the 5 checks visible; mobile/tablet unchanged */
                 $long_desc = $product->get_description() ?: $product->get_short_description();
                 if($long_desc){
                   echo wp_kses_post($long_desc);
                 } else {
                   echo '<p>آلو خشک بخارایی الخور، انتخابی بی‌نظیر از باغات ایران، با طعمی دلنشین و کیفیتی ممتاز، مناسب برای مصرف روزانه، شیرینی و پذیرایی، بدون هیچ افزودنی، رنگ یا شکر افزوده.</p>';
                 }
-                ?>
+                ?></div>
                 <ul class="about-checks">
                   <li><span class="check-icon">✓</span> بدون مواد نگهدارنده</li>
                   <li><span class="check-icon">✓</span> کاملا طبیعی و سالم</li>

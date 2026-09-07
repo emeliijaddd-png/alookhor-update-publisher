@@ -4,7 +4,7 @@ Tags: control center, luxury, alookhor, admin, dashboard
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 3.10.345
+Stable tag: 3.10.350
 License: Private
 License URI: https://alookhor.ir
 
@@ -46,6 +46,11 @@ License URI: https://alookhor.ir
 در `config/site.json` و `wp_options: alookhor_cc_settings` — همان حافظه واقعی که در چت قبلی ویرایش می‌شد.
 
 == Changelog ==
+
+= 3.10.350 =
+* Built on 3.10.345 (the last green, live release); the parallel 3.10.346-3.10.349 tags failed CI at "Validate source syntax" and were never deployed.
+* Desktop (>=1280px) "درباره آلو بخارایی الخور" card rebuilt per the owner mockup: one compact two-column card — copy on the left (kicker, title, intro paragraph, five gold check items one per line), orchard-bowl photo on the right filling the full card height with the round "100% طبیعی" badge at its top-right; no "مشاهده بیشتر" button and no empty plum area (root cause: `.pdp-pane .below-section{display:block}` out-specified the `.about-story{display:grid}` rules, so the photo rendered as a banner under the text). Phone/tablet layout of the section unchanged (all rules inside @media(min-width:1280px)); the rest of the desktop page is pixel-identical.
+* Arena PDP session, re-applied on top of 3.10.345: seeder self-heal (per-product wc_product_meta_lookup rows + price/stock sync of seeded variable products, triggered on init / rest_api_init / after seeding / REST heal_only) and the 3.10.323 phone polish CSS/JS (breadcrumb above image, share next to wishlist, crossed-out old price, glowing gold banner title, justified about text, 1s auto-slide rails). No desktop change; cart/footer work of the parallel releases untouched.
 
 = 3.10.345 =
 * Mobile product page rebuilt per the two owner mockups (top + bottom): edge-to-edge image with thumb strip, breadcrumb, panel (badge, title, rating + wishlist, 4 features in one row, price, weight chips, qty pill + gold cart on one line, delivery line), guarantees 2x2, banner, tabs bar, description, suggested products 2-col, curated 2-col, usage, FAQ 1-col, reviews stacked, newsletter.

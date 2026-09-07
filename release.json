@@ -1,21 +1,31 @@
 {
-  "version": "3.10.345",
-  "previous": "3.10.344",
+  "version": "3.10.350",
+  "previous": "3.10.349",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "حذف نوار سفید بالا و باکس سفید چپ - فقط لوکس",
+  "description": "کارت «درباره» دسکتاپ طبق ماکاپ مالک (دو ستون: متن چپ + عکس تمام‌ارتفاع راست با نشان 100%) + self-heal seeder + پولیش موبایل ۳۲۳ — روی پایهٔ 3.10.345 (آخرین نسخهٔ سبز و زندهٔ سایت؛ 346–349 سشن سبد در CI رد شدند)",
   "changelog": [
     {
+      "tag": "FEATURE",
+      "title": "کارت «درباره آلو بخارایی الخور» دسکتاپ طبق ماکاپ",
+      "desc": "متن چپ با ۵ تیک طلایی زیر هم، عکس راست تمام‌ارتفاع با نشان 100% طبیعی، بدون دکمهٔ مشاهده بیشتر؛ فقط ≥1280px، موبایل/تبلت بدون تغییر"
+    },
+    {
       "tag": "FIX",
-      "title": "حذف سفید بالا و چپ",
-      "desc": "JS نهایی + CSS - فقط یک سبد لوکس دارک"
+      "title": "ROOT CAUSE بنر تمام‌عرض زیر متن",
+      "desc": ".pdp-pane .below-section{display:block} روی .about-story{display:grid} غالب بود → سلکتور section.about-story"
+    },
+    {
+      "tag": "FIX",
+      "title": "self-heal seeder + پولیش موبایل ۳۲۳",
+      "desc": "دوباره روی 3.10.345 اعمال شد؛ بقیهٔ دسکتاپ ۰ پیکسل تغییر"
     }
   ],
   "project": "ALOOKHOR",
-  "area": "Product Page PDP — Mobile per 2 mockups (desktop locked)",
-  "reason": "کاربر ۲ ماکاپ موبایل داد: موبایل باید دقیقاً مثل ماکاپ شود، دسکتاپ قفل و بدون تغییر، فقط media query؛ نسخه‌های ۳۰۰–۳۱۰ سشن‌های دیگر بلوک موبایل ۲۶۷/۲۶۸ را حذف کرده بودند — دوباره روی ۳۱۰ اعمال شد",
+  "area": "PDP about card (desktop, ordered) + Product seeder + PDP phone",
+  "reason": "دستور مستقیم مالک برای تبدیل بخش «درباره» به ماکاپ Screenshot 113637؛ تگ‌های موازی بلوک‌های سشن PDP را نداشتند",
   "files": [
     "plugin/alookhor-control-center/CHANGELOG.md",
     "plugin/alookhor-control-center/alookhor-control-center.php",
@@ -26,6 +36,8 @@
     "plugin/alookhor-control-center/assets/js/modules/dashboard.js",
     "plugin/alookhor-control-center/assets/js/modules/settings.js",
     "plugin/alookhor-control-center/config/site.json",
+    "plugin/alookhor-control-center/includes/product-page.php",
+    "plugin/alookhor-control-center/includes/product-seeder.php",
     "plugin/alookhor-control-center/readme.txt",
     "release.json"
   ]

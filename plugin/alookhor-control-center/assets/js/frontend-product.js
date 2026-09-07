@@ -329,3 +329,49 @@ if(document.readyState!=='loading'){ pdpTabs(); descExpand(); }
   });
 })();
 
+
+/* ===== v3.10.323 — PHONE (<=640px) ONLY: the two product rails («محصولات پیشنهادی», «گزیده‌ای از بهترین…») auto-advance
+   one card every second (owner request). Pauses while the user touches/drags the rail or taps an arrow (resumes 3 s
+   later), while the rail is off-screen and while the tab is hidden; loops back to the first card at the end.
+   Desktop/tablet: nothing runs (their rails are static grids). ===== */
+(function(){
+ if(!window.matchMedia) return;
+ var mq=window.matchMedia('(max-width:640px)');
+ var INTERVAL=1000, RESUME_AFTER=3000;
+ var tracks=Array.prototype.slice.call(document.querySelectorAll('[data-htrack],[data-ptrack]'));
+ if(!tracks.length) return;
+ tracks.forEach(function(track){
+  var timer=0, holdUntil=0, touching=false, visible=true;
+  var shell=track.closest?track.closest('.slider-shell'):track.parentElement;
+  function step(){
+   var c=track.firstElementChild; if(!c) return;
+   var gap=parseFloat(getComputedStyle(track).columnGap)||10;
+   var w=c.getBoundingClientRect().width+gap;
+   var max=track.scrollWidth-track.clientWidth;
+   var pos=Math.abs(track.scrollLeft);
+   var rtl=getComputedStyle(track).direction==='rtl';
+   if(pos>=max-2){ track.scrollTo({left:0,behavior:'smooth'}); return; }
+   track.scrollBy({left:(rtl?-1:1)*w,behavior:'smooth'});
+  }
+  function tick(){
+   if(!mq.matches||touching||!visible||document.hidden||Date.now()<holdUntil) return;
+   if(track.scrollWidth<=track.clientWidth+2) return;
+   step();
+  }
+  function start(){ if(!timer) timer=setInterval(tick,INTERVAL); }
+  function stop(){ if(timer){ clearInterval(timer); timer=0; } }
+  function hold(){ holdUntil=Date.now()+RESUME_AFTER; }
+  track.addEventListener('touchstart',function(){ touching=true; hold(); },{passive:true});
+  track.addEventListener('touchend',function(){ touching=false; hold(); },{passive:true});
+  track.addEventListener('touchcancel',function(){ touching=false; hold(); },{passive:true});
+  track.addEventListener('pointerdown',hold,{passive:true});
+  track.addEventListener('wheel',hold,{passive:true});
+  if(shell){ Array.prototype.forEach.call(shell.querySelectorAll('.slider-control'),function(b){ b.addEventListener('click',hold); }); }
+  if('IntersectionObserver' in window){
+   try{ new IntersectionObserver(function(es){ es.forEach(function(e){ visible=e.isIntersecting; }); },{threshold:0.3}).observe(track); }catch(e){}
+  }
+  function sync(){ if(mq.matches) start(); else stop(); }
+  sync();
+  if(mq.addEventListener) mq.addEventListener('change',sync); else if(mq.addListener) mq.addListener(sync);
+ });
+})();

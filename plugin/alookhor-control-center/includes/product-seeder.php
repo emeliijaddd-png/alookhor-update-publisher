@@ -2,7 +2,7 @@
 if(!defined('ABSPATH')) exit;
 
 /**
- * ALOOKHOR Product Seeder v3.10.251
+ * ALOOKHOR Product Seeder v3.10.251 (+ price sync / lookup rows / stock self-heal)
  * Creates 5 full-featured WooCommerce variable products with 3 weights (3/5/10 kg)
  * - کشمش پلویی طلایی ممتاز
  * - آلو بخارایی آفتابی نیشابور شیرین
@@ -133,6 +133,100 @@ function alookhor_cc_sideload_image_from_assets($filename, $product_id=0){
     $attach_data = wp_generate_attachment_metadata($attach_id, $dest);
     wp_update_attachment_metadata($attach_id, $attach_data);
     return (int)$attach_id;
+}
+}
+
+if(!function_exists('alookhor_cc_refresh_lookup_row')){
+/**
+ * v3.10.330: makes sure a product / variation has an up-to-date row in wc_product_meta_lookup.
+ * Variations created with raw wp_insert_post()+update_post_meta() never get one, and
+ * WC_Product_Variable::sync_stock_status() decides the parent stock status from that table
+ * (missing rows => "no child in stock" => parent flips to outofstock, add-to-cart disappears).
+ * Returns the strategy used ('refresh' | 'sales') or false.
+ */
+function alookhor_cc_refresh_lookup_row($id){
+    $id = (int)$id;
+    if($id <= 0 || !class_exists('WC_Data_Store')) return false;
+    $type = (get_post_type($id) === 'product_variation') ? 'product-variation' : 'product';
+    try{ $store = WC_Data_Store::load($type); }catch(Exception $e){ return false; }
+    if(!method_exists($store, 'has_callable')) return false;
+    // WooCommerce >= 10.8: dedicated public method (rewrites the whole row from post meta)
+    if($store->has_callable('refresh_product_lookup_table')){
+        $store->refresh_product_lookup_table($id);
+        return 'refresh';
+    }
+    // Older WooCommerce: re-setting total_sales to its current value rewrites the lookup row (no functional change)
+    if($store->has_callable('update_product_sales')){
+        $store->update_product_sales($id, (float)get_post_meta($id, 'total_sales', true), 'set');
+        return 'sales';
+    }
+    return false;
+}
+}
+
+if(!function_exists('alookhor_cc_sync_variable_product')){
+/**
+ * Re-syncs a variable product's parent price meta + stock status from its variations
+ * (lookup rows of the children first, then min/max price, stock status, transients, lookup table).
+ * Returns the parent _price after the sync ('' when it still has no priced variation).
+ */
+function alookhor_cc_sync_variable_product($product_id){
+    $product_id = (int)$product_id;
+    if($product_id <= 0 || !function_exists('wc_get_product')) return '';
+    if(function_exists('wc_delete_product_transients')) wc_delete_product_transients($product_id);
+    // v3.10.330: children need lookup rows BEFORE sync_stock_status() looks at them
+    $children = get_children(['post_parent'=>$product_id,'post_type'=>'product_variation','post_status'=>['publish','private'],'fields'=>'ids']);
+    foreach((array)$children as $cid){ alookhor_cc_refresh_lookup_row((int)$cid); }
+    if(class_exists('WC_Product_Variable')){
+        WC_Product_Variable::sync($product_id); // prices + stock status + save (visibility terms, lookup row)
+        if(method_exists('WC_Product_Variable','sync_stock_status')) WC_Product_Variable::sync_stock_status($product_id);
+    }
+    alookhor_cc_refresh_lookup_row($product_id);
+    if(function_exists('wc_update_product_lookup_tables_column')){
+        // keep the wc_product_meta_lookup table (used by shop sorting/filters) consistent
+        wc_update_product_lookup_tables_column('min_max_price');
+    }
+    clean_post_cache($product_id);
+    return (string)get_post_meta($product_id, '_price', true);
+}
+}
+
+if(!function_exists('alookhor_cc_heal_seeded_prices')){
+/**
+ * One-time self-heal (per plugin version) for products seeded by 3.10.251-3.10.329:
+ *  - parent _price empty although variations are priced (sync never ran before 3.10.329)
+ *  - parent stock status not "instock" although a variation is in stock (3.10.329 synced
+ *    against missing lookup rows and flipped the parents to outofstock)
+ * Cheap: one meta query, runs once per plugin version, then remembers the version in an option.
+ */
+function alookhor_cc_heal_seeded_prices($force=false){
+    if(!function_exists('wc_get_product')) return ['skipped'=>'woocommerce inactive'];
+    $marker = 'alookhor_cc_prices_healed_v';
+    if(!$force && get_option($marker) === ALOOKHOR_CC_VERSION) return ['skipped'=>'already healed for this version'];
+    $healed = []; $still_broken = []; $reasons = [];
+    $ids = get_posts([
+        'post_type'=>'product','post_status'=>['publish','private','draft'],'fields'=>'ids','posts_per_page'=>200,'no_found_rows'=>true,
+        'tax_query'=>[[ 'taxonomy'=>'product_type','field'=>'slug','terms'=>['variable'] ]],
+    ]);
+    foreach((array)$ids as $pid){
+        $pid = (int)$pid;
+        $vars = get_children(['post_parent'=>$pid,'post_type'=>'product_variation','post_status'=>['publish','private'],'fields'=>'ids']);
+        if(!$vars) continue;
+        $has_price = false; $child_in_stock = false;
+        foreach($vars as $vid){
+            if(get_post_meta((int)$vid, '_price', true) !== '') $has_price = true;
+            if(get_post_meta((int)$vid, '_stock_status', true) === 'instock') $child_in_stock = true;
+        }
+        $needs_price = ($has_price && get_post_meta($pid, '_price', true) === '');
+        $needs_stock = ($child_in_stock && get_post_meta($pid, '_manage_stock', true) !== 'yes' && get_post_meta($pid, '_stock_status', true) !== 'instock');
+        if(!$needs_price && !$needs_stock) continue; // consistent -> untouched
+        $reasons[$pid] = trim(($needs_price ? 'price ' : '').($needs_stock ? 'stock' : ''));
+        $after = alookhor_cc_sync_variable_product($pid);
+        $ok = ($after !== '') && (!$child_in_stock || get_post_meta($pid, '_stock_status', true) === 'instock');
+        if($ok) $healed[] = $pid; else $still_broken[] = $pid;
+    }
+    update_option($marker, ALOOKHOR_CC_VERSION, false);
+    return ['healed'=>$healed,'still_broken'=>$still_broken,'reasons'=>$reasons,'scanned'=>count((array)$ids)];
 }
 }
 
@@ -563,36 +657,17 @@ function alookhor_cc_seed_products($force=false){
         ];
         update_post_meta($product_id, '_default_attributes', $default_attrs);
 
-        // Sync variable product prices (min/max) - FIX: class_exists not function_exists + lookup before sync
-        if(class_exists('WC_Product_Variable')){
-            // Ensure variation lookup rows exist before sync (prevents outofstock parent)
-            if(function_exists('wc_update_product_lookup_tables')){
-                wc_update_product_lookup_tables($product_id);
-            }
-            $product_obj = wc_get_product($product_id);
-            if($product_obj){
-                WC_Product_Variable::sync($product_id);
-                // Ensure parent in stock after sync
-                update_post_meta($product_id, '_stock_status', 'instock');
-                if(method_exists($product_obj, 'set_stock_status')){
-                    $product_obj->set_stock_status('instock');
-                    $product_obj->save();
-                }
-            }
-            // Self-heal: ensure price meta exists
-            $min_price = get_post_meta($product_id, '_min_variation_price', true);
-            if(!$min_price){
-                // fallback sync
-                WC_Product_Variable::sync($product_id);
-            }
-        }
+        // Sync variable product prices (min/max) + stock status: shared helper (rebuilds the variations'
+        // wc_product_meta_lookup rows first, then WC_Product_Variable::sync + sync_stock_status; see alookhor_cc_sync_variable_product)
+        alookhor_cc_sync_variable_product($product_id);
 
         if($is_new) $created[] = $product_id;
         else $updated[] = $product_id;
     }
 
     update_option('alookhor_cc_products_seeded_v251', time());
-    return ['created'=>$created, 'updated'=>$updated, 'count'=>count($created)+count($updated)];
+    $heal = alookhor_cc_heal_seeded_prices(true);
+    return ['created'=>$created, 'updated'=>$updated, 'count'=>count($created)+count($updated), 'price_heal'=>$heal];
 }
 }
 
@@ -654,12 +729,34 @@ add_action('alookhor_cc_async_seed', function(){
     delete_transient('alookhor_cc_seeding_lock');
 });
 
+// v3.10.329/330: one-time price + stock self-heal per plugin version (admin / REST / cron only - no front-end cost)
+if(!function_exists('alookhor_cc_maybe_heal_prices')){
+function alookhor_cc_maybe_heal_prices(){
+    if(!function_exists('wc_get_product')) return;
+    if(get_option('alookhor_cc_prices_healed_v') === ALOOKHOR_CC_VERSION) return;
+    if(get_transient('alookhor_cc_heal_lock')) return;
+    set_transient('alookhor_cc_heal_lock', 1, 120);
+    alookhor_cc_heal_seeded_prices(false);
+    delete_transient('alookhor_cc_heal_lock');
+}
+}
+add_action('init', function(){
+    // REST_REQUEST is defined after init (parse_request), so REST traffic is handled by the rest_api_init hook below
+    $ctx = is_admin() || (defined('REST_REQUEST') && REST_REQUEST) || defined('DOING_CRON') || isset($_GET['alookhor_heal_prices']);
+    if(!$ctx) return;
+    alookhor_cc_maybe_heal_prices();
+}, 101);
+add_action('rest_api_init', 'alookhor_cc_maybe_heal_prices', 5);
+
 // REST endpoint to trigger seeding externally (authenticated)
 add_action('rest_api_init', function(){
     register_rest_route('alookhor-cc/v1', '/seed-products', [
         'methods'=>'POST',
         'permission_callback'=>function(){ return current_user_can('manage_options'); },
         'callback'=>function($request){
+            if($request->get_param('heal_only')){
+                return rest_ensure_response(['ok'=>true,'version'=>ALOOKHOR_CC_VERSION,'result'=>alookhor_cc_heal_seeded_prices(true)]);
+            }
             $force = (bool)$request->get_param('force');
             $res = alookhor_cc_seed_products($force);
             return rest_ensure_response(['ok'=>true,'version'=>ALOOKHOR_CC_VERSION,'result'=>$res]);
