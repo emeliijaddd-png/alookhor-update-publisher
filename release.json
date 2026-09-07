@@ -1,40 +1,30 @@
 {
-  "version": "3.10.354",
-  "previous": "3.10.353",
+  "version": "3.10.355",
+  "previous": "3.10.354",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "رفع باگ سبد خرید PDP + باکس قیمت بزرگ‌تر طبق دستور مالک",
+  "description": "حذف کامل رندرر Single Product وودمارت و نگه‌داشتن فقط PDP آلوخور",
   "changelog": [
     {
       "tag": "FIX",
-      "title": "سبد خرید PDP کار نمی‌کرد",
-      "desc": "PHP add_url اکنون اولین واریشن (variation_id + attribute_pa_vazn) را می‌سازد؛ JS وزن پیش‌فرض را auto-init می‌کند و quantity را حفظ می‌کند؛ افزودن به سبد خرید متغیر اکنون درست کار می‌کند"
+      "title": "حذف واقعی Single Product وودمارت",
+      "desc": "برای صفحات محصول، renderer قدیمی WoodMart در سطح template_include کنار گذاشته می‌شود و template اختصاصی ALOOKHOR تنها renderer صفحه محصول است؛ CSS hide استفاده نشده است."
     },
     {
-      "tag": "FEATURE",
-      "title": "باکس قیمت: قیمت‌ها بزرگ‌تر و در ردیف بالا",
-      "desc": "قیمت اصلی ۱۸px سفید خط‌خورده، قیمت جدید تا ۳۲px طلایی، هر دو کنار «قیمت محصول:»؛ نشان تخفیف، پس‌زمینه و حاشیه دست‌نخورده"
+      "tag": "PDP",
+      "title": "جلوگیری از دو بار رندر شدن صفحه محصول",
+      "desc": "Single Product قدیمی دیگر نباید همزمان با PDP جدید ALOOKHOR تولید شود."
     }
   ],
   "project": "ALOOKHOR",
-  "area": "PDP add-to-cart + price box + cart white bar",
-  "reason": "کاربر گزارش سبد خالی + دستور مالک برای باکس قیمت بزرگ‌تر؛ ادغام دو فیکس 353 در 354",
+  "area": "PDP hard renderer replacement",
+  "reason": "دستور مالک برای حذف کامل Single Product قدیمی WoodMart و جلوگیری از نمایش همزمان دو layout",
   "files": [
-    "plugin/alookhor-control-center/CHANGELOG.md",
     "plugin/alookhor-control-center/alookhor-control-center.php",
-    "plugin/alookhor-control-center/assets/css/frontend-cart.css",
-    "plugin/alookhor-control-center/assets/css/frontend-product.css",
-    "plugin/alookhor-control-center/assets/js/app.js",
-    "plugin/alookhor-control-center/assets/js/core/updateSystem.js",
-    "plugin/alookhor-control-center/assets/js/frontend-product.js",
-    "plugin/alookhor-control-center/assets/js/modules/dashboard.js",
-    "plugin/alookhor-control-center/assets/js/modules/settings.js",
-    "plugin/alookhor-control-center/config/site.json",
-    "plugin/alookhor-control-center/includes/cart-page.php",
     "plugin/alookhor-control-center/includes/product-page.php",
-    "plugin/alookhor-control-center/readme.txt",
+    "plugin/alookhor-control-center/includes/responsive-v2.php",
     "release.json"
   ]
 }
