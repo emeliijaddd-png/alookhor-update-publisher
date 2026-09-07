@@ -39,6 +39,20 @@ and store these values only as GitHub Actions Secrets:
 After 3.8.7 is installed, active, and `/wp-json/alookhor-cc/v1/status` reports a
 successful activation restore, the bootstrap snippet can be disabled and removed.
 
+## Offline repository gate
+
+Before any documentation or release work is committed, run:
+
+```bash
+python3 scripts/verify_repository_integrity.py
+```
+
+It is deterministic, requires no network and no credentials, and checks version
+consistency across `release.json`, the plugin bootstrap, `readme.txt` and
+`config/site.json`; that every declared and required source file exists; that
+`docs/MASTER_CODE_REGISTRY.md` is fresh; and that no secret-shaped literal is
+tracked. The scan reports file names and rule identifiers only, never values.
+
 ## Machine-readable diagnostics
 
 Every tag deployment writes a sanitized report to the `publisher-status` branch.

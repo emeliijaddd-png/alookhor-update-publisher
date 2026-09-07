@@ -29,7 +29,7 @@ When sources disagree, the newer provable runtime/source wins. Missing source is
 - **Direct glass-capsule acceptance:** the same `.header-capsule` now renders `rgba(33,20,38,.75)` with 24px Blur, Burgundy/Card gradient, Gold border/highlights and approved control colors; Cart/Account/Logo/Hamburger geometry/order, Top Bar, Desktop Navigation, Hero underlap and zero overflow are preserved.
 - **Production:** 3.10.18 active and fully verified.
 - **Current source target:** `3.10.19` — two-row Top Bar/Main Menu reference integration prepared for test/publication; Production remains 3.10.18 until tagged deployment succeeds.
-- **3.10.19 candidate package SHA-256:** `351e78e79fccf666d6f10abb659559d0c75d2c8a454ebf6ef112e65cc0c9069d`
+- **3.10.19 candidate package SHA-256:** `0f6b7ff21cf137e0b7a3c59e50d79ed4a64b9b85935627fd4341640d5c801ac1` — reproduced locally from this branch with `python3 scripts/build_release.py` on 2026-09-07 (45 packaged files, deterministic ZIP timestamps/permissions). The earlier CI candidate `351e78e79fccf666d6f10abb659559d0c75d2c8a454ebf6ef112e65cc0c9069d` is superseded by this value. Production publication remains valid only for the SHA computed from the tagged commit and verified remotely.
 - **New active Header reference:** `uploads/image.png`.
 - **Final glass evidence:** `automation/318-live2/visual-desktop-before.png`, `automation/318-live2/visual-mobile-before.png`.
 - **New Header reference:** `uploads/Screenshot_۲۰۲۶-۰۸-۱۴-۰۶-۵۶-۵۲-۵۸۲_com.android.chrome-edit.jpg`.
@@ -137,7 +137,12 @@ This rule supersedes every earlier interpretation of full-header Sticky behavior
 1. Recover current state.
 2. Identify exact files, dependencies, shortcode/hook/class/ID, Desktop/Tablet/Mobile impact.
 3. Change only the requested scope.
-4. Run syntax, contract, responsive/runtime, and release-integrity tests.
+4. Run syntax, contract, responsive/runtime, and release-integrity tests:
+   `python3 -m py_compile scripts/*.py`, `python3 scripts/generate_code_registry.py --check`,
+   `find plugin/alookhor-control-center -name '*.php' -print0 | xargs -0 -n1 php -l`,
+   `node --check` on every `assets/js/**/*.js`, and
+   `python3 scripts/verify_repository_integrity.py` (offline gate for version consistency,
+   declared/required files, registry freshness and a fail-closed secret scan that never prints values).
 5. Regenerate documentation with `python3 scripts/generate_code_registry.py`.
 6. Enforce freshness with `python3 scripts/generate_code_registry.py --check`.
 7. Record version impact. Do not bump the runtime version without a functional/release reason.
