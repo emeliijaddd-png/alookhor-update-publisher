@@ -1,32 +1,30 @@
 {
-  "version": "3.10.355",
-  "previous": "3.10.354",
+  "version": "3.10.356",
+  "previous": "3.10.355",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "حذف کامل رندرر Single Product وودمارت و نگه‌داشتن فقط PDP آلوخور",
+  "description": "رفع قطعی Breadcrumb صفحه محصول: فاصله از هدر، فونت Dana، رنگ سفید، اندازه بزرگ‌تر و Responsive دسکتاپ/موبایل",
   "changelog": [
     {
       "tag": "FIX",
-      "title": "حذف واقعی Single Product وودمارت",
-      "desc": "برای صفحات محصول، renderer قدیمی WoodMart در سطح template_include کنار گذاشته می‌شود و template اختصاصی ALOOKHOR تنها renderer صفحه محصول است؛ CSS hide استفاده نشده است."
+      "title": "Breadcrumb صفحه محصول زیر هدر قرار گرفت",
+      "desc": "مسیر خانه / محصولات / دسته‌بندی / محصول در هر دو مسیر رندر PDP با فاصله صحیح از هدر، فونت Dana، رنگ سفید و تایپوگرافی خواناتر نمایش داده می‌شود."
     },
     {
-      "tag": "PDP",
-      "title": "جلوگیری از دو بار رندر شدن صفحه محصول",
-      "desc": "Single Product قدیمی دیگر نباید همزمان با PDP جدید ALOOKHOR تولید شود."
+      "tag": "MOBILE",
+      "title": "Breadcrumb کاملاً Responsive شد",
+      "desc": "اندازه، فاصله، کادر و شکست خطوط برای موبایل نیز به‌صورت مستقل و بدون Overflow تنظیم شده است."
     }
   ],
   "project": "ALOOKHOR",
-  "area": "PDP hard renderer replacement",
-  "reason": "دستور مالک برای حذف کامل Single Product قدیمی WoodMart و جلوگیری از نمایش همزمان دو layout",
+  "area": "PDP breadcrumb hard fix",
+  "reason": "دستور مالک برای اصلاح واقعی نوار مسیر صفحه محصول و انتشار نسخه جدید قابل تشخیص توسط Update Center",
   "files": [
     "plugin/alookhor-control-center/alookhor-control-center.php",
-    "plugin/alookhor-control-center/includes/product-page.php",
-    "plugin/alookhor-control-center/includes/responsive-v2.php",
+    "plugin/alookhor-control-center/includes/pdp-breadcrumb-fix.php",
+    "plugin/alookhor-control-center/templates/single-product.php",
     "release.json"
   ]
 }
-
-
