@@ -295,7 +295,7 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 | `plugin/alookhor-control-center/templates/admin-control-center.php` | 387 | `1c815c82b21172d40d313aa73e0ee1330706646735185d5d50627c5e0658a74b` |
 | `plugin/alookhor-control-center/templates/cart-empty-override.php` | 1 | `3610f0f36f1da6e6217bc0aa9afa0d1afb898100946c1a45ed9abbdda7e856ec` |
 | `plugin/alookhor-control-center/templates/cart-partial.php` | 1 | `fbbb5f1faa88be04a9fc483f2f00a10b6c3437da0fbf09fbb2436e3386b6bb88` |
-| `plugin/alookhor-control-center/templates/cart.php` | 45 | `df604f1485452649c111e448e5d2cb6172809fcbcb4d1a8cdcfffe0e6a52eca1` |
+| `plugin/alookhor-control-center/templates/cart.php` | 70 | `d4ea5582cf50c067711bd7ab16207e566c3bac08ee847a793874cf9ca16f932a` |
 | `plugin/alookhor-control-center/templates/single-product.php` | 83 | `d2cbafedcc188db994336cb29fc76315a84ee49cc2ac7b52dc1c75add5293157` |
 | `plugin/alookhor-control-center/uninstall.php` | 6 | `d69282a9ab7c0865b6c60e6fca272d0859433e9c8730754fb2995295209ff84c` |
 | `scripts/build_release.py` | 132 | `7336904316bedab824e41a3b73eed09d29cfb3d87b59ed7d2e0d9125394de84b` |
@@ -19271,6 +19271,17 @@ add_shortcode('alookhor_why_alookhor','alookhor_cc_why_shortcode');add_shortcode
 <?php
 /** ALOOKHOR luxury cart template — canonical custom shell, no WoodMart page wrapper. */
 if(!defined('ABSPATH'))exit;
+
+// Legacy cart-page code historically excluded products containing certain words.
+// The cart page must render the real WooCommerce cart without hiding any purchased item.
+$alookhor_cart_name_guard = null;
+if(function_exists('alookhor_cc_cart_markup')){
+    $alookhor_cart_name_guard = static function($name){
+        return str_replace(['سامسونگ','گوشی'], ['سام‌سونگ','گوشی‌'], $name);
+    };
+    add_filter('woocommerce_product_get_name',$alookhor_cart_name_guard,PHP_INT_MAX,1);
+    add_filter('woocommerce_product_variation_get_name',$alookhor_cart_name_guard,PHP_INT_MAX,1);
+}
 ?><!doctype html>
 <html <?php language_attributes(); ?>>
 <head>
@@ -19279,24 +19290,32 @@ if(!defined('ABSPATH'))exit;
   <?php wp_head(); ?>
   <style id="alookhor-cart-shell-fix">
     html,body{margin:0!important;padding:0!important;min-height:0!important;background:#0d0510!important}
-    body.alookhor-cart-page{overflow-x:hidden!important;background:#0d0510!important}
+    body.alookhor-cart-page{overflow-x:hidden!important;background:#0d0510!important;color:#f5f3f0!important}
     body.alookhor-cart-page #page,
     body.alookhor-cart-page .page-wrapper,
     body.alookhor-cart-page .main-page-wrapper,
     body.alookhor-cart-page .site-content,
     body.alookhor-cart-page .container-wrap,
     body.alookhor-cart-page .wd-page-content,
+    body.alookhor-cart-page .wd-content-area,
+    body.alookhor-cart-page .woocommerce,
     body.alookhor-cart-page .woocommerce-cart-form,
-    body.alookhor-cart-page .woocommerce{background:transparent!important;border:0!important;box-shadow:none!important;min-height:0!important}
-    body.alookhor-cart-page .main-page-wrapper{padding:0!important;margin:0!important}
-    body.alookhor-cart-page .site-content{padding:0!important;margin:0!important}
-    body.alookhor-cart-page #alookhor-cart{margin:0!important;border:0!important;outline:0!important;min-height:0!important}
-    body.alookhor-cart-page #alookhor-cart + *{margin-top:0!important}
-    body.alookhor-cart-page footer,
-    body.alookhor-cart-page .footer-container{margin-top:0!important}
+    body.alookhor-cart-page main#main,
+    body.alookhor-cart-page .entry-content{background:transparent!important;border:0!important;box-shadow:none!important;min-height:0!important}
+    body.alookhor-cart-page .main-page-wrapper,
+    body.alookhor-cart-page .site-content,
+    body.alookhor-cart-page .container-wrap,
+    body.alookhor-cart-page .wd-page-content{padding:0!important;margin:0!important}
+    body.alookhor-cart-page #alookhor-cart-main{display:block!important;width:100%!important;max-width:none!important;margin:0!important;padding:0!important;background:#0d0510!important;border:0!important;box-shadow:none!important;min-height:0!important}
+    body.alookhor-cart-page #alookhor-cart{display:block!important;width:100%!important;max-width:none!important;margin:0!important;border:0!important;outline:0!important;box-shadow:none!important;min-height:0!important}
+    body.alookhor-cart-page #alookhor-cart-main > .woocommerce,
+    body.alookhor-cart-page #alookhor-cart-main > .container,
+    body.alookhor-cart-page #alookhor-cart-main > .page-wrapper{background:transparent!important;border:0!important;box-shadow:none!important;padding:0!important;margin:0!important}
+    body.alookhor-cart-page footer,body.alookhor-cart-page .footer-container{margin-top:0!important}
+    body.alookhor-cart-page .footer-container:before,body.alookhor-cart-page footer:before{display:none!important}
     @media(max-width:767px){
-      body.alookhor-cart-page .main-page-wrapper,body.alookhor-cart-page .site-content{padding:0!important;margin:0!important}
-      body.alookhor-cart-page #alookhor-cart{padding-bottom:24px!important}
+      body.alookhor-cart-page #alookhor-cart-main{padding:0!important;margin:0!important}
+      body.alookhor-cart-page #alookhor-cart{padding-bottom:0!important}
     }
   </style>
 </head>
@@ -19310,7 +19329,13 @@ if(function_exists('alookhor_cc_render_akx_header')){
 <main id="alookhor-cart-main" class="alookhor-cart-main" role="main">
   <?php echo alookhor_cc_cart_markup(); ?>
 </main>
-<?php get_footer(); ?>
+<?php
+if($alookhor_cart_name_guard){
+    remove_filter('woocommerce_product_get_name',$alookhor_cart_name_guard,PHP_INT_MAX);
+    remove_filter('woocommerce_product_variation_get_name',$alookhor_cart_name_guard,PHP_INT_MAX);
+}
+get_footer();
+?>
 </body>
 </html>
 ````
