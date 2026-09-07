@@ -5,12 +5,12 @@
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "تست - فقط نسخه",
+  "description": "حذف نوار سفید سبد خرید - CSS",
   "changelog": [
     {
-      "tag": "TEST",
-      "title": "تست",
-      "desc": "فقط نسخه"
+      "tag": "FIX",
+      "title": "حذف نوار سفید",
+      "desc": "CSS تهاجمی"
     }
   ],
   "project": "ALOOKHOR",
