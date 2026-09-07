@@ -8,58 +8,65 @@ if(!defined('ABSPATH'))exit;
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <?php wp_head(); ?>
   <style id="alookhor-pdp-breadcrumb-refinement">
-    /* PDP breadcrumb: force a visible, responsive offset below the Arena header. */
-    .alookhor-managed-product-page .alookhor-alp .breadcrumb-wrapper{
+    /* PDP breadcrumb: direct selectors are intentional so the rule still applies when the PDP wrapper changes. */
+    body.alookhor-managed-product-page .breadcrumb-wrapper{
       position:relative!important;
-      top:24px!important;
-      margin-top:0!important;
-      margin-bottom:44px!important;
-      z-index:2!important;
+      top:0!important;
+      margin-top:30px!important;
+      margin-bottom:26px!important;
+      z-index:5!important;
+      transform:translateY(18px)!important;
     }
-    .alookhor-managed-product-page .alookhor-alp .breadcrumb-box{
+    body.alookhor-managed-product-page .breadcrumb-box{
       color:#fff!important;
       font-family:Dana,Vazirmatn,IRANSansX,Tahoma,sans-serif!important;
-      font-size:16px!important;
-      font-weight:600!important;
+      font-size:19px!important;
+      font-weight:700!important;
       line-height:1.9!important;
-      padding-top:14px!important;
-      padding-bottom:14px!important;
+      padding:16px 0!important;
+      opacity:1!important;
+      visibility:visible!important;
     }
-    .alookhor-managed-product-page .alookhor-alp .breadcrumb-box a,
-    .alookhor-managed-product-page .alookhor-alp .breadcrumb-box span{
+    body.alookhor-managed-product-page .breadcrumb-box a,
+    body.alookhor-managed-product-page .breadcrumb-box span,
+    body.alookhor-managed-product-page .breadcrumb-box strong{
       color:#fff!important;
       font-family:Dana,Vazirmatn,IRANSansX,Tahoma,sans-serif!important;
-      font-size:16px!important;
-      font-weight:600!important;
+      font-size:19px!important;
+      font-weight:700!important;
+      opacity:1!important;
     }
-    .alookhor-managed-product-page .alookhor-alp .breadcrumb-box > span:last-child,
-    .alookhor-managed-product-page .alookhor-alp .breadcrumb-box > span:last-child a{
+    body.alookhor-managed-product-page .breadcrumb-box > span:last-child,
+    body.alookhor-managed-product-page .breadcrumb-box > span:last-child a{
       font-weight:800!important;
     }
-    .alookhor-managed-product-page .alookhor-alp .breadcrumb-box svg{
-      color:rgba(255,255,255,.58)!important;
-      width:16px!important;
-      height:16px!important;
+    body.alookhor-managed-product-page .breadcrumb-box svg{
+      color:#fff!important;
+      stroke:#fff!important;
+      width:18px!important;
+      height:18px!important;
       flex:none;
     }
     @media (max-width:767px){
-      .alookhor-managed-product-page .alookhor-alp .breadcrumb-wrapper{
-        top:14px!important;
-        margin-top:0!important;
-        margin-bottom:30px!important;
+      body.alookhor-managed-product-page .breadcrumb-wrapper{
+        margin-top:18px!important;
+        margin-bottom:20px!important;
+        transform:translateY(12px)!important;
       }
-      .alookhor-managed-product-page .alookhor-alp .breadcrumb-box{
-        font-size:14px!important;
-        line-height:1.85!important;
-        padding:12px 12px!important;
+      body.alookhor-managed-product-page .breadcrumb-box{
+        font-size:16px!important;
+        line-height:1.9!important;
+        padding:13px 12px!important;
+        white-space:normal!important;
       }
-      .alookhor-managed-product-page .alookhor-alp .breadcrumb-box a,
-      .alookhor-managed-product-page .alookhor-alp .breadcrumb-box span{
-        font-size:14px!important;
+      body.alookhor-managed-product-page .breadcrumb-box a,
+      body.alookhor-managed-product-page .breadcrumb-box span,
+      body.alookhor-managed-product-page .breadcrumb-box strong{
+        font-size:16px!important;
       }
-      .alookhor-managed-product-page .alookhor-alp .breadcrumb-box svg{
-        width:14px!important;
-        height:14px!important;
+      body.alookhor-managed-product-page .breadcrumb-box svg{
+        width:15px!important;
+        height:15px!important;
       }
     }
   </style>
