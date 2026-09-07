@@ -4,7 +4,7 @@ Tags: control center, luxury, alookhor, admin, dashboard
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 3.10.352
+Stable tag: 3.10.353
 License: Private
 License URI: https://alookhor.ir
 
@@ -46,6 +46,10 @@ License URI: https://alookhor.ir
 در `config/site.json` و `wp_options: alookhor_cc_settings` — همان حافظه واقعی که در چت قبلی ویرایش می‌شد.
 
 == Changelog ==
+
+= 3.10.353 =
+* Product page price box per owner order: the crossed-out regular price is now bigger (18px) and white, the discounted price is bigger (up to 32px), and both moved up into the top row next to "قیمت محصول:" (label, old price, new price, discount badge on the far left). Box background, border, radius, padding, badge and label unchanged; the weight-chip price switcher keeps working. Phone (<=640px) keeps label + badge on line 1 and shows the bigger prices on line 2, pulled closer to the top.
+* Built on 3.10.352 (cart session, green) which already carries the 3.10.350 about card, seeder self-heal and phone polish.
 
 = 3.10.352 =
 * Built on 3.10.345 (the last green, live release); the parallel 3.10.346-3.10.349 tags failed CI at "Validate source syntax" and were never deployed.

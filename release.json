@@ -1,33 +1,30 @@
 {
-  "version": "3.10.352",
-  "previous": "3.10.351",
+  "version": "3.10.353",
+  "previous": "3.10.352",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "حذف نوار سفید سبد خرید - CSS نهایی",
+  "description": "باکس قیمت PDP طبق دستور مالک: قیمت اصلی بزرگ‌تر و سفید، قیمت تخفیف‌خورده بزرگ‌تر، هر دو در ردیف بالا کنار «قیمت محصول:»؛ بقیهٔ باکس بدون تغییر",
   "changelog": [
     {
-      "tag": "FIX",
-      "title": "حذف نوار سفید بالا",
-      "desc": "CSS تهاجمی - wd-page-title + whb-page-title + entities-title"
+      "tag": "FEATURE",
+      "title": "باکس قیمت: قیمت‌ها بزرگ‌تر و در ردیف بالا",
+      "desc": "قیمت اصلی ۱۸px سفید خط‌خورده، قیمت جدید تا ۳۲px طلایی، هر دو کنار «قیمت محصول:»؛ نشان تخفیف، پس‌زمینه و حاشیه دست‌نخورده؛ JS تعویض وزن سالم"
     }
   ],
   "project": "ALOOKHOR",
-  "area": "PDP about card (desktop, ordered) + Product seeder + PDP phone",
-  "reason": "دستور مستقیم مالک برای تبدیل بخش «درباره» به ماکاپ Screenshot 113637؛ تگ‌های موازی بلوک‌های سشن PDP را نداشتند",
+  "area": "PDP price box (desktop + tablet + phone), CSS only",
+  "reason": "دستور مستقیم مالک با اسکرین‌شات باکس قیمت (2026-09-07)",
   "files": [
     "plugin/alookhor-control-center/CHANGELOG.md",
     "plugin/alookhor-control-center/alookhor-control-center.php",
     "plugin/alookhor-control-center/assets/css/frontend-product.css",
     "plugin/alookhor-control-center/assets/js/app.js",
     "plugin/alookhor-control-center/assets/js/core/updateSystem.js",
-    "plugin/alookhor-control-center/assets/js/frontend-product.js",
     "plugin/alookhor-control-center/assets/js/modules/dashboard.js",
     "plugin/alookhor-control-center/assets/js/modules/settings.js",
     "plugin/alookhor-control-center/config/site.json",
-    "plugin/alookhor-control-center/includes/product-page.php",
-    "plugin/alookhor-control-center/includes/product-seeder.php",
     "plugin/alookhor-control-center/readme.txt",
     "release.json"
   ]

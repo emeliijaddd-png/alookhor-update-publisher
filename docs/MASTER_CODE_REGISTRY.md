@@ -3,7 +3,7 @@
 > این سند از روی فایل‌های واقعی Repository تولید می‌شود. Source اصلی همچنان فایل‌های اجرایی است؛ Snapshotهای کامل زیر برای بازیابی، ممیزی و انتقال دانش نگهداری می‌شوند.
 
 - **Registry version:** `1.0.0`
-- **Plugin/source version:** `3.10.352`
+- **Plugin/source version:** `3.10.353`
 - **Generated:** `2026-08-14`
 - **Repository:** `alookhor-update-publisher`
 - **Production:** `https://alookhor.ir`
@@ -13,8 +13,8 @@
 
 ## Current Project State
 
-- CURRENT VERSION: `3.10.352`
-- LAST FUNCTIONAL CHANGE: حذف نوار سفید سبد خرید - CSS نهایی
+- CURRENT VERSION: `3.10.353`
+- LAST FUNCTIONAL CHANGE: باکس قیمت PDP طبق دستور مالک: قیمت اصلی بزرگ‌تر و سفید، قیمت تخفیف‌خورده بزرگ‌تر، هر دو در ردیف بالا کنار «قیمت محصول:»؛ بقیهٔ باکس بدون تغییر
 - ACTIVE DESIGN: Luxury Black/Gold; actual component colors remain controlled by saved WordPress settings and existing module defaults.
 - ACTIVE SHORTCODES: `[alookhor_portal_header]`, `[alookhor_managed_categories]`, `[alookhor_managed_hero]`, `[alookhor_managed_features]`.
 - ACTIVE PANELS: Main ALOOKHOR Control Center and Header/Top Bar submenu.
@@ -26,11 +26,11 @@
 
 ```text
 PROJECT: ALOOKHOR
-AREA: PDP about card (desktop, ordered) + Product seeder + PDP phone
-CURRENT VERSION: 3.10.352
-CHANGE: حذف نوار سفید سبد خرید - CSS نهایی
-REASON: دستور مستقیم مالک برای تبدیل بخش «درباره» به ماکاپ Screenshot 113637؛ تگ‌های موازی بلوک‌های سشن PDP را نداشتند
-FILES: plugin/alookhor-control-center/CHANGELOG.md; plugin/alookhor-control-center/alookhor-control-center.php; plugin/alookhor-control-center/assets/css/frontend-product.css; plugin/alookhor-control-center/assets/js/app.js; plugin/alookhor-control-center/assets/js/core/updateSystem.js; plugin/alookhor-control-center/assets/js/frontend-product.js; plugin/alookhor-control-center/assets/js/modules/dashboard.js; plugin/alookhor-control-center/assets/js/modules/settings.js; plugin/alookhor-control-center/config/site.json; plugin/alookhor-control-center/includes/product-page.php; plugin/alookhor-control-center/includes/product-seeder.php; plugin/alookhor-control-center/readme.txt; release.json
+AREA: PDP price box (desktop + tablet + phone), CSS only
+CURRENT VERSION: 3.10.353
+CHANGE: باکس قیمت PDP طبق دستور مالک: قیمت اصلی بزرگ‌تر و سفید، قیمت تخفیف‌خورده بزرگ‌تر، هر دو در ردیف بالا کنار «قیمت محصول:»؛ بقیهٔ باکس بدون تغییر
+REASON: دستور مستقیم مالک با اسکرین‌شات باکس قیمت (2026-09-07)
+FILES: plugin/alookhor-control-center/CHANGELOG.md; plugin/alookhor-control-center/alookhor-control-center.php; plugin/alookhor-control-center/assets/css/frontend-product.css; plugin/alookhor-control-center/assets/js/app.js; plugin/alookhor-control-center/assets/js/core/updateSystem.js; plugin/alookhor-control-center/assets/js/modules/dashboard.js; plugin/alookhor-control-center/assets/js/modules/settings.js; plugin/alookhor-control-center/config/site.json; plugin/alookhor-control-center/readme.txt; release.json
 STATUS: SOURCE READY — deployment status must be verified separately.
 ```
 
@@ -38,34 +38,34 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 
 | ID | Type | Name | File | Used In | Version | Status |
 |---|---|---|---|---|---:|---|
-| SC-001 | Shortcode | `[alookhor_portal_header]` | `includes/shortcode-header.php` | Elementor Header Shortcode widget; exact template ID unavailable | 3.10.352 | Active / compatibility-preserving |
-| SC-002 | Shortcode | `[alookhor_managed_categories]` | `includes/product-categories.php` | Home page → Elementor Shortcode widget | 3.10.352 | Active |
-| SC-003 | Shortcode | `[alookhor_managed_hero]` | `includes/hero.php` | Home Elementor Shortcode widget / automatic Legacy-root replacement | 3.10.352 | Active |
-| SC-004 | Shortcode | `[alookhor_managed_features]` | `includes/site-features.php` | Home Elementor HTML widget / automatic Legacy-root replacement | 3.10.352 | Active |
+| SC-001 | Shortcode | `[alookhor_portal_header]` | `includes/shortcode-header.php` | Elementor Header Shortcode widget; exact template ID unavailable | 3.10.353 | Active / compatibility-preserving |
+| SC-002 | Shortcode | `[alookhor_managed_categories]` | `includes/product-categories.php` | Home page → Elementor Shortcode widget | 3.10.353 | Active |
+| SC-003 | Shortcode | `[alookhor_managed_hero]` | `includes/hero.php` | Home Elementor Shortcode widget / automatic Legacy-root replacement | 3.10.353 | Active |
+| SC-004 | Shortcode | `[alookhor_managed_features]` | `includes/site-features.php` | Home Elementor HTML widget / automatic Legacy-root replacement | 3.10.353 | Active |
 | SC-EXT-001 | External shortcode | `[alookhor_categories_carousel]` | External plugin source unavailable | Former Home showcase | External | Replaced on Home / do not reconstruct |
-| PN-001 | Admin panel | ALOOKHOR Control Center | `includes/admin.php` | WP Admin top-level menu | 3.10.352 | Active |
-| PN-002 | Admin panel | Header & Top Bar | `includes/admin.php` | WP Admin submenu | 3.10.352 | Active mirror |
-| MOD-001 | Managed module | WooCommerce Categories | `includes/product-categories.php` | Home / Elementor / REST | 3.10.352 | Active |
-| MOD-002 | Managed module | Responsive Footer | `includes/footer.php` | Frontend footer / REST | 3.10.352 | Active |
-| MOD-003 | Managed module | Four-slide Hero | `includes/hero.php` | Home / Elementor / REST | 3.10.352 | Active |
-| MOD-004 | Managed module | Four-card Site Features | `includes/site-features.php` | Home / Elementor / REST | 3.10.352 | Active |
-| API-001 | REST API | `alookhor-cc/v1` | `includes/rest-api.php` | Public state + authenticated updater | 3.10.352 | Active |
-| UPD-001 | Updater | Private native updater | `includes/updater.php` | Control Center + GitHub Actions | 3.10.352 | Active |
-| CFG-001 | WordPress state | Main settings | `alookhor_cc_settings` | All managed modules | 3.10.352 | Active |
-| CFG-002 | WordPress state | Header settings | `alookhor_header_settings` | Header and Top Bar | 3.10.352 | Active |
-| CSS-001 | CSS | Managed Header | `assets/css/frontend-header.css` | `[alookhor_portal_header]` fallback renderer | 3.10.352 | Active |
-| JS-001 | JavaScript | Managed Header runtime | `assets/js/frontend-header.js` | `[alookhor_portal_header]` fallback renderer | 3.10.352 | Active |
-| JS-002 | JavaScript | Legacy Top Bar manager | `assets/js/frontend-topbar-manager.js` | Preserved legacy header provider | 3.10.352 | Active when legacy provider exists |
-| CSS-002 | CSS | WooCommerce Categories | `assets/css/frontend-categories.css` | `[alookhor_managed_categories]` | 3.10.352 | Active |
-| JS-003 | JavaScript | Categories carousel | `assets/js/frontend-categories.js` | `[alookhor_managed_categories]` | 3.10.352 | Active |
-| CSS-003 | CSS | Managed Footer | `assets/css/frontend-footer.css` | Managed Footer module | 3.10.352 | Active |
-| JS-004 | JavaScript | Managed Footer | `assets/js/frontend-footer.js` | Managed Footer module | 3.10.352 | Active |
-| CSS-004 | CSS | Control Center UI | `assets/css/luxury.css` | WP Admin ALOOKHOR pages | 3.10.352 | Active |
-| JS-005 | JavaScript | Control Center app | `assets/js/app.js` + modules | WP Admin ALOOKHOR pages | 3.10.352 | Active |
-| CSS-005 | CSS | Managed Hero | `assets/css/frontend-hero.css` | `[alookhor_managed_hero]` / automatic Home replacement | 3.10.352 | Active |
-| JS-006 | JavaScript | Managed Hero runtime | `assets/js/frontend-hero.js` | Four-slide replacement, controls and REST refresh | 3.10.352 | Active |
-| CSS-006 | CSS | Managed Site Features | `assets/css/frontend-features.css` | `[alookhor_managed_features]` / automatic Home replacement | 3.10.352 | Active |
-| JS-007 | JavaScript | Managed Site Features runtime | `assets/js/frontend-features.js` | Four-card replacement and REST refresh | 3.10.352 | Active |
+| PN-001 | Admin panel | ALOOKHOR Control Center | `includes/admin.php` | WP Admin top-level menu | 3.10.353 | Active |
+| PN-002 | Admin panel | Header & Top Bar | `includes/admin.php` | WP Admin submenu | 3.10.353 | Active mirror |
+| MOD-001 | Managed module | WooCommerce Categories | `includes/product-categories.php` | Home / Elementor / REST | 3.10.353 | Active |
+| MOD-002 | Managed module | Responsive Footer | `includes/footer.php` | Frontend footer / REST | 3.10.353 | Active |
+| MOD-003 | Managed module | Four-slide Hero | `includes/hero.php` | Home / Elementor / REST | 3.10.353 | Active |
+| MOD-004 | Managed module | Four-card Site Features | `includes/site-features.php` | Home / Elementor / REST | 3.10.353 | Active |
+| API-001 | REST API | `alookhor-cc/v1` | `includes/rest-api.php` | Public state + authenticated updater | 3.10.353 | Active |
+| UPD-001 | Updater | Private native updater | `includes/updater.php` | Control Center + GitHub Actions | 3.10.353 | Active |
+| CFG-001 | WordPress state | Main settings | `alookhor_cc_settings` | All managed modules | 3.10.353 | Active |
+| CFG-002 | WordPress state | Header settings | `alookhor_header_settings` | Header and Top Bar | 3.10.353 | Active |
+| CSS-001 | CSS | Managed Header | `assets/css/frontend-header.css` | `[alookhor_portal_header]` fallback renderer | 3.10.353 | Active |
+| JS-001 | JavaScript | Managed Header runtime | `assets/js/frontend-header.js` | `[alookhor_portal_header]` fallback renderer | 3.10.353 | Active |
+| JS-002 | JavaScript | Legacy Top Bar manager | `assets/js/frontend-topbar-manager.js` | Preserved legacy header provider | 3.10.353 | Active when legacy provider exists |
+| CSS-002 | CSS | WooCommerce Categories | `assets/css/frontend-categories.css` | `[alookhor_managed_categories]` | 3.10.353 | Active |
+| JS-003 | JavaScript | Categories carousel | `assets/js/frontend-categories.js` | `[alookhor_managed_categories]` | 3.10.353 | Active |
+| CSS-003 | CSS | Managed Footer | `assets/css/frontend-footer.css` | Managed Footer module | 3.10.353 | Active |
+| JS-004 | JavaScript | Managed Footer | `assets/js/frontend-footer.js` | Managed Footer module | 3.10.353 | Active |
+| CSS-004 | CSS | Control Center UI | `assets/css/luxury.css` | WP Admin ALOOKHOR pages | 3.10.353 | Active |
+| JS-005 | JavaScript | Control Center app | `assets/js/app.js` + modules | WP Admin ALOOKHOR pages | 3.10.353 | Active |
+| CSS-005 | CSS | Managed Hero | `assets/css/frontend-hero.css` | `[alookhor_managed_hero]` / automatic Home replacement | 3.10.353 | Active |
+| JS-006 | JavaScript | Managed Hero runtime | `assets/js/frontend-hero.js` | Four-slide replacement, controls and REST refresh | 3.10.353 | Active |
+| CSS-006 | CSS | Managed Site Features | `assets/css/frontend-features.css` | `[alookhor_managed_features]` / automatic Home replacement | 3.10.353 | Active |
+| JS-007 | JavaScript | Managed Site Features runtime | `assets/js/frontend-features.js` | Four-card replacement and REST refresh | 3.10.353 | Active |
 
 ## SC-001 — Portal Header
 
@@ -200,7 +200,7 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 |---|---:|---|
 | `.github/workflows/publish.yml` | 535 | `ea2a747b9787cb39313702fd50fd8940891a2ed64de3acac6c4e5d69912dec3d` |
 | `ops/wordpress-ci-bootstrap.php` | 215 | `409c23f2be99c6651b0e75dc877c91c884534e6b16f9985c177cf65d14fd4c95` |
-| `plugin/alookhor-control-center/alookhor-control-center.php` | 441 | `9d74be737a562650a844b6ae82a507eb8914bc00774db68b0dd39ae8834ac059` |
+| `plugin/alookhor-control-center/alookhor-control-center.php` | 441 | `e87b77a17c0fe0e9c0bddddab016be73beb624f64be7576be62135ce03e6d2d8` |
 | `plugin/alookhor-control-center/assets/css/frontend-about-page.css` | 37 | `4a895038f4ede91f1172279e86e10ed6939a8a406c16ee780c326f6f4f5df5c2` |
 | `plugin/alookhor-control-center/assets/css/frontend-app-banner.css` | 1 | `244970e53ef04849a0a52d3930427bc7be986c818a258efcfb9afbd16b187898` |
 | `plugin/alookhor-control-center/assets/css/frontend-bestsellers.css` | 24 | `cf27fd12f8c8d7ebff96e50093e77e9d43cad86f88944a9ee983fd47a622184d` |
@@ -223,16 +223,16 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 | `plugin/alookhor-control-center/assets/css/frontend-managed-layout.css` | 29 | `215444c878e19ed0cfd336484ef1d1baec7eb2f71069daf3a26a3742a800c903` |
 | `plugin/alookhor-control-center/assets/css/frontend-newsletter.css` | 7 | `20d9fd105e74dedf48fd5c4cdf7e338420d21738813d87120e0f0bb3587a654e` |
 | `plugin/alookhor-control-center/assets/css/frontend-product-react.css` | 41 | `0246887708ce93f554c548ec7d30ead6c84619868d9031dcfc2fa77ad42daaac` |
-| `plugin/alookhor-control-center/assets/css/frontend-product.css` | 3532 | `ed7de11376db09c8e6358dcb33798033552144d1b1456e634e14ae2f80b44b6a` |
+| `plugin/alookhor-control-center/assets/css/frontend-product.css` | 3594 | `f02cdeba2c7a26fcd1f69440cbba3038c466d34e452e01acde0e1a08bb17a6ca` |
 | `plugin/alookhor-control-center/assets/css/frontend-responsive-v2.css` | 24 | `7b14f78244e19b84ec35bbee0065c9c87d76d8416024b7f7ad768c5a7ec4bdf9` |
 | `plugin/alookhor-control-center/assets/css/frontend-sort-center.css` | 6 | `235119cbc8575b4794f5bf1dde93cf14a3c5055feff58191956e0c67daa65c3c` |
 | `plugin/alookhor-control-center/assets/css/frontend-why-alookhor.css` | 45 | `5a09aa03fd1ae4fc6a345c71f38139ce3e7c992944c46fd97214d29a5cea0195` |
 | `plugin/alookhor-control-center/assets/css/luxury.css` | 564 | `eef0550c9d8b090dbe799d9a969518207519fdb585c9701e2d897a507e669f8f` |
 | `plugin/alookhor-control-center/assets/js/admin-wp.js` | 84 | `b8ff32723f2f46dc44add19fdc441eec1c611f5229ce7e13ac8b773457be6afc` |
-| `plugin/alookhor-control-center/assets/js/app.js` | 325 | `9c9915ac6483ddada6c99ef7dfebee42e2b3431f303ed1966deb8907f79d7069` |
+| `plugin/alookhor-control-center/assets/js/app.js` | 325 | `74a28e02ca78ea0ec28f849170980c47d7b92bbc2a8635baa4ac70b5c7ea82dd` |
 | `plugin/alookhor-control-center/assets/js/core/config.js` | 199 | `1c89b0d0d8121bce7fc7097f9d1974eb1e38d1ec7f6b0f6f6d5244ab60ea1e85` |
 | `plugin/alookhor-control-center/assets/js/core/responsive.js` | 52 | `0848ef0deef9aaa532581904c4adab9b45cbe8445a99fbeb71f92d358a1aa724` |
-| `plugin/alookhor-control-center/assets/js/core/updateSystem.js` | 298 | `d18b681ffd89106f13f62fb8d5342d6d7042532091eeeb92f2bdad03e83b76b9` |
+| `plugin/alookhor-control-center/assets/js/core/updateSystem.js` | 298 | `cb8913f3fc0335ff13034562eeee4d49cf6617ceda60c067babc751b78d325a8` |
 | `plugin/alookhor-control-center/assets/js/frontend-about-page.js` | 7 | `67eb9861385f661036e8cd67fea01439f57d6f50325ec92d0a75cdc7cabcc1e0` |
 | `plugin/alookhor-control-center/assets/js/frontend-bestsellers.js` | 1 | `df2ac32d9938f428c20f972f6c45ae7570e8773d821649f45a09daed6cc227a8` |
 | `plugin/alookhor-control-center/assets/js/frontend-campaign-slider.js` | 1 | `e7d2e5652230a7cf079be7eeb9bd40734d4e2ac60cd2f07c98e8b83cfbf64d12` |
@@ -255,12 +255,12 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 | `plugin/alookhor-control-center/assets/js/frontend-topbar-manager.js` | 464 | `45980b0d4bcdf219ecb7665bbad95e69c874400047a12b526b7a0248231d0aa9` |
 | `plugin/alookhor-control-center/assets/js/frontend-why-alookhor.js` | 1 | `56302efb357de366650abbfe9f80c9439772e63a5ad1f637fac65beb8de13155` |
 | `plugin/alookhor-control-center/assets/js/modules/analytics.js` | 21 | `5e35bdba45de5750af08d6cfea337fd7a6eb8cc852ef1c955ee5ba1e7a56bf0c` |
-| `plugin/alookhor-control-center/assets/js/modules/dashboard.js` | 173 | `f27b27e23bfaa74888727813f326c14d02299306146cb6492e50c6474a1358de` |
+| `plugin/alookhor-control-center/assets/js/modules/dashboard.js` | 173 | `31f1e7f39874edb1a1ec6dde5d5490c1cc25c551b85bcad0d8209f550be952f3` |
 | `plugin/alookhor-control-center/assets/js/modules/inventory.js` | 30 | `e1c39f880a1e7985fa8ea64b07ec72ce69c416165fb514ad9fb7d9f8e8e93723` |
 | `plugin/alookhor-control-center/assets/js/modules/orders.js` | 19 | `0ccd8376c69ba37fb50d3261f002789488042e17a0b1b37539bab86abda374eb` |
-| `plugin/alookhor-control-center/assets/js/modules/settings.js` | 794 | `3149c29b0b0500b2924b0cc76569e0eb31d63ea7b79d92ece5cbd6954209b567` |
+| `plugin/alookhor-control-center/assets/js/modules/settings.js` | 794 | `77ef00b45d1e9ea7a874b73446795286b6b277126d1cd6de3461090f4930660c` |
 | `plugin/alookhor-control-center/assets/js/modules/users.js` | 20 | `6fb96546faf00ea831ace016d09b10f903a501db647bae20d0f570034ac36946` |
-| `plugin/alookhor-control-center/config/site.json` | 328 | `b6eeadfee1f1ba050d097ae802e9efea59422583ef643bd62fafd51b7f9ef260` |
+| `plugin/alookhor-control-center/config/site.json` | 328 | `6944fc73eabebabd1013ac13fdebb8a099c3573311f953b5d74f891bafc5bc24` |
 | `plugin/alookhor-control-center/includes/about-page.php` | 161 | `c6550866eeb1d48ff70085c42b84ec251afb3ce764b0b005c0c80a9751ae266b` |
 | `plugin/alookhor-control-center/includes/admin-export-banner.php` | 180 | `fff84102b3dc84cb69c7318312395993a8adf6255a5d7f056d4c7bf7dce8e1b2` |
 | `plugin/alookhor-control-center/includes/admin-pages.php` | 210 | `6cf25d85284e99d73dbfade4504c8fa4d3e98e1ddbc2d6cc5fcd8845e2edb4e1` |
@@ -1075,7 +1075,7 @@ add_action('rest_api_init', function(){
  * Plugin Name: ALOOKHOR Control Center
  * Plugin URI: https://alookhor.ir
  * Description: کنترل سنتر لوکس و ماژولار آلوخور — مدیریت کامل سایت (هدر، اسلایدر، سورت، محصولات، مشتریان VIP، مالی، آنالیتیکس) با آپدیت آنی بدون رفرش. تمام تنظیمات چت قبلی + شورت‌کد [alookhor_portal_header] اینجا مدیریت می‌شود.
- * Version: 3.10.352
+ * Version: 3.10.353
  * Author: ALOOKHOR Team — Luxury Modular
  * Author URI: https://alookhor.ir
  * Update URI: https://alookhor.ir/alookhor-control-center
@@ -1088,8 +1088,8 @@ add_action('rest_api_init', function(){
 
 if (!defined('ABSPATH')) exit;
 
-define('ALOOKHOR_CC_VERSION', '3.10.352');
-define('ALOOKHOR_CC_BUILD', '3.10.352');
+define('ALOOKHOR_CC_VERSION', '3.10.353');
+define('ALOOKHOR_CC_BUILD', '3.10.353');
 define('ALOOKHOR_CC_FILE', __FILE__);
 define('ALOOKHOR_CC_DIR', plugin_dir_path(__FILE__));
 define('ALOOKHOR_CC_URL', plugin_dir_url(__FILE__));
@@ -8502,6 +8502,68 @@ html{overflow-x:hidden !important}
   #alookhor-pdp .about-story-media .about-natural-badge span{font-size:21px !important;font-weight:900 !important;line-height:1 !important;color:#1a0a24 !important}
   #alookhor-pdp .about-story-media .about-natural-badge small{font-size:11px !important;font-weight:800 !important;line-height:1.2 !important;margin-top:2px !important;color:#1a0a24 !important}
 }
+
+/* ===== v3.10.353 — PRICE BOX per owner order (2026-09-07, screenshot of the live box): the crossed-out regular price
+   becomes bigger and WHITE, the discounted price becomes bigger, and both move UP into the top row next to
+   «قیمت محصول:» (label right — old price — new price — discount badge far left). Nothing else in the box changes:
+   same background, border, radius, padding, badge, label. Technique: the two inner wrappers become display:contents
+   so label, both prices and the badge are flex items of the box itself — no markup change, the weight-switcher JS
+   keeps updating the same two spans. Phone (<=640px) keeps label+badge on line 1 and the two prices on line 2
+   (no room for four items), only bigger/white. MOCKUP PDP ===== */
+@media(min-width:641px){
+  #alookhor-pdp .price-box{
+    display:flex !important;
+    flex-direction:row !important;
+    flex-wrap:nowrap !important;
+    align-items:center !important;
+    justify-content:flex-start !important;
+    gap:8px 10px !important;
+    direction:rtl !important;
+    text-align:right !important;
+    min-width:0 !important;
+  }
+  #alookhor-pdp .price-box>.flex.justify-between,
+  #alookhor-pdp .price-box .mt-3{display:contents !important}
+  #alookhor-pdp .price-box>.flex.justify-between>span:first-child{order:0 !important;flex:0 0 auto !important;white-space:nowrap !important}
+  #alookhor-pdp .price-box .line-through{order:1 !important}
+  #alookhor-pdp .price-box .alp-price-now{order:2 !important}
+  #alookhor-pdp .price-box>.flex.justify-between>.rounded-full{order:3 !important;flex:0 0 auto !important;margin-inline-start:auto !important;white-space:nowrap !important}
+}
+#alookhor-pdp .price-box .line-through{
+  display:inline-flex !important;
+  align-items:baseline !important;
+  gap:4px !important;
+  margin:0 !important;
+  font-size:clamp(16px,1.25vw,18px) !important;
+  font-weight:800 !important;
+  color:#ffffff !important;
+  opacity:1 !important;
+  text-decoration:line-through !important;
+  text-decoration-color:#e42a68 !important;
+  text-decoration-thickness:2px !important;
+  line-height:1.2 !important;
+  white-space:nowrap !important;
+  flex:0 0 auto !important;
+}
+#alookhor-pdp .price-box .line-through:empty{display:none !important}
+#alookhor-pdp .price-box .line-through .alpm-cur{font-size:.6em !important;font-weight:700 !important;color:#ffffff !important}
+#alookhor-pdp .price-box .alp-price-now{
+  display:inline-flex !important;
+  align-items:baseline !important;
+  gap:5px !important;
+  margin:0 !important;
+  font-size:clamp(26px,2.1vw,32px) !important; /* 1280px viewport -> ~27px so label + both prices + badge fit one row */
+  font-weight:900 !important;
+  line-height:1.15 !important;
+  white-space:nowrap !important;
+  flex:0 0 auto !important;
+}
+@media(max-width:640px){
+  /* phone: line 1 = label + badge (unchanged), line 2 = old (white) + new, pulled up closer to line 1 */
+  #alookhor-pdp .price-box .mt-3{margin-top:8px !important;gap:4px 12px !important}
+  #alookhor-pdp .price-box .line-through{font-size:16px !important}
+  #alookhor-pdp .price-box .alp-price-now{font-size:28px !important}
+}
 ````
 
 ## Source Snapshot — `plugin/alookhor-control-center/assets/css/frontend-responsive-v2.css`
@@ -9256,15 +9318,15 @@ tr:last-child td{border-bottom:0}
 
 ````javascript
 // Release query prevents stale ES Modules after a WordPress-native update.
-import { initResponsive } from './core/responsive.js?v=3.10.350';
-import { initUpdater, Updater } from './core/updateSystem.js?v=3.10.350';
-import { Config } from './core/config.js?v=3.10.350';
-import { dashboardModule } from './modules/dashboard.js?v=3.10.350';
-import { inventoryModule } from './modules/inventory.js?v=3.10.350';
-import { ordersModule } from './modules/orders.js?v=3.10.350';
-import { usersModule } from './modules/users.js?v=3.10.350';
-import { analyticsModule } from './modules/analytics.js?v=3.10.350';
-import { settingsModule } from './modules/settings.js?v=3.10.350';
+import { initResponsive } from './core/responsive.js?v=3.10.353';
+import { initUpdater, Updater } from './core/updateSystem.js?v=3.10.353';
+import { Config } from './core/config.js?v=3.10.353';
+import { dashboardModule } from './modules/dashboard.js?v=3.10.353';
+import { inventoryModule } from './modules/inventory.js?v=3.10.353';
+import { ordersModule } from './modules/orders.js?v=3.10.353';
+import { usersModule } from './modules/users.js?v=3.10.353';
+import { analyticsModule } from './modules/analytics.js?v=3.10.353';
+import { settingsModule } from './modules/settings.js?v=3.10.353';
 
 const modules = {
   dashboard: dashboardModule,
@@ -9850,7 +9912,7 @@ export function initResponsive() {
 // UI/state remain modular; version discovery and installation are delegated to WordPress.
 
 const runtimeConfig = window.ALOOKHOR_CC || {};
-const runtimeVersion = String(runtimeConfig.version || '3.10.350');
+const runtimeVersion = String(runtimeConfig.version || '3.10.353');
 
 function normalizeResult(data = {}) {
   const current = String(data.current || runtimeVersion);
@@ -11916,7 +11978,7 @@ export const analyticsModule = {
 ## Source Snapshot — `plugin/alookhor-control-center/assets/js/modules/dashboard.js`
 
 ````javascript
-import { Config } from '../core/config.js?v=3.10.350';
+import { Config } from '../core/config.js?v=3.10.353';
 
 const escapeHTML = value => String(value ?? '').replace(/[&<>'"]/g, char => ({
   '&':'&amp;', '<':'&lt;', '>':'&gt;', "'":'&#039;', '"':'&quot;'
@@ -12153,7 +12215,7 @@ export const ordersModule = {
 ## Source Snapshot — `plugin/alookhor-control-center/assets/js/modules/settings.js`
 
 ````javascript
-import { Config } from '../core/config.js?v=3.10.350';
+import { Config } from '../core/config.js?v=3.10.353';
 
 const escapeAttr = value => String(value ?? '').replace(/[&<>'"]/g, char => ({
   '&':'&amp;', '<':'&lt;', '>':'&gt;', "'":'&#039;', '"':'&quot;'
@@ -13169,9 +13231,9 @@ export const usersModule = {
     "export_text": "ارسال رایگان به بیش از ۱۵ کشور جهان",
     "support_text": "پشتیبانی ۲۴/۷"
   },
-  "updated_at": "2026-09-07T09:10:00Z",
-  "updated_by": "AI Assistant — v3.10.352 desktop about card per owner mockup + seeder self-heal + 3.10.323 phone polish on top of 3.10.345",
-  "version": "3.10.352",
+  "updated_at": "2026-09-07T10:00:00Z",
+  "updated_by": "AI Assistant — v3.10.353 price box: bigger white regular price + bigger sale price moved to the top row (owner order)",
+  "version": "3.10.353",
   "hero_settings": {
     "enabled": true,
     "hide_legacy": true,
