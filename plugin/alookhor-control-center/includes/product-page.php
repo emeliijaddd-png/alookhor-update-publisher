@@ -452,7 +452,7 @@ function alookhor_cc_pdp_markup(){
             <div class="desc-long-wrap" data-desc-wrap>
               <div class="desc-long-content" data-desc-content>
                 <div class="desc-long-text" data-desc-text><?php
-                /* v3.10.351: description text wrapped so the desktop card (>=1280px) can clamp the prose only and keep the 5 checks visible; mobile/tablet unchanged */
+                /* v3.10.352: description text wrapped so the desktop card (>=1280px) can clamp the prose only and keep the 5 checks visible; mobile/tablet unchanged */
                 $long_desc = $product->get_description() ?: $product->get_short_description();
                 if($long_desc){
                   echo wp_kses_post($long_desc);

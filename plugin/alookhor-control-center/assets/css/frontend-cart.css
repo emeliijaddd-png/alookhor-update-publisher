@@ -630,6 +630,12 @@ body.woocommerce-cart #alookhor-cart .faq {
 /* v3.10.343 - hide top white bar "سبد خرید" that user sees */
 body.woocommerce-cart .wd-page-title,
 body.woocommerce-cart .wd-page-title.wd-style-default,
+body.woocommerce-cart .wd-page-title.wd-style-centered,
+body.woocommerce-cart .whb-page-title,
+body.woocommerce-cart .wd-entities-title,
+body.woocommerce-cart h1.wd-entities-title,
+body.woocommerce-cart .title-design-default,
+body.woocommerce-cart .title-design-centered,
 body.woocommerce-cart .page-title,
 body.woocommerce-cart .entry-header,
 body.woocommerce-cart .wd-checkout-steps,
@@ -639,8 +645,11 @@ body.woocommerce-cart .wd-breadcrumbs,
 body.woocommerce-cart .breadcrumbs,
 body.woocommerce-cart .page-heading,
 body.woocommerce-cart .wd-page-heading,
+body.woocommerce-cart .wd-page-title .container,
+body.woocommerce-cart .wd-page-title .wd-entities-title,
 body.woocommerce-cart .container > .wd-page-title,
-body.woocommerce-cart .main-page-wrapper > .wd-page-title {
+body.woocommerce-cart .main-page-wrapper > .wd-page-title,
+body.woocommerce-cart .site-content > .wd-page-title {
   display:none!important;
   visibility:hidden!important;
   height:0!important;
@@ -648,4 +657,17 @@ body.woocommerce-cart .main-page-wrapper > .wd-page-title {
   margin:0!important;
   padding:0!important;
   opacity:0!important;
+  pointer-events:none!important;
+}
+/* v3.10.352 FINAL - hide any white rounded bar with "سبد خرید" */
+body.woocommerce-cart .main-page-wrapper,
+body.woocommerce-cart .site-content,
+body.woocommerce-cart .wd-page-content,
+body.woocommerce-cart .container,
+body.woocommerce-cart .wd-content-area {
+  background:transparent!important;
+}
+body.woocommerce-cart {
+  background:#0d0510!important;
+  background-color:#0d0510!important;
 }

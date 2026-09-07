@@ -1,16 +1,16 @@
 {
-  "version": "3.10.351",
-  "previous": "3.10.350",
+  "version": "3.10.352",
+  "previous": "3.10.351",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "تست 351 - فقط نسخه",
+  "description": "حذف نوار سفید سبد خرید - CSS نهایی",
   "changelog": [
     {
-      "tag": "TEST",
-      "title": "تست",
-      "desc": "فقط نسخه"
+      "tag": "FIX",
+      "title": "حذف نوار سفید بالا",
+      "desc": "CSS تهاجمی - wd-page-title + whb-page-title + entities-title"
     }
   ],
   "project": "ALOOKHOR",
