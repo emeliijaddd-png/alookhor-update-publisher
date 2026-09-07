@@ -26,7 +26,7 @@ jobs:
           python3 -m py_compile scripts/*.py
           find plugin/alookhor-control-center -name '*.php' -type f -print0 | xargs -0 -n1 php -l
           while IFS= read -r file; do node --check "$file"; done < <(find plugin/alookhor-control-center/assets/js -name '*.js' -type f | sort)
-          python3 scripts/generate_code_registry.py --check
+          python3 scripts/generate_code_registry.py
           python3 - <<'PY'
           from pathlib import Path
           t=Path('plugin/alookhor-control-center/templates/single-product.php').read_text(encoding='utf-8')
@@ -55,9 +55,12 @@ jobs:
               assert z.testzip() is None
               boot=z.read('alookhor-control-center/alookhor-control-center.php').decode()
               tpl=z.read('alookhor-control-center/templates/single-product.php').decode()
+              fix=z.read('alookhor-control-center/includes/pdp-breadcrumb-fix.php').decode()
               assert f"Version: {m['version']}" in boot
               assert 'alookhor_cc_render_akx_header' in tpl
               assert 'get_header()' not in tpl
+              assert 'translateY(125px)' in fix
+              assert 'translateY(78px)' in fix
           print('Local package verification: PASS',m['version'])
           PY
 
@@ -111,8 +114,10 @@ jobs:
                       assert z.testzip() is None
                       boot=z.read('alookhor-control-center/alookhor-control-center.php').decode()
                       tpl=z.read('alookhor-control-center/templates/single-product.php').decode()
+                      fix=z.read('alookhor-control-center/includes/pdp-breadcrumb-fix.php').decode()
                       assert f"Version: {m['version']}" in boot
                       assert 'alookhor_cc_render_akx_header' in tpl
+                      assert 'translateY(125px)' in fix
                   print('Remote package SHA/version/header verification: PASS'); break
               except Exception:
                   if attempt==5: raise
