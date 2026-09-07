@@ -295,7 +295,7 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 | `plugin/alookhor-control-center/templates/cart-empty-override.php` | 1 | `3610f0f36f1da6e6217bc0aa9afa0d1afb898100946c1a45ed9abbdda7e856ec` |
 | `plugin/alookhor-control-center/templates/cart-partial.php` | 1 | `fbbb5f1faa88be04a9fc483f2f00a10b6c3437da0fbf09fbb2436e3386b6bb88` |
 | `plugin/alookhor-control-center/templates/cart.php` | 6 | `bfe50d6b874b199f783d34e494885ddab54b2bfea2bee95b6d6fb054ca5c34ab` |
-| `plugin/alookhor-control-center/templates/single-product.php` | 57 | `ce9b90051cd59ebc741cb7f693748429b063a1cf5d2f17edb232d6dbb51fc36a` |
+| `plugin/alookhor-control-center/templates/single-product.php` | 72 | `6279973b8f3eb833abd65edf3134797062e2a052e7d11cd40ddc2f8eb36823ba` |
 | `plugin/alookhor-control-center/uninstall.php` | 6 | `d69282a9ab7c0865b6c60e6fca272d0859433e9c8730754fb2995295209ff84c` |
 | `scripts/build_release.py` | 132 | `7336904316bedab824e41a3b73eed09d29cfb3d87b59ed7d2e0d9125394de84b` |
 | `scripts/generate_code_registry.py` | 293 | `cc820adb6cd74358acfe6eea9bcc5206a2262b91a53e053cc0794c47fec3026a` |
@@ -19740,39 +19740,54 @@ if(!defined('ABSPATH'))exit;
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <?php wp_head(); ?>
   <style id="alookhor-pdp-breadcrumb-refinement">
-    /* PDP breadcrumb: visually separated from the Arena header, larger and white. */
-    .alookhor-managed-product-page .alookhor-alp .alp-crumbs{
-      margin-top:16px;
-      padding:13px 6px 20px;
+    /* PDP breadcrumb: visually separated from the Arena header, lower, larger and white. */
+    .alookhor-managed-product-page .alookhor-alp .breadcrumb-wrapper{
+      margin-top:18px!important;
+      margin-bottom:20px!important;
+    }
+    .alookhor-managed-product-page .alookhor-alp .breadcrumb-box{
       color:#fff!important;
       font-family:Dana,Vazirmatn,IRANSansX,Tahoma,sans-serif!important;
-      font-size:15px!important;
-      font-weight:600;
-      line-height:1.9;
+      font-size:16px!important;
+      font-weight:600!important;
+      line-height:1.9!important;
+      padding-top:14px!important;
+      padding-bottom:14px!important;
     }
-    .alookhor-managed-product-page .alookhor-alp .alp-crumbs a{
+    .alookhor-managed-product-page .alookhor-alp .breadcrumb-box a,
+    .alookhor-managed-product-page .alookhor-alp .breadcrumb-box span{
       color:#fff!important;
-      font-size:15px!important;
-      font-weight:600;
+      font-family:Dana,Vazirmatn,IRANSansX,Tahoma,sans-serif!important;
+      font-size:16px!important;
+      font-weight:600!important;
     }
-    .alookhor-managed-product-page .alookhor-alp .alp-crumbs span{
-      color:#fff!important;
-      font-size:15px!important;
-      font-weight:800;
+    .alookhor-managed-product-page .alookhor-alp .breadcrumb-box > span:last-child,
+    .alookhor-managed-product-page .alookhor-alp .breadcrumb-box > span:last-child a{
+      font-weight:800!important;
     }
-    .alookhor-managed-product-page .alookhor-alp .alp-crumbs i{
+    .alookhor-managed-product-page .alookhor-alp .breadcrumb-box svg{
       color:rgba(255,255,255,.58)!important;
+      width:16px!important;
+      height:16px!important;
+      flex:none;
     }
     @media (max-width:767px){
-      .alookhor-managed-product-page .alookhor-alp .alp-crumbs{
-        margin-top:11px;
-        padding:11px 8px 17px;
-        font-size:14px!important;
-        line-height:1.85;
+      .alookhor-managed-product-page .alookhor-alp .breadcrumb-wrapper{
+        margin-top:12px!important;
+        margin-bottom:16px!important;
       }
-      .alookhor-managed-product-page .alookhor-alp .alp-crumbs a,
-      .alookhor-managed-product-page .alookhor-alp .alp-crumbs span{
+      .alookhor-managed-product-page .alookhor-alp .breadcrumb-box{
         font-size:14px!important;
+        line-height:1.85!important;
+        padding:12px 12px!important;
+      }
+      .alookhor-managed-product-page .alookhor-alp .breadcrumb-box a,
+      .alookhor-managed-product-page .alookhor-alp .breadcrumb-box span{
+        font-size:14px!important;
+      }
+      .alookhor-managed-product-page .alookhor-alp .breadcrumb-box svg{
+        width:14px!important;
+        height:14px!important;
       }
     }
   </style>
