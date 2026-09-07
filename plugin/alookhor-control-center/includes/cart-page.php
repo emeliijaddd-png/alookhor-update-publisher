@@ -291,7 +291,6 @@ add_filter('elementor/widget/render_content',function($content,$widget){
 add_action('wp_enqueue_scripts',function(){
  if(function_exists('is_cart')&&is_cart()){
   wp_enqueue_style('alookhor-cc-cart',ALOOKHOR_CC_URL.'assets/css/frontend-cart.css',[],ALOOKHOR_CC_BUILD);
-  wp_enqueue_script('alookhor-cc-cart',ALOOKHOR_CC_URL.'assets/js/frontend-cart.js',[],ALOOKHOR_CC_BUILD,true);
  }
 },20);
 
