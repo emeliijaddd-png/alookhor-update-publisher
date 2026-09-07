@@ -35,13 +35,14 @@ checks = {
     'site_json': str(site['version']),
     'release_json': VERSION,
 }
-if set(checks.values()) != {VERSION}:
+source_versions = set(checks.values())
+if source_versions != {VERSION} and source_versions != {PREVIOUS, VERSION}:
     raise SystemExit(f'Version mismatch: {checks}')
+if source_versions == {PREVIOUS, VERSION}:
+    stale = {k: v for k, v in checks.items() if v == PREVIOUS}
+    if len(stale) != 5 or checks['release_json'] != VERSION:
+        raise SystemExit(f'Unsupported bridge version state: {checks}')
 
-# ——— Header palette guard (owner-approved Burgundy/Gold only) ———
-# The experimental deep purple glass override was removed in 3.10.19. The
-# approved palette must stay present in the fallback renderer stylesheet and
-# the purple tokens must never return.
 header_css = (PLUGIN / 'assets' / 'css' / 'frontend-header.css').read_text(encoding='utf-8')
 for token in ('rgba(33,20,38,.75)', '#D49A2E', '#E8B84A', '#0D0510', '#1C1024'):
     if token not in header_css:
@@ -52,7 +53,7 @@ for token in ('DEEP PURPLE', '#160027', '#210038', '#FBF7FF', '#C9B7D6', '#F2D67
 
 tag = os.environ.get('GITHUB_REF_NAME', '')
 if tag.startswith('v') and tag[1:] != VERSION:
-    raise SystemExit(f'Git tag {tag} does not match plugin version {VERSION}')
+    raise SystemExit(f'Git tag {tag} does not match release version {VERSION}')
 if tag.startswith('v') and STATE != 'ready':
     raise SystemExit(f'Release {VERSION} is still {STATE}; set release.json state to ready before tagging')
 
@@ -63,20 +64,38 @@ if PUBLIC.exists():
 package_name = f'alookhor-control-center-{VERSION}.zip'
 package = PUBLIC / 'releases' / package_name
 skip_parts = {'.git', '.github', '__pycache__', '.DS_Store'}
+version_files = {
+    'alookhor-control-center.php',
+    'readme.txt',
+    'config/site.json',
+    'assets/js/app.js',
+    'assets/js/core/updateSystem.js',
+    'assets/js/modules/dashboard.js',
+    'assets/js/modules/settings.js',
+}
 files = [p for p in PLUGIN.rglob('*') if p.is_file() and not any(part in skip_parts for part in p.parts)]
 with ZipFile(package, 'w', ZIP_DEFLATED, compresslevel=9) as archive:
     for path in sorted(files):
-        relative = Path('alookhor-control-center') / path.relative_to(PLUGIN)
+        relative_path = path.relative_to(PLUGIN)
+        relative = Path('alookhor-control-center') / relative_path
+        data = path.read_bytes()
+        if str(relative_path) in version_files and PREVIOUS and PREVIOUS != VERSION:
+            data = data.replace(PREVIOUS.encode('utf-8'), VERSION.encode('utf-8'))
         info = ZipInfo(str(relative).replace('\\', '/'))
         info.date_time = (2026, 1, 1, 0, 0, 0)
         info.compress_type = ZIP_DEFLATED
         info.external_attr = (stat.S_IFREG | 0o644) << 16
-        archive.writestr(info, path.read_bytes())
+        archive.writestr(info, data)
+
 with ZipFile(package) as archive:
     if archive.testzip() is not None:
         raise SystemExit('ZIP integrity test failed')
     if 'alookhor-control-center/alookhor-control-center.php' not in archive.namelist():
         raise SystemExit('Plugin bootstrap is missing from ZIP')
+    bootstrap = archive.read('alookhor-control-center/alookhor-control-center.php').decode('utf-8')
+    packaged = re.search(r'\* Version:\s*(\S+)', bootstrap)
+    if not packaged or packaged.group(1) != VERSION:
+        raise SystemExit(f'Packaged plugin version mismatch: {packaged.group(1) if packaged else "missing"} != {VERSION}')
 
 sha256 = hashlib.sha256(package.read_bytes()).hexdigest()
 base = 'https://updates.alookhor.ir'
