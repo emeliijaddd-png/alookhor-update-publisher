@@ -1,0 +1,124 @@
+name: ALOOKHOR PDP Hotfix Deploy
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Validate release and source
+        run: |
+          python3 -m py_compile scripts/*.py
+          python3 scripts/generate_code_registry.py --check
+          find plugin/alookhor-control-center -name '*.php' -type f -print0 | xargs -0 -n1 php -l
+          python3 scripts/build_release.py
+
+      - name: Verify ALOOKHOR PDP hard renderer replacement
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('plugin/alookhor-control-center/includes/product-page.php').read_text(encoding='utf-8')
+          t = Path('plugin/alookhor-control-center/templates/single-product.php').read_text(encoding='utf-8')
+          assert "add_filter('template_include'" in p
+          assert "return ALOOKHOR_CC_DIR.'templates/single-product.php';" in p
+          assert "add_action('template_redirect'" in p
+          assert 'alookhor_cc_pdp_markup()' in t
+          print('PDP exclusive renderer contract: PASS')
+          PY
+
+      - name: Install FTPS client
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq lftp
+
+      - name: Prepare protected FTPS commands
+        env:
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+          FTP_PORT: ${{ secrets.FTP_PORT }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+        run: |
+          python3 - <<'PY'
+          import json, os, re
+          from pathlib import Path
+          from urllib.parse import quote
+          server=os.environ['FTP_SERVER'].strip(); port=os.environ['FTP_PORT'].strip(); user=os.environ['FTP_USERNAME'].strip(); password=os.environ['FTP_PASSWORD']
+          if not all([server,port,user,password]): raise SystemExit('Missing FTPS secret')
+          if '\n' in password or '\r' in password: raise SystemExit('FTP password contains newline')
+          if not re.fullmatch(r'[A-Za-z0-9.-]+',server) or not port.isdigit(): raise SystemExit('Invalid FTPS endpoint')
+          auth=f'ftp://{quote(user,safe="")}:{quote(password,safe="")}@{server}'
+          m=json.loads(Path('public/manifest.json').read_text())
+          package=Path(m['download_url']).name
+          common=['set cmd:fail-exit true','set net:max-retries 2','set net:timeout 20','set ftp:passive-mode true','set ftp:ssl-auth TLS','set ftp:ssl-force true','set ftp:ssl-protect-data true','set ssl:verify-certificate true',f'open -p {port} "{auth}"']
+          scripts={
+            '/tmp/upload-package.lftp': common+[f'put public/releases/{package} -o releases/{package}','bye'],
+            '/tmp/upload-meta.lftp': common+['put public/releases/SHA256SUMS.txt -o releases/SHA256SUMS.txt','put public/index.html -o index.html','put public/changelog.html -o changelog.html','put public/.htaccess -o .htaccess','bye'],
+            '/tmp/publish-manifest.lftp': common+['put public/manifest.json -o manifest.json.next','mv manifest.json.next manifest.json','bye'],
+          }
+          for path,commands in scripts.items():
+            p=Path(path); p.write_text(';\n'.join(commands)+';\n'); p.chmod(0o600)
+          PY
+
+      - name: Upload plugin package
+        run: lftp -f /tmp/upload-package.lftp
+
+      - name: Verify remote package
+        env:
+          GITHUB_RUN_ID: ${{ github.run_id }}
+        run: |
+          python3 - <<'PY'
+          import hashlib,json,os,time,urllib.request
+          from pathlib import Path
+          from zipfile import ZipFile
+          m=json.loads(Path('public/manifest.json').read_text()); url=m['download_url']+'?hotfix='+os.environ['GITHUB_RUN_ID']; target=Path('/tmp/remote.zip')
+          for attempt in range(6):
+            try:
+              with urllib.request.urlopen(url,timeout=30) as r: target.write_bytes(r.read())
+              assert hashlib.sha256(target.read_bytes()).hexdigest()==m['sha256']
+              with ZipFile(target) as z:
+                assert z.testzip() is None
+                boot=z.read('alookhor-control-center/alookhor-control-center.php').decode()
+                assert f"Version: {m['version']}" in boot
+              print('Remote package SHA/version verification: PASS'); break
+            except Exception:
+              if attempt==5: raise
+              time.sleep(10)
+          PY
+
+      - name: Upload release metadata
+        run: lftp -f /tmp/upload-meta.lftp
+
+      - name: Publish manifest atomically
+        run: lftp -f /tmp/publish-manifest.lftp
+
+      - name: Verify production manifest
+        env:
+          GITHUB_RUN_ID: ${{ github.run_id }}
+        run: |
+          python3 - <<'PY'
+          import json,os,time,urllib.request
+          from pathlib import Path
+          expected=json.loads(Path('public/manifest.json').read_text())
+          url=f"https://updates.alookhor.ir/manifest.json?hotfix={os.environ['GITHUB_RUN_ID']}"
+          for attempt in range(6):
+            with urllib.request.urlopen(url,timeout=20) as r: actual=json.load(r)
+            if actual.get('version')==expected['version'] and actual.get('sha256')==expected['sha256']:
+              print('Production manifest verification: PASS',actual['version']); break
+            if attempt==5: raise SystemExit(f'Production manifest mismatch: {actual}')
+            time.sleep(10)
+          PY
+
+      - name: Run authenticated WordPress update and PDP verification
+        env:
+          WP_BASE_URL: ${{ secrets.WP_BASE_URL }}
+          WP_USERNAME: ${{ secrets.WP_USERNAME }}
+          WP_APP_PASSWORD: ${{ secrets.WP_APP_PASSWORD }}
+          WP_REPORT_PATH: /tmp/wordpress-report.json
+        run: python3 scripts/wordpress_release_test.py
