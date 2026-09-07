@@ -295,7 +295,7 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 | `plugin/alookhor-control-center/templates/cart-empty-override.php` | 1 | `3610f0f36f1da6e6217bc0aa9afa0d1afb898100946c1a45ed9abbdda7e856ec` |
 | `plugin/alookhor-control-center/templates/cart-partial.php` | 1 | `fbbb5f1faa88be04a9fc483f2f00a10b6c3437da0fbf09fbb2436e3386b6bb88` |
 | `plugin/alookhor-control-center/templates/cart.php` | 6 | `bfe50d6b874b199f783d34e494885ddab54b2bfea2bee95b6d6fb054ca5c34ab` |
-| `plugin/alookhor-control-center/templates/single-product.php` | 76 | `f7b9cd9cce928519a339749b76f311867fcc6d7286881b177b9f7a04865edb75` |
+| `plugin/alookhor-control-center/templates/single-product.php` | 83 | `d2cbafedcc188db994336cb29fc76315a84ee49cc2ac7b52dc1c75add5293157` |
 | `plugin/alookhor-control-center/uninstall.php` | 6 | `d69282a9ab7c0865b6c60e6fca272d0859433e9c8730754fb2995295209ff84c` |
 | `scripts/build_release.py` | 132 | `7336904316bedab824e41a3b73eed09d29cfb3d87b59ed7d2e0d9125394de84b` |
 | `scripts/generate_code_registry.py` | 293 | `cc820adb6cd74358acfe6eea9bcc5206a2262b91a53e053cc0794c47fec3026a` |
@@ -19740,58 +19740,65 @@ if(!defined('ABSPATH'))exit;
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <?php wp_head(); ?>
   <style id="alookhor-pdp-breadcrumb-refinement">
-    /* PDP breadcrumb: force a visible, responsive offset below the Arena header. */
-    .alookhor-managed-product-page .alookhor-alp .breadcrumb-wrapper{
+    /* PDP breadcrumb: direct selectors are intentional so the rule still applies when the PDP wrapper changes. */
+    body.alookhor-managed-product-page .breadcrumb-wrapper{
       position:relative!important;
-      top:24px!important;
-      margin-top:0!important;
-      margin-bottom:44px!important;
-      z-index:2!important;
+      top:0!important;
+      margin-top:30px!important;
+      margin-bottom:26px!important;
+      z-index:5!important;
+      transform:translateY(18px)!important;
     }
-    .alookhor-managed-product-page .alookhor-alp .breadcrumb-box{
+    body.alookhor-managed-product-page .breadcrumb-box{
       color:#fff!important;
       font-family:Dana,Vazirmatn,IRANSansX,Tahoma,sans-serif!important;
-      font-size:16px!important;
-      font-weight:600!important;
+      font-size:19px!important;
+      font-weight:700!important;
       line-height:1.9!important;
-      padding-top:14px!important;
-      padding-bottom:14px!important;
+      padding:16px 0!important;
+      opacity:1!important;
+      visibility:visible!important;
     }
-    .alookhor-managed-product-page .alookhor-alp .breadcrumb-box a,
-    .alookhor-managed-product-page .alookhor-alp .breadcrumb-box span{
+    body.alookhor-managed-product-page .breadcrumb-box a,
+    body.alookhor-managed-product-page .breadcrumb-box span,
+    body.alookhor-managed-product-page .breadcrumb-box strong{
       color:#fff!important;
       font-family:Dana,Vazirmatn,IRANSansX,Tahoma,sans-serif!important;
-      font-size:16px!important;
-      font-weight:600!important;
+      font-size:19px!important;
+      font-weight:700!important;
+      opacity:1!important;
     }
-    .alookhor-managed-product-page .alookhor-alp .breadcrumb-box > span:last-child,
-    .alookhor-managed-product-page .alookhor-alp .breadcrumb-box > span:last-child a{
+    body.alookhor-managed-product-page .breadcrumb-box > span:last-child,
+    body.alookhor-managed-product-page .breadcrumb-box > span:last-child a{
       font-weight:800!important;
     }
-    .alookhor-managed-product-page .alookhor-alp .breadcrumb-box svg{
-      color:rgba(255,255,255,.58)!important;
-      width:16px!important;
-      height:16px!important;
+    body.alookhor-managed-product-page .breadcrumb-box svg{
+      color:#fff!important;
+      stroke:#fff!important;
+      width:18px!important;
+      height:18px!important;
       flex:none;
     }
     @media (max-width:767px){
-      .alookhor-managed-product-page .alookhor-alp .breadcrumb-wrapper{
-        top:14px!important;
-        margin-top:0!important;
-        margin-bottom:30px!important;
+      body.alookhor-managed-product-page .breadcrumb-wrapper{
+        margin-top:18px!important;
+        margin-bottom:20px!important;
+        transform:translateY(12px)!important;
       }
-      .alookhor-managed-product-page .alookhor-alp .breadcrumb-box{
-        font-size:14px!important;
-        line-height:1.85!important;
-        padding:12px 12px!important;
+      body.alookhor-managed-product-page .breadcrumb-box{
+        font-size:16px!important;
+        line-height:1.9!important;
+        padding:13px 12px!important;
+        white-space:normal!important;
       }
-      .alookhor-managed-product-page .alookhor-alp .breadcrumb-box a,
-      .alookhor-managed-product-page .alookhor-alp .breadcrumb-box span{
-        font-size:14px!important;
+      body.alookhor-managed-product-page .breadcrumb-box a,
+      body.alookhor-managed-product-page .breadcrumb-box span,
+      body.alookhor-managed-product-page .breadcrumb-box strong{
+        font-size:16px!important;
       }
-      .alookhor-managed-product-page .alookhor-alp .breadcrumb-box svg{
-        width:14px!important;
-        height:14px!important;
+      body.alookhor-managed-product-page .breadcrumb-box svg{
+        width:15px!important;
+        height:15px!important;
       }
     }
   </style>
