@@ -1,30 +1,40 @@
 {
-  "version": "3.10.356",
-  "previous": "3.10.355",
+  "version": "3.10.357",
+  "previous": "3.10.356",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "رفع قطعی Breadcrumb صفحه محصول: فاصله از هدر، فونت Dana، رنگ سفید، اندازه بزرگ‌تر و Responsive دسکتاپ/موبایل",
+  "description": "PDP گالری: زوم روی عکس با موس + چرخش خودکار هر 4 ثانیه + فیکس Breadcrumb",
   "changelog": [
     {
-      "tag": "FIX",
-      "title": "Breadcrumb صفحه محصول زیر هدر قرار گرفت",
-      "desc": "مسیر خانه / محصولات / دسته‌بندی / محصول در هر دو مسیر رندر PDP با فاصله صحیح از هدر، فونت Dana، رنگ سفید و تایپوگرافی خواناتر نمایش داده می‌شود."
+      "tag": "FEATURE",
+      "title": "زوم عکس محصول روی هاور",
+      "desc": "وقتی موس روی عکس اصلی می‌رود تصویر با scale 2 زوم می‌شود و transform-origin با حرکت موس جابجا می‌شود؛ روی موبایل/تبلت غیرفعال برای UX لمسی"
     },
     {
-      "tag": "MOBILE",
-      "title": "Breadcrumb کاملاً Responsive شد",
-      "desc": "اندازه، فاصله، کادر و شکست خطوط برای موبایل نیز به‌صورت مستقل و بدون Overflow تنظیم شده است."
+      "tag": "FEATURE",
+      "title": "چرخش خودکار گالری هر 4 ثانیه",
+      "desc": "هر 4 ثانیه عکس اصلی با عکس بعدی از بخش کناری عوض می‌شود؛ با کلیک روی بندانگشتی یا فلش‌ها، هاور زوم، یا اسکرول، 6 ثانیه pause می‌شود؛ وقتی تب مخفی است متوقف می‌شود"
+    },
+    {
+      "tag": "FIX",
+      "title": "Breadcrumb صفحه محصول زیر هدر",
+      "desc": "مسیر خانه / محصولات / دسته‌بندی / محصول با فاصله صحیح از هدر، فونت Dana، رنگ سفید و Responsive کامل"
     }
   ],
   "project": "ALOOKHOR",
-  "area": "PDP breadcrumb hard fix",
-  "reason": "دستور مالک برای اصلاح واقعی نوار مسیر صفحه محصول و انتشار نسخه جدید قابل تشخیص توسط Update Center",
+  "area": "PDP gallery zoom + auto-rotate + breadcrumb",
+  "reason": "درخواست مالک: زوم روی هاور + اسلاید خودکار هر 4 ثانیه با عکس‌های کناری + حفظ فیکس Breadcrumb",
   "files": [
+    "plugin/alookhor-control-center/CHANGELOG.md",
     "plugin/alookhor-control-center/alookhor-control-center.php",
+    "plugin/alookhor-control-center/assets/css/frontend-product.css",
+    "plugin/alookhor-control-center/assets/js/frontend-product.js",
+    "plugin/alookhor-control-center/config/site.json",
     "plugin/alookhor-control-center/includes/pdp-breadcrumb-fix.php",
-    "plugin/alookhor-control-center/templates/single-product.php",
+    "plugin/alookhor-control-center/readme.txt",
+    "plugin/alookhor-control-center/templates/cart.php",
     "release.json"
   ]
 }

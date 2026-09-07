@@ -3592,3 +3592,28 @@ html{overflow-x:hidden !important}
   #alookhor-pdp .price-box .alp-price-now{font-size:28px !important}
 }
 /* MOCKUP PDP v3.10.354 */
+
+/* ===== v3.10.357 — GALLERY ZOOM on hover + auto-rotate support ===== */
+#alookhor-pdp .gallery-frame{
+  overflow:hidden;
+  cursor:zoom-in;
+}
+#alookhor-pdp #alpMain{
+  will-change:transform, transform-origin;
+  transition:transform .28s ease, transform-origin .08s linear, opacity .2s ease;
+  transform-origin:center center;
+}
+#alookhor-pdp .gallery-frame.is-zooming #alpMain{
+  transform:scale(2);
+}
+#alookhor-pdp .gallery-frame.is-zooming{
+  cursor:zoom-in;
+}
+#alookhor-pdp #alpMain.is-changing{
+  opacity:.75;
+  transform:scale(1.02);
+}
+@media(max-width:1024px){
+  #alookhor-pdp .gallery-frame{cursor:default;}
+  #alookhor-pdp .gallery-frame.is-zooming #alpMain{transform:none;}
+}

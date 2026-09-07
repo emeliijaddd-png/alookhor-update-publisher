@@ -1,3 +1,18 @@
+## 3.10.357 — PDP گالری: زوم روی عکس با موس + چرخش خودکار هر 4 ثانیه + فیکس Breadcrumb
+- FEATURE زوم: وقتی موس روی عکس اصلی محصول (#alpMain داخل [data-stage] .gallery-frame) می‌رود تصویر با scale 2 زوم می‌شود و transform-origin با حرکت موس جابجا می‌شود؛ cursor zoom-in؛ روی موبایل/تبلت (<=1024px) غیرفعال برای UX لمسی
+- FEATURE چرخش خودکار: هر 4000ms عکس اصلی با عکس بعدی از بخش کناری (gallery-thumbs button / .gallery-thumb) عوض می‌شود via show(idx+1)؛ pause 6s روی interaction (کلیک بندانگشتی، prev/next، pointerdown/wheel/touchstart، mouseenter زوم)؛ pause وقتی document.hidden یا frame:hover؛ resume بعد از 6s
+- FIX Breadcrumb: مسیر خانه / محصولات / دسته‌بندی / محصول زیر هدر با فاصله صحیح (translateY 125px desktop / 78px mobile)، فونت Dana، رنگ سفید، کادر دارک و Responsive کامل — حفظ از 3.10.356
+- FIX Cart: قالب سبد خرید مستقل از WoodMart (canonical custom shell) + guard برای نام محصولات سامسونگ/گوشی — حفظ از 3.10.356
+- CSS: .gallery-frame{overflow:hidden; cursor:zoom-in} #alpMain{will-change:transform, transform-origin; transition:transform .28s ease} .is-zooming #alpMain{transform:scale(2)} .is-changing{opacity:.75}
+- JS: frame=[data-stage], autoTimer, AUTOPLAY_MS=4000, RESUME_AFTER=6000, pauseAuto(), tick(), startAuto()/stopAuto(), zoom listeners mouseenter/mousemove/mouseleave, visibilitychange
+- Version bump 3.10.355->3.10.357 via sed + release.json + registry
+
+## 3.10.356 — رفع قطعی Breadcrumb صفحه محصول
+- FIX Breadcrumb صفحه محصول زیر هدر قرار گرفت: مسیر خانه / محصولات / دسته‌بندی / محصول در هر دو مسیر رندر PDP با فاصله صحیح از هدر، فونت Dana، رنگ سفید و تایپوگرافی خواناتر
+- MOBILE Breadcrumb کاملاً Responsive شد: اندازه، فاصله، کادر و شکست خطوط برای موبایل نیز به‌صورت مستقل و بدون Overflow
+- File: includes/pdp-breadcrumb-fix.php با wp_add_inline_style روی alookhor-cc-pdp
+- Cart: restore all WooCommerce cart items and harden cart shell (templates/cart.php)
+
 ## 3.10.350 — کارت «درباره آلو بخارایی الخور» دسکتاپ طبق ماکاپ مالک + self-heal seeder + پولیش موبایل ۳۲۳ روی پایهٔ 3.10.345
 - پایه: 3.10.345 (آخرین نسخهٔ سبز و نصب‌شده روی سایت). تگ‌های موازی 3.10.346 تا 3.10.349 سشن سبد در مرحلهٔ «Validate source syntax» CI رد شدند و هرگز منتشر نشدند (درخت آن‌ها ۸۰ فایل از جمله frontend-product.css و product-seeder.php را حذف کرده بود).
 - DESKTOP (≥1280px، به دستور مستقیم مالک): بخش «درباره» به همان کارت فشردهٔ دو ستونهٔ ماکاپ Screenshot 113637 تبدیل شد — متن سمت چپ (کیکر، عنوان، پاراگراف معرفی، پنج آیتم تیک طلایی هرکدام در یک خط)، عکس کاسهٔ باغ سمت راست تمام‌ارتفاع با نشان گرد «100% طبیعی» در گوشهٔ بالا-راست؛ بدون دکمهٔ «مشاهده بیشتر» و بدون فضای خالی بنفش زیر متن.
