@@ -1,36 +1,36 @@
 {
-  "version": "3.10.361",
-  "previous": "3.10.360",
+  "version": "3.10.362",
+  "previous": "3.10.361",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "سبد خرید: حذف کامل کارت‌های سفید + فیکس فوتر + نمایش تمام محصولات",
+  "description": "سبد خرید: فیکس نمایش سبد + حذف فقط نوار سفید + حفظ فوتر",
   "changelog": [
     {
       "tag": "FIX",
-      "title": "حذف کامل کارت‌های سفید سبد خرید",
-      "desc": "نوار سفید بالای صفحه سبد خرید، قرص سفید کوچک با متن سبد خرید و مستطیل سفید و checkout steps با CSS تهاجمی بدون نیاز به body class + JS MutationObserver که background سفید و متن سبد خرید و عرض 150-500 را چک می‌کند حذف شد؛ فقط #alookhor-cart لوکس با بک‌گراند #0d0510 نمایش داده می‌شود."
+      "title": "فیکس نمایش سبد خرید (فقط فوتر مانده بود)",
+      "desc": "قالب سبد به حالت minimal برگشت بدون CSS تهاجمی که کل صفحه را مخفی می‌کرد؛ #alookhor-cart با display:block!important و min-height:300px و z-index:2 همیشه قابل مشاهده است؛ static $rendered که مانع رندر دوم می‌شد حذف شد."
     },
     {
       "tag": "FIX",
-      "title": "فیکس فوتر شکسته",
-      "desc": "قالب سبد از custom shell با min-height:0 به حالت ساده get_header/cart_markup/get_footer برگشت؛ فضای سیاه بزرگ زیر فوتر و افتادن هدر به پایین رفع شد؛ فوتر با background اصلی حفظ شد."
+      "title": "حذف فقط نوار سفید سبد خرید",
+      "desc": "فقط .wd-page-title, .whb-page-title, .page-title, .entry-header, .wd-checkout-steps و قرص سفید کوچک با متن دقیق سبد خرید و عرض 100-600 مخفی می‌شود؛ دیگر [class*=page-title] و [class*=wd-entities] و .woocommerce و .container به صورت global مخفی نمی‌شود."
     },
     {
       "tag": "FIX",
-      "title": "نمایش تمام محصولات",
-      "desc": "فیلتر سامسونگ/گوشی حذف شد؛ تمام آیتم‌های سبد بدون استثنا نمایش داده می‌شود."
+      "title": "فوتر و هدر حفظ شد",
+      "desc": "فوتر و هدر با display:block حفظ شد؛ بک‌گراند body #0d0510 و wrapper ها transparent."
     },
     {
       "tag": "FEATURE",
-      "title": "PDP زوم هوشمند",
-      "desc": "زوم هاور scale2 + چرخش خودکار 4s + breadcrumb + smart zoom از 3.10.359/360 حفظ شد."
+      "title": "PDP و نمایش تمام محصولات",
+      "desc": "زوم هاور scale2 + چرخش خودکار 4s + breadcrumb + smart zoom + نمایش تمام محصولات بدون فیلتر سامسونگ حفظ شد."
     }
   ],
   "project": "ALOOKHOR",
-  "area": "cart white fix + footer",
-  "reason": "کاربر گزارش داد پس از 3.10.360 مجدد کارت‌های سفید (نوار سفید بالای سبد و قرص سفید سبد خرید و checkout steps) ظاهر شد",
+  "area": "cart visibility fix",
+  "reason": "کاربر گزارش داد پس از 3.10.361 فقط فوتر نمایش داده می‌شود و سبد ناپدید شده — CSS تهاجمی global باعث مخفی شدن سبد شده بود",
   "files": [
     "plugin/alookhor-control-center/templates/cart.php",
     "plugin/alookhor-control-center/assets/css/frontend-cart.css",

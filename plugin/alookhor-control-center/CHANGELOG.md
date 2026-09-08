@@ -1,3 +1,10 @@
+## 3.10.362 — سبد خرید: فیکس نمایش سبد (فقط فوتر مانده بود) + حذف فقط نوار سفید
+- FIX نمایش: قالب minimal بدون CSS تهاجمی global؛ #alookhor-cart display:block!important min-height:300px z-index:2 همیشه visible؛ static $rendered حذف شد تا رندر دوم هم کار کند
+- FIX سفید: فقط .wd-page-title, .whb-page-title, .page-title, .entry-header, .wd-checkout-steps و قرص سفید کوچک با متن دقیق سبد خرید عرض 100-600 مخفی می‌شود؛ دیگر [class*=page-title] و [class*=wd-entities] و .woocommerce و .container global مخفی نمی‌شود
+- FIX فوتر/هدر: display:block حفظ شد؛ body #0d0510
+- FEATURE PDP: زوم scale2 + autoplay 4s + breadcrumb + smart zoom + نمایش تمام محصولات حفظ
+- Version bump 3.10.361->3.10.362
+
 ## 3.10.361 — سبد خرید: حذف کامل کارت‌های سفید + فیکس فوتر
 - FIX سفید: نوار سفید بالای سبد، قرص سفید کوچک سبد خرید، مستطیل سفید و checkout steps با CSS تهاجمی بدون نیاز به body class + JS MutationObserver که background سفید و متن سبد خرید و عرض 150-500 را چک می‌کند حذف شد
 - FIX فوتر: قالب ساده get_header/cart_markup/get_footer بدون min-height:0؛ فوتر با background اصلی حفظ شد

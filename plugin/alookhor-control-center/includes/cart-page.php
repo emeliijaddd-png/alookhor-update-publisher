@@ -84,9 +84,7 @@ function alookhor_cc_cart_data(){
 
 if(!function_exists('alookhor_cc_cart_markup')){
 function alookhor_cc_cart_markup(){
- static $rendered=false;
- if($rendered) return ''; // Prevent 3 carts - only one luxury
- $rendered=true;
+ // Always render luxury cart - prevent duplicate via GLOBALS in filters, not here
  $GLOBALS['alookhor_cc_cart_rendered']=true;
  $d=alookhor_cc_cart_data(); if(!$d)return '<div class="alookhor-cart-empty">سبد خرید خالی است</div>';
  $fmt=$d['fmt']; $fa_th=$d['fa_th'];
@@ -345,64 +343,37 @@ add_filter('woocommerce_locate_template',function($template,$template_name,$temp
 },PHP_INT_MAX,3);
 // Samsung filter removed - show all products
 // Extra JS FINAL v3.10.358 - hide EVERY white element outside luxury, including top white pill and big white rect
+// Minimal white fix v3.10.362 - only hide white pill + checkout steps, keep cart visible
 add_action('wp_footer',function(){
  if(!function_exists('is_cart')||!is_cart())return;
  echo '<script>
 document.addEventListener("DOMContentLoaded",function(){
   var lux=document.getElementById("alookhor-cart");
-  if(!lux) return;
-  function hideOld(){
-    var sels=[".wd-page-title",".whb-page-title",".wd-entities-title",".wd-page-title.wd-style-default",".wd-page-title.wd-style-centered",".title-design-default",".title-design-centered",".wd-checkout-steps",".wd-checkout-steps-wrapper",".woocommerce-breadcrumb",".wd-breadcrumbs",".page-title",".entry-header",".wd-page-heading",".page-heading",".woocommerce-cart-form",".cart-collaterals",".shop_table",".wd-cart",".wd-empty-cart",".wd-cart-content",".wd-cart-totals",".cart_totals",".woocommerce-cart-form__contents",".cross-sells",".wd-cross-sells",".related",".up-sells",".wd-related",".wd-up-sells",".cart-empty",".return-to-shop",".woocommerce-notices-wrapper","[class*=\"wd-empty\"]","[class*=\"page-title\"]","[class*=\"wd-title\"]"];
-    sels.forEach(function(sel){
-      document.querySelectorAll(sel).forEach(function(el){
-        if(el.closest("#alookhor-cart") || el.closest("header") || el.closest("footer") || el.closest(".whb-header") || el.closest("#alookhor-cart-main")) return;
-        el.style.setProperty("display","none","important");
-      });
+  if(!lux){ console.log("ALOOKHOR cart not found"); return; }
+  function hideWhite(){
+    // hide only Woodmart white titles and checkout steps
+    document.querySelectorAll(".wd-page-title,.whb-page-title,.wd-entities-title,.page-title,.entry-header,.wd-page-heading,.wd-checkout-steps,.wd-checkout-steps-wrapper").forEach(function(el){
+      if(el.closest("#alookhor-cart")||el.closest("header")||el.closest("footer")||el.closest(".whb-header")) return;
+      el.style.setProperty("display","none","important");
     });
-    // Hide any element with exact text "سبد خرید" that is white bar - small pill and big rect
-    document.querySelectorAll("div,section,header,main,aside").forEach(function(el){
-      if(el.closest("#alookhor-cart") || el.closest("header") || el.closest("footer") || el.closest(".whb-header") || el.closest("#alookhor-cart-main")) return;
+    // hide small white pill with exact text سبد خرید
+    document.querySelectorAll("div,section").forEach(function(el){
+      if(el.closest("#alookhor-cart")||el.closest("header")||el.closest("footer")||el.closest(".whb-header")||el.id==="alookhor-cart") return;
       var t=(el.textContent||"").trim();
-      // small white pill
-      if(t==="سبد خرید" && el.children.length<=3){
+      if(t==="سبد خرید" && el.offsetWidth>100 && el.offsetWidth<600){
         el.style.setProperty("display","none","important");
-        if(el.parentElement && !el.parentElement.closest("#alookhor-cart")) el.parentElement.style.setProperty("display","none","important");
-      }
-      // any white background element containing سبد خرید
-      try{
-        var bg=window.getComputedStyle(el).backgroundColor;
-        if((bg==="rgb(255, 255, 255)"||bg==="rgba(255, 255, 255, 1)"||bg.indexOf("255, 255, 255")>-1) && t.indexOf("سبد خرید")>-1){
-          if(!el.closest("#alookhor-cart")) el.style.setProperty("display","none","important");
-        }
-      }catch(e){}
-      // Hide left white box that contains only "سبد خرید" title
-      if(el.offsetWidth>150 && el.offsetWidth<500 && el.offsetHeight>50 && el.offsetHeight<600){
-        if(t.indexOf("سبد خرید")===0 && t.length<150){
-          if(!el.closest("#alookhor-cart") && !el.closest("header") && !el.closest("footer")){
-            el.style.setProperty("display","none","important");
-          }
-        }
       }
     });
-    // Force dark body and transparent wrappers
+    // ensure cart visible
+    lux.style.setProperty("display","block","important");
+    lux.style.setProperty("visibility","visible","important");
+    lux.style.setProperty("opacity","1","important");
     document.body.style.background="#0d0510";
-    document.documentElement.style.background="#0d0510";
-    var wrappers=document.querySelectorAll(".main-page-wrapper, .site-content, .container, .wd-page-content, .wd-content-area, .woocommerce, .page-wrapper, .site-content .container");
-    wrappers.forEach(function(w){
-      if(w.closest("#alookhor-cart") || w.closest("#alookhor-cart-main")) return;
-      w.style.setProperty("background","transparent","important");
-      w.style.setProperty("background-color","transparent","important");
-      w.style.setProperty("border","none","important");
-      w.style.setProperty("box-shadow","none","important");
-    });
   }
-  hideOld();
-  new MutationObserver(hideOld).observe(document.body,{childList:true,subtree:true});
-  setTimeout(hideOld,200);
-  setTimeout(hideOld,600);
-  setTimeout(hideOld,1500);
-  setTimeout(hideOld,3000);
-  lux.style.display="block";
+  hideWhite();
+  setTimeout(hideWhite,300);
+  setTimeout(hideWhite,1000);
 });
 </script>';
 },100);
+
