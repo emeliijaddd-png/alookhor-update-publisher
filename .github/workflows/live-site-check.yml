@@ -1,0 +1,22 @@
+name: Temporary live site connectivity check
+on:
+  push:
+    branches: [diagnostic/live-site-check-20260908]
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Resolve and fetch live site
+        shell: bash
+        run: |
+          set -euxo pipefail
+          echo '--- DNS ---'
+          getent hosts alookhor.ir
+          getent hosts www.alookhor.ir || true
+          echo '--- HTTPS headers ---'
+          curl -fsSIL --max-time 30 --retry 2 https://alookhor.ir/
+          echo '--- HTTPS body ---'
+          curl -fsSL --max-time 30 --retry 2 https://alookhor.ir/ -o /tmp/alookhor.html
+          wc -c /tmp/alookhor.html
+          head -c 1000 /tmp/alookhor.html
+          echo
