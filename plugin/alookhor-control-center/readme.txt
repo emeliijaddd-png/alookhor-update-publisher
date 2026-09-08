@@ -4,7 +4,7 @@ Tags: control center, luxury, alookhor, admin, dashboard
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 3.10.367
+Stable tag: 3.10.368
 License: Private
 License URI: https://alookhor.ir
 

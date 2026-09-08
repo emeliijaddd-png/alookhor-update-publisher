@@ -3,7 +3,7 @@
 > این سند از روی فایل‌های واقعی Repository تولید می‌شود. Source اصلی همچنان فایل‌های اجرایی است؛ Snapshotهای کامل زیر برای بازیابی، ممیزی و انتقال دانش نگهداری می‌شوند.
 
 - **Registry version:** `1.0.0`
-- **Plugin/source version:** `3.10.367`
+- **Plugin/source version:** `3.10.368`
 - **Generated:** `2026-08-14`
 - **Repository:** `alookhor-update-publisher`
 - **Production:** `https://alookhor.ir`
@@ -13,8 +13,8 @@
 
 ## Current Project State
 
-- CURRENT VERSION: `3.10.367`
-- LAST FUNCTIONAL CHANGE: سبد خرید: فیکس شورت‌کدها که فقط کد نمایش داده می‌شد
+- CURRENT VERSION: `3.10.368`
+- LAST FUNCTIONAL CHANGE: سبد خرید: فیکس المنتور - شورت‌کدها با پیش‌نمایش و CSS داخلی
 - ACTIVE DESIGN: Luxury Black/Gold; actual component colors remain controlled by saved WordPress settings and existing module defaults.
 - ACTIVE SHORTCODES: `[alookhor_portal_header]`, `[alookhor_managed_categories]`, `[alookhor_managed_hero]`, `[alookhor_managed_features]`.
 - ACTIVE PANELS: Main ALOOKHOR Control Center and Header/Top Bar submenu.
@@ -26,11 +26,11 @@
 
 ```text
 PROJECT: ALOOKHOR
-AREA: cart shortcodes elementor fix
-CURRENT VERSION: 3.10.367
-CHANGE: سبد خرید: فیکس شورت‌کدها که فقط کد نمایش داده می‌شد
-REASON: کاربر: هر کدی رو میذارم فقط کد میاد نه محتوا
-FILES: plugin/alookhor-control-center/includes/cart-page.php
+AREA: cart elementor preview fix
+CURRENT VERSION: 3.10.368
+CHANGE: سبد خرید: فیکس المنتور - شورت‌کدها با پیش‌نمایش و CSS داخلی
+REASON: کاربر تصویر فرستاد که در المنتور هنوز چیزی نیامده، با وجود استفاده از ویجت Shortcode
+FILES: plugin/alookhor-control-center/includes/cart-page.php; plugin/alookhor-control-center/assets/css/frontend-cart.css
 STATUS: SOURCE READY — deployment status must be verified separately.
 ```
 
@@ -38,34 +38,34 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 
 | ID | Type | Name | File | Used In | Version | Status |
 |---|---|---|---|---|---:|---|
-| SC-001 | Shortcode | `[alookhor_portal_header]` | `includes/shortcode-header.php` | Elementor Header Shortcode widget; exact template ID unavailable | 3.10.367 | Active / compatibility-preserving |
-| SC-002 | Shortcode | `[alookhor_managed_categories]` | `includes/product-categories.php` | Home page → Elementor Shortcode widget | 3.10.367 | Active |
-| SC-003 | Shortcode | `[alookhor_managed_hero]` | `includes/hero.php` | Home Elementor Shortcode widget / automatic Legacy-root replacement | 3.10.367 | Active |
-| SC-004 | Shortcode | `[alookhor_managed_features]` | `includes/site-features.php` | Home Elementor HTML widget / automatic Legacy-root replacement | 3.10.367 | Active |
+| SC-001 | Shortcode | `[alookhor_portal_header]` | `includes/shortcode-header.php` | Elementor Header Shortcode widget; exact template ID unavailable | 3.10.368 | Active / compatibility-preserving |
+| SC-002 | Shortcode | `[alookhor_managed_categories]` | `includes/product-categories.php` | Home page → Elementor Shortcode widget | 3.10.368 | Active |
+| SC-003 | Shortcode | `[alookhor_managed_hero]` | `includes/hero.php` | Home Elementor Shortcode widget / automatic Legacy-root replacement | 3.10.368 | Active |
+| SC-004 | Shortcode | `[alookhor_managed_features]` | `includes/site-features.php` | Home Elementor HTML widget / automatic Legacy-root replacement | 3.10.368 | Active |
 | SC-EXT-001 | External shortcode | `[alookhor_categories_carousel]` | External plugin source unavailable | Former Home showcase | External | Replaced on Home / do not reconstruct |
-| PN-001 | Admin panel | ALOOKHOR Control Center | `includes/admin.php` | WP Admin top-level menu | 3.10.367 | Active |
-| PN-002 | Admin panel | Header & Top Bar | `includes/admin.php` | WP Admin submenu | 3.10.367 | Active mirror |
-| MOD-001 | Managed module | WooCommerce Categories | `includes/product-categories.php` | Home / Elementor / REST | 3.10.367 | Active |
-| MOD-002 | Managed module | Responsive Footer | `includes/footer.php` | Frontend footer / REST | 3.10.367 | Active |
-| MOD-003 | Managed module | Four-slide Hero | `includes/hero.php` | Home / Elementor / REST | 3.10.367 | Active |
-| MOD-004 | Managed module | Four-card Site Features | `includes/site-features.php` | Home / Elementor / REST | 3.10.367 | Active |
-| API-001 | REST API | `alookhor-cc/v1` | `includes/rest-api.php` | Public state + authenticated updater | 3.10.367 | Active |
-| UPD-001 | Updater | Private native updater | `includes/updater.php` | Control Center + GitHub Actions | 3.10.367 | Active |
-| CFG-001 | WordPress state | Main settings | `alookhor_cc_settings` | All managed modules | 3.10.367 | Active |
-| CFG-002 | WordPress state | Header settings | `alookhor_header_settings` | Header and Top Bar | 3.10.367 | Active |
-| CSS-001 | CSS | Managed Header | `assets/css/frontend-header.css` | `[alookhor_portal_header]` fallback renderer | 3.10.367 | Active |
-| JS-001 | JavaScript | Managed Header runtime | `assets/js/frontend-header.js` | `[alookhor_portal_header]` fallback renderer | 3.10.367 | Active |
-| JS-002 | JavaScript | Legacy Top Bar manager | `assets/js/frontend-topbar-manager.js` | Preserved legacy header provider | 3.10.367 | Active when legacy provider exists |
-| CSS-002 | CSS | WooCommerce Categories | `assets/css/frontend-categories.css` | `[alookhor_managed_categories]` | 3.10.367 | Active |
-| JS-003 | JavaScript | Categories carousel | `assets/js/frontend-categories.js` | `[alookhor_managed_categories]` | 3.10.367 | Active |
-| CSS-003 | CSS | Managed Footer | `assets/css/frontend-footer.css` | Managed Footer module | 3.10.367 | Active |
-| JS-004 | JavaScript | Managed Footer | `assets/js/frontend-footer.js` | Managed Footer module | 3.10.367 | Active |
-| CSS-004 | CSS | Control Center UI | `assets/css/luxury.css` | WP Admin ALOOKHOR pages | 3.10.367 | Active |
-| JS-005 | JavaScript | Control Center app | `assets/js/app.js` + modules | WP Admin ALOOKHOR pages | 3.10.367 | Active |
-| CSS-005 | CSS | Managed Hero | `assets/css/frontend-hero.css` | `[alookhor_managed_hero]` / automatic Home replacement | 3.10.367 | Active |
-| JS-006 | JavaScript | Managed Hero runtime | `assets/js/frontend-hero.js` | Four-slide replacement, controls and REST refresh | 3.10.367 | Active |
-| CSS-006 | CSS | Managed Site Features | `assets/css/frontend-features.css` | `[alookhor_managed_features]` / automatic Home replacement | 3.10.367 | Active |
-| JS-007 | JavaScript | Managed Site Features runtime | `assets/js/frontend-features.js` | Four-card replacement and REST refresh | 3.10.367 | Active |
+| PN-001 | Admin panel | ALOOKHOR Control Center | `includes/admin.php` | WP Admin top-level menu | 3.10.368 | Active |
+| PN-002 | Admin panel | Header & Top Bar | `includes/admin.php` | WP Admin submenu | 3.10.368 | Active mirror |
+| MOD-001 | Managed module | WooCommerce Categories | `includes/product-categories.php` | Home / Elementor / REST | 3.10.368 | Active |
+| MOD-002 | Managed module | Responsive Footer | `includes/footer.php` | Frontend footer / REST | 3.10.368 | Active |
+| MOD-003 | Managed module | Four-slide Hero | `includes/hero.php` | Home / Elementor / REST | 3.10.368 | Active |
+| MOD-004 | Managed module | Four-card Site Features | `includes/site-features.php` | Home / Elementor / REST | 3.10.368 | Active |
+| API-001 | REST API | `alookhor-cc/v1` | `includes/rest-api.php` | Public state + authenticated updater | 3.10.368 | Active |
+| UPD-001 | Updater | Private native updater | `includes/updater.php` | Control Center + GitHub Actions | 3.10.368 | Active |
+| CFG-001 | WordPress state | Main settings | `alookhor_cc_settings` | All managed modules | 3.10.368 | Active |
+| CFG-002 | WordPress state | Header settings | `alookhor_header_settings` | Header and Top Bar | 3.10.368 | Active |
+| CSS-001 | CSS | Managed Header | `assets/css/frontend-header.css` | `[alookhor_portal_header]` fallback renderer | 3.10.368 | Active |
+| JS-001 | JavaScript | Managed Header runtime | `assets/js/frontend-header.js` | `[alookhor_portal_header]` fallback renderer | 3.10.368 | Active |
+| JS-002 | JavaScript | Legacy Top Bar manager | `assets/js/frontend-topbar-manager.js` | Preserved legacy header provider | 3.10.368 | Active when legacy provider exists |
+| CSS-002 | CSS | WooCommerce Categories | `assets/css/frontend-categories.css` | `[alookhor_managed_categories]` | 3.10.368 | Active |
+| JS-003 | JavaScript | Categories carousel | `assets/js/frontend-categories.js` | `[alookhor_managed_categories]` | 3.10.368 | Active |
+| CSS-003 | CSS | Managed Footer | `assets/css/frontend-footer.css` | Managed Footer module | 3.10.368 | Active |
+| JS-004 | JavaScript | Managed Footer | `assets/js/frontend-footer.js` | Managed Footer module | 3.10.368 | Active |
+| CSS-004 | CSS | Control Center UI | `assets/css/luxury.css` | WP Admin ALOOKHOR pages | 3.10.368 | Active |
+| JS-005 | JavaScript | Control Center app | `assets/js/app.js` + modules | WP Admin ALOOKHOR pages | 3.10.368 | Active |
+| CSS-005 | CSS | Managed Hero | `assets/css/frontend-hero.css` | `[alookhor_managed_hero]` / automatic Home replacement | 3.10.368 | Active |
+| JS-006 | JavaScript | Managed Hero runtime | `assets/js/frontend-hero.js` | Four-slide replacement, controls and REST refresh | 3.10.368 | Active |
+| CSS-006 | CSS | Managed Site Features | `assets/css/frontend-features.css` | `[alookhor_managed_features]` / automatic Home replacement | 3.10.368 | Active |
+| JS-007 | JavaScript | Managed Site Features runtime | `assets/js/frontend-features.js` | Four-card replacement and REST refresh | 3.10.368 | Active |
 
 ## SC-001 — Portal Header
 
@@ -200,7 +200,7 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 |---|---:|---|
 | `.github/workflows/publish.yml` | 148 | `1feba920a92e201d717ed6a247cd147a81a99d0507c30a99da8e045224ddb52d` |
 | `ops/wordpress-ci-bootstrap.php` | 215 | `409c23f2be99c6651b0e75dc877c91c884534e6b16f9985c177cf65d14fd4c95` |
-| `plugin/alookhor-control-center/alookhor-control-center.php` | 442 | `6eee98dc5fedb10a11b286b778a436c4a0a7546f6b1ff1330af3291e2f2684f5` |
+| `plugin/alookhor-control-center/alookhor-control-center.php` | 442 | `bb651b57d2ec03006554284cbab08ca1bcbe97c4bf010c78831af5af2bf6eca8` |
 | `plugin/alookhor-control-center/assets/css/frontend-about-page.css` | 37 | `4a895038f4ede91f1172279e86e10ed6939a8a406c16ee780c326f6f4f5df5c2` |
 | `plugin/alookhor-control-center/assets/css/frontend-app-banner.css` | 1 | `244970e53ef04849a0a52d3930427bc7be986c818a258efcfb9afbd16b187898` |
 | `plugin/alookhor-control-center/assets/css/frontend-bestsellers.css` | 24 | `cf27fd12f8c8d7ebff96e50093e77e9d43cad86f88944a9ee983fd47a622184d` |
@@ -261,7 +261,7 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 | `plugin/alookhor-control-center/assets/js/modules/settings.js` | 794 | `3149c29b0b0500b2924b0cc76569e0eb31d63ea7b79d92ece5cbd6954209b567` |
 | `plugin/alookhor-control-center/assets/js/modules/users.js` | 20 | `6fb96546faf00ea831ace016d09b10f903a501db647bae20d0f570034ac36946` |
 | `plugin/alookhor-control-center/assets/js/pdp-smart-zoom.js` | 33 | `5e36cd1311cdd5c93dcf24227d136c75a30054c19a7ea3d4ca65f670abde88c9` |
-| `plugin/alookhor-control-center/config/site.json` | 37 | `ca6509e6f866df4eaf2a7fbb83d632f2e03cba4a239610526e7b9f674fe4ee69` |
+| `plugin/alookhor-control-center/config/site.json` | 37 | `29dd7d999b5caf35fae9b2a9c78a80f47b9afdd8f85100395a21243383050040` |
 | `plugin/alookhor-control-center/includes/about-page.php` | 161 | `c6550866eeb1d48ff70085c42b84ec251afb3ce764b0b005c0c80a9751ae266b` |
 | `plugin/alookhor-control-center/includes/admin-export-banner.php` | 180 | `fff84102b3dc84cb69c7318312395993a8adf6255a5d7f056d4c7bf7dce8e1b2` |
 | `plugin/alookhor-control-center/includes/admin-pages.php` | 210 | `6cf25d85284e99d73dbfade4504c8fa4d3e98e1ddbc2d6cc5fcd8845e2edb4e1` |
@@ -270,7 +270,7 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 | `plugin/alookhor-control-center/includes/app-banner.php` | 31 | `2ec9a950fa6d9fa713789c9ad91dd09aacbdb26605f82a8c1134876e5d2f9c40` |
 | `plugin/alookhor-control-center/includes/bestselling-products.php` | 14 | `9c46ee8f461a1b8437713eda03e65e8f9f3c9182d70e0c05f497b5723f5e5f0c` |
 | `plugin/alookhor-control-center/includes/campaign-slider.php` | 11 | `e4e389f2847efcd3892dfd45b1f935725d874fb6bf17af7f9c4f14c614e812df` |
-| `plugin/alookhor-control-center/includes/cart-page.php` | 642 | `f7665473f4994aa247333b244eb0eccf7c652500bb694567705cd2cacff770f4` |
+| `plugin/alookhor-control-center/includes/cart-page.php` | 619 | `8347fe309234f43aea0fdb011bba370d63bb8e62cff46470271e166fc25b31fc` |
 | `plugin/alookhor-control-center/includes/contact-page.php` | 148 | `dbdc47b38b74a77be5e6b084ed9c3ac148673b7a4230b54c099e61fb54ef82bb` |
 | `plugin/alookhor-control-center/includes/featured-products.php` | 22 | `5b11934474373e394479f0b579688d6fd8fd16eeb6cde120738a0ca8daf363b7` |
 | `plugin/alookhor-control-center/includes/footer.php` | 282 | `7553bf1b0282e5c5d21b53ca527c446dcbe4f2663de5f615fc08286ea37e38ae` |
@@ -690,7 +690,7 @@ add_action('rest_api_init', function(){
  * Plugin Name: ALOOKHOR Control Center
  * Plugin URI: https://alookhor.ir
  * Description: کنترل سنتر لوکس و ماژولار آلوخور — مدیریت کامل سایت (هدر، اسلایدر، سورت، محصولات، مشتریان VIP، مالی، آنالیتیکس) با آپدیت آنی بدون رفرش. تمام تنظیمات چت قبلی + شورت‌کد [alookhor_portal_header] اینجا مدیریت می‌شود.
- * Version: 3.10.367
+ * Version: 3.10.368
  * Author: ALOOKHOR Team — Luxury Modular
  * Author URI: https://alookhor.ir
  * Update URI: https://alookhor.ir/alookhor-control-center
@@ -703,8 +703,8 @@ add_action('rest_api_init', function(){
 
 if (!defined('ABSPATH')) exit;
 
-define('ALOOKHOR_CC_VERSION', '3.10.367');
-define('ALOOKHOR_CC_BUILD', '3.10.367');
+define('ALOOKHOR_CC_VERSION', '3.10.368');
+define('ALOOKHOR_CC_BUILD', '3.10.368');
 define('ALOOKHOR_CC_FILE', __FILE__);
 define('ALOOKHOR_CC_DIR', plugin_dir_path(__FILE__));
 define('ALOOKHOR_CC_URL', plugin_dir_url(__FILE__));
@@ -13167,7 +13167,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
   "header_settings": {"logo_text": "آلوخور","logo_sub": "پایتخت تولید آلو خشک ایران","sticky": true,"header_surface": "#0D0510","header_text_color": "#F5F3F0","header_muted_color": "#C8C2C9","header_logo_desktop_width": 118,"header_logo_mobile_width": 58,"show_search": false,"search_placeholder": "جستجوی محصول…","show_version": true,"capsule_background": "#0D0510","capsule_card": "#1C1024","capsule_glass": "rgba(33,20,38,.75)","capsule_gold": "#D49A2E","capsule_gold_light": "#E8B84A","capsule_text": "#F5F3F0","capsule_muted": "#C8C2C9","capsule_blur": 24,"topbar_bg": "#1C1024","topbar_text_color": "#F5F3F0","topbar_border_color": "#D49A2E","topbar_button_bg": "#D49A2E","topbar_button_text": "#0D0510","phone": "09159513173","export_text": "ارسال رایگان به بیش از ۱۵ کشور جهان","support_text": "پشتیبانی ۲۴/۷"},
   "updated_at": "2026-09-07T09:10:00Z",
   "updated_by": "AI Assistant — breadcrumb hard fix 3.10.358",
-  "version": "3.10.367",
+  "version": "3.10.368",
   "hero_settings": {"enabled": true,"hide_legacy": true,"autoplay": true,"autoplay_interval": 5500,"pause_on_hover": true,"show_arrows": true,"show_dots": true,"ken_burns": true,"gold": "#D4AF37","surface": "#09060D","text": "#FFFFFF","muted": "#D9D1DA","radius": 32,"slides": [{"image_id": 0,"image_url": "https://alookhor.ir/wp-content/plugins/alookhor-categories-manager/images/slide1.jpg","image_alt": "آلو بخارا ممتاز خراسان","kicker": "محصول ممتاز خراسان","title": "آلو بخارا","highlight": "ممتاز خراسان","description": "طبیعی، سالم و بدون مواد افزودنی","features": ["۱۰۰٪ طبیعی","کیفیت صادراتی","ارسال سریع","ارسال به سراسر جهان"],"primary_text": "مشاهده محصولات","primary_url": "https://alookhor.ir/shop/","secondary_text": "استعلام قیمت","secondary_url": "https://alookhor.ir/#b2b","flip_image": true},{"image_id": 0,"image_url": "https://alookhor.ir/wp-content/plugins/alookhor-categories-manager/images/slide2.jpg","image_alt": "آلو خشک طبیعی آلوخور","kicker": "انتخابی از باغ‌های ایران","title": "آلو خشک طبیعی","highlight": "خوش‌طعم و سالم","description": "سورت یکدست، فرآوری بهداشتی و طعم اصیل","features": ["بدون افزودنی","سورت ممتاز","بسته‌بندی مطمئن","تحویل سریع"],"primary_text": "خرید محصولات","primary_url": "https://alookhor.ir/shop/","secondary_text": "مشاوره خرید","secondary_url": "https://alookhor.ir/تماس-با-ما/","flip_image": true},{"image_id": 0,"image_url": "https://alookhor.ir/wp-content/plugins/alookhor-categories-manager/images/slide3.jpg","image_alt": "بسته‌بندی صادراتی آلوخور","kicker": "استاندارد بازارهای جهانی","title": "بسته‌بندی حرفه‌ای","highlight": "آماده صادرات","description": "حفظ کیفیت محصول از باغ تا مقصد نهایی","features": ["کنترل کیفیت","سورت دقیق","بسته‌بندی صادراتی","ارسال بین‌المللی"],"primary_text": "خدمات صادرات","primary_url": "https://alookhor.ir/#b2b","secondary_text": "تماس با ما","secondary_url": "https://alookhor.ir/تماس-با-ما/","flip_image": true},{"image_id": 0,"image_url": "https://alookhor.ir/wp-content/plugins/alookhor-categories-manager/images/slide4.jpg","image_alt": "سفارش عمده محصولات آلوخور","kicker": "همکاری مطمئن و ماندگار","title": "تأمین عمده آلو","highlight": "برای کسب‌وکارها","description": "ظرفیت پایدار، قیمت رقابتی و پشتیبانی تخصصی","features": ["تأمین پایدار","قیمت همکاری","کنترل سفارش","پشتیبانی مستقیم"],"primary_text": "درخواست همکاری","primary_url": "https://alookhor.ir/#b2b","secondary_text": "دریافت مشاوره","secondary_url": "https://alookhor.ir/تماس-با-ما/","flip_image": true}]},
   "feature_settings": {"enabled": true,"hide_legacy": true,"background": "#0D0510","card": "#1C1024","glass": "rgba(33,20,38,.75)","gold": "#D49A2E","gold_light": "#E8B84A","text": "#F5F3F0","muted": "#C8C2C9","radius": 20,"gap": 8,"items": [{"icon": "truck","title": "ارسال سریع","description": "در سریع‌ترین زمان ممکن"},{"icon": "organic","title": "محصولات ارگانیک","description": "100% طبیعی و سالم"},{"icon": "headset","title": "پشتیبانی ۲۴/۷","description": "همیشه در کنار شما هستیم"},{"icon": "shield","title": "ضمانت کیفیت","description": "تضمین اصالت و کیفیت کالا"}]}
 }
@@ -14729,245 +14729,52 @@ document.addEventListener("DOMContentLoaded",function(){
 },100);
 
 
-// ===== v3.10.366 — ELEMENTOR SHORTCODES FOR CART PAGE BUILDER =====
-if(!function_exists('alookhor_cc_cart_hero_shortcode')){
-function alookhor_cc_cart_hero_shortcode(){
- $d=function_exists('alookhor_cc_cart_data_fallback')?alookhor_cc_cart_data_fallback():alookhor_cc_cart_data(); if(!$d) return '';
- $img=ALOOKHOR_CC_URL.'assets/images/';
- ob_start();
-?>
-<div id="alookhor-cart-hero" dir="rtl">
-  <div class="cart-hero">
-    <img src="<?php echo esc_url($img.'bowl.jpg');?>" alt="" class="cart-hero-bg">
-    <div class="cart-hero-content">
-      <div class="cart-hero-left">
-        <img src="<?php echo esc_url($img.'bowl.jpg');?>" alt="کاسه آلو">
-        <div>
-          <div class="breadcrumb"><a href="<?php echo esc_url(home_url('/'));?>">خانه</a><span>›</span><span>سبد خرید</span></div>
-          <h1><span><?php echo alookhor_cc_cart_icon('cart');?></span> سبد خرید شما</h1>
-          <p>محصولات منتخب شما در یک نگاه و با اطمینان خرید کنید</p>
-        </div>
-      </div>
-      <div class="cart-hero-tagline"><span><?php echo alookhor_cc_cart_icon('leaf');?></span> طعم اصالت از دل طبیعت ایران</div>
-    </div>
-  </div>
-</div>
-<?php
- return ob_get_clean();
+
+// ===== v3.10.366+ — ELEMENTOR SHORTCODES FOR CART PAGE BUILDER — ROBUST FOR ELEMENTOR =====
+if(!function_exists('alookhor_cc_cart_icon_safe')){
+function alookhor_cc_cart_icon_safe($name){
+  if(function_exists('alookhor_cc_cart_icon')) return alookhor_cc_cart_icon($name);
+  return '<span style="display:inline-block;width:20px;height:20px;background:#D49A2E;border-radius:4px"></span>';
 }
-add_shortcode('alookhor_cart_hero','alookhor_cc_cart_hero_shortcode');
 }
 
-if(!function_exists('alookhor_cc_cart_products_shortcode')){
-function alookhor_cc_cart_products_shortcode(){
- $d=function_exists('alookhor_cc_cart_data_fallback')?alookhor_cc_cart_data_fallback():alookhor_cc_cart_data(); if(!$d) return '<div class="alookhor-cart-empty">سبد خرید خالی است</div>';
- $fmt=$d['fmt']; $fa_th=$d['fa_th']; $img=ALOOKHOR_CC_URL.'assets/images/'; ob_start();
-?>
-<div id="alookhor-cart-products" dir="rtl">
-  <div class="cart-products-box">
-    <div class="cart-products-header">
-      <span>محصول</span><span>وزن / بسته‌بندی</span><span>قیمت واحد</span><span>تعداد</span><span>مبلغ کل</span><span>عملیات</span>
-    </div>
-    <div>
-      <?php foreach($d['items'] as $it):?>
-      <div class="cart-item">
-        <div class="cart-item-prod">
-          <img src="<?php echo esc_url($it['img']);?>" alt="<?php echo esc_attr($it['name']);?>">
-          <div>
-            <a href="<?php echo esc_url($it['permalink']);?>"><?php echo esc_html($it['name']);?></a>
-            <span class="badge">بیشتر</span>
-          </div>
-        </div>
-        <div><select><option><?php echo esc_html($it['weight']);?></option><option>۲۵۰ گرم</option><option>۵۰۰ گرم</option><option>۱ کیلوگرم</option></select></div>
-        <div class="price"><?php echo $fmt($it['price']);?> تومان</div>
-        <div><div class="cart-qty"><button type="button" data-cart-qty="-" data-key="<?php echo esc_attr($it['key']);?>"><span><?php echo alookhor_cc_cart_icon('minus');?></span></button><span><?php echo $fa_th($it['qty']);?></span><button type="button" data-cart-qty="+" data-key="<?php echo esc_attr($it['key']);?>"><span><?php echo alookhor_cc_cart_icon('plus');?></span></button></div></div>
-        <div class="price-total"><?php echo $fmt($it['subtotal']);?> تومان</div>
-        <div class="cart-actions"><button type="button" data-wishlist><span><?php echo alookhor_cc_cart_icon('heart');?></span></button><button type="button" data-cart-remove="<?php echo esc_attr($it['key']);?>"><span><?php echo alookhor_cc_cart_icon('trash');?></span></button></div>
-      </div>
-      <?php endforeach;?>
-      <?php if(empty($d['items'])):?>
-      <div style="padding:28px;text-align:center;color:#a48db8;font-size:13px">سبد خرید شما خالی است — <a href="<?php echo esc_url($d['shop']);?>" style="color:#f7b32b">رفتن به فروشگاه</a></div>
-      <?php endif;?>
-    </div>
-    <div class="cart-products-footer">
-      <a href="<?php echo esc_url($d['shop']);?>" class="btn-continue"><span><?php echo alookhor_cc_cart_icon('arrowl');?></span> ادامه خرید</a>
-      <button type="button" class="btn-share"><span><?php echo alookhor_cc_cart_icon('share');?></span> سبد خرید را به اشتراک بگذارید</button>
-    </div>
-  </div>
-</div>
-<?php
- return ob_get_clean();
-}
-add_shortcode('alookhor_cart_products','alookhor_cc_cart_products_shortcode');
-add_shortcode('alookhor_cart_items','alookhor_cc_cart_products_shortcode');
-}
-
-if(!function_exists('alookhor_cc_cart_summary_shortcode')){
-function alookhor_cc_cart_summary_shortcode(){
- $d=function_exists('alookhor_cc_cart_data_fallback')?alookhor_cc_cart_data_fallback():alookhor_cc_cart_data(); if(!$d) return '';
- $fmt=$d['fmt']; ob_start();
-?>
-<div id="alookhor-cart-summary" dir="rtl">
-  <div class="cart-summary">
-    <div>
-      <div class="summary-title"><span class="icon">≡</span> خلاصه سفارش</div>
-      <div class="summary-rows">
-        <div class="summary-row"><span class="label">جمع مبلغ کالاها</span><span class="value"><?php echo $fmt($d['subtotal']);?> تومان</span></div>
-        <div class="summary-row"><span class="label">تخفیف</span><span class="value mint"><?php echo $fmt($d['discount']);?> تومان</span></div>
-        <div class="summary-row"><span class="label">هزینه ارسال</span><span class="value mint">رایگان</span></div>
-        <div class="summary-divider"></div>
-        <div class="summary-total"><span class="label">مبلغ قابل پرداخت</span><span class="value"><?php echo $fmt($d['total']);?> تومان</span></div>
-      </div>
-      <a href="<?php echo esc_url($d['checkout']);?>" class="btn-checkout"><span>ادامه و ثبت سفارش</span><span><?php echo alookhor_cc_cart_icon('arrowl');?></span></a>
-      <div class="coupon-box"><div class="title"><span>٪</span> کد تخفیف دارید؟</div><div class="row"><input type="text" placeholder="کد تخفیف را وارد کنید ..."><button type="button">اعمال</button></div></div>
-      <div class="shipping-info"><span class="icon"><span><?php echo alookhor_cc_cart_icon('truck');?></span></span><div><span style="display:block;font-weight:700;color:#fbf3e2;font-size:12px">ارسال به سراسر کشور</span><span style="display:block;font-size:11px;color:rgba(164,141,184,.70)">تحویل سریع و مطمئن در کمترین زمان</span></div></div>
-    </div>
-  </div>
-</div>
-<?php
- return ob_get_clean();
-}
-add_shortcode('alookhor_cart_summary','alookhor_cc_cart_summary_shortcode');
-}
-
-if(!function_exists('alookhor_cc_cart_suggested_shortcode')){
-function alookhor_cc_cart_suggested_shortcode(){
- $d=function_exists('alookhor_cc_cart_data_fallback')?alookhor_cc_cart_data_fallback():alookhor_cc_cart_data(); if(!$d) return '';
- $fmt=$d['fmt']; $img=ALOOKHOR_CC_URL.'assets/images/'; ob_start();
-?>
-<div id="alookhor-cart-suggested" dir="rtl">
-  <div class="suggested">
-    <h2><span><?php echo alookhor_cc_cart_icon('cart');?></span> پیشنهاد تکمیل خرید <small>این محصولات را هم امتحان کنید</small></h2>
-    <div class="suggested-grid">
-      <?php
-      $related_ids=[];
-      if(!empty($d['items'])){ $first_pid=$d['items'][0]['id']; $prod=wc_get_product($first_pid); if($prod){ $related_ids=wc_get_related_products($first_pid,4);} }
-      if(empty($related_ids)){ $related_ids=wc_get_products(['limit'=>4,'return'=>'ids','status'=>'publish']); }
-      foreach(array_slice($related_ids,0,4) as $rid){
-        $rp=wc_get_product($rid); if(!$rp)continue;
-        $ru=wp_get_attachment_image_url($rp->get_image_id(),'woocommerce_thumbnail'); $ru=$ru?:$img.'bowl.jpg';
-        $rprice=(float)$rp->get_price(); if(!$rprice && $rp->is_type('variable')){ $rprice=(float)$rp->get_variation_price('min',true); if(!$rprice) $rprice=(float)$rp->get_variation_regular_price('min',true); }
-        $rname=$rp->get_name();
-      ?>
-      <div class="suggested-card">
-        <div class="img-wrap"><img src="<?php echo esc_url($ru);?>" alt="<?php echo esc_attr($rname);?>"><span class="heart"><span><?php echo alookhor_cc_cart_icon('heart');?></span></span><span class="discount">۱۰٪ تخفیف</span></div>
-        <div class="info"><span class="name"><?php echo esc_html($rname);?></span><span class="price"><?php echo $fmt($rprice);?> تومان</span><button type="button" class="add-btn"><span><?php echo alookhor_cc_cart_icon('cart');?></span> افزودن</button></div>
-      </div>
-      <?php } ?>
-    </div>
-  </div>
-</div>
-<?php
- return ob_get_clean();
-}
-add_shortcode('alookhor_cart_suggested','alookhor_cc_cart_suggested_shortcode');
-}
-
-if(!function_exists('alookhor_cc_cart_features_shortcode')){
-function alookhor_cc_cart_features_shortcode(){
- ob_start();
-?>
-<div id="alookhor-cart-features" dir="rtl">
-  <div class="features">
-    <div class="feature"><span class="icon"><span><?php echo alookhor_cc_cart_icon('truck');?></span></span><div>ارسال سریع<br><small>تحویل فوری</small></div></div>
-    <div class="feature"><span class="icon"><span><?php echo alookhor_cc_cart_icon('shield');?></span></span><div>ضمانت اصالت کالا<br><small>تضمین کیفیت و اصالت</small></div></div>
-    <div class="feature"><span class="icon"><span><?php echo alookhor_cc_cart_icon('return');?></span></span><div>ضمانت بازگشت کالا<br><small>۷ روز بدون قید و شرط</small></div></div>
-    <div class="feature"><span class="icon"><span><?php echo alookhor_cc_cart_icon('headset');?></span></span><div>پشتیبانی ۲۴ ساعته<br><small>همیشه پاسخگوی شما هستیم</small></div></div>
-  </div>
-</div>
-<?php
- return ob_get_clean();
-}
-add_shortcode('alookhor_cart_features','alookhor_cc_cart_features_shortcode');
-}
-
-if(!function_exists('alookhor_cc_cart_faq_shortcode')){
-function alookhor_cc_cart_faq_shortcode(){
- ob_start();
-?>
-<div id="alookhor-cart-faq" dir="rtl">
-  <div class="faq">
-    <h3><span>؟</span> سوالات متداول</h3>
-    <details><summary>هزینه ارسال سفارشم چقدر است؟<span><?php echo alookhor_cc_cart_icon('chevr');?></span></summary><p>هزینه ارسال بر اساس وزن و مقصد محاسبه می‌شود و در خلاصه سفارش نمایش داده می‌شود. ارسال رایگان برای سفارش‌های بالای ۵۰۰ هزار تومان.</p></details>
-    <details><summary>چطور می‌توانم سفارشم را دستم برسانم؟<span><?php echo alookhor_cc_cart_icon('chevr');?></span></summary><p>پس از ثبت سفارش، کد رهگیری برای شما پیامک می‌شود و می‌توانید وضعیت را در حساب کاربری پیگیری کنید.</p></details>
-    <details><summary>آیا امکان بازگشت کالا وجود دارد؟<span><?php echo alookhor_cc_cart_icon('chevr');?></span></summary><p>بله، تا ۷ روز پس از تحویل امکان بازگشت کالا در صورت عدم رضایت وجود دارد.</p></details>
-  </div>
-</div>
-<?php
- return ob_get_clean();
-}
-add_shortcode('alookhor_cart_faq','alookhor_cc_cart_faq_shortcode');
-}
-
-if(!function_exists('alookhor_cc_cart_full_shortcode')){
-function alookhor_cc_cart_full_shortcode(){ return alookhor_cc_cart_markup(); }
-add_shortcode('alookhor_cart','alookhor_cc_cart_full_shortcode');
-add_shortcode('alookhor_cart_full','alookhor_cc_cart_full_shortcode');
-}
-
-// ===== v3.10.367 — FIX SHORTCODE REGISTRATION FOR ELEMENTOR =====
-add_action('init', function(){
-  // Ensure all cart shortcodes are registered on init for Elementor
-  if(function_exists('alookhor_cc_cart_hero_shortcode')) add_shortcode('alookhor_cart_hero','alookhor_cc_cart_hero_shortcode');
-  if(function_exists('alookhor_cc_cart_products_shortcode')) {
-    add_shortcode('alookhor_cart_products','alookhor_cc_cart_products_shortcode');
-    add_shortcode('alookhor_cart_items','alookhor_cc_cart_products_shortcode');
-  }
-  if(function_exists('alookhor_cc_cart_summary_shortcode')) add_shortcode('alookhor_cart_summary','alookhor_cc_cart_summary_shortcode');
-  if(function_exists('alookhor_cc_cart_suggested_shortcode')) add_shortcode('alookhor_cart_suggested','alookhor_cc_cart_suggested_shortcode');
-  if(function_exists('alookhor_cc_cart_features_shortcode')) add_shortcode('alookhor_cart_features','alookhor_cc_cart_features_shortcode');
-  if(function_exists('alookhor_cc_cart_faq_shortcode')) add_shortcode('alookhor_cart_faq','alookhor_cc_cart_faq_shortcode');
-  if(function_exists('alookhor_cc_cart_full_shortcode')) {
-    add_shortcode('alookhor_cart','alookhor_cc_cart_full_shortcode');
-    add_shortcode('alookhor_cart_full','alookhor_cc_cart_full_shortcode');
-  }
-  // Also ensure woocommerce_cart override
-  if(function_exists('alookhor_cc_cart_markup')){
-    if(shortcode_exists('woocommerce_cart')) remove_shortcode('woocommerce_cart');
-    add_shortcode('woocommerce_cart', function(){ return alookhor_cc_cart_markup(); });
-  }
-}, 20);
-
-// Fix cart data to return dummy in Elementor preview when WC cart not available
-if(!function_exists('alookhor_cc_cart_data_fallback')){
-function alookhor_cc_cart_data_fallback(){
-  $is_elementor = (isset($_GET['elementor_library']) || isset($_POST['action']) && $_POST['action']==='elementor_ajax' || (defined('ELEMENTOR_VERSION')) && (\Elementor\Plugin::$instance->editor->is_edit_mode() ?? false));
-  // Try real cart first
-  $real = null;
+if(!function_exists('alookhor_cc_cart_data_robust')){
+function alookhor_cc_cart_data_robust(){
+  // Try real cart
   if(function_exists('WC') && WC() && WC()->cart){
-    $real = alookhor_cc_cart_data();
-    if($real && !empty($real['items'])) return $real;
+    $d = alookhor_cc_cart_data();
+    if($d) return $d;
   }
-  // If in Elementor or cart empty, return dummy for preview
-  if($is_elementor || (isset($_GET['action']) && $_GET['action']==='elementor') || (defined('DOING_AJAX') && DOING_AJAX)){
-    $fmt = function($a){ return number_format((float)$a,0,'.',','); };
-    $fa_th = function($n){ return (string)$n; };
-    return [
-      'items'=>[
-        ['key'=>'dummy1','id'=>1,'vid'=>0,'name'=>'آلو بخارا جنگلی ترش ارگانیک (نمایشی)','img'=>ALOOKHOR_CC_URL.'assets/images/bowl.jpg','qty'=>2,'price'=>420000,'regular'=>500000,'subtotal'=>840000,'weight'=>'۵۰۰ گرم','permalink'=>home_url('/')],
-        ['key'=>'dummy2','id'=>2,'vid'=>0,'name'=>'گردو با پوست کاغذی (نمایشی)','img'=>ALOOKHOR_CC_URL.'assets/images/bowl.jpg','qty'=>1,'price'=>690000,'regular'=>750000,'subtotal'=>690000,'weight'=>'۱ کیلوگرم','permalink'=>home_url('/')],
-      ],
-      'count'=>2,
-      'subtotal'=>1530000,
-      'discount'=>0,
-      'total'=>1530000,
-      'fmt'=>$fmt,
-      'fa_th'=>$fa_th,
-      'shop'=>wc_get_page_permalink('shop') ?: home_url('/shop/'),
-      'checkout'=>wc_get_checkout_url() ?: home_url('/checkout/'),
-      'cart_url'=>wc_get_cart_url() ?: home_url('/cart/'),
-    ];
-  }
-  return $real;
+  // Fallback dummy for Elementor preview / empty cart
+  $fmt = function($a){ return number_format((float)$a,0,'.',','); };
+  $fa_th = function($n){ return (string)$n; };
+  $shop = function_exists('wc_get_page_permalink') ? wc_get_page_permalink('shop') : home_url('/shop/');
+  $checkout = function_exists('wc_get_checkout_url') ? wc_get_checkout_url() : home_url('/checkout/');
+  $cart_url = function_exists('wc_get_cart_url') ? wc_get_cart_url() : home_url('/cart/');
+  return [
+    'items'=>[
+      ['key'=>'dummy1','id'=>1,'vid'=>0,'name'=>'آلو بخارا جنگلی ترش ارگانیک (نمایشی)','img'=>ALOOKHOR_CC_URL.'assets/images/bowl.jpg','qty'=>2,'price'=>420000,'regular'=>500000,'subtotal'=>840000,'weight'=>'۵۰۰ گرم','permalink'=>home_url('/')],
+      ['key'=>'dummy2','id'=>2,'vid'=>0,'name'=>'گردو با پوست کاغذی (نمایشی)','img'=>ALOOKHOR_CC_URL.'assets/images/bowl.jpg','qty'=>1,'price'=>690000,'regular'=>750000,'subtotal'=>690000,'weight'=>'۱ کیلوگرم','permalink'=>home_url('/')],
+    ],
+    'count'=>2,
+    'subtotal'=>1530000,
+    'discount'=>0,
+    'total'=>1530000,
+    'fmt'=>$fmt,
+    'fa_th'=>$fa_th,
+    'shop'=>$shop,
+    'checkout'=>$checkout,
+    'cart_url'=>$cart_url,
+  ];
 }
 }
 
-// Override shortcodes to use fallback data for Elementor preview
-if(!function_exists('alookhor_cc_cart_hero_shortcode_v2')){
-function alookhor_cc_cart_hero_shortcode_v2(){
-  // Always return hero even without cart data
-  $img=ALOOKHOR_CC_URL.'assets/images/';
+if(!function_exists('alookhor_cc_cart_hero_shortcode_final')){
+function alookhor_cc_cart_hero_shortcode_final($atts=[]){
+  $img = defined('ALOOKHOR_CC_URL') ? ALOOKHOR_CC_URL.'assets/images/' : '/wp-content/plugins/alookhor-control-center/assets/images/';
   ob_start();
+  // Inline CSS for Elementor preview so it always visible
+  echo '<style>.cart-hero{position:relative;overflow:hidden;border-radius:20px;background:#1C1024;border:1px solid rgba(212,154,46,.25);padding:24px;color:#F5F3F0} .cart-hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.25} .cart-hero-content{position:relative;z-index:2;display:flex;justify-content:space-between;align-items:center;gap:16px} .cart-hero-left{display:flex;gap:16px;align-items:center} .cart-hero-left img{width:64px;height:64px;border-radius:12px;object-fit:cover} .cart-hero-left h1{font-size:22px;font-weight:900;margin:0} .cart-hero-tagline{background:rgba(212,154,46,.15);border:1px solid rgba(212,154,46,.25);padding:8px 14px;border-radius:999px;font-size:12px}</style>';
 ?>
 <div id="alookhor-cart-hero" dir="rtl">
   <div class="cart-hero">
@@ -14976,20 +14783,191 @@ function alookhor_cc_cart_hero_shortcode_v2(){
       <div class="cart-hero-left">
         <img src="<?php echo esc_url($img.'bowl.jpg');?>" alt="کاسه آلو">
         <div>
-          <div class="breadcrumb"><a href="<?php echo esc_url(home_url('/'));?>">خانه</a><span>›</span><span>سبد خرید</span></div>
-          <h1><span><?php echo function_exists('alookhor_cc_cart_icon')?alookhor_cc_cart_icon('cart'):'';?></span> سبد خرید شما</h1>
-          <p>محصولات منتخب شما در یک نگاه و با اطمینان خرید کنید</p>
+          <div class="breadcrumb" style="font-size:12px;color:#C8C2C9"><a href="<?php echo esc_url(home_url('/'));?>" style="color:#E8B84A">خانه</a><span> › </span><span>سبد خرید</span></div>
+          <h1><span><?php echo alookhor_cc_cart_icon_safe('cart');?></span> سبد خرید شما</h1>
+          <p style="margin:4px 0 0;color:#C8C2C9;font-size:13px">محصولات منتخب شما در یک نگاه و با اطمینان خرید کنید</p>
         </div>
       </div>
-      <div class="cart-hero-tagline"><span><?php echo function_exists('alookhor_cc_cart_icon')?alookhor_cc_cart_icon('leaf'):'';?></span> طعم اصالت از دل طبیعت ایران</div>
+      <div class="cart-hero-tagline"><span><?php echo alookhor_cc_cart_icon_safe('leaf');?></span> طعم اصالت از دل طبیعت ایران</div>
     </div>
   </div>
 </div>
 <?php
   return ob_get_clean();
 }
-add_shortcode('alookhor_cart_hero','alookhor_cc_cart_hero_shortcode_v2');
 }
+
+if(!function_exists('alookhor_cc_cart_products_shortcode_final')){
+function alookhor_cc_cart_products_shortcode_final(){
+  $d = alookhor_cc_cart_data_robust();
+  if(!$d) return '<div style="padding:20px;background:#1C1024;color:#F5F3F0;border-radius:12px">سبد خرید خالی است</div>';
+  $fmt=$d['fmt']; $fa_th=$d['fa_th'];
+  ob_start();
+  echo '<style>.cart-products-box{background:#1C1024;border:1px solid rgba(212,154,46,.2);border-radius:16px;overflow:hidden} .cart-products-header{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr 1fr;gap:8px;padding:14px;background:rgba(212,154,46,.08);font-size:11px;color:#C8C2C9} .cart-item{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr 1fr;gap:8px;padding:14px;border-top:1px solid rgba(255,255,255,.06);align-items:center} .cart-item img{width:48px;height:48px;border-radius:8px;object-fit:cover} .price{color:#E8B84A;font-weight:700} .btn-continue{color:#F5F3F0;text-decoration:none;font-size:12px} .btn-share{background:transparent;border:1px solid rgba(212,154,46,.25);color:#E8B84A;padding:8px 12px;border-radius:8px;font-size:12px}</style>';
+?>
+<div id="alookhor-cart-products" dir="rtl">
+  <div class="cart-products-box">
+    <div class="cart-products-header">
+      <span>محصول</span><span>وزن</span><span>قیمت واحد</span><span>تعداد</span><span>مبلغ کل</span><span>عملیات</span>
+    </div>
+    <div>
+      <?php foreach($d['items'] as $it):?>
+      <div class="cart-item">
+        <div style="display:flex;gap:10px;align-items:center">
+          <img src="<?php echo esc_url($it['img']);?>" alt="">
+          <a href="<?php echo esc_url($it['permalink']);?>" style="color:#F5F3F0;text-decoration:none;font-size:13px"><?php echo esc_html($it['name']);?></a>
+        </div>
+        <div style="color:#C8C2C9;font-size:12px"><?php echo esc_html($it['weight']);?></div>
+        <div class="price"><?php echo $fmt($it['price']);?> تومان</div>
+        <div style="color:#F5F3F0"><?php echo $fa_th($it['qty']);?></div>
+        <div class="price"><?php echo $fmt($it['subtotal']);?> تومان</div>
+        <div><span style="color:#C8C2C9">🗑️</span></div>
+      </div>
+      <?php endforeach;?>
+    </div>
+    <div style="padding:12px;display:flex;justify-content:space-between">
+      <a href="<?php echo esc_url($d['shop']);?>" class="btn-continue">← ادامه خرید</a>
+      <button class="btn-share">اشتراک‌گذاری سبد</button>
+    </div>
+  </div>
+</div>
+<?php
+  return ob_get_clean();
+}
+}
+
+if(!function_exists('alookhor_cc_cart_summary_shortcode_final')){
+function alookhor_cc_cart_summary_shortcode_final(){
+  $d = alookhor_cc_cart_data_robust();
+  if(!$d) return '';
+  $fmt=$d['fmt'];
+  ob_start();
+  echo '<style>.cart-summary>div{background:#1C1024;border:1px solid rgba(212,154,46,.2);border-radius:16px;padding:18px;color:#F5F3F0} .summary-title{font-weight:900;margin-bottom:12px} .summary-row{display:flex;justify-content:space-between;padding:8px 0;font-size:13px;color:#C8C2C9} .summary-total{display:flex;justify-content:space-between;padding:12px 0;border-top:1px solid rgba(255,255,255,.1);font-weight:900;color:#E8B84A} .btn-checkout{display:block;background:linear-gradient(135deg,#D49A2E,#E8B84A);color:#0D0510;text-align:center;padding:14px;border-radius:12px;text-decoration:none;font-weight:900;margin:12px 0} .coupon-box{margin-top:12px} .coupon-box input{width:70%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.06);color:#fff} .coupon-box button{width:28%;padding:10px;border-radius:8px;background:#D49A2E;border:none;color:#0D0510;font-weight:700}</style>';
+?>
+<div id="alookhor-cart-summary" dir="rtl">
+  <div class="cart-summary">
+    <div>
+      <div class="summary-title">≡ خلاصه سفارش</div>
+      <div class="summary-rows">
+        <div class="summary-row"><span>جمع مبلغ کالاها</span><span><?php echo $fmt($d['subtotal']);?> تومان</span></div>
+        <div class="summary-row"><span>تخفیف</span><span><?php echo $fmt($d['discount']);?> تومان</span></div>
+        <div class="summary-row"><span>هزینه ارسال</span><span>رایگان</span></div>
+        <div class="summary-total"><span>مبلغ قابل پرداخت</span><span><?php echo $fmt($d['total']);?> تومان</span></div>
+      </div>
+      <a href="<?php echo esc_url($d['checkout']);?>" class="btn-checkout">ادامه و ثبت سفارش</a>
+      <div class="coupon-box"><div style="font-size:12px;margin-bottom:8px">٪ کد تخفیف دارید؟</div><div style="display:flex;gap:8px"><input type="text" placeholder="کد تخفیف..."><button>اعمال</button></div></div>
+    </div>
+  </div>
+</div>
+<?php
+  return ob_get_clean();
+}
+}
+
+if(!function_exists('alookhor_cc_cart_suggested_shortcode_final')){
+function alookhor_cc_cart_suggested_shortcode_final(){
+  $d = alookhor_cc_cart_data_robust();
+  if(!$d) return '';
+  $fmt=$d['fmt']; $img=defined('ALOOKHOR_CC_URL')?ALOOKHOR_CC_URL.'assets/images/':'/wp-content/plugins/alookhor-control-center/assets/images/';
+  ob_start();
+  echo '<style>.suggested{background:#1C1024;border:1px solid rgba(212,154,46,.2);border-radius:16px;padding:18px} .suggested h2{font-size:16px;font-weight:900;color:#F5F3F0;margin:0 0 14px} .suggested-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px} .suggested-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;overflow:hidden} .suggested-card .img-wrap{position:relative} .suggested-card img{width:100%;height:160px;object-fit:cover} .suggested-card .info{padding:10px} .suggested-card .name{font-size:12px;color:#F5F3F0;display:block;margin-bottom:6px} .suggested-card .price{font-size:12px;color:#E8B84A;font-weight:700} .add-btn{width:100%;margin-top:8px;background:#D49A2E;border:none;padding:8px;border-radius:8px;color:#0D0510;font-weight:700;font-size:12px}</style>';
+?>
+<div id="alookhor-cart-suggested" dir="rtl">
+  <div class="suggested">
+    <h2>🛒 پیشنهاد تکمیل خرید <small style="color:#C8C2C9;font-weight:400;font-size:12px">این محصولات را هم امتحان کنید</small></h2>
+    <div class="suggested-grid">
+      <?php
+      $related_ids=[];
+      if(function_exists('wc_get_products')){
+        $related_ids=wc_get_products(['limit'=>4,'return'=>'ids','status'=>'publish']);
+      }
+      if(empty($related_ids)) $related_ids=[1,2,3,4];
+      foreach(array_slice($related_ids,0,4) as $rid){
+        if(function_exists('wc_get_product')){
+          $rp=wc_get_product($rid); if(!$rp) continue;
+          $ru=wp_get_attachment_image_url($rp->get_image_id(),'woocommerce_thumbnail'); $ru=$ru?:$img.'bowl.jpg';
+          $rprice=(float)$rp->get_price(); if(!$rprice && $rp->is_type('variable')){ $rprice=(float)$rp->get_variation_price('min',true); }
+          $rname=$rp->get_name();
+        } else {
+          $ru=$img.'bowl.jpg'; $rprice=420000; $rname='آلو بخارا نمونه';
+        }
+      ?>
+      <div class="suggested-card">
+        <div class="img-wrap"><img src="<?php echo esc_url($ru);?>" alt=""><span style="position:absolute;top:8px;right:8px;background:#E93D5A;color:#fff;padding:2px 6px;border-radius:4px;font-size:10px">۱۰٪ تخفیف</span></div>
+        <div class="info"><span class="name"><?php echo esc_html($rname);?></span><span class="price"><?php echo $fmt($rprice);?> تومان</span><button class="add-btn">افزودن</button></div>
+      </div>
+      <?php } ?>
+    </div>
+  </div>
+</div>
+<?php
+  return ob_get_clean();
+}
+}
+
+if(!function_exists('alookhor_cc_cart_features_shortcode_final')){
+function alookhor_cc_cart_features_shortcode_final(){
+  ob_start();
+  echo '<style>.features{display:grid;grid-template-columns:repeat(4,1fr);gap:12px} .feature{background:#1C1024;border:1px solid rgba(212,154,46,.15);border-radius:12px;padding:14px;display:flex;gap:10px;align-items:center;color:#F5F3F0;font-size:13px} .feature small{color:#C8C2C9;font-size:11px}</style>';
+?>
+<div id="alookhor-cart-features" dir="rtl">
+  <div class="features">
+    <div class="feature">🚚<div>ارسال سریع<br><small>تحویل فوری</small></div></div>
+    <div class="feature">🛡️<div>ضمانت اصالت کالا<br><small>تضمین کیفیت و اصالت</small></div></div>
+    <div class="feature">↩️<div>ضمانت بازگشت کالا<br><small>۷ روز بدون قید و شرط</small></div></div>
+    <div class="feature">🎧<div>پشتیبانی ۲۴ ساعته<br><small>همیشه پاسخگوی شما هستیم</small></div></div>
+  </div>
+</div>
+<?php
+  return ob_get_clean();
+}
+}
+
+if(!function_exists('alookhor_cc_cart_faq_shortcode_final')){
+function alookhor_cc_cart_faq_shortcode_final(){
+  ob_start();
+  echo '<style>.faq{background:#1C1024;border:1px solid rgba(212,154,46,.15);border-radius:16px;padding:18px;color:#F5F3F0} .faq h3{font-size:15px;font-weight:900;margin:0 0 14px} .faq details{padding:12px 0;border-bottom:1px solid rgba(255,255,255,.06)} .faq summary{cursor:pointer;font-size:13px;font-weight:700}</style>';
+?>
+<div id="alookhor-cart-faq" dir="rtl">
+  <div class="faq">
+    <h3>؟ سوالات متداول</h3>
+    <details><summary>هزینه ارسال سفارشم چقدر است؟</summary><p style="color:#C8C2C9;font-size:12px;margin:8px 0 0">هزینه ارسال بر اساس وزن و مقصد محاسبه می‌شود و در خلاصه سفارش نمایش داده می‌شود.</p></details>
+    <details><summary>چطور می‌توانم سفارشم را پیگیری کنم؟</summary><p style="color:#C8C2C9;font-size:12px;margin:8px 0 0">پس از ثبت سفارش، کد رهگیری پیامک می‌شود.</p></details>
+    <details><summary>آیا امکان بازگشت کالا وجود دارد؟</summary><p style="color:#C8C2C9;font-size:12px;margin:8px 0 0">بله، تا ۷ روز پس از تحویل.</p></details>
+  </div>
+</div>
+<?php
+  return ob_get_clean();
+}
+}
+
+// Register final robust shortcodes
+add_action('init', function(){
+  add_shortcode('alookhor_cart_hero', 'alookhor_cc_cart_hero_shortcode_final');
+  add_shortcode('alookhor_cart_products', 'alookhor_cc_cart_products_shortcode_final');
+  add_shortcode('alookhor_cart_items', 'alookhor_cc_cart_products_shortcode_final');
+  add_shortcode('alookhor_cart_summary', 'alookhor_cc_cart_summary_shortcode_final');
+  add_shortcode('alookhor_cart_suggested', 'alookhor_cc_cart_suggested_shortcode_final');
+  add_shortcode('alookhor_cart_features', 'alookhor_cc_cart_features_shortcode_final');
+  add_shortcode('alookhor_cart_faq', 'alookhor_cc_cart_faq_shortcode_final');
+  add_shortcode('alookhor_cart', function(){ return function_exists('alookhor_cc_cart_markup')?alookhor_cc_cart_markup():'<div>سبد خالی</div>'; });
+  add_shortcode('alookhor_cart_full', function(){ return function_exists('alookhor_cc_cart_markup')?alookhor_cc_cart_markup():'<div>سبد خالی</div>'; });
+  // Test shortcode
+  add_shortcode('alookhor_cart_test', function(){ return '<div style="padding:20px;background:#1C1024;color:#E8B84A;border:2px solid #D49A2E;border-radius:12px;text-align:center">✅ شورت‌کد کار می‌کند! ALOOKHOR Cart Test OK</div>'; });
+}, 5);
+
+// Ensure cart CSS loaded on all pages for Elementor preview
+add_action('wp_enqueue_scripts', function(){
+  // Load on cart, checkout, and Elementor preview
+  $load = false;
+  if(function_exists('is_cart') && is_cart()) $load=true;
+  if(function_exists('is_checkout') && is_checkout()) $load=true;
+  if(isset($_GET['elementor_library']) || isset($_GET['elementor'])) $load=true;
+  if(defined('ELEMENTOR_VERSION')) $load=true;
+  if($load){
+    wp_enqueue_style('alookhor-cc-cart', ALOOKHOR_CC_URL.'assets/css/frontend-cart.css', [], defined('ALOOKHOR_CC_BUILD')?ALOOKHOR_CC_BUILD:time());
+  }
+}, 20);
 ````
 
 ## Source Snapshot — `plugin/alookhor-control-center/includes/contact-page.php`

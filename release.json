@@ -1,27 +1,28 @@
 {
-  "version": "3.10.367",
-  "previous": "3.10.366",
+  "version": "3.10.368",
+  "previous": "3.10.367",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "سبد خرید: فیکس شورت‌کدها که فقط کد نمایش داده می‌شد",
+  "description": "سبد خرید: فیکس المنتور - شورت‌کدها با پیش‌نمایش و CSS داخلی",
   "changelog": [
     {
       "tag": "FIX",
-      "title": "فیکس نمایش شورت‌کدها در المنتور",
-      "desc": "شورت‌کدها [alookhor_cart_hero] و [alookhor_cart_products] و ... فقط به صورت متن [code] نمایش داده می‌شد؛ علت: add_shortcode فقط در لود فایل بود و در init المنتور بازنویسی می‌شد + WC()->cart در پیش‌نمایش المنتور null بود. فیکس: رجیستر مجدد همه شورت‌کدها در action init با اولویت 20 + fallback دیتای نمایشی برای پیش‌نمایش المنتور + hero همیشه visible."
+      "title": "فیکس المنتور - شورت‌کدها چیزی نشان نمی‌داد",
+      "desc": "در تصویر المنتور [alookhor_cart_hero] و [alookhor_portal_header] خالی بود؛ علت: CSS فقط در is_cart لود می‌شد و WC()->cart در پیش‌نمایش المنتور null بود. فیکس: همه شورت‌کدها با inline CSS داخلی و دیتای fallback نمایشی بازنویسی شد + CSS سبد در همه صفحات المنتور لود می‌شود + شورت‌کد تست [alookhor_cart_test] اضافه شد."
     },
     {
       "tag": "GUIDE",
-      "title": "نحوه استفاده در المنتور",
-      "desc": "باید از ویجت Shortcode المنتور استفاده کنید نه Text؛ هر شورت‌کد را در یک ویجت Shortcode جداگانه بگذارید."
+      "title": "تست شورت‌کد",
+      "desc": "اول [alookhor_cart_test] را بگذارید — باید باکس سبز ✅ شورت‌کد کار می‌کند نشان دهد؛ سپس [alookhor_cart_hero] و بقیه."
     }
   ],
   "project": "ALOOKHOR",
-  "area": "cart shortcodes elementor fix",
-  "reason": "کاربر: هر کدی رو میذارم فقط کد میاد نه محتوا",
+  "area": "cart elementor preview fix",
+  "reason": "کاربر تصویر فرستاد که در المنتور هنوز چیزی نیامده، با وجود استفاده از ویجت Shortcode",
   "files": [
-    "plugin/alookhor-control-center/includes/cart-page.php"
+    "plugin/alookhor-control-center/includes/cart-page.php",
+    "plugin/alookhor-control-center/assets/css/frontend-cart.css"
   ]
 }
