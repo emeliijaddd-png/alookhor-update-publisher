@@ -10,26 +10,13 @@ jobs:
         shell: bash
         run: |
           set -euxo pipefail
-          curl -fsSL --max-time 30 'https://alookhor.ir/cart/?livecheck=20260908' -o /tmp/cart.html
-          echo '--- CART SIZE ---'
-          wc -c /tmp/cart.html
-          echo '--- ARENA CART COUNT ---'
-          grep -o 'id="alookhor-cart"' /tmp/cart.html | wc -l
-          echo '--- NATIVE CART MARKERS ---'
-          for p in 'woocommerce-cart-form' 'cart-collaterals' 'cart_totals' 'woocommerce-cart' 'woodmart-cart' 'wd-cart' 'cart-empty'; do echo "$p=$(grep -oi "$p" /tmp/cart.html | wc -l)"; done
-          echo '--- WOODMART MARKERS ---'
-          grep -oiE 'woodmart[^"< ]*|wd-[a-z0-9_-]+' /tmp/cart.html | sort -u | head -150 || true
-          echo '--- CART TITLES / TEXT ---'
-          grep -oE '<h[1-3][^>]*>[^<]+' /tmp/cart.html | head -50 || true
-          echo '--- CART STRUCTURAL CLASSES ---'
-          grep -oiE 'class="[^"]*(cart|woodmart|wd-)[^"]*"' /tmp/cart.html | head -150 || true
-          echo '--- FOOTER / CART ORDER ---'
+          curl -fsSL --max-time 30 'https://alookhor.ir/cart/?livecheck=20260908b' -o /tmp/cart.html
           python3 - <<'PY'
           from pathlib import Path
           import re
           h=Path('/tmp/cart.html').read_text(errors='ignore')
-          for pat in ['alookhor-cart','woocommerce-cart-form','cart-collaterals','cart_totals','woodmart-cart','wd-cart','footer']:
-              print(pat, [m.start() for m in re.finditer(pat,h,re.I)][:20])
-          print('Arena IDs:', len(re.findall(r'id=[\"\']alookhor-cart[\"\']',h,re.I)))
-          print('Footer tags:', len(re.findall(r'<footer\b',h,re.I)))
+          for marker in ['id="alookhor-cart"','woocommerce-cart-form','cart-collaterals','cart_totals','<footer']:
+              pos=h.lower().find(marker.lower())
+              print('\n=== MARKER',marker,'POS',pos,'===')
+              if pos>=0: print(h[max(0,pos-2500):pos+4500])
           PY
