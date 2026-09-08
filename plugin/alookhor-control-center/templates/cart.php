@@ -2,20 +2,7 @@
 /** ALOOKHOR luxury cart template — permanent custom cart shell, independent from WoodMart. */
 if(!defined('ABSPATH'))exit;
 
-/*
- * This file is the ONLY visual cart shell. WooCommerce/WoodMart cart templates,
- * Elementor cart widgets and theme page containers must never become visible here.
- */
-$alookhor_cart_name_guard=null;
-if(function_exists('alookhor_cc_cart_markup')){
-    /* Legacy cart-data code had an accidental Samsung/phone name exclusion.
-       Keep the real product name available while the custom renderer builds its data. */
-    $alookhor_cart_name_guard=static function($name){
-        return str_replace(['سامسونگ','گوشی'],['سام‌سونگ','گوشی‌'],$name);
-    };
-    add_filter('woocommerce_product_get_name',$alookhor_cart_name_guard,PHP_INT_MAX,1);
-    add_filter('woocommerce_product_variation_get_name',$alookhor_cart_name_guard,PHP_INT_MAX,1);
-}
+/* This file is the ONLY visual cart shell - no Samsung filter, show all products */
 
 /* Prevent WooCommerce/WoodMart from rendering a second cart through hooks. */
 if(function_exists('is_cart')&&is_cart()){
@@ -98,10 +85,6 @@ add_action('wp_print_styles',static function(){
 <div class="alookhor-cart-breadcrumb" aria-label="موقعیت صفحه"><div class="breadcrumb-box"><a href="<?php echo esc_url(home_url('/')); ?>">خانه</a><span aria-hidden="true"> / </span><span>سبد خرید</span></div></div>
 <main id="alookhor-cart-main" class="alookhor-cart-main" role="main"><?php echo alookhor_cc_cart_markup(); ?></main>
 <?php
-if($alookhor_cart_name_guard){
-    remove_filter('woocommerce_product_get_name',$alookhor_cart_name_guard,PHP_INT_MAX);
-    remove_filter('woocommerce_product_variation_get_name',$alookhor_cart_name_guard,PHP_INT_MAX);
-}
 get_footer();
 ?>
 </body>

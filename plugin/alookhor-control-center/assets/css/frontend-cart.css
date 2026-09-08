@@ -671,3 +671,64 @@ body.woocommerce-cart {
   background:#0d0510!important;
   background-color:#0d0510!important;
 }
+
+/* ===== v3.10.358 — CART WHITE BAR & BIG WHITE RECTANGLE FIX ===== */
+body.woocommerce-cart .wd-page-title,
+body.woocommerce-cart .whb-page-title,
+body.woocommerce-cart .wd-entities-title,
+body.woocommerce-cart .wd-page-title.wd-style-default,
+body.woocommerce-cart .wd-page-title.wd-style-centered,
+body.woocommerce-cart .whb-page-title .container,
+body.woocommerce-cart .wd-page-title .container,
+body.woocommerce-cart .page-title,
+body.woocommerce-cart .entry-header,
+body.woocommerce-cart .wd-page-heading,
+body.woocommerce-cart .page-heading,
+body.woocommerce-cart .title-design-default,
+body.woocommerce-cart .title-design-centered,
+body.woocommerce-cart .wd-checkout-steps,
+body.woocommerce-cart .wd-checkout-steps-wrapper,
+body.woocommerce-cart .woocommerce-breadcrumb,
+body.woocommerce-cart .wd-breadcrumbs,
+body.woocommerce-cart .breadcrumbs,
+body.woocommerce-cart .wd-title,
+body.woocommerce-cart [class*="page-title"],
+body.woocommerce-cart [class*="wd-entities"],
+body.woocommerce-cart .container > .wd-page-title,
+body.woocommerce-cart .main-page-wrapper > .wd-page-title,
+body.woocommerce-cart .site-content > .wd-page-title,
+body.woocommerce-cart .whb-header + .wd-page-title,
+body.woocommerce-cart .whb-header + .main-page-wrapper .wd-page-title,
+body.alookhor-managed-cart-page .wd-page-title,
+body.alookhor-managed-cart-page .whb-page-title,
+body.alookhor-managed-cart-page .wd-entities-title,
+body.alookhor-managed-cart-page .page-title,
+body.alookhor-managed-cart-page .entry-header,
+body.alookhor-managed-cart-page .wd-checkout-steps,
+body.alookhor-managed-cart-page .wd-page-heading {
+  display:none!important;
+  visibility:hidden!important;
+  height:0!important;
+  overflow:hidden!important;
+  margin:0!important;
+  padding:0!important;
+  opacity:0!important;
+  pointer-events:none!important;
+  border:none!important;
+  background:transparent!important;
+}
+body.woocommerce-cart,
+body.alookhor-managed-cart-page,
+html body.woocommerce-cart,
+html body.alookhor-managed-cart-page {
+  background:#0d0510!important;
+  background-color:#0d0510!important;
+}
+body.woocommerce-cart #alookhor-cart,
+body.alookhor-managed-cart-page #alookhor-cart,
+body.woocommerce-cart #alookhor-cart-main,
+body.alookhor-managed-cart-page #alookhor-cart-main {
+  display:block!important;
+  visibility:visible!important;
+  opacity:1!important;
+}

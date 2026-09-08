@@ -1,38 +1,40 @@
 {
-  "version": "3.10.357",
-  "previous": "3.10.356",
+  "version": "3.10.358",
+  "previous": "3.10.357",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "PDP گالری: زوم روی عکس با موس + چرخش خودکار هر 4 ثانیه + فیکس Breadcrumb",
+  "description": "سبد خرید: حذف نوار سفید و مستطیل سفید + نمایش تمام محصولات بدون فیلتر سامسونگ",
   "changelog": [
     {
-      "tag": "FEATURE",
-      "title": "زوم عکس محصول روی هاور",
-      "desc": "وقتی موس روی عکس اصلی می‌رود تصویر با scale 2 زوم می‌شود و transform-origin با حرکت موس جابجا می‌شود؛ روی موبایل/تبلت غیرفعال برای UX لمسی"
-    },
-    {
-      "tag": "FEATURE",
-      "title": "چرخش خودکار گالری هر 4 ثانیه",
-      "desc": "هر 4 ثانیه عکس اصلی با عکس بعدی از بخش کناری عوض می‌شود؛ با کلیک روی بندانگشتی یا فلش‌ها، هاور زوم، یا اسکرول، 6 ثانیه pause می‌شود؛ وقتی تب مخفی است متوقف می‌شود"
+      "tag": "FIX",
+      "title": "حذف نوار سفید سبد خرید",
+      "desc": "نوار سفید کوچک بالای صفحه با متن سبد خرید و تمام کانتینرهای سفید Woodmart با CSS و JS تهاجمی حذف شد؛ فقط سبد خرید لوکس خودمان نمایش داده می‌شود"
     },
     {
       "tag": "FIX",
-      "title": "Breadcrumb صفحه محصول زیر هدر",
-      "desc": "مسیر خانه / محصولات / دسته‌بندی / محصول با فاصله صحیح از هدر، فونت Dana، رنگ سفید و Responsive کامل"
+      "title": "نمایش تمام محصولات در سبد خرید",
+      "desc": "فیلتر قدیمی که محصولات حاوی سامسونگ و گوشی را مخفی می‌کرد حذف شد؛ حالا تمام خریدهای کاربر بدون استثنا نمایش داده می‌شود"
+    },
+    {
+      "tag": "FEATURE",
+      "title": "حفظ زوم گالری + چرخش خودکار",
+      "desc": "زوم روی هاور scale 2 + چرخش خودکار هر 4 ثانیه از 3.10.357 حفظ شد"
     }
   ],
   "project": "ALOOKHOR",
-  "area": "PDP gallery zoom + auto-rotate + breadcrumb",
-  "reason": "درخواست مالک: زوم روی هاور + اسلاید خودکار هر 4 ثانیه با عکس‌های کناری + حفظ فیکس Breadcrumb",
+  "area": "Cart white fix + show all items",
+  "reason": "درخواست مالک با تصویر: حذف کارهای سفید و مستطیل بزرگ سفید سبد خرید + رفع عدم نمایش خریدها",
   "files": [
     "plugin/alookhor-control-center/CHANGELOG.md",
     "plugin/alookhor-control-center/alookhor-control-center.php",
+    "plugin/alookhor-control-center/assets/css/frontend-cart.css",
     "plugin/alookhor-control-center/assets/css/frontend-product.css",
     "plugin/alookhor-control-center/assets/js/frontend-product.js",
     "plugin/alookhor-control-center/config/site.json",
-    "plugin/alookhor-control-center/includes/pdp-breadcrumb-fix.php",
+    "plugin/alookhor-control-center/includes/cart-page.php",
+    "plugin/alookhor-control-center/includes/product-page.php",
     "plugin/alookhor-control-center/readme.txt",
     "plugin/alookhor-control-center/templates/cart.php",
     "release.json"

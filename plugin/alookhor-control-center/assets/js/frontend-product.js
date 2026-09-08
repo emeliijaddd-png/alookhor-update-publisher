@@ -15,7 +15,7 @@ function toast(msg){
  toastTimer=setTimeout(()=>{t.hidden=true},3000);
 }
 
-/* gallery: support both old .alpm-thumbs and new .gallery-thumbs — v3.10.357 zoom on hover + auto-rotate every 4s */
+/* gallery: support both old .alpm-thumbs and new .gallery-thumbs — v3.10.358 zoom on hover + auto-rotate every 4s */
 function gallery(){
  const stage=$('#alpMain');
  const frame=$('[data-stage]') || (stage ? stage.closest('[data-stage], .gallery-frame') : null) || $('.gallery-frame');

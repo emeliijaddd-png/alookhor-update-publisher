@@ -152,16 +152,16 @@ function alookhor_cc_pdp_data($product){
  $demo_ids=[67,94,111,128,145,162,179,196,197,198,1368,1369,1370];
  $related=[];
  if(function_exists('wc_get_related_products'))$related=wc_get_related_products($id,12);
- $related=array_values(array_filter($related,function($rid) use($demo_ids){if(in_array((int)$rid,$demo_ids,true))return false; $p=wc_get_product((int)$rid); if(!$p)return false; $name=$p->get_name(); if(mb_strpos($name,'سامسونگ')!==false||mb_strpos($name,'گوشی')!==false)return false; return true;}));
+ $related=array_values(array_filter($related,function($rid) use($demo_ids){if(in_array((int)$rid,$demo_ids,true))return false; $p=wc_get_product((int)$rid); if(!$p)return false; return true;}));
  if(count($related)<4&&function_exists('wc_get_products')){
   $fill=wc_get_products(['status'=>'publish','limit'=>20,'exclude'=>array_merge([$id],$demo_ids),'orderby'=>'rand']);
-  foreach($fill as $f){if(count($related)>=8)break; $fid=(int)$f->get_id(); if(in_array($fid,$demo_ids,true))continue; $fname=$f->get_name(); if(mb_strpos($fname,'سامسونگ')!==false||mb_strpos($fname,'گوشی')!==false)continue; if(!in_array($fid,$related,true))$related[]=$fid;}
+  foreach($fill as $f){if(count($related)>=8)break; $fid=(int)$f->get_id(); if(in_array($fid,$demo_ids,true))continue; if(!in_array($fid,$related,true))$related[]=$fid;}
  }
  $related=array_slice($related,0,6);
  // real products for suggested if still empty
  if(count($related)<2&&function_exists('wc_get_products')){
   $all=wc_get_products(['status'=>'publish','limit'=>20,'exclude'=>array_merge([$id],$demo_ids),'orderby'=>'date','order'=>'DESC']);
-  foreach($all as $f){$fid=(int)$f->get_id(); if(in_array($fid,$demo_ids,true))continue; $fname=$f->get_name(); if(mb_strpos($fname,'سامسونگ')!==false||mb_strpos($fname,'گوشی')!==false)continue; if(!in_array($fid,$related,true))$related[]=$fid; if(count($related)>=6)break;}
+  foreach($all as $f){$fid=(int)$f->get_id(); if(in_array($fid,$demo_ids,true))continue; if(!in_array($fid,$related,true))$related[]=$fid; if(count($related)>=6)break;}
  }
  $faqs=[
   ['q'=>'آیا آلو بخارایی الخور بدون مواد افزودنی است؟','a'=>'بله. محصول با آلوهای سالم باغات ایران تهیه شده و هیچ رنگ، شکر افزوده یا نگهدارنده‌ای ندارد.'],
@@ -272,7 +272,7 @@ function alookhor_cc_pdp_card($pid){
    $price_clean = esc_html($price_clean);
  }
  // filter out demo check again
- $name=$p->get_name(); if(mb_strpos($name,'سامسونگ')!==false||mb_strpos($name,'گوشی')!==false)return '';
+ $name=$p->get_name();
  // Card per reference Screenshot 130508: dark glass, heart top-left, cart gold bottom-right, name white, price gold
  $out='<article class="suggested-product group"><a href="'.esc_url(get_permalink($p->get_id())).'" class="suggested-image" aria-label="مشاهده '.esc_attr($name).'"><img src="'.esc_url($u).'" alt="'.esc_attr($name).'" loading="lazy"><span class="suggested-heart">'.alookhor_cc_pdp_icon('heart').'</span><span class="product-tag">پیشنهاد الخور</span></a><div class="suggested-body"><h3>'.esc_html($name).'</h3><div class="suggested-footer"><span class="suggested-price">'.$price_clean.'</span><a href="'.esc_url($p->add_to_cart_url()).'" aria-label="افزودن '.esc_attr($name).'" class="suggested-cart">'.alookhor_cc_pdp_icon('cart').'</a></div></div></article>';
  return $out;
