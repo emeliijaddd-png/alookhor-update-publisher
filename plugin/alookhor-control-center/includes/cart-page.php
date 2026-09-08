@@ -381,7 +381,7 @@ document.addEventListener("DOMContentLoaded",function(){
 // ===== v3.10.366 — ELEMENTOR SHORTCODES FOR CART PAGE BUILDER =====
 if(!function_exists('alookhor_cc_cart_hero_shortcode')){
 function alookhor_cc_cart_hero_shortcode(){
- $d=alookhor_cc_cart_data(); if(!$d) return '';
+ $d=function_exists('alookhor_cc_cart_data_fallback')?alookhor_cc_cart_data_fallback():alookhor_cc_cart_data(); if(!$d) return '';
  $img=ALOOKHOR_CC_URL.'assets/images/';
  ob_start();
 ?>
@@ -409,7 +409,7 @@ add_shortcode('alookhor_cart_hero','alookhor_cc_cart_hero_shortcode');
 
 if(!function_exists('alookhor_cc_cart_products_shortcode')){
 function alookhor_cc_cart_products_shortcode(){
- $d=alookhor_cc_cart_data(); if(!$d) return '<div class="alookhor-cart-empty">سبد خرید خالی است</div>';
+ $d=function_exists('alookhor_cc_cart_data_fallback')?alookhor_cc_cart_data_fallback():alookhor_cc_cart_data(); if(!$d) return '<div class="alookhor-cart-empty">سبد خرید خالی است</div>';
  $fmt=$d['fmt']; $fa_th=$d['fa_th']; $img=ALOOKHOR_CC_URL.'assets/images/'; ob_start();
 ?>
 <div id="alookhor-cart-products" dir="rtl">
@@ -453,7 +453,7 @@ add_shortcode('alookhor_cart_items','alookhor_cc_cart_products_shortcode');
 
 if(!function_exists('alookhor_cc_cart_summary_shortcode')){
 function alookhor_cc_cart_summary_shortcode(){
- $d=alookhor_cc_cart_data(); if(!$d) return '';
+ $d=function_exists('alookhor_cc_cart_data_fallback')?alookhor_cc_cart_data_fallback():alookhor_cc_cart_data(); if(!$d) return '';
  $fmt=$d['fmt']; ob_start();
 ?>
 <div id="alookhor-cart-summary" dir="rtl">
@@ -481,7 +481,7 @@ add_shortcode('alookhor_cart_summary','alookhor_cc_cart_summary_shortcode');
 
 if(!function_exists('alookhor_cc_cart_suggested_shortcode')){
 function alookhor_cc_cart_suggested_shortcode(){
- $d=alookhor_cc_cart_data(); if(!$d) return '';
+ $d=function_exists('alookhor_cc_cart_data_fallback')?alookhor_cc_cart_data_fallback():alookhor_cc_cart_data(); if(!$d) return '';
  $fmt=$d['fmt']; $img=ALOOKHOR_CC_URL.'assets/images/'; ob_start();
 ?>
 <div id="alookhor-cart-suggested" dir="rtl">
@@ -553,3 +553,90 @@ function alookhor_cc_cart_full_shortcode(){ return alookhor_cc_cart_markup(); }
 add_shortcode('alookhor_cart','alookhor_cc_cart_full_shortcode');
 add_shortcode('alookhor_cart_full','alookhor_cc_cart_full_shortcode');
 }
+
+// ===== v3.10.367 — FIX SHORTCODE REGISTRATION FOR ELEMENTOR =====
+add_action('init', function(){
+  // Ensure all cart shortcodes are registered on init for Elementor
+  if(function_exists('alookhor_cc_cart_hero_shortcode')) add_shortcode('alookhor_cart_hero','alookhor_cc_cart_hero_shortcode');
+  if(function_exists('alookhor_cc_cart_products_shortcode')) {
+    add_shortcode('alookhor_cart_products','alookhor_cc_cart_products_shortcode');
+    add_shortcode('alookhor_cart_items','alookhor_cc_cart_products_shortcode');
+  }
+  if(function_exists('alookhor_cc_cart_summary_shortcode')) add_shortcode('alookhor_cart_summary','alookhor_cc_cart_summary_shortcode');
+  if(function_exists('alookhor_cc_cart_suggested_shortcode')) add_shortcode('alookhor_cart_suggested','alookhor_cc_cart_suggested_shortcode');
+  if(function_exists('alookhor_cc_cart_features_shortcode')) add_shortcode('alookhor_cart_features','alookhor_cc_cart_features_shortcode');
+  if(function_exists('alookhor_cc_cart_faq_shortcode')) add_shortcode('alookhor_cart_faq','alookhor_cc_cart_faq_shortcode');
+  if(function_exists('alookhor_cc_cart_full_shortcode')) {
+    add_shortcode('alookhor_cart','alookhor_cc_cart_full_shortcode');
+    add_shortcode('alookhor_cart_full','alookhor_cc_cart_full_shortcode');
+  }
+  // Also ensure woocommerce_cart override
+  if(function_exists('alookhor_cc_cart_markup')){
+    if(shortcode_exists('woocommerce_cart')) remove_shortcode('woocommerce_cart');
+    add_shortcode('woocommerce_cart', function(){ return alookhor_cc_cart_markup(); });
+  }
+}, 20);
+
+// Fix cart data to return dummy in Elementor preview when WC cart not available
+if(!function_exists('alookhor_cc_cart_data_fallback')){
+function alookhor_cc_cart_data_fallback(){
+  $is_elementor = (isset($_GET['elementor_library']) || isset($_POST['action']) && $_POST['action']==='elementor_ajax' || (defined('ELEMENTOR_VERSION')) && (\Elementor\Plugin::$instance->editor->is_edit_mode() ?? false));
+  // Try real cart first
+  $real = null;
+  if(function_exists('WC') && WC() && WC()->cart){
+    $real = alookhor_cc_cart_data();
+    if($real && !empty($real['items'])) return $real;
+  }
+  // If in Elementor or cart empty, return dummy for preview
+  if($is_elementor || (isset($_GET['action']) && $_GET['action']==='elementor') || (defined('DOING_AJAX') && DOING_AJAX)){
+    $fmt = function($a){ return number_format((float)$a,0,'.',','); };
+    $fa_th = function($n){ return (string)$n; };
+    return [
+      'items'=>[
+        ['key'=>'dummy1','id'=>1,'vid'=>0,'name'=>'آلو بخارا جنگلی ترش ارگانیک (نمایشی)','img'=>ALOOKHOR_CC_URL.'assets/images/bowl.jpg','qty'=>2,'price'=>420000,'regular'=>500000,'subtotal'=>840000,'weight'=>'۵۰۰ گرم','permalink'=>home_url('/')],
+        ['key'=>'dummy2','id'=>2,'vid'=>0,'name'=>'گردو با پوست کاغذی (نمایشی)','img'=>ALOOKHOR_CC_URL.'assets/images/bowl.jpg','qty'=>1,'price'=>690000,'regular'=>750000,'subtotal'=>690000,'weight'=>'۱ کیلوگرم','permalink'=>home_url('/')],
+      ],
+      'count'=>2,
+      'subtotal'=>1530000,
+      'discount'=>0,
+      'total'=>1530000,
+      'fmt'=>$fmt,
+      'fa_th'=>$fa_th,
+      'shop'=>wc_get_page_permalink('shop') ?: home_url('/shop/'),
+      'checkout'=>wc_get_checkout_url() ?: home_url('/checkout/'),
+      'cart_url'=>wc_get_cart_url() ?: home_url('/cart/'),
+    ];
+  }
+  return $real;
+}
+}
+
+// Override shortcodes to use fallback data for Elementor preview
+if(!function_exists('alookhor_cc_cart_hero_shortcode_v2')){
+function alookhor_cc_cart_hero_shortcode_v2(){
+  // Always return hero even without cart data
+  $img=ALOOKHOR_CC_URL.'assets/images/';
+  ob_start();
+?>
+<div id="alookhor-cart-hero" dir="rtl">
+  <div class="cart-hero">
+    <img src="<?php echo esc_url($img.'bowl.jpg');?>" alt="" class="cart-hero-bg">
+    <div class="cart-hero-content">
+      <div class="cart-hero-left">
+        <img src="<?php echo esc_url($img.'bowl.jpg');?>" alt="کاسه آلو">
+        <div>
+          <div class="breadcrumb"><a href="<?php echo esc_url(home_url('/'));?>">خانه</a><span>›</span><span>سبد خرید</span></div>
+          <h1><span><?php echo function_exists('alookhor_cc_cart_icon')?alookhor_cc_cart_icon('cart'):'';?></span> سبد خرید شما</h1>
+          <p>محصولات منتخب شما در یک نگاه و با اطمینان خرید کنید</p>
+        </div>
+      </div>
+      <div class="cart-hero-tagline"><span><?php echo function_exists('alookhor_cc_cart_icon')?alookhor_cc_cart_icon('leaf'):'';?></span> طعم اصالت از دل طبیعت ایران</div>
+    </div>
+  </div>
+</div>
+<?php
+  return ob_get_clean();
+}
+add_shortcode('alookhor_cart_hero','alookhor_cc_cart_hero_shortcode_v2');
+}
+

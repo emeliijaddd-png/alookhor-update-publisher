@@ -1,3 +1,9 @@
+## 3.10.367 — سبد خرید: فیکس شورت‌کدها که فقط کد نمایش داده می‌شد
+- FIX: شورت‌کدها [alookhor_cart_hero] و ... فقط به صورت متن کد نمایش داده می‌شد؛ علت: add_shortcode فقط در لود فایل بود و در init بازنویسی می‌شد + WC()->cart در پیش‌نمایش المنتور null بود
+- FIX: رجیستر مجدد همه شورت‌کدها در init 20 + fallback دیتای نمایشی برای پیش‌نمایش المنتور + hero همیشه visible
+- GUIDE: باید از ویجت Shortcode المنتور استفاده کنید نه Text
+- Version bump 3.10.366->3.10.367
+
 ## 3.10.366 — سبد خرید: شورت‌کدهای المنتور برای ساخت از صفر
 - FEATURE: شورت‌کدهای جدید برای المنتور پرو: [alookhor_cart_hero] هدر، [alookhor_cart_products] / [alookhor_cart_items] لیست محصولات، [alookhor_cart_summary] خلاصه سفارش، [alookhor_cart_suggested] پیشنهاد، [alookhor_cart_features] 4 ویژگی، [alookhor_cart_faq] سوالات، [alookhor_cart] کامل
 - KEEP: بردکرامب 16px/8px، سبد minimal fix، فوتر، PDP زوم

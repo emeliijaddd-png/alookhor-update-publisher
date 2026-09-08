@@ -1,29 +1,27 @@
 {
-  "version": "3.10.366",
-  "previous": "3.10.365",
+  "version": "3.10.367",
+  "previous": "3.10.366",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "سبد خرید: شورت‌کدهای المنتور برای ساخت برگه سبد از صفر",
+  "description": "سبد خرید: فیکس شورت‌کدها که فقط کد نمایش داده می‌شد",
   "changelog": [
     {
-      "tag": "FEATURE",
-      "title": "شورت‌کدهای المنتور سبد خرید",
-      "desc": "برای ساخت برگه سبد خرید خالی از صفر با المنتور پرو: [alookhor_cart_hero] هدر لوکس، [alookhor_cart_products] لیست محصولات، [alookhor_cart_summary] خلاصه سفارش، [alookhor_cart_suggested] پیشنهاد تکمیل، [alookhor_cart_features] ویژگی‌ها، [alookhor_cart_faq] سوالات، [alookhor_cart] سبد کامل. همه با استایل لوکس #0d0510 و آیکون‌های SVG."
+      "tag": "FIX",
+      "title": "فیکس نمایش شورت‌کدها در المنتور",
+      "desc": "شورت‌کدها [alookhor_cart_hero] و [alookhor_cart_products] و ... فقط به صورت متن [code] نمایش داده می‌شد؛ علت: add_shortcode فقط در لود فایل بود و در init المنتور بازنویسی می‌شد + WC()->cart در پیش‌نمایش المنتور null بود. فیکس: رجیستر مجدد همه شورت‌کدها در action init با اولویت 20 + fallback دیتای نمایشی برای پیش‌نمایش المنتور + hero همیشه visible."
     },
     {
-      "tag": "KEEP",
-      "title": "حفظ فیکس‌های قبلی",
-      "desc": "بردکرامب 16px/8px بالاتر، سبد minimal fix، فوتر، PDP زوم هوشمند حفظ شد."
+      "tag": "GUIDE",
+      "title": "نحوه استفاده در المنتور",
+      "desc": "باید از ویجت Shortcode المنتور استفاده کنید نه Text؛ هر شورت‌کد را در یک ویجت Shortcode جداگانه بگذارید."
     }
   ],
   "project": "ALOOKHOR",
-  "area": "cart elementor shortcodes",
-  "reason": "کاربر می‌خواهد برگه خالی جدید برای سبد خرید بسازد و با المنتور از صفر بچیند — شورت‌کدهای بخش‌های مختلف لازم است",
+  "area": "cart shortcodes elementor fix",
+  "reason": "کاربر: هر کدی رو میذارم فقط کد میاد نه محتوا",
   "files": [
-    "plugin/alookhor-control-center/includes/cart-page.php",
-    "plugin/alookhor-control-center/assets/css/frontend-cart.css",
-    "plugin/alookhor-control-center/assets/js/frontend-cart.js"
+    "plugin/alookhor-control-center/includes/cart-page.php"
   ]
 }
