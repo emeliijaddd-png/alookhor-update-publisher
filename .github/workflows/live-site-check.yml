@@ -6,16 +6,18 @@ jobs:
   check:
     runs-on: ubuntu-latest
     steps:
-      - name: Inspect live product pages
+      - name: Inspect live cart
         shell: bash
         run: |
           set -euxo pipefail
-          curl -fsSL --max-time 30 https://alookhor.ir/ -o /tmp/home.html
-          echo '--- PRODUCT LINKS FROM HOMEPAGE ---'
-          grep -Eo 'https://alookhor\.ir/[^"'"' ]+' /tmp/home.html | grep -Ei '/product|/محصول' | sort -u | head -50 || true
-          echo '--- SITEMAP INDEX ---'
-          curl -fsSL --max-time 30 https://alookhor.ir/wp-sitemap.xml -o /tmp/sitemap.xml || true
-          grep -Eo 'https://alookhor\.ir/[^<]+' /tmp/sitemap.xml | head -100 || true
-          echo '--- COMMON PRODUCT URL ---'
-          curl -fsSL --max-time 30 -o /tmp/product.html https://alookhor.ir/product/ || true
-          if [ -s /tmp/product.html ]; then wc -c /tmp/product.html; grep -o '<title>[^<]*' /tmp/product.html | head -3; grep -o 'id="alookhor-pdp"' /tmp/product.html | wc -l; grep -o 'woodmart[^" ]*' /tmp/product.html | head -20 || true; fi
+          curl -fsSL --max-time 30 https://alookhor.ir/cart/ -o /tmp/cart.html
+          echo '--- CART SIZE ---'
+          wc -c /tmp/cart.html
+          echo '--- ARENA CART COUNT ---'
+          grep -o 'id="alookhor-cart"' /tmp/cart.html | wc -l
+          echo '--- NATIVE CART MARKERS ---'
+          for p in 'woocommerce-cart-form' 'cart-collaterals' 'cart_totals' 'woocommerce-cart' 'woodmart-cart' 'wd-cart'; do echo "$p=$(grep -oi "$p" /tmp/cart.html | wc -l)"; done
+          echo '--- WOODMART MARKERS ---'
+          grep -oiE 'woodmart[^"< ]*|wd-[a-z0-9_-]+' /tmp/cart.html | sort -u | head -100 || true
+          echo '--- MAIN CART TITLES ---'
+          grep -oE '<h[1-3][^>]*>[^<]+' /tmp/cart.html | head -30 || true
