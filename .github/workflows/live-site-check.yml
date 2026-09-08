@@ -6,17 +6,16 @@ jobs:
   check:
     runs-on: ubuntu-latest
     steps:
-      - name: Resolve and fetch live site
+      - name: Inspect live product pages
         shell: bash
         run: |
           set -euxo pipefail
-          echo '--- DNS ---'
-          getent hosts alookhor.ir
-          getent hosts www.alookhor.ir || true
-          echo '--- HTTPS headers ---'
-          curl -fsSIL --max-time 30 --retry 2 https://alookhor.ir/
-          echo '--- HTTPS body ---'
-          curl -fsSL --max-time 30 --retry 2 https://alookhor.ir/ -o /tmp/alookhor.html
-          wc -c /tmp/alookhor.html
-          head -c 1000 /tmp/alookhor.html
-          echo
+          curl -fsSL --max-time 30 https://alookhor.ir/ -o /tmp/home.html
+          echo '--- PRODUCT LINKS FROM HOMEPAGE ---'
+          grep -Eo 'https://alookhor\.ir/[^"'"' ]+' /tmp/home.html | grep -Ei '/product|/محصول' | sort -u | head -50 || true
+          echo '--- SITEMAP INDEX ---'
+          curl -fsSL --max-time 30 https://alookhor.ir/wp-sitemap.xml -o /tmp/sitemap.xml || true
+          grep -Eo 'https://alookhor\.ir/[^<]+' /tmp/sitemap.xml | head -100 || true
+          echo '--- COMMON PRODUCT URL ---'
+          curl -fsSL --max-time 30 -o /tmp/product.html https://alookhor.ir/product/ || true
+          if [ -s /tmp/product.html ]; then wc -c /tmp/product.html; grep -o '<title>[^<]*' /tmp/product.html | head -3; grep -o 'id="alookhor-pdp"' /tmp/product.html | wc -l; grep -o 'woodmart[^" ]*' /tmp/product.html | head -20 || true; fi
