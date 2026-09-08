@@ -1,3 +1,8 @@
+## 3.10.365 — PDP: بردکرامب بالاتر، بالای کادر عکس و کمی پایین‌تر از هدر
+- FIX breadcrumb: translateY 92px->16px دسکتاپ و 58px->8px موبایل تا بالای کادر عکس محصول و توضیحات و کمی پایین‌تر از هدر قرار بگیرد، نه زیر هدر نه روی عکس؛ margin-top 12px/8px و margin-bottom 20px/14px
+- KEEP: سبد خرید 3.10.362 و فوتر و PDP زوم حفظ، هیچ بخش دیگر تغییر نکرد
+- Version bump 3.10.364->3.10.365
+
 ## 3.10.364 — PDP breadcrumb + cart fix redeploy
 - FIX breadcrumb: translateY 125->92 desktop, 78->58 mobile, higher position off image
 - KEEP cart 3.10.362 minimal fix + footer + PDP zoom

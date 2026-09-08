@@ -1,30 +1,28 @@
 {
-  "version": "3.10.364",
-  "previous": "3.10.363",
+  "version": "3.10.365",
+  "previous": "3.10.364",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "PDP: فیکس نوار آدرس روی عکس + سبد خرید فیکس",
+  "description": "PDP: بردکرامب بالاتر، بالای کادر عکس و کمی پایین‌تر از هدر",
   "changelog": [
     {
       "tag": "FIX",
-      "title": "فیکس نوار آدرس صفحه محصول",
-      "desc": "breadcrumb که روی عکس افتاده بود با translateY 125px->92px دسکتاپ و 78px->58px موبایل بالاتر برده شد؛ margin-bottom کاهش یافت."
+      "title": "بردکرامب صفحه محصول بالاتر",
+      "desc": "نوار آدرس با translateY 92px روی عکس افتاده بود؛ به 16px دسکتاپ و 8px موبایل تغییر کرد تا بالای کادر عکس محصول و توضیحات و کمی پایین‌تر از هدر قرار بگیرد، نه زیر هدر و نه روی عکس."
     },
     {
-      "tag": "FIX",
-      "title": "سبد خرید: نمایش + حذف سفید + فوتر",
-      "desc": "سبد خرید با minimal fix نمایش داده می‌شود، فقط نوار سفید حذف، فوتر حفظ."
+      "tag": "KEEP",
+      "title": "حفظ سبد خرید و سایر بخش‌ها",
+      "desc": "سبد خرید minimal fix 3.10.362 و فوتر و PDP زوم هوشمند حفظ شد؛ هیچ بخش دیگری تغییر نکرد."
     }
   ],
   "project": "ALOOKHOR",
-  "area": "PDP breadcrumb + cart",
-  "reason": "مانیفست 3.10.363 به‌روزرسانی نشد، نسخه 3.10.364 برای اطمینان از دیپلوی",
+  "area": "PDP breadcrumb higher",
+  "reason": "کاربر: هنوز باید بره بالاتر، بالای کادر عکس محصول و توضیحات و کمی پایین‌تر از هدر، نه زیر هدر نه روی عکس",
   "files": [
     "plugin/alookhor-control-center/includes/pdp-breadcrumb-fix.php",
-    "plugin/alookhor-control-center/templates/cart.php",
-    "plugin/alookhor-control-center/assets/css/frontend-cart.css",
-    "plugin/alookhor-control-center/assets/js/frontend-cart.js"
+    "plugin/alookhor-control-center/templates/single-product.php"
   ]
 }

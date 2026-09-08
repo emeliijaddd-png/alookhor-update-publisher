@@ -2,21 +2,21 @@
 if (!defined('ABSPATH')) exit;
 
 /**
- * Canonical PDP breadcrumb correction — v3.10.363: move breadcrumb higher, off image.
+ * Canonical PDP breadcrumb correction — v3.10.365: higher, above image, slightly below header.
  */
 add_action('wp_enqueue_scripts', function(){
     if (!function_exists('is_product') || !is_product()) return;
 
     $css = <<<'CSS'
-/* ALOOKHOR PDP — breadcrumb fix v3.10.363: higher, not overlapping image */
+/* ALOOKHOR PDP — breadcrumb fix v3.10.365: above image, slightly below header */
 body.alookhor-managed-product-page .alookhor-alp > .breadcrumb-wrapper,
 body.alookhor-pdp-body .alookhor-alp > .breadcrumb-wrapper,
 .alookhor-alp > .breadcrumb-wrapper{
   position:relative!important;
   z-index:80!important;
-  transform:translateY(92px)!important;
-  margin-top:0!important;
-  margin-bottom:24px!important;
+  transform:translateY(16px)!important;
+  margin-top:12px!important;
+  margin-bottom:20px!important;
   padding-left:16px!important;
   padding-right:16px!important;
 }
@@ -73,9 +73,9 @@ body.alookhor-pdp-body .breadcrumb-box strong,
   body.alookhor-managed-product-page .alookhor-alp > .breadcrumb-wrapper,
   body.alookhor-pdp-body .alookhor-alp > .breadcrumb-wrapper,
   .alookhor-alp > .breadcrumb-wrapper{
-    transform:translateY(58px)!important;
-    margin-top:0!important;
-    margin-bottom:16px!important;
+    transform:translateY(8px)!important;
+    margin-top:8px!important;
+    margin-bottom:14px!important;
     padding-left:10px!important;
     padding-right:10px!important;
   }
