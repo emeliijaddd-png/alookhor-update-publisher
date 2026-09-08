@@ -260,7 +260,7 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 | `plugin/alookhor-control-center/assets/js/modules/orders.js` | 19 | `0ccd8376c69ba37fb50d3261f002789488042e17a0b1b37539bab86abda374eb` |
 | `plugin/alookhor-control-center/assets/js/modules/settings.js` | 794 | `3149c29b0b0500b2924b0cc76569e0eb31d63ea7b79d92ece5cbd6954209b567` |
 | `plugin/alookhor-control-center/assets/js/modules/users.js` | 20 | `6fb96546faf00ea831ace016d09b10f903a501db647bae20d0f570034ac36946` |
-| `plugin/alookhor-control-center/assets/js/pdp-smart-zoom.js` | 106 | `1a5775e9d8387129ce0faa67c79c38e8ba6c30597697af75768b75e2cdf13daa` |
+| `plugin/alookhor-control-center/assets/js/pdp-smart-zoom.js` | 105 | `72bd238ea847c7a532b79104d24dde6e9c9fc71723eca9a85ef219a8bf5e8f96` |
 | `plugin/alookhor-control-center/config/site.json` | 37 | `0f4960e2f53e6718639fba3c1752eb2db7fcddfe463877140a2e0642158ff4d3` |
 | `plugin/alookhor-control-center/includes/about-page.php` | 161 | `c6550866eeb1d48ff70085c42b84ec251afb3ce764b0b005c0c80a9751ae266b` |
 | `plugin/alookhor-control-center/includes/admin-export-banner.php` | 180 | `fff84102b3dc84cb69c7318312395993a8adf6255a5d7f056d4c7bf7dce8e1b2` |
@@ -12789,8 +12789,8 @@ const init=()=>{
     frame.dataset.alookhorSmartZoom='1';
     let zoom=1;
     let active=false;
-    let touchZoom=false;
     let lastTouchDistance=0;
+    let touchStartX=0,touchStartY=0,touchStartAt=0;
     const setOrigin=(clientX,clientY)=>{
       const r=frame.getBoundingClientRect();
       const x=clamp(((clientX-r.left)/r.width)*100,0,100);
@@ -12799,7 +12799,7 @@ const init=()=>{
     };
     const render=()=>{
       if(zoom<=1.01){
-        active=false; touchZoom=false;
+        active=false;
         frame.classList.remove('alookhor-zoom-active');
         img.style.transform='';
         img.style.transformOrigin='';
@@ -12833,7 +12833,7 @@ const init=()=>{
       const target=e.target;
       if(target.closest && target.closest('button')) return;
       e.preventDefault();
-      if(!active) { zoom=2.8; render(); }
+      if(!active) zoom=2.8;
       zoom=clamp(zoom+(e.deltaY<0?.35:-.35),1,4.6);
       setOrigin(e.clientX,e.clientY);
       render();
@@ -12841,29 +12841,28 @@ const init=()=>{
     frame.addEventListener('pointerdown',e=>{
       if(e.target.closest && e.target.closest('button')) return;
       if(e.pointerType==='touch'){
-        if(!touchZoom){
-          touchZoom=true; zoom=2.8; render(); setOrigin(e.clientX,e.clientY);
-        }
-      }
-    });
-    frame.addEventListener('pointermove',e=>{
-      if(e.pointerType==='touch' && touchZoom){
+        touchStartX=e.clientX; touchStartY=e.clientY; touchStartAt=Date.now();
         setOrigin(e.clientX,e.clientY);
       }
     });
+    frame.addEventListener('pointermove',e=>{
+      if(e.pointerType==='touch' && active) setOrigin(e.clientX,e.clientY);
+    });
     frame.addEventListener('pointerup',e=>{
-      if(e.pointerType==='touch' && touchZoom){
-        // A short second tap resets; normal touch movement stays zoomed for inspection.
-        if(e.target===img && Math.abs(e.movementX||0)<3 && Math.abs(e.movementY||0)<3){
-          zoom=1; render();
-        }
+      if(e.pointerType!=='touch') return;
+      const moved=Math.hypot(e.clientX-touchStartX,e.clientY-touchStartY);
+      const quick=(Date.now()-touchStartAt)<350;
+      if(moved<10 && quick && e.target===img){
+        if(zoom<=1.01){zoom=2.8;setOrigin(e.clientX,e.clientY);render();}
+        else{zoom=1;render();}
       }
     });
-    frame.addEventListener('pointercancel',()=>{if(touchZoom){zoom=1;render();}});
+    frame.addEventListener('pointercancel',()=>{touchStartAt=0;});
     frame.addEventListener('touchstart',e=>{
       if(e.touches.length===2){
         lastTouchDistance=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);
-        touchZoom=true; if(zoom<2.2) zoom=2.8; render();
+        if(zoom<2.2) zoom=2.8;
+        render();
       }
     },{passive:true});
     frame.addEventListener('touchmove',e=>{
