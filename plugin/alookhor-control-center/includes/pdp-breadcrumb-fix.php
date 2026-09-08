@@ -115,5 +115,7 @@ CSS;
         wp_add_inline_style('alookhor-cc-pdp', $css);
     }
 
-    wp_enqueue_script('alookhor-cc-pdp-smart-zoom', ALOOKHOR_CC_URL.'assets/js/pdp-smart-zoom.js', ['alookhor-cc-pdp'], ALOOKHOR_CC_BUILD, true);
+    // This argument is a JavaScript dependency list. A CSS handle here makes
+    // WordPress withhold the zoom script, so keep the standalone script dependency-free.
+    wp_enqueue_script('alookhor-cc-pdp-smart-zoom', ALOOKHOR_CC_URL.'assets/js/pdp-smart-zoom.js', [], ALOOKHOR_CC_BUILD, true);
 }, 10000);
