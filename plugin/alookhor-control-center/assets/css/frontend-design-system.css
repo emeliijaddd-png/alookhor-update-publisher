@@ -1,0 +1,44 @@
+/* ALOOKHOR central tokens — v3.10.129
+   IMPORTANT: this layer supplies fallbacks and accessibility only.
+   Module colors are authoritative from Boutique inline CSS variables. */
+:root{
+  --alookhor-purple:#3A0D5C;
+  --alookhor-deep-purple:#1C1025;
+  --alookhor-card:#26213D;
+  --alookhor-card-alt:#1D1126;
+  --alookhor-gold:#D4AF37;
+  --alookhor-light-gold:#F5D76E;
+  --alookhor-white:#FFFFFF;
+  --alookhor-muted:#E5E5E5;
+}
+/* Elementor hosts must never paint over a module's selected background. */
+html body .alookhor-managed-module-widget,
+html body .alookhor-managed-module-widget>.elementor-widget-container,
+html body .alookhor-managed-module-host,
+html body .alookhor-managed-module-surface,
+html body .alookhor-managed-module-host.alookhor-surface-a,
+html body .alookhor-managed-module-host.alookhor-surface-b,
+html body .alookhor-managed-module-host.alookhor-surface-c{
+  background:transparent!important;
+  background-image:none!important;
+}
+/* Each module consumes its own variables emitted from saved Boutique settings. */
+html body .alookhor-sf{background:var(--sf-bg,#1C1025)!important;color:var(--sf-text,#FFFFFF)!important}
+html body .alookhor-sf .alookhor-sf-card{background:var(--sf-card,#26213D)!important;color:var(--sf-text,#FFFFFF)!important;border-color:color-mix(in srgb,var(--sf-gold,#D4AF37) 24%,transparent)!important}
+html body .alookhor-sf .alookhor-sf-copy h3{color:var(--sf-text,#FFFFFF)!important}html body .alookhor-sf .alookhor-sf-copy p{color:var(--sf-muted,#E5E5E5)!important}
+html body .alookhor-mc{background:var(--mc-bg,#26213D)!important;color:var(--mc-text,#FFFFFF)!important}.alookhor-mc-card{background:var(--mc-card,#1D1126)!important;color:var(--mc-text,#FFFFFF)!important}
+html body .alookhor-fp{background:var(--afp-bg,#26213D)!important;color:var(--afp-text,#FFFFFF)!important}.afp-card{background:var(--afp-card,#1D1126)!important;color:var(--afp-text,#FFFFFF)!important}
+html body .alookhor-bs{background:var(--abs-bg,#1C1025)!important;color:var(--abs-text,#FFFFFF)!important}.abs-card{background:var(--abs-card,#26213D)!important;color:var(--abs-text,#FFFFFF)!important}.abs-inner>header,.abs-timer{background:color-mix(in srgb,var(--abs-card,#26213D) 72%,var(--abs-bg,#1C1025))!important}
+html body .alookhor-sort-center{background:var(--asc-bg,#26213D)!important;color:var(--asc-text,#FFFFFF)!important}.asc-description,.asc-products,.asc-features article,.asc-slider{background:var(--asc-surface,#1D1126)!important;color:var(--asc-text,#FFFFFF)!important}
+html body .alookhor-app-banner{background:var(--aab-bg,#1C1025)!important;color:var(--aab-text,#FFFFFF)!important}.aab-inner{background:var(--aab-surface,#26213D)!important;color:var(--aab-text,#FFFFFF)!important}
+html body .alookhor-campaign-wrap{background:var(--ac-bg,#1D1126)!important}.alookhor-campaign{color:var(--ac-text,#FFFFFF)!important}
+html body .alookhor-xb{background:var(--akx-bg,#1D1126)!important}.alookhor-xb-card{background:rgba(var(--akx-bg-rgb,29,17,38),var(--akx-card-alpha,.78))!important}
+html body .alookhor-mag{background:var(--am-bg,#1D1126)!important;color:var(--am-text,#FFFFFF)!important}.am-inner>header,.am-card{background:var(--am-card,#26213D)!important;color:var(--am-text,#FFFFFF)!important}
+html body .alookhor-newsletter{background:var(--an-bg,#1C1025)!important;color:var(--an-text,#FFFFFF)!important}.an-form>div{background:var(--an-surface,#26213D)!important}
+html body .alookhor-mf{background:var(--mf-bg,#1C1025)!important;color:var(--mf-text,#FFFFFF)!important}
+/* Header and Hero variables are also emitted inline by their Boutique forms. */
+html body #akx-header .akx-nav-capsule{background:var(--akx-capsule-glass,rgba(28,16,37,.72))!important;border-color:color-mix(in srgb,var(--akx-gold,#D4AF37) 28%,transparent)!important}
+html body .alookhor-mh{background:var(--mh-surface,#3A0D5C)!important;color:var(--mh-text,#FFFFFF)!important}.alookhor-mh-content{background:rgba(var(--mh-surface-rgb,58,13,92),var(--mh-panel-alpha,.34))!important}
+/* Shared accessibility; no visual palette overrides. */
+html body :is(.alookhor-mc,.alookhor-fp,.alookhor-bs,.alookhor-sort-center,.alookhor-mag,.alookhor-newsletter) :is(button,a,input):focus-visible{outline:3px solid var(--alookhor-gold)!important;outline-offset:3px}
+@media(prefers-reduced-motion:reduce){html body .alookhor-managed-page *{scroll-behavior:auto!important}}
