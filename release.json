@@ -1,42 +1,34 @@
 {
-  "version": "3.10.358",
-  "previous": "3.10.357",
+  "version": "3.10.359",
+  "previous": "3.10.358",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "سبد خرید: حذف نوار سفید و مستطیل سفید + نمایش تمام محصولات بدون فیلتر سامسونگ",
+  "description": "PDP: رفع بارگذاری زوم هوشمند تصاویر محصول و دنبال‌کردن نقطه زیر نشانگر",
   "changelog": [
     {
       "tag": "FIX",
-      "title": "حذف نوار سفید سبد خرید",
-      "desc": "نوار سفید کوچک بالای صفحه با متن سبد خرید و تمام کانتینرهای سفید Woodmart با CSS و JS تهاجمی حذف شد؛ فقط سبد خرید لوکس خودمان نمایش داده می‌شود"
-    },
-    {
-      "tag": "FIX",
-      "title": "نمایش تمام محصولات در سبد خرید",
-      "desc": "فیلتر قدیمی که محصولات حاوی سامسونگ و گوشی را مخفی می‌کرد حذف شد؛ حالا تمام خریدهای کاربر بدون استثنا نمایش داده می‌شود"
+      "title": "رفع فعال نشدن زوم هوشمند تصاویر محصول",
+      "desc": "اسکریپت زوم مستقل شد و وابستگی اشتباه به handle مربوط به CSS حذف شد؛ بنابراین WordPress دیگر اسکریپت زوم را به‌دلیل dependency نامعتبر نگه نمی‌دارد."
     },
     {
       "tag": "FEATURE",
-      "title": "حفظ زوم گالری + چرخش خودکار",
-      "desc": "زوم روی هاور scale 2 + چرخش خودکار هر 4 ثانیه از 3.10.357 حفظ شد"
+      "title": "زوم نقطه‌ای و progressive روی تصویر محصول",
+      "desc": "با حرکت نشانگر روی هر نقطه از تصویر، همان ناحیه بزرگ‌نمایی می‌شود و با اسکرول می‌توان بزرگ‌نمایی را تا سطح بالاتر افزایش داد؛ در موبایل Tap، حرکت و Pinch نیز پشتیبانی می‌شود."
+    },
+    {
+      "tag": "COMPAT",
+      "title": "Responsive برای Desktop و Mobile",
+      "desc": "رفتار زوم برای نمایشگرهای لمسی و نشانگر دقیق جداگانه مدیریت شده و دکمه‌های گالری همچنان قابل استفاده هستند."
     }
   ],
   "project": "ALOOKHOR",
-  "area": "Cart white fix + show all items",
-  "reason": "درخواست مالک با تصویر: حذف کارهای سفید و مستطیل بزرگ سفید سبد خرید + رفع عدم نمایش خریدها",
+  "area": "PDP image zoom",
+  "reason": "درخواست مالک: هنگام قرار گرفتن روی هر قسمت عکس محصول، تصویر همان نقطه را زوم کند و امکان زوم بیشتر فراهم باشد.",
   "files": [
-    "plugin/alookhor-control-center/CHANGELOG.md",
-    "plugin/alookhor-control-center/alookhor-control-center.php",
-    "plugin/alookhor-control-center/assets/css/frontend-cart.css",
-    "plugin/alookhor-control-center/assets/css/frontend-product.css",
-    "plugin/alookhor-control-center/assets/js/frontend-product.js",
-    "plugin/alookhor-control-center/config/site.json",
-    "plugin/alookhor-control-center/includes/cart-page.php",
-    "plugin/alookhor-control-center/includes/product-page.php",
-    "plugin/alookhor-control-center/readme.txt",
-    "plugin/alookhor-control-center/templates/cart.php",
+    "plugin/alookhor-control-center/assets/js/pdp-smart-zoom.js",
+    "plugin/alookhor-control-center/includes/pdp-breadcrumb-fix.php",
     "release.json"
   ]
 }
