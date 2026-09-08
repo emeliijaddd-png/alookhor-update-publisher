@@ -1,28 +1,29 @@
 {
-  "version": "3.10.365",
-  "previous": "3.10.364",
+  "version": "3.10.366",
+  "previous": "3.10.365",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "PDP: بردکرامب بالاتر، بالای کادر عکس و کمی پایین‌تر از هدر",
+  "description": "سبد خرید: شورت‌کدهای المنتور برای ساخت برگه سبد از صفر",
   "changelog": [
     {
-      "tag": "FIX",
-      "title": "بردکرامب صفحه محصول بالاتر",
-      "desc": "نوار آدرس با translateY 92px روی عکس افتاده بود؛ به 16px دسکتاپ و 8px موبایل تغییر کرد تا بالای کادر عکس محصول و توضیحات و کمی پایین‌تر از هدر قرار بگیرد، نه زیر هدر و نه روی عکس."
+      "tag": "FEATURE",
+      "title": "شورت‌کدهای المنتور سبد خرید",
+      "desc": "برای ساخت برگه سبد خرید خالی از صفر با المنتور پرو: [alookhor_cart_hero] هدر لوکس، [alookhor_cart_products] لیست محصولات، [alookhor_cart_summary] خلاصه سفارش، [alookhor_cart_suggested] پیشنهاد تکمیل، [alookhor_cart_features] ویژگی‌ها، [alookhor_cart_faq] سوالات، [alookhor_cart] سبد کامل. همه با استایل لوکس #0d0510 و آیکون‌های SVG."
     },
     {
       "tag": "KEEP",
-      "title": "حفظ سبد خرید و سایر بخش‌ها",
-      "desc": "سبد خرید minimal fix 3.10.362 و فوتر و PDP زوم هوشمند حفظ شد؛ هیچ بخش دیگری تغییر نکرد."
+      "title": "حفظ فیکس‌های قبلی",
+      "desc": "بردکرامب 16px/8px بالاتر، سبد minimal fix، فوتر، PDP زوم هوشمند حفظ شد."
     }
   ],
   "project": "ALOOKHOR",
-  "area": "PDP breadcrumb higher",
-  "reason": "کاربر: هنوز باید بره بالاتر، بالای کادر عکس محصول و توضیحات و کمی پایین‌تر از هدر، نه زیر هدر نه روی عکس",
+  "area": "cart elementor shortcodes",
+  "reason": "کاربر می‌خواهد برگه خالی جدید برای سبد خرید بسازد و با المنتور از صفر بچیند — شورت‌کدهای بخش‌های مختلف لازم است",
   "files": [
-    "plugin/alookhor-control-center/includes/pdp-breadcrumb-fix.php",
-    "plugin/alookhor-control-center/templates/single-product.php"
+    "plugin/alookhor-control-center/includes/cart-page.php",
+    "plugin/alookhor-control-center/assets/css/frontend-cart.css",
+    "plugin/alookhor-control-center/assets/js/frontend-cart.js"
   ]
 }

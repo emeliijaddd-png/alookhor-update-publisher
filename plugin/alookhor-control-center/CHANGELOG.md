@@ -1,3 +1,8 @@
+## 3.10.366 — سبد خرید: شورت‌کدهای المنتور برای ساخت از صفر
+- FEATURE: شورت‌کدهای جدید برای المنتور پرو: [alookhor_cart_hero] هدر، [alookhor_cart_products] / [alookhor_cart_items] لیست محصولات، [alookhor_cart_summary] خلاصه سفارش، [alookhor_cart_suggested] پیشنهاد، [alookhor_cart_features] 4 ویژگی، [alookhor_cart_faq] سوالات، [alookhor_cart] کامل
+- KEEP: بردکرامب 16px/8px، سبد minimal fix، فوتر، PDP زوم
+- Version bump 3.10.365->3.10.366
+
 ## 3.10.365 — PDP: بردکرامب بالاتر، بالای کادر عکس و کمی پایین‌تر از هدر
 - FIX breadcrumb: translateY 92px->16px دسکتاپ و 58px->8px موبایل تا بالای کادر عکس محصول و توضیحات و کمی پایین‌تر از هدر قرار بگیرد، نه زیر هدر نه روی عکس؛ margin-top 12px/8px و margin-bottom 20px/14px
 - KEEP: سبد خرید 3.10.362 و فوتر و PDP زوم حفظ، هیچ بخش دیگر تغییر نکرد
