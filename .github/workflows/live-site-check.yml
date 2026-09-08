@@ -6,29 +6,44 @@ jobs:
   check:
     runs-on: ubuntu-latest
     steps:
-      - name: Verify live cart isolation
+      - name: Browser-render live cart audit
         shell: bash
         run: |
           set -euo pipefail
-          curl -fsSL --max-time 30 'https://alookhor.ir/cart/?livecheck=20260908c' -o /tmp/cart.html
+          python3 -m pip install --quiet selenium --break-system-packages
           python3 - <<'PY'
-          from pathlib import Path
-          import re
-          h=Path('/tmp/cart.html').read_text(errors='ignore')
-          def count(p): return len(re.findall(p,h,re.I))
-          print('ARENA_ID_COUNT=',count(r'id=["\']alookhor-cart["\']'))
-          print('NATIVE_FORM_COUNT=',count(r'class=["\'][^"\']*woocommerce-cart-form'))
-          print('NATIVE_COLLATERALS_COUNT=',count(r'class=["\'][^"\']*cart-collaterals'))
-          print('NATIVE_TOTALS_COUNT=',count(r'class=["\'][^"\']*cart_totals'))
-          print('NATIVE_EMPTY_COUNT=',count(r'class=["\'][^"\']*cart-empty'))
-          print('NATIVE_WD_CART_CONTENT_COUNT=',count(r'class=["\'][^"\']*wd-cart-content'))
-          arena=h.lower().find('id="alookhor-cart"')
-          footer=h.lower().find('<footer')
-          native=min([p for p in [h.lower().find('class="woocommerce-cart-form'),h.lower().find('class="cart-content-wrapper'),h.lower().find('class="cart-collaterals')] if p>=0] or [-1])
-          print('ARENA_POS=',arena)
-          print('NATIVE_POS=',native)
-          print('FOOTER_POS=',footer)
-          print('ARENA_BEFORE_NATIVE=',arena>=0 and native<0 or (arena>=0 and native>arena))
-          print('NATIVE_BEFORE_FOOTER=',native<0 or footer<0 or native<footer)
-          assert count(r'id=["\']alookhor-cart["\']') == 1
+          import json,time
+          from selenium import webdriver
+          from selenium.webdriver.chrome.options import Options
+          from selenium.webdriver.common.by import By
+          from selenium.webdriver.support.ui import WebDriverWait
+          url='https://alookhor.ir/cart/?livecheck=20260908d'
+          o=Options(); o.add_argument('--headless=new'); o.add_argument('--no-sandbox'); o.add_argument('--disable-dev-shm-usage'); o.add_argument('--window-size=1440,1200')
+          d=webdriver.Chrome(options=o)
+          try:
+            d.get(url)
+            WebDriverWait(d,30).until(lambda x:x.find_elements(By.ID,'alookhor-cart'))
+            time.sleep(3)
+            result=d.execute_script(r'''
+            const arena=document.querySelector('#alookhor-cart');
+            const native=[...document.querySelectorAll('.woocommerce-cart-form,.cart-collaterals,.cart_totals,.woocommerce-cart-form__contents,.wd-cart-content,.cart-empty')].filter(e=>!arena?.contains(e));
+            const r=e=>e?e.getBoundingClientRect().toJSON():null;
+            const bg=e=>e?getComputedStyle(e).backgroundColor:null;
+            const ancestors=[]; let p=arena;
+            for(let i=0;p&&i<8;i++,p=p.parentElement){const s=getComputedStyle(p); ancestors.push({tag:p.tagName,id:p.id||'',cls:(p.className||'').toString().slice(0,120),bg:s.backgroundColor,display:s.display,position:s.position,padding:s.padding,margin:s.margin,border:s.border});}
+            const body=getComputedStyle(document.body);
+            const footer=document.querySelector('footer');
+            return {arena:r(arena),footer:r(footer),viewport:{w:innerWidth,h:innerHeight},nativeCount:native.length,bodyBg:body.backgroundColor,htmlBg:getComputedStyle(document.documentElement).backgroundColor,ancestors,scrollHeight:document.documentElement.scrollHeight};
+            ''')
+            print(json.dumps(result,ensure_ascii=False,indent=2))
+            assert result['nativeCount']==0
+            assert result['arena'] and result['footer']
+            assert result['arena']['bottom'] <= result['footer']['top'] + 2
+            bad=[]
+            for a in result['ancestors']:
+              if a['bg'] in ('rgb(255, 255, 255)','rgba(255, 255, 255, 1)'): bad.append(a)
+            assert not bad, 'white ancestor/background around Arena cart: '+json.dumps(bad,ensure_ascii=False)
+            print('LIVE BROWSER CART AUDIT: PASS — one Arena cart, no native cart, no white ancestor surface, footer below cart')
+          finally:
+            d.quit()
           PY
