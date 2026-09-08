@@ -1,33 +1,33 @@
 {
-  "version": "3.10.370",
-  "previous": "3.10.369",
+  "version": "3.10.371",
+  "previous": "3.10.370",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "سبد خرید: حذف گوشی سامسونگ از پیشنهادی + فیکس بهم‌ریختگی CSS",
+  "description": "سبد خرید: حذف کامل رفرش ناخواسته و جلوگیری از اجرای هندلر قدیمی WooCommerce",
   "changelog": [
     {
       "tag": "FIX",
-      "title": "حذف گوشی سامسونگ از پیشنهاد تکمیل خرید",
-      "desc": "در لایو /cart/ گوشی‌های سامسونگ نوع 9 و 10 از دمو وودمارت در بخش پیشنهاد دیده می‌شد؛ علت wc_get_products بدون فیلتر. فیکس: در cart-page.php هر دو بخش suggested (اصلی و شورت‌کد) فیلتر شد تا محصولات با نام سامسونگ/گوشی/samsund/phone حذف شوند و فقط محصولات آلوخور (آلو بخارا، گردو، لواشک، کشمش) نمایش داده شود."
+      "title": "حذف رفرش ناخواسته سبد خرید",
+      "desc": "هندلر قدیمی داخل cart-page.php که برای تغییر تعداد و حذف کالا از wc-ajax و location.reload() استفاده می‌کرد دیگر ثبت نمی‌شود؛ Cart Engine جدید کنترل عملیات بدون رفرش را در اختیار دارد."
     },
     {
-      "tag": "FIX",
-      "title": "فیکس بهم‌ریختگی سبد",
-      "desc": "CSS v3.10.369 با display:revert و селектор تهاجمی .wd-page-content > .woocommerce > *:not(#alookhor-cart) باعث مخفی شدن wrapper سبد و بهم‌ریختگی شد. فیکس: حذف селектор تهاجمی و display:revert، فقط المان‌های مشخص wd-empty-cart, return-to-shop, cross-sells, related, up-sells, managed-categories با :not(#alookhor-cart *) مخفی شد؛ #alookhor-cart با display:block حفظ شد."
+      "tag": "PERF",
+      "title": "جلوگیری از CSS تکراری سبد",
+      "desc": "در صورت بارگذاری stylesheet خارجی frontend-cart.css، CSS تکراری inline سبد پس از آماده شدن DOM حذف می‌شود تا DOM و لایه Style غیرضروری باقی نماند."
     },
     {
-      "tag": "LIVE",
-      "title": "بررسی لایو",
-      "desc": "fetch_page از /cart/ و / انجام شد: سبد لوکس با هیرو تیره، خلاصه سفارش، پیشنهادی، ویژگی‌ها، FAQ دیده می‌شود؛ هدر و فوتر سالم. نسخه 3.10.370 آماده انتشار."
+      "tag": "SAFETY",
+      "title": "محافظ سازگار با نسخه‌های قبلی",
+      "desc": "محافظ Cart قبل از DOMContentLoaded لودر می‌شود و فقط listenerهایی را که صراحتاً حاوی الگوی wc-ajax قدیمی یا location.reload هستند مسدود می‌کند؛ سایر رفتارهای سبد و هدر دست‌نخورده می‌مانند."
     }
   ],
   "project": "ALOOKHOR",
-  "area": "cart fix live verified",
-  "reason": "کاربر: همه چیز بهم ریخت و داغون شد - لایو ببین و به صورت لایو سمت راست نشان بده؛ گوشی سامسونگ نباید در سبد پیشنهادی باشد",
+  "area": "cart no reload",
+  "reason": "کاربر: افزودن و عملیات سبد خرید نباید باعث Reload صفحه شود",
   "files": [
-    "plugin/alookhor-control-center/includes/cart-page.php",
-    "plugin/alookhor-control-center/assets/css/frontend-cart.css"
+    "plugin/alookhor-control-center/templates/cart.php",
+    "plugin/alookhor-control-center/assets/js/cart-no-reload-guard.js"
   ]
 }
