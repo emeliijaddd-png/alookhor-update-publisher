@@ -6,17 +6,29 @@ jobs:
   check:
     runs-on: ubuntu-latest
     steps:
-      - name: Inspect live cart
+      - name: Verify live cart isolation
         shell: bash
         run: |
-          set -euxo pipefail
-          curl -fsSL --max-time 30 'https://alookhor.ir/cart/?livecheck=20260908b' -o /tmp/cart.html
+          set -euo pipefail
+          curl -fsSL --max-time 30 'https://alookhor.ir/cart/?livecheck=20260908c' -o /tmp/cart.html
           python3 - <<'PY'
           from pathlib import Path
           import re
           h=Path('/tmp/cart.html').read_text(errors='ignore')
-          for marker in ['id="alookhor-cart"','woocommerce-cart-form','cart-collaterals','cart_totals','<footer']:
-              pos=h.lower().find(marker.lower())
-              print('\n=== MARKER',marker,'POS',pos,'===')
-              if pos>=0: print(h[max(0,pos-2500):pos+4500])
+          def count(p): return len(re.findall(p,h,re.I))
+          print('ARENA_ID_COUNT=',count(r'id=["\']alookhor-cart["\']'))
+          print('NATIVE_FORM_COUNT=',count(r'class=["\'][^"\']*woocommerce-cart-form'))
+          print('NATIVE_COLLATERALS_COUNT=',count(r'class=["\'][^"\']*cart-collaterals'))
+          print('NATIVE_TOTALS_COUNT=',count(r'class=["\'][^"\']*cart_totals'))
+          print('NATIVE_EMPTY_COUNT=',count(r'class=["\'][^"\']*cart-empty'))
+          print('NATIVE_WD_CART_CONTENT_COUNT=',count(r'class=["\'][^"\']*wd-cart-content'))
+          arena=h.lower().find('id="alookhor-cart"')
+          footer=h.lower().find('<footer')
+          native=min([p for p in [h.lower().find('class="woocommerce-cart-form'),h.lower().find('class="cart-content-wrapper'),h.lower().find('class="cart-collaterals')] if p>=0] or [-1])
+          print('ARENA_POS=',arena)
+          print('NATIVE_POS=',native)
+          print('FOOTER_POS=',footer)
+          print('ARENA_BEFORE_NATIVE=',arena>=0 and native<0 or (arena>=0 and native>arena))
+          print('NATIVE_BEFORE_FOOTER=',native<0 or footer<0 or native<footer)
+          assert count(r'id=["\']alookhor-cart["\']') == 1
           PY
