@@ -11,8 +11,8 @@ const init=()=>{
     frame.dataset.alookhorSmartZoom='1';
     let zoom=1;
     let active=false;
-    let touchZoom=false;
     let lastTouchDistance=0;
+    let touchStartX=0,touchStartY=0,touchStartAt=0;
     const setOrigin=(clientX,clientY)=>{
       const r=frame.getBoundingClientRect();
       const x=clamp(((clientX-r.left)/r.width)*100,0,100);
@@ -21,7 +21,7 @@ const init=()=>{
     };
     const render=()=>{
       if(zoom<=1.01){
-        active=false; touchZoom=false;
+        active=false;
         frame.classList.remove('alookhor-zoom-active');
         img.style.transform='';
         img.style.transformOrigin='';
@@ -55,7 +55,7 @@ const init=()=>{
       const target=e.target;
       if(target.closest && target.closest('button')) return;
       e.preventDefault();
-      if(!active) { zoom=2.8; render(); }
+      if(!active) zoom=2.8;
       zoom=clamp(zoom+(e.deltaY<0?.35:-.35),1,4.6);
       setOrigin(e.clientX,e.clientY);
       render();
@@ -63,29 +63,28 @@ const init=()=>{
     frame.addEventListener('pointerdown',e=>{
       if(e.target.closest && e.target.closest('button')) return;
       if(e.pointerType==='touch'){
-        if(!touchZoom){
-          touchZoom=true; zoom=2.8; render(); setOrigin(e.clientX,e.clientY);
-        }
-      }
-    });
-    frame.addEventListener('pointermove',e=>{
-      if(e.pointerType==='touch' && touchZoom){
+        touchStartX=e.clientX; touchStartY=e.clientY; touchStartAt=Date.now();
         setOrigin(e.clientX,e.clientY);
       }
     });
+    frame.addEventListener('pointermove',e=>{
+      if(e.pointerType==='touch' && active) setOrigin(e.clientX,e.clientY);
+    });
     frame.addEventListener('pointerup',e=>{
-      if(e.pointerType==='touch' && touchZoom){
-        // A short second tap resets; normal touch movement stays zoomed for inspection.
-        if(e.target===img && Math.abs(e.movementX||0)<3 && Math.abs(e.movementY||0)<3){
-          zoom=1; render();
-        }
+      if(e.pointerType!=='touch') return;
+      const moved=Math.hypot(e.clientX-touchStartX,e.clientY-touchStartY);
+      const quick=(Date.now()-touchStartAt)<350;
+      if(moved<10 && quick && e.target===img){
+        if(zoom<=1.01){zoom=2.8;setOrigin(e.clientX,e.clientY);render();}
+        else{zoom=1;render();}
       }
     });
-    frame.addEventListener('pointercancel',()=>{if(touchZoom){zoom=1;render();}});
+    frame.addEventListener('pointercancel',()=>{touchStartAt=0;});
     frame.addEventListener('touchstart',e=>{
       if(e.touches.length===2){
         lastTouchDistance=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);
-        touchZoom=true; if(zoom<2.2) zoom=2.8; render();
+        if(zoom<2.2) zoom=2.8;
+        render();
       }
     },{passive:true});
     frame.addEventListener('touchmove',e=>{
