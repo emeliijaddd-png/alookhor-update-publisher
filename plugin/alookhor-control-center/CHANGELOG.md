@@ -1,3 +1,8 @@
+## 3.10.364 — PDP breadcrumb + cart fix redeploy
+- FIX breadcrumb: translateY 125->92 desktop, 78->58 mobile, higher position off image
+- KEEP cart 3.10.362 minimal fix + footer + PDP zoom
+- Version bump 3.10.363->3.10.364 for manifest redeploy
+
 ## 3.10.363 — PDP: فیکس نوار آدرس که روی عکس افتاده بود
 - FIX breadcrumb: transform:translateY(125px)->92px دسکتاپ و 78px->58px موبایل تا نوار آدرس بالاتر و سر جای خودش قرار بگیرد؛ margin-bottom 59px->24px و 43px->16px
 - KEEP: سبد خرید 3.10.362 (نمایش سبد + حذف فقط نوار سفید + فوتر) و PDP زوم هوشمند حفظ شد
