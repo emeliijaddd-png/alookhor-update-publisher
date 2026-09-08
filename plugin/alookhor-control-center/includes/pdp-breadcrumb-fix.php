@@ -114,4 +114,6 @@ CSS;
         wp_enqueue_style('alookhor-cc-pdp', ALOOKHOR_CC_URL.'assets/css/frontend-product.css', [], ALOOKHOR_CC_BUILD);
         wp_add_inline_style('alookhor-cc-pdp', $css);
     }
+
+    wp_enqueue_script('alookhor-cc-pdp-smart-zoom', ALOOKHOR_CC_URL.'assets/js/pdp-smart-zoom.js', ['alookhor-cc-pdp'], ALOOKHOR_CC_BUILD, true);
 }, 10000);
