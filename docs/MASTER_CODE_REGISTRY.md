@@ -279,7 +279,7 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 | `plugin/alookhor-control-center/includes/magazine.php` | 11 | `6b2bb5f4bcda9f078d3cc35423eca453b95527ba7ad9c73ca0c9e05cbd945c23` |
 | `plugin/alookhor-control-center/includes/newsletter.php` | 11 | `c164526a1deccb24ff8211e439b73ad6dda497cc3064c5e3f5d5c1fc01797321` |
 | `plugin/alookhor-control-center/includes/pages-settings.php` | 103 | `3f105b8014498e90b3e6a7bc6f60f667ee2eab40fd28fca2e9d03c3f087965b1` |
-| `plugin/alookhor-control-center/includes/pdp-breadcrumb-fix.php` | 117 | `38564d67af5894fe9f503bb06191f23f3be53f19b73b6a560228395afcf71778` |
+| `plugin/alookhor-control-center/includes/pdp-breadcrumb-fix.php` | 119 | `cf6bf956c5b0337b79a42c233c58db338d4d2e8105217e5a135a1d2b969d2871` |
 | `plugin/alookhor-control-center/includes/product-categories.php` | 99 | `72b7cf6900ad70a75c104f4e613e3357db91a8c05190af5847ebd9da674aa106` |
 | `plugin/alookhor-control-center/includes/product-page.php` | 615 | `f5c907e557dd456a077ab409b297a0bcb88dbd5ad51af91ddeb3253d6ac327ad` |
 | `plugin/alookhor-control-center/includes/product-seeder.php` | 777 | `3885bda6a4d7f7fbc12f6943782783cae558c379c1c334007e322fb63c96668c` |
@@ -15497,6 +15497,8 @@ CSS;
         wp_enqueue_style('alookhor-cc-pdp', ALOOKHOR_CC_URL.'assets/css/frontend-product.css', [], ALOOKHOR_CC_BUILD);
         wp_add_inline_style('alookhor-cc-pdp', $css);
     }
+
+    wp_enqueue_script('alookhor-cc-pdp-smart-zoom', ALOOKHOR_CC_URL.'assets/js/pdp-smart-zoom.js', ['alookhor-cc-pdp'], ALOOKHOR_CC_BUILD, true);
 }, 10000);
 ````
 
