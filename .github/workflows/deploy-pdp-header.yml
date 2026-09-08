@@ -40,7 +40,7 @@ jobs:
           h=Path('plugin/alookhor-control-center/includes/shortcode-header.php').read_text(encoding='utf-8')
           assert 'function alookhor_cc_render_akx_header()' in h
           f=Path('plugin/alookhor-control-center/includes/pdp-breadcrumb-fix.php').read_text(encoding='utf-8')
-          assert 'translateY(125px)' in f and 'translateY(78px)' in f
+          assert 'translateY(92px)' in f and 'translateY(58px)' in f
           print('PDP canonical Arena/AKX header + breadcrumb contract: PASS')
           PY
           python3 scripts/build_release.py
@@ -63,8 +63,8 @@ jobs:
               assert f"Version: {m['version']}" in boot
               assert 'alookhor_cc_render_akx_header' in tpl
               assert 'get_header()' not in tpl
-              assert 'translateY(125px)' in fix
-              assert 'translateY(78px)' in fix
+              assert 'translateY(92px)' in fix
+              assert 'translateY(58px)' in fix
           print('Local package verification: PASS',m['version'])
           PY
 
@@ -117,7 +117,7 @@ jobs:
                       fix=z.read('alookhor-control-center/includes/pdp-breadcrumb-fix.php').decode()
                       assert f"Version: {m['version']}" in boot
                       assert 'alookhor_cc_render_akx_header' in tpl
-                      assert 'translateY(125px)' in fix
+                      assert 'translateY(92px)' in fix
                   print('Remote package SHA/version/header verification: PASS'); break
               except Exception:
                   if attempt==5: raise

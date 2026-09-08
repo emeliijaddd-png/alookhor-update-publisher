@@ -42,8 +42,8 @@ jobs:
           assert 'breadcrumb-box' in t
           assert 'font-family:Dana,Vazirmatn' in t
           assert 'color:#fff!important' in t
-          assert 'translateY(125px)' in f
-          assert 'translateY(78px)' in f
+          assert 'translateY(92px)' in f
+          assert 'translateY(58px)' in f
           assert "return ALOOKHOR_CC_DIR.'templates/single-product.php';" in p
           assert 'function alookhor_cc_render_akx_header()' in h
           print('PDP canonical Arena/AKX header + breadcrumb refinement contract: PASS')
@@ -68,7 +68,7 @@ jobs:
               assert 'alookhor_cc_render_akx_header' in tpl
               assert 'alookhor-pdp-breadcrumb-refinement' in tpl
               assert 'breadcrumb-wrapper' in tpl and 'breadcrumb-box' in tpl
-              assert 'translateY(125px)' in fix and 'translateY(78px)' in fix
+              assert 'translateY(92px)' in fix and 'translateY(58px)' in fix
               assert 'get_header()' not in tpl
           print('Package SHA and PDP breadcrumb verification: PASS',m['version'])
           PY
@@ -120,7 +120,7 @@ jobs:
               fix=z.read('alookhor-control-center/includes/pdp-breadcrumb-fix.php').decode()
               assert 'alookhor_cc_render_akx_header' in tpl and 'alookhor-pdp-breadcrumb-refinement' in tpl
               assert 'breadcrumb-wrapper' in tpl and 'breadcrumb-box' in tpl
-              assert 'translateY(125px)' in fix and 'translateY(78px)' in fix
+              assert 'translateY(92px)' in fix and 'translateY(58px)' in fix
           print('Remote package verification over FTPS: PASS',m['version'])
           PY
 
