@@ -1,3 +1,10 @@
+## 3.10.361 — سبد خرید: حذف کامل کارت‌های سفید + فیکس فوتر
+- FIX سفید: نوار سفید بالای سبد، قرص سفید کوچک سبد خرید، مستطیل سفید و checkout steps با CSS تهاجمی بدون نیاز به body class + JS MutationObserver که background سفید و متن سبد خرید و عرض 150-500 را چک می‌کند حذف شد
+- FIX فوتر: قالب ساده get_header/cart_markup/get_footer بدون min-height:0؛ فوتر با background اصلی حفظ شد
+- FIX نمایش: فیلتر سامسونگ/گوشی حذف، تمام آیتم‌ها نمایش
+- FEATURE PDP: زوم هاور scale2 + چرخش 4s + breadcrumb + smart zoom حفظ
+- Version bump 3.10.360->3.10.361
+
 ## 3.10.360 — سبد خرید: فیکس فوتر شکسته + حذف نوار سفید + نمایش تمام محصولات
 - FIX فوتر: قالب سبد خرید از حالت aggressive custom shell با html,body min-height:0 به حالت ساده get_header/cart_markup/get_footer برگشت؛ فضای سیاه بزرگ زیر فوتر و افتادن هدر به پایین صفحه رفع شد؛ فوتر با background اصلی نمایش داده می‌شود
 - FIX سفید: نوار سفید کوچک با متن سبد خرید و مستطیل سفید Woodmart با CSS scoped body.woocommerce-cart .wd-page-title display:none + JS که background سفید و متن سبد خرید را چک می‌کند حذف شد؛ فقط #alookhor-cart لوکس با بک‌گراند #0d0510 نمایش داده می‌شود
