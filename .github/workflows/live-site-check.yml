@@ -6,7 +6,7 @@ jobs:
   check:
     runs-on: ubuntu-latest
     steps:
-      - name: Browser-render live cart audit
+      - name: Browser-render exact cart audit
         shell: bash
         run: |
           set -euo pipefail
@@ -17,33 +17,39 @@ jobs:
           from selenium.webdriver.chrome.options import Options
           from selenium.webdriver.common.by import By
           from selenium.webdriver.support.ui import WebDriverWait
-          url='https://alookhor.ir/cart/?livecheck=20260908d'
-          o=Options(); o.add_argument('--headless=new'); o.add_argument('--no-sandbox'); o.add_argument('--disable-dev-shm-usage'); o.add_argument('--window-size=1440,1200')
-          d=webdriver.Chrome(options=o)
-          try:
-            d.get(url)
-            WebDriverWait(d,30).until(lambda x:x.find_elements(By.ID,'alookhor-cart'))
-            time.sleep(3)
-            result=d.execute_script(r'''
-            const arena=document.querySelector('#alookhor-cart');
-            const native=[...document.querySelectorAll('.woocommerce-cart-form,.cart-collaterals,.cart_totals,.woocommerce-cart-form__contents,.wd-cart-content,.cart-empty')].filter(e=>!arena?.contains(e));
-            const r=e=>e?e.getBoundingClientRect().toJSON():null;
-            const bg=e=>e?getComputedStyle(e).backgroundColor:null;
-            const ancestors=[]; let p=arena;
-            for(let i=0;p&&i<8;i++,p=p.parentElement){const s=getComputedStyle(p); ancestors.push({tag:p.tagName,id:p.id||'',cls:(p.className||'').toString().slice(0,120),bg:s.backgroundColor,display:s.display,position:s.position,padding:s.padding,margin:s.margin,border:s.border});}
-            const body=getComputedStyle(document.body);
-            const footer=document.querySelector('footer');
-            return {arena:r(arena),footer:r(footer),viewport:{w:innerWidth,h:innerHeight},nativeCount:native.length,bodyBg:body.backgroundColor,htmlBg:getComputedStyle(document.documentElement).backgroundColor,ancestors,scrollHeight:document.documentElement.scrollHeight};
-            ''')
-            print(json.dumps(result,ensure_ascii=False,indent=2))
-            assert result['nativeCount']==0
-            assert result['arena'] and result['footer']
-            assert result['arena']['bottom'] <= result['footer']['top'] + 2
-            bad=[]
-            for a in result['ancestors']:
-              if a['bg'] in ('rgb(255, 255, 255)','rgba(255, 255, 255, 1)'): bad.append(a)
-            assert not bad, 'white ancestor/background around Arena cart: '+json.dumps(bad,ensure_ascii=False)
-            print('LIVE BROWSER CART AUDIT: PASS — one Arena cart, no native cart, no white ancestor surface, footer below cart')
-          finally:
-            d.quit()
+          URL='https://alookhor.ir/cart/'
+          native_sel='.woocommerce-cart-form,.cart-collaterals,.cart_totals,.woocommerce-cart-form__contents,.wd-cart-content,.cart-empty,.wd-empty-cart,.return-to-shop'
+          def audit(width,height):
+            o=Options(); o.add_argument('--headless=new'); o.add_argument('--no-sandbox'); o.add_argument('--disable-dev-shm-usage'); o.add_argument(f'--window-size={width},{height}')
+            d=webdriver.Chrome(options=o)
+            try:
+              d.get(URL)
+              WebDriverWait(d,30).until(lambda x:x.find_elements(By.ID,'alookhor-cart'))
+              time.sleep(3)
+              r=d.execute_script('''
+              const arena=document.querySelector('#alookhor-cart');
+              const all=[...document.querySelectorAll(arguments[0])];
+              const native=all.filter(e=>!arena?.contains(e));
+              const rect=e=>e?e.getBoundingClientRect().toJSON():null;
+              const footer=document.querySelector('footer');
+              const a=arena?.getBoundingClientRect();
+              const body=getComputedStyle(document.body), main=document.querySelector('#main-content');
+              const cs=arena?getComputedStyle(arena):null;
+              const badWhite=[]; let p=arena;
+              for(let i=0;p&&i<8;i++,p=p.parentElement){if(getComputedStyle(p).backgroundColor==='rgb(255, 255, 255)')badWhite.push(p.tagName+'.'+p.className)}
+              const overflow=arena?arena.scrollWidth>arena.clientWidth+2:false;
+              return {arenaCount:document.querySelectorAll('#alookhor-cart').length,nativeCount:native.length,arena:rect(arena),footer:rect(footer),bodyBg:body.backgroundColor,mainBg:main?getComputedStyle(main).backgroundColor:null,arenaBg:cs?.backgroundColor,badWhite,overflow,viewport:{w:innerWidth,h:innerHeight},scrollHeight:document.documentElement.scrollHeight};
+              ''',native_sel)
+              print(json.dumps(r,ensure_ascii=False,indent=2))
+              assert r['arenaCount']==1
+              assert r['nativeCount']==0
+              assert r['arena'] and r['footer']
+              assert r['arena']['bottom'] <= r['footer']['top'] + 2
+              assert not r['badWhite']
+              assert not r['overflow']
+              return r
+            finally:d.quit()
+          desktop=audit(1440,1200)
+          mobile=audit(390,844)
+          print('LIVE EXACT /cart/ AUDIT: PASS — desktop + mobile, one Arena cart, zero native cart, no white ancestor, no horizontal overflow, footer below cart')
           PY
