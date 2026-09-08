@@ -147,8 +147,17 @@ function alookhor_cc_cart_markup(){
         <div class="suggested-grid">
           <?php
           $related_ids=[];
-          if(!empty($d['items'])){ $first_pid=$d['items'][0]['id']; $prod=wc_get_product($first_pid); if($prod){ $related_ids=wc_get_related_products($first_pid,4);} }
-          if(empty($related_ids)){ $related_ids=wc_get_products(['limit'=>4,'return'=>'ids','status'=>'publish']); }
+          if(!empty($d['items'])){ $first_pid=$d['items'][0]['id']; $prod=wc_get_product($first_pid); if($prod){ $related_ids=wc_get_related_products($first_pid,8);} }
+          // Filter Samsung out
+          if(!empty($related_ids)){
+            $filtered=[]; foreach($related_ids as $fid){ $fp=wc_get_product($fid); if(!$fp) continue; $fn=$fp->get_name(); if(strpos($fn,'سامسونگ')!==false||strpos($fn,'گوشی')!==false||stripos($fn,'samsung')!==false) continue; $filtered[]=$fid; if(count($filtered)>=4) break; }
+            $related_ids=$filtered;
+          }
+          if(empty($related_ids)){
+            $all=wc_get_products(['limit'=>20,'return'=>'ids','status'=>'publish']);
+            $filtered=[]; foreach($all as $fid){ $fp=wc_get_product($fid); if(!$fp) continue; $fn=$fp->get_name(); if(strpos($fn,'سامسونگ')!==false||strpos($fn,'گوشی')!==false||stripos($fn,'samsung')!==false) continue; $filtered[]=$fid; if(count($filtered)>=4) break; }
+            $related_ids=$filtered?:array_slice($all,0,4);
+          }
           foreach(array_slice($related_ids,0,4) as $rid){
             $rp=wc_get_product($rid); if(!$rp)continue;
             $ru=wp_get_attachment_image_url($rp->get_image_id(),'woocommerce_thumbnail'); $ru=$ru?:$img.'bowl.jpg';
@@ -528,7 +537,18 @@ function alookhor_cc_cart_suggested_shortcode_final(){
       <?php
       $related_ids=[];
       if(function_exists('wc_get_products')){
-        $related_ids=wc_get_products(['limit'=>4,'return'=>'ids','status'=>'publish']);
+        // Get more and filter out Samsung/demo phones
+        $all_ids=wc_get_products(['limit'=>20,'return'=>'ids','status'=>'publish']);
+        $filtered=[];
+        foreach($all_ids as $fid){
+          $fp=wc_get_product($fid); if(!$fp) continue;
+          $fn=$fp->get_name();
+          if(strpos($fn,'سامسونگ')!==false || strpos($fn,'گوشی')!==false || stripos($fn,'samsung')!==false || stripos($fn,'phone')!==false) continue;
+          $filtered[]=$fid;
+          if(count($filtered)>=4) break;
+        }
+        $related_ids=$filtered;
+        if(empty($related_ids)) $related_ids=array_slice($all_ids,0,4);
       }
       if(empty($related_ids)) $related_ids=[1,2,3,4];
       foreach(array_slice($related_ids,0,4) as $rid){

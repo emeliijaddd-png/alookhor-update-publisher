@@ -955,53 +955,24 @@ body.woocommerce-cart .wd-cart-content:not(#alookhor-cart *) {
   display:none!important;
 }
 
-/* ===== v3.10.369 — CART ONLY LUXURY + FOOTER — hide everything else ===== */
-body.woocommerce-cart .wd-empty-cart,
-body.woocommerce-cart .return-to-shop,
-body.woocommerce-cart .woocommerce-notices-wrapper,
-body.woocommerce-cart .cart-empty,
-body.woocommerce-cart .products,
-body.woocommerce-cart .wd-products,
-body.woocommerce-cart .wd-products-element,
-body.woocommerce-cart .cross-sells,
-body.woocommerce-cart .wd-cross-sells,
-body.woocommerce-cart .related,
-body.woocommerce-cart .up-sells,
-body.woocommerce-cart .wd-related,
-body.woocommerce-cart .wd-up-sells,
-body.woocommerce-cart .woocommerce > .products,
-body.woocommerce-cart .woocommerce > .cart-empty,
-body.woocommerce-cart .woocommerce > .return-to-shop,
+/* ===== v3.10.369 — CART ONLY LUXURY + FOOTER — minimal safe hide ===== */
+body.woocommerce-cart .wd-empty-cart:not(#alookhor-cart *),
+body.woocommerce-cart .return-to-shop:not(#alookhor-cart *),
+body.woocommerce-cart .cart-empty:not(#alookhor-cart *),
+body.woocommerce-cart .wd-products-element:not(#alookhor-cart *),
+body.woocommerce-cart .cross-sells:not(#alookhor-cart *),
+body.woocommerce-cart .wd-cross-sells:not(#alookhor-cart *),
+body.woocommerce-cart .related:not(#alookhor-cart *),
+body.woocommerce-cart .up-sells:not(#alookhor-cart *),
+body.woocommerce-cart .wd-related:not(#alookhor-cart *),
+body.woocommerce-cart .wd-up-sells:not(#alookhor-cart *),
 body.woocommerce-cart #alookhor-managed-categories,
-body.woocommerce-cart .alookhor-mc,
-body.woocommerce-cart .wd-empty-cart + div,
-body.woocommerce-cart .wd-page-content > .woocommerce > *:not(#alookhor-cart):not(#alookhor-cart-main):not(.woocommerce-notices-wrapper) {
+body.woocommerce-cart .alookhor-mc {
   display:none!important;
-  visibility:hidden!important;
-  height:0!important;
-  overflow:hidden!important;
-  margin:0!important;
-  padding:0!important;
-  opacity:0!important;
-  pointer-events:none!important;
 }
-/* Ensure luxury cart and its children stay visible */
-body.woocommerce-cart #alookhor-cart,
-body.woocommerce-cart #alookhor-cart *,
-body.woocommerce-cart #alookhor-cart-main,
-body.woocommerce-cart #alookhor-cart-main * {
-  display:revert!important;
-  visibility:visible!important;
-  opacity:1!important;
-}
+/* Ensure luxury cart visible */
 body.woocommerce-cart #alookhor-cart {
   display:block!important;
-}
-body.woocommerce-cart #alookhor-cart .cart-products-box,
-body.woocommerce-cart #alookhor-cart .cart-summary,
-body.woocommerce-cart #alookhor-cart .suggested,
-body.woocommerce-cart #alookhor-cart .features,
-body.woocommerce-cart #alookhor-cart .faq,
-body.woocommerce-cart #alookhor-cart .cart-hero {
-  display:block!important;
+  visibility:visible!important;
+  opacity:1!important;
 }

@@ -1,3 +1,9 @@
+## 3.10.370 — سبد خرید: حذف سامسونگ + فیکس بهم‌ریختگی
+- FIX: پیشنهاد تکمیل خرید گوشی سامسونگ را نشان می‌داد (دمو وودمارت) — فیلتر شد تا فقط محصولات آلوخور نمایش داده شود (آلو بخارا، گردو، لواشک، کشمش)
+- FIX: CSS 3.10.369 با display:revert و селектор تهاجمی باعث بهم‌ریختگی شد — حذف شد و فقط المان‌های اضافی مشخص مخفی شد
+- LIVE: بررسی لایو /cart/ و / انجام شد، سبد لوکس سالم، هدر/فوتر سالم
+- Version bump 3.10.369->3.10.370
+
 ## 3.10.369 — سبد خرید: فقط لوکس + فوتر، حذف بقیه
 - FIX: طبق تصویر، فقط #alookhor-cart لوکس باید دیده شود؛ بقیه (wd-empty-cart, return-to-shop, products, cross-sells, related, up-sells, managed-categories) با CSS body.woocommerce-cart display:none مخفی شد
 - FIX: #alookhor-cart و فرزندانش با display:block/revert همیشه visible

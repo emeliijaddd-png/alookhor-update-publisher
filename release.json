@@ -1,29 +1,33 @@
 {
-  "version": "3.10.369",
-  "previous": "3.10.368",
+  "version": "3.10.370",
+  "previous": "3.10.369",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "سبد خرید: فقط سبد لوکس + فوتر، حذف بقیه",
+  "description": "سبد خرید: حذف گوشی سامسونگ از پیشنهادی + فیکس بهم‌ریختگی CSS",
   "changelog": [
     {
       "tag": "FIX",
-      "title": "سبد خرید فقط لوکس + فوتر",
-      "desc": "طبق تصویر ارسالی، فقط #alookhor-cart لوکس باید دیده شود؛ بقیه عناصر وودمارت (wd-empty-cart, return-to-shop, products, cross-sells, related, up-sells, managed-categories) با CSS تهاجمی body.woocommerce-cart display:none مخفی شد؛ #alookhor-cart و فرزندانش با display:block/revert و visibility:visible همیشه visible."
+      "title": "حذف گوشی سامسونگ از پیشنهاد تکمیل خرید",
+      "desc": "در لایو /cart/ گوشی‌های سامسونگ نوع 9 و 10 از دمو وودمارت در بخش پیشنهاد دیده می‌شد؛ علت wc_get_products بدون فیلتر. فیکس: در cart-page.php هر دو بخش suggested (اصلی و شورت‌کد) فیلتر شد تا محصولات با نام سامسونگ/گوشی/samsund/phone حذف شوند و فقط محصولات آلوخور (آلو بخارا، گردو، لواشک، کشمش) نمایش داده شود."
     },
     {
-      "tag": "KEEP",
-      "title": "حفظ هدر و فوتر",
-      "desc": "هدر AKX و فوتر با display:block حفظ شد؛ بک‌گراند #0d0510."
+      "tag": "FIX",
+      "title": "فیکس بهم‌ریختگی سبد",
+      "desc": "CSS v3.10.369 با display:revert و селектор تهاجمی .wd-page-content > .woocommerce > *:not(#alookhor-cart) باعث مخفی شدن wrapper سبد و بهم‌ریختگی شد. فیکس: حذف селектор تهاجمی و display:revert، فقط المان‌های مشخص wd-empty-cart, return-to-shop, cross-sells, related, up-sells, managed-categories با :not(#alookhor-cart *) مخفی شد؛ #alookhor-cart با display:block حفظ شد."
+    },
+    {
+      "tag": "LIVE",
+      "title": "بررسی لایو",
+      "desc": "fetch_page از /cart/ و / انجام شد: سبد لوکس با هیرو تیره، خلاصه سفارش، پیشنهادی، ویژگی‌ها، FAQ دیده می‌شود؛ هدر و فوتر سالم. نسخه 3.10.370 آماده انتشار."
     }
   ],
   "project": "ALOOKHOR",
-  "area": "cart only luxury",
-  "reason": "کاربر: در صفحه سبد خرید فقط همین که در عکس است دیده شود، هر چیز دیگر حذف شود جز فوتر",
+  "area": "cart fix live verified",
+  "reason": "کاربر: همه چیز بهم ریخت و داغون شد - لایو ببین و به صورت لایو سمت راست نشان بده؛ گوشی سامسونگ نباید در سبد پیشنهادی باشد",
   "files": [
-    "plugin/alookhor-control-center/assets/css/frontend-cart.css",
-    "plugin/alookhor-control-center/templates/cart.php",
-    "plugin/alookhor-control-center/includes/cart-page.php"
+    "plugin/alookhor-control-center/includes/cart-page.php",
+    "plugin/alookhor-control-center/assets/css/frontend-cart.css"
   ]
 }
