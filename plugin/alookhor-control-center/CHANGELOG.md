@@ -1,6 +1,19 @@
+## 3.10.360 — سبد خرید: فیکس فوتر شکسته + حذف نوار سفید + نمایش تمام محصولات
+- FIX فوتر: قالب سبد خرید از حالت aggressive custom shell با html,body min-height:0 به حالت ساده get_header/cart_markup/get_footer برگشت؛ فضای سیاه بزرگ زیر فوتر و افتادن هدر به پایین صفحه رفع شد؛ فوتر با background اصلی نمایش داده می‌شود
+- FIX سفید: نوار سفید کوچک با متن سبد خرید و مستطیل سفید Woodmart با CSS scoped body.woocommerce-cart .wd-page-title display:none + JS که background سفید و متن سبد خرید را چک می‌کند حذف شد؛ فقط #alookhor-cart لوکس با بک‌گراند #0d0510 نمایش داده می‌شود
+- FIX نمایش محصولات: فیلتر قدیمی سامسونگ/گوشی حذف شد؛ حالا تمام آیتم‌های سبد خرید بدون استثنا نمایش داده می‌شود
+- FEATURE PDP: زوم هاور scale 2 + چرخش خودکار 4s + Breadcrumb + smart zoom fix از 3.10.359 حفظ شد
+- CSS: v3.10.360 block footer visible + min-height 100% + background #0d0510 + #alookhor-cart visible
+- Version bump 3.10.359->3.10.360
+
+## 3.10.359 — PDP smart zoom fix
+- FIX: رفع فعال نشدن زوم هوشمند تصاویر محصول — اسکریپت زوم مستقل شد و وابستگی اشتباه به handle مربوط به CSS حذف شد
+- FEATURE: زوم نقطه‌ای و progressive روی تصویر محصول با حرکت نشانگر و اسکرول؛ موبایل Tap/Pinch
+- Version bump 3.10.358->3.10.359
+
 ## 3.10.358 — سبد خرید: حذف نوار سفید و مستطیل سفید + نمایش تمام محصولات
 - FIX سفید: نوار سفید کوچک بالای صفحه با متن "سبد خرید" و تمام کانتینرهای سفید Woodmart (wd-page-title, whb-page-title, wd-entities-title, page-title, etc) با CSS تهاجمی v3.10.358 + JS که background سفید را چک می‌کند حذف شد؛ فقط #alookhor-cart لوکس نمایش داده می‌شود
-- FIX نمایش محصولات: فیلتر قدیمی `if(mb_strpos($name,'سامسونگ')!==false||mb_strpos($name,'گوشی')!==false)continue;` در cart-page.php و product-page.php حذف شد؛ حالا تمام خریدهای کاربر بدون استثنا نمایش داده می‌شود؛ guard در templates/cart.php هم حذف شد
+- FIX نمایش محصولات: فیلتر قدیمی if(mb_strpos($name,'سامسونگ')!==false||mb_strpos($name,'گوشی')!==false)continue; در cart-page.php و product-page.php حذف شد؛ حالا تمام خریدهای کاربر بدون استثنا نمایش داده می‌شود؛ guard در templates/cart.php هم حذف شد
 - CSS: body.woocommerce-cart .wd-page-title{display:none!important} + body.woocommerce-cart background #0d0510 + #alookhor-cart visible
 - JS: hideOld() enhanced to check computed backgroundColor white + text سبد خرید + offsetWidth/Height for white pill and big rect
 - Version bump 3.10.357->3.10.358
@@ -9,6 +22,11 @@
 - FEATURE زوم: وقتی موس روی عکس اصلی محصول (#alpMain داخل [data-stage] .gallery-frame) می‌رود تصویر با scale 2 زوم می‌شود و transform-origin با حرکت موس جابجا می‌شود؛ cursor zoom-in؛ روی موبایل/تبلت (<=1024px) غیرفعال برای UX لمسی
 - FEATURE چرخش خودکار: هر 4000ms عکس اصلی با عکس بعدی از بخش کناری (gallery-thumbs button / .gallery-thumb) عوض می‌شود via show(idx+1)؛ pause 6s روی interaction (کلیک بندانگشتی، prev/next، pointerdown/wheel/touchstart، mouseenter زوم)؛ pause وقتی document.hidden یا frame:hover؛ resume بعد از 6s
 - FIX Breadcrumb: مسیر خانه / محصولات / دسته‌بندی / محصول زیر هدر با فاصله صحیح (translateY 125px desktop / 78px mobile)، فونت Dana، رنگ سفید، کادر دارک و Responsive کامل — حفظ از 3.10.356
+- FIX Cart: قالب سبد خرید مستقل از WoodMart (canonical custom shell) + guard برای نام محصولات سامسونگ/گوشی — حفظ از 3.10.356
+- CSS: .gallery-frame{overflow:hidden; cursor:zoom-in} #alpMain{will-change:transform, transform-origin; transition:transform .28s ease} .is-zooming #alpMain{transform:scale(2)} .is-changing{opacity:.75}
+- JS: frame=[data-stage], autoTimer, AUTOPLAY_MS=4000, RESUME_AFTER=6000, pauseAuto(), tick(), startAuto()/stopAuto(), zoom listeners mouseenter/mousemove/mouseleave, visibilitychange
+- Version bump 3.10.355->3.10.357 via sed + release.json + registry
+
 - FIX Cart: قالب سبد خرید مستقل از WoodMart (canonical custom shell) + guard برای نام محصولات سامسونگ/گوشی — حفظ از 3.10.356
 - CSS: .gallery-frame{overflow:hidden; cursor:zoom-in} #alpMain{will-change:transform, transform-origin; transition:transform .28s ease} .is-zooming #alpMain{transform:scale(2)} .is-changing{opacity:.75}
 - JS: frame=[data-stage], autoTimer, AUTOPLAY_MS=4000, RESUME_AFTER=6000, pauseAuto(), tick(), startAuto()/stopAuto(), zoom listeners mouseenter/mousemove/mouseleave, visibilitychange

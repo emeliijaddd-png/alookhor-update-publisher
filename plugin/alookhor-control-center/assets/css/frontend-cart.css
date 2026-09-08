@@ -732,3 +732,96 @@ body.alookhor-managed-cart-page #alookhor-cart-main {
   visibility:visible!important;
   opacity:1!important;
 }
+
+/* ===== v3.10.360 — FOOTER FIX + CART WHITE FIX (simple template) ===== */
+body.woocommerce-cart,
+body.alookhor-managed-cart-page,
+html body.woocommerce-cart,
+html body.alookhor-managed-cart-page {
+  background:#0d0510!important;
+  background-color:#0d0510!important;
+  min-height:100%!important;
+}
+body.woocommerce-cart .main-page-wrapper,
+body.woocommerce-cart .site-content,
+body.woocommerce-cart .wd-page-content,
+body.alookhor-managed-cart-page .main-page-wrapper,
+body.alookhor-managed-cart-page .site-content,
+body.alookhor-managed-cart-page .wd-page-content {
+  background:transparent!important;
+  min-height:auto!important;
+  padding-top:0!important;
+  margin-top:0!important;
+}
+/* hide only Woodmart white cart titles, NOT footer */
+body.woocommerce-cart .wd-page-title,
+body.woocommerce-cart .whb-page-title,
+body.woocommerce-cart .wd-entities-title,
+body.woocommerce-cart .page-title,
+body.woocommerce-cart .entry-header,
+body.woocommerce-cart .wd-page-heading,
+body.woocommerce-cart .title-design-default,
+body.woocommerce-cart .title-design-centered,
+body.woocommerce-cart .wd-checkout-steps,
+body.alookhor-managed-cart-page .wd-page-title,
+body.alookhor-managed-cart-page .whb-page-title,
+body.alookhor-managed-cart-page .wd-entities-title,
+body.alookhor-managed-cart-page .page-title,
+body.alookhor-managed-cart-page .entry-header,
+body.alookhor-managed-cart-page .wd-checkout-steps,
+body.alookhor-managed-cart-page .wd-page-heading {
+  display:none!important;
+  visibility:hidden!important;
+  height:0!important;
+  overflow:hidden!important;
+  margin:0!important;
+  padding:0!important;
+  opacity:0!important;
+  pointer-events:none!important;
+  border:none!important;
+  background:transparent!important;
+}
+/* ensure luxury cart visible */
+body.woocommerce-cart #alookhor-cart,
+body.alookhor-managed-cart-page #alookhor-cart,
+body.woocommerce-cart #alookhor-cart-main,
+body.alookhor-managed-cart-page #alookhor-cart-main {
+  display:block!important;
+  visibility:visible!important;
+  opacity:1!important;
+  width:100%!important;
+  max-width:none!important;
+  background:#0d0510!important;
+}
+/* FOOTER MUST stay visible and at bottom, not transparent */
+body.woocommerce-cart footer,
+body.woocommerce-cart .site-footer,
+body.woocommerce-cart .whb-footer,
+body.woocommerce-cart .wd-footer,
+body.woocommerce-cart .footer-container,
+body.woocommerce-cart .wd-footer,
+body.alookhor-managed-cart-page footer,
+body.alookhor-managed-cart-page .site-footer,
+body.alookhor-managed-cart-page .whb-footer,
+body.alookhor-managed-cart-page .wd-footer,
+body.alookhor-managed-cart-page .footer-container {
+  display:block!important;
+  visibility:visible!important;
+  opacity:1!important;
+  position:relative!important;
+  clear:both!important;
+  width:100%!important;
+  margin-top:40px!important;
+  z-index:1!important;
+  background:initial!important;
+  background-color:initial!important;
+}
+/* hide ONLY old WooCommerce white cart forms, not footer */
+body.woocommerce-cart .woocommerce-cart-form:not(#alookhor-cart *),
+body.woocommerce-cart .cart-collaterals:not(#alookhor-cart *),
+body.woocommerce-cart .shop_table.woocommerce-cart-form__contents:not(#alookhor-cart *),
+body.woocommerce-cart .wd-cart-content:not(#alookhor-cart *),
+body.woocommerce-cart .wd-empty-cart,
+body.woocommerce-cart .return-to-shop {
+  display:none!important;
+}
