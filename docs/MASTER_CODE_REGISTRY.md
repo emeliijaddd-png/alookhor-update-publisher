@@ -260,7 +260,7 @@ STATUS: SOURCE READY — deployment status must be verified separately.
 | `plugin/alookhor-control-center/assets/js/modules/orders.js` | 19 | `0ccd8376c69ba37fb50d3261f002789488042e17a0b1b37539bab86abda374eb` |
 | `plugin/alookhor-control-center/assets/js/modules/settings.js` | 794 | `3149c29b0b0500b2924b0cc76569e0eb31d63ea7b79d92ece5cbd6954209b567` |
 | `plugin/alookhor-control-center/assets/js/modules/users.js` | 20 | `6fb96546faf00ea831ace016d09b10f903a501db647bae20d0f570034ac36946` |
-| `plugin/alookhor-control-center/assets/js/pdp-smart-zoom.js` | 105 | `72bd238ea847c7a532b79104d24dde6e9c9fc71723eca9a85ef219a8bf5e8f96` |
+| `plugin/alookhor-control-center/assets/js/pdp-smart-zoom.js` | 33 | `5e36cd1311cdd5c93dcf24227d136c75a30054c19a7ea3d4ca65f670abde88c9` |
 | `plugin/alookhor-control-center/config/site.json` | 37 | `885a01165bf7529aa3d79494c93037d95985d09861d2574f7c40888ebbd2e979` |
 | `plugin/alookhor-control-center/includes/about-page.php` | 161 | `c6550866eeb1d48ff70085c42b84ec251afb3ce764b0b005c0c80a9751ae266b` |
 | `plugin/alookhor-control-center/includes/admin-export-banner.php` | 180 | `fff84102b3dc84cb69c7318312395993a8adf6255a5d7f056d4c7bf7dce8e1b2` |
@@ -12840,107 +12840,35 @@ export const usersModule = {
 (()=>{'use strict';
 const init=()=>{
   const frames=Array.from(document.querySelectorAll('.gallery-frame[data-stage], .gallery-frame'));
-  if(!frames.length) return;
-  const finePointer=window.matchMedia && window.matchMedia('(pointer:fine)').matches;
+  if(!frames.length)return;
+  const finePointer=window.matchMedia&&window.matchMedia('(pointer:fine)').matches;
   const clamp=(v,min,max)=>Math.max(min,Math.min(max,v));
   frames.forEach(frame=>{
-    if(frame.dataset.alookhorSmartZoom==='1') return;
-    const img=frame.querySelector('#alpMain, img');
-    if(!img) return;
+    if(frame.dataset.alookhorSmartZoom==='1')return;
+    const img=frame.querySelector('#alpMain, img'); if(!img)return;
     frame.dataset.alookhorSmartZoom='1';
-    let zoom=1;
-    let active=false;
-    let lastTouchDistance=0;
-    let touchStartX=0,touchStartY=0,touchStartAt=0;
-    const setOrigin=(clientX,clientY)=>{
-      const r=frame.getBoundingClientRect();
-      const x=clamp(((clientX-r.left)/r.width)*100,0,100);
-      const y=clamp(((clientY-r.top)/r.height)*100,0,100);
-      img.style.transformOrigin=`${x.toFixed(2)}% ${y.toFixed(2)}%`;
-    };
-    const render=()=>{
-      if(zoom<=1.01){
-        active=false;
-        frame.classList.remove('alookhor-zoom-active');
-        img.style.transform='';
-        img.style.transformOrigin='';
-        img.style.cursor=finePointer?'zoom-in':'';
-        return;
-      }
-      active=true;
-      frame.classList.add('alookhor-zoom-active');
-      img.style.transform=`scale(${zoom.toFixed(2)})`;
-      img.style.cursor='zoom-out';
-    };
-    const enter=()=>{
-      if(!finePointer) return;
-      zoom=2.8;
-      render();
-    };
-    const move=e=>{
-      if(!active) return;
-      if(e.pointerType==='mouse' || e.pointerType==='pen') setOrigin(e.clientX,e.clientY);
-    };
-    const leave=()=>{
-      if(!finePointer) return;
-      zoom=1;
-      render();
-    };
-    frame.addEventListener('mouseenter',enter);
-    frame.addEventListener('mousemove',move);
-    frame.addEventListener('mouseleave',leave);
-    frame.addEventListener('wheel',e=>{
-      if(!finePointer) return;
-      const target=e.target;
-      if(target.closest && target.closest('button')) return;
-      e.preventDefault();
-      if(!active) zoom=2.8;
-      zoom=clamp(zoom+(e.deltaY<0?.35:-.35),1,4.6);
-      setOrigin(e.clientX,e.clientY);
-      render();
-    },{passive:false});
-    frame.addEventListener('pointerdown',e=>{
-      if(e.target.closest && e.target.closest('button')) return;
-      if(e.pointerType==='touch'){
-        touchStartX=e.clientX; touchStartY=e.clientY; touchStartAt=Date.now();
-        setOrigin(e.clientX,e.clientY);
-      }
-    });
-    frame.addEventListener('pointermove',e=>{
-      if(e.pointerType==='touch' && active) setOrigin(e.clientX,e.clientY);
-    });
-    frame.addEventListener('pointerup',e=>{
-      if(e.pointerType!=='touch') return;
-      const moved=Math.hypot(e.clientX-touchStartX,e.clientY-touchStartY);
-      const quick=(Date.now()-touchStartAt)<350;
-      if(moved<10 && quick && e.target===img){
-        if(zoom<=1.01){zoom=2.8;setOrigin(e.clientX,e.clientY);render();}
-        else{zoom=1;render();}
-      }
-    });
-    frame.addEventListener('pointercancel',()=>{touchStartAt=0;});
-    frame.addEventListener('touchstart',e=>{
-      if(e.touches.length===2){
-        lastTouchDistance=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);
-        if(zoom<2.2) zoom=2.8;
-        render();
-      }
-    },{passive:true});
-    frame.addEventListener('touchmove',e=>{
-      if(e.touches.length===2){
-        const d=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);
-        if(lastTouchDistance){zoom=clamp(zoom+(d-lastTouchDistance)*.012,1,4.6);render();}
-        lastTouchDistance=d;
-      }
-    },{passive:true});
-    frame.addEventListener('touchend',()=>{lastTouchDistance=0;});
-    img.style.willChange='transform';
-    img.style.transformOrigin='50% 50%';
-    img.style.transition='transform .16s cubic-bezier(.2,.7,.2,1)';
-    img.style.cursor=finePointer?'zoom-in':'';
+    let zoom=1,active=false,lastTouchDistance=0,touchStartX=0,touchStartY=0,touchStartAt=0;
+    const setOrigin=(clientX,clientY)=>{const r=frame.getBoundingClientRect();const x=clamp(((clientX-r.left)/r.width)*100,0,100);const y=clamp(((clientY-r.top)/r.height)*100,0,100);img.style.transformOrigin=`${x.toFixed(2)}% ${y.toFixed(2)}%`;};
+    const render=()=>{if(zoom<=1.01){active=false;frame.classList.remove('alookhor-zoom-active');img.style.transform='';img.style.transformOrigin='';img.style.cursor=finePointer?'zoom-in':'';return;}active=true;frame.classList.add('alookhor-zoom-active');img.style.transform=`scale(${zoom.toFixed(2)})`;img.style.cursor='zoom-out';};
+    const enter=e=>{if(!finePointer)return;if(e.target.closest&&e.target.closest('button'))return;zoom=2.8;setOrigin(e.clientX||0,e.clientY||0);render();};
+    const move=e=>{if(!active)return;if(e.pointerType&&e.pointerType!=='mouse'&&e.pointerType!=='pen')return;setOrigin(e.clientX,e.clientY);};
+    const leave=()=>{if(!finePointer)return;zoom=1;render();};
+    // Capture phase intentionally wins over the legacy gallery's old 2x zoom handlers.
+    frame.addEventListener('mouseenter',enter,true);
+    frame.addEventListener('mousemove',e=>{if(e.target.closest&&e.target.closest('button'))return;e.stopImmediatePropagation();move(e);},true);
+    frame.addEventListener('mouseleave',e=>{e.stopImmediatePropagation();leave();},true);
+    frame.addEventListener('wheel',e=>{if(!finePointer)return;if(e.target.closest&&e.target.closest('button'))return;e.preventDefault();e.stopImmediatePropagation();if(!active)zoom=2.8;zoom=clamp(zoom+(e.deltaY<0?.4:-.4),1,5);setOrigin(e.clientX,e.clientY);render();},{passive:false,capture:true});
+    frame.addEventListener('pointerdown',e=>{if(e.target.closest&&e.target.closest('button'))return;if(e.pointerType==='touch'){touchStartX=e.clientX;touchStartY=e.clientY;touchStartAt=Date.now();setOrigin(e.clientX,e.clientY);}},true);
+    frame.addEventListener('pointermove',e=>{if(e.pointerType==='touch'&&active){e.stopImmediatePropagation();setOrigin(e.clientX,e.clientY);}},true);
+    frame.addEventListener('pointerup',e=>{if(e.pointerType!=='touch')return;const moved=Math.hypot(e.clientX-touchStartX,e.clientY-touchStartY),quick=Date.now()-touchStartAt<350;if(moved<10&&quick&&e.target===img){if(zoom<=1.01){zoom=2.8;setOrigin(e.clientX,e.clientY);render();}else{zoom=1;render();}}},true);
+    frame.addEventListener('pointercancel',()=>{touchStartAt=0;},true);
+    frame.addEventListener('touchstart',e=>{if(e.touches.length===2){lastTouchDistance=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);if(zoom<2.2)zoom=2.8;render();}}, {passive:true,capture:true});
+    frame.addEventListener('touchmove',e=>{if(e.touches.length===2){const d=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);if(lastTouchDistance){zoom=clamp(zoom+(d-lastTouchDistance)*.012,1,5);render();}lastTouchDistance=d;}}, {passive:true,capture:true});
+    frame.addEventListener('touchend',()=>{lastTouchDistance=0;},{capture:true});
+    img.style.willChange='transform';img.style.transformOrigin='50% 50%';img.style.transition='transform .12s cubic-bezier(.2,.7,.2,1)';img.style.cursor=finePointer?'zoom-in':'';
   });
 };
-if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init); else init();
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();
 ````
 
