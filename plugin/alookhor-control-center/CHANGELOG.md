@@ -1,3 +1,8 @@
+## 3.10.373 — فیکس قطعی ریدایرکت checkout به cart
+- FIX: کاربر فقط سبد می‌بیند نه تسویه حساب؛ علت فیلتر خیلی دیر. فیکس: فیلتر سراسری woocommerce_checkout_redirect_empty_cart=false با priority 999 + remove_action wc_template_redirect + wc_clear_notices
+- LIVE: /checkout/ و /checkout/?alookhor_preview=1 حتی با سبد خالی باید لوکس دیده شود
+- Version bump 3.10.372->3.10.373
+
 ## 3.10.372 — فیکس تسویه حساب که به سبد ریدایرکت می‌شد
 - FIX: کاربر گفت /checkout/ باز هم سبد باز می‌شود؛ علت ریدایرکت پیش‌فرض ووکامرس وقتی سبد خالی است. فیکس: template_redirect priority 1 با فیلتر woocommerce_checkout_redirect_empty_cart=false و remove_action wc_template_redirect برای نمایش قالب لوکس حتی با سبد خالی + دیتای نمایشی
 - GUIDE: برای دیدن واقعی: اول محصول به سبد اضافه کنید سپس /checkout/؛ برای پیش‌نمایش بدون محصول: /checkout/?alookhor_preview=1

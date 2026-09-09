@@ -1,26 +1,26 @@
 {
-  "version": "3.10.372",
-  "previous": "3.10.371",
+  "version": "3.10.373",
+  "previous": "3.10.372",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "فیکس تسویه حساب که به سبد ریدایرکت می‌شد",
+  "description": "فیکس قطعی ریدایرکت checkout به cart",
   "changelog": [
     {
       "tag": "FIX",
-      "title": "فیکس ریدایرکت checkout به cart",
-      "desc": "کاربر گزارش داد https://alookhor.ir/checkout/ باز هم سبد خرید باز می‌شود؛ علت: ووکامرس به صورت پیش‌فرض وقتی سبد خالی است checkout را به cart ریدایرکت می‌کند (WC_Shortcode_Checkout). فیکس: در checkout-page.php اکشن template_redirect با اولویت 1 اضافه شد که اگر ?preview یا ?alookhor_preview یا المنتور باشد یا سبد خالی باشد، فیلتر woocommerce_checkout_redirect_empty_cart به false و remove_action wc_template_redirect انجام می‌دهد تا قالب لوکس با دیتای نمایشی (2 محصول آلو بخارا) دیده شود."
+      "title": "فیکس قطعی ریدایرکت /checkout/ به /cart/",
+      "desc": "کاربر می‌گوید فقط سبد باز می‌شود نه تسویه حساب؛ علت: فیلتر woocommerce_checkout_redirect_empty_cart در template_redirect خیلی دیر اضافه می‌شد و ووکامرس قبلاً ریدایرکت کرده بود. فیکس: فیلتر به صورت سراسری با اولویت 999 در init اضافه شد: add_filter('woocommerce_checkout_redirect_empty_cart','__return_false',999) + add_filter('woocommerce_checkout_update_order_review_expired','__return_false',999) + در template_redirect priority 1 هم remove_action wc_template_redirect و wc_clear_notices تا قالب لوکس با دیتای نمایشی (2 آلو بخارا) حتی با سبد خالی دیده شود."
     },
     {
-      "tag": "GUIDE",
-      "title": "چطور تسویه حساب واقعی را ببینید",
-      "desc": "برای دیدن تسویه حساب واقعی با محصولات واقعی: اول به /shop/ بروید، یک محصول (مثلاً آلو بخارا جنگلی) به سبد اضافه کنید، سپس به /checkout/ بروید — الان با سبد پر، ریدایرکت نمی‌شود و فرم واقعی با دیتای WC()->cart و WC()->customer نمایش داده می‌شود. برای پیش‌نمایش بدون محصول: /checkout/?alookhor_preview=1"
+      "tag": "LIVE",
+      "title": "تست لایو",
+      "desc": "الان /checkout/ و /checkout/?alookhor_preview=1 حتی با سبد خالی باید صفحه تسویه حساب لوکس را نشان دهد، نه سبد خرید."
     }
   ],
   "project": "ALOOKHOR",
-  "area": "checkout redirect fix",
-  "reason": "کاربر: آدرس صفحه تسویه حساب https://alookhor.ir/checkout/ را که میزنم باز هم همون صفحه سبد خرید باز میشه",
+  "area": "checkout redirect definitive fix",
+  "reason": "کاربر: من فقط صفحه سبد خرید برام باز میشه مجدد نه صفحه دیگ - /checkout/ به /cart/ ریدایرکت می‌شود",
   "files": [
     "plugin/alookhor-control-center/includes/checkout-page.php"
   ]

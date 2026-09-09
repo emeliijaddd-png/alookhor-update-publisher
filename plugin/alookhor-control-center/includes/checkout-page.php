@@ -355,15 +355,21 @@ add_filter('woocommerce_locate_template',function($template,$template_name,$temp
  return $template;
 },PHP_INT_MAX,3);
 
-// Prevent WooCommerce redirect to cart when empty for preview
+// Prevent WooCommerce redirect to cart when empty - ALWAYS disable redirect for luxury checkout
+add_filter('woocommerce_checkout_redirect_empty_cart','__return_false',999);
+add_filter('woocommerce_checkout_update_order_review_expired','__return_false',999);
+add_filter('woocommerce_checkout_redirect_empty_cart',function($r){ return false; },999);
+
 add_action('template_redirect',function(){
  if(function_exists('is_checkout')&&is_checkout()&&!is_wc_endpoint_url('order-received')){
-  $is_preview = isset($_GET['preview']) || isset($_GET['alookhor_preview']) || isset($_GET['elementor']) || (defined('ELEMENTOR_VERSION'));
-  if($is_preview || (function_exists('WC') && WC()->cart && WC()->cart->is_empty())){
-    // Allow our luxury template to show dummy data even when cart empty
-    add_filter('woocommerce_checkout_redirect_empty_cart','__return_false');
-    // Remove WC's own redirect
-    remove_action('template_redirect','wc_template_redirect',20);
+  // Force no redirect even when empty
+  add_filter('woocommerce_checkout_redirect_empty_cart','__return_false',999);
+  // Remove WC's own redirect if exists
+  remove_action('template_redirect','wc_template_redirect',20);
+  // Also prevent cart empty notice redirect
+  if(function_exists('WC') && WC()->cart && WC()->cart->is_empty()){
+    // Still show our luxury checkout with dummy data
+    wc_clear_notices();
   }
  }
 },1);
