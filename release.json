@@ -1,1 +1,36 @@
-{"version":"3.10.19","previous":"3.10.18","state":"ready","requires":"6.0","tested":"7.0","requires_php":"8.0","description":"تطبیق Top Bar و منوی اصلی Desktop با مرجع دو‌ردیفه Burgundy/Gold، با حفظ Node واقعی WordPress و Sticky Navigation.","changelog":[{"tag":"REFERENCE TOP BAR","title":"Support / Message / Phone","desc":"Top Bar شیشه‌ای با پشتیبانی در چپ، پیام ارسال در مرکز، تلفن در راست، جداسازهای ظریف و SVG هدست."},{"tag":"INTEGRATED NAV","title":"منوی واقعی داخل کپسول Desktop","desc":"همان .header-nav-center بدون Clone در حالت بالای صفحه داخل کپسول دیده می‌شود و هنگام Scroll به Sticky rail موجود بازمی‌گردد."},{"tag":"APPROVED PALETTE","title":"Burgundy / Gold","desc":"#0D0510، #1C1024، rgba(33,20,38,.75)، #D49A2E، #E8B84A، #F5F3F0 و #C8C2C9."},{"tag":"PRESERVED MOBILE","title":"دو ردیف بدون Navigation اضافه","desc":"Mobile همان Top Bar و Main Capsule را نگه می‌دارد؛ Cart، Account، Logo، Hamburger، Hero underlap و Drawer حفظ می‌شوند."}],"project":"ALOOKHOR","area":"Top Bar + Main Header Navigation / Desktop + Mobile","reason":"مالک سایت تصویر مرجع دو‌ردیفه را ارائه و تطبیق سریع Top Bar و نوار منوی اصلی با همان ساختار و پالت را درخواست کرد.","files":["plugin/alookhor-control-center/assets/css/frontend-header-scroll.css","plugin/alookhor-control-center/assets/css/frontend-header.css","plugin/alookhor-control-center/assets/js/frontend-topbar-manager.js","plugin/alookhor-control-center/alookhor-control-center.php","plugin/alookhor-control-center/assets/js/modules/settings.js","plugin/alookhor-control-center/includes/ajax.php","plugin/alookhor-control-center/includes/rest-api.php","plugin/alookhor-control-center/includes/shortcode-header.php","plugin/alookhor-control-center/config/site.json","scripts/header_visual_audit.py","scripts/wordpress_access_check.py","scripts/wordpress_release_test.py"]}
+{
+  "version": "3.10.371",
+  "previous": "3.10.370",
+  "state": "ready",
+  "requires": "6.0",
+  "tested": "7.0",
+  "requires_php": "8.0",
+  "description": "صفحه تسویه حساب لوکس - طبق تصویر",
+  "changelog": [
+    {
+      "tag": "NEW",
+      "title": "صفحه تسویه حساب لوکس",
+      "desc": "طبق تصویر ارسالی کاربر: سبد خرید → تسویه حساب → تکمیل خرید استپس بار طلایی، سمت راست اطلاعات مشتری (نام، موبایل، آدرس)، روش ارسال (پست پیشتاز رایگان / تیپاکس 30,000)، روش پرداخت (پرداخت آنلاین / پرداخت در محل)، باکس امنیت، دکمه پرداخت و تکمیل سفارش طلایی؛ سمت چپ خلاصه سفارش با محصولات واقعی سبد، جمع مبلغ، تخفیف، هزینه ارسال رایگان، مبلغ قابل پرداخت بزرگ طلایی، کد تخفیف، ارسال سراسر کشور؛ پایین 4 ویژگی (پشتیبانی 24 ساعته، ضمانت بازگشت، ضمانت اصالت، ارسال سریع)؛ بک‌گراند #0d0510 و کارت‌ها #1C1024 با بوردر طلایی."
+    },
+    {
+      "tag": "FIX",
+      "title": "حذف قالب المنتور قدیمی تسویه حساب",
+      "desc": "قالب‌های قدیمی المنتور و وودمارت برای checkout (wd-page-title, wd-checkout-steps, coupon toggle) با display:none مخفی شد؛ template_include برای is_checkout به templates/checkout.php لوکس override شد؛ wc_get_template برای form-checkout به checkout-partial لوکس."
+    },
+    {
+      "tag": "REAL",
+      "title": "دیتای واقعی",
+      "desc": "خلاصه سفارش از WC()->cart واقعی می‌آید (نام، عکس، وزن، تعداد، قیمت، جمع، تخفیف، حمل)؛ فرم مشتری از WC()->customer واقعی؛ شورت‌کدها [alookhor_checkout], [alookhor_checkout_steps], [alookhor_checkout_summary] برای المنتور."
+    }
+  ],
+  "project": "ALOOKHOR",
+  "area": "checkout luxury",
+  "reason": "کاربر: این صفحه تسویه حساب هم میخام مثل قبلی ها بسازی و هرچیز یکه برای قالب المنتور است پاک کنی و اینو جایگزین کن قدم به قدم و قسمت به قسمت برو جلو که کامل باشه",
+  "files": [
+    "plugin/alookhor-control-center/includes/checkout-page.php",
+    "plugin/alookhor-control-center/assets/css/frontend-checkout.css",
+    "plugin/alookhor-control-center/templates/checkout.php",
+    "plugin/alookhor-control-center/templates/checkout-partial.php",
+    "plugin/alookhor-control-center/alookhor-control-center.php"
+  ]
+}
