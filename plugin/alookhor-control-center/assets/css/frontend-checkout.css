@@ -498,3 +498,65 @@ body.woocommerce-checkout #alookhor-checkout {
   visibility:visible!important;
   opacity:1!important;
 }
+
+/* ===== v3.10.374 — DEFINITIVE HIDE OLD WHITE CHECKOUT ===== */
+body.woocommerce-checkout .wd-checkout-steps,
+body.woocommerce-checkout .wd-checkout-steps-wrapper,
+body.woocommerce-checkout .woocommerce-checkout .col2-set,
+body.woocommerce-checkout .woocommerce-checkout .woocommerce-billing-fields,
+body.woocommerce-checkout .woocommerce-checkout .woocommerce-shipping-fields,
+body.woocommerce-checkout .woocommerce-checkout .woocommerce-additional-fields,
+body.woocommerce-checkout .woocommerce-checkout #order_review,
+body.woocommerce-checkout .woocommerce-checkout #order_review_heading,
+body.woocommerce-checkout .woocommerce-checkout .woocommerce-checkout-review-order,
+body.woocommerce-checkout .woocommerce-checkout .woocommerce-form-coupon-toggle,
+body.woocommerce-checkout .woocommerce-checkout .checkout_coupon,
+body.woocommerce-checkout .woocommerce-checkout h3#order_review_heading,
+body.woocommerce-checkout .woocommerce-checkout h3#ship-to-different-address,
+body.woocommerce-checkout .woocommerce-checkout .woocommerce-checkout-payment,
+body.woocommerce-checkout .woocommerce .col2-set,
+body.woocommerce-checkout .woocommerce .woocommerce-billing-fields,
+body.woocommerce-checkout .woocommerce .woocommerce-shipping-fields,
+body.woocommerce-checkout .woocommerce .woocommerce-additional-fields,
+body.woocommerce-checkout .woocommerce #order_review,
+body.woocommerce-checkout .woocommerce #order_review_heading,
+body.woocommerce-checkout .woocommerce .woocommerce-checkout-review-order,
+body.woocommerce-checkout .woocommerce .woocommerce-form-coupon-toggle,
+body.woocommerce-checkout .woocommerce .checkout_coupon,
+body.woocommerce-checkout .wd-page-title,
+body.woocommerce-checkout .whb-page-title,
+body.woocommerce-checkout .wd-entities-title,
+body.woocommerce-checkout .page-title,
+body.woocommerce-checkout .entry-header,
+body.woocommerce-checkout .wd-page-heading,
+body.woocommerce-checkout .woocommerce-notices-wrapper,
+body.woocommerce-checkout .woocommerce-error,
+body.woocommerce-checkout .woocommerce-message,
+body.woocommerce-checkout .woocommerce-info {
+  display:none!important;
+  visibility:hidden!important;
+  height:0!important;
+  margin:0!important;
+  padding:0!important;
+  opacity:0!important;
+  pointer-events:none!important;
+}
+/* Force luxury checkout visible */
+body.woocommerce-checkout #alookhor-checkout,
+body.woocommerce-checkout #alookhor-checkout * {
+  visibility:visible!important;
+  opacity:1!important;
+}
+body.woocommerce-checkout #alookhor-checkout {
+  display:block!important;
+  width:100%!important;
+  max-width:1400px!important;
+  margin:0 auto!important;
+  padding:16px 20px 40px!important;
+  background:transparent!important;
+}
+/* Hide any white box outside luxury */
+body.woocommerce-checkout .woocommerce > *:not(#alookhor-checkout):not(.woocommerce-notices-wrapper),
+body.woocommerce-checkout .site-content > .woocommerce > *:not(#alookhor-checkout) {
+  display:none!important;
+}

@@ -1,3 +1,8 @@
+## 3.10.374 — فیکس قطعی صفحه سفید تسویه حساب
+- FIX: تصویر کاربر نشان داد checkout سفید با نوار سفید و باکس سفید سفارش شما دیده می‌شود نه لوکس تیره؛ علت CSS ناقص و override فقط form-checkout. فیکس: CSS تهاجمی v3.10.374 برای مخفی کردن تمام المان‌های سفید قدیمی (wd-checkout-steps, col2-set, billing-fields, order_review, coupon-toggle, notices) + #alookhor-checkout display:block visible + wc_get_template برای تمام checkout/* به لوکس + remove_action woodmart_checkout_steps
+- LIVE: fetch_page /checkout/?alookhor_preview=1
+- Version bump 3.10.373->3.10.374
+
 ## 3.10.373 — فیکس قطعی ریدایرکت checkout به cart
 - FIX: کاربر فقط سبد می‌بیند نه تسویه حساب؛ علت فیلتر خیلی دیر. فیکس: فیلتر سراسری woocommerce_checkout_redirect_empty_cart=false با priority 999 + remove_action wc_template_redirect + wc_clear_notices
 - LIVE: /checkout/ و /checkout/?alookhor_preview=1 حتی با سبد خالی باید لوکس دیده شود

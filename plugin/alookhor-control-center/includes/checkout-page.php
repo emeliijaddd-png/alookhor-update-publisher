@@ -337,7 +337,8 @@ add_filter('the_content',function($content){
 },PHP_INT_MAX);
 
 add_filter('wc_get_template',function($template,$template_name,$args,$template_path,$default_path){
- if(in_array($template_name,['checkout/form-checkout.php','checkout/form-billing.php','checkout/form-shipping.php'])){
+ // Override ALL checkout templates to luxury
+ if(strpos($template_name,'checkout/')===0){
   $custom=ALOOKHOR_CC_DIR.'templates/checkout-partial.php';
   if(!file_exists($custom)){
    file_put_contents($custom,'<?php if(!defined("ABSPATH"))exit; echo function_exists("alookhor_cc_checkout_markup")?alookhor_cc_checkout_markup():""; ?>');
@@ -348,12 +349,25 @@ add_filter('wc_get_template',function($template,$template_name,$args,$template_p
 },PHP_INT_MAX,5);
 
 add_filter('woocommerce_locate_template',function($template,$template_name,$template_path){
- if(in_array($template_name,['checkout/form-checkout.php'])){
+ if(strpos($template_name,'checkout/')===0){
   $custom=ALOOKHOR_CC_DIR.'templates/checkout-partial.php';
   if(file_exists($custom)) return $custom;
  }
  return $template;
 },PHP_INT_MAX,3);
+
+// Remove Woodmart checkout hooks that render white steps
+add_action('wp',function(){
+ if(function_exists('is_checkout')&&is_checkout()&&!is_wc_endpoint_url('order-received')){
+  // Woodmart checkout steps
+  remove_action('woocommerce_before_checkout_form','woodmart_checkout_steps',10);
+  remove_action('woocommerce_before_checkout_form','woodmart_show_checkout_steps',10);
+  remove_action('woodmart_before_checkout_form','woodmart_checkout_steps',10);
+  // WooCommerce default
+  remove_action('woocommerce_before_checkout_form','woocommerce_checkout_coupon_form',10);
+  remove_action('woocommerce_before_checkout_form','woocommerce_output_all_notices',10);
+ }
+},1);
 
 // Prevent WooCommerce redirect to cart when empty - ALWAYS disable redirect for luxury checkout
 add_filter('woocommerce_checkout_redirect_empty_cart','__return_false',999);

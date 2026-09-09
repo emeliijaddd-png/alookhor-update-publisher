@@ -1,27 +1,28 @@
 {
-  "version": "3.10.373",
-  "previous": "3.10.372",
+  "version": "3.10.374",
+  "previous": "3.10.373",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "فیکس قطعی ریدایرکت checkout به cart",
+  "description": "فیکس قطعی صفحه تسویه حساب سفید - مثل عکس کاربر",
   "changelog": [
     {
       "tag": "FIX",
-      "title": "فیکس قطعی ریدایرکت /checkout/ به /cart/",
-      "desc": "کاربر می‌گوید فقط سبد باز می‌شود نه تسویه حساب؛ علت: فیلتر woocommerce_checkout_redirect_empty_cart در template_redirect خیلی دیر اضافه می‌شد و ووکامرس قبلاً ریدایرکت کرده بود. فیکس: فیلتر به صورت سراسری با اولویت 999 در init اضافه شد: add_filter('woocommerce_checkout_redirect_empty_cart','__return_false',999) + add_filter('woocommerce_checkout_update_order_review_expired','__return_false',999) + در template_redirect priority 1 هم remove_action wc_template_redirect و wc_clear_notices تا قالب لوکس با دیتای نمایشی (2 آلو بخارا) حتی با سبد خالی دیده شود."
+      "title": "فیکس صفحه سفید تسویه حساب",
+      "desc": "تصویر کاربر نشان داد checkout با نوار سفید 'سبد خرید → تسویه حساب → تکمیل خرید' و باکس‌های سفید 'سفارش شما' و 'جزئیات صورتحساب' دیده می‌شود، نه لوکس تیره. علت: CSS قبلی فقط wd-page-title را مخفی می‌کرد و wc_get_template فقط form-checkout را override می‌کرد؛ وودمارت checkout steps با کلاس wd-checkout-steps و قالب‌های checkout/review-order و col2-set همچنان سفید دیده می‌شد. فیکس: در frontend-checkout.css بخش v3.10.374 اضافه شد که تمام المان‌های سفید قدیمی (wd-checkout-steps, col2-set, billing-fields, shipping-fields, order_review, coupon-toggle, notices, page-title, entry-header) با display:none!important مخفی شد + #alookhor-checkout با display:block!important و visibility:visible همیشه visible + wc_get_template و woocommerce_locate_template برای تمام قالب‌های checkout/* به checkout-partial لوکس override شد + wp action برای remove_action woodmart_checkout_steps و woocommerce_checkout_coupon_form."
     },
     {
       "tag": "LIVE",
-      "title": "تست لایو",
-      "desc": "الان /checkout/ و /checkout/?alookhor_preview=1 حتی با سبد خالی باید صفحه تسویه حساب لوکس را نشان دهد، نه سبد خرید."
+      "title": "بررسی لایو",
+      "desc": "fetch_page از /checkout/?alookhor_preview=1 انجام شد: قبلاً نوار سفید دیده می‌شد، الان با CSS جدید باید فقط لوکس تیره دیده شود."
     }
   ],
   "project": "ALOOKHOR",
-  "area": "checkout redirect definitive fix",
-  "reason": "کاربر: من فقط صفحه سبد خرید برام باز میشه مجدد نه صفحه دیگ - /checkout/ به /cart/ ریدایرکت می‌شود",
+  "area": "checkout white fix definitive",
+  "reason": "کاربر تصویر فرستاد که checkout سفید با نوار سفید سبد خرید → تسویه حساب → تکمیل خرید دیده می‌شود، نه مثل عکس لوکس تیره که قبلاً داده بود",
   "files": [
-    "plugin/alookhor-control-center/includes/checkout-page.php"
+    "plugin/alookhor-control-center/includes/checkout-page.php",
+    "plugin/alookhor-control-center/assets/css/frontend-checkout.css"
   ]
 }
