@@ -355,6 +355,19 @@ add_filter('woocommerce_locate_template',function($template,$template_name,$temp
  return $template;
 },PHP_INT_MAX,3);
 
+// Prevent WooCommerce redirect to cart when empty for preview
+add_action('template_redirect',function(){
+ if(function_exists('is_checkout')&&is_checkout()&&!is_wc_endpoint_url('order-received')){
+  $is_preview = isset($_GET['preview']) || isset($_GET['alookhor_preview']) || isset($_GET['elementor']) || (defined('ELEMENTOR_VERSION'));
+  if($is_preview || (function_exists('WC') && WC()->cart && WC()->cart->is_empty())){
+    // Allow our luxury template to show dummy data even when cart empty
+    add_filter('woocommerce_checkout_redirect_empty_cart','__return_false');
+    // Remove WC's own redirect
+    remove_action('template_redirect','wc_template_redirect',20);
+  }
+ }
+},1);
+
 add_action('wp_enqueue_scripts',function(){
  if(function_exists('is_checkout')&&is_checkout()&&!is_wc_endpoint_url('order-received')){
   wp_enqueue_style('alookhor-cc-checkout',ALOOKHOR_CC_URL.'assets/css/frontend-checkout.css',[],ALOOKHOR_CC_BUILD);
