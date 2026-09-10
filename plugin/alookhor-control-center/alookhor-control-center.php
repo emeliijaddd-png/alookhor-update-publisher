@@ -3,7 +3,7 @@
  * Plugin Name: ALOOKHOR Control Center
  * Plugin URI: https://alookhor.ir
  * Description: کنترل سنتر لوکس و ماژولار آلوخور — مدیریت کامل سایت (هدر، اسلایدر، سورت، محصولات، مشتریان VIP، مالی، آنالیتیکس) با آپدیت آنی بدون رفرش. تمام تنظیمات چت قبلی + شورت‌کد [alookhor_portal_header] اینجا مدیریت می‌شود.
- * Version: 3.10.19
+ * Version: 3.10.375
  * Author: ALOOKHOR Team — Luxury Modular
  * Author URI: https://alookhor.ir
  * Update URI: https://alookhor.ir/alookhor-control-center
@@ -16,14 +16,25 @@
 
 if (!defined('ABSPATH')) exit;
 
-define('ALOOKHOR_CC_VERSION', '3.10.19');
-define('ALOOKHOR_CC_BUILD', '3.10.19');
+define('ALOOKHOR_CC_VERSION', '3.10.375');
+define('ALOOKHOR_CC_BUILD', '3.10.375');
 define('ALOOKHOR_CC_FILE', __FILE__);
 define('ALOOKHOR_CC_DIR', plugin_dir_path(__FILE__));
 define('ALOOKHOR_CC_URL', plugin_dir_url(__FILE__));
 define('ALOOKHOR_CC_OPTION', 'alookhor_cc_settings');
 define('ALOOKHOR_CC_HEADER_OPTION', 'alookhor_header_settings');
 define('ALOOKHOR_CC_PLUGIN_BASENAME', plugin_basename(__FILE__));
+
+/**
+ * Inline CSS is useful in normal shortcode output, but Elementor renders many
+ * widgets inside one admin-ajax request. Repeating full stylesheets there can
+ * exhaust response/memory limits and cause HTTP 500 while saving.
+ */
+function alookhor_cc_should_inline_shortcode_css(){
+    if (is_admin() || wp_doing_ajax()) return false;
+    if (isset($_REQUEST['action']) && str_contains(sanitize_key(wp_unslash($_REQUEST['action'])), 'elementor')) return false;
+    return true;
+}
 
 // ——— Activation: حافظه واقعی قبلی را بساز ———
 register_activation_hook(__FILE__, 'alookhor_cc_activate');
@@ -59,16 +70,63 @@ require_once ALOOKHOR_CC_DIR . 'includes/footer.php';
 require_once ALOOKHOR_CC_DIR . 'includes/product-categories.php';
 require_once ALOOKHOR_CC_DIR . 'includes/hero.php';
 require_once ALOOKHOR_CC_DIR . 'includes/site-features.php';
+require_once ALOOKHOR_CC_DIR . 'includes/sort-center.php';
+require_once ALOOKHOR_CC_DIR . 'includes/app-banner.php';
+require_once ALOOKHOR_CC_DIR . 'includes/featured-products.php';
+require_once ALOOKHOR_CC_DIR . 'includes/campaign-slider.php';
+require_once ALOOKHOR_CC_DIR . 'includes/bestselling-products.php';
+require_once ALOOKHOR_CC_DIR . 'includes/newsletter.php';
+require_once ALOOKHOR_CC_DIR . 'includes/magazine.php';
+require_once ALOOKHOR_CC_DIR . 'includes/why-alookhor.php';
+require_once ALOOKHOR_CC_DIR . 'includes/international-standards.php';
+require_once ALOOKHOR_CC_DIR . 'includes/contact-page.php';
+require_once ALOOKHOR_CC_DIR . 'includes/about-page.php';
+require_once ALOOKHOR_CC_DIR . 'includes/pages-settings.php';
+require_once ALOOKHOR_CC_DIR . 'includes/admin-pages.php';
+require_once ALOOKHOR_CC_DIR . 'includes/product-page.php';
+require_once ALOOKHOR_CC_DIR . 'includes/cart-page.php';
+require_once ALOOKHOR_CC_DIR . 'includes/checkout-page.php';
+require_once ALOOKHOR_CC_DIR . 'includes/product-seeder.php';
+require_once ALOOKHOR_CC_DIR . 'includes/shortcode-export-banner.php';
+require_once ALOOKHOR_CC_DIR . 'includes/admin-export-banner.php';
+require_once ALOOKHOR_CC_DIR . 'includes/seo-cleaner.php';
+require_once ALOOKHOR_CC_DIR . 'includes/seo-meta.php';
+require_once ALOOKHOR_CC_DIR . 'includes/responsive-v2.php';
+require_once ALOOKHOR_CC_DIR . 'includes/pdp-breadcrumb-fix.php';
+
+/* v3.10.183 — hide the WP admin bar on the frontend (owner: unwanted near-black bar on top, mobile+desktop).
+   The dashboard stays fully reachable via wp-admin; only the frontend strip is removed. */
+add_filter('show_admin_bar', '__return_false');
+add_action('wp_head', function(){echo '<style id="alookhor-hide-adminbar">html{margin-top:0!important;padding-top:0!important}#wpadminbar{display:none!important}</style>'."\n";}, 5);
+// v3.10.66: admin-header-manager.php حذف شد — تنظیمات هدر AKX داخل مدیریت بوتیک است.
+
+// حذف فاصله‌های سفید رزروشده Elementor فقط برای کانتینرهای میزبان شورت‌کدهای مدیریت‌شده.
+add_action('wp_enqueue_scripts',function(){
+    wp_enqueue_style('alookhor-cc-managed-layout',ALOOKHOR_CC_URL.'assets/css/frontend-managed-layout.css',[],ALOOKHOR_CC_BUILD);
+    wp_enqueue_script('alookhor-cc-managed-layout',ALOOKHOR_CC_URL.'assets/js/frontend-managed-layout.js',[],ALOOKHOR_CC_BUILD,true);
+},99);
+
+// MASTER DESIGN DIRECTIVE — لایه نهایی و مرکزی پالت/ریتم تمام ماژول‌های فرانت.
+add_action('wp_enqueue_scripts',function(){
+    wp_enqueue_style('alookhor-cc-design-system',ALOOKHOR_CC_URL.'assets/css/frontend-design-system.css',['alookhor-cc-managed-layout'],ALOOKHOR_CC_BUILD);
+},999);
 
 // ——— Enqueue برای فرانت (هدر لوکس، کاملاً Scoped) ———
 // فایل کامل luxury.css مخصوص کنترل سنتر است و نباید body/theme فرانت را override کند.
 add_action('wp_enqueue_scripts', function(){
+    // اگر هدر حرفه‌ای AKX فعال است، از لود فایل‌های قدیمی صرف‌نظر می‌کنیم
+    $akx_h = get_option(ALOOKHOR_CC_HEADER_OPTION, []);
+    if (!empty($akx_h['enabled'])) {
+        return;
+    }
+
     if (!empty($GLOBALS['alookhor_cc_legacy_header_provider'])) {
         // خروجی و CSS هدر قدیمی دست‌نخورده می‌ماند؛ فقط مقادیر Top Bar مدیریت می‌شوند.
         $h = alookhor_cc_front_header_settings();
         // Load in <head>: the observer can hide stale legacy markup before the
         // browser paints it, then reveal only freshly synchronized Top Bar data.
         wp_enqueue_style('alookhor-cc-legacy-header-scroll', ALOOKHOR_CC_URL . 'assets/css/frontend-header-scroll.css', [], ALOOKHOR_CC_BUILD);
+        wp_enqueue_style('alookhor-cc-luxury-new', ALOOKHOR_CC_URL . 'assets/css/frontend-header-luxury-new.css', [], ALOOKHOR_CC_BUILD);
         wp_enqueue_script('alookhor-cc-legacy-topbar-manager', ALOOKHOR_CC_URL . 'assets/js/frontend-topbar-manager.js', [], ALOOKHOR_CC_BUILD, false);
         wp_localize_script('alookhor-cc-legacy-topbar-manager', 'ALOOKHOR_TOPBAR', [
             'endpoint' => rest_url('alookhor-cc/v1/topbar'),
@@ -122,6 +180,7 @@ add_action('wp_enqueue_scripts', function(){
         return;
     }
     wp_enqueue_style('alookhor-cc-front', ALOOKHOR_CC_URL . 'assets/css/frontend-header.css', [], ALOOKHOR_CC_BUILD);
+    wp_enqueue_style('alookhor-cc-luxury-new', ALOOKHOR_CC_URL . 'assets/css/frontend-header-luxury-new.css', [], ALOOKHOR_CC_BUILD);
     wp_enqueue_script('alookhor-cc-front-header', ALOOKHOR_CC_URL . 'assets/js/frontend-header.js', [], ALOOKHOR_CC_BUILD, true);
 });
 
@@ -148,7 +207,7 @@ function alookhor_cc_get_settings(){
     // بنابراین modules/system/AI گمشده ترمیم می‌شوند، بدون حذف تنظیمات موجود کاربر.
     $settings = array_replace_recursive($defaults, $saved);
 
-    foreach (['site', 'modules', 'system', 'ai_assistant', 'header_settings', 'footer_settings', 'category_settings', 'hero_settings', 'feature_settings'] as $required_key) {
+    foreach (['site', 'modules', 'system', 'ai_assistant', 'header_settings', 'footer_settings', 'category_settings', 'hero_settings', 'feature_settings', 'sort_center_settings', 'featured_product_settings', 'campaign_settings', 'bestseller_settings', 'newsletter_settings', 'magazine_settings', 'why_settings', 'standards_settings'] as $required_key) {
         if (!isset($settings[$required_key]) || !is_array($settings[$required_key])) {
             $settings[$required_key] = isset($defaults[$required_key]) && is_array($defaults[$required_key])
                 ? $defaults[$required_key]
@@ -233,9 +292,9 @@ function alookhor_cc_get_header_settings(){
         'show_export' => true,
         'show_wholesale' => true,
         'email' => sanitize_email(get_option('admin_email')),
-        'phone' => '09222942808',
+        'phone' => '09159513173',
         'whatsapp' => '989222942808',
-        'export_text' => 'صادرات به ۵ کشور جهان',
+        'export_text' => 'ارسال رایگان به بیش از ۱۵ کشور جهان',
         'export_url' => '',
         'wholesale_text' => 'خرید عمده آلو بخارا',
         'wholesale_url' => home_url('/#b2b'),
@@ -353,3 +412,32 @@ function alookhor_cc_migrate_header_reference_31019(){
     update_option(ALOOKHOR_CC_OPTION,$main);
 }
 add_action('init','alookhor_cc_migrate_header_reference_31019',122);
+
+/**
+ * Luxury image-accurate text migration — 3.10.19 — aligns Top Bar message and logo
+ * to the owner-approved image.png (free shipping >15 countries, Persian wordmark).
+ * Only text fields are touched; palette/visibility remain from previous migrations.
+ */
+function alookhor_cc_migrate_header_luxury_text_31019(){
+    $main=get_option(ALOOKHOR_CC_OPTION,[]);if(!is_array($main))$main=[];
+    if(!empty($main['_migrations']['header_luxury_text_31019']['ok']))return;
+    $header=get_option(ALOOKHOR_CC_HEADER_OPTION,[]);if(!is_array($header))$header=[];
+    $before_hash=hash('sha256',wp_json_encode($header));
+    $target=[
+        'phone'=>'09159513173',
+        'export_text'=>'ارسال رایگان به بیش از ۱۵ کشور جهان',
+        'logo_text'=>'آلوخور',
+        'logo_sub'=>'پایتخت تولید آلو خشک ایران',
+    ];
+    $header=array_replace($header,$target);update_option(ALOOKHOR_CC_HEADER_OPTION,$header);
+    $main_header=is_array($main['header_settings']??null)?$main['header_settings']:[];
+    $main['header_settings']=array_replace($main_header,$target);
+    if(!is_array($main['site']??null))$main['site']=[];
+    $main['site']['name']='آلوخور';
+    $main['site']['subtitle']='پایتخت تولید آلو خشک ایران';
+    $main['site']['logoLetter']='آ';
+    $main['site']['goldAccent']='#D49A2E';
+    $main['_migrations']['header_luxury_text_31019']=['ok'=>true,'version'=>'3.10.19','fields'=>array_keys($target),'before_hash'=>$before_hash,'after_hash'=>hash('sha256',wp_json_encode($header)),'checked_at'=>time()];
+    update_option(ALOOKHOR_CC_OPTION,$main);
+}
+add_action('init','alookhor_cc_migrate_header_luxury_text_31019',123);
