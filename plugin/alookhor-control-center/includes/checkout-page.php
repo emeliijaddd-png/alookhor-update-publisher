@@ -86,6 +86,7 @@ function alookhor_cc_checkout_data(){
 
 if(!function_exists('alookhor_cc_checkout_markup')){
 function alookhor_cc_checkout_markup(){
+ if(!empty($GLOBALS['alookhor_cc_checkout_rendered'])) return '';
  $GLOBALS['alookhor_cc_checkout_rendered']=true;
  $d=alookhor_cc_checkout_data();
  if(!$d){

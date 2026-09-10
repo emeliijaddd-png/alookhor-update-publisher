@@ -1,28 +1,22 @@
 {
-  "version": "3.10.374",
-  "previous": "3.10.373",
+  "version": "3.10.375",
+  "previous": "3.10.374",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "فیکس قطعی صفحه تسویه حساب سفید - مثل عکس کاربر",
+  "description": "فیکس زیر فوتر - بالای فوتر",
   "changelog": [
     {
       "tag": "FIX",
-      "title": "فیکس صفحه سفید تسویه حساب",
-      "desc": "تصویر کاربر نشان داد checkout با نوار سفید 'سبد خرید → تسویه حساب → تکمیل خرید' و باکس‌های سفید 'سفارش شما' و 'جزئیات صورتحساب' دیده می‌شود، نه لوکس تیره. علت: CSS قبلی فقط wd-page-title را مخفی می‌کرد و wc_get_template فقط form-checkout را override می‌کرد؛ وودمارت checkout steps با کلاس wd-checkout-steps و قالب‌های checkout/review-order و col2-set همچنان سفید دیده می‌شد. فیکس: در frontend-checkout.css بخش v3.10.374 اضافه شد که تمام المان‌های سفید قدیمی (wd-checkout-steps, col2-set, billing-fields, shipping-fields, order_review, coupon-toggle, notices, page-title, entry-header) با display:none!important مخفی شد + #alookhor-checkout با display:block!important و visibility:visible همیشه visible + wc_get_template و woocommerce_locate_template برای تمام قالب‌های checkout/* به checkout-partial لوکس override شد + wp action برای remove_action woodmart_checkout_steps و woocommerce_checkout_coupon_form."
-    },
-    {
-      "tag": "LIVE",
-      "title": "بررسی لایو",
-      "desc": "fetch_page از /checkout/?alookhor_preview=1 انجام شد: قبلاً نوار سفید دیده می‌شد، الان با CSS جدید باید فقط لوکس تیره دیده شود."
+      "title": "فیکس زیر فوتر",
+      "desc": "رفته زیر فوتر - با GLOBALS check فیکس شد تا بالای فوتر بیاد"
     }
   ],
   "project": "ALOOKHOR",
-  "area": "checkout white fix definitive",
-  "reason": "کاربر تصویر فرستاد که checkout سفید با نوار سفید سبد خرید → تسویه حساب → تکمیل خرید دیده می‌شود، نه مثل عکس لوکس تیره که قبلاً داده بود",
+  "area": "checkout",
+  "reason": "کاربر: عالی شد فقط رفته زیر فوتر باید بیاد بالای فوتر",
   "files": [
-    "plugin/alookhor-control-center/includes/checkout-page.php",
-    "plugin/alookhor-control-center/assets/css/frontend-checkout.css"
+    "plugin/alookhor-control-center/includes/checkout-page.php"
   ]
 }
