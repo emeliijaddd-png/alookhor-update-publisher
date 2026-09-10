@@ -188,6 +188,90 @@ add_action('rest_api_init', function(){
         },
     ]);
 
+    register_rest_route('alookhor-cc/v1', '/contact', [
+        'methods' => WP_REST_Server::READABLE,
+        'permission_callback' => '__return_true',
+        'callback' => function(){
+            $page_id=(int)get_option('alookhor_contact_page_id',0);
+            $page=$page_id?get_post($page_id):null;
+            $legacy_id=(int)get_option('alookhor_contact_legacy_page_id',0);
+            $legacy=$legacy_id?get_post($legacy_id):null;
+            $settings=alookhor_cc_contact_settings();
+            $response=rest_ensure_response([
+                'version'=>ALOOKHOR_CC_VERSION,
+                'enabled'=>($page&&$page->post_status==='publish'),
+                'page_id'=>$page_id,
+                'page_url'=>alookhor_cc_contact_url(),
+                'schema'=>(string)get_option('alookhor_contact_page_schema',''),
+                'site_name'=>(string)get_option('blogname'),
+                'settings'=>['phone'=>$settings['phone'],'email'=>$settings['email'],'whatsapp'=>$settings['whatsapp'],'address'=>$settings['address'],'hours_week'=>$settings['hours_week'],'hours_friday'=>$settings['hours_friday'],'gold'=>$settings['gold']],
+                'html'=>alookhor_cc_contact_markup(),
+                'legacy'=>['id'=>$legacy_id,'status'=>$legacy?$legacy->post_status:'','content_is_shortcode'=>($legacy&&trim((string)$legacy->post_content)==='[alookhor_contact_page]')],
+            ]);
+            $response->header('Cache-Control','no-store, no-cache, must-revalidate, max-age=0');
+            return $response;
+        },
+    ]);
+
+    register_rest_route('alookhor-cc/v1', '/about', [
+        'methods' => WP_REST_Server::READABLE,
+        'permission_callback' => '__return_true',
+        'callback' => function(){
+            $page_id=(int)get_option('alookhor_about_page_id',0);
+            $page=$page_id?get_post($page_id):null;
+            $settings=alookhor_cc_about_settings();
+            $response=rest_ensure_response([
+                'version'=>ALOOKHOR_CC_VERSION,
+                'enabled'=>($page&&$page->post_status==='publish'),
+                'page_id'=>$page_id,
+                'page_url'=>alookhor_cc_about_url(),
+                'slug'=>$page?$page->post_name:'',
+                'schema'=>(string)get_option('alookhor_about_page_schema',''),
+                'site_name'=>(string)get_option('blogname'),
+                'settings'=>['address'=>$settings['address'],'gold'=>$settings['gold']],
+                'html'=>alookhor_cc_about_markup(),
+            ]);
+            $response->header('Cache-Control','no-store, no-cache, must-revalidate, max-age=0');
+            return $response;
+        },
+    ]);
+
+    register_rest_route('alookhor-cc/v1', '/pages', [
+        'methods' => WP_REST_Server::READABLE,
+        'permission_callback' => '__return_true',
+        'callback' => function(){
+            $p=alookhor_cc_get_pages_settings();
+            $response=rest_ensure_response([
+                'version'=>ALOOKHOR_CC_VERSION,
+                'ok'=>true,
+                'counts'=>['faqs'=>count($p['contact']['faqs']),'stats'=>count($p['about']['stats']),'steps'=>count($p['about']['steps']),'values'=>count($p['about']['values']),'step_images'=>count($p['about']['step_images'])],
+                'images'=>['story'=>$p['about']['story_image'],'steps'=>$p['about']['step_images']],
+            ]);
+            $response->header('Cache-Control','no-store, no-cache, must-revalidate, max-age=0');
+            return $response;
+        },
+    ]);
+
+    register_rest_route('alookhor-cc/v1', '/product', [
+        'methods' => WP_REST_Server::READABLE,
+        'permission_callback' => '__return_true',
+        'callback' => function($request){
+            if(!function_exists('alookhor_cc_pdp_product'))return rest_ensure_response(['version'=>ALOOKHOR_CC_VERSION,'ok'=>false]);
+            $product=alookhor_cc_pdp_product(sanitize_text_field((string)$request->get_param('slug')));
+            if(!$product)return new WP_Error('alookhor_no_product','محصولی برای نمایش یافت نشد',['status'=>404]);
+            $d=alookhor_cc_pdp_data($product);
+            $response=rest_ensure_response([
+                'version'=>ALOOKHOR_CC_VERSION,
+                'ok'=>true,
+                'product'=>['id'=>$d['id'],'name'=>$d['name'],'url'=>get_permalink($d['id'])],
+                'counts'=>['highlights'=>count($d['feats']),'specs'=>count($d['specs']),'faqs'=>count($d['faqs']),'why'=>count($d['why']),'gallery'=>count($d['slides']),'related'=>count($d['related'])],
+                'images'=>['main'=>$d['slides'][0]['src']??'','gallery'=>array_map(fn($s)=>$s['src'],$d['slides'])],
+            ]);
+            $response->header('Cache-Control','no-store, no-cache, must-revalidate, max-age=0');
+            return $response;
+        },
+    ]);
+
     register_rest_route('alookhor-cc/v1', '/product-categories', [
         'methods' => WP_REST_Server::READABLE,
         'permission_callback' => '__return_true',
