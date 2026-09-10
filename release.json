@@ -1,33 +1,29 @@
 {
-  "version": "3.10.381",
-  "previous": "3.10.380",
+  "version": "3.10.382",
+  "previous": "3.10.381",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "فیکس قطعی نوار سفید تسویه حساب + فقط فوتر ماند + زیر فوتر",
+  "description": "فیکس آپدیت پنل + فیکس قطعی نوار سفید checkout",
   "changelog": [
     {
       "tag": "FIX",
-      "title": "فیکس فقط فوتر ماند",
-      "desc": "CSS تهاجمی .woocommerce > *:not(#alookhor-checkout) parent wrapper را hide می‌کرد و فقط فوتر می‌ماند. فیکس با minimal safe hide + :not(#alookhor-checkout *)"
+      "title": "فعال‌سازی آپدیت از طریق پنل",
+      "desc": "کاربر درخواست کرد آپدیت از طریق گزینه آپدیت در پنل انجام شود نه نصب مجدد. علت کار نکردن: updates.alookhor.ir با 502 Down و CI با runner_id 0 فیل. فیکس: updater.php حالا ۳ URL را تلاش می‌کند: updates.alookhor.ir + raw.githubusercontent.com + github.io Pages، و allowed_hosts شامل github شد تا وقتی سرور اصلی Down است از GitHub آپدیت شود. برای کارکردن raw URL باید ریپو public شود (تنظیمات GitHub → Danger Zone → Change visibility → Public) که هم Actions را آزاد می‌کند (private repo محدودیت ۵۰۰MB آرتیفکت دارد، الان ۵۹۷ آرتیفکت ~۳GB) و هم raw manifest قابل دسترس می‌شود."
     },
     {
       "tag": "FIX",
-      "title": "فیکس نوار سفید هنوز دیده می‌شود",
-      "desc": "بررسی لایو https://alookhor.ir/checkout/ نشان داد بعد از لوکس، المان‌های سفید قدیمی col2-set, customer_details, billing-fields, shipping-fields, review-order, coupon, login هنوز دیده می‌شود. فیکس v3.10.381 با extended safe hide برای تمام المان‌های سفید قدیمی با :not(#alookhor-checkout *) بدون hide کردن parent wrapper"
-    },
-    {
-      "tag": "FIX",
-      "title": "فیکس رفته زیر فوتر",
-      "desc": "GLOBALS guard برای جلوگیری از رندر دوم"
+      "title": "فیکس قطعی نوار سفید checkout",
+      "desc": "لایو چک نشان داد بعد از لوکس، col2-set, customer_details, billing-fields هنوز سفید بود. v3.10.381 با extended safe hide تمام المان‌های سفید قدیمی را با :not(#alookhor-checkout *) مخفی کرد بدون hide کردن parent wrapper"
     }
   ],
   "project": "ALOOKHOR",
-  "area": "checkout white fix definitive + only footer + under footer",
-  "reason": "لایو چک: لوکس دیده می‌شود ولی پایین صفحه هنوز سبد خرید، تسویه حساب، تکمیل خرید، جزئیات صورتحساب سفید دیده می‌شود + گزارش کاربر فقط فوتر ماند",
+  "area": "updater fallback + checkout white fix",
+  "reason": "کاربر: تو باید کاری کنی که من از طریق گزینه آپدیت که در پنل است آپدیت کنم نه اینکه مجدد افزونه نصب کنم",
   "files": [
     "plugin/alookhor-control-center/assets/css/frontend-checkout.css",
-    "plugin/alookhor-control-center/includes/checkout-page.php"
+    "plugin/alookhor-control-center/includes/checkout-page.php",
+    "plugin/alookhor-control-center/includes/updater.php"
   ]
 }

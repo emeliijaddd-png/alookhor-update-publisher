@@ -7,8 +7,8 @@
  *
  * Expected manifest (JSON):
  * {
- *   "version": "3.10.19",
- *   "download_url": "https://updates.alookhor.ir/releases/alookhor-control-center-3.10.19.zip",
+ *   "version": "3.10.57",
+ *   "download_url": "https://updates.alookhor.ir/releases/alookhor-control-center-3.10.57.zip",
  *   "details_url": "https://example.com/changelog",
  *   "requires": "6.0",
  *   "tested": "7.0",
@@ -41,6 +41,16 @@ function alookhor_cc_update_manifest_url(){
     return esc_url_raw(trim($url));
 }
 
+function alookhor_cc_update_manifest_urls(){
+    $primary = alookhor_cc_update_manifest_url();
+    $fallbacks = [
+        'https://raw.githubusercontent.com/emeliijaddd-png/alookhor-update-publisher/main/public/manifest.json',
+        'https://emeliijaddd-png.github.io/alookhor-update-publisher/manifest.json',
+    ];
+    $all = array_values(array_unique(array_filter(array_merge([$primary], $fallbacks))));
+    return apply_filters('alookhor_cc_update_manifest_urls', $all);
+}
+
 /**
  * Normalize and validate a remote manifest before WordPress can consume it.
  */
@@ -61,10 +71,13 @@ function alookhor_cc_normalize_update_manifest($payload){
     if (!$download_url || wp_parse_url($download_url, PHP_URL_SCHEME) !== 'https') {
         return new WP_Error('alookhor_invalid_package_url', 'آدرس بسته بروزرسانی باید HTTPS معتبر باشد.');
     }
-    $allowed_hosts = (array) apply_filters('alookhor_cc_update_allowed_hosts', ['updates.alookhor.ir']);
+    $allowed_hosts = (array) apply_filters('alookhor_cc_update_allowed_hosts', ['updates.alookhor.ir', 'raw.githubusercontent.com', 'emeliijaddd-png.github.io', 'github.com', 'objects.githubusercontent.com']);
     $package_host = strtolower((string) wp_parse_url($download_url, PHP_URL_HOST));
     if (!$package_host || !in_array($package_host, array_map('strtolower', $allowed_hosts), true)) {
-        return new WP_Error('alookhor_untrusted_package_host', 'دامنه بسته بروزرسانی مورد اعتماد نیست.');
+        // Allow github raw hosts for fallback when updates.alookhor.ir is down
+        if (strpos($package_host, 'github') === false && strpos($package_host, 'githubusercontent') === false && $package_host !== 'emeliijaddd-png.github.io') {
+            return new WP_Error('alookhor_untrusted_package_host', 'دامنه بسته بروزرسانی مورد اعتماد نیست.');
+        }
     }
     if (!preg_match('/^[a-f0-9]{64}$/', $sha256)) {
         return new WP_Error('alookhor_invalid_sha256', 'Manifest فاقد SHA-256 معتبر است.');
@@ -108,38 +121,42 @@ function alookhor_cc_normalize_update_manifest($payload){
  * redirects/hosts and WordPress handles TLS verification.
  */
 function alookhor_cc_get_update_manifest($force = false){
-    $url = alookhor_cc_update_manifest_url();
-    if (!$url) {
-        return new WP_Error('alookhor_updater_not_configured', 'آدرس Manifest سیستم آپدیت تنظیم نشده است.');
-    }
-
     if (!$force) {
         $cached = get_site_transient(ALOOKHOR_CC_UPDATE_CACHE_KEY);
         if (is_array($cached) && !empty($cached['version'])) return $cached;
     }
 
-    $response = wp_safe_remote_get($url, [
-        'timeout'     => 12,
-        'redirection' => 3,
-        'headers'     => [
-            'Accept'     => 'application/json',
-            'User-Agent' => 'ALOOKHOR-Control-Center/' . ALOOKHOR_CC_VERSION . '; ' . home_url('/'),
-        ],
-    ]);
-
-    if (is_wp_error($response)) return $response;
-
-    $status = (int) wp_remote_retrieve_response_code($response);
-    if ($status !== 200) {
-        return new WP_Error('alookhor_update_http_error', sprintf('سرور آپدیت کد HTTP %d برگرداند.', $status));
+    $urls = function_exists('alookhor_cc_update_manifest_urls') ? alookhor_cc_update_manifest_urls() : [alookhor_cc_update_manifest_url()];
+    $urls = array_values(array_unique(array_filter($urls)));
+    if (empty($urls)) {
+        return new WP_Error('alookhor_updater_not_configured', 'آدرس Manifest سیستم آپدیت تنظیم نشده است.');
     }
 
-    $decoded = json_decode(wp_remote_retrieve_body($response), true);
-    $manifest = alookhor_cc_normalize_update_manifest($decoded);
-    if (is_wp_error($manifest)) return $manifest;
-
-    set_site_transient(ALOOKHOR_CC_UPDATE_CACHE_KEY, $manifest, 6 * HOUR_IN_SECONDS);
-    return $manifest;
+    $last_error = null;
+    foreach ($urls as $url) {
+        $url = esc_url_raw(trim($url));
+        if (!$url) continue;
+        $response = wp_safe_remote_get($url, [
+            'timeout'     => 12,
+            'redirection' => 3,
+            'headers'     => [
+                'Accept'     => 'application/json',
+                'User-Agent' => 'ALOOKHOR-Control-Center/' . ALOOKHOR_CC_VERSION . '; ' . home_url('/'),
+            ],
+        ]);
+        if (is_wp_error($response)) { $last_error = $response; continue; }
+        $status = (int) wp_remote_retrieve_response_code($response);
+        if ($status !== 200) {
+            $last_error = new WP_Error('alookhor_update_http_error', sprintf('سرور آپدیت %s کد HTTP %d برگرداند.', $url, $status));
+            continue;
+        }
+        $decoded = json_decode(wp_remote_retrieve_body($response), true);
+        $manifest = alookhor_cc_normalize_update_manifest($decoded);
+        if (is_wp_error($manifest)) { $last_error = $manifest; continue; }
+        set_site_transient(ALOOKHOR_CC_UPDATE_CACHE_KEY, $manifest, 6 * HOUR_IN_SECONDS);
+        return $manifest;
+    }
+    return $last_error ?: new WP_Error('alookhor_update_http_error', 'هیچ سرور آپدیتی پاسخ نداد.');
 }
 
 /**
@@ -197,8 +214,13 @@ add_filter('upgrader_pre_download', function($reply, $package, $upgrader, $hook_
     if (false !== $reply || !is_string($package)) return $reply;
 
     $package_host = strtolower((string) wp_parse_url($package, PHP_URL_HOST));
-    $allowed_hosts = array_map('strtolower', (array) apply_filters('alookhor_cc_update_allowed_hosts', ['updates.alookhor.ir']));
-    if (!in_array($package_host, $allowed_hosts, true)) return $reply;
+    $allowed_hosts = array_map('strtolower', (array) apply_filters('alookhor_cc_update_allowed_hosts', ['updates.alookhor.ir', 'raw.githubusercontent.com', 'emeliijaddd-png.github.io', 'github.com', 'objects.githubusercontent.com']));
+    // Fallback: allow github hosts even if filter not updated
+    if (!in_array($package_host, $allowed_hosts, true)) {
+        if (strpos($package_host, 'github') === false && strpos($package_host, 'githubusercontent') === false && $package_host !== 'emeliijaddd-png.github.io') {
+            return $reply;
+        }
+    }
 
     $plugin = $hook_extra['plugin'] ?? '';
     $plugins = $hook_extra['plugins'] ?? [];
@@ -382,4 +404,20 @@ add_action('upgrader_process_complete', function($upgrader, $options){
         'upgrader_process_complete'
     );
     unset($GLOBALS['alookhor_cc_pre_update_activation']);
+
+    // v3.10.69: کش صفحه را بعد از آپدیت خود افزونه پاک کن تا HTML جدید با URL نسخه‌ی
+    // جدید CSS/JS لود شود (LiteSpeed/W3TC در صورت وجود + Object Cache).
+    // v3.10.186: پوشش کامل افزونه‌های کش صفحه رایج (WP Rocket و…) — کش قدیمی برای
+    // کاربران مرورگری نسخهٔ کهنهٔ صفحه محصول را نشان می‌داد (بات‌ها از کش رد می‌شدند).
+    if (function_exists('wp_cache_flush')) wp_cache_flush();
+    if (function_exists('litespeed_purge_all')) litespeed_purge_all();
+    do_action('litespeed_purge_all');
+    if (class_exists('W3TC')) { if (function_exists('w3tc_flush_all')) w3tc_flush_all(); }
+    if (function_exists('rocket_clean_domain')) rocket_clean_domain();
+    if (function_exists('sg_cachepress_purge_everything')) sg_cachepress_purge_everything();
+    if (function_exists('wpfc_clear_cache')) wpfc_clear_cache(true);
+    if (function_exists('wp_cache_clear_cache')) wp_cache_clear_cache();
+    if (function_exists('w3tc_flush_all')) w3tc_flush_all();
+    if (function_exists('f2_purge_all')) f2_purge_all();
+    if (defined('LSCWP_DIR')) do_action('litespeed_purge_all');
 }, 20, 2);
