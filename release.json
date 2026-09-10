@@ -1,31 +1,31 @@
 {
-  "version": "3.10.380",
-  "previous": "3.10.379",
+  "version": "3.10.381",
+  "previous": "3.10.380",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "فیکس: همه چیز پاک شد فقط فوتر ماند + رفته زیر فوتر",
+  "description": "فیکس قطعی نوار سفید تسویه حساب + فقط فوتر ماند + زیر فوتر",
   "changelog": [
     {
       "tag": "FIX",
       "title": "فیکس فقط فوتر ماند",
-      "desc": "علت: CSS تهاجمی v3.10.374-378 با selector body.woocommerce-checkout .woocommerce > *:not(#alookhor-checkout) و site-content > .woocommerce > * وقتی #alookhor-checkout داخل یک div wrapper داخل .woocommerce باشد parent div hide می‌شود و کل checkout ناپدید و فقط فوتر می‌ماند. فیکس: برگشت به CSS مینیمال v3.10.371 که فقط wd-page-title/wd-checkout-steps/coupon-toggle را hide می‌کرد + اضافه بلوک minimal safe فقط wd-empty-cart/return-to-shop/error/message/info با :not(#alookhor-checkout *) بدون hide تهاجمی."
+      "desc": "CSS تهاجمی .woocommerce > *:not(#alookhor-checkout) parent wrapper را hide می‌کرد و فقط فوتر می‌ماند. فیکس با minimal safe hide + :not(#alookhor-checkout *)"
+    },
+    {
+      "tag": "FIX",
+      "title": "فیکس نوار سفید هنوز دیده می‌شود",
+      "desc": "بررسی لایو https://alookhor.ir/checkout/ نشان داد بعد از لوکس، المان‌های سفید قدیمی col2-set, customer_details, billing-fields, shipping-fields, review-order, coupon, login هنوز دیده می‌شود. فیکس v3.10.381 با extended safe hide برای تمام المان‌های سفید قدیمی با :not(#alookhor-checkout *) بدون hide کردن parent wrapper"
     },
     {
       "tag": "FIX",
       "title": "فیکس رفته زیر فوتر",
-      "desc": "علت دوم: قالب وودمارت یا المنتور checkout را دو بار رندر می‌کند، یک بار در content و یک بار زیر فوتر. فیکس: اضافه GLOBALS guard if(!empty($GLOBALS['alookhor_cc_checkout_rendered'])) return '' در ابتدای alookhor_cc_checkout_markup برای جلوگیری از رندر دوم."
-    },
-    {
-      "tag": "LIVE",
-      "title": "تست",
-      "desc": "باید checkout لوکس تیره مثل تصویر اصلی با استپس طلایی و گرید راست/چپ دیده شود نه فقط فوتر."
+      "desc": "GLOBALS guard برای جلوگیری از رندر دوم"
     }
   ],
   "project": "ALOOKHOR",
-  "area": "checkout only footer fix + under footer",
-  "reason": "کاربر: چرا همه چیز پاک شد فقط فوتر ماند + قبلاً گفته بود رفته زیر فوتر",
+  "area": "checkout white fix definitive + only footer + under footer",
+  "reason": "لایو چک: لوکس دیده می‌شود ولی پایین صفحه هنوز سبد خرید، تسویه حساب، تکمیل خرید، جزئیات صورتحساب سفید دیده می‌شود + گزارش کاربر فقط فوتر ماند",
   "files": [
     "plugin/alookhor-control-center/assets/css/frontend-checkout.css",
     "plugin/alookhor-control-center/includes/checkout-page.php"

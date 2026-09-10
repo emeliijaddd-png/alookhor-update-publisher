@@ -478,32 +478,44 @@ body.woocommerce-checkout {
   margin-top:2px;
 }
 
-/* Hide default checkout */
-body.woocommerce-checkout .wd-page-title,
-body.woocommerce-checkout .whb-page-title,
-body.woocommerce-checkout .wd-entities-title,
-body.woocommerce-checkout .page-title,
-body.woocommerce-checkout .entry-header,
-body.woocommerce-checkout .wd-page-heading,
-body.woocommerce-checkout .wd-checkout-steps,
-body.woocommerce-checkout .wd-checkout-steps-wrapper {
-  display:none!important;
-}
-body.woocommerce-checkout .woocommerce-form-coupon-toggle,
-body.woocommerce-checkout .woocommerce-notices-wrapper {
-  display:none!important;
-}
-body.woocommerce-checkout #alookhor-checkout {
-  display:block!important;
-  visibility:visible!important;
-  opacity:1!important;
-}
-
-/* v3.10.379 — minimal safe hide old white checkout, keep luxury */
+/* v3.10.381 — extended safe hide old white checkout, keep luxury - fix white bar still visible */
+body.woocommerce-checkout .wd-page-title:not(#alookhor-checkout *),
+body.woocommerce-checkout .whb-page-title:not(#alookhor-checkout *),
+body.woocommerce-checkout .wd-entities-title:not(#alookhor-checkout *),
+body.woocommerce-checkout .page-title:not(#alookhor-checkout *),
+body.woocommerce-checkout .entry-header:not(#alookhor-checkout *),
+body.woocommerce-checkout .wd-page-heading:not(#alookhor-checkout *),
+body.woocommerce-checkout .wd-checkout-steps:not(#alookhor-checkout *),
+body.woocommerce-checkout .wd-checkout-steps-wrapper:not(#alookhor-checkout *),
+body.woocommerce-checkout .woocommerce-form-coupon-toggle:not(#alookhor-checkout *),
+body.woocommerce-checkout .woocommerce-notices-wrapper:not(#alookhor-checkout *),
+body.woocommerce-checkout .woocommerce-form-coupon:not(#alookhor-checkout *),
+body.woocommerce-checkout .woocommerce-form-login:not(#alookhor-checkout *),
 body.woocommerce-checkout .wd-empty-cart:not(#alookhor-checkout *),
 body.woocommerce-checkout .return-to-shop:not(#alookhor-checkout *),
 body.woocommerce-checkout .woocommerce-error:not(#alookhor-checkout *),
 body.woocommerce-checkout .woocommerce-message:not(#alookhor-checkout *),
 body.woocommerce-checkout .woocommerce-info:not(#alookhor-checkout *) {
   display:none!important;
+}
+
+/* Hide old WooCommerce checkout structure - specific safe selectors */
+body.woocommerce-checkout .woocommerce .col2-set:not(#alookhor-checkout *),
+body.woocommerce-checkout .woocommerce #customer_details:not(#alookhor-checkout *),
+body.woocommerce-checkout .woocommerce .woocommerce-billing-fields:not(#alookhor-checkout *),
+body.woocommerce-checkout .woocommerce .woocommerce-shipping-fields:not(#alookhor-checkout *),
+body.woocommerce-checkout .woocommerce .woocommerce-additional-fields:not(#alookhor-checkout *),
+body.woocommerce-checkout .woocommerce .woocommerce-checkout-review-order:not(#alookhor-checkout *),
+body.woocommerce-checkout .woocommerce .woocommerce-checkout-payment:not(#alookhor-checkout *),
+body.woocommerce-checkout .woocommerce .shop_table:not(#alookhor-checkout *),
+body.woocommerce-checkout .woocommerce .woocommerce-checkout-review-order-table:not(#alookhor-checkout *),
+body.woocommerce-checkout .woocommerce form.woocommerce-checkout:not(#alookhor-checkout form):not(#alookhor-checkout *) {
+  display:none!important;
+}
+
+/* Ensure luxury always visible */
+body.woocommerce-checkout #alookhor-checkout {
+  display:block!important;
+  visibility:visible!important;
+  opacity:1!important;
 }
