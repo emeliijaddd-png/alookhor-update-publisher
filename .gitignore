@@ -5,3 +5,5 @@ public/
 .DS_Store
 __pycache__/
 node_modules/
+*.zip
+alookhor-control-center-*.zip
