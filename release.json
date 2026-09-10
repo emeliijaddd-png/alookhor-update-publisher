@@ -1,23 +1,22 @@
 {
-  "version": "3.10.376",
-  "previous": "3.10.375",
+  "version": "3.10.377",
+  "previous": "3.10.376",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "فیکس نهایی: تسویه حساب بالای فوتر + حذف سفید",
+  "description": "فیکس نهایی تسویه حساب بالای فوتر",
   "changelog": [
     {
       "tag": "FIX",
-      "title": "فیکس نهایی زیر فوتر + سفید",
-      "desc": "ترکیب 3.10.374 و 3.10.375: حذف کامل نوار سفید قدیمی (wd-checkout-steps, col2-set, billing-fields, order_review, coupon-toggle) با display:none + جلوگیری از رندر چندباره checkout که باعث رفتن زیر فوتر می‌شد (GLOBALS check) + فیلتر سراسری woocommerce_checkout_redirect_empty_cart=false تا /checkout/ حتی با سبد خالی لوکس تیره دیده شود؛ بک‌گراند #0d0510، کارت #1C1024، طلایی #D49A2E."
+      "title": "فیکس نهایی بالای فوتر",
+      "desc": "رفتن زیر فوتر به خاطر رندر چندباره بود - با GLOBALS check فیکس شد؛ الان باید بالای فوتر باشد."
     }
   ],
   "project": "ALOOKHOR",
   "area": "checkout final",
-  "reason": "کاربر: عالی شد فقط رفته زیر فوتر باید بیاد بالای فوتر - نیاز به انتشار نهایی",
+  "reason": "تلاش مجدد انتشار 3.10.376 که بیلد فیل شد",
   "files": [
-    "plugin/alookhor-control-center/includes/checkout-page.php",
-    "plugin/alookhor-control-center/assets/css/frontend-checkout.css"
+    "plugin/alookhor-control-center/includes/checkout-page.php"
   ]
 }
