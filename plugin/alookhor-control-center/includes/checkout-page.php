@@ -338,7 +338,6 @@ add_filter('the_content',function($content){
 },PHP_INT_MAX);
 
 add_filter('wc_get_template',function($template,$template_name,$args,$template_path,$default_path){
- if(!empty($GLOBALS['alookhor_cc_checkout_rendered'])) return $template;
  // Override ALL checkout templates to luxury
  if(strpos($template_name,'checkout/')===0){
   $custom=ALOOKHOR_CC_DIR.'templates/checkout-partial.php';
@@ -351,7 +350,6 @@ add_filter('wc_get_template',function($template,$template_name,$args,$template_p
 },PHP_INT_MAX,5);
 
 add_filter('woocommerce_locate_template',function($template,$template_name,$template_path){
- if(!empty($GLOBALS['alookhor_cc_checkout_rendered'])) return $template;
  if(strpos($template_name,'checkout/')===0){
   $custom=ALOOKHOR_CC_DIR.'templates/checkout-partial.php';
   if(file_exists($custom)) return $custom;

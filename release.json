@@ -1,6 +1,6 @@
 {
-  "version": "3.10.377",
-  "previous": "3.10.376",
+  "version": "3.10.378",
+  "previous": "3.10.377",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
@@ -9,13 +9,13 @@
   "changelog": [
     {
       "tag": "FIX",
-      "title": "فیکس نهایی بالای فوتر",
-      "desc": "رفتن زیر فوتر به خاطر رندر چندباره بود - با GLOBALS check فیکس شد؛ الان باید بالای فوتر باشد."
+      "title": "فیکس زیر فوتر",
+      "desc": "رفته زیر فوتر به خاطر رندر چندباره بود - با GLOBALS check در ابتدای alookhor_cc_checkout_markup و در wc_get_template فیکس شد تا فقط یک بار بالای فوتر رندر شود؛ نوار سفید قدیمی هم با CSS v3.10.374 مخفی."
     }
   ],
   "project": "ALOOKHOR",
   "area": "checkout final",
-  "reason": "تلاش مجدد انتشار 3.10.376 که بیلد فیل شد",
+  "reason": "کاربر: عالی شد فقط رفته زیر فوتر باید بیاد بالای فوتر",
   "files": [
     "plugin/alookhor-control-center/includes/checkout-page.php"
   ]
