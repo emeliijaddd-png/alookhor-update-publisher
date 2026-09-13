@@ -1,36 +1,29 @@
 {
-  "version": "3.10.383",
-  "previous": "3.10.382",
+  "version": "3.10.384",
+  "previous": "3.10.383",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "بازسازی کامل صفحه سبد خرید با Store API - Single Source of Truth",
+  "description": "فیکس نهایی checkout سفید + Cart Store API",
   "changelog": [
     {
-      "tag": "ARCH",
-      "title": "معماری جدید Cart با Store API",
-      "desc": "بازسازی کامل Cart Engine: WooCommerce Store API به عنوان Source of Truth، Single State مرکزی (cart, items, totals, coupons, shipping_rates)، حذف تمام Cartهای قدیمی (woocommerce-cart-form, cart-collaterals, Woodmart cart, Elementor widget, side cart)، فقط یک Cart در DOM، Header Cart Count از State واقعی، بدون reload، با credentials include و Nonce مدیریت صحیح"
+      "tag": "FIX",
+      "title": "فیکس نهایی نوار سفید checkout",
+      "desc": "لایو چک https://alookhor.ir/checkout/ بعد از 3.10.383 هنوز جزئیات صورتحساب و FAQ سفید دیده می‌شد. فیکس v3.10.384: اضافه Elementor widget override برای checkout (مثل cart) + extended CSS hide برای billing-fields__field-wrapper, review-order-table, entry-content > *:not(luxury), FAQ accordion"
     },
     {
       "tag": "FEAT",
-      "title": "Variable Products و وزن",
-      "desc": "پشتیبانی کامل از محصولات متغیر با وزن‌های 250g, 500g, 1kg, 3kg, 5kg, 10kg، استخراج variation ID, attributes, price, stock, purchasable به صورت واقعی از WooCommerce، استفاده از pa_vazn attribute واقعی، قیمت هر variation به صورت واقعی نمایش داده می‌شود"
-    },
-    {
-      "tag": "FEAT",
-      "title": "Recommendations و Trust Cards",
-      "desc": "Endpoint جدید /wp-json/alookhor-cart/v3/recommendations با فیلتر Samsung، 4 محصول واقعی، بدون پیشنهاد محصولات داخل Cart، با variation selector و Add to Cart واقعی، Trust Cards و FAQ مطابق Screenshot"
+      "title": "Cart Store API",
+      "desc": "معماری جدید Cart با Store API، Single State، بدون reload"
     }
   ],
   "project": "ALOOKHOR",
-  "area": "cart rebuild Store API",
-  "reason": "ماموریت جدید: بازسازی کامل صفحه سبد خرید مطابق Screenshot مرجع با Store API و Single Source of Truth",
+  "area": "checkout white definitive + cart",
+  "reason": "کاربر: انجام شد کامل حالا چه کنم؟ الان تمام اصلاحات روی سایت اعمال شد؟ - بررسی لایو نشان داد checkout هنوز سفید دارد",
   "files": [
-    "plugin/alookhor-control-center/includes/cart-page.php",
-    "plugin/alookhor-control-center/includes/cart-rest.php",
-    "plugin/alookhor-control-center/assets/js/frontend-cart.js",
-    "plugin/alookhor-control-center/assets/css/frontend-cart.css",
+    "plugin/alookhor-control-center/includes/checkout-page.php",
+    "plugin/alookhor-control-center/assets/css/frontend-checkout.css",
     "plugin/alookhor-control-center/alookhor-control-center.php"
   ]
 }

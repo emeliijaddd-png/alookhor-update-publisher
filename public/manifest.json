@@ -1,28 +1,23 @@
 {
   "name": "ALOOKHOR Control Center",
-  "version": "3.10.383",
-  "download_url": "https://raw.githubusercontent.com/emeliijaddd-png/alookhor-update-publisher/main/public/releases/alookhor-control-center-3.10.383.zip",
+  "version": "3.10.384",
+  "download_url": "https://raw.githubusercontent.com/emeliijaddd-png/alookhor-update-publisher/main/public/releases/alookhor-control-center-3.10.384.zip",
   "details_url": "https://updates.alookhor.ir/changelog.html",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "sha256": "23bbdf5eb3d951c5be7047c3ef33a96f161b69788563e1ed71ebfe2a0c707206",
-  "description": "بازسازی کامل صفحه سبد خرید با Store API - Single Source of Truth",
+  "sha256": "d1232cb0125118496b998429e94b6e2fd036d2c3333517fafe69f1a898ef4c48",
+  "description": "فیکس نهایی checkout سفید + Cart Store API",
   "changelog": [
     {
-      "tag": "ARCH",
-      "title": "معماری جدید Cart با Store API",
-      "desc": "بازسازی کامل Cart Engine: WooCommerce Store API به عنوان Source of Truth، Single State مرکزی (cart, items, totals, coupons, shipping_rates)، حذف تمام Cartهای قدیمی (woocommerce-cart-form, cart-collaterals, Woodmart cart, Elementor widget, side cart)، فقط یک Cart در DOM، Header Cart Count از State واقعی، بدون reload، با credentials include و Nonce مدیریت صحیح"
+      "tag": "FIX",
+      "title": "فیکس نهایی نوار سفید checkout",
+      "desc": "لایو چک https://alookhor.ir/checkout/ بعد از 3.10.383 هنوز جزئیات صورتحساب و FAQ سفید دیده می‌شد. فیکس v3.10.384: اضافه Elementor widget override برای checkout (مثل cart) + extended CSS hide برای billing-fields__field-wrapper, review-order-table, entry-content > *:not(luxury), FAQ accordion"
     },
     {
       "tag": "FEAT",
-      "title": "Variable Products و وزن",
-      "desc": "پشتیبانی کامل از محصولات متغیر با وزن‌های 250g, 500g, 1kg, 3kg, 5kg, 10kg، استخراج variation ID, attributes, price, stock, purchasable به صورت واقعی از WooCommerce، استفاده از pa_vazn attribute واقعی، قیمت هر variation به صورت واقعی نمایش داده می‌شود"
-    },
-    {
-      "tag": "FEAT",
-      "title": "Recommendations و Trust Cards",
-      "desc": "Endpoint جدید /wp-json/alookhor-cart/v3/recommendations با فیلتر Samsung، 4 محصول واقعی، بدون پیشنهاد محصولات داخل Cart، با variation selector و Add to Cart واقعی، Trust Cards و FAQ مطابق Screenshot"
+      "title": "Cart Store API",
+      "desc": "معماری جدید Cart با Store API، Single State، بدون reload"
     }
   ]
 }
