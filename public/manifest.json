@@ -1,7 +1,7 @@
 {
   "name": "ALOOKHOR Control Center",
   "version": "3.10.383",
-  "download_url": "https://updates.alookhor.ir/releases/alookhor-control-center-3.10.383.zip",
+  "download_url": "https://raw.githubusercontent.com/emeliijaddd-png/alookhor-update-publisher/main/public/releases/alookhor-control-center-3.10.383.zip",
   "details_url": "https://updates.alookhor.ir/changelog.html",
   "requires": "6.0",
   "tested": "7.0",
