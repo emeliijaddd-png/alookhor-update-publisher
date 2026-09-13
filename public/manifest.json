@@ -1,0 +1,28 @@
+{
+  "name": "ALOOKHOR Control Center",
+  "version": "3.10.383",
+  "download_url": "https://updates.alookhor.ir/releases/alookhor-control-center-3.10.383.zip",
+  "details_url": "https://updates.alookhor.ir/changelog.html",
+  "requires": "6.0",
+  "tested": "7.0",
+  "requires_php": "8.0",
+  "sha256": "23bbdf5eb3d951c5be7047c3ef33a96f161b69788563e1ed71ebfe2a0c707206",
+  "description": "بازسازی کامل صفحه سبد خرید با Store API - Single Source of Truth",
+  "changelog": [
+    {
+      "tag": "ARCH",
+      "title": "معماری جدید Cart با Store API",
+      "desc": "بازسازی کامل Cart Engine: WooCommerce Store API به عنوان Source of Truth، Single State مرکزی (cart, items, totals, coupons, shipping_rates)، حذف تمام Cartهای قدیمی (woocommerce-cart-form, cart-collaterals, Woodmart cart, Elementor widget, side cart)، فقط یک Cart در DOM، Header Cart Count از State واقعی، بدون reload، با credentials include و Nonce مدیریت صحیح"
+    },
+    {
+      "tag": "FEAT",
+      "title": "Variable Products و وزن",
+      "desc": "پشتیبانی کامل از محصولات متغیر با وزن‌های 250g, 500g, 1kg, 3kg, 5kg, 10kg، استخراج variation ID, attributes, price, stock, purchasable به صورت واقعی از WooCommerce، استفاده از pa_vazn attribute واقعی، قیمت هر variation به صورت واقعی نمایش داده می‌شود"
+    },
+    {
+      "tag": "FEAT",
+      "title": "Recommendations و Trust Cards",
+      "desc": "Endpoint جدید /wp-json/alookhor-cart/v3/recommendations با فیلتر Samsung، 4 محصول واقعی، بدون پیشنهاد محصولات داخل Cart، با variation selector و Add to Cart واقعی، Trust Cards و FAQ مطابق Screenshot"
+    }
+  ]
+}
