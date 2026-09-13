@@ -1,10 +1,12 @@
 {
+  "name": "ALOOKHOR Control Center",
   "version": "3.10.385",
-  "previous": "3.10.384",
-  "state": "ready",
+  "download_url": "https://raw.githubusercontent.com/emeliijaddd-png/alookhor-update-publisher/main/public/releases/alookhor-control-center-3.10.385.zip",
+  "details_url": "https://updates.alookhor.ir/changelog.html",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
+  "sha256": "38250b557f6c67bbc2db4f55fc7197c40885dceea9afd5c86ced80941b59cbe0",
   "description": "فیکس سفید سمت چپ سبد خرید + Cart Store API نهایی",
   "changelog": [
     {
@@ -17,14 +19,5 @@
       "title": "Cart Store API بدون reload",
       "desc": "معماری جدید با Single State، quantity +/−, remove, coupon, add recommendation بدون reload، Header Count sync"
     }
-  ],
-  "project": "ALOOKHOR",
-  "area": "cart left white fix + Store API",
-  "reason": "کاربر: چرا پس با اپدیت کردنت هیچ تغییری در سبد خرید ایجاد نشد حتی یک درصد هم تغییر نکرد - اسکرین‌شات نشان داد سمت چپ سفید بزرگ است",
-  "files": [
-    "plugin/alookhor-control-center/assets/css/frontend-cart.css",
-    "plugin/alookhor-control-center/assets/js/frontend-cart.js",
-    "plugin/alookhor-control-center/includes/cart-page.php",
-    "plugin/alookhor-control-center/alookhor-control-center.php"
   ]
 }
