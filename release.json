@@ -1,20 +1,20 @@
 {
-  "version": "3.10.386",
-  "previous": "3.10.385",
+  "version": "3.10.387",
+  "previous": "3.10.386",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "بازگردانی سبد خرید اختصاصی آلوخور + حذف کامل Cart وودمارت/ووکامرس + لیست خرید و Store API",
+  "description": "رفع خرابی بسته Control Center و تثبیت سبد خرید اختصاصی آلوخور",
   "changelog": [
-    {"tag":"FIX","title":"بازگردانی سبد خرید اختصاصی آلوخور","desc":"Cart اختصاصی دوباره به‌صورت یک Renderer واحد روی صفحه /cart/ ارائه می‌شود و Cart وودمارت/ووکامرس و بخش‌های تکراری مخفی می‌شوند."},
-    {"tag":"FIX","title":"رفع ناپدیدشدن لیست خرید","desc":"ساختار صفحه Cart، فایل‌های cart-page و cart-rest و بارگذاری CSS/JS اختصاصی اصلاح شد تا محتوا بعد از Refresh باقی بماند و زیر Footer نرود."},
-    {"tag":"FIX","title":"عملکرد واقعی Store API","desc":"Nonce واقعی WooCommerce به Cart متصل شد و افزایش/کاهش تعداد، حذف، کد تخفیف و افزودن محصولات پیشنهادی بدون Reload کار می‌کنند."},
-    {"tag":"RESPONSIVE","title":"حذف Cartهای موازی","desc":"لایه‌های WooCommerce/Woodmart/Elementor خارج از #alookhor-cart با CSS و Observer کنترل می‌شوند تا فقط یک Cart نمایش داده شود."}
+    {"tag":"FIX","title":"رفع خرابی بسته Control Center","desc":"فایل‌های include موردنیاز بسته بازیابی شدند و bootstrap افزونه برای نصب پایدار اصلاح شد."},
+    {"tag":"FIX","title":"سبد خرید اختصاصی آلوخور","desc":"Renderer اختصاصی Cart و فایل‌های cart-page و cart-rest در بسته حفظ می‌شوند."},
+    {"tag":"FIX","title":"حذف Cart موازی قدیمی","desc":"لایه‌های قدیمی Code Snippets مربوط به Cart Engine و Before Footer Mount غیرفعال شدند."},
+    {"tag":"RESPONSIVE","title":"پایداری Cart","desc":"ساختار Cart اختصاصی برای Refresh و نمایش پایدار قبل از Footer نگه داشته شد."}
   ],
   "project":"ALOOKHOR",
-  "area":"cart recovery + Store API",
-  "reason":"کاربر گزارش کرد Cart اختصاصی از بین رفته، فقط Cart آران/قالب باقی مانده و لیست خرید وجود ندارد.",
+  "area":"cart recovery + package repair",
+  "reason":"نسخه 3.10.386 پس از نصب به دلیل includeهای مفقود روی سایت Fatal Error ایجاد کرد.",
   "files":[
     "plugin/alookhor-control-center/assets/css/frontend-cart.css",
     "plugin/alookhor-control-center/assets/js/frontend-cart.js",
