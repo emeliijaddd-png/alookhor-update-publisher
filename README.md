@@ -4,8 +4,8 @@ Release publisher for ALOOKHOR Control Center.
 
 ## Current release
 
-- Control Center: **3.10.386**
-- Cart recovery: custom ALOOKHOR cart page renderer and cart REST integration.
+- Control Center: **3.10.387**
+- Cart recovery: restored missing Control Center include files and custom ALOOKHOR cart integration.
 - Deployment target: `main`
 
-<!-- publish-trigger-2026-09-14 -->
+<!-- publish-trigger-2026-09-14-387 -->
