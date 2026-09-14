@@ -1,13 +1,13 @@
 {
-  "version": "3.10.387",
-  "previous": "3.10.386",
+  "version": "3.10.388",
+  "previous": "3.10.387",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
   "description": "رفع خرابی بسته Control Center و تثبیت سبد خرید اختصاصی آلوخور",
   "changelog": [
-    {"tag":"FIX","title":"رفع خرابی بسته Control Center","desc":"فایل‌های include موردنیاز بسته بازیابی شدند و bootstrap افزونه برای نصب پایدار اصلاح شد."},
+    {"tag":"FIX","title":"رفع Fatal Error افزونه","desc":"فایل sort-center.php که bootstrap افزونه به آن وابسته است، اکنون صراحتاً داخل بسته انتشار قرار دارد."},
     {"tag":"FIX","title":"سبد خرید اختصاصی آلوخور","desc":"Renderer اختصاصی Cart و فایل‌های cart-page و cart-rest در بسته حفظ می‌شوند."},
     {"tag":"FIX","title":"حذف Cart موازی قدیمی","desc":"لایه‌های قدیمی Code Snippets مربوط به Cart Engine و Before Footer Mount غیرفعال شدند."},
     {"tag":"RESPONSIVE","title":"پایداری Cart","desc":"ساختار Cart اختصاصی برای Refresh و نمایش پایدار قبل از Footer نگه داشته شد."}
@@ -20,6 +20,7 @@
     "plugin/alookhor-control-center/assets/js/frontend-cart.js",
     "plugin/alookhor-control-center/includes/cart-page.php",
     "plugin/alookhor-control-center/includes/cart-rest.php",
+    "plugin/alookhor-control-center/includes/sort-center.php",
     "plugin/alookhor-control-center/alookhor-control-center.php"
   ]
 }
