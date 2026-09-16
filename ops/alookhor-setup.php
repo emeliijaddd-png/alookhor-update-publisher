@@ -41,6 +41,98 @@ function alookhor_log(&$results, $label, $ok, $note = '')
 		. '</div>' . "\n";
 }
 
+/* Recursively delete a directory tree (best effort). */
+function alookhor_rmdir($dir)
+{
+	if (!is_dir($dir)) {
+		return;
+	}
+	$items = @scandir($dir);
+	if ($items === false) {
+		return;
+	}
+	foreach ($items as $item) {
+		if ($item === '.' || $item === '..') {
+			continue;
+		}
+		$path = $dir . '/' . $item;
+		if (is_dir($path) && !is_link($path)) {
+			alookhor_rmdir($path);
+		} else {
+			@unlink($path);
+		}
+	}
+	@rmdir($dir);
+}
+
+/*
+ * Copy a theme/plugin zip into its final folder, robust to the zip's internal
+ * layout. The archive may contain the theme at the archive root (flat), or
+ * inside a top-level folder (any name). Locates style.css / the bootstrap
+ * file to determine the real root, then copies into $target_dir.
+ *
+ * @param string $zip_path     Path to the .zip
+ * @param string $target_dir   Destination directory (created if needed)
+ * @param string $marker_file  File that must exist at the theme/plugin root
+ * @return bool True when $target_dir/$marker_file exists afterwards.
+ */
+function alookhor_extract_zip($zip_path, $target_dir, $marker_file)
+{
+	$z = new ZipArchive();
+	if ($z->open($zip_path) !== true) {
+		return file_exists($target_dir . '/' . $marker_file);
+	}
+	$tmp = sys_get_temp_dir() . '/alookhor-' . md5($zip_path) . '-' . getmypid();
+	@mkdir($tmp, 0755, true);
+	$extracted = $z->extractTo($tmp);
+	$z->close();
+	if (!$extracted) {
+		alookhor_rmdir($tmp);
+		return false;
+	}
+	// Find the directory that actually contains the marker file.
+	$root = $tmp;
+	if (!file_exists($tmp . '/' . $marker_file)) {
+		$root = null;
+		$sub = @glob($tmp . '/*', GLOB_ONLYDIR);
+		if (is_array($sub)) {
+			foreach ($sub as $d) {
+				if (file_exists($d . '/' . $marker_file)) {
+					$root = $d;
+					break;
+				}
+			}
+		}
+		if ($root === null) {
+			alookhor_rmdir($tmp);
+			return false;
+		}
+	}
+	// Copy the located root into the target directory.
+	if (!is_dir($target_dir)) {
+		@mkdir($target_dir, 0755, true);
+	}
+	$iter = new RecursiveIteratorIterator(
+		new RecursiveDirectoryIterator($root, FilesystemIterator::SKIP_DOTS),
+		RecursiveIteratorIterator::SELF_FIRST
+	);
+	foreach ($iter as $file) {
+		$dest = $target_dir . '/' . substr($file->getPathname(), strlen($root));
+		if ($file->isDir()) {
+			if (!is_dir($dest)) {
+				@mkdir($dest, 0755, true);
+			}
+		} else {
+			if (!is_dir(dirname($dest))) {
+				@mkdir(dirname($dest), 0755, true);
+			}
+			@copy($file->getPathname(), $dest);
+		}
+	}
+	alookhor_rmdir($tmp);
+	return file_exists($target_dir . '/' . $marker_file);
+}
+
 /* ------------------------------------------------------------------ */
 /* Safety: this file must live in a WordPress root.                   */
 /* ------------------------------------------------------------------ */
@@ -230,8 +322,11 @@ if (isset($_POST['action']) && $_POST['action'] === 'install') {
 	}
 
 	/* Step 4: run the installer only when the database is empty. */
+	$admin_user = '';
+	$admin_pass = '';
+	$auto_pass  = '';
 	if (!$has_tables) {
-		$admin_user = $p('admin_user') !== '' ? $p('admin_user') : 'admin';
+		$admin_user  = $p('admin_user') !== '' ? $p('admin_user') : 'admin';
 		$admin_email = $p('admin_email') !== '' ? $p('admin_email') : 'admin@' . (isset($_SERVER['HTTP_HOST']) ? preg_replace('/:\d+$/', '', (string) $_SERVER['HTTP_HOST']) : 'example.com');
 		$auto_pass = '';
 		$admin_pass = $p('admin_password');
@@ -254,43 +349,31 @@ if (isset($_POST['action']) && $_POST['action'] === 'install') {
 		alookhor_log($results, 'Database already contains a WordPress site', true, 'Existing data preserved.');
 	}
 
-	/* Step 5: extract theme + plugin zips when present next to this file. */
+	/* Step 5: extract theme + plugin zips when present next to this file.
+	 * Handles both zip layouts (theme at archive root or in a top folder). */
 	if (class_exists('ZipArchive')) {
+		$theme_dir = $root . 'wp-content/themes/hello-elementor';
 		$theme_zip = $root . 'hello-elementor.zip';
-		if (file_exists($theme_zip) && !file_exists($root . 'wp-content/themes/hello-elementor/style.css')) {
-			$target_dir = $root . 'wp-content/themes/hello-elementor';
-			@mkdir($target_dir, 0755, true);
-			$z = new ZipArchive();
-			$opened = $z->open($theme_zip) === true;
-			if ($opened) {
-				$z->extractTo($root . 'wp-content/themes/');
-				$z->close();
-			}
-			$good = file_exists($target_dir . '/style.css');
+		if (file_exists($theme_zip) && !file_exists($theme_dir . '/style.css')) {
+			$good = alookhor_extract_zip($theme_zip, $theme_dir, 'style.css');
 			alookhor_log($results, 'Extract hello-elementor theme', $good, $good ? '' : 'zip structure unexpected');
 		} else {
-			$good = file_exists($root . 'wp-content/themes/hello-elementor/style.css');
+			$good = file_exists($theme_dir . '/style.css');
 			alookhor_log($results, 'Hello Elementor theme files', $good, $good ? 'already present' : 'missing and no zip found');
 		}
 
+		$plugin_dir = $root . 'wp-content/plugins/alookhor-control-center';
 		$plugin_zip = null;
 		foreach (glob($root . 'alookhor-control-center-*.zip') as $candidate) {
 			$plugin_zip = $candidate;
 		}
-		$plugin_dir = $root . 'wp-content/plugins/alookhor-control-center';
 		if (!$plugin_zip) {
 			$plugin_zip = $root . 'alookhor-control-center.zip';
 		}
 		if (file_exists($plugin_dir . '/alookhor-control-center.php')) {
 			alookhor_log($results, 'alookhor-control-center plugin files', true, 'already present');
 		} elseif ($plugin_zip && file_exists($plugin_zip)) {
-			$z = new ZipArchive();
-			$opened = $z->open($plugin_zip) === true;
-			if ($opened) {
-				$z->extractTo($root . 'wp-content/plugins/');
-				$z->close();
-			}
-			$good = file_exists($plugin_dir . '/alookhor-control-center.php');
+			$good = alookhor_extract_zip($plugin_zip, $plugin_dir, 'alookhor-control-center.php');
 			alookhor_log($results, 'Extract alookhor-control-center plugin', $good, $good ? '' : 'zip structure unexpected');
 		} else {
 			alookhor_log($results, 'alookhor-control-center plugin files', false, 'missing and no zip found');
