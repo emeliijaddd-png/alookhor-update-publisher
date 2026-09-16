@@ -34,6 +34,41 @@ define('ALOOKHOR_TITLE', 'ALOOKHOR');
 $root = __DIR__ . '/';
 $fatal = null;
 
+/* DB credentials — can be corrected by the user from the retry form. */
+$alookhor_db_creds = array(
+	'host' => ALOOKHOR_DB_HOST,
+	'user' => ALOOKHOR_DB_USER,
+	'pass' => ALOOKHOR_DB_PASS,
+	'db'   => ALOOKHOR_DB_NAME,
+);
+if (isset($_POST['dbuser'], $_POST['dbpass'])
+	&& isset($_POST['token']) && hash_equals('ALOOKHOR-INSTALL-2026', (string) $_POST['token'])) {
+	if (trim((string) $_POST['dbuser']) !== '') {
+		$alookhor_db_creds['user'] = trim((string) $_POST['dbuser']);
+	}
+	if (trim((string) $_POST['dbpass']) !== '') {
+		$alookhor_db_creds['pass'] = trim((string) $_POST['dbpass']);
+	}
+	if (isset($_POST['dbname']) && trim((string) $_POST['dbname']) !== '') {
+		$alookhor_db_creds['db'] = trim((string) $_POST['dbname']);
+	}
+	if (isset($_POST['dbhost']) && trim((string) $_POST['dbhost']) !== '') {
+		$alookhor_db_creds['host'] = trim((string) $_POST['dbhost']);
+	}
+}
+
+function inst_db_form($creds)
+{
+	return '<form method="post" style="margin-top:14px; direction: rtl;">'
+		. '<input type="hidden" name="token" value="ALOOKHOR-INSTALL-2026">'
+		. '<label>نام دیتابیس: <input dir="ltr" type="text" name="dbname" value="' . htmlspecialchars($creds['db']) . '" style="width:230px;"></label><br>'
+		. '<label>نام کاربر: <input dir="ltr" type="text" name="dbuser" value="' . htmlspecialchars($creds['user']) . '" style="width:230px;"></label><br>'
+		. '<label>رمز کاربر: <input dir="ltr" type="text" name="dbpass" value="' . htmlspecialchars($creds['pass']) . '" style="width:230px;"></label><br>'
+		. '<label>هست دیتابیس: <input dir="ltr" type="text" name="dbhost" value="' . htmlspecialchars($creds['host']) . '" style="width:130px;"></label><br>'
+		. '<button class="btn" type="submit" style="margin-top:12px; background:#2b6cb0;">تلاش دوباره با این اطلاعات</button>'
+		. '</form>';
+}
+
 function inst_log(&$results, $label, $ok, $note = '')
 {
 	$results[] = array('label' => $label, 'ok' => (bool) $ok, 'note' => $note);
@@ -145,7 +180,7 @@ foreach (array('wp-settings.php', 'wp-load.php', 'wp-login.php', 'wp-includes/ve
 		$fatal_core[] = $f;
 	}
 }
-foreach (array('wp-admin/css/colors/fresh.css', 'wp-includes/css/dashicons.min.css') as $f) {
+foreach (array('wp-admin/css/colors/light/colors.min.css', 'wp-includes/css/dashicons.min.css') as $f) {
 	if (!file_exists($root . $f)) {
 		$warn_core[] = $f;
 	}
@@ -178,10 +213,10 @@ if ($config_missing) {
 	}
 }
 $new = $config_raw;
-$new = preg_replace('/define\s*\(\s*\'DB_NAME\'\s*,\s*\'[^\']*\'\s*\);?/', "define( 'DB_NAME', '" . ALOOKHOR_DB_NAME . "' );", $new, 1);
-$new = preg_replace('/define\s*\(\s*\'DB_USER\'\s*,\s*\'[^\']*\'\s*\);?/', "define( 'DB_USER', '" . ALOOKHOR_DB_USER . "' );", $new, 1);
-$new = preg_replace('/define\s*\(\s*\'DB_PASSWORD\'\s*,\s*\'[^\']*\'\s*\);?/', "define( 'DB_PASSWORD', '" . ALOOKHOR_DB_PASS . "' );", $new, 1);
-$new = preg_replace('/define\s*\(\s*\'DB_HOST\'\s*,\s*\'[^\']*\'\s*\);?/', "define( 'DB_HOST', '" . ALOOKHOR_DB_HOST . "' );", $new, 1);
+$new = preg_replace('/define\s*\(\s*\'DB_NAME\'\s*,\s*\'[^\']*\'\s*\);?/', "define( 'DB_NAME', '" . $alookhor_db_creds['db'] . "' );", $new, 1);
+$new = preg_replace('/define\s*\(\s*\'DB_USER\'\s*,\s*\'[^\']*\'\s*\);?/', "define( 'DB_USER', '" . $alookhor_db_creds['user'] . "' );", $new, 1);
+$new = preg_replace('/define\s*\(\s*\'DB_PASSWORD\'\s*,\s*\'[^\']*\'\s*\);?/', "define( 'DB_PASSWORD', '" . $alookhor_db_creds['pass'] . "' );", $new, 1);
+$new = preg_replace('/define\s*\(\s*\'DB_HOST\'\s*,\s*\'[^\']*\'\s*\);?/', "define( 'DB_HOST', '" . $alookhor_db_creds['host'] . "' );", $new, 1);
 $new = preg_replace('/\$table_prefix\s*=\s*\'[^\']*\'\s*;/', '$table_prefix = \'' . ALOOKHOR_PREFIX . '\';', $new, 1);
 if ($config_missing) {
 	$new = preg_replace_callback("/'put your unique phrase here'/", function () {
@@ -189,7 +224,7 @@ if ($config_missing) {
 	}, $new);
 }
 $written = @file_put_contents($config_path, $new);
-inst_log($results, 'درج اطلاعات دیتابیس در wp-config.php', $written !== false, $written !== false ? 'دیتابیس: ' . ALOOKHOR_DB_NAME . ' / کاربر: ' . ALOOKHOR_DB_USER : 'نکوت - اجازه نوشتن فایل را چک کنید');
+inst_log($results, 'درج اطلاعات دیتابیس در wp-config.php', $written !== false, $written !== false ? 'دیتابیس: ' . $alookhor_db_creds['db'] . ' / کاربر: ' . $alookhor_db_creds['user'] : 'نکوت - اجازه نوشتن فایل را چک کنید');
 if ($written === false) {
 	echo '<h2 class="err">نمی‌توان روی wp-config.php نوشت</h2><p>دسترسی نوشتن پوشه public_html را در cPanel چک کنید (permissions = 644 برای فایل، 755 برای پوشه).</p></div>';
 	exit;
@@ -197,14 +232,14 @@ if ($written === false) {
 $config_raw = $new;
 
 /* ---------------- 3. direct DB check ---------------- */
-$alookhor_db_state = function (&$err) {
+$alookhor_db_state = function (&$err) use ($alookhor_db_creds) {
 	$err = '';
 	if (!class_exists('mysqli')) {
 		$err = 'NO_MYSQLI';
 		return null;
 	}
 	try {
-		$m = new mysqli(ALOOKHOR_DB_HOST, ALOOKHOR_DB_USER, ALOOKHOR_DB_PASS, ALOOKHOR_DB_NAME);
+		$m = new mysqli($alookhor_db_creds['host'], $alookhor_db_creds['user'], $alookhor_db_creds['pass'], $alookhor_db_creds['db']);
 	} catch (Exception $e) {
 		$err = 'CONNECTION: ' . $e->getMessage();
 		return null;
@@ -233,9 +268,15 @@ $alookhor_db_state = function (&$err) {
 $db_err = '';
 $has_tables = $alookhor_db_state($db_err);
 if ($has_tables === null && strpos($db_err, 'CONNECTION') === 0) {
-	inst_log($results, 'اتصال به دیتابیس', false, $db_err);
-	echo '<h2 class="err">اتصال به دیتابیس ناموفق بود</h2><p><span dir="ltr">' . htmlspecialchars($db_err) . '</span></p>'
-		. '<p>در cPanel &gt; MySQL Databases مطمئن شوید: (۱) دیتابیس <b>' . ALOOKHOR_DB_NAME . '</b> ساخته شده، (۲) کاربر <b>' . ALOOKHOR_DB_USER . '</b> با <b>ALL PRIVILEGES</b> به این دیتابیس Add شده (Add User To Database)، (۳) رمز کاربر دقیقاً همینه که در بالای این فایل درج شده.</p></div>';
+	inst_log($results, 'اتصال به دیتابیس', false, $db_err . ' (کاربر: ' . $alookhor_db_creds['user'] . ' / دیتابیس: ' . $alookhor_db_creds['db'] . ')');
+	echo '<h2 class="err">اتصال به دیتابیس ناموفق بود</h2>'
+		. '<p><span dir="ltr">' . htmlspecialchars($db_err) . '</span></p>'
+		. '<p>این پیام یعنی <b>رمز (یا نام) کاربر MySQL با واقعیت فرق داره</b> — حتی یک کاراکتر! ساده‌ترین راه حل:</p>'
+		. '<p>۱. در cPanel &gt; MySQL Databases، در قسمت Users کنار کاربر <b>' . $alookhor_db_creds['user'] . '</b> روی <b>Change Password</b> بزن و یک <b>رمز ساده</b> بگذار، مثلاً: <code dir="ltr">Alookhor@2026</code><br>'
+		. '۲. مطمئن شو که این کاربر به دیتابیس <b>' . $alookhor_db_creds['db'] . '</b> با <b>ALL PRIVILEGES</b> وصل شده (Add User To Database).<br>'
+		. '۳. بعد در فرم زیر همان رمز جدید را در کادر «رمز کاربر» بنویس و «تلاش دوباره» را بزن. همین فایل خودش ادامه‌ی نصب را می‌دهد.</p>'
+		. inst_db_form($alookhor_db_creds)
+		. '</div>';
 	exit;
 }
 if ($has_tables === null) {
