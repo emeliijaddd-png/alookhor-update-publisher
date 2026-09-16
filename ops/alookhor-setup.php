@@ -86,6 +86,17 @@ if (isset($_POST['action']) && $_POST['action'] === 'delete'
 if (isset($_POST['action']) && $_POST['action'] === 'install') {
 	$p = function ($k) { return isset($_POST[$k]) ? trim((string) $_POST[$k]) : ''; };
 
+	// Buffer all progress output until the WordPress phase has finished so
+	// wp_install()/wp_setcookie() can still send HTTP headers cleanly.
+	ob_implicit_flush(false);
+	ob_start();
+
+	$finish = function () {
+		$html = ob_get_clean();
+		echo $html;
+		exit;
+	};
+
 	echo '<meta charset="utf-8"><div class="page"><h1>ALOOKHOR - Setup in progress</h1>';
 
 	/* Step 1: write DB credentials into wp-config.php (or create it from the sample). */
@@ -98,7 +109,7 @@ if (isset($_POST['action']) && $_POST['action'] === 'install') {
 			$fatal = 'Database name, user and password are required.';
 			alookhor_log($results, 'Write database credentials to wp-config.php', false, 'Missing values.');
 			echo '<h2 class="err">Fatal</h2><p>' . htmlspecialchars($fatal) . '</p></div>';
-			exit;
+			$finish();
 		}
 		$new = $config_raw;
 		$new = preg_replace("/define\\(\\s*'DB_NAME'\\s*,\\s*'[^']*'\\s*\\);?/", "define( 'DB_NAME', '" . addslashes($db_name) . "' );", $new, 1);
@@ -138,7 +149,7 @@ if (isset($_POST['action']) && $_POST['action'] === 'install') {
 		alookhor_log($results, 'Run WordPress installer (fresh database)', $ok, $ok ? ('admin user: ' . $admin_user) : 'Install failed.');
 		if (!$ok) {
 			echo '<h2 class="err">Install failed</h2><p>Check the database credentials and that the user has full privileges, then reopen this page.</p></div>';
-			exit;
+			$finish();
 		}
 	} else {
 		alookhor_log($results, 'Database already contains a WordPress site', true, 'Existing data preserved.');
@@ -290,7 +301,7 @@ if (isset($_POST['action']) && $_POST['action'] === 'install') {
 		. '<button class="btn danger" type="submit" onclick="return confirm(\'Delete the setup file from the server?\')">⚠ Delete this file from the server</button> '
 		. '</form>';
 	echo '</div>';
-	exit;
+	$finish();
 }
 
 /* ------------------------------------------------------------------ */
