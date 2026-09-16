@@ -260,6 +260,149 @@ if (isset($_POST['action']) && $_POST['action'] === 'restore_plugins') {
 	}
 }
 
+if (isset($_POST['action']) && $_POST['action'] === 'upload_core') {
+	if (!isset($_FILES['core_zip']) || $_FILES['core_zip']['error'] !== UPLOAD_ERR_OK) {
+		$err = isset($_FILES['core_zip']) ? upload_error((int) $_FILES['core_zip']['error']) : 'no file received';
+		doctor_log($steps, 'Upload WordPress zip', false, $err . ' - check cPanel upload limits (upload_max_filesize / post_max_size)');
+	} else {
+		$name = basename((string) $_FILES['core_zip']['name']);
+		if (!preg_match('/\.zip$/i', $name)) {
+			doctor_log($steps, 'Upload WordPress zip', false, 'the file must be a .zip');
+		} else {
+			$dest = $root . 'alookhor-core-upload.zip';
+			$ok = @move_uploaded_file($_FILES['core_zip']['tmp_name'], $dest);
+			doctor_log($steps, 'Upload WordPress zip', $ok, $ok ? $name . ' (' . round(filesize($dest) / 1048576, 1) . ' MB) saved as alookhor-core-upload.zip' : 'move failed - check public_html permissions');
+		}
+	}
+}
+
+/*
+ * Restore MISSING WordPress core files from a core zip.
+ * Never overwrites existing files. Never touches wp-content/, wp-config*, .htaccess.
+ */
+if (isset($_POST['action']) && $_POST['action'] === 'restore_core') {
+	$zip = null;
+	foreach (array('alookhor-core-upload.zip', 'alookhor-core-download.zip') as $cand) {
+		if (is_file($root . $cand)) {
+			$zip = $root . $cand;
+			break;
+		}
+	}
+	if (!$zip) {
+		foreach (glob($root . 'wordpress-*.zip') ?: array() as $g) {
+			$zip = $g;
+			break;
+		}
+	}
+
+	/* No local zip: try downloading the exact version from wordpress.org. */
+	$wp_version = '?';
+	$vp = @file_get_contents(ABSPATH . 'wp-includes/version.php');
+	if ($vp && preg_match("/wp_version\s*=\s*'([^']+)'/", $vp, $m)) {
+		$wp_version = $m[1];
+	}
+	if (!$zip && $wp_version !== '?' && function_exists('wp_remote_get')) {
+		$api = 'https://api.wordpress.org/core/download/1.2/?download[version]=' . rawurlencode($wp_version) . '&download[locale]=en_US';
+		$res = @wp_remote_get($api, array('timeout' => 30, 'sslverify' => false));
+		$url = trim((string) (is_array($res) ? @wp_remote_retrieve_body($res) : ''));
+		if ($url !== '' && preg_match('#^https?://#', $url)) {
+			$zip = $root . 'alookhor-core-download.zip';
+			$dl_ok = false;
+			$fh = @fopen($zip, 'wb');
+			if ($fh) {
+				$res2 = @wp_remote_get($url, array('timeout' => 900, 'sslverify' => false, 'stream' => $fh));
+				fclose($fh);
+				$dl_ok = is_array($res2) && is_file($zip) && filesize($zip) > 5000000;
+			}
+			if ($dl_ok) {
+				doctor_log($steps, 'Core zip: download from wordpress.org', true, $url);
+			} else {
+				@unlink($zip);
+				$zip = null;
+				doctor_log($steps, 'Core zip: download from wordpress.org', false, 'server could not download ' . $url . ' - upload the zip manually instead (form below)');
+			}
+		} else {
+			doctor_log($steps, 'Core zip: resolve download URL', false, 'api.wordpress.org not reachable from this server - upload the zip manually instead');
+		}
+	}
+
+	if (!$zip) {
+		doctor_log($steps, 'Restore core files', false, 'no core zip available: upload wordpress-' . $wp_version . '.zip (from wordpress.org) with the form below, or place any wordpress-*.zip into public_html, then press again');
+	} elseif (!class_exists('ZipArchive')) {
+		doctor_log($steps, 'Restore core files', false, 'ZipArchive extension missing on this server');
+	} else {
+		$z = new ZipArchive();
+		if ($z->open($zip) !== true) {
+			doctor_log($steps, 'Restore core files', false, 'cannot open ' . basename($zip) . ' - file may be corrupted or the upload was cut short');
+		} else {
+			$tmp = sys_get_temp_dir() . '/alookhor-core-' . getmypid();
+			@mkdir($tmp, 0755, true);
+			if ($z->extractTo($tmp) !== false) {
+				$z->close();
+				/* locate the WordPress root inside the extraction (may be prefixed wordpress/) */
+				$wp_root = file_exists($tmp . '/wp-settings.php') ? $tmp : null;
+				if ($wp_root === null) {
+					foreach (glob($tmp . '/*', GLOB_ONLYDIR) ?: array() as $d) {
+						if (file_exists($d . '/wp-settings.php')) {
+							$wp_root = $d;
+							break;
+						}
+					}
+				}
+				if ($wp_root === null) {
+					doctor_log($steps, 'Restore core files', false, 'the zip does not contain a WordPress install (no wp-settings.php)');
+				} else {
+					$restored = 0;
+					$kept = 0;
+					$it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($wp_root, FilesystemIterator::SKIP_DOTS), RecursiveIteratorIterator::SELF_FIRST);
+					foreach ($it as $f) {
+						$rel = substr($f->getPathname(), strlen($wp_root) + 1);
+						if ($rel === '') {
+							continue;
+						}
+						if (strpos($rel, 'wp-content/') === 0 || preg_match('#^(wp-config(#|\.)|\.htaccess)$#', $rel)) {
+							$kept++;
+							continue;
+						}
+						$target = $root . $rel;
+						if ($f->isDir()) {
+							if (!is_dir($target)) {
+								@mkdir($target, 0755, true);
+							}
+							continue;
+						}
+						if (file_exists($target) && filesize($target) > 0) {
+							$kept++;
+							continue;
+						}
+						if (!is_dir(dirname($target))) {
+							@mkdir(dirname($target), 0755, true);
+						}
+						if (@copy($f->getPathname(), $target)) {
+							$restored++;
+						}
+					}
+					$rr = function ($d) use (&$rr) {
+						foreach (scandir($d) ?: array() as $i) {
+							if ($i === '.' || $i === '..') {
+								continue;
+							}
+							$p = $d . '/' . $i;
+							is_dir($p) && !is_link($p) ? $rr($p) : @unlink($p);
+						}
+						@rmdir($d);
+					};
+					$rr($tmp);
+					doctor_log($steps, 'Restore core files', $restored > 0, $restored . ' missing files restored | ' . $kept . ' untouched (already present / wp-content / config). Reload the report to verify.');
+				}
+			} else {
+				$z->close();
+				doctor_log($steps, 'Restore core files', false, 'zip extraction failed (not enough temp space?)');
+			}
+		}
+	}
+}
+
 /* ---------------- report (GET or after action) ---------------- */
 
 $action_out = ob_get_clean();
@@ -385,6 +528,18 @@ foreach ($active as $pl) {
 	doctor_log($steps, '  - ' . $nm, file_exists($pf), 'v' . $vv . ' (' . $pl . ')');
 }
 
+/* 7b. database content (explains empty site / 404s) */
+$db_content = 'unknown';
+$db_content_ok = false;
+if (isset($wpdb) && is_object($wpdb) && isset($wpdb->prefix) && method_exists($wpdb, 'table_exists')) {
+	if ($wpdb->table_exists($wpdb->prefix . 'posts')) {
+		$cnt = (int) $wpdb->get_var("SELECT COUNT(*) FROM `" . $wpdb->prefix . "posts`");
+		$db_content = $cnt . ' posts/pages in database';
+		$db_content_ok = $cnt > 0;
+	}
+}
+doctor_log($steps, 'Database content', $db_content_ok, $db_content . ($db_content_ok ? '' : '  <-- the database is EMPTY: the site has no content yet, 404 pages are expected. Old shop data can only come back from a database backup.'));
+
 /* 8. boot errors captured while loading WordPress */
 if ($boot_errors) {
 	doctor_log($steps, 'PHP messages during WordPress boot', false, count($boot_errors) . ' messages; first: ' . $boot_errors[0]);
@@ -409,6 +564,26 @@ $all_plugins_str = implode("\n", $active);
 </div>
 <div class="actions">
 <form method="post" style="display:inline;">
+<input type="hidden" name="action" value="restore_core">
+<button class="btn danger">📦 Restore MISSING core files (from a core zip - never overwrites anything)</button>
+</form>
+</div>
+<div class="actions">
+<form method="post" enctype="multipart/form-data" style="display:inline;">
+<input type="hidden" name="action" value="upload_core">
+<input type="file" name="core_zip" accept=".zip">
+<button class="btn">⬆ Upload the WordPress zip (from wordpress.org, version above)</button>
+</form>
+</div>
+<div class="hint">
+<strong>How to read this:</strong><br>
+• If <em>Core files check</em> or <em>Serve own admin CSS</em> is ✘ (404): the WordPress CORE on this server is incomplete. Fix: download <span dir="ltr">https://wordpress.org/wordpress-VERSION.zip</span> (VERSION = the number in the <em>WordPress version</em> line above) in your browser, upload it to <code>public_html</code> via cPanel (or use the ⬆ form), then press <strong>📦 Restore MISSING core files</strong>. It copies ONLY the missing files and never touches your wp-content, wp-config or existing files. If the big zip cannot be uploaded, tell me and we use the server's own internet or a backup instead.<br>
+• If core files are all ✔ and CSS serves 200, but wp-admin still has no style: run the 🩺 test - if it records a FATAL ERROR, one of the (old) plugins is breaking the admin page; then run the 🧪 test and open wp-admin - if it becomes styled, plugins are the cause and we reactivate them one by one.<br>
+• If <em>Database content</em> says the database is empty: the site has no content yet (404 pages are normal). The old shop data can only come back from a database backup - tell me if you want that.<br>
+• If everything here is ✔: clear your browser cache / open wp-admin in an incognito window (Ctrl+Shift+N).
+</div>
+<div class="actions" style="margin-top:14px;">
+<form method="post" style="display:inline;">
 <input type="hidden" name="action" value="deactivate_others">
 <button class="btn warn">🧪 TEST ONLY: deactivate all plugins except ALOOKHOR Center</button>
 </form>
@@ -417,12 +592,6 @@ $all_plugins_str = implode("\n", $active);
 <input type="hidden" name="prev_plugins" value="<?php echo htmlspecialchars($all_plugins_str); ?>">
 <button class="btn">↩ Restore all plugins</button>
 </form>
-</div>
-<div class="hint">
-<strong>How to read this:</strong><br>
-• If <em>Serve own admin CSS</em> is ✘ (404): the core CSS files are missing/incomplete on the server - tell me the version shown above and I will send you a file patch.<br>
-• If core files are all ✔ and CSS serves 200, but wp-admin still has no style: run the 🩺 test - if it records a FATAL ERROR, one of the (old) plugins is breaking the admin page; then run the 🧪 test and open wp-admin - if it becomes styled, plugins are the cause and we reactivate them one by one.<br>
-• If everything here is ✔: clear your browser cache / open wp-admin in an incognito window (Ctrl+Shift+N).
 </div>
 <form method="post" style="margin-top:18px;">
 <input type="hidden" name="action" value="delete">
