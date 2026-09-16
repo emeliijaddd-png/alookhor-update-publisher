@@ -65,6 +65,51 @@ $has_placeholders = !$config_missing
 		|| (strpos($config_raw, 'ALOOKHOR_DB_PASSWORD') !== false));
 
 /* ------------------------------------------------------------------ */
+/* Helpers: direct database inspection (no WordPress boot required)    */
+/* ------------------------------------------------------------------ */
+$alookhor_db_creds = function () use (&$config_raw) {
+	$cb = function ($const) use (&$config_raw) {
+		if (preg_match("/define\(\s*'{$const}'\s*,\s*'([^']*)'\s*\)/", $config_raw, $m)) {
+			return $m[1];
+		}
+		return '';
+	};
+	$prefix = 'wp_';
+	if (preg_match("/\\\$table_prefix\s*=\s*'([^']*)';/", $config_raw, $m)) {
+		$prefix = $m[1];
+	}
+	return array(
+		'name'   => $cb('DB_NAME'),
+		'user'   => $cb('DB_USER'),
+		'pass'   => $cb('DB_PASSWORD'),
+		'host'   => ($cb('DB_HOST') !== '' ? $cb('DB_HOST') : 'localhost'),
+		'prefix' => $prefix,
+	);
+};
+
+/*
+ * Returns true/false when it can determine whether the WordPress tables
+ * exist, or null when it cannot. $err is set to 'NO_MYSQLI' when the
+ * mysqli extension is unavailable, or to the connection error message.
+ */
+$alookhor_db_state = function (array $creds, &$err) {
+	$err = '';
+	if (!class_exists('mysqli')) {
+		$err = 'NO_MYSQLI';
+		return null;
+	}
+	$m = @new mysqli($creds['host'], $creds['user'], $creds['pass'], $creds['name']);
+	if ($m === false || $m->connect_errno) {
+		$err = 'Database connection failed: ' . $m->connect_error;
+		return null;
+	}
+	$res = $m->query('SHOW TABLES LIKE ' . $m->real_escape_string($creds['prefix'] . 'options'));
+	$has = ($res !== false && $res->num_rows > 0);
+	$m->close();
+	return $has;
+};
+
+/* ------------------------------------------------------------------ */
 /* Delete action                                                       */
 /* ------------------------------------------------------------------ */
 if (isset($_POST['action']) && $_POST['action'] === 'delete'
@@ -129,14 +174,43 @@ if (isset($_POST['action']) && $_POST['action'] === 'install') {
 		alookhor_log($results, 'Database credentials', true, 'Already present in wp-config.php.');
 	}
 
-	/* Step 2: boot WordPress. */
+	/* Step 2: inspect the database directly, BEFORE booting WordPress.
+	 * On an empty database the core bootstrap (wp_not_installed() in
+	 * wp-settings.php) would redirect to wp-admin/install.php and exit,
+	 * killing this script before the installer could run. */
+	$creds = $alookhor_db_creds();
+	$db_state_err = '';
+	$has_tables = $alookhor_db_state($creds, $db_state_err);
+	if ($has_tables === null && $db_state_err !== 'NO_MYSQLI') {
+		alookhor_log($results, 'Check database', false, $db_state_err);
+		echo '<h2 class="err">Could not check the database</h2>'
+			. '<p>' . htmlspecialchars($db_state_err) . '</p>'
+			. '<p>Check the database name, user and password in <code>wp-config.php</code>, and make sure the database user has full privileges on the database (cPanel &gt; MySQL Databases &gt; Add User To Database), then reopen this page.</p></div>';
+		$finish();
+	}
+	if ($has_tables !== null) {
+		alookhor_log($results, 'Check database', true, $has_tables ? 'existing WordPress tables found' : 'empty database - the WordPress installer will run');
+	}
+
+	/* Step 3: boot WordPress. Defining WP_INSTALLING (the same way
+	 * wp-admin/install.php does) tells the core bootstrap that we ARE the
+	 * installer, so it does not hand off to the web installer on an empty
+	 * database. */
+	if ($has_tables === false || $db_state_err === 'NO_MYSQLI') {
+		if (!defined('WP_INSTALLING')) {
+			define('WP_INSTALLING', true);
+		}
+	}
 	require $root . 'wp-load.php';
 	alookhor_log($results, 'Boot WordPress', true, 'WP ' . $wp_version);
 
 	global $wpdb;
-	$has_tables = (bool) $wpdb->get_var($wpdb->prepare('SHOW TABLES LIKE %s', $wpdb->prefix . 'options'));
+	if ($has_tables === null) {
+		$has_tables = (bool) $wpdb->get_var($wpdb->prepare('SHOW TABLES LIKE %s', $wpdb->prefix . 'options'));
+		alookhor_log($results, 'Check database', true, $has_tables ? 'existing WordPress tables found' : 'empty database - the WordPress installer will run');
+	}
 
-	/* Step 3: run the installer only when the database is empty. */
+	/* Step 4: run the installer only when the database is empty. */
 	if (!$has_tables) {
 		$admin_user = $p('admin_user') !== '' ? $p('admin_user') : 'admin';
 		$admin_email = $p('admin_email') !== '' ? $p('admin_email') : 'admin@' . (isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : 'example.com');
@@ -155,8 +229,8 @@ if (isset($_POST['action']) && $_POST['action'] === 'install') {
 		alookhor_log($results, 'Database already contains a WordPress site', true, 'Existing data preserved.');
 	}
 
-	/* Step 4: extract theme + plugin zips when present next to this file. */
-	if (function_exists('ZipArchive')) {
+	/* Step 5: extract theme + plugin zips when present next to this file. */
+	if (class_exists('ZipArchive')) {
 		$theme_zip = $root . 'hello-elementor.zip';
 		if (file_exists($theme_zip) && !file_exists($root . 'wp-content/themes/hello-elementor/style.css')) {
 			$target_dir = $root . 'wp-content/themes/hello-elementor';
@@ -200,7 +274,7 @@ if (isset($_POST['action']) && $_POST['action'] === 'install') {
 		alookhor_log($results, 'ZipArchive extension', false, 'missing - extract the two zips manually into wp-content');
 	}
 
-	/* Step 5: activate theme + plugin. */
+	/* Step 6: activate theme + plugin. */
 	$theme_ok = @switch_theme('hello-elementor');
 	alookhor_log($results, 'Activate Hello Elementor theme', file_exists($root . 'wp-content/themes/hello-elementor/style.css'));
 
@@ -213,7 +287,7 @@ if (isset($_POST['action']) && $_POST['action'] === 'install') {
 		alookhor_log($results, 'Activate alookhor-control-center', false, 'plugin files missing');
 	}
 
-	/* Step 6: optional plugins from wordpress.org (WooCommerce, Elementor). */
+	/* Step 7: optional plugins from wordpress.org (WooCommerce, Elementor). */
 	$install_woo = (isset($_POST['install_woo']) && $_POST['install_woo'] === '1') || !isset($_POST['install_woo']);
 	$install_elementor = (isset($_POST['install_elementor']) && $_POST['install_elementor'] === '1') || !isset($_POST['install_elementor']);
 
@@ -269,7 +343,7 @@ if (isset($_POST['action']) && $_POST['action'] === 'install') {
 		$ensure_remote_plugin('elementor', 'elementor/elementor.php', 'Install & activate Elementor (from wordpress.org)');
 	}
 
-	/* Step 7: URLs, permalinks, titles. */
+	/* Step 8: URLs, permalinks, titles. */
 	$scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') ? 'https' : 'http';
 	$host = isset($_SERVER['HTTP_HOST']) ? preg_replace('/:\d+$/', '', (string) $_SERVER['HTTP_HOST']) : 'alookhor.ir';
 	$siteurl = $scheme . '://' . $host;
@@ -311,10 +385,22 @@ $need_db = $has_placeholders || $config_missing;
 $need_admin = false;
 $note = '';
 if (!$need_db) {
-	require $root . 'wp-load.php';
-	global $wpdb;
-	$has_tables = (bool) $wpdb->get_var($wpdb->prepare('SHOW TABLES LIKE %s', $wpdb->prefix . 'options'));
-	if (!$has_tables) {
+	/* Inspect the database directly (no boot): booting an empty site would
+	 * trigger core's redirect to wp-admin/install.php before the form could
+	 * render. */
+	$creds = $alookhor_db_creds();
+	$db_state_err = '';
+	$has_tables = $alookhor_db_state($creds, $db_state_err);
+	if ($has_tables === null && $db_state_err === 'NO_MYSQLI') {
+		define('WP_INSTALLING', true);
+		require $root . 'wp-load.php';
+		global $wpdb;
+		$has_tables = (bool) $wpdb->get_var($wpdb->prepare('SHOW TABLES LIKE %s', $wpdb->prefix . 'options'));
+	}
+	if ($has_tables === null) {
+		$need_admin = true;
+		$note = 'Could not check the database (' . $db_state_err . ') - if the database is empty, the WordPress installer will run during setup.';
+	} elseif (!$has_tables) {
 		$need_admin = true;
 		$note = 'The database is empty - the WordPress installer will run and create the admin account from the fields below.';
 	} else {
