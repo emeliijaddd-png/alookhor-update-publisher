@@ -170,7 +170,9 @@ if (!file_exists($root . 'wp-load.php')) {
 
 /* ---------------- 1. core integrity ---------------- */
 $results = array();
-echo '<meta charset="utf-8"><div class="page"><h1>ALOOKHOR - یک‌مرحله‌ای نصب</h1>';
+echo '<meta charset="utf-8"><div class="page">'
+	. '<div style="background:#2b6cb0; color:#fff; text-align:center; padding:8px; border-radius:6px; font-weight:bold; font-size:14px; margin-bottom:14px;">نسخه ۲ — با فرم ترمیم رمز دیتابیس (اگر این خط را نمی‌بینید، فایل آپلود نشده است)</div>'
+	. '<h1>ALOOKHOR - یک‌مرحله‌ای نصب</h1>';
 
 $fatal_core = array();
 $warn_core = array();
