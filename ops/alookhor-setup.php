@@ -98,13 +98,30 @@ $alookhor_db_state = function (array $creds, &$err) {
 		$err = 'NO_MYSQLI';
 		return null;
 	}
-	$m = @new mysqli($creds['host'], $creds['user'], $creds['pass'], $creds['name']);
-	if ($m === false || $m->connect_errno) {
-		$err = 'Database connection failed: ' . $m->connect_error;
+	try {
+		$m = new mysqli($creds['host'], $creds['user'], $creds['pass'], $creds['name']);
+	} catch (Exception $e) {
+		$err = 'CONNECTION: ' . $e->getMessage();
 		return null;
 	}
-	$res = $m->query('SHOW TABLES LIKE ' . $m->real_escape_string($creds['prefix'] . 'options'));
-	$has = ($res !== false && $res->num_rows > 0);
+	if ($m === false || $m->connect_errno) {
+		$err = 'CONNECTION: ' . $m->connect_error;
+		return null;
+	}
+	try {
+		$like = $m->real_escape_string($creds['prefix'] . 'options');
+		$res = $m->query("SHOW TABLES LIKE '$like'");
+	} catch (Exception $e) {
+		$err = 'QUERY: ' . $e->getMessage();
+		$m->close();
+		return null;
+	}
+	if ($res === false) {
+		$err = 'QUERY: ' . $m->error;
+		$m->close();
+		return null;
+	}
+	$has = ($res->num_rows > 0);
 	$m->close();
 	return $has;
 };
@@ -181,22 +198,24 @@ if (isset($_POST['action']) && $_POST['action'] === 'install') {
 	$creds = $alookhor_db_creds();
 	$db_state_err = '';
 	$has_tables = $alookhor_db_state($creds, $db_state_err);
-	if ($has_tables === null && $db_state_err !== 'NO_MYSQLI') {
+	if ($has_tables === null && strpos($db_state_err, 'CONNECTION') === 0) {
 		alookhor_log($results, 'Check database', false, $db_state_err);
-		echo '<h2 class="err">Could not check the database</h2>'
+		echo '<h2 class="err">Could not connect to the database</h2>'
 			. '<p>' . htmlspecialchars($db_state_err) . '</p>'
 			. '<p>Check the database name, user and password in <code>wp-config.php</code>, and make sure the database user has full privileges on the database (cPanel &gt; MySQL Databases &gt; Add User To Database), then reopen this page.</p></div>';
 		$finish();
 	}
-	if ($has_tables !== null) {
+	if ($has_tables === null) {
+		alookhor_log($results, 'Check database (direct)', false, ($db_state_err !== 'NO_MYSQLI' ? $db_state_err : 'mysqli not available') . ' - will check during WordPress boot');
+	} else {
 		alookhor_log($results, 'Check database', true, $has_tables ? 'existing WordPress tables found' : 'empty database - the WordPress installer will run');
 	}
 
 	/* Step 3: boot WordPress. Defining WP_INSTALLING (the same way
 	 * wp-admin/install.php does) tells the core bootstrap that we ARE the
 	 * installer, so it does not hand off to the web installer on an empty
-	 * database. */
-	if ($has_tables === false || $db_state_err === 'NO_MYSQLI') {
+	 * database. Also defined when the direct check was not possible. */
+	if ($has_tables !== true) {
 		if (!defined('WP_INSTALLING')) {
 			define('WP_INSTALLING', true);
 		}
@@ -213,8 +232,14 @@ if (isset($_POST['action']) && $_POST['action'] === 'install') {
 	/* Step 4: run the installer only when the database is empty. */
 	if (!$has_tables) {
 		$admin_user = $p('admin_user') !== '' ? $p('admin_user') : 'admin';
-		$admin_email = $p('admin_email') !== '' ? $p('admin_email') : 'admin@' . (isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : 'example.com');
-		$admin_pass = $p('admin_password') !== '' ? $p('admin_password') : 'Alukhor#2026';
+		$admin_email = $p('admin_email') !== '' ? $p('admin_email') : 'admin@' . (isset($_SERVER['HTTP_HOST']) ? preg_replace('/:\d+$/', '', (string) $_SERVER['HTTP_HOST']) : 'example.com');
+		$auto_pass = '';
+		$admin_pass = $p('admin_password');
+		if ($admin_pass === '') {
+			// No password typed: generate a strong one and show it at the end.
+			$admin_pass = function_exists('wp_generate_password') ? wp_generate_password(16, true, true) : 'Alukhor#2026';
+			$auto_pass = $admin_pass;
+		}
 		$blog_title = $p('blog_title') !== '' ? $p('blog_title') : 'ALOOKHOR';
 
 		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
@@ -367,6 +392,11 @@ if (isset($_POST['action']) && $_POST['action'] === 'install') {
 	wp_cache_flush();
 	alookhor_log($results, 'Done', true);
 
+	if ($auto_pass !== '') {
+		echo '<div class="warn"><strong>Admin login (save this):</strong><br>'
+			. 'Username: <code>' . htmlspecialchars($admin_user) . '</code> &nbsp; Password: <code>' . htmlspecialchars($auto_pass) . '</code><br>'
+			. 'You can change it later in wp-admin &gt; Users.</div>';
+	}
 	echo '<p><strong>Summary:</strong> open <a href="' . htmlspecialchars($siteurl) . '" target="_blank">' . htmlspecialchars($siteurl) . '</a> '
 		. 'and <a href="' . htmlspecialchars($siteurl . '/wp-admin/') . '" target="_blank">wp-admin</a>.</p>';
 	echo '<form method="post" style="margin-top:18px;">'
@@ -391,7 +421,9 @@ if (!$need_db) {
 	$creds = $alookhor_db_creds();
 	$db_state_err = '';
 	$has_tables = $alookhor_db_state($creds, $db_state_err);
-	if ($has_tables === null && $db_state_err === 'NO_MYSQLI') {
+	if ($has_tables === null && strpos($db_state_err, 'CONNECTION') !== 0) {
+		// Direct check not possible (no mysqli, or query failed) - ask the
+		// core boot instead (WP_INSTALLING keeps it from redirecting away).
 		define('WP_INSTALLING', true);
 		require $root . 'wp-load.php';
 		global $wpdb;
@@ -461,8 +493,8 @@ After a successful setup, <strong>be sure to delete this file</strong> (the butt
 		<div><label>Admin username</label><input type="text" name="admin_user" value="admin"></div>
 		<div><label>Admin email</label><input type="email" name="admin_email" value="admin@alookhor.ir"></div>
 	</div>
-	<label>Admin password</label>
-	<input type="password" name="admin_password" required>
+	<label>Admin password (leave empty to auto-generate - shown at the end)</label>
+	<input type="password" name="admin_password" placeholder="e.g. MyStrongPass123">
 	<label>Site title</label>
 	<input type="text" name="blog_title" value="ALOOKHOR">
 <?php endif; ?>
