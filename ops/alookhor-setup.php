@@ -50,13 +50,19 @@ if (!file_exists($root . 'wp-load.php')) {
 }
 
 $config_path = $root . 'wp-config.php';
+$sample_path = $root . 'wp-config-sample.php';
 $config_raw = @file_get_contents($config_path);
-if ($config_raw === false) {
-	die('<meta charset="utf-8"><h2>wp-config.php not found</h2><p>Create it first, then reopen this page.</p>');
+$config_missing = ($config_raw === false);
+if ($config_missing) {
+	$config_raw = @file_get_contents($sample_path);
+	if ($config_raw === false) {
+		die('<meta charset="utf-8"><h2>wp-config.php not found</h2><p>Neither <code>wp-config.php</code> nor <code>wp-config-sample.php</code> exists in the site root - extract WordPress properly (the files must sit next to this one), then reopen this page.</p>');
+	}
 }
-$has_placeholders = (strpos($config_raw, 'ALOOKHOR_DB_NAME') !== false)
-	|| (strpos($config_raw, 'ALOOKHOR_DB_USER') !== false)
-	|| (strpos($config_raw, 'ALOOKHOR_DB_PASSWORD') !== false);
+$has_placeholders = !$config_missing
+	&& ((strpos($config_raw, 'ALOOKHOR_DB_NAME') !== false)
+		|| (strpos($config_raw, 'ALOOKHOR_DB_USER') !== false)
+		|| (strpos($config_raw, 'ALOOKHOR_DB_PASSWORD') !== false));
 
 /* ------------------------------------------------------------------ */
 /* Delete action                                                       */
@@ -82,8 +88,8 @@ if (isset($_POST['action']) && $_POST['action'] === 'install') {
 
 	echo '<meta charset="utf-8"><div class="page"><h1>ALOOKHOR - Setup in progress</h1>';
 
-	/* Step 1: write DB credentials into wp-config.php if needed. */
-	if ($has_placeholders) {
+	/* Step 1: write DB credentials into wp-config.php (or create it from the sample). */
+	if ($has_placeholders || $config_missing) {
 		$db_name = $p('db_name');
 		$db_user = $p('db_user');
 		$db_pass = $p('db_password');
@@ -99,8 +105,14 @@ if (isset($_POST['action']) && $_POST['action'] === 'install') {
 		$new = preg_replace("/define\\(\\s*'DB_USER'\\s*,\\s*'[^']*'\\s*\\);?/", "define( 'DB_USER', '" . addslashes($db_user) . "' );", $new, 1);
 		$new = preg_replace("/define\\(\\s*'DB_PASSWORD'\\s*,\\s*'[^']*'\\s*\\);?/", "define( 'DB_PASSWORD', '" . addslashes($db_pass) . "' );", $new, 1);
 		$new = preg_replace("/\\\$table_prefix\\s*=\\s*'[^']*';/", '$table_prefix = \'' . addslashes($db_prefix) . '\';', $new, 1);
+		if ($config_missing) {
+			// Generate fresh, random keys/salts from the sample placeholders.
+			$new = preg_replace_callback("/'put your unique phrase here'/", function () {
+				return "'" . bin2hex(random_bytes(16)) . "'";
+			}, $new);
+		}
 		$written = @file_put_contents($config_path, $new);
-		alookhor_log($results, 'Write database credentials to wp-config.php', $written !== false);
+		alookhor_log($results, $config_missing ? 'Create wp-config.php from wp-config-sample.php' : 'Write database credentials to wp-config.php', $written !== false);
 		$config_raw = $new;
 	} else {
 		alookhor_log($results, 'Database credentials', true, 'Already present in wp-config.php.');
@@ -284,7 +296,7 @@ if (isset($_POST['action']) && $_POST['action'] === 'install') {
 /* ------------------------------------------------------------------ */
 /* Show the form (GET)                                                 */
 /* ------------------------------------------------------------------ */
-$need_db = $has_placeholders;
+$need_db = $has_placeholders || $config_missing;
 $need_admin = false;
 $note = '';
 if (!$need_db) {
@@ -297,6 +309,9 @@ if (!$need_db) {
 	} else {
 		$note = 'An existing WordPress site was found in the database - all previous data will be preserved.';
 	}
+} elseif ($config_missing) {
+	$need_admin = true;
+	$note = 'wp-config.php was not found - it will be created automatically from wp-config-sample.php using the values you enter. If the database is empty, the admin account will also be created from the admin fields below.';
 }
 ?>
 <!doctype html>
