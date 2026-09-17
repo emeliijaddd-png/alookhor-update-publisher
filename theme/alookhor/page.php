@@ -1,37 +1,48 @@
 <?php
 /**
- * ALOOKHOR — generic page.
- * WooCommerce pages (shop / checkout / account / …) render full-width so
- * their default layouts work; regular pages use the prose layout.
+ * ALOOKHOR — generic page dispatcher.
+ *
+ * The layout is chosen by page slug OR title (Persian/English), so the
+ * designed About / Contact / Cart pages work even if the page was created
+ * with a Persian slug like "تماس-با-ما".
  */
-
-function alookhor_is_wc_page()
-{
-	if (!class_exists('WooCommerce')) return false;
-	return is_shop() || is_product() || is_product_category() || is_product_tag()
-		|| (function_exists('is_cart') && is_cart())
-		|| (function_exists('is_checkout') && is_checkout())
-		|| (function_exists('is_account_page') && is_account_page())
-		|| (function_exists('is_order_payment') && is_order_payment());
-}
 
 get_header();
 ?>
 <main id="al-main">
 	<div class="al-page">
 		<div class="al-container">
-			<?php while (have_posts()) : the_post(); ?>
-				<?php if (!alookhor_is_wc_page()) : ?>
-					<div class="al-page-head">
-						<h1><?php the_title(); ?></h1>
-						<?php if (has_excerpt()) : ?><p><?php the_excerpt(); ?></p><?php endif; ?>
-					</div>
-					<div class="al-prose">
-						<?php the_content(); ?>
-					</div>
-				<?php else : ?>
-					<div class="al-wc-content"><?php the_content(); ?></div>
-				<?php endif; ?>
+			<?php while (have_posts()) : the_post();
+				if (alookhor_is_wc_page()) {
+					// WooCommerce shop/checkout/account: full-width default layout
+					echo '<div class="al-wc-content">'; the_content(); echo '</div>';
+					continue;
+				}
+				$kind = alookhor_page_kind(get_post());
+				?>
+				<div class="al-page-head">
+					<h1>
+						<?php
+						if ($kind === 'about')   echo 'درباره <em style="font-style:normal;color:var(--al-gold)">ما</em>';
+						elseif ($kind === 'contact') echo 'تماس با <em style="font-style:normal;color:var(--al-gold)">ما</em>';
+						elseif ($kind === 'cart') echo 'سبد خرید';
+						else the_title();
+						?>
+					</h1>
+				</div>
+				<?php
+				if ($kind === 'about') {
+					alookhor_layout_about();
+				} elseif ($kind === 'contact') {
+					alookhor_layout_contact();
+				} elseif ($kind === 'cart') {
+					alookhor_layout_cart();
+				} elseif (!empty(get_post()->post_content)) {
+					echo '<div class="al-prose">'; the_content(); echo '</div>';
+				} else {
+					alookhor_layout_generic_empty_hint();
+				}
+				?>
 			<?php endwhile; ?>
 		</div>
 	</div>

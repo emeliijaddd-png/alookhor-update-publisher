@@ -1,16 +1,23 @@
 <?php
 /**
- * ALOOKHOR — index / archive / search.
+ * ALOOKHOR — blog / archive / search.
+ * When the blog IS the front page (static front page not set), render the
+ * full designed home so the homepage is never empty.
  */
 get_header();
 ?>
+<?php if (is_front_page() && !is_page()) : ?>
+<main id="al-main">
+	<?php alookhor_render_home(); ?>
+</main>
+<?php else : ?>
 <main id="al-main">
 	<div class="al-page">
 		<div class="al-container">
 			<header class="al-page-head">
 				<?php
 				if (is_home() && !is_front_page()) :
-					echo '<h1>' . esc_html(get_the_title(get_option('page_for_posts'))) . '</h1>';
+					echo '<h1>' . esc_html(get_the_title((int) get_option('page_for_posts', 0))) . '</h1>';
 				elseif (is_search()) :
 					echo '<h1>نتایج جستجو برای «' . esc_html(get_search_query()) . '»</h1>';
 				elseif (is_category() || is_tag()) :
@@ -35,7 +42,7 @@ get_header();
 					<?php the_posts_pagination(); ?>
 				</div>
 			<?php else : ?>
-				<div class="al-404">
+				<div class="al-404" style="padding:60px 20px">
 					<h1>مطلبی پیدا نشد</h1>
 					<p>هنوز مطلبی منتشر نشده است.</p>
 					<a class="al-btn" href="<?php echo esc_url(home_url('/')); ?>">بازگشت به خانه</a>
@@ -45,5 +52,6 @@ get_header();
 		</div>
 	</div>
 </main>
+<?php endif; ?>
 <?php
 get_footer();

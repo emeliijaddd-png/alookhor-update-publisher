@@ -10,7 +10,9 @@
 
 if (!defined('ABSPATH')) exit;
 
-define('ALOOKHOR_THEME_VERSION', '1.0.0');
+define('ALOOKHOR_THEME_VERSION', '1.1.0');
+
+require get_template_directory() . '/template-parts.php';
 
 /* ---------------- setup ---------------- */
 function alookhor_theme_setup()
