@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "label": "Phase 1 — verify connection (read-only)",
+  "instructions": "این مرحله فقط خواندن سایت است — هیچ تغییری انجام نمی‌شود.",
+  "steps": [
+    {
+      "label": "site_info — نام و آدرس سایت",
+      "name": "site_info",
+      "variants": [
+        {"site_url": "https://alookhor.ir"},
+        {"url": "https://alookhor.ir"},
+        {"site": "https://alookhor.ir"},
+        {}
+      ],
+      "optional": true
+    }
+  ]
+}

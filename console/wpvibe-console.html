@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WPVibe Console — ALOOKHOR</title>
+<style>
+  :root { --bg:#0f0b14; --card:#1c1424; --gold:#d49a2e; --text:#f5f3f0; --muted:#b8b0c0; --ok:#3fbf6f; --err:#e05555; --line:#33283f; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--text); font-family:"Vazirmatn","Tahoma",sans-serif; padding:20px; }
+  h1 { font-size:20px; margin:0 0 4px; color:var(--gold); }
+  .sub { color:var(--muted); font-size:13px; margin-bottom:16px; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px; margin-bottom:14px; }
+  .steps { display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:8px; }
+  .step { display:flex; gap:8px; align-items:center; font-size:13px; color:var(--muted); padding:8px 10px; border:1px solid var(--line); border-radius:8px; }
+  .step .dot { width:10px; height:10px; border-radius:50%; background:#4a3d5c; flex:none; }
+  .step.done { color:var(--text); }
+  .step.done .dot { background:var(--ok); }
+  .step.active { border-color:var(--gold); color:var(--text); }
+  .step.active .dot { background:var(--gold); }
+  button { background:var(--gold); color:#150d02; border:0; border-radius:8px; padding:9px 16px; font-size:14px; font-weight:700; cursor:pointer; font-family:inherit; }
+  button.sec { background:transparent; color:var(--text); border:1px solid var(--line); font-weight:400; }
+  button:disabled { opacity:.45; cursor:not-allowed; }
+  .row { display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
+  #log { background:#0a0710; border:1px solid var(--line); border-radius:8px; padding:12px; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:12px; direction:ltr; text-align:left; height:420px; overflow:auto; white-space:pre-wrap; word-break:break-word; color:#d8d0e4; }
+  .ok { color:var(--ok); } .err { color:var(--err); } .hdr { color:var(--gold); } .dim { color:var(--muted); }
+  .note { font-size:12.5px; color:var(--muted); line-height:1.9; }
+  .note b { color:var(--text); }
+  code, .code { background:#0a0710; border:1px solid var(--line); border-radius:6px; padding:2px 6px; font-family:ui-monospace,Menlo,monospace; font-size:12px; direction:ltr; display:inline-block; }
+  textarea { width:100%; background:#0a0710; color:var(--text); border:1px solid var(--line); border-radius:8px; padding:10px; font-family:ui-monospace,monospace; font-size:12px; direction:ltr; text-align:left; min-height:90px; }
+  input[type=text] { background:#0a0710; color:var(--text); border:1px solid var(--line); border-radius:8px; padding:8px 10px; font-size:12px; direction:ltr; flex:1; min-width:200px; }
+  .tok { font-size:12px; color:var(--muted); direction:ltr; }
+  a { color:var(--gold); }
+</style>
+</head>
+<body>
+<h1>⚙️ کنسول اتصال WPVibe — آلوخور</h1>
+<div class="sub">این صفحه در مرورگر شما اجرا می‌شود و مستقیم با سرور MCP سایت وصل می‌شود. هیچ توکنی به جایی جز سرور رسمی WPVibe فرستاده نمی‌شود.</div>
+
+<div class="card">
+  <div class="steps">
+    <div class="step" id="st1"><span class="dot"></span> ۱) ثبت کلاینت</div>
+    <div class="step" id="st2"><span class="dot"></span> ۲) ورود حساب WPVibe</div>
+    <div class="step" id="st3"><span class="dot"></span> ۳) اتصال به MCP</div>
+    <div class="step" id="st4"><span class="dot"></span> ۴) شناسایی ابزارها</div>
+    <div class="step" id="st5"><span class="dot"></span> ۵) اتصال سایت</div>
+    <div class="step" id="st6"><span class="dot"></span> ۶) اجرای اسکریپت</div>
+  </div>
+  <div class="row" style="margin-top:12px">
+    <button onclick="doRegister()">۱) ثبت کلاینت</button>
+    <button onclick="doSignIn()">۲) ورود با ایمیل</button>
+    <button class="sec" onclick="checkAuth()">بررسی وضعیت ورود</button>
+    <button onclick="doConnect()">۳) اتصال MCP</button>
+    <button onclick="doDiscover()">۴) لیست ابزارها</button>
+    <button onclick="runScript()">۶) اجرای اسکریپت سایت</button>
+    <button class="sec" onclick="copyLog()">📋 کپی کل لاگ</button>
+    <button class="sec" onclick="doSignOut()">خروج</button>
+  </div>
+  <div class="row" style="margin-top:10px">
+    <span class="tok" id="tokinfo"></span>
+  </div>
+</div>
+
+<div class="card">
+  <div class="note">
+    <b>راهنما:</b><br>
+    • دکمه‌ی «۲) ورود» را بزنید؛ صفحه‌ی جدید باز می‌شود. <b>ایمیل حساب WPVibe</b> را وارد کنید، یک <b>کد ۶ رقمی</b> در مضمون ایمیل می‌آید، آن را در همان صفحه وارد کنید. بعد از موفقیت، برگردید اینجا و «بررسی وضعیت ورود» را بزنید (یا صبر کنید، خودکار انجام می‌شود).<br>
+    • پس از «اتصال MCP»، دکمه‌ی «لیست ابزارها» را بزنید و <b>کل لاگ</b> را برای من (هوش مصنوعی) بفرستید تا اسکریپت دقیق تنظیمات سایت را بنویسم.<br>
+    • وقتی اسکریپت آماده شد، کافیست «اجرای اسکریپت سایت» را بزنید — اسکریپت از گیت‌هاب به‌روز می‌شود و اجرا می‌گردد. اگر گامی لینک تأیید (approval) بدهد، <b>آن لینک را در همین مرورگر (حالت لاگین به وردپرس) باز کنید</b> و تأیید کنید.<br>
+    • پیش‌تنظیم: <span class="code" id="redirectshow"></span>
+  </div>
+  <div class="row" style="margin-top:10px">
+    <input type="text" id="redirectUri" placeholder="redirect URI (advanced)">
+  </div>
+</div>
+
+<div class="card">
+  <div class="row" style="margin-bottom:8px"><b style="font-size:13px">دستور یک‌باره (اختیاری):</b></div>
+  <textarea id="adhoc" placeholder='{"name": "site_info", "args": {}}'></textarea>
+  <div class="row" style="margin-top:8px">
+    <button class="sec" onclick="runAdhoc()">اجرای دستور</button>
+  </div>
+</div>
+
+<div class="card">
+  <div class="row" style="margin-bottom:8px"><b style="font-size:13px">لاگ:</b></div>
+  <div id="log"></div>
+</div>
+
+<script>
+const MCP_URL = "https://mcp.wpvibe.ai/mcp";
+const AUTHZ   = "https://mcp.wpvibe.ai/authorize";
+const TOKEN_E = "https://mcp.wpvibe.ai/token";
+const REG_E   = "https://mcp.wpvibe.ai/register";
+const PAGE_URL = location.origin + location.pathname;
+const LS = {
+  get k(){ return "wpvibe_" + btoa(PAGE_URL).replace(/[^a-z0-9]/gi,"").slice(0,24); },
+  get client(){ return JSON.parse(localStorage.getItem(this.k + "_client") || "null"); },
+  set client(v){ localStorage.setItem(this.k + "_client", JSON.stringify(v)); },
+  get auth(){ return JSON.parse(localStorage.getItem(this.k + "_auth") || "null"); },
+  set auth(v){ localStorage.setItem(this.k + "_auth", v ? JSON.stringify(v) : null); }
+};
+let SESSION = null, CALL_ID = 0, CLIENT_ID = null, CHALLENGE = null, VERIFIER = null, VERIFIER_TS = 0;
+const redirectUriEl = document.getElementById("redirectUri");
+redirectUriEl.value = PAGE_URL;
+document.getElementById("redirectshow").textContent = PAGE_URL;
+
+function $(id){ return document.getElementById(id); }
+function mark(id, cls){ const e = $(id); e.className = "step" + (cls ? " " + cls : ""); }
+function clearMarks(){ for (let i=1;i<=6;i++) mark("st"+i, ""); }
+function log(msg, cls){
+  const el = $("log");
+  const t = new Date().toLocaleTimeString("en-GB");
+  el.innerHTML += `<span class="${cls||""}">[${t}] ${msg.replace(/&/g,"&amp;").replace(/</g,"&lt;")}</span>\n`;
+  el.scrollTop = el.scrollHeight;
+}
+function copyLog(){
+  navigator.clipboard.writeText($("log").innerText).then(()=>log("log copied to clipboard","ok")).catch(()=>log("copy failed — select manually","err"));
+}
+function b64url(buf){
+  let s = ""; const b = new Uint8Array(buf);
+  for (const c of b) s += String.fromCharCode(c);
+  return btoa(s).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,"");
+}
+
+/* ---------- 1) dynamic client registration ---------- */
+async function doRegister(){
+  clearMarks(); mark("st1","active");
+  try {
+    const saved = LS.client;
+    if (saved && saved.client_id) { CLIENT_ID = saved.client_id; log("registered (cached): " + CLIENT_ID, "ok"); }
+    else {
+      const r = await fetch(REG_E, {
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body: JSON.stringify({
+          client_name: "ALOOKHOR Arena Console",
+          redirect_uris: [redirectUriEl.value],
+          grant_types: ["authorization_code","refresh_token"],
+          response_types: ["code"],
+          token_endpoint_auth_method: "none"
+        })
+      });
+      const j = await r.json().catch(()=>({}));
+      if (!r.ok) throw new Error("register failed: HTTP " + r.status + " " + JSON.stringify(j).slice(0,400));
+      CLIENT_ID = j.client_id;
+      LS.client = { client_id: CLIENT_ID, redirect: redirectUriEl.value };
+      log("registered client: " + CLIENT_ID, "ok");
+    }
+    mark("st1","done");
+  } catch(e){ log("REGISTER ERROR: " + e.message, "err"); mark("st1",""); }
+}
+
+/* ---------- 2) sign-in (email + 6-digit code) ---------- */
+async function doSignIn(){
+  if (!CLIENT_ID) { log("run step 1 first","err"); return; }
+  mark("st2","active");
+  const verifier = b64url(crypto.getRandomValues(new Uint8Array(32)));
+  CHALLENGE = b64url(await crypto.subtle.digest("SHA-256", new TextEncoder().encode(verifier)));
+  VERIFIER = verifier; VERIFIER_TS = Date.now();
+  const params = new URLSearchParams({
+    response_type:"code",
+    client_id: CLIENT_ID,
+    redirect_uri: redirectUriEl.value,
+    code_challenge: CHALLENGE,
+    code_challenge_method:"S256"
+  });
+  const url = AUTHZ + "?" + params.toString();
+  log("opening sign-in page…", "hdr");
+  log(url);
+  window.open(url, "_blank");
+  log("در تب جدید: ایمیل WPVibe را وارد کنید ← کد ۶ رقمی از ایمیل را وارد کنید.", "hdr");
+}
+
+/* handle ?code= arriving in this (or the sign-in) tab */
+async function handleRedirectCode(){
+  const p = new URLSearchParams(location.search);
+  const code = p.get("code");
+  const err = p.get("error");
+  history.replaceState({}, "", PAGE_URL);
+  if (err) { log("AUTH ERROR from redirect: " + err + " " + (p.get("error_description")||""), "err"); return; }
+  if (!code) return;
+  if (!VERIFIER || (Date.now() - VERIFIER_TS) > 30*60*1000) {
+    /* tab without the PKCE verifier (e.g. console tab) — cannot exchange.
+       The sign-in tab holds it; if THIS tab is the sign-in tab it has it. */
+    log("code received in a tab without PKCE verifier. Go back to the tab where you clicked «ورود با ایمیل» — it processed the code.", "err");
+    return;
+  }
+  try {
+    const r = await fetch(TOKEN_E, {
+      method:"POST",
+      headers:{"Content-Type":"application/x-www-form-urlencoded"},
+      body: new URLSearchParams({
+        grant_type:"authorization_code",
+        code,
+        redirect_uri: redirectUriEl.value,
+        client_id: CLIENT_ID,
+        code_verifier: VERIFIER
+      })
+    });
+    const j = await r.json().catch(()=>({}));
+    if (!r.ok) throw new Error("token exchange failed: HTTP " + r.status + " " + JSON.stringify(j).slice(0,400));
+    LS.auth = { access_token:j.access_token, refresh_token:j.refresh_token||null, expires_at: Date.now() + (j.expires_in||3600)*1000 };
+    VERIFIER = null;
+    log("SIGNED IN ✓ token: " + j.access_token.slice(0,8) + "…", "ok");
+    mark("st2","done");
+    updateTok();
+    /* if console tab, auto-continue */
+    doConnect();
+  } catch(e){ log("TOKEN ERROR: " + e.message, "err"); }
+}
+
+async function refreshAuth(){
+  const a = LS.auth;
+  if (!a || !a.refresh_token) return false;
+  try {
+    const r = await fetch(TOKEN_E, {
+      method:"POST",
+      headers:{"Content-Type":"application/x-www-form-urlencoded"},
+      body: new URLSearchParams({ grant_type:"refresh_token", refresh_token:a.refresh_token, client_id: CLIENT_ID })
+    });
+    const j = await r.json().catch(()=>({}));
+    if (!r.ok) return false;
+    LS.auth = { access_token:j.access_token, refresh_token:j.refresh_token||a.refresh_token, expires_at: Date.now() + (j.expires_in||3600)*1000 };
+    updateTok();
+    return true;
+  } catch(e){ return false; }
+}
+
+function checkAuth(){
+  const a = LS.auth;
+  if (!a) { log("no token stored — complete step 2","err"); return; }
+  if (Date.now() > a.expires_at - 60000) {
+    log("token expired — refreshing…");
+    refreshAuth().then(ok => log(ok ? "refreshed ✓" : "refresh failed — sign in again", ok ? "ok" : "err"));
+  } else {
+    log("token OK (expires in " + Math.round((a.expires_at - Date.now())/60000) + " min)", "ok");
+    mark("st2","done");
+  }
+  updateTok();
+}
+function updateTok(){ const a = LS.auth; $("tokinfo").textContent = a ? "token: " + a.access_token.slice(0,10) + "…" : "no token"; }
+function doSignOut(){ LS.auth = null; SESSION = null; updateTok(); clearMarks(); log("signed out","dim"); }
+
+/* ---------- MCP transport ---------- */
+async function mcpCall(method, params, opts){
+  opts = opts || {};
+  const a = LS.auth;
+  if (!a) throw new Error("not signed in");
+  if (Date.now() > a.expires_at - 60000) {
+    if (!(await refreshAuth())) throw new Error("token expired, refresh failed");
+  }
+  const headers = { "Content-Type":"application/json", "Accept":"application/json, text/event-stream", "Authorization":"Bearer " + LS.auth.access_token };
+  if (SESSION) headers["Mcp-Session-Id"] = SESSION;
+  const body = { jsonrpc:"2.0", method, params };
+  if (!opts.notify) body.id = ++CALL_ID;
+  const res = await fetch(MCP_URL, { method:"POST", headers, body: JSON.stringify(body) });
+  const sid = res.headers.get("mcp-session-id");
+  if (sid) SESSION = sid;
+  if (res.status === 202) return null;
+  const ct = res.headers.get("content-type") || "";
+  const text = await res.text();
+  if (ct.includes("event-stream")) {
+    let last = null;
+    for (const line of text.split(/\r?\n/)) {
+      if (line.startsWith("data:")) { const d = line.slice(5).trim(); if (d) { try { last = JSON.parse(d); } catch(e){} } }
+    }
+    return last;
+  }
+  if (!text) return null;
+  return JSON.parse(text);
+}
+
+/* ---------- 3) connect (initialize) ---------- */
+async function doConnect(){
+  mark("st3","active");
+  try {
+    const proto = ["2025-03-26","2024-11-05"];
+    let lastErr = null;
+    for (const p of proto) {
+      try {
+        SESSION = null;
+        const r = await mcpCall("initialize", {
+          protocolVersion: p,
+          capabilities: {},
+          clientInfo: { name:"alookhor-console", version:"1.0" }
+        });
+        if (r && r.error) throw new Error(JSON.stringify(r.error).slice(0,300));
+        await mcpCall("notifications/initialized", {}, {notify:true});
+        log("MCP connected ✓ (session " + (SESSION ? SESSION.slice(0,8) : "n/a") + ", proto " + p + ")", "ok");
+        mark("st3","done");
+        return;
+      } catch(e){ lastErr = e; }
+    }
+    throw lastErr || new Error("all protocol versions failed");
+  } catch(e){ log("CONNECT ERROR: " + e.message, "err"); mark("st3",""); }
+}
+
+/* ---------- 4) discover tools ---------- */
+let TOOLS = [];
+async function doDiscover(){
+  mark("st4","active");
+  try {
+    const r = await mcpCall("tools/list", {});
+    if (r && r.error) throw new Error(JSON.stringify(r.error).slice(0,300));
+    TOOLS = (r && r.result && r.result.tools) || [];
+    log("TOOLS (" + TOOLS.length + "):", "hdr");
+    for (const t of TOOLS) {
+      log("  • " + t.name + (t.description ? " — " + String(t.description).split("\n")[0].slice(0,110) : ""));
+      if (t.inputSchema && t.inputSchema.properties) log("      args: " + Object.keys(t.inputSchema.properties).join(", ") + "  (required: " + (t.inputSchema.required||[]).join(", ") + ")");
+    }
+    log("FULL TOOLS JSON (copy from console if needed):", "dim");
+    log(JSON.stringify(TOOLS, null, 1).slice(0, 60000));
+    mark("st4","done");
+  } catch(e){ log("DISCOVER ERROR: " + e.message, "err"); mark("st4",""); }
+}
+
+/* ---------- 6) run the script from GitHub ---------- */
+function trunc(s, n){ s = String(s); return s.length > n ? s.slice(0, n) + " …[+" + (s.length - n) + "]" : s; }
+async function callTool(name, args){
+  const r = await mcpCall("tools/call", { name, arguments: args || {} });
+  if (r && r.error) throw new Error("jsonrpc: " + JSON.stringify(r.error).slice(0,300));
+  const res = r && r.result;
+  const text = (res && res.content ? res.content.map(c => c.text !== undefined ? c.text : JSON.stringify(c)).join("\n") : JSON.stringify(res));
+  if (res && res.isError) throw new Error("tool error: " + trunc(text, 500));
+  return text;
+}
+async function runScript(){
+  mark("st6","active");
+  try {
+    const data = await (await fetch("wpvibe-script.json?t=" + Date.now(), { cache:"no-store" })).json();
+    log("SCRIPT loaded: v" + (data.version||"?") + " — " + ((data.steps||[]).length) + " steps", "hdr");
+    if (data.instructions) log(data.instructions, "hdr");
+    let failed = 0;
+    for (const step of (data.steps||[])) {
+      log("\n▶ " + (step.label || step.name), "hdr");
+      const variants = step.variants || [step.args || {}];
+      let ok = false;
+      for (const args of variants) {
+        try {
+          const t0 = Date.now();
+          const out = await callTool(step.name, args);
+          log("  ✓ " + Math.round((Date.now()-t0)/1000) + "s | " + trunc(out, 1200));
+          ok = true; break;
+        } catch(e){
+          log("  ✗ " + e.message);
+        }
+      }
+      if (!ok) {
+        failed++;
+        if (!step.optional) { log("  STOP: required step failed", "err"); break; }
+        else log("  (optional — continuing)", "dim");
+      }
+    }
+    log(failed === 0 ? "\nALL STEPS DONE ✓" : "\nFINISHED WITH " + failed + " FAILURE(S) ✗", failed ? "err" : "ok");
+    mark("st6", failed ? "" : "done");
+  } catch(e){ log("SCRIPT ERROR: " + e.message, "err"); mark("st6",""); }
+}
+
+/* ---------- ad-hoc ---------- */
+async function runAdhoc(){
+  try {
+    const { name, args } = JSON.parse($("adhoc").value);
+    log("\n▶ adhoc: " + name, "hdr");
+    const out = await callTool(name, args || {});
+    log(trunc(out, 6000), "ok");
+  } catch(e){ log("adhoc error: " + e.message, "err"); }
+}
+
+updateTok();
+log("console ready. " + PAGE_URL, "dim");
+handleRedirectCode();
+</script>
+</body>
+</html>
