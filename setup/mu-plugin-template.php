@@ -124,24 +124,38 @@ add_action('init', function () {
 		);
 		$ids = array();
 		foreach ($want as $w) {
-			$existing = get_page_by_title($w['title'], OBJECT, 'page');
-			if (!$existing) {
-				$existing = get_posts(array('post_type' => 'page', 'post_status' => 'any', 'name' => $w['slug'], 'number' => 1));
-				$existing = $existing ? $existing[0] : null;
+			$existing = null;
+			if (function_exists('get_page_by_title')) $existing = get_page_by_title($w['title'], OBJECT, 'page');
+			if (!$existing && function_exists('get_posts')) {
+				$found = get_posts(array('post_type' => 'page', 'post_status' => 'any', 'name' => $w['slug'], 'number' => 1));
+				$existing = $found ? $found[0] : null;
 			}
 			if ($existing) {
 				$ids[$w['slug']] = (int) $existing->ID;
-			} else {
-				$id = wp_insert_page(array('post_title' => $w['title'], 'post_name' => $w['slug'], 'post_content' => ''));
-				if (is_wp_error($id) || !$id) throw new Exception('failed to create page ' . $w['slug'] . ': ' . (is_wp_error($id) ? $id->get_error_message() : 'unknown'));
-				$ids[$w['slug']] = (int) $id;
+				continue;
 			}
+			$arr = array('post_title' => $w['title'], 'post_name' => $w['slug'], 'post_content' => '', 'post_type' => 'page', 'post_status' => 'publish');
+			if (function_exists('wp_insert_page')) {
+				$id = wp_insert_page($arr);
+			} elseif (function_exists('wp_insert_post')) {
+				$id = wp_insert_post($arr);
+			} else {
+				throw new Exception('no page insert function available on this host');
+			}
+			if (is_wp_error($id) || !$id) throw new Exception('failed to create page ' . $w['slug'] . ': ' . (is_wp_error($id) ? $id->get_error_message() : 'unknown'));
+			$ids[$w['slug']] = (int) $id;
 		}
 		return array('ids' => $ids);
 	});
 
 	/* 4. static front page */
 	$do('front_page', function () use (&$report) {
+		/* keep an already-valid front page (user may have set one) */
+		$cur = (int) get_option('page_on_front');
+		if ($cur > 0 && get_option('show_on_front') === 'page' && function_exists('get_posts')) {
+			$p = get_posts(array('post_type' => 'page', 'p' => $cur, 'post_status' => 'any', 'number' => 1));
+			if (!empty($p)) return array('already_set' => $cur);
+		}
 		$ids = null;
 		foreach ($report['steps'] as $s) if ($s['step'] === 'pages' && isset($s['ids'])) $ids = $s['ids'];
 		if (!$ids || empty($ids['home'])) throw new Exception('home page id unknown');
@@ -154,38 +168,78 @@ add_action('init', function () {
 	$do('menu', function () use (&$report) {
 		$ids = null;
 		foreach ($report['steps'] as $s) if ($s['step'] === 'pages' && isset($s['ids'])) $ids = $s['ids'];
+		$menu_name = 'منوی اصلی';
+		$mid = 0;
 		$locs = get_nav_menu_locations();
-		$mid  = !empty($locs['primary']) ? (int) $locs['primary'] : (int) wp_create_nav_menu('منوی اصلی');
-		if (!$mid) throw new Exception('cannot create menu');
-		/* clear any pre-existing items so a retry after partial failure never duplicates them */
-		$old_items = wp_get_nav_menu_items($mid);
-		if (!is_wp_error($old_items)) foreach ((array) $old_items as $oi) wp_delete_nav_menu_item($mid, (int) $oi->ID);
+		if (!empty($locs['primary']) && !is_wp_error($locs['primary']) && (int) $locs['primary'] > 0) {
+			$mid = (int) $locs['primary'];
+		}
+		if (!$mid && function_exists('wp_get_nav_menu_object')) {
+			$obj = wp_get_nav_menu_object($menu_name);
+			if ($obj && !is_wp_error($obj)) $mid = (int) $obj->term_id;
+		}
+		if (!$mid) {
+			$r = wp_create_nav_menu($menu_name);
+			if (is_wp_error($r) || !$r) throw new Exception('cannot create menu: ' . (is_wp_error($r) ? $r->get_error_message() : ''));
+			$mid = (int) $r;
+		}
+		/* read existing items; NEVER delete (host may lack wp_delete_nav_menu_item) —
+		   skip items that are already correct, update page links when the page now exists */
+		$existing = array();
+		if (function_exists('wp_get_nav_menu_items')) {
+			$old = wp_get_nav_menu_items($mid);
+			if (!is_wp_error($old)) foreach ((array) $old as $oi) $existing[trim((string) $oi->title)] = $oi;
+		}
 		$items = array(
 			array('title' => 'خانه', 'url' => home_url('/'), 'page_id' => !empty($ids['home']) ? $ids['home'] : 0),
 			array('title' => 'درباره ما', 'url' => home_url('/about/'), 'page_id' => !empty($ids['about']) ? $ids['about'] : 0),
 			array('title' => 'تماس با ما', 'url' => home_url('/contact/'), 'page_id' => !empty($ids['contact']) ? $ids['contact'] : 0),
 			array('title' => 'فروشگاه', 'url' => home_url('/shop/'), 'page_id' => 0),
 		);
-		$order = 0;
+		if (!function_exists('wp_update_nav_menu_item')) throw new Exception('wp_update_nav_menu_item missing on this host');
+		$order = count($existing);
+		$changed = 0;
 		foreach ($items as $it) {
+			$key = trim($it['title']);
+			if (isset($existing[$key])) {
+				$oi = $existing[$key];
+				if ($it['page_id'] && ((int) ($oi->object_id ?? 0) !== (int) $it['page_id'])) {
+					$r = wp_update_nav_menu_item($mid, (int) $oi->ID, array('type' => 'post_type', 'object' => 'page', 'object_id' => (int) $it['page_id']));
+					if (is_wp_error($r) || $r === false) throw new Exception('menu item update failed: ' . $key);
+					$changed++;
+				}
+				continue;
+			}
 			$args = array('menu' => $mid, 'position' => $order++, 'title' => $it['title'], 'url' => $it['url']);
-			if ($it['page_id']) $args = array_merge($args, array('type' => 'post_type', 'object' => 'page', 'object_id' => $it['page_id']));
-			if (wp_update_nav_menu_item($mid, 0, $args) === false) throw new Exception('menu item failed: ' . $it['title']);
+			if ($it['page_id']) $args = array_merge($args, array('type' => 'post_type', 'object' => 'page', 'object_id' => (int) $it['page_id']));
+			$r = wp_update_nav_menu_item($mid, 0, $args);
+			if (is_wp_error($r) || $r === false) throw new Exception('menu item failed: ' . $key);
+			$changed++;
 		}
 		$locs['primary'] = $mid;
 		set_nav_menu_locations($locs);
-		return array('menu_id' => $mid, 'items' => 4);
+		return array('menu_id' => $mid, 'items' => 4, 'changed' => $changed);
 	});
 
 	/* 6. product categories */
 	$do('product_categories', function () {
-		if (!taxonomy_exists('product_cat')) return array('skipped' => 'WooCommerce product_cat taxonomy not present');
+		if (!function_exists('taxonomy_exists') || !taxonomy_exists('product_cat')) return array('skipped' => 'WooCommerce product_cat taxonomy not present');
 		$cats = array('آلو بخارا', 'برگه و میوه‌های خشک', 'تنقلات طبیعی', 'گردو و مغزها');
 		$made = 0;
 		foreach ($cats as $c) {
-			if (!term_exists(array('name' => $c, 'taxonomy' => 'product_cat'))) {
-				$t = wp_insert_term($c, 'product_cat');
-				if (!is_wp_error($t)) $made++;
+			$exists = false;
+			if (function_exists('term_exists')) {
+				try { $exists = (bool) term_exists($c, 'product_cat'); } catch (Throwable $e) { $exists = false; }
+			}
+			if ($exists) continue;
+			if (!function_exists('wp_insert_term')) throw new Exception('wp_insert_term missing on this host');
+			$t = wp_insert_term($c, 'product_cat');
+			if (is_wp_error($t)) {
+				$again = false;
+				try { $again = (bool) term_exists($c, 'product_cat'); } catch (Throwable $e) {}
+				if (!$again) throw new Exception('category failed: ' . $c . ' — ' . $t->get_error_message());
+			} else {
+				$made++;
 			}
 		}
 		return array('created' => $made, 'total_wanted' => count($cats));
