@@ -179,7 +179,7 @@ add_action('init', function () {
 		foreach ($report['steps'] as $s) if ($s['step'] === 'pages' && isset($s['ids'])) $ids = $s['ids'];
 		$menu_name = 'منوی اصلی';
 		$mid = 0;
-		$locs = get_nav_menu_locations();
+		$locs = function_exists('get_nav_menu_locations') ? get_nav_menu_locations() : (array) get_option('nav_menu_locations');
 		if (!empty($locs['primary']) && !is_wp_error($locs['primary']) && (int) $locs['primary'] > 0) {
 			$mid = (int) $locs['primary'];
 		}
@@ -226,7 +226,12 @@ add_action('init', function () {
 			$changed++;
 		}
 		$locs['primary'] = $mid;
-		set_nav_menu_locations($locs);
+		if (function_exists('set_nav_menu_locations')) {
+			set_nav_menu_locations($locs);
+		} else {
+			/* host lacks set_nav_menu_locations — write the option it wraps directly */
+			update_option('nav_menu_locations', array_merge((array) get_option('nav_menu_locations'), array('primary' => $mid)));
+		}
 		return array('menu_id' => $mid, 'items' => 4, 'changed' => $changed);
 	});
 
