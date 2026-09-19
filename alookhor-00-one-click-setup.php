@@ -71,12 +71,76 @@
  * finish=1: marks completion (the file STAYS active — its checkout
  * validation + price filters are part of the live system).
  *
+ * F. SELF-HEAL: cPanel File Manager often refuses to overwrite this file
+ *    and saves the upload under a suffixed name (e.g.
+ *    alookhor-00-one-click-setup_3.php). Both copies then get
+ *    auto-included -> PHP fatal "Cannot redeclare", and the new version
+ *    was never the primary file. Now: if this file is loaded from a
+ *    non-primary path it copies itself onto the canonical primary path
+ *    and removes the extra copy; if another version of this setup was
+ *    already included earlier in the same request, it declares nothing.
+ *    Replacement is therefore one-shot and idempotent no matter which
+ *    name the file manager gave the upload.
+ *
  * Safety: every step is idempotent; the suite runs once (option flag);
  * nothing destructive is gated on anything but exact title/slug matches.
  */
 if (!defined('ABSPATH')) {
     exit;
 }
+
+/* ------------------------------------------------------------------ *
+ * SELF-HEAL — runs at file scope, BEFORE any symbol is defined.
+ * See header section F. Outcome is recorded in
+ * $GLOBALS['alookhor_v54_selfheal'] for the status report.
+ * ------------------------------------------------------------------ */
+$GLOBALS['alookhor_v54_selfheal'] = array('primary' => 'n/a', 'duplicate' => 'n/a');
+if (defined('WP_CONTENT_DIR') && is_dir(WP_CONTENT_DIR . '/mu-plugins')) {
+    $alookhor_v54_self = (string) @realpath(__FILE__);
+    if ($alookhor_v54_self === '') {
+        $alookhor_v54_self = (string) __FILE__;
+    }
+    $alookhor_v54_primary_raw = WP_CONTENT_DIR . '/mu-plugins/alookhor-00-one-click-setup.php';
+    $alookhor_v54_primary = @realpath($alookhor_v54_primary_raw);
+    if ($alookhor_v54_primary === false) {
+        $alookhor_v54_primary = $alookhor_v54_primary_raw;
+    }
+    clearstatcache();
+    $alookhor_v54_ss = ($alookhor_v54_self !== '') ? @stat($alookhor_v54_self) : false;
+    $alookhor_v54_sp = is_file($alookhor_v54_primary_raw) ? @stat($alookhor_v54_primary_raw) : false;
+    $alookhor_v54_same_file = false;
+    if (is_array($alookhor_v54_ss) && is_array($alookhor_v54_sp)
+        && !empty($alookhor_v54_ss['ino']) && $alookhor_v54_ss['ino'] === $alookhor_v54_sp['ino']) {
+        $alookhor_v54_same_file = true;
+    }
+    if ($alookhor_v54_self === '' || $alookhor_v54_self === $alookhor_v54_primary || $alookhor_v54_same_file) {
+        $GLOBALS['alookhor_v54_selfheal']['primary'] = 'active';
+    } else {
+        // This request is being served from a duplicate copy (the file
+        // manager gave the upload a different name). Promote it.
+        $alookhor_v54_src = @file_get_contents($alookhor_v54_self);
+        if ($alookhor_v54_src !== false) {
+            $alookhor_v54_primary_now = is_file($alookhor_v54_primary_raw)
+                ? (string) @file_get_contents($alookhor_v54_primary_raw) : '';
+            if ($alookhor_v54_primary_now !== $alookhor_v54_src) {
+                $GLOBALS['alookhor_v54_selfheal']['primary'] =
+                    (@file_put_contents($alookhor_v54_primary_raw, $alookhor_v54_src, LOCK_EX) !== false)
+                    ? 'promoted' : 'FAILED';
+            } else {
+                $GLOBALS['alookhor_v54_selfheal']['primary'] = 'identical';
+            }
+            $GLOBALS['alookhor_v54_selfheal']['duplicate'] = @unlink($alookhor_v54_self) ? 'removed' : 'kept';
+        }
+    }
+}
+// Another version of this setup (e.g. the old primary file) may have been
+// included earlier in this request. PHP binds top-level function
+// declarations at COMPILE time, so the guard below must be a runtime
+// condition wrapping every declaration (constants, functions, hooks):
+// when it is false, this file declares nothing, cannot fatal with
+// "Cannot redeclare", and the promoted primary takes full effect on the
+// very next request.
+if (!function_exists('alookhor_v5_page_ids')) {
 
 define('ALOOKHOR_V5_TOKEN', 'v5-9f31c7ab02d4');
 define('ALOOKHOR_V51_DONE_OPT', 'alookhor_v51_done');
@@ -1262,7 +1326,8 @@ add_action('template_redirect', function () {
 	$cs = get_option('alookhor_cc_settings');
 	$report = array(
 		'ok' => true,
-		'version' => 'v5.4',
+		'version' => 'v5.4.1',
+		'selfheal' => isset($GLOBALS['alookhor_v54_selfheal']) ? $GLOBALS['alookhor_v54_selfheal'] : array(),
 		'cc_version' => defined('ALOOKHOR_CC_VERSION') ? ALOOKHOR_CC_VERSION : 'MISSING',
 		'php' => PHP_VERSION,
 		'done_log' => get_option(ALOOKHOR_V51_DONE_OPT, array()),
@@ -1358,3 +1423,5 @@ add_action('template_redirect', function () {
 	echo json_encode($report, JSON_UNESCAPED_UNICODE);
 	exit;
 }, 1);
+
+} // end of the runtime declaration guard (see SELF-HEAL, header section F)
