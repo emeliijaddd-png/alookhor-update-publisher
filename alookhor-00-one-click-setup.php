@@ -1,11 +1,36 @@
 <?php
 /**
- * ALOOKHOR One-Click Setup — v5.3 (FINAL — completion suite)
+ * ALOOKHOR One-Click Setup — v5.4 (FINAL — completion suite + watchdog)
  * ---------------------------------------------------------
  * Same file, same name, same token as v5.2 (drop-in replacement in
- * wp-content/mu-plugins/). Contains ALL v5.2 logic (rescue, header fix,
- * settings restore, hero repair, price heal, blog page, portal template,
- * status/finish) PLUS the v5.3 completion suite, which runs once:
+ * wp-content/mu-plugins/). Contains ALL v5.2/v5.3 logic (rescue, header
+ * fix, settings restore, hero repair, price heal, blog page, portal
+ * template, status/finish, completion suite) PLUS the v5.4 hardening:
+ *
+ *   A. Self-healing watchdog (every frontend request): WooCommerce core
+ *      pages (shop/cart/checkout/my-account), the order-received page,
+ *      the blog page and the menu brand pages are re-verified; if their
+ *      content/slug regressed to the "در حال ساخت" placeholders (or any
+ *      foreign process rewrote them), they are repaired in the DB AND in
+ *      the in-memory post object, so even the current request renders
+ *      the correct page. Every repair is recorded in option
+ *      alookhor_v54_watchdog for the status report.
+ *   B. .htaccess check now detects the actual catch-all rule (not just
+ *      the "WordPress"/"RewriteEngine" strings — the host once had an
+ *      EMPTY # BEGIN WordPress block that fooled the v5.3 check) and
+ *      keeps a .htaccess.alookhor-bak backup + preserves the cPanel
+ *      PHP-handler lines before rewriting.
+ *   C. order-received page: wp_insert_post fallback when WC's
+ *      wc_create_page() fails on the host (it returned false/0).
+ *   D. Bestsellers widget cleaned up: hide "باقی‌مانده/فروخته‌شده: 0"
+ *      stats and the fake 14-day countdown (CC bestseller_settings).
+ *   E. Price normalization everywhere: ASCII-dot thousands separators
+ *      (۳۹.۰۰۰ / 1.250.000) become the Persian ٬ separator and any
+ *      foreign currency glyph (﷼ / د.إ) becomes تومان — applied to
+ *      the_content (theme pages) and to the portal template's module
+ *      output (the CC bestsellers widget bypasses the_content).
+ *
+ * v5.3 completion suite (runs once; force re-run with &v53force=1):
  *
  *   1. Currency IRR -> IRT (toman). Seeded prices are toman-denominated
  *      (3kg = 390,000). With the host currency IRR, the CC's PDP/cart/
@@ -185,6 +210,9 @@ get_header();
 				continue;
 			}
 			$alookhor_v5_out = do_shortcode($alookhor_v5_sc);
+			if (function_exists('alookhor_v54_normalize_price_html')) {
+				$alookhor_v5_out = alookhor_v54_normalize_price_html($alookhor_v5_out);
+			}
 			if (strlen(trim(wp_strip_all_tags($alookhor_v5_out))) >= 20) {
 				echo $alookhor_v5_out; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			}
@@ -419,6 +447,249 @@ function alookhor_v53_fix_page_content($id, $new_content)
 	return 'content-set';
 }
 
+/* ------------------------------------------------------------------ *
+ * v5.4 shared page specs + watchdog
+ * ------------------------------------------------------------------ */
+function alookhor_v54_wc_page_specs()
+{
+	return array(
+		'shop'           => array('content' => '[products limit="24" columns="3" orderby="date" order="DESC"]', 'token' => '[products', 'slug' => 'shop'),
+		'cart'           => array('content' => '[woocommerce_cart]', 'token' => '[woocommerce_cart', 'slug' => 'cart'),
+		'myaccount'      => array('content' => '[woocommerce_my_account]', 'token' => '[woocommerce_my_account', 'slug' => 'my-account'),
+		'checkout'       => array('content' => '[alookhor_checkout]', 'token' => '[alookhor_checkout', 'slug' => 'checkout'),
+		'order_received' => array('content' => '[woocommerce_order_received]', 'token' => '[woocommerce_order_received', 'slug' => 'order-received'),
+	);
+}
+function alookhor_v54_brand_defs()
+{
+	return array(
+		'wholesale' => array(
+			'title'   => 'خرید عمده و صادرات',
+			'slug'    => 'wholesale',
+			'token'   => 'تأمین پایدار',
+			'content' => "<h2>تأمین پایدار برای کسب‌وکارها</h2>\n"
+				. "<p>آلوخور برای فروشگاه‌ها، برندها و بازرگانان، تأمین پایدار خشکبار ممتاز — آلو بخارا، کشمش، لواشک، گردو و... — با قیمت همکاری، بسته‌بندی صادراتی (پاکت، کارتن و کارتن‌های صادراتی) و ارسال به بیش از ۱۵ کشور ارائه می‌دهد.</p>\n"
+				. "<p>برای دریافت قیمت همکاری و کاتالوگ محصولات، فرم تماس را با موضوع «سفارش عمده» یا «صادرات» پر کنید؛ تیم بازرگانی آلوخور در سریع‌ترین زمان با شما تماس می‌گیرد.</p>\n"
+				. "<p><a href=\"/?page_id=24\">درخواست همکاری</a> | <a href=\"/catalog/\">کاتالوگ محصولات</a></p>\n",
+		),
+		'export' => array(
+			'title'   => 'صادرات آلوخور',
+			'slug'    => 'export',
+			'token'   => 'صادرات خشکبار ممتاز خراسان',
+			'content' => "<h2>صادرات خشکبار ممتاز خراسان</h2>\n"
+				. "<p>محصولات آلوخور با استانداردهای ISO، HACCP، Organic و Halal برای صادرات به بیش از ۱۵ کشور آماده‌اند؛ بسته‌بندی صادراتی، برچسب‌بندی چندزبانه و مدارک ترخیص برای مقاصد مختلف.</p>\n"
+				. "<p>تیم بازرگانی آلوخور پاسخگوی شرایط سفارش‌های صادراتی، حجم بار و زمان‌بندی حمل است.</p>\n"
+				. "<p><a href=\"/wholesale/\">شرایط همکاری عمده</a> | <a href=\"/?page_id=24\">تماس با تیم بازرگانی</a></p>\n",
+		),
+		'gift-packages' => array(
+			'title'   => 'بسته‌های هدیه',
+			'slug'    => 'gift-packages',
+			'token'   => 'بسته‌های هدیه آلوخور',
+			'content' => "<h2>بسته‌های هدیه آلوخور</h2>\n"
+				. "<p>مجموعه‌های منتخب خشکبار ممتاز آلوخور در بسته‌بندی شیک و صادراتی؛ مناسب هدیه‌های خانوادگی، پذیرایی و هدایای سازمانی. امکان سفارشی‌سازی بسته با لوگوی شما نیز وجود دارد.</p>\n"
+				. "<p><a href=\"/shop/\">مشاهده محصولات</a></p>\n",
+		),
+		'catalog' => array(
+			'title'   => 'کاتالوگ محصولات',
+			'slug'    => 'catalog',
+			'token'   => '[products',
+			'content' => '[products limit="24" columns="4" orderby="date" order="DESC"]',
+		),
+	);
+}
+/**
+ * Price HTML normalization: Persian ٬ thousands separator + تومان
+ * symbol. Catches renderers that bypass the wc_price filter (the CC
+ * bestsellers widget formats ranges with ASCII dots).
+ */
+function alookhor_v54_normalize_price_html($html)
+{
+	if (!is_string($html) || $html === '') {
+		return $html;
+	}
+	$has_dot = (strpos($html, '.') !== false);
+	$has_rial = (strpos($html, "﷼") !== false) || (strpos($html, 'د.إ') !== false);
+	if (!$has_dot && !$has_rial) {
+		return $html;
+	}
+	if ($has_rial) {
+		$html = str_replace(array("﷼", 'د.إ'), 'تومان', $html);
+	}
+	// ASCII-dot thousands separators: 1-3 leading digits + one-or-more
+	// (.NNN) groups, not preceded by a dot (protects version strings
+	// like "3.10.385") and not followed by another digit
+	// ("۳۹۰.۰۰۰", "۱.۲۵۰.۰۰", "1.250.000" -> ٬ separators)
+	if ($has_dot) {
+		$html = (string) preg_replace_callback('/(^|[^.\p{N}])(\p{N}{1,3}(?:\.\p{N}{3})+)(?!\p{N})/u', function ($m) {
+			return $m[1] . str_replace('.', '٬', $m[2]);
+		}, $html);
+	}
+	return $html;
+}
+
+/**
+ * Is this page's content acceptable (has the required token and no
+ * placeholder)? Returns 'ok' or a reason string.
+ */
+function alookhor_v54_page_state($p, $token)
+{
+	$content = (string) $p->post_content;
+	$tags = trim(strip_tags($content));
+	if (strpos($content, 'در حال ساخت') !== false || strpos($content, 'به زودی راه اندازی میشه') !== false) {
+		return 'placeholder';
+	}
+	if ($token !== '' && strpos($content, $token) === false && strlen($tags) < 60) {
+		return 'empty';
+	}
+	return 'ok';
+}
+/**
+ * Repair one page (content and/or slug). Also patches the in-memory
+ * post so the CURRENT request renders the fixed content.
+ * Returns 'ok' | 'fixed' | 'fixed+slug' | 'FAILED' | 'no-page'.
+ */
+function alookhor_v54_ensure_page($id, $spec)
+{
+	$p = get_post((int) $id);
+	if (!$p || (int) $p->ID === 0) {
+		return 'no-page';
+	}
+	$state = alookhor_v54_page_state($p, $spec['token']);
+	$name = (string) ($p->post_name ?? '');
+	$slug_bad = ($name !== $spec['slug']);
+	if ($state === 'ok' && !$slug_bad) {
+		return 'ok';
+	}
+	$args = array('ID' => (int) $p->ID);
+	if ($state !== 'ok') {
+		$args['post_content'] = $spec['content'];
+	}
+	if ($slug_bad) {
+		$args['post_name'] = $spec['slug'];
+	}
+	$r = wp_update_post($args);
+	if (!$r || is_wp_error($r)) {
+		return 'FAILED';
+	}
+	// refresh in-memory copies so the current request sees the content fix.
+	if ($state !== 'ok') {
+		if (isset($GLOBALS['post']) && is_object($GLOBALS['post']) && (int) $GLOBALS['post']->ID === (int) $p->ID) {
+			$GLOBALS['post']->post_content = $spec['content'];
+		}
+		if (isset($GLOBALS['wp_query']) && is_object($GLOBALS['wp_query']->post) && (int) $GLOBALS['wp_query']->post->ID === (int) $p->ID) {
+			$GLOBALS['wp_query']->post->post_content = $spec['content'];
+		}
+	}
+	$fresh = get_post((int) $p->ID);
+	if (is_object($fresh) && function_exists('wp_cache_set')) {
+		wp_cache_set((int) $p->ID, $fresh, 'posts');
+	}
+	$what = 'fixed';
+	if ($state !== 'ok' && $slug_bad) {
+		$what .= '+slug';
+	} elseif ($slug_bad) {
+		$what = 'slug';
+	}
+	return $what;
+}
+/**
+ * Create the order-received page the hard way (host's wc_create_page
+ * fails) and point the WC option at it. Returns the id or 0.
+ */
+function alookhor_v54_create_order_received_page()
+{
+	$slug = 'order-received';
+	$content = '[woocommerce_order_received]';
+	$id = 0;
+	$existing = function_exists('get_page_by_path') ? get_page_by_path($slug, OBJECT, 'page') : null;
+	if (is_object($existing)) {
+		$id = (int) $existing->ID;
+		if (strpos((string) $existing->post_content, '[woocommerce_order_received') === false) {
+			wp_update_post(array('ID' => $id, 'post_content' => $content));
+		}
+	} else {
+		$id = (int) wp_insert_post(array(
+			'post_type'    => 'page',
+			'post_status'  => 'publish',
+			'post_title'   => 'رسید سفارش',
+			'post_name'    => $slug,
+			'post_content' => $content,
+		));
+	}
+	if ($id > 0) {
+		update_option('woocommerce_order_received_page_id', $id);
+	}
+	return $id;
+}
+/**
+ * The self-healing watchdog: runs on every frontend request and repairs
+ * any managed page that regressed (content rewritten to the "در حال
+ * ساخت" placeholder, wrong slug, missing order-received page, ...).
+ */
+function alookhor_v54_watchdog()
+{
+	if (is_admin()) {
+		return;
+	}
+	if (defined('REST_REQUEST') && REST_REQUEST) {
+		return;
+	}
+	if (isset($_GET['alookhor_v5'])) {
+		return; // the status/finish endpoint handles itself
+	}
+	if (!function_exists('wc_get_page_id')) {
+		return;
+	}
+	$fixed = array();
+	$specs = alookhor_v54_wc_page_specs();
+	foreach ($specs as $key => $spec) {
+		$id = (int) wc_get_page_id($key);
+		if ($id === 0) {
+			if ($key === 'order_received') {
+				$nid = alookhor_v54_create_order_received_page();
+				$fixed[] = $nid ? 'order-received-created-' . $nid : 'order-received-FATAL';
+			}
+			continue;
+		}
+		$r = alookhor_v54_ensure_page($id, $spec);
+		if ($r !== 'ok' && $r !== 'no-page' && $r !== 'FAILED') {
+			$fixed[] = $key . ':' . $r;
+		} elseif ($r === 'FAILED') {
+			$fixed[] = $key . ':FAILED';
+		}
+	}
+	// blog page must keep the magazine shortcode.
+	if (function_exists('get_page_by_path')) {
+		$blog = get_page_by_path('blog', OBJECT, 'page');
+		if (is_object($blog)) {
+			$r = alookhor_v54_ensure_page((int) $blog->ID, array('content' => '[alookhor_magazine]', 'token' => 'alookhor_magazine', 'slug' => 'blog'));
+			if ($r !== 'ok' && $r !== 'no-page') {
+				$fixed[] = 'blog:' . $r;
+			}
+		}
+		foreach (alookhor_v54_brand_defs() as $slug => $def) {
+			$pg = get_page_by_path($slug, OBJECT, 'page');
+			if (!is_object($pg)) {
+				continue; // suite creates missing pages; watchdog only repairs
+			}
+			$r = alookhor_v54_ensure_page((int) $pg->ID, array('content' => $def['content'], 'token' => $def['token'], 'slug' => $def['slug']));
+			if ($r !== 'ok' && $r !== 'no-page') {
+				$fixed[] = $slug . ':' . $r;
+			}
+		}
+	}
+	if ($fixed) {
+		$prev = get_option('alookhor_v54_watchdog', array());
+		$prev = is_array($prev) ? $prev : array();
+		$prev['total'] = (int) ($prev['total'] ?? 0) + count($fixed);
+		$prev['last_time'] = time();
+		$prev['last'] = array_slice($fixed, -12);
+		$prev['history'] = array_slice(array_merge((array) ($prev['history'] ?? array()), array(array('t' => time(), 'fixed' => $fixed))), -20);
+		update_option('alookhor_v54_watchdog', $prev);
+	}
+}
+add_action('template_redirect', 'alookhor_v54_watchdog', 10);
+
 function alookhor_v53_repair()
 {
 	$log = array(
@@ -434,6 +705,7 @@ function alookhor_v53_repair()
 		'payments'        => 'n/a',
 		'campaign'        => 'n/a',
 		'sort_center'     => 'n/a',
+		'bestsellers'     => 'n/a',
 		'magazine_post'   => 'n/a',
 		'lscache'         => 'n/a',
 		'inventory'       => array(),
@@ -451,9 +723,15 @@ function alookhor_v53_repair()
 		}
 	}
 
-	/* 2) .htaccess — restore when missing/emptied by the reset. */
+	/* 2) .htaccess — must contain the WP catch-all rule. v5.4 checks the
+	    ACTUAL rule ("RewriteRule . /index.php" or the !-f condition), not
+	    just the "WordPress"/"RewriteEngine" strings: the host once had an
+	    EMPTY '# BEGIN WordPress' comment block that satisfied the old
+	    check while every pretty URL 404'd at the LiteSpeed level.
+	    Before rewriting, the old file is backed up (.htaccess.alookhor-bak)
+	    and non-WordPress lines (cPanel PHP handler, ...) are preserved. */
 	$hta = ABSPATH . '.htaccess';
-	$hta_content = "# BEGIN WordPress\n"
+	$hta_wp_block = "# BEGIN WordPress\n"
 		. "<IfModule mod_rewrite.c>\n"
 		. "RewriteEngine On\n"
 		. "RewriteBase /\n"
@@ -469,16 +747,45 @@ function alookhor_v53_repair()
 		. "RewriteCond %{QUERY_STRING} alookhor_v5\n"
 		. "RewriteRule .* - [E=\"Cache-Control:no-cache, must-revalidate\"]\n"
 		. "</IfModule>\n";
+	$hta_has_catchall = function ($s) {
+		return (strpos($s, 'RewriteRule . /index.php') !== false)
+			|| (strpos($s, 'RewriteRule ^.*$ /index.php') !== false)
+			|| (stripos($s, '!-f') !== false && stripos($s, 'RewriteEngine') !== false);
+	};
 	if (!is_file($hta)) {
-		$ok = @file_put_contents($hta, $hta_content, LOCK_EX);
+		$ok = @file_put_contents($hta, $hta_wp_block, LOCK_EX);
 		$log['htaccess'] = ($ok !== false && is_file($hta)) ? 'written' : 'FAILED-no-write';
 	} else {
 		$existing = (string) @file_get_contents($hta);
-		if (stripos($existing, 'RewriteEngine') !== false || stripos($existing, 'WordPress') !== false) {
-			$log['htaccess'] = 'exists';
+		if ($hta_has_catchall($existing)) {
+			$log['htaccess'] = 'ok-catchall';
 		} else {
-			$ok = @file_put_contents($hta, $hta_content, LOCK_EX);
-			$log['htaccess'] = ($ok !== false) ? 'restored' : 'FAILED-no-write';
+			// preserve every line outside the (possibly empty) WP block
+			$kept = array();
+			$in_wp = false;
+			foreach (explode("\n", $existing) as $ln) {
+				if (strpos($ln, '# BEGIN WordPress') !== false) {
+					$in_wp = true;
+					continue;
+				}
+				if (strpos($ln, '# END WordPress') !== false) {
+					$in_wp = false;
+					continue;
+				}
+				if ($in_wp) {
+					continue;
+				}
+				$t = trim($ln);
+				if ($t !== '' && stripos($t, 'RewriteEngine') === false && stripos($t, 'RewriteRule') === false && stripos($t, 'RewriteCond') === false) {
+					$kept[] = $ln;
+				}
+			}
+			$new = $hta_wp_block . "\n" . implode("\n", $kept) . "\n";
+			if (!is_file($hta . '.alookhor-bak')) {
+				@copy($hta, $hta . '.alookhor-bak');
+			}
+			$ok = @file_put_contents($hta, $new, LOCK_EX);
+			$log['htaccess'] = ($ok !== false) ? 'fixed-with-backup' : 'FAILED-no-write';
 		}
 	}
 
@@ -511,37 +818,30 @@ function alookhor_v53_repair()
 		}
 	}
 
-	/* 5) WooCommerce core pages — create when missing, fix placeholders. */
+	/* 5) WooCommerce core pages — create when missing, fix placeholders,
+	    enforce slugs (token-based: a page that already carries the right
+	    shortcode and real content is never touched). */
 	if (function_exists('wc_get_page_id')) {
-		$wc_pages = array(
-			'shop'          => '[products limit="24" columns="3" orderby="date" order="DESC"]',
-			'cart'          => '[woocommerce_cart]',
-			'myaccount'     => '[woocommerce_my_account]',
-			'checkout'      => '[alookhor_checkout]',
-			'order_received' => '[woocommerce_order_received]',
-		);
-		foreach ($wc_pages as $key => $content) {
+		foreach (alookhor_v54_wc_page_specs() as $key => $spec) {
 			$id = (int) wc_get_page_id($key);
-			if ($id === 0 && function_exists('wc_create_page')) {
-				$id = (int) wc_create_page($key);
+			if ($id === 0) {
+				if (function_exists('wc_create_page')) {
+					$id = (int) wc_create_page($key);
+				}
+				if ($id === 0 && $key === 'order_received') {
+					// host: wc_create_page() fails — insert the page directly.
+					$id = alookhor_v54_create_order_received_page();
+				}
 				if ($id > 0) {
 					$log['wc_pages'][$key] = 'created-' . $id;
 				}
 			}
 			if ($id > 0) {
-				$r = alookhor_v53_fix_page_content($id, $content);
+				$r = alookhor_v54_ensure_page($id, $spec);
 				if (isset($log['wc_pages'][$key])) {
 					$log['wc_pages'][$key] .= '+' . $r;
 				} else {
 					$log['wc_pages'][$key] = $r;
-				}
-				// shop must own the 'shop' slug for /shop/ to resolve
-				if ($key === 'shop') {
-					$pg = get_post($id);
-					if (is_object($pg) && ($pg->post_name ?? '') !== 'shop') {
-						wp_update_post(array('ID' => $id, 'post_name' => 'shop'));
-						$log['wc_pages'][$key] .= '+slug-set';
-					}
 				}
 			} elseif (!isset($log['wc_pages'][$key])) {
 				$log['wc_pages'][$key] = 'MISSING';
@@ -549,38 +849,9 @@ function alookhor_v53_repair()
 		}
 	}
 
-	/* 6) menu-linked brand pages — create when missing. */
-	$brand = array(
-		'wholesale' => array(
-			'title'   => 'خرید عمده و صادرات',
-			'slug'    => 'wholesale',
-			'content' => "<h2>تأمین پایدار برای کسب‌وکارها</h2>\n"
-				. "<p>آلوخور برای فروشگاه‌ها، برندها و بازرگانان، تأمین پایدار خشکبار ممتاز — آلو بخارا، کشمش، لواشک، گردو و... — با قیمت همکاری، بسته‌بندی صادراتی (پاکت، کارتن و کارتن‌های صادراتی) و ارسال به بیش از ۱۵ کشور ارائه می‌دهد.</p>\n"
-				. "<p>برای دریافت قیمت همکاری و کاتالوگ محصولات، فرم تماس را با موضوع «سفارش عمده» یا «صادرات» پر کنید؛ تیم بازرگانی آلوخور در سریع‌ترین زمان با شما تماس می‌گیرد.</p>\n"
-				. "<p><a href=\"/?page_id=24\">درخواست همکاری</a> | <a href=\"/catalog/\">کاتالوگ محصولات</a></p>\n",
-		),
-		'export' => array(
-			'title'   => 'صادرات آلوخور',
-			'slug'    => 'export',
-			'content' => "<h2>صادرات خشکبار ممتاز خراسان</h2>\n"
-				. "<p>محصولات آلوخور با استانداردهای ISO، HACCP، Organic و Halal برای صادرات به بیش از ۱۵ کشور آماده‌اند؛ بسته‌بندی صادراتی، برچسب‌بندی چندزبانه و مدارک ترخیص برای مقاصد مختلف.</p>\n"
-				. "<p>تیم بازرگانی آلوخور پاسخگوی شرایط سفارش‌های صادراتی، حجم بار و زمان‌بندی حمل است.</p>\n"
-				. "<p><a href=\"/wholesale/\">شرایط همکاری عمده</a> | <a href=\"/?page_id=24\">تماس با تیم بازرگانی</a></p>\n",
-		),
-		'gift-packages' => array(
-			'title'   => 'بسته‌های هدیه',
-			'slug'    => 'gift-packages',
-			'content' => "<h2>بسته‌های هدیه آلوخور</h2>\n"
-				. "<p>مجموعه‌های منتخب خشکبار ممتاز آلوخور در بسته‌بندی شیک و صادراتی؛ مناسب هدیه‌های خانوادگی، پذیرایی و هدایای سازمانی. امکان سفارشی‌سازی بسته با لوگوی شما نیز وجود دارد.</p>\n"
-				. "<p><a href=\"/shop/\">مشاهده محصولات</a></p>\n",
-		),
-		'catalog' => array(
-			'title'   => 'کاتالوگ محصولات',
-			'slug'    => 'catalog',
-			'content' => "[products limit=\"24\" columns=\"4\" orderby=\"date\" order=\"DESC\"]",
-		),
-	);
-	foreach ($brand as $slug => $def) {
+	/* 6) menu-linked brand pages — create when missing, repair when
+	    regressed (same shared defs as the watchdog). */
+	foreach (alookhor_v54_brand_defs() as $slug => $def) {
 		$pg = function_exists('get_page_by_path') ? get_page_by_path($slug, OBJECT, 'page') : null;
 		if (!is_object($pg)) {
 			$pid = wp_insert_post(array(
@@ -592,10 +863,11 @@ function alookhor_v53_repair()
 			));
 			$log['brand_pages'][$slug] = $pid ? 'created-' . (int) $pid : 'FAILED';
 		} else {
-			$r = alookhor_v53_fix_page_content((int) $pg->ID, $def['content']);
+			$r = alookhor_v54_ensure_page((int) $pg->ID, array('content' => $def['content'], 'token' => $def['token'], 'slug' => $def['slug']));
 			$log['brand_pages'][$slug] = $r;
 		}
 	}
+
 
 	/* 7) order flow completion. */
 	// 7a) add the missing billing_email field to the CC checkout form.
@@ -743,6 +1015,32 @@ function alookhor_v53_repair()
 			$cs['sort_center_settings'] = $sort;
 			update_option('alookhor_cc_settings', $cs);
 		}
+	}
+
+	/* 8b) bestsellers widget: hide the "باقی‌مانده/فروخته‌شده: 0" stats
+	    and the fake 14-day countdown (no real sale date is set on the
+	    seeded products, so the timer always shows ~13 days). */
+	$cs = get_option('alookhor_cc_settings');
+	if (is_array($cs)) {
+		$bs = is_array($cs['bestseller_settings'] ?? null) ? $cs['bestseller_settings'] : array();
+		$bs_changed = false;
+		if (!empty($bs['show_stock'])) {
+			$bs['show_stock'] = false;
+			$bs_changed = true;
+		}
+		if (!empty($bs['show_countdown'])) {
+			$bs['show_countdown'] = false;
+			$bs_changed = true;
+		}
+		if ($bs_changed) {
+			$cs['bestseller_settings'] = $bs;
+			update_option('alookhor_cc_settings', $cs);
+			$log['bestsellers'] = 'cleaned';
+		} else {
+			$log['bestsellers'] = 'ok';
+		}
+	} else {
+		$log['bestsellers'] = 'no-settings';
 	}
 
 	/* 9) magazine: a real post after the Hello World cleanup. */
@@ -894,6 +1192,16 @@ add_filter('wc_price', function ($price, $value = null) {
 	return strtr($price, array('0' => '۰', '1' => '۱', '2' => '۲', '3' => '۳', '4' => '۴', '5' => '۵', '6' => '۶', '7' => '۷', '8' => '۸', '9' => '۹'));
 }, 10, 2);
 
+// 3) Final price-normalization pass over theme-rendered content
+//    (product loops, price ranges incl. the "محدوده قیمت" screen-reader
+//    text, related products): Persian ٬ separator + تومان symbol.
+add_filter('the_content', function ($html) {
+	if (!is_string($html) || $html === '') {
+		return $html;
+	}
+	return alookhor_v54_normalize_price_html($html);
+}, 99);
+
 /* ------------------------------------------------------------------ *
  * Template swap (v5.2) — portal template for home/about/contact.
  * ------------------------------------------------------------------ */
@@ -939,12 +1247,12 @@ add_action('template_redirect', function () {
 	if (isset($_GET['finish']) && $_GET['finish'] === '1') {
 		update_option('alookhor_v53_finished', date('c'));
 		header('Content-Type: application/json; charset=utf-8');
-		echo json_encode(array('ok' => true, 'msg' => 'v5.3 finished — site complete, filters stay active'));
+		echo json_encode(array('ok' => true, 'msg' => 'v5.4 finished — site complete, filters + watchdog stay active'));
 		exit;
 	}
 
 	// optional force re-run of the completion suite (all steps idempotent).
-	if (isset($_GET['v53force']) && $_GET['v53force'] === '1') {
+	if ((isset($_GET['v53force']) && $_GET['v53force'] === '1') || (isset($_GET['v54force']) && $_GET['v54force'] === '1')) {
 		delete_option(ALOOKHOR_V53_DONE_OPT);
 		$alookhor_v53_force_log = alookhor_v53_repair();
 		set_transient('alookhor_v53_log', $alookhor_v53_force_log, 900);
@@ -954,11 +1262,12 @@ add_action('template_redirect', function () {
 	$cs = get_option('alookhor_cc_settings');
 	$report = array(
 		'ok' => true,
-		'version' => 'v5.3',
+		'version' => 'v5.4',
 		'cc_version' => defined('ALOOKHOR_CC_VERSION') ? ALOOKHOR_CC_VERSION : 'MISSING',
 		'php' => PHP_VERSION,
 		'done_log' => get_option(ALOOKHOR_V51_DONE_OPT, array()),
 		'v53' => get_option(ALOOKHOR_V53_DONE_OPT, array()),
+		'watchdog' => get_option('alookhor_v54_watchdog', 'never-ran'),
 		'v53_finished' => get_option('alookhor_v53_finished', false),
 		'header' => array(
 			'enabled' => !empty($h['enabled']),
@@ -976,35 +1285,67 @@ add_action('template_redirect', function () {
 
 	// optional internal link audit (agent verification).
 	if (isset($_GET['audit']) && $_GET['audit'] === '1') {
-		$urls = array('/', '/shop/', '/blog/', '/product-category/dried-plums/', '/wholesale/', '/export/', '/gift-packages/', '/catalog/', '/?product=keshmesh-poloei-talaei-momtaz', '/?page_id=24');
-		$host = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : (defined('ALOOKHOR_HOST') ? ALOOKHOR_HOST : 'alookhor.ir');
+		// url => required substrings / forbidden substrings
+		$checks = array(
+			'/'                                    => array('need' => array('کشمش'), 'ban' => array('در حال ساخت', '﷼')),
+			'/shop/'                               => array('need' => array('کشمش'), 'ban' => array('در حال ساخت')),
+			'/cart/'                               => array('need' => array(), 'ban' => array('در حال ساخت')),
+			'/checkout/'                           => array('need' => array('ایمیل', 'ثبت سفارش'), 'ban' => array()),
+			'/my-account/'                         => array('need' => array('ورود'), 'ban' => array('در حال ساخت')),
+			'/blog/'                               => array('need' => array('پادشاه خشکبار'), 'ban' => array()),
+			'/product-category/dried-plums/'       => array('need' => array('تومان'), 'ban' => array()),
+			'/product/keshmesh-poloei-talaei-momtaz/' => array('need' => array('۳۹', 'تومان'), 'ban' => array('﷼')),
+			'/wholesale/'                          => array('need' => array('تأمین پایدار'), 'ban' => array('در حال ساخت')),
+			'/export/'                             => array('need' => array('صادرات'), 'ban' => array('در حال ساخت')),
+			'/gift-packages/'                      => array('need' => array('بسته‌های هدیه'), 'ban' => array('در حال ساخت')),
+			'/catalog/'                            => array('need' => array('کشمش'), 'ban' => array('در حال ساخت')),
+			'/about/'                              => array('need' => array('نیشابور'), 'ban' => array()),
+			'/contact/'                            => array('need' => array('hamyarline'), 'ban' => array()),
+		);
+		$host = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : 'alookhor.ir';
 		$base = (is_ssl() ? 'https://' : 'http://') . $host;
 		$audit = array();
 		$method = 'domain';
 		$all_err = true;
-		foreach ($urls as $u) {
+		foreach ($checks as $u => $c) {
 			$r = @wp_remote_get($base . $u, array('timeout' => 8, 'redirection' => 5));
 			$code = (int) wp_remote_retrieve_response_code($r);
 			$audit[$u] = $code ? $code : 'ERR';
 			if ($code) {
 				$all_err = false;
 			}
-			if ($u === '/?product=keshmesh-poloei-talaei-momtaz') {
-				$body = (string) wp_remote_retrieve_body($r);
-				$audit['_pdp_price_390k'] = (strpos($body, '۳۹۰') !== false || strpos($body, '390') !== false);
-				$audit['_pdp_has_toman'] = (strpos($body, 'تومان') !== false);
+			$body = (string) wp_remote_retrieve_body($r);
+			if ($code >= 200 && $code < 300 && $body !== '') {
+				$fail = array();
+				foreach ((array) $c['need'] as $n) {
+					if (strpos($body, $n) === false) {
+						$fail[] = 'missing:' . $n;
+					}
+				}
+				foreach ((array) $c['ban'] as $b) {
+					if (strpos($body, $b) !== false) {
+						$fail[] = 'banned:' . $b;
+					}
+				}
+				if ($fail) {
+					$audit[$u] = $code . ' CONTENT-FAIL[' . implode('|', $fail) . ']';
+				}
 			}
-			if ($u === '/') {
-				$body = (string) wp_remote_retrieve_body($r);
-				$audit['_home_no_rial_symbol'] = (strpos($body, '﷼') === false);
-				$audit['_home_persian_price'] = (strpos($body, '۳۹') !== false || strpos($body, '390') !== false);
-			}
+		}
+		// home bestsellers price style: dot-separators must be gone.
+		$home_r = @wp_remote_get($base . '/', array('timeout' => 8, 'redirection' => 5));
+		$home_body = (string) wp_remote_retrieve_body($home_r);
+		if ($home_body !== '') {
+			$audit['_home_dot_separator_gone'] = (preg_match('/\p{N}\.\p{N}{3}(?!\p{N})/u', $home_body) === 0);
+			$audit['_home_price_range_present'] = (strpos($home_body, '٬') !== false);
+			$audit['_home_stock_leak_gone'] = (strpos($home_body, 'فروخته‌شده') === false);
+			$audit['_home_countdown_gone'] = (strpos($home_body, 'abs-timer') === false);
 		}
 		if ($all_err) {
 			$method = 'loopback';
 			$base = 'http://127.0.0.1';
 			$audit = array();
-			foreach ($urls as $u) {
+			foreach (array_keys($checks) as $u) {
 				$r = @wp_remote_get($base . $u, array('timeout' => 8, 'headers' => array('Host' => $host)));
 				$code = (int) wp_remote_retrieve_response_code($r);
 				$audit[$u] = $code ? $code : 'ERR';
@@ -1013,7 +1354,6 @@ add_action('template_redirect', function () {
 		$audit['_method'] = $method;
 		$report['audit'] = $audit;
 	}
-
 	header('Content-Type: application/json; charset=utf-8');
 	echo json_encode($report, JSON_UNESCAPED_UNICODE);
 	exit;
