@@ -1,6 +1,6 @@
 <?php
 /**
- * ALOOKHOR One-Click Setup — v5.1 (rescue + final fix)
+ * ALOOKHOR One-Click Setup — v5.2 (final — rescue + full completion)
  * ---------------------------------------------
  * Supersedes v5. Why v5.1 exists:
  *   v5 wrote its portal template INTO wp-content/mu-plugins/. WordPress
@@ -24,7 +24,12 @@
  *   5. Writes the portal template (front page + about + contact) to
  *      wp-content/uploads/alookhor-portal/ — a location that is NEVER
  *      auto-included — with a bootstrap guard, swapped in via template_include.
- *   6. Status endpoint (?alookhor_v5=TOKEN) + finish=1 self-disable (no-op).
+ *   6. Repairs seeded product prices via the plugin's own
+ *      alookhor_cc_heal_seeded_prices() (the live ﷼0 price bug).
+ *   7. Guarantees the blog page the primary menu links to (/blog/):
+ *      finds an existing magazine/blog page or creates one with the
+ *      [alookhor_magazine] stack.
+ *   8. Status endpoint (?alookhor_v5=TOKEN) + finish=1 self-disable (no-op).
  *
  * Same token as v5, so the original URLs still work.
  * Safety: rescue is idempotent (marker checks); repair runs once (option flag).
@@ -223,6 +228,8 @@ function alookhor_v51_repair()
 		'header_fixed'         => false,
 		'cc_restored'          => false,
 		'hero_images_repaired' => false,
+		'prices_healed'        => null,
+		'blog_page'            => null,
 		'template'             => false,
 	);
 
@@ -317,6 +324,51 @@ function alookhor_v51_repair()
 	// 3) portal template (safe location).
 	$log['template'] = alookhor_v51_write_template();
 
+	// 4) seeded product prices: the live store showed ﷼0 because the
+	//    variable parents lost their _price sync. The plugin ships its
+	//    own one-time healer — use it (forced so it runs now).
+	if (function_exists('alookhor_cc_heal_seeded_prices')) {
+		$pr = alookhor_cc_heal_seeded_prices(true);
+		$log['prices_healed'] = is_array($pr)
+			? array('scanned' => (int) ($pr['scanned'] ?? 0),
+				'healed' => count((array) ($pr['healed'] ?? array())),
+				'still_broken' => count((array) ($pr['still_broken'] ?? array())),
+				'skipped' => isset($pr['skipped']) ? (string) $pr['skipped'] : null)
+			: $pr;
+	}
+
+	// 5) blog page: the primary menu links to /blog/ — make sure a page
+	//    owns that slug (adopt an existing magazine/blog page if any,
+	//    otherwise create one rendering the magazine stack).
+	$blog = get_page_by_path('blog', OBJECT, 'page');
+	if (!$blog) {
+		foreach (array('مجله آلوخور', 'مجله', 'Blog', 'بلاگ') as $t) {
+			$cand = get_page_by_title($t, OBJECT, 'page');
+			if ($cand) {
+				$blog = $cand;
+				break;
+			}
+		}
+	}
+	if ($blog) {
+		if (($blog->post_name ?? '') !== 'blog') {
+			wp_update_post(array('ID' => (int) $blog->ID, 'post_name' => 'blog'));
+			$log['blog_page'] = 'adopted-' . (int) $blog->ID;
+		} else {
+			$log['blog_page'] = 'exists-' . (int) $blog->ID;
+		}
+	} else {
+		$bid = wp_insert_post(array(
+			'post_type' => 'page',
+			'post_status' => 'publish',
+			'post_title' => 'مجله آلوخور',
+			'post_name' => 'blog',
+			'post_content' => '[alookhor_magazine]',
+		));
+		$log['blog_page'] = $bid ? 'created-' . (int) $bid : 'FAILED';
+	}
+	update_option('rewrite_rules', '');
+
 	update_option(ALOOKHOR_V51_DONE_OPT, $log);
 	return $log;
 }
@@ -372,14 +424,14 @@ add_action('template_redirect', function () {
 		$noop = "<?php\n// ALOOKHOR one-click setup v5.1 — completed successfully at " . date('c') . ".\n// This file is now intentionally a no-op (keeps the mu-plugins slot clean).\n";
 		@file_put_contents(__FILE__, $noop, LOCK_EX);
 		header('Content-Type: application/json; charset=utf-8');
-		echo json_encode(array('ok' => true, 'msg' => 'v5.1 disabled, site is clean'));
+		echo json_encode(array('ok' => true, 'msg' => 'v5.2 disabled, site is clean'));
 		exit;
 	}
 	$h = get_option('alookhor_header_settings');
 	$cs = get_option('alookhor_cc_settings');
 	$report = array(
 		'ok' => true,
-		'version' => 'v5.1',
+		'version' => 'v5.2',
 		'cc_version' => defined('ALOOKHOR_CC_VERSION') ? ALOOKHOR_CC_VERSION : 'MISSING',
 		'php' => PHP_VERSION,
 		'done_log' => get_option(ALOOKHOR_V51_DONE_OPT, array()),
