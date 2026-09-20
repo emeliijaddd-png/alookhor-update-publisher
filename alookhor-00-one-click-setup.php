@@ -147,6 +147,22 @@ define('ALOOKHOR_V51_DONE_OPT', 'alookhor_v51_done');
 define('ALOOKHOR_V53_DONE_OPT', 'alookhor_v53_done');
 define('ALOOKHOR_V53_TEMPLATE', WP_CONTENT_DIR . '/uploads/alookhor-portal/alookhor-cc-portal-template.php');
 
+/* V. NO-CACHE for generated responses — the v5.4 content self-heals
+   (watchdog repairs reverted pages on every request). A stale
+   browser/edge copy of a page would otherwise keep showing the
+   reverted (placeholder) HTML long after the DB is fixed. Small
+   catalog: correctness beats cache speed. Static assets (served
+   directly by the web server) are unaffected. */
+add_action('send_headers', function () {
+	if (is_admin() || (defined('REST_REQUEST') && REST_REQUEST)
+		|| (defined('DOING_AJAX') && DOING_AJAX) || (defined('XMLRPC_REQUEST') && XMLRPC_REQUEST)) {
+		return;
+	}
+	header('Cache-Control: no-cache, must-revalidate');
+	header('Pragma: no-cache');
+	header('Expires: 0');
+}, 5);
+
 /* ------------------------------------------------------------------ *
  * RESCUE (v5.2) — must run at file scope, BEFORE any broken mu-plugin
  * file is included. 'alookhor-00-*' sorts first in mu-plugins load.
@@ -822,7 +838,24 @@ function alookhor_v53_repair()
 	} else {
 		$existing = (string) @file_get_contents($hta);
 		if ($hta_has_catchall($existing)) {
-			$log['htaccess'] = 'ok-catchall';
+			if (strpos($existing, '<IfModule LiteSpeed>') === false) {
+				/* Merge the LiteSpeed no-cache block into the existing file
+				   (preserves the WP block + cPanel handler lines). Without
+				   this, the suite's earlier "ok-catchall" skip meant the
+				   block was never deployed and the server kept serving
+				   stale full-page HTML for hours. */
+				if (!is_file($hta . '.alookhor-bak')) {
+					@copy($hta, $hta . '.alookhor-bak');
+				}
+				$merged = $existing . "\n<IfModule LiteSpeed>\n"
+					. "# ALOOKHOR: content self-heals (watchdog); never serve stale HTML\n"
+					. "RewriteRule .* - [E=\"Cache-Control:no-cache, must-revalidate\"]\n"
+					. "</IfModule>\n";
+				$ok = @file_put_contents($hta, $merged, LOCK_EX);
+				$log['htaccess'] = ($ok !== false) ? 'ok-catchall+lscache-merged' : 'ok-catchall+merge-FAILED';
+			} else {
+				$log['htaccess'] = 'ok-catchall';
+			}
 		} else {
 			// preserve every line outside the (possibly empty) WP block
 			$kept = array();
