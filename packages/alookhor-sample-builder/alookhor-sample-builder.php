@@ -2,10 +2,11 @@
 /**
  * Plugin Name: ALOOKHOR Sample Builder
  * Description: ایجاد ۵ محصول نمونه کامل فروشگاهی (دسته‌بندی سلسله‌مراتبی، ویژگی وزن و درجه، ۳۰ تنوع قیمت، گالری تصاویر، موجودی، تعداد فروش و نظرات نمونه) برای فروشگاه آلوخور.
- * Version: 1.0.0
+ * Version: 1.1.0
  * Author: ALOOKHOR
  * License: GPLv2 or later
  * Text Domain: alookhor-sample-builder
+ * Update URI: https://raw.githubusercontent.com/emeliijaddd-png/alookhor-update-publisher/arena/01a0a537-alookhor-update-publisher/packages/updates/update.json
  *
  * Requires at least: 5.8
  * WC requires at least: 5.0
@@ -17,10 +18,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'ASB_VERSION', '1.0.0' );
+define( 'ASB_VERSION', '1.1.0' );
 define( 'ASB_OPTION_CREATED', 'asb_created_data' );
 define( 'ASB_OPTION_LOG', 'asb_last_log' );
 define( 'ASB_OPTION_PENDING', 'asb_pending_build' );
+define( 'ASB_SLUG', 'alookhor-sample-builder' );
+define( 'ASB_BASENAME', plugin_basename( __FILE__ ) );
+define( 'ASB_OPTION_VERSION', 'asb_version' );
+define(
+	'ASB_UPDATE_URL',
+	'https://raw.githubusercontent.com/emeliijaddd-png/alookhor-update-publisher/arena/01a0a537-alookhor-update-publisher/packages/updates/update.json'
+);
 
 /* =========================================================================
  * 1) داده‌های محصولات (منبع واحد حقیقت)
@@ -1205,6 +1213,22 @@ function asb_render_admin_page() {
 			asb_delete_all();
 			$notice = 'همه داده‌های ساخته‌شده حذف شدند.';
 			$type   = 'success';
+		} elseif ( 'checkupdate' === $action ) {
+			delete_site_transient( 'update_plugins' );
+			if ( function_exists( 'wp_update_plugins' ) ) {
+				wp_update_plugins();
+			}
+			$remote = asb_fetch_manifest();
+			if ( is_wp_error( $remote ) ) {
+				$notice = 'بررسی به‌روزرسانی ناموفق بود: ' . $remote->get_error_message();
+				$type   = 'error';
+			} elseif ( version_compare( ASB_VERSION, $remote->version, '<' ) ) {
+				$notice = 'نسخه جدید ' . $remote->version . ' موجود است. به صفحه «افزونه‌ها» بروید و روی «به‌روزرسانی حالا» بزنید.';
+				$type   = 'success';
+			} else {
+				$notice = 'شما از آخرین نسخه استفاده می‌کنید (' . ASB_VERSION . '). تغییر جدیدی منتشر نشده است.';
+				$type   = 'success';
+			}
 		} elseif ( 'clearlog' === $action ) {
 			delete_option( ASB_OPTION_LOG );
 			$notice = 'گزارش پاک شد.';
@@ -1225,6 +1249,8 @@ function asb_render_admin_page() {
 
 	echo '<div class="wrap" dir="rtl">';
 	echo '<h1 style="font-weight:700;">داده‌های نمونه فروشگاه آلوخور</h1>';
+	echo '<p style="color:#646970;">نسخه نصب‌شده: <strong>' . esc_html( ASB_VERSION ) . '</strong>'
+		. ' &nbsp;|&nbsp; روش به‌روزرسانی: <strong>پیشخوان › افزونه‌ها › به‌روزرسانی حالا</strong></p>';
 
 	if ( $notice ) {
 		$bg = 'success' === $type ? '#edfaef' : ( 'error' === $type ? '#fbeaea' : '#eef6ff' );
@@ -1268,6 +1294,7 @@ function asb_render_admin_page() {
 		array( 'key' => 'reviews', 'label' => 'ایجاد نظرات نمونه خریداران', 'style' => 'secondary', 'desc' => '۱۵ نظر نمونه با امتیاز — پیش از انتشار با نظرات واقعی جایگزین کنید' ),
 		array( 'key' => 'menu', 'label' => 'افزودن دسته‌ها به منوی اصلی', 'style' => 'secondary', 'desc' => 'دسته‌های آلو، گردو، توت خشک، برگه هلو و لواشک' ),
 		array( 'key' => 'delete', 'label' => 'حذف همه داده‌های ساخته‌شده', 'style' => 'link-delete', 'desc' => 'فقط مواردی که این ابزار ساخته است حذف می‌شوند' ),
+		array( 'key' => 'checkupdate', 'label' => 'بررسی فوری به‌روزرسانی', 'style' => 'secondary', 'desc' => 'نسخه جدید را همین الان از مخزن بررسی کن (بدون انتظار ۱۲ ساعته)' ),
 	);
 
 	echo '<div style="display:flex;flex-direction:column;gap:12px;max-width:760px;margin-top:24px;">';
@@ -1310,7 +1337,179 @@ function asb_render_admin_page() {
 }
 
 /* =========================================================================
- * 11) خروجی CSV الگو (برای ساخت سریع بقیه محصولات)
+/* =========================================================================
+ * 11) به‌روزرسانی خودکار افزونه (از طریق دکمه «به‌روزرسانی» در پیشخوان)
+ * ========================================================================= */
+
+/**
+ * دریافت فایل معرف نسخه از مخزن.
+ */
+function asb_fetch_manifest() {
+	$response = wp_remote_get(
+		ASB_UPDATE_URL,
+		array(
+			'timeout' => 20,
+			'headers' => array( 'Accept' => 'application/json' ),
+		)
+	);
+
+	if ( is_wp_error( $response ) ) {
+		return $response;
+	}
+
+	$code = (int) wp_remote_retrieve_response_code( $response );
+	if ( 200 !== $code ) {
+		return new WP_Error( 'asb_http', 'کد پاسخ سرور: ' . $code );
+	}
+
+	$body = wp_remote_retrieve_body( $response );
+	$data = json_decode( $body );
+
+	if ( ! $data || empty( $data->version ) || empty( $data->package ) ) {
+		return new WP_Error( 'asb_json', 'فایل معرف نسخه معتبر نبود.' );
+	}
+
+	return $data;
+}
+
+/**
+ * تزریق نسخه جدید به بررسی به‌روزرسانی‌های وردپرس.
+ */
+function asb_update_transient( $transient ) {
+	if ( ! is_object( $transient ) ) {
+		return $transient;
+	}
+
+	$remote = asb_fetch_manifest();
+	if ( is_wp_error( $remote ) ) {
+		return $transient;
+	}
+
+	if ( version_compare( ASB_VERSION, $remote->version, '<' ) ) {
+		$item = array(
+			'id'          => ASB_SLUG,
+			'slug'        => ASB_SLUG,
+			'plugin'      => ASB_BASENAME,
+			'new_version' => $remote->version,
+			'url'         => isset( $remote->homepage ) ? $remote->homepage : '',
+			'package'     => $remote->package,
+			'tested'      => isset( $remote->tested ) ? $remote->tested : '',
+			'requires'    => isset( $remote->requires ) ? $remote->requires : '',
+			'icons'       => array(),
+			'banners'     => array(),
+		);
+		$transient->response[ ASB_BASENAME ] = (object) $item;
+	} elseif ( isset( $transient->response[ ASB_BASENAME ] ) ) {
+		unset( $transient->response[ ASB_BASENAME ] );
+	}
+
+	return $transient;
+}
+add_filter( 'site_transient_update_plugins', 'asb_update_transient' );
+
+/**
+ * پشتیبانی از مسیر Update URI در وردپرس ۵.۸ به بالا.
+ */
+function asb_update_by_hostname( $update, $plugin_data, $plugin_file ) {
+	if ( ASB_BASENAME !== $plugin_file ) {
+		return $update;
+	}
+
+	$remote = asb_fetch_manifest();
+	if ( is_wp_error( $remote ) ) {
+		return $update;
+	}
+
+	if ( version_compare( ASB_VERSION, $remote->version, '<' ) ) {
+		return array(
+			'id'          => ASB_SLUG,
+			'slug'        => ASB_SLUG,
+			'plugin'      => ASB_BASENAME,
+			'new_version' => $remote->version,
+			'url'         => isset( $remote->homepage ) ? $remote->homepage : '',
+			'package'     => $remote->package,
+		);
+	}
+
+	return $update;
+}
+
+$asb_manifest_host = wp_parse_url( ASB_UPDATE_URL, PHP_URL_HOST );
+if ( ! empty( $asb_manifest_host ) ) {
+	add_filter( 'update_plugins_' . $asb_manifest_host, 'asb_update_by_hostname', 10, 3 );
+}
+
+/**
+ * نمایش توضیحات در پنجره «نمایش جزئیات».
+ */
+function asb_plugins_api( $result, $action, $args ) {
+	if ( 'plugin_information' !== $action ) {
+		return $result;
+	}
+	if ( empty( $args->slug ) || ASB_SLUG !== $args->slug ) {
+		return $result;
+	}
+
+	$remote = asb_fetch_manifest();
+	if ( is_wp_error( $remote ) ) {
+		return $result;
+	}
+
+	$info              = new stdClass();
+	$info->name        = 'ALOOKHOR Sample Builder';
+	$info->slug        = ASB_SLUG;
+	$info->version     = $remote->version;
+	$info->requires    = isset( $remote->requires ) ? $remote->requires : '';
+	$info->tested      = isset( $remote->tested ) ? $remote->tested : '';
+	$info->download_link = $remote->package;
+	$info->homepage    = isset( $remote->homepage ) ? $remote->homepage : '';
+	$info->sections    = array(
+		'description' => 'سازنده داده‌های نمونه فروشگاه آلوخور. این افزونه از طریق مخزن گیت‌هاب به‌روزرسانی می‌شود.',
+		'changelog'   => isset( $remote->changelog ) ? $remote->changelog : 'تغییرات اعلام نشده است.',
+	);
+
+	return $info;
+}
+add_filter( 'plugins_api', 'asb_plugins_api', 20, 3 );
+
+/**
+ * پاک کردن حافظه نهان پس از نصب نسخه جدید.
+ */
+function asb_after_upgrade( $upgrader, $options ) {
+	if ( empty( $options['type'] ) || 'plugin' !== $options['type'] ) {
+		return;
+	}
+	if ( empty( $options['action'] ) || 'update' !== $options['action'] ) {
+		return;
+	}
+	if ( empty( $options['plugins'] ) ) {
+		return;
+	}
+	foreach ( (array) $options['plugins'] as $plugin ) {
+		if ( ASB_BASENAME === $plugin ) {
+			delete_site_transient( 'update_plugins' );
+		}
+	}
+}
+add_action( 'upgrader_process_complete', 'asb_after_upgrade', 10, 2 );
+
+/**
+ * اجرای تغییرات داده‌ای هر نسخه پس از به‌روزرسانی.
+ */
+function asb_maybe_upgrade() {
+	$installed = (string) get_option( ASB_OPTION_VERSION, '0' );
+
+	if ( version_compare( $installed, ASB_VERSION, '>=' ) ) {
+		return;
+	}
+
+	asb_log( 'نسخه افزونه از ' . $installed . ' به ' . ASB_VERSION . ' ارتقا یافت.' );
+	update_option( ASB_OPTION_VERSION, ASB_VERSION, false );
+}
+add_action( 'admin_init', 'asb_maybe_upgrade' );
+
+/* =========================================================================
+ * 12) خروجی CSV الگو (برای ساخت سریع بقیه محصولات)
  * ========================================================================= */
 
 /**
@@ -1412,7 +1611,7 @@ function asb_export_csv() {
 add_action( 'admin_post_asb_csv', 'asb_export_csv' );
 
 /* =========================================================================
- * 12) فعال‌سازی خودکار
+ * 13) فعال‌سازی خودکار
  * ========================================================================= */
 
 function asb_activate() {
@@ -1420,6 +1619,7 @@ function asb_activate() {
 		update_option( ASB_OPTION_PENDING, 1, false );
 		return;
 	}
+	update_option( ASB_OPTION_VERSION, ASB_VERSION, false );
 	$result = asb_build_products();
 	if ( is_wp_error( $result ) ) {
 		asb_log( 'خطا در فعال‌سازی: ' . $result->get_error_message() );
