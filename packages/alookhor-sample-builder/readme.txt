@@ -4,7 +4,7 @@ Tags: woocommerce, sample data, products, alookhor
 Requires at least: 5.8
 Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 1.3.0
+Stable tag: 1.4.0
 License: GPLv2 or later
 
 سازنده داده‌های نمونه فروشگاه آلوخور — ۵ محصول کامل به‌عنوان الگو برای ساخت بقیه محصولات.

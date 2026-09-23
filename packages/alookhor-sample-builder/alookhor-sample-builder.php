@@ -2,7 +2,7 @@
 /**
  * Plugin Name: ALOOKHOR Sample Builder
  * Description: ایجاد ۵ محصول نمونه کامل فروشگاهی (دسته‌بندی سلسله‌مراتبی، ویژگی وزن و درجه، ۳۰ تنوع قیمت، گالری تصاویر، موجودی، تعداد فروش و نظرات نمونه) برای فروشگاه آلوخور.
- * Version: 1.3.0
+ * Version: 1.4.0
  * Author: ALOOKHOR
  * License: GPLv2 or later
  * Text Domain: alookhor-sample-builder
@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'ASB_VERSION', '1.3.0' );
+define( 'ASB_VERSION', '1.4.0' );
 define( 'ASB_OPTION_CREATED', 'asb_created_data' );
 define( 'ASB_OPTION_LOG', 'asb_last_log' );
 define( 'ASB_OPTION_PENDING', 'asb_pending_build' );
@@ -1569,29 +1569,72 @@ add_action( 'wp_head', 'asb_frontend_fix_css', 999 );
  * 13) تصاویر اختصاصی اسلایدر صفحه اصلی (جایگزینی یک‌کلیکه)
  * ========================================================================= */
 
+function asb_hero_banner_base() {
+	return 'https://raw.githubusercontent.com/emeliijaddd-png/alookhor-update-publisher/arena/01a0a537-alookhor-update-publisher/packages/alookhor-sample-builder/assets/hero/';
+}
+
 function asb_hero_files() {
+	$base = asb_hero_banner_base();
+
 	return array(
 		array(
 			'file' => 'slide-1-plums.jpg',
+			'url'  => $base . 'slide-1-plums.jpg',
 			'alt'  => 'آلو بخارا ممتاز خراسان - خشکبار صادراتی آلوخور',
 			'stem' => 'hero-slide-1',
 		),
 		array(
 			'file' => 'slide-2-dried-fruit.jpg',
+			'url'  => $base . 'slide-2-dried-fruit.jpg',
 			'alt'  => 'آلو خشک طبیعی و برگه میوه‌های خشک ممتاز آلوخور',
 			'stem' => 'hero-slide-2',
 		),
 		array(
 			'file' => 'slide-3-packaging.jpg',
+			'url'  => $base . 'slide-3-packaging.jpg',
 			'alt'  => 'بسته‌بندی حرفه‌ای و صادراتی خشکبار آلوخور',
 			'stem' => 'hero-slide-3',
 		),
 		array(
 			'file' => 'slide-4-wholesale.jpg',
+			'url'  => $base . 'slide-4-wholesale.jpg',
 			'alt'  => 'تأمین عمده آلو و خشکبار برای کسب‌وکارها - آلوخور',
 			'stem' => 'hero-slide-4',
 		),
 	);
+}
+
+/**
+ * مسیر فایل تصویر: اگر همراه افزونه باشد همان، وگرنه از اینترنت گرفته می‌شود.
+ */
+function asb_hero_resolve_image( $item ) {
+	$local = plugin_dir_path( __FILE__ ) . 'assets/hero/' . $item['file'];
+
+	if ( file_exists( $local ) ) {
+		return $local;
+	}
+
+	if ( empty( $item['url'] ) ) {
+		return '';
+	}
+
+	require_once ABSPATH . 'wp-admin/includes/file.php';
+
+	$tmp = download_url( $item['url'] );
+
+	if ( is_wp_error( $tmp ) ) {
+		asb_log( 'خطا در دریافت تصویر از اینترنت: ' . $item['file'] . ' — ' . $tmp->get_error_message() );
+		return '';
+	}
+
+	$target = $tmp . '.jpg';
+
+	if ( ! @rename( $tmp, $target ) ) {
+		@copy( $tmp, $target );
+		@unlink( $tmp );
+	}
+
+	return file_exists( $target ) ? $target : '';
 }
 
 function asb_cc_option_key() {
@@ -1618,18 +1661,23 @@ function asb_hero_apply() {
 		$settings['hero_settings']['slides'] = array();
 	}
 
-	$dir  = plugin_dir_path( __FILE__ ) . 'assets/hero/';
 	$done = 0;
 
 	foreach ( asb_hero_files() as $index => $item ) {
-		$src = $dir . $item['file'];
+		$src = asb_hero_resolve_image( $item );
 
-		if ( ! file_exists( $src ) ) {
-			asb_log( 'تصویر هیرو یافت نشد: ' . $item['file'] );
+		if ( ! $src ) {
+			asb_log( 'تصویر هیرو در دسترس نبود: ' . $item['file'] );
 			continue;
 		}
 
 		$attach_id = asb_attachment_from_file( $src, $item['alt'], $item['stem'], 0, false );
+
+		// پاک کردن فایل موقتِ دانلودشده
+		$local = plugin_dir_path( __FILE__ ) . 'assets/hero/' . $item['file'];
+		if ( $src !== $local && file_exists( $src ) ) {
+			@unlink( $src );
+		}
 
 		if ( ! $attach_id ) {
 			asb_log( 'خطا در بارگذاری تصویر هیرو: ' . $item['file'] );

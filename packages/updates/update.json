@@ -1,13 +1,14 @@
 {
   "name": "ALOOKHOR Sample Builder",
   "slug": "alookhor-sample-builder",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "package": "https://raw.githubusercontent.com/emeliijaddd-png/alookhor-update-publisher/arena/01a0a537-alookhor-update-publisher/packages/updates/alookhor-sample-builder.zip",
   "download_url": "https://raw.githubusercontent.com/emeliijaddd-png/alookhor-update-publisher/arena/01a0a537-alookhor-update-publisher/packages/updates/alookhor-sample-builder.zip",
+  "source": "https://raw.githubusercontent.com/emeliijaddd-png/alookhor-update-publisher/arena/01a0a537-alookhor-update-publisher/packages/alookhor-sample-builder/alookhor-sample-builder.php",
   "homepage": "https://github.com/emeliijaddd-png/alookhor-update-publisher",
   "requires": "5.8",
   "tested": "6.8",
   "requires_php": "7.4",
-  "last_updated": "2026-09-23 13:30:00",
-  "changelog": "نسخه ۱.۳.۰: ۴ بنر اختصاصی اسلایدر (۲.۴:۱، سوژه در چپ و فضای متن در راست) + نصب و بازگشت یک‌کلیکه + متن جایگزین فارسی."
+  "last_updated": "2026-09-23 14:00:00",
+  "changelog": "نسخه ۱.۴.۰: دریافت بنرها از راه دور (امکان نصب تک‌فایله) + پشتیبانی از نصب خودکار."
 }
