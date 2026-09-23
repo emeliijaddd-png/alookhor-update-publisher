@@ -1,0 +1,39 @@
+{
+  "name": "ALOOKHOR Control Center",
+  "version": "3.10.386",
+  "download_url": "https://raw.githubusercontent.com/emeliijaddd-png/alookhor-update-publisher/arena/01a0a537-alookhor-update-publisher/packages/cc-release/alookhor-control-center.zip",
+  "details_url": "https://github.com/emeliijaddd-png/alookhor-update-publisher",
+  "sha256": "9fb473980982a74a23ba5eee11e3d3335bcb81918120d3fbe5379db95c2fe166",
+  "requires": "6.0",
+  "tested": "6.8",
+  "requires_php": "8.0",
+  "author": "ALOOKHOR Team",
+  "description": "کنترل سنتر لوکس و ماژولار ALOOKHOR",
+  "changelog": [
+    {
+      "tag": "NEW",
+      "title": "بنرهای اختصاصی اسلایدر",
+      "desc": "۴ بنر عریض ۲.۴:۱ با کیفیت بالا و ترکیب‌بندی «سوژه در چپ، فضای متن در راست» جایگزین تصاویر کوچک قبلی شد."
+    },
+    {
+      "tag": "FIX",
+      "title": "هم‌ترازی قاب اسلایدر",
+      "desc": "عرض قاب از 100vw به 100% تغییر کرد؛ قاب دیگر با هدر و بخش‌های صفحه هم‌تراز است و کناره‌هایش بریده نمی‌شود."
+    },
+    {
+      "tag": "FIX",
+      "title": "پوشش کامل تصویر در قاب",
+      "desc": "جابجایی افقی تصویر حذف شد؛ هر اسلاید اکنون تمام عرض قاب را می‌پوشاند و نوار خالی ندارد."
+    },
+    {
+      "tag": "SEO",
+      "title": "تگ H1 و متن جایگزین",
+      "desc": "عنوان اسلاید اول به H1 تبدیل شد و متن جایگزین فارسی برای هر ۴ بنر تنظیم شد."
+    },
+    {
+      "tag": "UPDATE",
+      "title": "کانال به‌روزرسانی",
+      "desc": "سامانه به‌روزرسانی به مخزن رسمی متصل شد؛ نسخه‌های بعدی از همین بخش دریافت می‌شوند."
+    }
+  ]
+}
