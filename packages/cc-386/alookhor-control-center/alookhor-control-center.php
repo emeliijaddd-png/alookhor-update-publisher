@@ -16,8 +16,8 @@
 
 if (!defined('ABSPATH')) exit;
 
-define('ALOOKHOR_CC_VERSION', '3.10.387');
-define('ALOOKHOR_CC_BUILD', '3.10.387');
+define('ALOOKHOR_CC_VERSION', '3.10.388');
+define('ALOOKHOR_CC_BUILD', '3.10.388');
 define('ALOOKHOR_CC_FILE', __FILE__);
 define('ALOOKHOR_CC_DIR', plugin_dir_path(__FILE__));
 define('ALOOKHOR_CC_URL', plugin_dir_url(__FILE__));

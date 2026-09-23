@@ -1,9 +1,9 @@
 {
   "name": "ALOOKHOR Control Center",
-  "version": "3.10.387",
+  "version": "3.10.388",
   "download_url": "https://raw.githubusercontent.com/emeliijaddd-png/alookhor-update-publisher/arena/01a0a537-alookhor-update-publisher/packages/cc-release/alookhor-control-center.zip",
   "details_url": "https://github.com/emeliijaddd-png/alookhor-update-publisher",
-  "sha256": "c87fa80f0e89ec8eb5e81973459a6db215a4a9bb3448664a8cd3f8bf9693be30",
+  "sha256": "d8315691ae37bdaba966abd279522f36f084ddd459f465d857d8a49503c2d0ab",
   "requires": "6.0",
   "tested": "6.8",
   "requires_php": "8.0",
@@ -12,13 +12,18 @@
   "changelog": [
     {
       "tag": "FIX",
-      "title": "رفع آیکن‌های بزرگ و به‌هم‌ریختگی سربرگ",
-      "desc": "استایل اصلی سربرگ (frontend-header.css) پیش‌تر فقط در یک حالت بارگذاری می‌شد؛ اکنون در همه حالت‌ها بارگذاری می‌شود تا آیکن‌ها همیشه با اندازه و رنگ درست نمایش داده شوند."
+      "title": "رفع گیرکردن بررسی به‌روزرسانی",
+      "desc": "پاسخِ بررسی به‌روزرسانی ۶ ساعت در حافظه سرور می‌ماند و نسخه جدید را نشان نمی‌داد؛ عمر حافظه به ۳۰ دقیقه رسید و هر بار باز شدن مرکز به‌روزرسانی، نتیجه تازه گرفته می‌شود."
+    },
+    {
+      "tag": "NEW",
+      "title": "دکمه بررسی مجدد",
+      "desc": "دکمه «بررسی مجدد» به پنجره به‌روزرسانی اضافه شد تا هر زمان بخواهید، آخرین نسخه را بی‌درنگ بگیرید."
     },
     {
       "tag": "UPDATE",
-      "title": "نخستین به‌روزرسانی از کانال خود افزونه",
-      "desc": "این نخستین نسخه‌ای است که از مسیر دکمه به‌روزرسانی خودِ مرکز کنترل نصب می‌شود."
+      "title": "مسیر کمکی دانلود",
+      "desc": "اگر سرور شما به مخزن اصلی متصل نشود، نسخه از یک آینه دوم دریافت می‌شود."
     }
   ]
 }
