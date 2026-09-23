@@ -197,7 +197,7 @@ add_filter('upgrader_pre_download', function($reply, $package, $upgrader, $hook_
     if (false !== $reply || !is_string($package)) return $reply;
 
     $package_host = strtolower((string) wp_parse_url($package, PHP_URL_HOST));
-    $allowed_hosts = array_map('strtolower', (array) apply_filters('alookhor_cc_update_allowed_hosts', ['updates.alookhor.ir', 'raw.githubusercontent.com']));
+    $allowed_hosts = array_map('strtolower', (array) apply_filters('alookhor_cc_update_allowed_hosts', ['updates.alookhor.ir']));
     if (!in_array($package_host, $allowed_hosts, true)) return $reply;
 
     $plugin = $hook_extra['plugin'] ?? '';
