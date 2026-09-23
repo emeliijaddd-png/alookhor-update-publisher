@@ -2,7 +2,7 @@
 /**
  * Plugin Name: ALOOKHOR Sample Builder
  * Description: ایجاد ۵ محصول نمونه کامل فروشگاهی (دسته‌بندی سلسله‌مراتبی، ویژگی وزن و درجه، ۳۰ تنوع قیمت، گالری تصاویر، موجودی، تعداد فروش و نظرات نمونه) برای فروشگاه آلوخور.
- * Version: 1.2.0
+ * Version: 1.3.0
  * Author: ALOOKHOR
  * License: GPLv2 or later
  * Text Domain: alookhor-sample-builder
@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'ASB_VERSION', '1.2.0' );
+define( 'ASB_VERSION', '1.3.0' );
 define( 'ASB_OPTION_CREATED', 'asb_created_data' );
 define( 'ASB_OPTION_LOG', 'asb_last_log' );
 define( 'ASB_OPTION_PENDING', 'asb_pending_build' );
@@ -562,7 +562,7 @@ function asb_find_source_images() {
 	return $found;
 }
 
-function asb_attachment_from_file( $src_path, $title, $latin_stem, $parent_id ) {
+function asb_attachment_from_file( $src_path, $title, $latin_stem, $parent_id, $record = true ) {
 	if ( ! file_exists( $src_path ) || ! is_readable( $src_path ) ) {
 		return 0;
 	}
@@ -608,7 +608,9 @@ function asb_attachment_from_file( $src_path, $title, $latin_stem, $parent_id ) 
 		wp_update_attachment_metadata( $attach_id, $metadata );
 	}
 
-	asb_record( 'attachments', array( $attach_id ) );
+	if ( $record ) {
+		asb_record( 'attachments', array( $attach_id ) );
+	}
 
 	return (int) $attach_id;
 }
@@ -1213,6 +1215,14 @@ function asb_render_admin_page() {
 			asb_delete_all();
 			$notice = 'همه داده‌های ساخته‌شده حذف شدند.';
 			$type   = 'success';
+		} elseif ( 'heroapply' === $action ) {
+			$done   = asb_hero_apply();
+			$notice = 'تعداد ' . (int) $done . ' بنر اختصاصی روی اسلایدر صفحه اصلی نصب شد.';
+			$type   = $done > 0 ? 'success' : 'error';
+		} elseif ( 'herorestore' === $action ) {
+			$done   = asb_hero_restore();
+			$notice = $done ? 'تنظیمات اسلایدر به حالت قبلی بازگردانده شد.' : 'پشتیبانی برای بازگشت وجود ندارد.';
+			$type   = $done ? 'success' : 'error';
 		} elseif ( 'fxoff' === $action ) {
 			update_option( 'asb_frontend_fix', '0', false );
 			$notice = 'اصلاح‌های ظاهری غیرفعال شد.';
@@ -1302,6 +1312,8 @@ function asb_render_admin_page() {
 		array( 'key' => 'reviews', 'label' => 'ایجاد نظرات نمونه خریداران', 'style' => 'secondary', 'desc' => '۱۵ نظر نمونه با امتیاز — پیش از انتشار با نظرات واقعی جایگزین کنید' ),
 		array( 'key' => 'menu', 'label' => 'افزودن دسته‌ها به منوی اصلی', 'style' => 'secondary', 'desc' => 'دسته‌های آلو، گردو، توت خشک، برگه هلو و لواشک' ),
 		array( 'key' => 'delete', 'label' => 'حذف همه داده‌های ساخته‌شده', 'style' => 'link-delete', 'desc' => 'فقط مواردی که این ابزار ساخته است حذف می‌شوند' ),
+		array( 'key' => 'heroapply', 'label' => 'نصب بنرهای اختصاصی اسلایدر', 'style' => 'primary', 'desc' => '۴ بنر عریض ۲.۴:۱ باکیفیت (سوژه در چپ، فضای متن در راست) جایگزین تصاویر فعلی می‌شود' ),
+		array( 'key' => 'herorestore', 'label' => 'بازگشت به تصاویر قبلی اسلایدر', 'style' => 'secondary', 'desc' => 'اگر از بنرهای جدید خوشتان نیامد، با یک کلیک به حالت قبل برمی‌گردد' ),
 		array( 'key' => ( asb_frontend_fix_enabled() ? 'fxoff' : 'fxon' ), 'label' => ( asb_frontend_fix_enabled() ? 'غیرفعال کردن اصلاح‌های ظاهری' : 'فعال کردن اصلاح‌های ظاهری' ), 'style' => 'secondary', 'desc' => 'هم‌ترازی قاب اسلایدر و پوشش کامل تصویر در صفحه اصلی' ),
 		array( 'key' => 'checkupdate', 'label' => 'بررسی فوری به‌روزرسانی', 'style' => 'secondary', 'desc' => 'نسخه جدید را همین الان از مخزن بررسی کن (بدون انتظار ۱۲ ساعته)' ),
 	);
@@ -1553,7 +1565,124 @@ CSS;
 add_action( 'wp_head', 'asb_frontend_fix_css', 999 );
 
 /* =========================================================================
- * 13) خروجی CSV الگو (برای ساخت سریع بقیه محصولات)
+/* =========================================================================
+ * 13) تصاویر اختصاصی اسلایدر صفحه اصلی (جایگزینی یک‌کلیکه)
+ * ========================================================================= */
+
+function asb_hero_files() {
+	return array(
+		array(
+			'file' => 'slide-1-plums.jpg',
+			'alt'  => 'آلو بخارا ممتاز خراسان - خشکبار صادراتی آلوخور',
+			'stem' => 'hero-slide-1',
+		),
+		array(
+			'file' => 'slide-2-dried-fruit.jpg',
+			'alt'  => 'آلو خشک طبیعی و برگه میوه‌های خشک ممتاز آلوخور',
+			'stem' => 'hero-slide-2',
+		),
+		array(
+			'file' => 'slide-3-packaging.jpg',
+			'alt'  => 'بسته‌بندی حرفه‌ای و صادراتی خشکبار آلوخور',
+			'stem' => 'hero-slide-3',
+		),
+		array(
+			'file' => 'slide-4-wholesale.jpg',
+			'alt'  => 'تأمین عمده آلو و خشکبار برای کسب‌وکارها - آلوخور',
+			'stem' => 'hero-slide-4',
+		),
+	);
+}
+
+function asb_cc_option_key() {
+	return defined( 'ALOOKHOR_CC_OPTION' ) ? ALOOKHOR_CC_OPTION : 'alookhor_cc_settings';
+}
+
+/**
+ * جایگزینی تصاویر اسلایدر با بنرهای اختصاصی (با پشتیبان برای بازگشت).
+ */
+function asb_hero_apply() {
+	$option_key = asb_cc_option_key();
+	$settings   = get_option( $option_key, array() );
+
+	if ( ! is_array( $settings ) ) {
+		$settings = array();
+	}
+
+	update_option( 'asb_hero_backup', $settings, false );
+
+	if ( ! isset( $settings['hero_settings'] ) || ! is_array( $settings['hero_settings'] ) ) {
+		$settings['hero_settings'] = array();
+	}
+	if ( ! isset( $settings['hero_settings']['slides'] ) || ! is_array( $settings['hero_settings']['slides'] ) ) {
+		$settings['hero_settings']['slides'] = array();
+	}
+
+	$dir  = plugin_dir_path( __FILE__ ) . 'assets/hero/';
+	$done = 0;
+
+	foreach ( asb_hero_files() as $index => $item ) {
+		$src = $dir . $item['file'];
+
+		if ( ! file_exists( $src ) ) {
+			asb_log( 'تصویر هیرو یافت نشد: ' . $item['file'] );
+			continue;
+		}
+
+		$attach_id = asb_attachment_from_file( $src, $item['alt'], $item['stem'], 0, false );
+
+		if ( ! $attach_id ) {
+			asb_log( 'خطا در بارگذاری تصویر هیرو: ' . $item['file'] );
+			continue;
+		}
+
+		$url = wp_get_attachment_url( $attach_id );
+
+		if ( ! isset( $settings['hero_settings']['slides'][ $index ] ) || ! is_array( $settings['hero_settings']['slides'][ $index ] ) ) {
+			$settings['hero_settings']['slides'][ $index ] = array();
+		}
+
+		$settings['hero_settings']['slides'][ $index ]['image_id']   = (int) $attach_id;
+		$settings['hero_settings']['slides'][ $index ]['image_url']  = $url ? $url : '';
+		$settings['hero_settings']['slides'][ $index ]['image_alt']  = $item['alt'];
+		$settings['hero_settings']['slides'][ $index ]['flip_image'] = false;
+
+		$done++;
+	}
+
+	update_option( $option_key, $settings );
+
+	global $wpdb;
+	$wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name LIKE '\\_transient\\_alookhor%' OR option_name LIKE '\\_transient\\_timeout\\_alookhor%'" );
+
+	asb_log( 'تصاویر اختصاصی اسلایدر جایگزین شدند: ' . $done . ' مورد' );
+
+	return $done;
+}
+
+/**
+ * بازگرداندن تنظیمات هیرو به حالت قبل از جایگزینی.
+ */
+function asb_hero_restore() {
+	$backup = get_option( 'asb_hero_backup', null );
+
+	if ( ! is_array( $backup ) ) {
+		return 0;
+	}
+
+	update_option( asb_cc_option_key(), $backup );
+	delete_option( 'asb_hero_backup' );
+
+	global $wpdb;
+	$wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name LIKE '\\_transient\\_alookhor%' OR option_name LIKE '\\_transient\\_timeout\\_alookhor%'" );
+
+	asb_log( 'تنظیمات اسلایدر به حالت قبلی بازگردانده شد.' );
+
+	return 1;
+}
+
+/* =========================================================================
+ * 14) خروجی CSV الگو (برای ساخت سریع بقیه محصولات)
  * ========================================================================= */
 
 /**
@@ -1655,7 +1784,7 @@ function asb_export_csv() {
 add_action( 'admin_post_asb_csv', 'asb_export_csv' );
 
 /* =========================================================================
- * 14) فعال‌سازی خودکار
+ * 15) فعال‌سازی خودکار
  * ========================================================================= */
 
 function asb_activate() {
