@@ -2,7 +2,7 @@
 /**
  * Plugin Name: ALOOKHOR Sample Builder
  * Description: ایجاد ۵ محصول نمونه کامل فروشگاهی (دسته‌بندی سلسله‌مراتبی، ویژگی وزن و درجه، ۳۰ تنوع قیمت، گالری تصاویر، موجودی، تعداد فروش و نظرات نمونه) برای فروشگاه آلوخور.
- * Version: 1.1.0
+ * Version: 1.2.0
  * Author: ALOOKHOR
  * License: GPLv2 or later
  * Text Domain: alookhor-sample-builder
@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'ASB_VERSION', '1.1.0' );
+define( 'ASB_VERSION', '1.2.0' );
 define( 'ASB_OPTION_CREATED', 'asb_created_data' );
 define( 'ASB_OPTION_LOG', 'asb_last_log' );
 define( 'ASB_OPTION_PENDING', 'asb_pending_build' );
@@ -1213,6 +1213,14 @@ function asb_render_admin_page() {
 			asb_delete_all();
 			$notice = 'همه داده‌های ساخته‌شده حذف شدند.';
 			$type   = 'success';
+		} elseif ( 'fxoff' === $action ) {
+			update_option( 'asb_frontend_fix', '0', false );
+			$notice = 'اصلاح‌های ظاهری غیرفعال شد.';
+			$type   = 'success';
+		} elseif ( 'fxon' === $action ) {
+			update_option( 'asb_frontend_fix', '1', false );
+			$notice = 'اصلاح‌های ظاهری فعال شد.';
+			$type   = 'success';
 		} elseif ( 'checkupdate' === $action ) {
 			delete_site_transient( 'update_plugins' );
 			if ( function_exists( 'wp_update_plugins' ) ) {
@@ -1294,6 +1302,7 @@ function asb_render_admin_page() {
 		array( 'key' => 'reviews', 'label' => 'ایجاد نظرات نمونه خریداران', 'style' => 'secondary', 'desc' => '۱۵ نظر نمونه با امتیاز — پیش از انتشار با نظرات واقعی جایگزین کنید' ),
 		array( 'key' => 'menu', 'label' => 'افزودن دسته‌ها به منوی اصلی', 'style' => 'secondary', 'desc' => 'دسته‌های آلو، گردو، توت خشک، برگه هلو و لواشک' ),
 		array( 'key' => 'delete', 'label' => 'حذف همه داده‌های ساخته‌شده', 'style' => 'link-delete', 'desc' => 'فقط مواردی که این ابزار ساخته است حذف می‌شوند' ),
+		array( 'key' => ( asb_frontend_fix_enabled() ? 'fxoff' : 'fxon' ), 'label' => ( asb_frontend_fix_enabled() ? 'غیرفعال کردن اصلاح‌های ظاهری' : 'فعال کردن اصلاح‌های ظاهری' ), 'style' => 'secondary', 'desc' => 'هم‌ترازی قاب اسلایدر و پوشش کامل تصویر در صفحه اصلی' ),
 		array( 'key' => 'checkupdate', 'label' => 'بررسی فوری به‌روزرسانی', 'style' => 'secondary', 'desc' => 'نسخه جدید را همین الان از مخزن بررسی کن (بدون انتظار ۱۲ ساعته)' ),
 	);
 
@@ -1509,7 +1518,42 @@ function asb_maybe_upgrade() {
 add_action( 'admin_init', 'asb_maybe_upgrade' );
 
 /* =========================================================================
- * 12) خروجی CSV الگو (برای ساخت سریع بقیه محصولات)
+/* =========================================================================
+ * 12) بهبودهای ظاهری صفحه اصلی (قابل خاموش کردن)
+ * ========================================================================= */
+
+function asb_frontend_fix_enabled() {
+	return '1' === (string) get_option( 'asb_frontend_fix', '1' );
+}
+
+/**
+ * اصلاح دو ایراد واقعیِ اسلایدر صفحه اصلی:
+ *  ۱) عرض 100vw باعث می‌شد قاب هیرو با بقیه بخش‌ها هم‌تراز نباشد و کناره‌هایش
+ *     بریده شود (چون 100vw عرض نوار اسکرول را هم حساب می‌کند).
+ *  ۲) جابجایی افقی تصویر (translateX) در اسلایدهای برگردانده‌شده باعث می‌شد
+ *     حدود ۳۰٪ سمت راست قاب خالی بماند و تصویر تمامِ عرض قاب را نگیرد.
+ */
+function asb_frontend_fix_css() {
+	if ( is_admin() || ! asb_frontend_fix_enabled() ) {
+		return;
+	}
+
+	$css = <<<'CSS'
+.alookhor-mh{width:100%!important;max-width:100%!important;margin-left:0!important;margin-right:0!important}
+.alookhor-mh-media{overflow:hidden!important}
+.alookhor-mh-media img{display:block!important;width:100%!important;height:100%!important;min-width:100%!important;min-height:100%!important;max-width:none!important;object-fit:cover!important}
+.alookhor-mh-slide.is-image-flipped .alookhor-mh-media img{transform:scale(1.02)!important}
+.alookhor-mh[data-ken-burns="1"] .alookhor-mh-slide.is-active .alookhor-mh-media img{transform:scale(1.06)!important}
+.alookhor-mh[data-ken-burns="1"] .alookhor-mh-slide.is-active.is-image-flipped .alookhor-mh-media img{transform:scale(1.06)!important}
+@media(prefers-reduced-motion:reduce){.alookhor-mh-media img{transform:none!important}}
+CSS;
+
+	echo "\n" . '<style id="asb-frontend-fix">' . "\n" . $css . "\n" . '</style>' . "\n";
+}
+add_action( 'wp_head', 'asb_frontend_fix_css', 999 );
+
+/* =========================================================================
+ * 13) خروجی CSV الگو (برای ساخت سریع بقیه محصولات)
  * ========================================================================= */
 
 /**
@@ -1611,7 +1655,7 @@ function asb_export_csv() {
 add_action( 'admin_post_asb_csv', 'asb_export_csv' );
 
 /* =========================================================================
- * 13) فعال‌سازی خودکار
+ * 14) فعال‌سازی خودکار
  * ========================================================================= */
 
 function asb_activate() {
