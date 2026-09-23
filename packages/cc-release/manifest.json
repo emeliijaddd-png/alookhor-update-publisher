@@ -1,9 +1,9 @@
 {
   "name": "ALOOKHOR Control Center",
-  "version": "3.10.386",
+  "version": "3.10.387",
   "download_url": "https://raw.githubusercontent.com/emeliijaddd-png/alookhor-update-publisher/arena/01a0a537-alookhor-update-publisher/packages/cc-release/alookhor-control-center.zip",
   "details_url": "https://github.com/emeliijaddd-png/alookhor-update-publisher",
-  "sha256": "db61977502466f25b6d62fdb4f620f66e83564d92f0751685e6b41bd8120f2ec",
+  "sha256": "c87fa80f0e89ec8eb5e81973459a6db215a4a9bb3448664a8cd3f8bf9693be30",
   "requires": "6.0",
   "tested": "6.8",
   "requires_php": "8.0",
@@ -11,29 +11,14 @@
   "description": "کنترل سنتر لوکس و ماژولار ALOOKHOR",
   "changelog": [
     {
-      "tag": "NEW",
-      "title": "بنرهای اختصاصی اسلایدر",
-      "desc": "۴ بنر عریض ۲.۴:۱ با کیفیت بالا و ترکیب‌بندی «سوژه در چپ، فضای متن در راست»."
-    },
-    {
       "tag": "FIX",
-      "title": "هم‌ترازی قاب اسلایدر",
-      "desc": "عرض قاب از 100vw به 100% تغییر کرد؛ با هدر و بخش‌های صفحه هم‌تراز شد."
-    },
-    {
-      "tag": "FIX",
-      "title": "پوشش کامل تصویر در قاب",
-      "desc": "جابجایی افقی حذف شد؛ هر اسلاید تمام عرض قاب را می‌پوشاند."
-    },
-    {
-      "tag": "SEO",
-      "title": "تگ H1 و متن جایگزین",
-      "desc": "عنوان اسلاید اول به H1 تبدیل شد و متن جایگزین فارسی برای هر ۴ بنر تنظیم شد."
+      "title": "رفع آیکن‌های بزرگ و به‌هم‌ریختگی سربرگ",
+      "desc": "استایل اصلی سربرگ (frontend-header.css) پیش‌تر فقط در یک حالت بارگذاری می‌شد؛ اکنون در همه حالت‌ها بارگذاری می‌شود تا آیکن‌ها همیشه با اندازه و رنگ درست نمایش داده شوند."
     },
     {
       "tag": "UPDATE",
-      "title": "کانال به‌روزرسانی",
-      "desc": "سامانه به‌روزرسانی به مخزن رسمی متصل شد."
+      "title": "نخستین به‌روزرسانی از کانال خود افزونه",
+      "desc": "این نخستین نسخه‌ای است که از مسیر دکمه به‌روزرسانی خودِ مرکز کنترل نصب می‌شود."
     }
   ]
 }
