@@ -2,8 +2,10 @@
 
 import sys
 import unittest
+from io import BytesIO
 from pathlib import Path
 from unittest.mock import patch
+from urllib.error import HTTPError
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import diagnose_production as diagnosis
@@ -38,6 +40,18 @@ class DiagnosticTests(unittest.TestCase):
         self.assertEqual(summary['manifest']['curl_code'], 28)
         self.assertNotIn('SECRET', str(summary))
         self.assertNotIn('PRIVATE', str(summary))
+
+    def test_auth_error_exposes_only_safe_wp_code(self):
+        class Opener:
+            def open(self, *args, **kwargs):
+                body = b'{"code":"application_passwords_invalid_password","message":"SECRET value"}'
+                raise HTTPError(diagnosis.PRIVATE_IDENTITY, 401, 'Unauthorized', {}, BytesIO(body))
+
+        with patch.object(diagnosis, 'build_opener', return_value=Opener()):
+            result = diagnosis.fetch_json(diagnosis.PRIVATE_IDENTITY, ('publisher', 'secret'))
+        self.assertEqual(result['wp_error_code'], 'application_passwords_invalid_password')
+        self.assertNotIn('SECRET', str(result))
+        self.assertNotIn('publisher', str(result))
 
     def test_no_password_skips_private_probe(self):
         with patch.object(diagnosis, 'fetch_json', return_value={'http': 404, 'error': 'http_error'}) as fetch:

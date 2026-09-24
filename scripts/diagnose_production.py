@@ -26,6 +26,12 @@ PRIVATE_IDENTITY = SITE + '/wp-json/wp/v2/users/me?context=edit'
 CHANNEL = 'https://updates.alookhor.ir/manifest.json'
 MIRROR = 'https://raw.githubusercontent.com/emeliijaddd-png/alookhor-update-publisher/main/public/manifest.json'
 ALLOWED_HOSTS = {'alookhor.ir', 'updates.alookhor.ir', 'raw.githubusercontent.com'}
+SAFE_WP_ERRORS = {
+    'rest_not_logged_in', 'rest_forbidden', 'alookhor_rest_forbidden',
+    'incorrect_password', 'invalid_username', 'application_passwords_disabled',
+    'application_passwords_invalid_password', 'application_passwords_invalid_user',
+    'invalid_application_password',
+}
 MAX_BODY = 256 * 1024
 
 
@@ -81,7 +87,15 @@ def fetch_json(url, auth=None):
             payload = json.loads(data)
             return {'http': response.status, 'data': payload if isinstance(payload, dict) else {}}
     except HTTPError as exc:
-        return {'http': exc.code, 'error': 'http_error'}
+        result = {'http': exc.code, 'error': 'http_error'}
+        if parsed.hostname == 'alookhor.ir':
+            try:
+                body = json.loads(exc.read(4096))
+                if isinstance(body, dict) and body.get('code') in SAFE_WP_ERRORS:
+                    result['wp_error_code'] = body['code']
+            except (OSError, ValueError, UnicodeError):
+                pass
+        return result
     except URLError as exc:
         return {'http': None, 'error': error_type(exc.reason)}
     except (ValueError, UnicodeError):
@@ -94,6 +108,8 @@ def public_summary(result, version_key='version'):
     summary = {'http': result.get('http')}
     if 'error' in result:
         summary['error'] = result['error']
+    if 'wp_error_code' in result:
+        summary['wp_error_code'] = result['wp_error_code']
     if result.get('http') == 200:
         version = result.get('data', {}).get(version_key)
         if isinstance(version, str) and re.fullmatch(r'\d+\.\d+\.\d+', version):
