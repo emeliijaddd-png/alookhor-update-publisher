@@ -63,3 +63,29 @@ add_filter('rest_post_dispatch', function ($response) {
     $response->header('X-LiteSpeed-Cache-Control', 'no-cache');
     return $response;
 }, 5, 1);
+
+/**
+ * دفاع فعال: هر ساعت، نسخه‌های کش‌شدهٔ صفحات حساس را از LiteSpeed پاک می‌کنیم.
+ * علت: هدرهای ضدکش فقط وقتی اعمال می‌شوند که PHP اجرا شود؛ نسخهٔ قدیمیِ کش‌شده
+ * بدون اجرای PHP سرو می‌شد و همه «سبد خالیِ قدیمی» را می‌دیدند.
+ */
+add_action('init', function () {
+    $last = (int)get_option('alookhor_cc_ls_purge_ts', 0);
+    if (time() - $last < 3600) return;
+    update_option('alookhor_cc_ls_purge_ts', time(), false);
+    if (!function_exists('do_action')) return;
+    $urls = [];
+    if (function_exists('wc_get_cart_url'))      $urls[] = wc_get_cart_url();
+    if (function_exists('wc_get_checkout_url'))  $urls[] = wc_get_checkout_url();
+    if (function_exists('wc_get_page_permalink')) {
+        $urls[] = wc_get_page_permalink('myaccount');
+    }
+    $urls[] = home_url('/cart/');
+    $urls[] = home_url('/checkout/');
+    $urls[] = home_url('/my-account/');
+    $urls   = array_unique(array_filter($urls));
+    foreach ($urls as $u) {
+        do_action('litespeed_purge_url', $u);
+    }
+    do_action('litespeed_purge_all_esi');
+}, 999);
