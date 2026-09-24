@@ -25,19 +25,59 @@
 if (!defined('ABSPATH')) exit;
 
 /**
- * آیا تنظیمات هیرو هنوز بنرهای موقت ۳۸۶ را نشان می‌دهند؟
+ * استخراج مسیر فعلیِ سالم اسلایدها — همان چیزی که کاربر «مثل قبل» یادش می‌آید:
+ * تصاویر category-* داخل خود افزونه (روی لایو همین‌ها قبل از ۳۸۶ کار می‌کردند).
+ */
+function alookhor_cc_hero_good_slide_images(){
+    return [
+        'https://alookhor.ir/wp-content/plugins/alookhor-control-center/assets/images/category-plums.jpg',
+        'https://alookhor.ir/wp-content/plugins/alookhor-control-center/assets/images/category-fruit-sheets.jpg',
+        'https://alookhor.ir/wp-content/plugins/alookhor-control-center/assets/images/category-natural-snacks.jpg',
+        'https://alookhor.ir/wp-content/plugins/alookhor-control-center/assets/images/category-nuts.jpg',
+    ];
+}
+
+/**
+ * آیا نشانی تصویر اسلاید «خراب/قفل‌شده» است؟ (اعم از بنرهای ۳۸۶ یا محتویات حذف‌شده categories-manager)
+ */
+function alookhor_cc_slide_image_is_broken($url){
+    $url = (string)$url;
+    if ($url === '') return false;
+    if (strpos($url, '/wp-content/plugins/alookhor-control-center/assets/images/hero/slide-') !== false) return true;
+    if (strpos($url, '/wp-content/plugins/alookhor-categories-manager/') !== false) return true;
+    return false;
+}
+
+/**
+ * آیا تنظیمات هیرو تصاویر خراب/مرده دارد؟
  */
 function alookhor_cc_hero_has_386_banners($hero_settings){
     if (!is_array($hero_settings) || empty($hero_settings['slides']) || !is_array($hero_settings['slides'])) {
         return false;
     }
     foreach ($hero_settings['slides'] as $slide) {
-        $url = is_array($slide) ? (string)($slide['image_url'] ?? '') : '';
-        if ($url !== '' && strpos($url, '/wp-content/plugins/alookhor-control-center/assets/images/hero/slide-') !== false) {
+        if (is_array($slide) && alookhor_cc_slide_image_is_broken($slide['image_url'] ?? '')) {
             return true;
         }
     }
     return false;
+}
+
+/**
+ * بازگرداندن نشانی‌های سالم به اسلایدهای موجود؛ متن‌ها و ترتیب دست‌نخورده می‌مانند.
+ */
+function alookhor_cc_repair_hero_slide_images(array $hero_settings){
+    if (empty($hero_settings['slides']) || !is_array($hero_settings['slides'])) return $hero_settings;
+    $good = alookhor_cc_hero_good_slide_images();
+    foreach ($hero_settings['slides'] as $i => $slide) {
+        if (!is_array($slide)) continue;
+        $url = (string)($slide['image_url'] ?? '');
+        if (alookhor_cc_slide_image_is_broken($url)) {
+            $hero_settings['slides'][$i]['image_url'] = $good[$i] ?? $good[0];
+            $hero_settings['slides'][$i]['image_id']  = 0;
+        }
+    }
+    return $hero_settings;
 }
 
 /**
@@ -84,13 +124,24 @@ function alookhor_cc_restore_home_391(){
     $saved = get_option(ALOOKHOR_CC_OPTION, []);
     if (!is_array($saved)) $saved = [];
     if (alookhor_cc_hero_has_386_banners($saved['hero_settings'] ?? null)) {
+        if (isset($saved['hero_settings']) && is_array($saved['hero_settings'])) {
+            $saved['hero_settings'] = alookhor_cc_repair_hero_slide_images($saved['hero_settings']);
+        }
+        // همچنین پیش‌فرض‌های ماژول را روی نشانی‌های درست بازنشانی کن تا
+        // هیچ لایه‌ای دیگر نشانی‌های مرده را تزریق نکند.
         $defaults = function_exists('alookhor_cc_get_default_settings')
             ? alookhor_cc_get_default_settings()
             : [];
         if (is_array($defaults) && !empty($defaults['hero_settings']) && is_array($defaults['hero_settings'])) {
-            $saved['hero_settings'] = $defaults['hero_settings'];
-            update_option(ALOOKHOR_CC_OPTION, $saved);
+            $repaired_defaults = alookhor_cc_repair_hero_slide_images($defaults['hero_settings']);
+            // فقط جاهای خالی/ناموجود را با پیش‌فرض ترمیم‌کن:
+            foreach ($repaired_defaults as $dk => $dv) {
+                if (!isset($saved['hero_settings'][$dk])) {
+                    $saved['hero_settings'][$dk] = $dv;
+                }
+            }
         }
+        update_option(ALOOKHOR_CC_OPTION, $saved);
     }
 
     // ۳) پر کردن مقادیر خالی سربرگ با مقادیر اصلی سایت (فقط جاهای خالی)
