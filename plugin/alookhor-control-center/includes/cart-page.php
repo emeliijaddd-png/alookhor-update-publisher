@@ -1,5 +1,5 @@
 <?php
-/** ALOOKHOR Custom Cart Page — single WooCommerce Store API renderer. */
+/** ALOOKHOR Custom Cart Page — native WooCommerce session cart renderer. */
 if (!defined('ABSPATH')) exit;
 
 function alookhor_cc_cart_is_page(){ return function_exists('is_cart') && is_cart(); }
