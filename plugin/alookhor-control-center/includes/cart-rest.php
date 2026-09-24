@@ -52,7 +52,7 @@ function alookhor_cc_cart_payload() {
             'variation' => $variation,
             'image' => wp_get_attachment_image_url($product->get_image_id(), 'woocommerce_thumbnail') ?: wc_placeholder_img_src(),
             'price' => (float) wc_get_price_to_display($product),
-            'line_total' => (float) WC()->cart->get_product_subtotal($product, (int) ($item['quantity'] ?? 1), false),
+            'line_total' => (float) wc_get_price_to_display($product, ['qty' => (int) ($item['quantity'] ?? 1)]),
         ];
     }
 
