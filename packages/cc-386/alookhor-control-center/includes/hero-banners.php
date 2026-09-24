@@ -84,12 +84,13 @@ function alookhor_cc_repair_hero_slide_images(array $hero_settings){
  * آیا بازیابی قبلاً با موفقیت کامل شد؟
  */
 function alookhor_cc_restore_needed_391(){
-    // فیلدهای کلیدی سربرگ خالی‌اند؟
+    // فیلدهای کلیدی سربرگ خالی/غیرفعال‌اند؟
     $header = get_option(ALOOKHOR_CC_HEADER_OPTION, []);
     $header_broken = !is_array($header)
         || empty($header['whatsapp'])
         || empty($header['email'])
-        || empty($header['wholesale_url']);
+        || empty($header['wholesale_url'])
+        || empty($header['enabled']); // هدر شیشه‌ای AKX فقط با enabled فعال رندر می‌شود
 
     // اسلایدها هنوز بنرهای ۳۸۶ هستند؟
     $saved = get_option(ALOOKHOR_CC_OPTION, []);
@@ -162,6 +163,17 @@ function alookhor_cc_restore_home_391(){
             $header[$key] = $value;
             $changed = true;
         }
+    }
+    // v3.10.392: هدر شیشه‌ای اصلی AKX فقط با enabled فعال رندر می‌شود؛
+    // مرجع ظاهری کاربر همین هدر است و باید همیشه روشن باشد.
+    if (empty($header['enabled'])) {
+        $header['enabled'] = true;
+        $changed = true;
+    }
+    // مپ کردن شماره واتساپ به کلید AKX تا دایرکت در هدر شیشه‌ای نمایش داده شود.
+    if (empty($header['whatsapp_number']) && !empty($header['whatsapp'])) {
+        $header['whatsapp_number'] = preg_replace('/\D+/', '', (string) $header['whatsapp']);
+        $changed = true;
     }
     if ($changed) update_option(ALOOKHOR_CC_HEADER_OPTION, $header);
 

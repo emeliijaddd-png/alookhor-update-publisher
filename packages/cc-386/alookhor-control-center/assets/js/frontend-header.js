@@ -164,8 +164,20 @@
     });
   }
 
+  function cleanDuplicateReferenceHeader(scope=document){
+    if(document.querySelector('.alookhor-portal-header')){
+      scope.querySelectorAll?.('.alookhor-header-wrapper').forEach(node=>{node.hidden=true;node.setAttribute('aria-hidden','true')});
+    }
+    const root=scope===document?document.body:scope;
+    if(!root)return;
+    const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);
+    const nodes=[];while(walker.nextNode())nodes.push(walker.currentNode);
+    nodes.forEach(node=>{if(/\[\s*alookhor_premium_header\s*\]/i.test(node.nodeValue||''))node.nodeValue=(node.nodeValue||'').replace(/\[\s*alookhor_premium_header\s*\]/ig,'')});
+  }
+
   function initAll(scope = document) {
     injectMegaMenuStyles();
+    cleanDuplicateReferenceHeader(scope);
     scope.querySelectorAll('.alookhor-portal-header').forEach(initHeader);
   }
 
