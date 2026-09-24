@@ -31,11 +31,11 @@ function render(){
 function renderSummary(){
  const r=q(ROOT),t=state.totals||{},v=k=>(Number(t[k])||0)/100;if(!r)return;
  const rows=qa('.summary-row .value',r);
- if(rows[0])rows[0].textContent=fa(v('total_items'))+' تومان';
- if(rows[1])rows[1].textContent=fa(v('total_discount'))+' تومان';
- if(rows[2])rows[2].textContent=v('total_shipping')?fa(v('total_shipping'))+' تومان':'رایگان';
- const total=q('.summary-total .value',r);if(total)total.textContent=fa(v('total_price'))+' تومان';
- const mobile=q('.mobile-checkout',r);if(mobile)mobile.setAttribute('aria-label','ادامه تا تسویه‌حساب؛ '+fa(v('total_price'))+' تومان');
+ if(rows[0])rows[0].textContent=fa(v('subtotal'))+' تومان';
+ if(rows[1])rows[1].textContent=fa(v('discount_total'))+' تومان';
+ if(rows[2])rows[2].textContent=v('shipping_total')?fa(v('shipping_total'))+' تومان':'رایگان';
+ const total=q('.summary-total .value',r);if(total)total.textContent=fa(v('total'))+' تومان';
+ const mobile=q('.mobile-checkout',r);if(mobile)mobile.setAttribute('aria-label','ادامه تا تسویه‌حساب؛ '+fa(v('total'))+' تومان');
 }
 function syncCount(n){qa('.wd-cart-number,.ak-cart-badge,.alookhor-header-cart-count,.cart-count,[data-cart-count]').forEach(el=>{el.textContent=fp(n);el.style.display=n?'':'none';});}
 async function load(){
