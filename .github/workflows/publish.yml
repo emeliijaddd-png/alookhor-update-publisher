@@ -10,7 +10,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: alookhor-production-publisher
+  group: alookhor-production-publisher-${{ github.ref }}-${{ github.run_id }}
   cancel-in-progress: false
 
 jobs:
