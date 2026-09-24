@@ -2,8 +2,7 @@ name: Build and Publish ALOOKHOR Release
 
 on:
   push:
-    # TEMPORARY read-only diagnosis for this exact branch; remove after one run.
-    branches: [main, 'arena/01a0d253-alookhor-update-publisher']
+    branches: [main]
     tags: ['v*.*.*']
   workflow_dispatch:
 
@@ -18,7 +17,7 @@ jobs:
   # A push to main only builds and checks. Production publication requires a
   # deliberate matching version tag and passing package + live-version gates.
   build:
-    if: github.event_name == 'push' && github.ref != 'refs/heads/arena/01a0d253-alookhor-update-publisher'
+    if: github.event_name == 'push'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -48,8 +47,7 @@ jobs:
   # This diagnostic is strictly read-only. Credentials, if configured, are
   # used only for GET /wp/v2/users/me and GET /alookhor-cc/v1/status.
   diagnose:
-    # The branch push can ONLY run GET probes, after the required review.
-    if: github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && github.ref == 'refs/heads/arena/01a0d253-alookhor-update-publisher')
+    if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     environment: production-diagnostics
     timeout-minutes: 5
