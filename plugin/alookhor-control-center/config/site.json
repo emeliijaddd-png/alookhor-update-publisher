@@ -8,11 +8,21 @@
     "goldAccent": "#D49A2E"
   },
   "modules": {
-    "header": {"enabled": true},
-    "product_categories": {"enabled": true},
-    "footer": {"enabled": true},
-    "hero": {"enabled": true},
-    "site_features": {"enabled": true}
+    "header": {
+      "enabled": true
+    },
+    "product_categories": {
+      "enabled": true
+    },
+    "footer": {
+      "enabled": true
+    },
+    "hero": {
+      "enabled": true
+    },
+    "site_features": {
+      "enabled": true
+    }
   },
   "header_settings": {
     "logo_text": "آلوخور",
@@ -42,5 +52,5 @@
     "export_text": "ارسال رایگان به بیش از ۱۵ کشور جهان",
     "support_text": "پشتیبانی ۲۴/۷"
   },
-  "version": "3.10.387"
+  "version": "3.10.400"
 }
