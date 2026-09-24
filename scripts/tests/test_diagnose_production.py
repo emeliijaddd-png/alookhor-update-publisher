@@ -84,6 +84,25 @@ class DiagnosticTests(unittest.TestCase):
         self.assertNotIn('secret', diagnosis.annotation_summary(report))
         self.assertNotIn('publisher', diagnosis.annotation_summary(report))
 
+    def test_successful_wp_auth_does_not_hide_legacy_publisher_failure(self):
+        report = {
+            'repository_release': '3.10.387',
+            'site': {'http': 200, 'version': '3.10.391'},
+            'update_channel': {'http': 404},
+            'github_mirror': {'http': 200, 'version': '3.10.385'},
+            'wordpress_auth': {'http': 200, 'update_plugins': True},
+            'wordpress': {'http': 200, 'version': '3.10.391', 'active': True,
+                          'manifest_host': 'raw.githubusercontent.com',
+                          'manifest': {'ok': True, 'version': '3.10.392',
+                                       'package_host': 'raw.githubusercontent.com'}},
+        }
+        self.assertEqual(diagnosis.publisher_mismatch_reasons(report), [
+            'legacy_public_channel_not_http_200', 'repository_source_differs_from_live'
+        ])
+        self.assertIn('job fails even when WordPress auth works', diagnosis.render_summary(report))
+        self.assertIn('"legacy_alignment_errors"', diagnosis.annotation_summary(report))
+        self.assertNotIn('legacy_public_channel_not_http_200', str(report['wordpress_auth']))
+
 
 if __name__ == '__main__':
     unittest.main()

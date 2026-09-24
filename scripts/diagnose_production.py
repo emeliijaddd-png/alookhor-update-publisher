@@ -186,14 +186,26 @@ def run_probe(env=None):
     return report
 
 
+def publisher_mismatch_reasons(report):
+    """Legacy publisher warnings; these do NOT indicate bad WP credentials."""
+    reasons = []
+    if report['update_channel'].get('http') != 200:
+        reasons.append('legacy_public_channel_not_http_200')
+    if report['site'].get('version') != report['repository_release']:
+        reasons.append('repository_source_differs_from_live')
+    return reasons
+
+
 def render_summary(report):
     lines = ['## ALOOKHOR read-only production diagnostic', '',
-             '> GitHub runner probes are NOT proof of outbound connectivity from the WordPress host.',
+             '> Public GitHub runner probes are NOT proof of outbound connectivity from the WordPress host.',
+             '> Only the authenticated WordPress status can report its configured manifest fetch.',
              '> No installation, settings change, or credential disclosure was performed.', '',
              f"- Repository release: `{report['repository_release']}`",
              f"- Live public plugin version: `{report['site'].get('version', 'unavailable')}`",
-             f"- Public update manifest: HTTP `{report['update_channel'].get('http', 'network error')}`",
-             f"- GitHub mirror manifest: version `{report['github_mirror'].get('version', 'unavailable')}`", '']
+             f"- Legacy public update manifest: HTTP `{report['update_channel'].get('http', 'network error')}`",
+             f"- Main-branch GitHub mirror manifest: version `{report['github_mirror'].get('version', 'unavailable')}`",
+             f"- Legacy publisher mismatch (job fails even when WordPress auth works): `{json.dumps(publisher_mismatch_reasons(report))}`", '']
     wp = report['wordpress']
     if wp.get('state') == 'not_authenticated':
         lines.append('WordPress authenticated status: not checked; add the named GitHub Actions secrets and rerun.')
@@ -215,6 +227,7 @@ def annotation_summary(report):
         'github_mirror': report['github_mirror'],
         'wordpress_auth': report['wordpress_auth'],
         'wordpress': wp,
+        'legacy_alignment_errors': publisher_mismatch_reasons(report),
     }, ensure_ascii=False, separators=(',', ':'))
 
 
@@ -231,9 +244,9 @@ def main():
     if os.environ.get('GITHUB_STEP_SUMMARY'):
         with open(os.environ['GITHUB_STEP_SUMMARY'], 'a', encoding='utf-8') as stream:
             stream.write(render_summary(report))
-    # A missing public manifest or a version ahead of the tracked source is a
-    # diagnostic failure, not a reason to install the repository package.
-    return 0 if report['update_channel'].get('http') == 200 and report['site'].get('version') == report['repository_release'] else 1
+    # Fail when the legacy publisher is out of sync; this does not mean the
+    # WordPress login or its separately configured manifest fetch failed.
+    return 1 if publisher_mismatch_reasons(report) else 0
 
 
 if __name__ == '__main__':
