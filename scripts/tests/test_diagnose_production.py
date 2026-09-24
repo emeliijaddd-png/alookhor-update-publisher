@@ -61,6 +61,8 @@ class DiagnosticTests(unittest.TestCase):
         self.assertNotIn('secret', str(report))
         self.assertNotIn('publisher', str(report))
         self.assertNotIn('secret', diagnosis.render_summary(report))
+        self.assertNotIn('secret', diagnosis.annotation_summary(report))
+        self.assertNotIn('publisher', diagnosis.annotation_summary(report))
 
 
 if __name__ == '__main__':

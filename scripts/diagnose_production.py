@@ -108,15 +108,19 @@ def private_summary(result):
     summary['active'] = data.get('active') is True
     configured_url = data.get('manifest_url', '')
     if isinstance(configured_url, str):
-        summary['manifest_host'] = urlsplit(configured_url).hostname or 'invalid'
+        host = urlsplit(configured_url).hostname or 'invalid'
+        summary['manifest_host'] = host if host in ALLOWED_HOSTS | {'cdn.jsdelivr.net'} else 'other'
     manifest = data.get('manifest', {})
     if isinstance(manifest, dict):
         summary['manifest'] = {'ok': manifest.get('ok') is True}
         if manifest.get('ok') is True:
-            summary['manifest']['version'] = str(manifest.get('version', ''))
-            summary['manifest']['package_host'] = str(manifest.get('package_host', ''))
+            candidate = manifest.get('version', '')
+            summary['manifest']['version'] = candidate if isinstance(candidate, str) and re.fullmatch(r'\d+\.\d+\.\d+', candidate) else 'invalid'
+            package_host = str(manifest.get('package_host', '')).lower()
+            summary['manifest']['package_host'] = package_host if package_host in ALLOWED_HOSTS | {'cdn.jsdelivr.net'} else 'other'
         else:
-            summary['manifest']['error_code'] = str(manifest.get('error', 'unknown'))[:80]
+            code = str(manifest.get('error', 'unknown'))
+            summary['manifest']['error_code'] = code if re.fullmatch(r'[a-zA-Z0-9_-]{1,60}', code) else 'other'
             # Show only a numeric HTTP/cURL code, never the raw error message.
             message = str(manifest.get('message', ''))
             for label, pattern in [('http_code', r'\bHTTP\s+(\d{3})\b'), ('curl_code', r'\bcURL error\s+(\d+)\b')]:
@@ -167,6 +171,18 @@ def render_summary(report):
     return '\n'.join(lines) + '\n'
 
 
+def annotation_summary(report):
+    """Public, small GitHub annotation for when runner log downloads are blocked."""
+    wp = report['wordpress']
+    return json.dumps({
+        'repository_release': report['repository_release'],
+        'site': report['site'],
+        'update_channel': report['update_channel'],
+        'github_mirror': report['github_mirror'],
+        'wordpress': wp,
+    }, ensure_ascii=False, separators=(',', ':'))
+
+
 def main():
     try:
         report = run_probe()
@@ -175,6 +191,8 @@ def main():
         print('Diagnostic configuration error:', type(exc).__name__)
         return 2
     print(json.dumps(report, ensure_ascii=False, sort_keys=True))
+    if os.environ.get('GITHUB_ACTIONS') == 'true':
+        print('::notice title=ALOOKHOR read-only diagnostic::' + annotation_summary(report))
     if os.environ.get('GITHUB_STEP_SUMMARY'):
         with open(os.environ['GITHUB_STEP_SUMMARY'], 'a', encoding='utf-8') as stream:
             stream.write(render_summary(report))
