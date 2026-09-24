@@ -1,21 +1,32 @@
 {
-  "version": "3.10.387",
-  "previous": "3.10.386",
+  "version": "3.10.400",
+  "previous": "3.10.399",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "رفع خرابی بسته Control Center و تثبیت سبد خرید اختصاصی آلوخور",
+  "description": "تثبیت کامل سبد خرید و اتصال مستقیم به نشست بومی ووکامرس",
   "changelog": [
-    {"tag":"FIX","title":"رفع Fatal Error افزونه","desc":"فایل sort-center.php که bootstrap افزونه به آن وابسته است، اکنون صراحتاً داخل بسته انتشار قرار دارد."},
-    {"tag":"FIX","title":"سبد خرید اختصاصی آلوخور","desc":"Renderer اختصاصی Cart و فایل‌های cart-page و cart-rest در بسته حفظ می‌شوند."},
-    {"tag":"FIX","title":"حذف Cart موازی قدیمی","desc":"لایه‌های قدیمی Code Snippets مربوط به Cart Engine و Before Footer Mount غیرفعال شدند."},
-    {"tag":"RESPONSIVE","title":"پایداری Cart","desc":"ساختار Cart اختصاصی برای Refresh و نمایش پایدار قبل از Footer نگه داشته شد."}
+    {
+      "tag": "FIX",
+      "title": "اتصال سبد خرید به WooCommerce",
+      "desc": "سبد اختصاصی اکنون مستقیماً از نشست بومی ووکامرس استفاده می‌کند تا محصولات افزوده‌شده در سراسر سایت در سبد نهایی نمایش داده شوند."
+    },
+    {
+      "tag": "FIX",
+      "title": "عملیات AJAX سبد خرید",
+      "desc": "افزایش و کاهش تعداد، حذف محصول، کوپن و افزودن پیشنهادها از مسیر REST اختصاصی انجام می‌شود."
+    },
+    {
+      "tag": "RESPONSIVE",
+      "title": "پایداری سبد در موبایل و دسکتاپ",
+      "desc": "Renderer اختصاصی سبد خرید و همگام‌سازی داده‌ها برای تجربه پایدارتر بهینه شده است."
+    }
   ],
-  "project":"ALOOKHOR",
-  "area":"cart recovery + package repair",
-  "reason":"نسخه 3.10.386 پس از نصب به دلیل includeهای مفقود روی سایت Fatal Error ایجاد کرد.",
-  "files":[
+  "project": "ALOOKHOR",
+  "area": "cart recovery + package repair",
+  "reason": "نسخه 3.10.386 پس از نصب به دلیل includeهای مفقود روی سایت Fatal Error ایجاد کرد.",
+  "files": [
     "plugin/alookhor-control-center/assets/css/frontend-cart.css",
     "plugin/alookhor-control-center/assets/js/frontend-cart.js",
     "plugin/alookhor-control-center/includes/cart-page.php",
