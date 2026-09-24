@@ -14,35 +14,29 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  # A push to main only builds and checks. Production publication requires a
+  # deliberate matching version tag and passing package + live-version gates.
   build:
+    if: github.event_name != 'workflow_dispatch'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v5
-      - name: Validate and generate registry
+      - name: Validate source and tests
         run: |
           set -euo pipefail
           python3 -m py_compile scripts/*.py
-          python3 scripts/generate_code_registry.py
+          python3 -m unittest discover -s scripts/tests -v
           find plugin/alookhor-control-center -name '*.php' -type f -print0 | xargs -0 -n1 php -l
           while IFS= read -r file; do node --check "$file"; done < <(find plugin/alookhor-control-center/assets/js -name '*.js' -type f | sort)
       - name: Build release
         id: release
         run: python3 scripts/build_release.py
-      - name: Verify package
-        run: |
-          python3 - <<'PY'
-          import hashlib,json
-          from pathlib import Path
-          from zipfile import ZipFile
-          m=json.loads(Path('public/manifest.json').read_text())
-          p=Path('public/releases')/Path(m['download_url']).name
-          assert p.is_file()
-          assert hashlib.sha256(p.read_bytes()).hexdigest()==m['sha256']
-          with ZipFile(p) as z: assert z.testzip() is None
-          print('Release verification passed:',m['version'])
-          PY
-      - name: Store artifact
+      - name: Reject incomplete or inconsistent package
+        run: python3 scripts/verify_release_safety.py
+      - name: Require current source registry
+        run: python3 scripts/generate_code_registry.py --check
+      - name: Store verified artifact
         uses: actions/upload-artifact@v4
         with:
           name: alookhor-release-${{ steps.release.outputs.version }}
@@ -50,9 +44,26 @@ jobs:
           if-no-files-found: error
           retention-days: 7
 
+  # This dispatch is strictly read-only. The credentials, if configured, are
+  # used ONLY for GET /wp-json/alookhor-cc/v1/status. No WP install/update API.
+  diagnose:
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    environment: production-diagnostics
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+      - name: Compare public channel and optional authenticated WP status
+        env:
+          WP_BASE_URL: ${{ secrets.WP_BASE_URL }}
+          WP_USERNAME: ${{ secrets.WP_USERNAME }}
+          WP_APP_PASSWORD: ${{ secrets.WP_APP_PASSWORD }}
+        run: python3 scripts/diagnose_production.py
+
   deploy:
     needs: build
-    if: github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/v')
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
     runs-on: ubuntu-latest
     environment: production
     permissions:
@@ -60,11 +71,14 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v5
-      - name: Build verified release
-        run: python3 scripts/build_release.py
+      - name: Build and verify release again
+        run: |
+          python3 scripts/build_release.py
+          python3 scripts/verify_release_safety.py --live
+          python3 scripts/generate_code_registry.py --check
       - name: Install FTPS client
         run: sudo apt-get update -qq && sudo apt-get install -y -qq lftp
-      - name: Publish through explicit FTPS
+      - name: Publish verified package, then atomically advance manifest
         env:
           FTP_SERVER: ${{ secrets.FTP_SERVER }}
           FTP_PORT: ${{ secrets.FTP_PORT }}
@@ -72,6 +86,7 @@ jobs:
           FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
         run: |
           set -euo pipefail
+          trap 'rm -f /tmp/alookhor-upload-*.lftp' EXIT
           test -n "$FTP_SERVER"; test -n "$FTP_PORT"; test -n "$FTP_USERNAME"; test -n "$FTP_PASSWORD"
           python3 - <<'PY'
           import json,os
@@ -85,14 +100,16 @@ jobs:
           auth=f"ftp://{quote(user,safe='')}:{quote(password,safe='')}@{server}"
           common=['set cmd:fail-exit true','set net:max-retries 2','set net:timeout 30','set ftp:passive-mode true','set ftp:ssl-auth TLS','set ftp:ssl-force true','set ftp:ssl-protect-data true','set ssl:verify-certificate true',f'open -p {port} "{auth}"']
           files={
-            '/tmp/upload-package.lftp':common+[f'put public/releases/{package} -o releases/{package}','bye'],
-            '/tmp/upload-meta.lftp':common+['put public/releases/SHA256SUMS.txt -o releases/SHA256SUMS.txt','put public/index.html -o index.html','put public/changelog.html -o changelog.html','put public/.htaccess -o .htaccess','bye'],
-            '/tmp/upload-manifest.lftp':common+['put public/manifest.json -o manifest.json.next','mv manifest.json.next manifest.json','bye']}
+            '/tmp/alookhor-upload-package.lftp':common+[f'put public/releases/{package} -o releases/{package}','bye'],
+            '/tmp/alookhor-upload-meta.lftp':common+['put public/releases/SHA256SUMS.txt -o releases/SHA256SUMS.txt','put public/index.html -o index.html','put public/changelog.html -o changelog.html','put public/.htaccess -o .htaccess','bye'],
+            '/tmp/alookhor-upload-manifest.lftp':common+['put public/manifest.json -o manifest.json.next','mv manifest.json.next manifest.json','bye']}
           for name,commands in files.items():
             Path(name).write_text('\n'.join(commands)+'\n'); Path(name).chmod(0o600)
           PY
-          lftp -f /tmp/upload-package.lftp
-          lftp -f /tmp/upload-meta.lftp
-          lftp -f /tmp/upload-manifest.lftp
-          rm -f /tmp/upload-*.lftp
-          echo "ALOOKHOR ${GITHUB_REF_NAME} published successfully."
+          lftp -f /tmp/alookhor-upload-package.lftp
+          # A successful FTPS upload is not proof that the web server serves it.
+          python3 scripts/verify_public_release.py package
+          lftp -f /tmp/alookhor-upload-meta.lftp
+          lftp -f /tmp/alookhor-upload-manifest.lftp
+          python3 scripts/verify_public_release.py manifest
+          echo "ALOOKHOR ${GITHUB_REF_NAME} verified over public HTTPS."
