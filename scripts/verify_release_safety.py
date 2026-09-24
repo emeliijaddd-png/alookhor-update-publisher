@@ -10,6 +10,7 @@ import json
 import re
 import ssl
 import sys
+from time import time_ns
 from pathlib import Path
 from urllib.parse import urlsplit
 from urllib.request import Request, urlopen
@@ -100,7 +101,7 @@ def check_live_version(candidate, site='https://alookhor.ir'):
     """Read-only no-cache production version probe; never allow a downgrade."""
     if site != 'https://alookhor.ir':
         raise ValueError('Unexpected production host')
-    request = Request(site + '/wp-json/alookhor-cc/v1/topbar', headers={
+    request = Request(site + '/wp-json/alookhor-cc/v1/topbar?release_gate=' + str(time_ns()), headers={
         'Accept': 'application/json', 'Cache-Control': 'no-cache',
         'User-Agent': 'ALOOKHOR-Release-Gate/1.0',
     }, method='GET')
