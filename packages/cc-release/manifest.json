@@ -1,9 +1,9 @@
 {
   "name": "ALOOKHOR Control Center",
-  "version": "3.10.389",
+  "version": "3.10.390",
   "download_url": "https://raw.githubusercontent.com/emeliijaddd-png/alookhor-update-publisher/arena/01a0a537-alookhor-update-publisher/packages/cc-release/alookhor-control-center.zip",
   "details_url": "https://github.com/emeliijaddd-png/alookhor-update-publisher",
-  "sha256": "d79f1d8db35d3f8a783ede06f82380624c151db7396cce74491b3a130143681e",
+  "sha256": "0a6764b1411c870421e20a2d7b1ed6d21d524b1644c0ae03f71579c67988a51d",
   "requires": "6.0",
   "tested": "6.8",
   "requires_php": "8.0",
@@ -11,14 +11,19 @@
   "description": "کنترل سنتر لوکس و ماژولار ALOOKHOR",
   "changelog": [
     {
-      "tag": "FIX",
-      "title": "رفع قطعی آیکن‌های بزرگ و مشکی سربرگ",
-      "desc": "استایل پایه سربرگ (frontend-header.css) پیش‌تر فقط در برخی حالت‌ها بارگذاری می‌شد؛ اکنون بی‌قید و شرط در همه حالت‌ها بارگذاری می‌شود تا آیکن‌ها و چیدمان سربرگ همیشه درست رسم شوند."
+      "tag": "RESTORE",
+      "title": "بازگشت کامل هدر و اسلایدر به حالت قبلی",
+      "desc": "استایل و ساختار اسلایدر و منطق نمایش سربرگ دقیقاً به نسخه‌ای که قبل‌تر روی سایت بود برگشت؛ تصاویر قبلی اسلایدر نیز از پشتیبان بازیابی می‌شوند."
     },
     {
-      "tag": "NEW",
-      "title": "استایل هدر AKX نیز خودکار بارگذاری می‌شود",
-      "desc": "اگر هدر حرفه‌ای AKX فعال باشد، استایل و اسکریپت مخصوص خودش هم بارگذاری می‌شود."
+      "tag": "RESTORE",
+      "title": "بازیابی اطلاعات سربرگ",
+      "desc": "واتساپ، ایمیل و لینک خرید عمده که خالی شده بودند، با همان مقادیر قبلی پر می‌شوند."
+    },
+    {
+      "tag": "UPDATE",
+      "title": "کانال به‌روزرسانی حفظ شد",
+      "desc": "بررسی تازه، دکمه بررسی مجدد و مسیر جایگزین دانلود از نسخه ۳.۱۰.۳۸۸ همچنان فعال‌اند."
     }
   ]
 }

@@ -16,8 +16,8 @@
 
 if (!defined('ABSPATH')) exit;
 
-define('ALOOKHOR_CC_VERSION', '3.10.389');
-define('ALOOKHOR_CC_BUILD', '3.10.389');
+define('ALOOKHOR_CC_VERSION', '3.10.390');
+define('ALOOKHOR_CC_BUILD', '3.10.390');
 define('ALOOKHOR_CC_FILE', __FILE__);
 define('ALOOKHOR_CC_DIR', plugin_dir_path(__FILE__));
 define('ALOOKHOR_CC_URL', plugin_dir_url(__FILE__));
@@ -116,15 +116,9 @@ add_action('wp_enqueue_scripts',function(){
 // ——— Enqueue برای فرانت (هدر لوکس، کاملاً Scoped) ———
 // فایل کامل luxury.css مخصوص کنترل سنتر است و نباید body/theme فرانت را override کند.
 add_action('wp_enqueue_scripts', function(){
-    // v3.10.389: استایل پایه سربرگ همیشه و در همه حالت‌ها بارگذاری می‌شود؛
-    // بدون آن، آیکن‌های سربرگ بدون ابعاد و به‌رنگ مشکی رسم می‌شدند.
+    // اگر هدر حرفه‌ای AKX فعال است، از لود فایل‌های قدیمی صرف‌نظر می‌کنیم
     $akx_h = get_option(ALOOKHOR_CC_HEADER_OPTION, []);
-    wp_enqueue_style('alookhor-cc-front', ALOOKHOR_CC_URL . 'assets/css/frontend-header.css', [], ALOOKHOR_CC_BUILD);
-    wp_enqueue_style('alookhor-cc-luxury-new', ALOOKHOR_CC_URL . 'assets/css/frontend-header-luxury-new.css', [], ALOOKHOR_CC_BUILD);
-
     if (!empty($akx_h['enabled'])) {
-        wp_enqueue_style('alookhor-cc-akx-header', ALOOKHOR_CC_URL . 'assets/css/frontend-header-akx.css', [], ALOOKHOR_CC_BUILD);
-        wp_enqueue_script('alookhor-cc-akx-header', ALOOKHOR_CC_URL . 'assets/js/frontend-header-akx.js', [], ALOOKHOR_CC_BUILD, true);
         return;
     }
 
@@ -134,8 +128,6 @@ add_action('wp_enqueue_scripts', function(){
         // Load in <head>: the observer can hide stale legacy markup before the
         // browser paints it, then reveal only freshly synchronized Top Bar data.
         wp_enqueue_style('alookhor-cc-legacy-header-scroll', ALOOKHOR_CC_URL . 'assets/css/frontend-header-scroll.css', [], ALOOKHOR_CC_BUILD);
-        // v3.10.387: استایل اصلی هدر در تمام حالت‌ها بارگذاری می‌شود تا آیکن‌ها هرگز بدون اندازه رسم نشوند
-        wp_enqueue_style('alookhor-cc-front', ALOOKHOR_CC_URL . 'assets/css/frontend-header.css', [], ALOOKHOR_CC_BUILD);
         wp_enqueue_style('alookhor-cc-luxury-new', ALOOKHOR_CC_URL . 'assets/css/frontend-header-luxury-new.css', [], ALOOKHOR_CC_BUILD);
         wp_enqueue_script('alookhor-cc-legacy-topbar-manager', ALOOKHOR_CC_URL . 'assets/js/frontend-topbar-manager.js', [], ALOOKHOR_CC_BUILD, false);
         wp_localize_script('alookhor-cc-legacy-topbar-manager', 'ALOOKHOR_TOPBAR', [

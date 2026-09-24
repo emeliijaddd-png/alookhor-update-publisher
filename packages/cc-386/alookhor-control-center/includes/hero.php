@@ -161,8 +161,7 @@ function alookhor_cc_hero_markup($settings=null){
             <div class="alookhor-mh-shade" aria-hidden="true"></div>
             <div class="alookhor-mh-content">
               <?php if(!empty($slide['kicker'])): ?><span class="alookhor-mh-kicker"><?php echo esc_html($slide['kicker']); ?></span><?php endif; ?>
-              <?php $al_title_tag = ($index === 0) ? 'h1' : 'h2'; ?>
-              <<?php echo esc_attr($al_title_tag); ?>><?php echo esc_html($slide['title'] ?? ''); ?><?php if(!empty($slide['highlight'])): ?><strong><?php echo esc_html($slide['highlight']); ?></strong><?php endif; ?></<?php echo esc_attr($al_title_tag); ?>>
+              <h2><?php echo esc_html($slide['title'] ?? ''); ?><?php if(!empty($slide['highlight'])): ?><strong><?php echo esc_html($slide['highlight']); ?></strong><?php endif; ?></h2>
               <?php if(!empty($slide['description'])): ?><p class="alookhor-mh-description"><?php echo esc_html($slide['description']); ?></p><?php endif; ?>
               <div class="alookhor-mh-features">
                 <?php foreach(array_slice(array_pad((array)($slide['features'] ?? []),4,''),0,4) as $feature_index=>$feature): if($feature==='')continue; ?>

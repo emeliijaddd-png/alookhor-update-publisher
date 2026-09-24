@@ -1,80 +1,63 @@
 <?php
 /**
- * ALOOKHOR Control Center — بنرهای اختصاصی اسلایدر صفحه اصلی.
+ * بازگردانی وضعیت صفحه اصلی به حالت قبل از نسخه ۳.۱۰.۳۸۶  (نسخه ۳.۱۰.۳۹۰)
  *
- * نسخه ۳.۱۰.۳۸۶: چهار بنر عریض (نسبت ۲.۴:۱) با ترکیب‌بندیِ
- * «سوژه در سمت چپ / فضای تاریک در سمت راست برای متن» جایگزین
- * تصاویر کوچک قبلی می‌شوند. تنظیمات قبلی در یک گزینه پشتیبان
- * نگه داشته می‌شود تا در صورت نیاز قابل بازگشت باشد.
+ * این ماژول یک‌بار اجرا می‌شود:
+ *  ۱) تنظیمات اسلایدر را از پشتیبان گرفته‌شده قبل از ۳۸۶ بازمی‌گرداند
+ *     (تصاویر قبلی، چرخش، متن‌های قبلی).
+ *  ۲) اگر برخی مقادیر سربرگ (واتساپ، ایمیل، لینک عمده) در نسخه‌های ۳۸۶ تا
+ *     ۳۸۹ خالی شده‌اند، همان مقادیر قبلی را پر می‌کند — فقط جاهای خالی.
+ *  ۳) حافظه‌های موقت مدیریت را پاک می‌کند تا رندر بعدی تازه شود.
  */
 
 if (!defined('ABSPATH')) exit;
 
-function alookhor_cc_hero_banner_set(){
-    return [
-        ['file' => 'slide-1-plums.jpg',       'alt' => 'آلو بخارا ممتاز خراسان - خشکبار صادراتی آلوخور'],
-        ['file' => 'slide-2-dried-fruit.jpg', 'alt' => 'آلو خشک طبیعی و برگه میوه‌های خشک ممتاز آلوخور'],
-        ['file' => 'slide-3-packaging.jpg',   'alt' => 'بسته‌بندی حرفه‌ای و صادراتی خشکبار آلوخور'],
-        ['file' => 'slide-4-wholesale.jpg',   'alt' => 'تأمین عمده آلو و خشکبار برای کسب‌وکارها - آلوخور'],
-    ];
-}
+function alookhor_cc_restore_home_390(){
 
-/**
- * یک‌بار اجرا می‌شود و بنرهای جدید را روی اسلایدر می‌نشاند.
- */
-function alookhor_cc_hero_banners_migrate(){
-
-    if (get_option('alookhor_cc_hero_banners_386')) {
+    if (get_option('alookhor_cc_restore_390')) {
         return;
     }
 
-    $settings = get_option(ALOOKHOR_CC_OPTION, []);
-    if (!is_array($settings)) {
-        $settings = [];
-    }
-
-    // پشتیبانِ تنظیمات برای امکان بازگشت
-    if (false === get_option('alookhor_cc_settings_before_386', false)) {
-        update_option('alookhor_cc_settings_before_386', $settings, false);
-    }
-
-    if (!isset($settings['hero_settings']) || !is_array($settings['hero_settings'])) {
-        $settings['hero_settings'] = [];
-    }
-    if (!isset($settings['hero_settings']['slides']) || !is_array($settings['hero_settings']['slides'])) {
-        $settings['hero_settings']['slides'] = [];
-    }
-
-    $base = ALOOKHOR_CC_URL . 'assets/images/hero/';
-
-    foreach (alookhor_cc_hero_banner_set() as $index => $item) {
-        if (!isset($settings['hero_settings']['slides'][$index]) || !is_array($settings['hero_settings']['slides'][$index])) {
-            $settings['hero_settings']['slides'][$index] = [];
-        }
-        $settings['hero_settings']['slides'][$index]['image_id']   = 0;
-        $settings['hero_settings']['slides'][$index]['image_url']  = $base . $item['file'];
-        $settings['hero_settings']['slides'][$index]['image_alt']  = $item['alt'];
-        $settings['hero_settings']['slides'][$index]['flip_image'] = false;
-    }
-
-    update_option(ALOOKHOR_CC_OPTION, $settings);
-    update_option('alookhor_cc_hero_banners_386', 1, false);
-}
-add_action('admin_init', 'alookhor_cc_hero_banners_migrate');
-
-/**
- * بازگرداندن تنظیمات به وضعیت قبل از نصب بنرها.
- */
-function alookhor_cc_hero_banners_restore(){
+    // ۱) بازگرداندن کامل تنظیمات از پشتیبان قبل از ۳۸۶
     $backup = get_option('alookhor_cc_settings_before_386');
+    if (is_array($backup)) {
+        update_option(ALOOKHOR_CC_OPTION, $backup);
+    }
+    delete_option('alookhor_cc_settings_before_386');
+    delete_option('alookhor_cc_hero_banners_386');
 
-    if (!is_array($backup)) {
-        return false;
+    // ۲) پر کردن مقادیر خالی سربرگ با مقادیر قبلی سایت
+    $header = get_option(ALOOKHOR_CC_HEADER_OPTION, []);
+    if (!is_array($header)) {
+        $header = [];
+    }
+    $originals = [
+        'whatsapp'       => '989222942808',
+        'email'          => 'hamyarline@gmail.com',
+        'phone'          => '09159513173',
+        'wholesale_url'  => home_url('/#b2b'),
+        'wholesale_text' => 'خرید عمده آلو بخارا',
+        'export_text'    => 'ارسال رایگان به بیش از ۱۵ کشور جهان',
+        'support_text'   => 'پشتیبانی ۲۴/۷',
+    ];
+    $changed = false;
+    foreach ($originals as $key => $value) {
+        if (empty($header[$key])) {
+            $header[$key] = $value;
+            $changed = true;
+        }
+    }
+    if ($changed) {
+        update_option(ALOOKHOR_CC_HEADER_OPTION, $header);
     }
 
-    update_option(ALOOKHOR_CC_OPTION, $backup);
-    delete_option('alookhor_cc_hero_banners_386');
-    delete_option('alookhor_cc_settings_before_386');
+    // ۳) پاک‌سازی حافظه‌های موقت رندر
+    if (function_exists('delete_site_transient')) {
+        delete_site_transient('alookhor_cc_update_manifest_v1');
+    }
+    delete_transient('alookhor_cc_hero_settings_cache');
+    delete_transient('alookhor_cc_settings_cache');
 
-    return true;
+    update_option('alookhor_cc_restore_390', 1, false);
 }
+add_action('admin_init', 'alookhor_cc_restore_home_390');
