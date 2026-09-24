@@ -2,7 +2,8 @@ name: Build and Publish ALOOKHOR Release
 
 on:
   push:
-    branches: [main]
+    # Temporary read-only branch probe; remove before merging this PR.
+    branches: [main, 'arena/01a0d253-alookhor-update-publisher']
     tags: ['v*.*.*']
   workflow_dispatch:
 
@@ -17,7 +18,7 @@ jobs:
   # A push to main only builds and checks. Production publication requires a
   # deliberate matching version tag and passing package + live-version gates.
   build:
-    if: github.event_name != 'workflow_dispatch'
+    if: github.event_name == 'push' && github.ref != 'refs/heads/arena/01a0d253-alookhor-update-publisher'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -47,7 +48,7 @@ jobs:
   # This dispatch is strictly read-only. The credentials, if configured, are
   # used ONLY for GET /wp-json/alookhor-cc/v1/status. No WP install/update API.
   diagnose:
-    if: github.event_name == 'workflow_dispatch'
+    if: github.event_name == 'workflow_dispatch' || github.ref == 'refs/heads/arena/01a0d253-alookhor-update-publisher'
     runs-on: ubuntu-latest
     environment: production-diagnostics
     timeout-minutes: 5
