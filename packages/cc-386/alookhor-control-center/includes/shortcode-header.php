@@ -124,7 +124,58 @@ function alookhor_cc_whatsapp_href($number){
     return $number ? 'https://wa.me/' . $number : '';
 }
 
+/**
+ * v3.10.391 — Render-time guarantee: the portal header must NEVER render without
+ * its sizing CSS. Two independent cache/branch races (LiteSpeed-stale HTML and the
+ * legacy-provider enqueue branch) previously dropped frontend-header.css on some
+ * page loads, which leaked unstyled 300×150 SVG glyphs ("giant icons").
+ *
+ * This helper (a) force-enqueues the portal header assets when the header itself
+ * renders — independent of whichever enqueue branch ran earlier — and (b) prints
+ * a tiny scoped critical style next to the markup so icon sizing is structurally
+ * impossible to miss even with a fully stale external stylesheet.
+ */
+function alookhor_cc_ensure_portal_header_assets(){
+    $base = defined('ALOOKHOR_CC_URL') ? ALOOKHOR_CC_URL : '';
+    $ver  = defined('ALOOKHOR_CC_BUILD') ? ALOOKHOR_CC_BUILD : ALOOKHOR_CC_VERSION;
+    if (!wp_style_is('alookhor-cc-front', 'enqueued')) {
+        wp_enqueue_style('alookhor-cc-front', $base . 'assets/css/frontend-header.css', [], $ver);
+    }
+    if (!wp_style_is('alookhor-cc-luxury-new', 'enqueued')) {
+        wp_enqueue_style('alookhor-cc-luxury-new', $base . 'assets/css/frontend-header-luxury-new.css', [], $ver);
+    }
+    if (!wp_script_is('alookhor-cc-front-header', 'enqueued')) {
+        wp_enqueue_script('alookhor-cc-front-header', $base . 'assets/js/frontend-header.js', [], $ver, true);
+    }
+}
+
+/*
+ * Critical, duplicated-on-purpose icon sizing rules (subset of
+ * assets/css/frontend-header.css). Printed inline, right beside the header
+ * markup, at most once per page. If the external stylesheet is present this
+ * block is redundant-but-identical; if it is missing/stale, this block alone
+ * prevents unbounded SVG rendering.
+ */
+function alookhor_cc_portal_header_critical_css(){
+    static $printed = false;
+    if ($printed) return '';
+    $printed = true;
+    $css = '.alookhor-portal-header svg{display:block;max-width:100%;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex:none}'
+        . '.alookhor-portal-header .alookhor-fallback-support svg{width:15px;height:15px}'
+        . '.alookhor-portal-header .alookhor-wholesale svg{width:13px;height:13px;stroke-width:1.9}'
+        . '.alookhor-portal-header .alookhor-export-note svg{width:14px;height:14px;color:var(--alookhor-gold,#D49A2E)}'
+        . '.alookhor-portal-header .alookhor-whatsapp svg{width:15px;height:15px;fill:currentColor;stroke:none}'
+        . '.alookhor-portal-header .alookhor-account-link svg{width:14px;height:14px}'
+        . '.alookhor-portal-header .alookhor-drawer-search svg{width:17px;height:17px}'
+        . '.alookhor-portal-header .alookhor-drawer-menu-title svg{width:15px;height:15px;color:var(--alookhor-gold,#D49A2E)}'
+        . '.alookhor-portal-header .alookhor-fallback-cart svg{width:25px;height:25px}'
+        . '.alookhor-portal-header .alookhor-account-link.alookhor-fallback-like svg,.alookhor-portal-header .alookhor-nav-actions .alookhor-account-link svg{width:25px;height:25px}'
+        . '@media(max-width:767px){.alookhor-portal-header .alookhor-fallback-support svg{width:12px;height:12px}.alookhor-portal-header .alookhor-fallback-cart svg,.alookhor-portal-header .alookhor-account-link svg{width:24px;height:24px}}';
+    return '<style id="alookhor-cc-header-critical">' . $css . '</style>' . "\n";
+}
+
 function alookhor_cc_render_portal_header($atts = []){
+    alookhor_cc_ensure_portal_header_assets();
     $atts = shortcode_atts(['sticky' => '', 'menu' => ''], $atts, 'alookhor_portal_header');
     $settings = alookhor_cc_front_header_settings();
     if ($atts['sticky'] !== '') $settings['sticky'] = rest_sanitize_boolean($atts['sticky']);
@@ -190,6 +241,7 @@ function alookhor_cc_render_portal_header($atts = []){
     $capsule_blur=max(10,min(36,absint($settings['capsule_blur']??24)));
 
     ob_start();
+    echo alookhor_cc_portal_header_critical_css();
     ?>
     <div id="<?php echo esc_attr($instance); ?>" class="alookhor-portal-header<?php echo $is_sticky ? ' is-sticky' : ''; ?>" dir="rtl" style="--alookhor-gold:<?php echo esc_attr($settings['gold']); ?>;--alookhor-topbar-bg:<?php echo esc_attr($topbar_bg); ?>;--alookhor-topbar-text:<?php echo esc_attr($topbar_text); ?>;--alookhor-topbar-border:<?php echo esc_attr($topbar_border); ?>;--alookhor-topbar-button-bg:<?php echo esc_attr($topbar_button_bg); ?>;--alookhor-topbar-button-text:<?php echo esc_attr($topbar_button_text); ?>;--alookhor-topbar-height:<?php echo esc_attr($topbar_height); ?>px;--alookhor-top-logo-width:<?php echo esc_attr($top_logo_width); ?>px;--alookhor-capsule-background:<?php echo esc_attr($capsule_background); ?>;--alookhor-capsule-card:<?php echo esc_attr($capsule_card); ?>;--alookhor-capsule-glass:<?php echo esc_attr($capsule_glass); ?>;--alookhor-capsule-gold:<?php echo esc_attr($capsule_gold); ?>;--alookhor-capsule-gold-light:<?php echo esc_attr($capsule_gold_light); ?>;--alookhor-capsule-text:<?php echo esc_attr($capsule_text); ?>;--alookhor-capsule-muted:<?php echo esc_attr($capsule_muted); ?>;--alookhor-capsule-blur:<?php echo esc_attr($capsule_blur); ?>px">
         <?php if ($show_topbar): ?>
