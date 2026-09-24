@@ -45,8 +45,8 @@ jobs:
           if-no-files-found: error
           retention-days: 7
 
-  # This dispatch is strictly read-only. The credentials, if configured, are
-  # used ONLY for GET /wp-json/alookhor-cc/v1/status. No WP install/update API.
+  # This diagnostic is strictly read-only. Credentials, if configured, are
+  # used only for GET /wp/v2/users/me and GET /alookhor-cc/v1/status.
   diagnose:
     if: github.event_name == 'workflow_dispatch' || github.ref == 'refs/heads/arena/01a0d253-alookhor-update-publisher'
     runs-on: ubuntu-latest

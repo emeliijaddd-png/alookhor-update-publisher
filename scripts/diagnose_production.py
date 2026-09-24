@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Read-only production diagnosis. Never logs response bodies or credentials.
 
-The authenticated request uses an Application Password to call ONLY the
-existing ALOOKHOR status GET endpoint; it does not install or change anything.
+Authenticated Application Password requests call ONLY two read-only GET
+endpoints: WordPress' own /users/me and ALOOKHOR's /status.
 Requests made by this script originate from the GitHub runner, not WordPress.
 Only the authenticated status response can describe a request made by WordPress.
 """
@@ -22,6 +22,7 @@ from urllib.request import HTTPRedirectHandler, HTTPSHandler, Request, build_ope
 SITE = 'https://alookhor.ir'
 PUBLIC_STATUS = SITE + '/wp-json/alookhor-cc/v1/topbar'
 PRIVATE_STATUS = SITE + '/wp-json/alookhor-cc/v1/status'
+PRIVATE_IDENTITY = SITE + '/wp-json/wp/v2/users/me?context=edit'
 CHANNEL = 'https://updates.alookhor.ir/manifest.json'
 MIRROR = 'https://raw.githubusercontent.com/emeliijaddd-png/alookhor-update-publisher/main/public/manifest.json'
 ALLOWED_HOSTS = {'alookhor.ir', 'updates.alookhor.ir', 'raw.githubusercontent.com'}
@@ -130,9 +131,21 @@ def private_summary(result):
     return summary
 
 
+def identity_summary(result):
+    """Only whether Basic Auth works and whether update_plugins is granted."""
+    summary = {'http': result.get('http')}
+    if 'error' in result:
+        summary['error'] = result['error']
+    if result.get('http') == 200 and isinstance(result.get('data'), dict):
+        capabilities = result['data'].get('capabilities')
+        if isinstance(capabilities, dict):
+            summary['update_plugins'] = capabilities.get('update_plugins') is True
+    return summary
+
+
 def run_probe(env=None):
     env = os.environ if env is None else env
-    base = safe_base_url(env.get('WP_BASE_URL') or SITE)
+    safe_base_url(env.get('WP_BASE_URL') or SITE)
     from time import time
     query = '?diagnostic=' + str(int(time()))
     report = {
@@ -145,8 +158,10 @@ def run_probe(env=None):
     }
     username, password = env.get('WP_USERNAME', ''), env.get('WP_APP_PASSWORD', '')
     if username and password:
-        report['wordpress'] = private_summary(fetch_json(base + '/wp-json/alookhor-cc/v1/status', (username, password)))
+        report['wordpress_auth'] = identity_summary(fetch_json(PRIVATE_IDENTITY, (username, password)))
+        report['wordpress'] = private_summary(fetch_json(PRIVATE_STATUS, (username, password)))
     else:
+        report['wordpress_auth'] = {'state': 'not_checked'}
         report['wordpress'] = {'state': 'not_authenticated', 'required_secret_names': [
             name for name, value in [('WP_USERNAME', username), ('WP_APP_PASSWORD', password)] if not value
         ]}
@@ -165,7 +180,8 @@ def render_summary(report):
     if wp.get('state') == 'not_authenticated':
         lines.append('WordPress authenticated status: not checked; add the named GitHub Actions secrets and rerun.')
     else:
-        lines += [f"WordPress status: HTTP `{wp.get('http', 'network error')}`; plugin `{wp.get('version', 'unavailable')}`",
+        lines += [f"Application Password identity: `{json.dumps(report['wordpress_auth'], ensure_ascii=False)}`",
+                  f"WordPress status: HTTP `{wp.get('http', 'network error')}`; plugin `{wp.get('version', 'unavailable')}`",
                   f"WordPress-configured manifest host: `{wp.get('manifest_host', 'unavailable')}`",
                   f"WordPress manifest result: `{json.dumps(wp.get('manifest', {}), ensure_ascii=False)}`"]
     return '\n'.join(lines) + '\n'
@@ -179,6 +195,7 @@ def annotation_summary(report):
         'site': report['site'],
         'update_channel': report['update_channel'],
         'github_mirror': report['github_mirror'],
+        'wordpress_auth': report['wordpress_auth'],
         'wordpress': wp,
     }, ensure_ascii=False, separators=(',', ':'))
 

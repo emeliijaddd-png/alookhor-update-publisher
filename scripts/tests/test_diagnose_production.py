@@ -50,14 +50,18 @@ class DiagnosticTests(unittest.TestCase):
     def test_password_triggers_only_authorized_status_get(self):
         def fake_fetch(url, auth=None):
             if auth is not None:
-                self.assertEqual(url, diagnosis.PRIVATE_STATUS)
                 self.assertEqual(auth, ('publisher', 'secret'))
+                if url == diagnosis.PRIVATE_IDENTITY:
+                    return {'http': 200, 'data': {'email': 'private@example.com', 'capabilities': {'update_plugins': True}}}
+                self.assertEqual(url, diagnosis.PRIVATE_STATUS)
                 return {'http': 200, 'data': {'version': '3.10.390', 'active': True, 'manifest': {'ok': False, 'error': 'http_request_failed'}}}
             return {'http': 200, 'data': {'version': '3.10.390'}}
 
         with patch.object(diagnosis, 'fetch_json', side_effect=fake_fetch):
             report = diagnosis.run_probe({'WP_BASE_URL': diagnosis.SITE, 'WP_USERNAME': 'publisher', 'WP_APP_PASSWORD': 'secret'})
         self.assertEqual(report['wordpress']['version'], '3.10.390')
+        self.assertEqual(report['wordpress_auth'], {'http': 200, 'update_plugins': True})
+        self.assertNotIn('private@example.com', str(report))
         self.assertNotIn('secret', str(report))
         self.assertNotIn('publisher', str(report))
         self.assertNotIn('secret', diagnosis.render_summary(report))
