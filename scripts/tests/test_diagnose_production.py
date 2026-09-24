@@ -57,6 +57,8 @@ class DiagnosticTests(unittest.TestCase):
         with patch.object(diagnosis, 'fetch_json', return_value={'http': 404, 'error': 'http_error'}) as fetch:
             report = diagnosis.run_probe({'WP_BASE_URL': diagnosis.SITE})
             self.assertEqual(fetch.call_count, 3)
+            self.assertIn('/wp-json/alookhor-cc/v1/topbar/?diagnostic=', fetch.call_args_list[0].args[0])
+            self.assertTrue(diagnosis.PRIVATE_STATUS.endswith('/'))
             self.assertEqual(report['wordpress']['state'], 'not_authenticated')
             self.assertEqual(report['wordpress']['required_secret_names'], ['WP_USERNAME', 'WP_APP_PASSWORD'])
             self.assertEqual(report['update_channel']['http'], 404)

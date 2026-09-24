@@ -76,14 +76,18 @@ class PackageSafetyTests(unittest.TestCase):
 
             def __enter__(self): return self
             def __exit__(self, *args): return False
-            def geturl(self): return 'https://alookhor.ir/wp-json/alookhor-cc/v1/topbar'
-            def read(self, size): return b'{"version":"3.10.390"}'
+            def geturl(self): return 'https://alookhor.ir/wp-json/alookhor-cc/v1/topbar/'
+            def read(self, size): return b'{"version":"3.10.391"}'
 
-        with patch.object(safety, 'urlopen', return_value=Response()):
-            for version in ('3.10.387', '3.10.390'):
+        def fake_urlopen(request, **kwargs):
+            self.assertIn('/wp-json/alookhor-cc/v1/topbar/?release_gate=', request.full_url)
+            return Response()
+
+        with patch.object(safety, 'urlopen', side_effect=fake_urlopen):
+            for version in ('3.10.387', '3.10.390', '3.10.391'):
                 with self.subTest(version=version), self.assertRaisesRegex(ValueError, 'not newer'):
                     safety.check_live_version(version)
-            self.assertEqual(safety.check_live_version('3.10.391'), '3.10.390')
+            self.assertEqual(safety.check_live_version('3.10.392'), '3.10.391')
 
 
 class ReadbackTests(unittest.TestCase):

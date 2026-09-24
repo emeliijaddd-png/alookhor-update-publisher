@@ -20,8 +20,10 @@ from urllib.parse import urlsplit
 from urllib.request import HTTPRedirectHandler, HTTPSHandler, Request, build_opener
 
 SITE = 'https://alookhor.ir'
-PUBLIC_STATUS = SITE + '/wp-json/alookhor-cc/v1/topbar'
-PRIVATE_STATUS = SITE + '/wp-json/alookhor-cc/v1/status'
+# The live WordPress rewrite currently serves these custom REST routes only
+# with a trailing slash (the slashless URL returns rest_no_route / HTTP 404).
+PUBLIC_STATUS = SITE + '/wp-json/alookhor-cc/v1/topbar/'
+PRIVATE_STATUS = SITE + '/wp-json/alookhor-cc/v1/status/'
 PRIVATE_IDENTITY = SITE + '/wp-json/wp/v2/users/me?context=edit'
 CHANNEL = 'https://updates.alookhor.ir/manifest.json'
 MIRROR = 'https://raw.githubusercontent.com/emeliijaddd-png/alookhor-update-publisher/main/public/manifest.json'

@@ -101,7 +101,9 @@ def check_live_version(candidate, site='https://alookhor.ir'):
     """Read-only no-cache production version probe; never allow a downgrade."""
     if site != 'https://alookhor.ir':
         raise ValueError('Unexpected production host')
-    request = Request(site + '/wp-json/alookhor-cc/v1/topbar?release_gate=' + str(time_ns()), headers={
+    # Production's rewrite serves this custom REST route with a trailing slash;
+    # the slashless form currently returns rest_no_route despite an active plugin.
+    request = Request(site + '/wp-json/alookhor-cc/v1/topbar/?release_gate=' + str(time_ns()), headers={
         'Accept': 'application/json', 'Cache-Control': 'no-cache',
         'User-Agent': 'ALOOKHOR-Release-Gate/1.0',
     }, method='GET')
