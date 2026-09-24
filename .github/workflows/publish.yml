@@ -48,7 +48,7 @@ jobs:
   # This diagnostic is strictly read-only. Credentials, if configured, are
   # used only for GET /wp/v2/users/me and GET /alookhor-cc/v1/status.
   diagnose:
-    if: github.event_name == 'workflow_dispatch' || github.ref == 'refs/heads/arena/01a0d253-alookhor-update-publisher'
+    if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     environment: production-diagnostics
     timeout-minutes: 5
@@ -61,6 +61,24 @@ jobs:
           WP_USERNAME: ${{ secrets.WP_USERNAME }}
           WP_APP_PASSWORD: ${{ secrets.WP_APP_PASSWORD }}
         run: python3 scripts/diagnose_production.py
+
+  # One-time branch audit: ONLY reads FTPS metadata. No write commands or
+  # publisher step can run on this branch. Remove before merging this PR.
+  ftp_diagnose:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/arena/01a0d253-alookhor-update-publisher'
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 4
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+      - name: Inspect FTPS root and package names without writing
+        env:
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+          FTP_PORT: ${{ secrets.FTP_PORT }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+        run: python3 scripts/diagnose_ftps.py
 
   deploy:
     needs: build
