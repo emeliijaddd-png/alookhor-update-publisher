@@ -1,7 +1,7 @@
 /* ALOOKHOR CART v3.10.397 — resilient Store API client */
 (function(){
 'use strict';
-const ROOT='#alookhor-cart', API='/wp-json/wc/store/v1', cfg=window.ALOOKHOR_CART_CONFIG||{};
+const ROOT='#alookhor-cart', cfg=window.ALOOKHOR_CART_CONFIG||{}, API=String(cfg.cartApi||'/wp-json/alookhor-cart/v4/');
 const state={items:[],totals:{},nonce:cfg.nonce||'',busy:false};
 const q=(s,r=document)=>r.querySelector(s), qa=(s,r=document)=>Array.from(r.querySelectorAll(s));
 const fa=n=>(Number(n)||0).toLocaleString('fa-IR'), fp=n=>String(n).replace(/[0-9]/g,d=>'۰۱۲۳۴۵۶۷۸۹'[d]);
@@ -10,9 +10,9 @@ function error(msg){const e=q('.cart-error',q(ROOT));if(e){e.textContent=msg||''
 function getNonce(){return state.nonce||window.wcStoreApiNonce||q('meta[name="wc-store-api-nonce"]')?.content||window.wpApiSettings?.nonce||'';}
 async function api(path,opt={}){
  const n=getNonce(),h={'Accept':'application/json','Content-Type':'application/json'};
- if(n){h.Nonce=n;h['X-WC-Store-API-Nonce']=n;}
+ if(n){h['X-ALOOKHOR-CART-NONCE']=n;h['X-WP-Nonce']=n;}
  const res=await fetch(API+path,{method:opt.method||'GET',headers:h,credentials:'include',body:opt.body?JSON.stringify(opt.body):undefined});
- const rn=res.headers.get('Nonce')||res.headers.get('X-WC-Store-API-Nonce');if(rn)state.nonce=rn;
+ const rn=res.headers.get('X-ALOOKHOR-CART-NONCE')||res.headers.get('X-WP-Nonce');if(rn)state.nonce=rn;
  const raw=await res.text();let data={};try{data=raw?JSON.parse(raw):{};}catch(e){data={};}
  if(!res.ok)throw new Error(data.message||data.code||('خطای سبد خرید '+res.status));
  if(data.nonce)state.nonce=data.nonce;return data;
@@ -20,7 +20,7 @@ async function api(path,opt={}){
 function hideLegacy(){const root=q(ROOT);if(!root)return;qa('.woocommerce-cart-form,.cart-collaterals,.shop_table,.wd-cart,.wd-empty-cart,.return-to-shop,.cross-sells,.wd-cross-sells,.elementor-widget-woocommerce-cart,.elementor-widget-wd_products,.wd-products-element').forEach(el=>{if(!el.closest(ROOT)&&!el.closest('footer'))el.style.setProperty('display','none','important');});}
 function render(){
  const r=q(ROOT),box=q('.cart-items',r);if(!r||!box)return;
- const count=state.items.reduce((n,i)=>n+(Number(i.quantity)||0),0),ce=q('.cart-items-count',r);if(ce)ce.textContent=count?fp(count)+' قلم':'سبد خالی است';
+ const count=Number(state.count ?? state.items.reduce((n,i)=>n+(Number(i.quantity)||0),0)),ce=q('.cart-items-count',r);if(ce)ce.textContent=count?fp(count)+' قلم':'سبد خالی است';
  if(!state.items.length){box.innerHTML='<div class="alookhor-cart-empty"><strong>سبد خرید شما خالی است</strong><p>محصول موردنظر خود را از فروشگاه انتخاب کنید.</p><a href="'+esc(cfg.shopUrl||'/shop/')+'">رفتن به فروشگاه</a></div>';}
  else{box.innerHTML=state.items.map(i=>{
   const img=i.images?.[0]?.thumbnail||i.images?.[0]?.src||'',price=(Number(i.prices?.price)||0)/100,line=(Number(i.totals?.line_total)||0)/100,key=String(i.key||''),name=String(i.name||'محصول'),variant=(i.variation||[]).map(v=>esc(v.value)).join(' / ')||'بسته استاندارد';
@@ -45,19 +45,19 @@ async function load(){
 }
 async function update(key,qty){
  if(state.busy)return;state.busy=true;
- try{await api('/cart/update-item',{method:'POST',body:{key,quantity:qty}});await load();}
+ try{await api('cart/update',{method:'POST',body:{key,quantity:qty}});await load();}
  catch(e){error(e.message||'تغییر تعداد انجام نشد.');}
  finally{state.busy=false;}
 }
 async function remove(key){
  if(state.busy)return;state.busy=true;
- try{await api('/cart/remove-item',{method:'POST',body:{key}});await load();recommend();}
+ try{await api('cart/remove',{method:'POST',body:{key}});await load();recommend();}
  catch(e){error(e.message||'حذف محصول انجام نشد.');}
  finally{state.busy=false;}
 }
 async function coupon(code){
  const b=q('.coupon-box button',q(ROOT));if(b)b.disabled=true;
- try{await api('/cart/apply-coupon',{method:'POST',body:{code}});await load();}
+ try{await api('cart/coupon',{method:'POST',body:{code}});await load();}
  catch(e){error(e.message||'کد تخفیف قابل اعمال نیست.');}
  finally{if(b)b.disabled=false;}
 }
@@ -69,9 +69,9 @@ function bind(){
 }
 async function recommend(){
  const grid=q('.suggested-grid',q(ROOT));if(!grid)return;
- try{const res=await fetch('/wp-json/alookhor-cart/v3/recommendations',{credentials:'include',cache:'no-store'});if(!res.ok)return;const data=await res.json();
+ try{const res=await fetch(API+'recommendations',{credentials:'include',cache:'no-store'});if(!res.ok)return;const data=await res.json();
   grid.innerHTML=(data||[]).slice(0,4).map(p=>'<article class="suggested-card"><div class="img-wrap"><img src="'+esc(p.image||'')+'" alt="'+esc(p.name||'')+'" loading="lazy" decoding="async">'+(p.on_sale?'<span class="discount">تخفیف</span>':'')+'</div><div class="info"><span class="name">'+esc(p.name||'')+'</span><span class="price">'+fa(p.price)+' تومان</span><button class="add-btn" type="button" data-add-id="'+esc(p.id)+'">افزودن به سبد</button></div></article>').join('');
-  qa('[data-add-id]',grid).forEach(b=>b.onclick=async()=>{if(b.disabled)return;b.disabled=true;try{await api('/cart/add-item',{method:'POST',body:{id:Number(b.dataset.addId),quantity:1}});await load();recommend();}catch(e){error(e.message||'افزودن محصول انجام نشد.');}finally{b.disabled=false;}});
+  qa('[data-add-id]',grid).forEach(b=>b.onclick=async()=>{if(b.disabled)return;b.disabled=true;try{await api('cart/add',{method:'POST',body:{product_id:Number(b.dataset.addId),quantity:1}});await load();recommend();}catch(e){error(e.message||'افزودن محصول انجام نشد.');}finally{b.disabled=false;}});
  }catch(e){console.error(e);}
 }
 function init(){const r=q(ROOT);if(!r)return;document.body.classList.add('alookhor-cart-active');hideLegacy();load();recommend();}
