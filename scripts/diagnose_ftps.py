@@ -20,6 +20,14 @@ ZIP_NAME = re.compile(r'^alookhor-control-center-(\d+\.\d+\.\d+)\.zip$')
 SEMVER = re.compile(r'^\d+\.\d+\.\d+$')
 SHA256 = re.compile(r'^[a-f0-9]{64}$')
 REQUIRED = ('FTP_SERVER', 'FTP_PORT', 'FTP_USERNAME', 'FTP_PASSWORD')
+COMMON_ROOT_DIRS = {'public_html', 'httpdocs', 'htdocs', 'www', 'public', 'updates',
+                    'domains', 'subdomains', 'updates.alookhor.ir'}
+# Fixed, bounded read-only paths. Never enumerate or log arbitrary server paths.
+MANIFEST_DIRS = (
+    'public_html', 'httpdocs', 'htdocs', 'www', 'public', 'updates',
+    'updates.alookhor.ir', 'public_html/updates', 'public_html/updates.alookhor.ir',
+    'domains/updates.alookhor.ir/public_html',
+)
 
 
 def ftp_error_code(exc):
@@ -27,18 +35,8 @@ def ftp_error_code(exc):
     return int(match.group(1)) if match else None
 
 
-def inspect_root(ftp):
-    report = {'ftp_connected': True, 'tls_certificate_verified': True}
-    try:
-        names = ftp.nlst()
-        listed = {PurePosixPath(name.rstrip('/')).name for name in names}
-        report['root_listing_available'] = True
-        report['manifest_listed'] = 'manifest.json' in listed
-        report['releases_listed'] = 'releases' in listed
-    except error_perm as exc:
-        report['root_listing_available'] = False
-        report['root_listing_ftp_code'] = ftp_error_code(exc)
-
+def inspect_manifest(ftp, path):
+    """Read only a bounded manifest and emit allowlisted metadata, never file bytes."""
     content = bytearray()
 
     def receive(chunk):
@@ -47,23 +45,52 @@ def inspect_root(ftp):
         content.extend(chunk)
 
     try:
-        ftp.retrbinary('RETR manifest.json', receive)
+        ftp.retrbinary('RETR ' + path, receive)
         data = json.loads(content)
         if not isinstance(data, dict):
             raise ValueError('Manifest is not a JSON object')
         version = data.get('version')
         download_url = data.get('download_url')
         package_host = urlsplit(download_url).hostname if isinstance(download_url, str) else None
-        report['manifest'] = {
+        return {
             'present': True,
             'version': version if isinstance(version, str) and SEMVER.fullmatch(version) else 'invalid',
             'download_host': package_host if package_host in {'updates.alookhor.ir', 'raw.githubusercontent.com', 'cdn.jsdelivr.net'} else 'other',
             'sha256_well_formed': isinstance(data.get('sha256'), str) and bool(SHA256.fullmatch(data['sha256'].lower())),
         }
     except error_perm as exc:
-        report['manifest'] = {'present': False, 'ftp_code': ftp_error_code(exc)}
-    except (UnicodeError, ValueError, json.JSONDecodeError):
-        report['manifest'] = {'present': True, 'valid_json': False}
+        return {'present': False, 'ftp_code': ftp_error_code(exc)}
+    except (UnicodeError, ValueError):
+        return {'present': True, 'valid_json': False}
+
+
+def inspect_root(ftp):
+    report = {'ftp_connected': True, 'tls_certificate_verified': True}
+    listed = set()
+    try:
+        names = ftp.nlst()
+        listed = {PurePosixPath(name.rstrip('/')).name for name in names}
+        report['root_listing_available'] = True
+        report['root_entry_count'] = len(names)
+        report['known_root_entries'] = sorted(listed & COMMON_ROOT_DIRS)
+        report['manifest_listed'] = 'manifest.json' in listed
+        report['releases_listed'] = 'releases' in listed
+    except error_perm as exc:
+        report['root_listing_available'] = False
+        report['root_listing_ftp_code'] = ftp_error_code(exc)
+
+    report['manifest'] = inspect_manifest(ftp, 'manifest.json')
+    if report['root_listing_available'] and not report['manifest']['present']:
+        # Search common web roots only when their first segment was actually
+        # listed. Do not recursively traverse arbitrary directories or filenames.
+        report['known_subdirectory_manifest'] = None
+        for directory in MANIFEST_DIRS:
+            if directory.split('/')[0] not in listed:
+                continue
+            found = inspect_manifest(ftp, directory + '/manifest.json')
+            if found['present']:
+                report['known_subdirectory_manifest'] = {'directory': directory, **found}
+                break
 
     try:
         names = ftp.nlst('releases')

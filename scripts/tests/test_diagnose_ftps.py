@@ -61,6 +61,37 @@ class FTPSDiagnosticTests(unittest.TestCase):
     def test_missing_secret_names_only(self):
         self.assertEqual(diagnose_ftps.run_probe({})['missing_secret_names'], list(diagnose_ftps.REQUIRED))
 
+    def test_only_allowlisted_subdirectory_manifest_is_read(self):
+        class NestedManifest(FakeFTPS):
+            def nlst(self, path=None):
+                self.calls.append('list')
+                if path == 'releases':
+                    raise error_perm('550 No directory')
+                return ['public_html', 'private-secrets', 'index.html']
+
+            def retrbinary(self, name, receive):
+                self.calls.append('read_manifest')
+                if name == 'RETR manifest.json':
+                    raise error_perm('550 No file')
+                self.assert_known_path(name)
+                receive(json.dumps({'version': '3.10.390', 'download_url': 'https://updates.alookhor.ir/file.zip'}).encode())
+
+            @staticmethod
+            def assert_known_path(name):
+                assert name == 'RETR public_html/manifest.json'
+
+        fake = NestedManifest(ssl.create_default_context(), 25)
+        result = diagnose_ftps.run_probe({
+            'FTP_SERVER': 'ftp.test.example', 'FTP_PORT': '21',
+            'FTP_USERNAME': 'private-user', 'FTP_PASSWORD': 'private-password',
+        }, ftp_class=lambda **kwargs: fake)
+        self.assertEqual(result['root_entry_count'], 3)
+        self.assertEqual(result['known_root_entries'], ['public_html'])
+        self.assertEqual(result['known_subdirectory_manifest']['directory'], 'public_html')
+        self.assertEqual(result['known_subdirectory_manifest']['version'], '3.10.390')
+        self.assertEqual(fake.calls.count('read_manifest'), 2)
+        self.assertNotIn('private-secrets', str(result))
+
     def test_absent_manifest_is_reported_not_downloaded_elsewhere(self):
         class NoManifest(FakeFTPS):
             def retrbinary(self, name, receive):
