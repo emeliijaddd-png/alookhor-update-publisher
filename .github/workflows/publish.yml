@@ -2,8 +2,7 @@ name: Build and Publish ALOOKHOR Release
 
 on:
   push:
-    # Temporary read-only branch probe; remove before merging this PR.
-    branches: [main, 'arena/01a0d253-alookhor-update-publisher']
+    branches: [main]
     tags: ['v*.*.*']
   workflow_dispatch:
 
