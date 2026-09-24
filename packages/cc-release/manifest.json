@@ -1,9 +1,9 @@
 {
   "name": "ALOOKHOR Control Center",
-  "version": "3.10.388",
+  "version": "3.10.389",
   "download_url": "https://raw.githubusercontent.com/emeliijaddd-png/alookhor-update-publisher/arena/01a0a537-alookhor-update-publisher/packages/cc-release/alookhor-control-center.zip",
   "details_url": "https://github.com/emeliijaddd-png/alookhor-update-publisher",
-  "sha256": "d8315691ae37bdaba966abd279522f36f084ddd459f465d857d8a49503c2d0ab",
+  "sha256": "d79f1d8db35d3f8a783ede06f82380624c151db7396cce74491b3a130143681e",
   "requires": "6.0",
   "tested": "6.8",
   "requires_php": "8.0",
@@ -12,18 +12,13 @@
   "changelog": [
     {
       "tag": "FIX",
-      "title": "رفع گیرکردن بررسی به‌روزرسانی",
-      "desc": "پاسخِ بررسی به‌روزرسانی ۶ ساعت در حافظه سرور می‌ماند و نسخه جدید را نشان نمی‌داد؛ عمر حافظه به ۳۰ دقیقه رسید و هر بار باز شدن مرکز به‌روزرسانی، نتیجه تازه گرفته می‌شود."
+      "title": "رفع قطعی آیکن‌های بزرگ و مشکی سربرگ",
+      "desc": "استایل پایه سربرگ (frontend-header.css) پیش‌تر فقط در برخی حالت‌ها بارگذاری می‌شد؛ اکنون بی‌قید و شرط در همه حالت‌ها بارگذاری می‌شود تا آیکن‌ها و چیدمان سربرگ همیشه درست رسم شوند."
     },
     {
       "tag": "NEW",
-      "title": "دکمه بررسی مجدد",
-      "desc": "دکمه «بررسی مجدد» به پنجره به‌روزرسانی اضافه شد تا هر زمان بخواهید، آخرین نسخه را بی‌درنگ بگیرید."
-    },
-    {
-      "tag": "UPDATE",
-      "title": "مسیر کمکی دانلود",
-      "desc": "اگر سرور شما به مخزن اصلی متصل نشود، نسخه از یک آینه دوم دریافت می‌شود."
+      "title": "استایل هدر AKX نیز خودکار بارگذاری می‌شود",
+      "desc": "اگر هدر حرفه‌ای AKX فعال باشد، استایل و اسکریپت مخصوص خودش هم بارگذاری می‌شود."
     }
   ]
 }
