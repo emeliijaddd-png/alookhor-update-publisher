@@ -29,11 +29,13 @@ if (!defined('ABSPATH')) exit;
  * تصاویر category-* داخل خود افزونه (روی لایو همین‌ها قبل از ۳۸۶ کار می‌کردند).
  */
 function alookhor_cc_hero_good_slide_images(){
+    // تصاویر اصلی اسلایدر: 1600×656 (۲.۴:۱) پرکیفیت و تمام‌عرض،
+    // بسته‌بندی‌شده داخل خود افزونه — همیشه در دسترس.
     return [
-        'https://alookhor.ir/wp-content/plugins/alookhor-control-center/assets/images/category-plums.jpg',
-        'https://alookhor.ir/wp-content/plugins/alookhor-control-center/assets/images/category-fruit-sheets.jpg',
-        'https://alookhor.ir/wp-content/plugins/alookhor-control-center/assets/images/category-natural-snacks.jpg',
-        'https://alookhor.ir/wp-content/plugins/alookhor-control-center/assets/images/category-nuts.jpg',
+        'https://alookhor.ir/wp-content/plugins/alookhor-control-center/assets/images/hero/slide-1-plums.jpg',
+        'https://alookhor.ir/wp-content/plugins/alookhor-control-center/assets/images/hero/slide-2-dried-fruit.jpg',
+        'https://alookhor.ir/wp-content/plugins/alookhor-control-center/assets/images/hero/slide-3-packaging.jpg',
+        'https://alookhor.ir/wp-content/plugins/alookhor-control-center/assets/images/hero/slide-4-wholesale.jpg',
     ];
 }
 
@@ -43,8 +45,14 @@ function alookhor_cc_hero_good_slide_images(){
 function alookhor_cc_slide_image_is_broken($url){
     $url = (string)$url;
     if ($url === '') return false;
-    if (strpos($url, '/wp-content/plugins/alookhor-control-center/assets/images/hero/slide-') !== false) return true;
-    if (strpos($url, '/wp-content/plugins/alookhor-categories-manager/') !== false) return true;
+    // منبع حذف‌شدهٔ قدیمی (categories-manager)
+    if (strpos($url, 'wp-content/plugins/alookhor-categories-manager/') !== false) return true;
+    // هر نشانی hero داخل همین افزونه که فایلش روی دیسک نیست (مثل slide-1.jpgِ قدیمی)
+    if (strpos($url, 'wp-content/plugins/alookhor-control-center/assets/images/hero/') !== false) {
+        $rel = substr($url, strpos($url, 'assets/images/hero/'));
+        $local = ALOOKHOR_CC_DIR . $rel;
+        return !file_exists($local);
+    }
     return false;
 }
 

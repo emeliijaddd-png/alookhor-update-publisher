@@ -210,7 +210,7 @@
     "slides": [
       {
         "image_id": 0,
-        "image_url": "https://alookhor.ir/wp-content/plugins/alookhor-control-center/assets/images/category-plums.jpg",
+        "image_url": "https://alookhor.ir/wp-content/plugins/alookhor-control-center/assets/images/hero/slide-1-plums.jpg",
         "image_alt": "آلو بخارا ممتاز خراسان",
         "kicker": "محصول ممتاز خراسان",
         "title": "آلو بخارا",
@@ -230,7 +230,7 @@
       },
       {
         "image_id": 0,
-        "image_url": "https://alookhor.ir/wp-content/plugins/alookhor-control-center/assets/images/category-fruit-sheets.jpg",
+        "image_url": "https://alookhor.ir/wp-content/plugins/alookhor-control-center/assets/images/hero/slide-2-dried-fruit.jpg",
         "image_alt": "آلو خشک طبیعی آلوخور",
         "kicker": "انتخابی از باغ‌های ایران",
         "title": "آلو خشک طبیعی",
@@ -250,7 +250,7 @@
       },
       {
         "image_id": 0,
-        "image_url": "https://alookhor.ir/wp-content/plugins/alookhor-control-center/assets/images/category-natural-snacks.jpg",
+        "image_url": "https://alookhor.ir/wp-content/plugins/alookhor-control-center/assets/images/hero/slide-3-packaging.jpg",
         "image_alt": "بسته‌بندی صادراتی آلوخور",
         "kicker": "استاندارد بازارهای جهانی",
         "title": "بسته‌بندی حرفه‌ای",
@@ -270,7 +270,7 @@
       },
       {
         "image_id": 0,
-        "image_url": "https://alookhor.ir/wp-content/plugins/alookhor-control-center/assets/images/category-nuts.jpg",
+        "image_url": "https://alookhor.ir/wp-content/plugins/alookhor-control-center/assets/images/hero/slide-4-wholesale.jpg",
         "image_alt": "سفارش عمده محصولات آلوخور",
         "kicker": "همکاری مطمئن و ماندگار",
         "title": "تأمین عمده آلو",
