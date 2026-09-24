@@ -23,7 +23,35 @@ PREFIX = 'alookhor-control-center/'
 VERSION = re.compile(r'^\d+\.\d+\.\d+$')
 PHP_INCLUDE = re.compile(rb"ALOOKHOR_CC_DIR\s*\.\s*['\"]([^'\"]+\.php)['\"]")
 ASSET_URL = re.compile(rb"ALOOKHOR_CC_URL\s*\.\s*['\"](assets/[^'\"]+\.(?:css|js|png|jpe?g|webp|svg|woff2?))['\"]")
+UPDATER_HOST_POLICY = re.compile(
+    rb"apply_filters\(\s*['\"]alookhor_cc_update_allowed_hosts['\"]\s*,\s*\[([^\]]*)\]\s*\)"
+)
+HOST_LITERAL = re.compile(rb"['\"]([a-z0-9.-]+)['\"]")
 SKIP_PARTS = {'.git', '.github', '__pycache__', '.DS_Store'}
+
+
+def updater_host_policy_problems(source):
+    """Catch a manifest-allowed host that skips the package SHA-256 filter.
+
+    Conservative static gate for the current updater layout. Dynamic host
+    policies need an explicit security review, not a silent pass.
+    """
+    before, divider, after = source.partition(b"add_filter('upgrader_pre_download'")
+    if not divider or b"hash_file('sha256'" not in after:
+        return ['Updater has no recognizable SHA-256 pre-download hook']
+    manifest_policies = UPDATER_HOST_POLICY.findall(before)
+    download_policies = UPDATER_HOST_POLICY.findall(after)
+    if len(manifest_policies) != 1 or len(download_policies) != 1:
+        return ['Updater host policies cannot be statically verified']
+    allowed_manifest = set(HOST_LITERAL.findall(manifest_policies[0]))
+    allowed_verified = set(HOST_LITERAL.findall(download_policies[0]))
+    if not allowed_manifest or not allowed_verified:
+        return ['Updater host policies are empty or cannot be statically verified']
+    unverified = allowed_manifest - allowed_verified
+    if unverified:
+        return ['Manifest accepts package hosts that bypass the SHA-256 download gate: '
+                + ', '.join(host.decode('ascii') for host in sorted(unverified))]
+    return []
 
 
 def version_tuple(text):
@@ -66,6 +94,8 @@ def source_problems(plugin, package):
                     problems.append('Missing enqueued asset: ' + asset + ' (from ' + relative + ')')
             if b'Compatibility stub:' in data and relative.startswith('includes/'):
                 problems.append('Implementation replaced by compatibility stub: ' + relative)
+        if 'includes/updater.php' in files:
+            problems.extend(updater_host_policy_problems(files['includes/updater.php']))
     return sorted(set(problems))
 
 

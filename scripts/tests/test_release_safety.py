@@ -70,6 +70,38 @@ class PackageSafetyTests(unittest.TestCase):
             _, errors = safety.check_release(root)
             self.assertTrue(any('SHA-256 differs' in error for error in errors))
 
+    def test_manifest_host_must_also_be_sha_verified_before_install(self):
+        def updater(verified_hosts):
+            return ("<?php $allowed_hosts = apply_filters('alookhor_cc_update_allowed_hosts', "
+                    "['updates.alookhor.ir', 'raw.githubusercontent.com', 'cdn.jsdelivr.net']); "
+                    "add_filter('upgrader_pre_download', function() { "
+                    "$allowed_hosts = apply_filters('alookhor_cc_update_allowed_hosts', "
+                    + verified_hosts + "); "
+                    "hash_file('sha256', $downloaded); });").encode()
+
+        unsafe = updater("['updates.alookhor.ir']")
+        problems = safety.updater_host_policy_problems(unsafe)
+        self.assertEqual(len(problems), 1)
+        self.assertIn('raw.githubusercontent.com', problems[0])
+        self.assertIn('cdn.jsdelivr.net', problems[0])
+        self.assertEqual(safety.updater_host_policy_problems(updater(
+            "['updates.alookhor.ir', 'raw.githubusercontent.com', 'cdn.jsdelivr.net']"
+        )), [])
+        self.assertTrue(safety.updater_host_policy_problems(
+            b"<?php add_filter('upgrader_pre_download', function(){});"))
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            self.make_release(root)
+            plugin = root / 'plugin/alookhor-control-center'
+            source = plugin / 'includes/updater.php'
+            source.write_bytes(unsafe)
+            package = root / 'public/releases/alookhor-control-center-3.10.391.zip'
+            with ZipFile(package, 'a') as archive:
+                archive.write(source, 'alookhor-control-center/includes/updater.php')
+            self.assertTrue(any('bypass the SHA-256 download gate' in problem
+                                for problem in safety.source_problems(plugin, package)))
+
     def test_live_version_cannot_be_downgraded_or_reinstalled(self):
         class Response:
             status = 200
