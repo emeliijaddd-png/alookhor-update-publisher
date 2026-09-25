@@ -11,7 +11,9 @@ function getNonce(){return state.nonce||window.wcStoreApiNonce||q('meta[name="wc
 async function api(path,opt={}){
  const n=getNonce(),h={'Accept':'application/json','Content-Type':'application/json'};
  if(n){h['X-ALOOKHOR-CART-NONCE']=n;h['X-WP-Nonce']=n;}
- const res=await fetch(API+path,{method:opt.method||'GET',headers:h,credentials:'include',body:opt.body?JSON.stringify(opt.body):undefined});
+ const isGet=!opt.method||String(opt.method).toUpperCase()==='GET';
+ const url=API+path+(isGet?(path.includes('?')?'&':'?')+'_alookhor_cart_ts='+Date.now():'');
+ const res=await fetch(url,{method:opt.method||'GET',headers:h,credentials:'include',cache:'no-store',body:opt.body?JSON.stringify(opt.body):undefined});
  const rn=res.headers.get('X-ALOOKHOR-CART-NONCE')||res.headers.get('X-WP-Nonce');if(rn)state.nonce=rn;
  const raw=await res.text();let data={};try{data=raw?JSON.parse(raw):{};}catch(e){data={};}
  if(!res.ok)throw new Error(data.message||data.code||('خطای سبد خرید '+res.status));
