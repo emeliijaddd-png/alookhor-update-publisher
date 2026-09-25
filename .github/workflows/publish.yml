@@ -79,6 +79,12 @@ jobs:
           auth=f"ftp://{quote(user,safe='')}:{quote(password,safe='')}@{server}"
           common=['set cmd:fail-exit true','set net:max-retries 1','set net:timeout 20','set ftp:passive-mode true','set ftp:ssl-auth TLS','set ftp:ssl-force true','set ftp:ssl-protect-data true','set ssl:verify-certificate true',f'open -p {port} "{auth}"']
           candidates=[
+            '../public_html/wp-content/plugins/alookhor-control-center1',
+            '../www/wp-content/plugins/alookhor-control-center1',
+            '../httpdocs/wp-content/plugins/alookhor-control-center1',
+            '../htdocs/wp-content/plugins/alookhor-control-center1',
+            '../domains/alookhor.ir/public_html/wp-content/plugins/alookhor-control-center1',
+            '../public/wp-content/plugins/alookhor-control-center1',
             '../public_html/wp-content/plugins/alookhor-control-center',
             '../www/wp-content/plugins/alookhor-control-center',
             '../httpdocs/wp-content/plugins/alookhor-control-center',
