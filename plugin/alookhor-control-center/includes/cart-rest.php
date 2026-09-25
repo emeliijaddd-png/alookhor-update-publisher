@@ -179,26 +179,53 @@ add_action('rest_api_init', function () {
         'permission_callback' => '__return_true',
         'callback' => function () {
             if (!function_exists('wc_get_products')) return rest_ensure_response([]);
-            $products = wc_get_products([
-                'status' => 'publish',
-                'limit' => 8,
-                'orderby' => 'popularity',
-                'order' => 'DESC',
-                'return' => 'objects',
-            ]);
-            $out = [];
-            foreach ($products as $product) {
-                if (!$product || !$product->is_purchasable() || !$product->is_in_stock()) continue;
-                $out[] = [
-                    'id' => (int) $product->get_id(),
-                    'name' => $product->get_name(),
-                    'price' => (float) wc_get_price_to_display($product),
-                    'image' => wp_get_attachment_image_url($product->get_image_id(), 'woocommerce_thumbnail') ?: wc_placeholder_img_src(),
-                    'on_sale' => $product->is_on_sale(),
+            $cart_ids = [];
+            $terms = [];
+            if (function_exists('WC') && WC()->cart) {
+                foreach (WC()->cart->get_cart() as $item) {
+                    $pid = !empty($item['product_id']) ? (int) $item['product_id'] : 0;
+                    $vid = !empty($item['variation_id']) ? (int) $item['variation_id'] : 0;
+                    if ($pid) $cart_ids[] = $pid;
+                    if ($vid) $cart_ids[] = $vid;
+                    foreach (['product_cat','product_tag'] as $tax) {
+                        if ($pid) $terms = array_merge($terms, wp_get_post_terms($pid, $tax, ['fields'=>'ids']));
+                    }
+                }
+            }
+            $cart_ids = array_values(array_unique(array_map('absint',$cart_ids)));
+            $terms = array_values(array_unique(array_map('absint',$terms)));
+            $args = [
+                'status'=>'publish','limit'=>12,'exclude'=>$cart_ids,'orderby'=>'date','order'=>'DESC','return'=>'objects',
+            ];
+            if ($terms) $args['category'] = implode(',', $terms);
+            $products = wc_get_products($args);
+            if (count($products) < 4) {
+                $fallback = wc_get_products([
+                    'status'=>'publish','limit'=>12,'exclude'=>$cart_ids,'orderby'=>'popularity','order'=>'DESC','return'=>'objects'
+                ]);
+                $seen = array_fill_keys(array_map(fn($p)=>(int)$p->get_id(),$products),true);
+                foreach ($fallback as $p) {
+                    if (!isset($seen[$p->get_id()])) {$products[]=$p;$seen[$p->get_id()]=true;}
+                    if (count($products)>=8) break;
+                }
+            }
+            $out=[];
+            foreach($products as $product){
+                if(!$product || !$product->is_visible() || !$product->is_in_stock()) continue;
+                $type=$product->get_type();
+                $has_options=!in_array($type,['simple','external'],true);
+                $out[]=[
+                    'id'=>(int)$product->get_id(),
+                    'name'=>$product->get_name(),
+                    'price'=>(float)wc_get_price_to_display($product),
+                    'image'=>wp_get_attachment_image_url($product->get_image_id(),'woocommerce_thumbnail') ?: wc_placeholder_img_src(),
+                    'on_sale'=>$product->is_on_sale(),
+                    'has_options'=>$has_options,
+                    'type'=>$type,
+                    'permalink'=>$product->get_permalink(),
                 ];
-                if (count($out) >= 4) break;
+                if(count($out)>=4) break;
             }
             return rest_ensure_response($out);
         },
-    ]);
-});
+    ]
