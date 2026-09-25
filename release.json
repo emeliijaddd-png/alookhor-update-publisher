@@ -1,37 +1,24 @@
 {
-  "version": "3.10.403",
-  "previous": "3.10.400",
+  "version": "3.10.405",
+  "previous": "3.10.404",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "رفع کش و همگام‌سازی پایدار سبد خرید با نشست ووکامرس",
+  "description": "همگام‌سازی کامل سبد خرید با Renderer جدید، بهبود کوپن، پیشنهادها، بازخورد عملیات و تجربه موبایل",
   "changelog": [
-    {
-      "tag": "FIX",
-      "title": "اتصال سبد خرید به WooCommerce",
-      "desc": "سبد اختصاصی اکنون مستقیماً از نشست بومی ووکامرس استفاده می‌کند تا محصولات افزوده‌شده در سراسر سایت در سبد نهایی نمایش داده شوند."
-    },
-    {
-      "tag": "FIX",
-      "title": "عملیات AJAX سبد خرید",
-      "desc": "افزایش و کاهش تعداد، حذف محصول، کوپن و افزودن پیشنهادها از مسیر REST اختصاصی انجام می‌شود."
-    },
-    {
-      "tag": "RESPONSIVE",
-      "title": "پایداری سبد در موبایل و دسکتاپ",
-      "desc": "Renderer اختصاصی سبد خرید و همگام‌سازی داده‌ها برای تجربه پایدارتر بهینه شده است."
-    }
+    {"tag":"FIX","title":"همگام‌سازی Renderer سبد خرید","desc":"کلاینت سبد خرید با ساختار جدید ac-* و Renderer فعلی همگام شد."},
+    {"tag":"UX","title":"عملیات سبد خرید","desc":"به‌روزرسانی تعداد، حذف، کوپن و افزودن پیشنهادها با وضعیت‌های بازخوردی پایدارتر انجام می‌شود."},
+    {"tag":"MOBILE","title":"تجربه موبایل","desc":"دکمه ادامه فرایند خرید و عناصر خلاصه سفارش با ساختار جدید سبد خرید سازگار شدند."}
   ],
   "project": "ALOOKHOR",
-  "area": "cart recovery + package repair",
-  "reason": "رفع مشکل نمایش سبد خرید در شرایط کش شدن پاسخ REST و پراکسی.",
+  "area": "cart UX + renderer synchronization",
+  "reason": "رفع ناهماهنگی نسخه جدید Renderer با کلاینت JavaScript و انتشار نسخه اصلاح‌شده.",
   "files": [
     "plugin/alookhor-control-center/assets/css/frontend-cart.css",
     "plugin/alookhor-control-center/assets/js/frontend-cart.js",
     "plugin/alookhor-control-center/includes/cart-page.php",
     "plugin/alookhor-control-center/includes/cart-rest.php",
-    "plugin/alookhor-control-center/includes/sort-center.php",
     "plugin/alookhor-control-center/alookhor-control-center.php"
   ]
 }
