@@ -13,7 +13,7 @@
   ],
   "project": "ALOOKHOR",
   "area": "cart UX + renderer synchronization",
-  "reason": "رفع ناهماهنگی نسخه جدید Renderer با کلاینت JavaScript و انتشار نسخه اصلاح‌شده.",
+  "reason": "رفع ناهماهنگی نسخه جدید Renderer با کلاینت JavaScript و انتشار نسخه اصلاح‌شده؛ انتشار مجدد کانال خصوصی برای همگام‌سازی Manifest و بسته 3.10.405.",
   "files": [
     "plugin/alookhor-control-center/assets/css/frontend-cart.css",
     "plugin/alookhor-control-center/assets/js/frontend-cart.js",
