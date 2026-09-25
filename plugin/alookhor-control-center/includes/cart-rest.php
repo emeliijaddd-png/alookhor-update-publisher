@@ -228,6 +228,5 @@ add_action('rest_api_init', function () {
             }
             return rest_ensure_response($out);
         },
-    ]
     ]);
 });
