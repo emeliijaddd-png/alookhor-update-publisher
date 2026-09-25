@@ -1,9 +1,9 @@
 {
   "name": "ALOOKHOR Control Center",
-  "version": "3.10.405",
-  "download_url": "https://raw.githubusercontent.com/emeliijaddd-png/alookhor-update-publisher/arena/01a0a537-alookhor-update-publisher/packages/cc-release/alookhor-control-center.zip",
+  "version": "3.10.406",
+  "download_url": "https://updates.alookhor.ir/releases/alookhor-control-center-3.10.406.zip",
   "details_url": "https://github.com/emeliijaddd-png/alookhor-update-publisher",
-  "sha256": "2aca33850090d67cda4517d5ea9cd5e9d63ff5668ebb92fe60a9d245bc3bafd9",
+  "sha256": "1c36af58d8f844556e9db0bfe090ede9291dacd8fe1e968082d0d94bdee8d597",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
