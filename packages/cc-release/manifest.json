@@ -1,15 +1,20 @@
 {
   "name": "ALOOKHOR Control Center",
-  "version": "3.10.400",
+  "version": "3.10.401",
   "download_url": "https://raw.githubusercontent.com/emeliijaddd-png/alookhor-update-publisher/arena/01a0a537-alookhor-update-publisher/packages/cc-release/alookhor-control-center.zip",
   "details_url": "https://github.com/emeliijaddd-png/alookhor-update-publisher",
-  "sha256": "8afd137be6774387622784d237e6a4f865966b3d0c261dc46f8bf370e5182e02",
+  "sha256": "9b23d586345d8c13ff74c2c0439edeca9cb1ef4aad86998b7510f47206cfaee1",
   "requires": "6.0",
   "tested": "6.8",
   "requires_php": "8.0",
   "author": "ALOOKHOR Team",
   "description": "کنترل سنتر لوکس و ماژولار ALOOKHOR",
   "changelog": [
+    {
+      "tag": "FIX",
+      "title": "‌رفع نمایش صفحهٔ سبد خرید روی قالب (پلی‌فیل woocommerce_cart)",
+      "desc": "ووکامرس جدید تابع قدیمی woocommerce_cart را ندارد؛ قالب برای نمایش سبد آن را صدا می‌زد و به‌اشتباه پیام «ووکامرس نصب نیست» نشان می‌داد. حالا کنترل سنتر آن تابع را به نسخهٔ خودش پلی‌فیل می‌کند و شورت‌کد [woocommerce_cart] را هم به پوستهٔ تازهٔ سبد متصل می‌کند — صفحهٔ سبد همیشه لیست زندهٔ خرید را نشان می‌دهد."
+    },
     {
       "tag": "FIX",
       "title": "فهرست سبد خرید حالا همیشه زنده نمایش داده می‌شود",
