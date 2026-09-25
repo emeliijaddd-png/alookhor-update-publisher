@@ -8,7 +8,7 @@
  */
 if (!defined('ABSPATH')) exit;
 
-function alookhor_cc_cart_bootstrap() {
+function alookhor_cc407_cart_bootstrap() {
     if (!function_exists('WC')) return false;
     if (function_exists('wc_load_cart') && (!WC()->cart || !WC()->session)) {
         wc_load_cart();
@@ -16,14 +16,14 @@ function alookhor_cc_cart_bootstrap() {
     return WC()->cart instanceof WC_Cart;
 }
 
-function alookhor_cc_cart_nonce_ok(WP_REST_Request $request) {
+function alookhor_cc407_cart_nonce_ok(WP_REST_Request $request) {
     $nonce = $request->get_header('X-ALOOKHOR-CART-NONCE');
     if (!$nonce) $nonce = $request->get_header('X-WP-Nonce');
     return $nonce && wp_verify_nonce($nonce, 'alookhor_cart');
 }
 
-function alookhor_cc_cart_payload() {
-    if (!alookhor_cc_cart_bootstrap()) {
+function alookhor_cc407_cart_payload() {
+    if (!alookhor_cc407_cart_bootstrap()) {
         return new WP_Error('cart_unavailable', 'WooCommerce cart is unavailable.', ['status' => 503]);
     }
 
@@ -71,8 +71,8 @@ function alookhor_cc_cart_payload() {
     ];
 }
 
-function alookhor_cc_cart_response() {
-    $payload = alookhor_cc_cart_payload();
+function alookhor_cc407_cart_response() {
+    $payload = alookhor_cc407_cart_payload();
     if (is_wp_error($payload)) return $payload;
     $response = rest_ensure_response($payload);
     if ($response instanceof WP_REST_Response) {
@@ -83,8 +83,8 @@ function alookhor_cc_cart_response() {
     return $response;
 }
 
-function alookhor_cc_cart_mutation_guard(WP_REST_Request $request) {
-    if (!alookhor_cc_cart_nonce_ok($request)) {
+function alookhor_cc407_cart_mutation_guard(WP_REST_Request $request) {
+    if (!alookhor_cc407_cart_nonce_ok($request)) {
         return new WP_Error('invalid_cart_nonce', 'درخواست سبد خرید معتبر نیست. صفحه را تازه‌سازی کنید.', ['status' => 403]);
     }
     return true;
@@ -94,14 +94,14 @@ add_action('rest_api_init', function () {
     register_rest_route('alookhor-cart/v4', '/cart', [
         'methods' => 'GET',
         'permission_callback' => '__return_true',
-        'callback' => 'alookhor_cc_cart_response',
+        'callback' => 'alookhor_cc407_cart_response',
     ]);
 
     register_rest_route('alookhor-cart/v4', '/cart/update', [
         'methods' => 'POST',
-        'permission_callback' => 'alookhor_cc_cart_mutation_guard',
+        'permission_callback' => 'alookhor_cc407_cart_mutation_guard',
         'callback' => function (WP_REST_Request $request) {
-            if (!alookhor_cc_cart_bootstrap()) return new WP_Error('cart_unavailable', 'WooCommerce cart is unavailable.', ['status' => 503]);
+            if (!alookhor_cc407_cart_bootstrap()) return new WP_Error('cart_unavailable', 'WooCommerce cart is unavailable.', ['status' => 503]);
             $key = sanitize_text_field((string) $request->get_param('key'));
             $qty = max(0, absint($request->get_param('quantity')));
             if (!$key) return new WP_Error('missing_key', 'شناسه محصول سبد خرید نامعتبر است.', ['status' => 400]);
@@ -110,29 +110,29 @@ add_action('rest_api_init', function () {
             else if (!WC()->cart->set_quantity($key, $qty, true)) return new WP_Error('quantity_failed', 'تغییر تعداد محصول انجام نشد.', ['status' => 400]);
             WC()->cart->calculate_totals();
             WC()->cart->set_session();
-            return alookhor_cc_cart_response();
+            return alookhor_cc407_cart_response();
         },
     ]);
 
     register_rest_route('alookhor-cart/v4', '/cart/remove', [
         'methods' => 'POST',
-        'permission_callback' => 'alookhor_cc_cart_mutation_guard',
+        'permission_callback' => 'alookhor_cc407_cart_mutation_guard',
         'callback' => function (WP_REST_Request $request) {
-            if (!alookhor_cc_cart_bootstrap()) return new WP_Error('cart_unavailable', 'WooCommerce cart is unavailable.', ['status' => 503]);
+            if (!alookhor_cc407_cart_bootstrap()) return new WP_Error('cart_unavailable', 'WooCommerce cart is unavailable.', ['status' => 503]);
             $key = sanitize_text_field((string) $request->get_param('key'));
             if (!$key || !WC()->cart->get_cart_item($key)) return new WP_Error('item_not_found', 'محصول در سبد خرید پیدا نشد.', ['status' => 404]);
             WC()->cart->remove_cart_item($key);
             WC()->cart->calculate_totals();
             WC()->cart->set_session();
-            return alookhor_cc_cart_response();
+            return alookhor_cc407_cart_response();
         },
     ]);
 
     register_rest_route('alookhor-cart/v4', '/cart/add', [
         'methods' => 'POST',
-        'permission_callback' => 'alookhor_cc_cart_mutation_guard',
+        'permission_callback' => 'alookhor_cc407_cart_mutation_guard',
         'callback' => function (WP_REST_Request $request) {
-            if (!alookhor_cc_cart_bootstrap()) return new WP_Error('cart_unavailable', 'WooCommerce cart is unavailable.', ['status' => 503]);
+            if (!alookhor_cc407_cart_bootstrap()) return new WP_Error('cart_unavailable', 'WooCommerce cart is unavailable.', ['status' => 503]);
             $product_id = absint($request->get_param('product_id'));
             $quantity = max(1, absint($request->get_param('quantity') ?: 1));
             $variation_id = absint($request->get_param('variation_id'));
@@ -150,15 +150,15 @@ add_action('rest_api_init', function () {
 
             WC()->cart->calculate_totals();
             WC()->cart->set_session();
-            return alookhor_cc_cart_response();
+            return alookhor_cc407_cart_response();
         },
     ]);
 
     register_rest_route('alookhor-cart/v4', '/cart/coupon', [
         'methods' => 'POST',
-        'permission_callback' => 'alookhor_cc_cart_mutation_guard',
+        'permission_callback' => 'alookhor_cc407_cart_mutation_guard',
         'callback' => function (WP_REST_Request $request) {
-            if (!alookhor_cc_cart_bootstrap()) return new WP_Error('cart_unavailable', 'WooCommerce cart is unavailable.', ['status' => 503]);
+            if (!alookhor_cc407_cart_bootstrap()) return new WP_Error('cart_unavailable', 'WooCommerce cart is unavailable.', ['status' => 503]);
             $code = wc_format_coupon_code((string) $request->get_param('code'));
             if (!$code) return new WP_Error('missing_coupon', 'کد تخفیف را وارد کنید.', ['status' => 400]);
             $result = WC()->cart->apply_coupon($code);
@@ -170,7 +170,7 @@ add_action('rest_api_init', function () {
             WC()->cart->calculate_totals();
             WC()->cart->set_session();
             wc_clear_notices();
-            return alookhor_cc_cart_response();
+            return alookhor_cc407_cart_response();
         },
     ]);
 
