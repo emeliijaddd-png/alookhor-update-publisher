@@ -73,7 +73,14 @@ function alookhor_cc_cart_payload() {
 
 function alookhor_cc_cart_response() {
     $payload = alookhor_cc_cart_payload();
-    return is_wp_error($payload) ? $payload : rest_ensure_response($payload);
+    if (is_wp_error($payload)) return $payload;
+    $response = rest_ensure_response($payload);
+    if ($response instanceof WP_REST_Response) {
+        $response->header('Cache-Control', 'private, no-store, no-cache, must-revalidate, max-age=0');
+        $response->header('Pragma', 'no-cache');
+        $response->header('Vary', 'Cookie');
+    }
+    return $response;
 }
 
 function alookhor_cc_cart_mutation_guard(WP_REST_Request $request) {
