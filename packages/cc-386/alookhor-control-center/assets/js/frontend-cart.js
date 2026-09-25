@@ -1,4 +1,4 @@
-/* ALOOKHOR CART v3.10.403 — v4 client (SSR consume + live refresh, no X-WP-Nonce!) */
+/* ALOOKHOR CART v3.10.404 — v4 client (SSR consume + live refresh, no X-WP-Nonce!) */
 (function(){
 'use strict';
 const ROOT='#alookhor-cart', cfg=window.ALOOKHOR_CART_CONFIG||{}, API=String(cfg.cartApi||'/wp-json/alookhor-cart/v4/').replace(/\/+$/,'');
@@ -12,7 +12,8 @@ async function api(path,opt={}){
  // فقط نانس سفارشی خودمان؛ ارسال آن به‌صورت X-WP-Nonce باعث 403 «Cookie check failed» هسته می‌شد.
  const h={'Accept':'application/json','Content-Type':'application/json'};
  if(state.nonce)h['X-ALOOKHOR-CART-NONCE']=state.nonce;
- const res=await fetch(API+path,{method:opt.method||'GET',headers:h,credentials:'include',body:opt.body?JSON.stringify(opt.body):undefined});
+ const bust=path+(path.indexOf('?')>-1?'&':'?')+'_='+Date.now(); // کش‌شکن: LiteSpeed/کش‌های میانی نباید پاسخ سبد را کش کنند
+ const res=await fetch(API+bust,{method:opt.method||'GET',headers:h,credentials:'include',cache:'no-store',body:opt.body?JSON.stringify(opt.body):undefined});
  const rn=res.headers.get('X-ALOOKHOR-CART-NONCE');if(rn)state.nonce=rn;
  const raw=await res.text();let data={};try{data=raw?JSON.parse(raw):{};}catch(e){data={};}
  if(!res.ok)throw new Error(data.message||data.code||('خطای سبد خرید '+res.status));
@@ -102,7 +103,7 @@ function cardHTML(p){
 async function recommend(){
  const grid=q('.suggested-grid',q(ROOT));if(!grid)return;
  try{
-  const res=await fetch(API+'recommendations',{credentials:'include',cache:'no-store',headers:{'Accept':'application/json'}});
+  const res=await fetch(API+'recommendations?_='+Date.now(),{credentials:'include',cache:'no-store',headers:{'Accept':'application/json'}});
   if(!res.ok)return;const data=await res.json();
   if(Array.isArray(data)&&data.length){grid.innerHTML=data.slice(0,4).map(cardHTML).join('');
    qa('[data-add-id]',grid).forEach(b=>b.onclick=async()=>{if(b.disabled)return;b.disabled=true;try{await api('cart/add',{method:'POST',body:{product_id:Number(b.dataset.addId),quantity:1}});await load();toast('محصول به سبد اضافه شد');}catch(e){error(e.message||'افزودن محصول انجام نشد.');}finally{b.disabled=false;}});

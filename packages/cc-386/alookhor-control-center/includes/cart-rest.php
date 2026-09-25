@@ -80,6 +80,52 @@ function alookhor_cc_cart_response() {
     return is_wp_error($payload) ? $payload : rest_ensure_response($payload);
 }
 
+/* ── 3.10.404: پاسخ‌های REST سبد هرگز نباید کش شوند ──
+ * LiteSpeed/کش‌های میانی گاهی GET /alookhor-cart/v4/cart را برای مهمان کش می‌کردند
+ * و در نتیجه JS پس از چند ثانیه «سبد خالی» کش‌شده را جایگزین لیست واقعی می‌کرد.
+ */
+add_filter('rest_post_dispatch', function ($response, $server, $request) {
+    $route = $request->get_route();
+    if (strpos($route, '/alookhor-cart/v4/') === 0) {
+        if (function_exists('nocache_headers')) nocache_headers();
+        if ($response instanceof WP_REST_Response) {
+            $response->header('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0');
+            $response->header('Pragma', 'no-cache');
+            $response->header('Expires', 'Wed, 11 Jan 1984 05:00:00 GMT');
+            $response->header('X-LiteSpeed-Cache-Control', 'no-cache');
+            $response->header('X-Accel-Expires', '0');
+            $response->header('Vary', 'Cookie');
+        }
+    }
+    return $response;
+}, 10, 3);
+
+/* ── 3.10.404: تعدادِ انتخابی در صفحهٔ محصول از مسیر GET از دست نرود ──
+ * صفحهٔ محصول آلوخور دکمهٔ افزودن را به‌صورت لینک ?add-to-cart=…‌&quantity=N می‌سازد،
+ * ولی هستهٔ ووکامرس quantity را فقط از $_POST برمی‌دارد → عملاً همیشه ۱ ثبت می‌شد.
+ * وقتی quantity>1 در URL هست، قبل از هندلر ووکامرس خودمان سالم ثبت و سپس ریدایرکت می‌کنیم.
+ */
+add_action('wp_loaded', function () {
+    if (is_admin() || !isset($_GET['add-to-cart']) || isset($_POST['quantity'])) return;
+    $qty = isset($_GET['quantity']) ? max(1, absint($_GET['quantity'])) : 1;
+    if ($qty < 2) return; // مسیر بومی ووکامرس برای qty=1 دست‌نخورده می‌ماند
+    if (!function_exists('WC') || !WC()->cart) return;
+    $pid = absint($_GET['add-to-cart']);
+    if (!$pid) return;
+    $variation_id = !empty($_GET['variation_id']) ? absint($_GET['variation_id']) : 0;
+    $attrs = array();
+    foreach ((array) $_GET as $k => $v) {
+        if (strpos($k, 'attribute_') === 0 && $v !== '') $attrs[$k] = function_exists('wc_clean') ? wc_clean($v) : sanitize_text_field($v);
+    }
+    $added = WC()->cart->add_to_cart($pid, $qty, $variation_id, $attrs);
+    if (!$added) return; // بگذار مسیر بومی تصمیم بگیرد
+    unset($_GET['add-to-cart'], $_REQUEST['add-to-cart']); // جلوگیری از ثبتِ دوباره توسط WC
+    if (function_exists('wc_add_notice')) wc_add_notice(sprintf(__('«%s» به سبد خرید شما افزوده شد.', 'woocommerce'), function_exists('wc_get_product') && wc_get_product($pid) ? wc_get_product($pid)->get_name() : ''), 'success');
+    $target = (get_option('woocommerce_cart_redirect_after_add') === 'yes' && function_exists('wc_get_cart_url')) ? wc_get_cart_url() : (wp_get_referer() ? wp_get_referer() : (function_exists('wc_get_cart_url') ? wc_get_cart_url() : home_url('/')));
+    wp_safe_redirect($target);
+    exit;
+}, 9);
+
 function alookhor_cc_cart_mutation_guard(WP_REST_Request $request) {
     if (!alookhor_cc_cart_nonce_ok($request)) {
         return new WP_Error('invalid_cart_nonce', 'درخواست سبد خرید معتبر نیست. صفحه را تازه‌سازی کنید.', ['status' => 403]);
