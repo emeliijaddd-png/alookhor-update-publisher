@@ -89,3 +89,20 @@ function alookhor_cc_remove_legacy_cart_wrappers(){
     remove_action('woocommerce_before_cart','woocommerce_output_all_notices',10);
 }
 add_action('wp','alookhor_cc_remove_legacy_cart_wrappers',100);
+
+/* ── 3.10.401: دو مسیر اجرای صفحهٔ سبد را یکجا پوشش می‌دهیم ──
+ * قالب سایت برای رندر صفحهٔ سبد خرید از تابع جهانی `woocommerce_cart()` استفاده می‌کند
+ * که در نسخه‌های جدید ووکامرس وجود ندارد → قالب به‌اشتباه پیام «ووکامرس نصب نیست» نشان می‌داد.
+ * هم تابع جهانی می‌سازیم، هم همان شورت‌کد را دوباره به رندر سفارشی وصل می‌کنیم.
+ */
+if (!function_exists('woocommerce_cart')) {
+    function woocommerce_cart() {
+        if (function_exists('alookhor_cc_cart_markup')) {
+            echo alookhor_cc_cart_markup();
+        }
+    }
+}
+if (function_exists('alookhor_cc_cart_markup')) {
+    if (shortcode_exists('woocommerce_cart')) remove_shortcode('woocommerce_cart');
+    add_shortcode('woocommerce_cart', function () { return alookhor_cc_cart_markup(); });
+}
