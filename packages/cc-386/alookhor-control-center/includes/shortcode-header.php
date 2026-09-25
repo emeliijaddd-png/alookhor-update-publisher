@@ -139,7 +139,7 @@ function alookhor_cc_render_akx_header() {
     $search_ph  = esc_attr($h['search_placeholder']);
 
     $home_url    = esc_url(home_url('/'));
-    $cart_count  = function_exists('WC') && WC()->cart ? (int) WC()->cart->get_cart_contents_count() : 0;
+    $cart_count  = function_exists('WC') && WC()->cart ? (int) count((array) WC()->cart->get_cart()) : 0;
     $cart_url    = function_exists('wc_get_cart_url') ? esc_url(wc_get_cart_url()) : $home_url . 'cart/';
     $account_url = function_exists('wc_get_page_permalink') ? esc_url(wc_get_page_permalink('myaccount')) : $home_url . 'my-account/';
 
@@ -314,7 +314,7 @@ function alookhor_cc_render_akx_header() {
               <circle cx="10" cy="21" r="1"></circle>
               <circle cx="18" cy="21" r="1"></circle>
             </svg>
-            <em><?php echo $cart_count; ?></em>
+            <em class="ak-cart-badge" <?php echo $cart_count ? '' : 'style="display:none"'; ?>><?php echo strtr((string) $cart_count, array('0'=>'۰','1'=>'۱','2'=>'۲','3'=>'۳','4'=>'۴','5'=>'۵','6'=>'۶','7'=>'۷','8'=>'۸','9'=>'۹')); ?></em>
           </a>
 
           <a class="akx-circle-btn" href="<?php echo $account_url; ?>" aria-label="حساب کاربری">

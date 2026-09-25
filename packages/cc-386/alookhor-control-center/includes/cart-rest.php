@@ -47,6 +47,9 @@ function alookhor_cc_cart_payload() {
             'id' => (int) $product->get_id(),
             'variation_id' => !empty($item['variation_id']) ? (int) $item['variation_id'] : 0,
             'name' => $product->get_name(),
+            'short_desc' => method_exists($product, 'get_short_description') ? wp_trim_words(wp_strip_all_tags((string) $product->get_short_description()), 16, '…') : '',
+            'featured' => method_exists($product, 'is_featured') ? (bool) $product->is_featured() : false,
+            'on_sale' => method_exists($product, 'is_on_sale') ? (bool) $product->is_on_sale() : false,
             'permalink' => $product->get_permalink($product->is_visible() ? [] : ['force_redirect' => true]),
             'quantity' => max(1, (int) ($item['quantity'] ?? 1)),
             'variation' => $variation,
@@ -60,6 +63,7 @@ function alookhor_cc_cart_payload() {
     return [
         'items' => $items,
         'count' => (int) WC()->cart->get_cart_contents_count(),
+        'lines' => count($items),
         'totals' => [
             'subtotal' => (float) ($totals['subtotal'] ?? 0),
             'discount_total' => (float) ($totals['discount_total'] ?? 0),
@@ -171,26 +175,7 @@ add_action('rest_api_init', function () {
         'methods' => 'GET',
         'permission_callback' => '__return_true',
         'callback' => function () {
-            if (!function_exists('wc_get_products')) return rest_ensure_response([]);
-            $products = wc_get_products([
-                'status' => 'publish',
-                'limit' => 8,
-                'orderby' => 'popularity',
-                'order' => 'DESC',
-                'return' => 'objects',
-            ]);
-            $out = [];
-            foreach ($products as $product) {
-                if (!$product || !$product->is_purchasable() || !$product->is_in_stock()) continue;
-                $out[] = [
-                    'id' => (int) $product->get_id(),
-                    'name' => $product->get_name(),
-                    'price' => (float) wc_get_price_to_display($product),
-                    'image' => wp_get_attachment_image_url($product->get_image_id(), 'woocommerce_thumbnail') ?: wc_placeholder_img_src(),
-                    'on_sale' => $product->is_on_sale(),
-                ];
-                if (count($out) >= 4) break;
-            }
+            $out = function_exists('alookhor_cc_cart_recommendations') ? alookhor_cc_cart_recommendations(4) : [];
             return rest_ensure_response($out);
         },
     ]);
