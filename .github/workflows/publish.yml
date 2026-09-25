@@ -63,7 +63,7 @@ jobs:
         run: python3 scripts/build_release.py
       - name: Install FTPS client
         run: sudo apt-get update -qq && sudo apt-get install -y -qq lftp
-      - name: Inspect FTPS root for recovery
+      - name: Recover live WordPress plugin if FTP exposes site root
         env:
           FTP_SERVER: ${{ secrets.FTP_SERVER }}
           FTP_PORT: ${{ secrets.FTP_PORT }}
@@ -77,12 +77,34 @@ jobs:
           from urllib.parse import quote
           server=os.environ['FTP_SERVER'].strip(); port=os.environ['FTP_PORT'].strip(); user=os.environ['FTP_USERNAME'].strip(); password=os.environ['FTP_PASSWORD']
           auth=f"ftp://{quote(user,safe='')}:{quote(password,safe='')}@{server}"
-          common=['set cmd:fail-exit true','set cmd:verbose true','set net:max-retries 1','set net:timeout 20','set ftp:passive-mode true','set ftp:ssl-auth TLS','set ftp:ssl-force true','set ftp:ssl-protect-data true','set ssl:verify-certificate true',f'open -p {port} "{auth}"']
-          Path('/tmp/inspect.lftp').write_text('\\n'.join(common+['pwd','cls -1','cd ..','pwd','cls -1','bye'])+'\\n')
-          Path('/tmp/inspect.lftp').chmod(0o600)
+          common=['set cmd:fail-exit true','set net:max-retries 1','set net:timeout 20','set ftp:passive-mode true','set ftp:ssl-auth TLS','set ftp:ssl-force true','set ftp:ssl-protect-data true','set ssl:verify-certificate true',f'open -p {port} "{auth}"']
+          candidates=[
+            '../public_html/wp-content/plugins/alookhor-control-center',
+            '../www/wp-content/plugins/alookhor-control-center',
+            '../httpdocs/wp-content/plugins/alookhor-control-center',
+            '../htdocs/wp-content/plugins/alookhor-control-center',
+            '../domains/alookhor.ir/public_html/wp-content/plugins/alookhor-control-center',
+            '../public/wp-content/plugins/alookhor-control-center',
+          ]
+          found=None
+          for i,p in enumerate(candidates):
+            cmds=common+[f'cd "{p}"','pwd','bye']
+            Path(f'/tmp/probe{i}.lftp').write_text('\n'.join(cmds)+'\n'); Path(f'/tmp/probe{i}.lftp').chmod(0o600)
+            rc=os.system(f'lftp -f /tmp/probe{i}.lftp >/tmp/probe{i}.out 2>&1')
+            if rc==0:
+              found=p
+              print('LIVE_PLUGIN_PATH_FOUND='+p, flush=True)
+              break
+          if not found:
+            print('LIVE_PLUGIN_PATH_NOT_FOUND', flush=True)
+            raise SystemExit(0)
+          Path('/tmp/recover.lftp').write_text('\n'.join(common+[f'cd "{found}"','mirror -R --overwrite --verbose plugin/alookhor-control-center .','bye'])+'\n')
+          Path('/tmp/recover.lftp').chmod(0o600)
+          rc=os.system('lftp -f /tmp/recover.lftp')
+          if rc!=0: raise SystemExit('Live plugin recovery upload failed')
+          print('LIVE_PLUGIN_RECOVERY_UPLOAD=SUCCESS', flush=True)
           PY
-          lftp -f /tmp/inspect.lftp
-          rm -f /tmp/inspect.lftp
+          rm -f /tmp/probe*.lftp /tmp/probe*.out /tmp/recover.lftp
       - name: Publish through explicit FTPS
         env:
           FTP_SERVER: ${{ secrets.FTP_SERVER }}
