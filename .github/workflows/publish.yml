@@ -84,7 +84,7 @@ jobs:
           auth=f"ftp://{quote(user,safe='')}:{quote(password,safe='')}@{server}"
           common=['set cmd:fail-exit true','set net:max-retries 2','set net:timeout 30','set ftp:passive-mode true','set ftp:ssl-auth TLS','set ftp:ssl-force true','set ftp:ssl-protect-data true','set ssl:verify-certificate true',f'open -p {port} "{auth}"']
           files={
-            '/tmp/upload-package.lftp':common+['mkdir -p releases',f'put public/releases/{package} -o releases/{package}','bye'],
+            '/tmp/upload-package.lftp':common+['# releases directory already exists on the FTP target',f'put public/releases/{package} -o releases/{package}','bye'],
             '/tmp/upload-meta.lftp':common+['put public/releases/SHA256SUMS.txt -o releases/SHA256SUMS.txt','put public/index.html -o index.html','put public/changelog.html -o changelog.html','put public/.htaccess -o .htaccess','bye'],
             '/tmp/upload-manifest.lftp':common+['put public/manifest.json -o manifest.json.next','mv manifest.json.next manifest.json','bye']}
           for name,commands in files.items():
