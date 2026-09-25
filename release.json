@@ -1,6 +1,6 @@
 {
-  "version": "3.10.405",
-  "previous": "3.10.404",
+  "version": "3.10.406",
+  "previous": "3.10.405",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
@@ -13,7 +13,7 @@
   ],
   "project": "ALOOKHOR",
   "area": "cart UX + renderer synchronization",
-  "reason": "رفع ناهماهنگی نسخه جدید Renderer با کلاینت JavaScript و انتشار نسخه اصلاح‌شده؛ انتشار مجدد کانال خصوصی برای همگام‌سازی Manifest و بسته 3.10.405.",
+  "reason": "بازسازی کامل سبد خرید با Store API، رفع ناپدیدشدن session cart، اصلاح عملیات POST و پیشنهادهای قابل خرید.",
   "files": [
     "plugin/alookhor-control-center/assets/css/frontend-cart.css",
     "plugin/alookhor-control-center/assets/js/frontend-cart.js",
