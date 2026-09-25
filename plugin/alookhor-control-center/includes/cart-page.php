@@ -9,7 +9,8 @@ function alookhor_cc407_register_cart_assets(){
     wp_enqueue_style('alookhor-cc-cart', ALOOKHOR_CC_URL.'assets/css/frontend-cart.css', [], ALOOKHOR_CC_BUILD);
     wp_enqueue_script('alookhor-cc-cart', ALOOKHOR_CC_URL.'assets/js/frontend-cart.js', [], ALOOKHOR_CC_BUILD, true);
     wp_localize_script('alookhor-cc-cart', 'ALOOKHOR_CART_CONFIG', [
-        'storeApi' => rest_url('wc/store/v1/'),
+        'cartApi' => rest_url('alookhor-cart/v4/'),
+        'cartNonce' => wp_create_nonce('alookhor_cart'),
         'recommendationsApi' => rest_url('alookhor-cart/v4/recommendations'),
         'cartUrl' => function_exists('wc_get_cart_url') ? wc_get_cart_url() : home_url('/cart/'),
         'shopUrl' => function_exists('wc_get_shop_page_permalink') ? wc_get_shop_page_permalink() : home_url('/shop/'),
