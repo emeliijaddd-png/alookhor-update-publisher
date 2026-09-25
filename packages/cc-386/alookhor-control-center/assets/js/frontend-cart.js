@@ -1,4 +1,4 @@
-/* ALOOKHOR CART v3.10.400 — resilient Store API client */
+/* ALOOKHOR CART v3.10.402 — resilient Store API client */
 (function(){
 'use strict';
 const ROOT='#alookhor-cart', cfg=window.ALOOKHOR_CART_CONFIG||{}, API=String(cfg.cartApi||'/wp-json/alookhor-cart/v4/').replace(/\/+$/,'');
@@ -74,6 +74,8 @@ async function recommend(){
   qa('[data-add-id]',grid).forEach(b=>b.onclick=async()=>{if(b.disabled)return;b.disabled=true;try{await api('cart/add',{method:'POST',body:{product_id:Number(b.dataset.addId),quantity:1}});await load();recommend();}catch(e){error(e.message||'افزودن محصول انجام نشد.');}finally{b.disabled=false;}});
  }catch(e){console.error(e);}
 }
-function init(){const r=q(ROOT);if(!r)return;document.body.classList.add('alookhor-cart-active');hideLegacy();load();recommend();}
+function init(){const r=q(ROOT);if(!r)return;document.body.classList.add('alookhor-cart-active');hideLegacy();
+ try{const j=q('#alookhor-cart-initial');if(j){const d=JSON.parse(j.textContent||'{}');if(d&&Array.isArray(d.items)){state.items=d.items;state.count=Number(d.count)||state.items.reduce((n,x)=>n+(Number(x.quantity)||0),0);state.totals=d.totals||{};render();}}}catch(err){console.error(err);}
+ load();recommend();}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();

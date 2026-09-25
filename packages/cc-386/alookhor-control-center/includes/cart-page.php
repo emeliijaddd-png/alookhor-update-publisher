@@ -18,9 +18,61 @@ function alookhor_cc_register_cart_assets(){
 }
 add_action('wp_enqueue_scripts', 'alookhor_cc_register_cart_assets', 1005);
 
+/* ── 3.10.402: رندر سرور-ساید (SSR) ──
+ * لیست سبد باید «همیشه» دیده شود؛ حتی اگر جاوااسکریپت به‌هر دلیلی
+ * (کش بهینه‌ساز، تأخیر مدیریت‌شده، بلاکر مرورگر) دیر یا اصلاً اجرا نشود.
+ */
+function alookhor_cc_cart_fa($n) {
+    return strtr(number_format((float) $n, 0, '.', '٬'), array(
+        '0'=>'۰','1'=>'۱','2'=>'۲','3'=>'۳','4'=>'۴','5'=>'۵','6'=>'۶','7'=>'۷','8'=>'۸','9'=>'۹'
+    ));
+}
+function alookhor_cc_cart_fp($s) {
+    return strtr((string) $s, array('0'=>'۰','1'=>'۱','2'=>'۲','3'=>'۳','4'=>'۴','5'=>'۵','6'=>'۶','7'=>'۷','8'=>'۸','9'=>'۹'));
+}
+function alookhor_cc_cart_items_html($items) {
+    ob_start();
+    foreach ((array) $items as $i) {
+        $img   = isset($i['image']) ? (string) $i['image'] : '';
+        $price = (float) (isset($i['price']) ? $i['price'] : 0);
+        $line  = (float) (isset($i['line_total']) ? $i['line_total'] : 0);
+        $key   = isset($i['key']) ? (string) $i['key'] : '';
+        $name  = isset($i['name']) ? (string) $i['name'] : 'محصول';
+        $qty   = max(1, (int) (isset($i['quantity']) ? $i['quantity'] : 1));
+        $variant_values = array();
+        if (!empty($i['variation']) && is_array($i['variation'])) {
+            foreach ($i['variation'] as $v) { if (isset($v['value'])) $variant_values[] = $v['value']; }
+        }
+        $variant = $variant_values ? implode(' / ', $variant_values) : 'بسته استاندارد';
+        $permalink = !empty($i['permalink']) ? (string) $i['permalink'] : '#';
+        ?>
+<article class="cart-item" data-key="<?php echo esc_attr($key); ?>">
+  <div class="cart-item-prod"><img src="<?php echo esc_url($img); ?>" alt="<?php echo esc_attr($name); ?>" loading="lazy" decoding="async"><div><a href="<?php echo esc_url($permalink); ?>"><?php echo esc_html($name); ?></a></div></div>
+  <div class="cart-item-variant"><?php echo esc_html($variant); ?></div>
+  <div class="price"><?php echo esc_html(alookhor_cc_cart_fa($price)); ?> تومان</div>
+  <div><div class="cart-qty" aria-label="تعداد <?php echo esc_attr($name); ?>"><button type="button" data-cart-qty="-" data-key="<?php echo esc_attr($key); ?>" aria-label="کاهش تعداد">−</button><span><?php echo esc_html(alookhor_cc_cart_fp($qty)); ?></span><button type="button" data-cart-qty="+" data-key="<?php echo esc_attr($key); ?>" aria-label="افزایش تعداد">+</button></div></div>
+  <div class="price-total"><?php echo esc_html(alookhor_cc_cart_fa($line)); ?> تومان</div>
+  <div class="cart-actions"><button type="button" data-cart-remove="<?php echo esc_attr($key); ?>" aria-label="حذف <?php echo esc_attr($name); ?>">حذف</button></div>
+</article>
+        <?php
+    }
+    return ob_get_clean();
+}
+
 function alookhor_cc_cart_markup(){
     $checkout = function_exists('wc_get_checkout_url') ? wc_get_checkout_url() : home_url('/checkout/');
     $shop = function_exists('wc_get_shop_page_permalink') ? wc_get_shop_page_permalink() : home_url('/shop/');
+
+    // Snapshot سرور-ساید از سبد (در صورت در دسترس بودن نشست ووکامرس)
+    $initial = null;
+    if (function_exists('alookhor_cc_cart_payload')) {
+        $payload = alookhor_cc_cart_payload();
+        if (is_array($payload) && isset($payload['items']) && isset($payload['totals'])) $initial = $payload;
+    }
+    $items  = $initial ? (array) $initial['items'] : array();
+    $count  = $initial ? (int) $initial['count'] : 0;
+    $totals = $initial ? (array) $initial['totals'] : array('subtotal'=>0,'discount_total'=>0,'shipping_total'=>0,'total'=>0);
+    $val = function ($k) use ($totals) { return isset($totals[$k]) ? (float) $totals[$k] : 0; };
     ob_start(); ?>
 <section id="alookhor-cart" class="alookhor-cart-page" dir="rtl" aria-labelledby="alookhor-cart-title">
   <div class="cart-shell">
@@ -38,10 +90,14 @@ function alookhor_cc_cart_markup(){
       <section class="cart-products" aria-labelledby="alookhor-cart-items-title">
         <div class="cart-list-head">
           <strong id="alookhor-cart-items-title">لیست خرید شما</strong>
-          <span class="cart-items-count" aria-live="polite">در حال بارگذاری…</span>
+          <span class="cart-items-count" aria-live="polite"><?php echo $initial === null ? 'در حال بارگذاری…' : ($count ? esc_html(alookhor_cc_cart_fa($count) . ' قلم') : 'سبد خالی است'); ?></span>
         </div>
         <div class="cart-items" aria-live="polite">
+          <?php if ($initial === null): ?>
           <div class="cart-loading">در حال بارگذاری سبد خرید…</div>
+          <?php elseif (!$items): ?>
+          <div class="alookhor-cart-empty"><strong>سبد خرید شما خالی است</strong><p>محصول موردنظر خود را از فروشگاه انتخاب کنید.</p><a href="<?php echo esc_url($shop); ?>">رفتن به فروشگاه</a></div>
+          <?php else: echo alookhor_cc_cart_items_html($items); endif; ?>
         </div>
       </section>
 
@@ -49,11 +105,11 @@ function alookhor_cc_cart_markup(){
         <div class="summary-card">
           <h2>خلاصه سفارش</h2>
           <div class="summary-rows">
-            <div class="summary-row"><span>جمع محصولات</span><span class="value">۰ تومان</span></div>
-            <div class="summary-row"><span>تخفیف</span><span class="value">۰ تومان</span></div>
-            <div class="summary-row"><span>ارسال</span><span class="value">رایگان</span></div>
+            <div class="summary-row"><span>جمع محصولات</span><span class="value"><?php echo esc_html(alookhor_cc_cart_fa($val('subtotal'))); ?> تومان</span></div>
+            <div class="summary-row"><span>تخفیف</span><span class="value"><?php echo esc_html(alookhor_cc_cart_fa($val('discount_total'))); ?> تومان</span></div>
+            <div class="summary-row"><span>ارسال</span><span class="value"><?php echo $val('shipping_total') ? esc_html(alookhor_cc_cart_fa($val('shipping_total')) . ' تومان') : 'رایگان'; ?></span></div>
           </div>
-          <div class="summary-total"><span>مبلغ نهایی</span><strong class="value">۰ تومان</strong></div>
+          <div class="summary-total"><span>مبلغ نهایی</span><strong class="value"><?php echo esc_html(alookhor_cc_cart_fa($val('total'))); ?> تومان</strong></div>
           <a class="checkout-btn" href="<?php echo esc_url($checkout); ?>">ادامه تا تسویه‌حساب</a>
 
           <div class="coupon-box">
@@ -79,6 +135,7 @@ function alookhor_cc_cart_markup(){
     <a class="mobile-checkout" href="<?php echo esc_url($checkout); ?>">ادامه تا تسویه‌حساب</a>
   </div>
 </section>
+<?php if ($initial !== null) echo '<script id="alookhor-cart-initial" type="application/json">' . wp_json_encode($initial, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . '</script>'; ?>
 <?php return ob_get_clean();
 }
 function alookhor_cc_replace_cart_content($content){ if(!alookhor_cc_cart_is_page() || is_admin()) return $content; return alookhor_cc_cart_markup(); }

@@ -1,15 +1,20 @@
 {
   "name": "ALOOKHOR Control Center",
-  "version": "3.10.401",
+  "version": "3.10.402",
   "download_url": "https://raw.githubusercontent.com/emeliijaddd-png/alookhor-update-publisher/arena/01a0a537-alookhor-update-publisher/packages/cc-release/alookhor-control-center.zip",
   "details_url": "https://github.com/emeliijaddd-png/alookhor-update-publisher",
-  "sha256": "9b23d586345d8c13ff74c2c0439edeca9cb1ef4aad86998b7510f47206cfaee1",
+  "sha256": "f928ccc0ca60e565dcafa3a5ac3102fa142b19d2d3adc656344888fc154ab858",
   "requires": "6.0",
   "tested": "6.8",
   "requires_php": "8.0",
   "author": "ALOOKHOR Team",
   "description": "کنترل سنتر لوکس و ماژولار ALOOKHOR",
   "changelog": [
+    {
+      "tag": "FIX",
+      "title": "لیست سبد خرید حالا همیشه و بدون وابستگی به جاوااسکریپت نمایش داده می‌شود (SSR)",
+      "desc": "علت گیرکردن روی «در حال بارگذاری» این بود که لیست فقط با جاوااسکریپت ساخته می‌شد و بهینه‌سازهای کش می‌توانستند اجرای آن را به تأخیر بیندازند یا متوقف کنند. از این نسخه، خودِ سرور لیست و مبالغ سبد را همان لحظهٔ اول داخل صفحه می‌سازد و جاوااسکریپت فقط آن را زنده به‌روز می‌کند — یعنی حتی با کش تهاجمی یا مرورگر کند، لیست خرید همیشه دیده می‌شود."
+    },
     {
       "tag": "FIX",
       "title": "‌رفع نمایش صفحهٔ سبد خرید روی قالب (پلی‌فیل woocommerce_cart)",
@@ -24,11 +29,6 @@
       "tag": "RESTORE",
       "title": "همه حفاظت‌ها کامل باقی‌اند",
       "desc": "هدر شیشه‌ای اصلی + کشوی راست، اسلایدر قدیمی، تصاویر تا-لبه-لبه، چک خودکار سلامت لینک عکس‌ها، سپر ضدکش صفحات تجاری، پاک‌سازی ساعتی کش و پروب تشخیصی — همه در همین نسخه."
-    },
-    {
-      "tag": "TEST",
-      "title": "تست سبد با نشست واقعی در محیط آزمایش",
-      "desc": "در bench با نشست ماندگار (کوکی + جدول سشن): دو خرید انجام شد، API جدید هر دو آیتم را با قیمت‌ها فهرست کرد (count:3, total واقعی) — یعنی اتصال یک‌پارچهٔ کلیک-خرید تا نمایش لیست تأیید شد."
     }
   ]
 }
