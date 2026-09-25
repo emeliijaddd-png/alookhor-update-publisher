@@ -1,11 +1,11 @@
 {
-  "version": "3.10.400",
-  "previous": "3.10.399",
+  "version": "3.10.403",
+  "previous": "3.10.400",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "تثبیت کامل سبد خرید و اتصال مستقیم به نشست بومی ووکامرس",
+  "description": "رفع کش و همگام‌سازی پایدار سبد خرید با نشست ووکامرس",
   "changelog": [
     {
       "tag": "FIX",
@@ -25,7 +25,7 @@
   ],
   "project": "ALOOKHOR",
   "area": "cart recovery + package repair",
-  "reason": "نسخه 3.10.386 پس از نصب به دلیل includeهای مفقود روی سایت Fatal Error ایجاد کرد.",
+  "reason": "رفع مشکل نمایش سبد خرید در شرایط کش شدن پاسخ REST و پراکسی.",
   "files": [
     "plugin/alookhor-control-center/assets/css/frontend-cart.css",
     "plugin/alookhor-control-center/assets/js/frontend-cart.js",
