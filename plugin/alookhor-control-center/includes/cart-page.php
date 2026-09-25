@@ -2,10 +2,10 @@
 /** ALOOKHOR Cart — single custom renderer, WooCommerce Store API backed. */
 if (!defined('ABSPATH')) exit;
 
-function alookhor_cc_cart_is_page(){ return function_exists('is_cart') && is_cart(); }
+function alookhor_cc407_cart_is_page(){ return function_exists('is_cart') && is_cart(); }
 
-function alookhor_cc_register_cart_assets(){
-    if (!alookhor_cc_cart_is_page()) return;
+function alookhor_cc407_register_cart_assets(){
+    if (!alookhor_cc407_cart_is_page()) return;
     wp_enqueue_style('alookhor-cc-cart', ALOOKHOR_CC_URL.'assets/css/frontend-cart.css', [], ALOOKHOR_CC_BUILD);
     wp_enqueue_script('alookhor-cc-cart', ALOOKHOR_CC_URL.'assets/js/frontend-cart.js', [], ALOOKHOR_CC_BUILD, true);
     wp_localize_script('alookhor-cc-cart', 'ALOOKHOR_CART_CONFIG', [
@@ -16,9 +16,9 @@ function alookhor_cc_register_cart_assets(){
         'checkoutUrl' => function_exists('wc_get_checkout_url') ? wc_get_checkout_url() : home_url('/checkout/'),
     ]);
 }
-add_action('wp_enqueue_scripts', 'alookhor_cc_register_cart_assets', 1005);
+add_action('wp_enqueue_scripts', 'alookhor_cc407_register_cart_assets', 1005);
 
-function alookhor_cc_cart_markup(){
+function alookhor_cc407_cart_markup(){
     $checkout = function_exists('wc_get_checkout_url') ? wc_get_checkout_url() : home_url('/checkout/');
     $shop = function_exists('wc_get_shop_page_permalink') ? wc_get_shop_page_permalink() : home_url('/shop/');
     ob_start(); ?>
@@ -86,14 +86,14 @@ function alookhor_cc_cart_markup(){
 <?php return ob_get_clean();
 }
 
-function alookhor_cc_replace_cart_content($content){
-    if (!alookhor_cc_cart_is_page() || is_admin()) return $content;
-    return alookhor_cc_cart_markup();
+function alookhor_cc407_replace_cart_content($content){
+    if (!alookhor_cc407_cart_is_page() || is_admin()) return $content;
+    return alookhor_cc407_cart_markup();
 }
-add_filter('the_content','alookhor_cc_replace_cart_content',9999);
+add_filter('the_content','alookhor_cc407_replace_cart_content',9999);
 
-function alookhor_cc_remove_legacy_cart_wrappers(){
-    if (!alookhor_cc_cart_is_page()) return;
+function alookhor_cc407_remove_legacy_cart_wrappers(){
+    if (!alookhor_cc407_cart_is_page()) return;
     remove_action('woocommerce_before_cart','woocommerce_output_all_notices',10);
 }
-add_action('wp','alookhor_cc_remove_legacy_cart_wrappers',100);
+add_action('wp','alookhor_cc407_remove_legacy_cart_wrappers',100);
