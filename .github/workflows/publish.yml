@@ -63,6 +63,26 @@ jobs:
         run: python3 scripts/build_release.py
       - name: Install FTPS client
         run: sudo apt-get update -qq && sudo apt-get install -y -qq lftp
+      - name: Inspect FTPS root for recovery
+        env:
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+          FTP_PORT: ${{ secrets.FTP_PORT }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import os
+          from pathlib import Path
+          from urllib.parse import quote
+          server=os.environ['FTP_SERVER'].strip(); port=os.environ['FTP_PORT'].strip(); user=os.environ['FTP_USERNAME'].strip(); password=os.environ['FTP_PASSWORD']
+          auth=f"ftp://{quote(user,safe='')}:{quote(password,safe='')}@{server}"
+          common=['set cmd:fail-exit true','set net:max-retries 1','set net:timeout 20','set ftp:passive-mode true','set ftp:ssl-auth TLS','set ftp:ssl-force true','set ftp:ssl-protect-data true','set ssl:verify-certificate true',f'open -p {port} "{auth}"']
+          Path('/tmp/inspect.lftp').write_text('\\n'.join(common+['pwd','cls -1','cd ..','pwd','cls -1','bye'])+'\\n')
+          Path('/tmp/inspect.lftp').chmod(0o600)
+          PY
+          lftp -f /tmp/inspect.lftp
+          rm -f /tmp/inspect.lftp
       - name: Publish through explicit FTPS
         env:
           FTP_SERVER: ${{ secrets.FTP_SERVER }}
