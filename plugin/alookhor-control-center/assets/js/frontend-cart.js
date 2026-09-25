@@ -2,7 +2,7 @@
 (function(){
 'use strict';
 const ROOT='#alookhor-cart',cfg=window.ALOOKHOR_CART_CONFIG||{};
-const API=String(cfg.storeApi||'/wp-json/wc/store/v1/').replace(/\/+$/,'');
+const API=String(cfg.cartApi||'/wp-json/alookhor-cart/v4/').replace(/\/+$/,'');
 const REC=String(cfg.recommendationsApi||'/wp-json/alookhor-cart/v4/recommendations');
 const state={cart:null,token:'',nonce:'',busy:new Set()};
 const q=(s,r=document)=>r.querySelector(s),qa=(s,r=document)=>Array.from(r.querySelectorAll(s));
@@ -14,7 +14,7 @@ function capture(res){const t=res.headers.get('Cart-Token');if(t)state.token=t;c
 async function api(path,method='GET',body){
  const h={'Accept':'application/json','Content-Type':'application/json'};
  const n=state.nonce||window.wcStoreApiNonce||q('meta[name="wc-store-api-nonce"]')?.content||'';
- if(state.token)h['Cart-Token']=state.token; else if(n)h['Nonce']=n;
+ if(state.token)h['Cart-Token']=state.token; else if(cfg.cartNonce)h['X-ALOOKHOR-CART-NONCE']=cfg.cartNonce; else if(n)h['Nonce']=n;
  const res=await fetch(API+'/'+String(path).replace(/^\/+/,''),{method,headers:h,credentials:'include',cache:'no-store',body:body===undefined?undefined:JSON.stringify(body)});
  capture(res);
  const raw=await res.text();let data={};try{data=raw?JSON.parse(raw):{};}catch(e){}
@@ -49,11 +49,11 @@ async function mutate(key,fn){
 function bind(){
  const r=q(ROOT);if(!r)return;
  qa('[data-action]',r).forEach(b=>{b.onclick=()=>{const key=b.dataset.key,i=state.cart.items.find(x=>String(x.key)===String(key));if(!i)return;
-  if(b.dataset.action==='remove')mutate(key,()=>api('cart/remove-item','POST',{key}));
-  else {let qty=b.dataset.action==='plus'?i.quantity+1:i.quantity-1;qty=Math.max(i.limits.minimum||1,Math.min(i.limits.maximum||9999,qty));if(qty!==i.quantity)mutate(key,()=>api('cart/update-item','POST',{key,quantity:qty}));}
+  if(b.dataset.action==='remove')mutate(key,()=>api('cart/remove','POST',{key}));
+  else {let qty=b.dataset.action==='plus'?i.quantity+1:i.quantity-1;qty=Math.max(i.limits.minimum||1,Math.min(i.limits.maximum||9999,qty));if(qty!==i.quantity)mutate(key,()=>api('cart/update','POST',{key,quantity:qty}));}
  };});
  const cb=q('.ac-coupon button',r),ci=q('.ac-coupon input',r),fb=q('.coupon-feedback',r);
- if(cb&&ci){cb.onclick=async()=>{const code=ci.value.trim();if(!code)return;cb.disabled=true;if(fb)fb.textContent='در حال بررسی…';try{await api('cart/apply-coupon','POST',{code});ci.value='';if(fb)fb.textContent='کد تخفیف اعمال شد.';await load();}catch(e){if(fb)fb.textContent=e.message||'کد تخفیف قابل اعمال نیست.';}finally{cb.disabled=false;}};ci.onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();cb.click();}};}
+ if(cb&&ci){cb.onclick=async()=>{const code=ci.value.trim();if(!code)return;cb.disabled=true;if(fb)fb.textContent='در حال بررسی…';try{await api('cart/coupon','POST',{code});ci.value='';if(fb)fb.textContent='کد تخفیف اعمال شد.';await load();}catch(e){if(fb)fb.textContent=e.message||'کد تخفیف قابل اعمال نیست.';}finally{cb.disabled=false;}};ci.onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();cb.click();}};}
 }
 function bindFaq(){qa('.faq-q',q(ROOT)||document).forEach(b=>{if(b.dataset.bound)return;b.dataset.bound='1';b.onclick=()=>{const a=b.nextElementSibling;b.parentElement.classList.toggle('open');if(a)a.style.maxHeight=b.parentElement.classList.contains('open')?a.scrollHeight+'px':'0';};});}
 async function recommend(){
@@ -61,7 +61,7 @@ async function recommend(){
  try{const res=await fetch(REC,{credentials:'include',cache:'no-store'});const data=await res.json();if(!res.ok)throw new Error(data.message||'پیشنهادها دریافت نشد');
   if(!Array.isArray(data)||!data.length){grid.innerHTML='<div class="suggest-empty">در حال حاضر پیشنهاد مرتبطی موجود نیست.</div>';return;}
   grid.innerHTML=data.slice(0,4).map(p=>'<article class="sg-card"><a class="sg-img" href="'+esc(p.permalink||'#')+'"><img src="'+esc(p.image||'')+'" alt="'+esc(p.name||'')+'" loading="lazy" decoding="async">'+(p.on_sale?'<span class="sg-badge">تخفیف ویژه</span>':'')+'</a><strong class="sg-name">'+esc(p.name||'')+'</strong><span class="sg-price">'+fa(p.price)+'<small>تومان</small></span><button type="button" class="sg-add" data-add-id="'+esc(p.id)+'" data-has-options="'+(p.has_options?'1':'0')+'">'+(p.has_options?'انتخاب گزینه‌ها':'افزودن')+'</button></article>').join('');
-  qa('.sg-add',grid).forEach(b=>b.onclick=async()=>{const p=data.find(x=>String(x.id)===String(b.dataset.addId));if(!p)return;if(b.dataset.hasOptions==='1'){window.location.href=p.permalink;return;}b.disabled=true;try{await api('cart/add-item','POST',{id:Number(p.id),quantity:1});await load();}catch(e){err(e.message||'افزودن محصول انجام نشد.');}finally{b.disabled=false;}});
+  qa('.sg-add',grid).forEach(b=>b.onclick=async()=>{const p=data.find(x=>String(x.id)===String(b.dataset.addId));if(!p)return;if(b.dataset.hasOptions==='1'){window.location.href=p.permalink;return;}b.disabled=true;try{await api('cart/add','POST',{product_id:Number(p.id),quantity:1});await load();}catch(e){err(e.message||'افزودن محصول انجام نشد.');}finally{b.disabled=false;}});
  }catch(e){grid.innerHTML='<div class="suggest-empty">پیشنهادها فعلاً در دسترس نیستند.</div>';console.error(e);}
 }
 function init(){if(!q(ROOT))return;document.body.classList.add('alookhor-cart-active');load();recommend();bindFaq();}
