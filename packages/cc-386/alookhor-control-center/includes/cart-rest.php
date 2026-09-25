@@ -1,222 +1,197 @@
 <?php
-if(!defined('ABSPATH')) exit;
-
 /**
- * ALOOKHOR Cart v4 - REST API for recommendations and cart helpers
- * Endpoint: /wp-json/alookhor-cart/v3/recommendations
+ * ALOOKHOR Cart REST — native WooCommerce session bridge + recommendations.
+ *
+ * The Cart page must read/write the same WC()->cart session used by normal
+ * WooCommerce add-to-cart buttons. This avoids a second, disconnected Store API
+ * cart state on themes that also run Woodmart/Elementor cart fragments.
  */
+if (!defined('ABSPATH')) exit;
 
-add_action('rest_api_init', function(){
-    register_rest_route('alookhor-cart/v3', '/recommendations', [
-        'methods' => 'GET',
-        'permission_callback' => '__return_true',
-        'callback' => 'alookhor_cc_cart_rest_recommendations',
-        'args' => [
-            'exclude' => [
-                'type' => 'string',
-                'required' => false,
-            ],
-            'limit' => [
-                'type' => 'integer',
-                'required' => false,
-                'default' => 4,
-            ],
-        ],
-    ]);
-
-    register_rest_route('alookhor-cart/v3', '/cart-data', [
-        'methods' => 'GET',
-        'permission_callback' => '__return_true',
-        'callback' => 'alookhor_cc_cart_rest_cart_data',
-    ]);
-});
-
-function alookhor_cc_cart_rest_recommendations($request){
-    $exclude_param = $request->get_param('exclude');
-    $exclude_ids = [];
-    if($exclude_param){
-        $exclude_ids = array_map('intval', explode(',', $exclude_param));
+function alookhor_cc_cart_bootstrap() {
+    if (!function_exists('WC')) return false;
+    if (function_exists('wc_load_cart') && (!WC()->cart || !WC()->session)) {
+        wc_load_cart();
     }
-    // Also exclude current cart items
-    if(function_exists('WC') && WC()->cart){
-        foreach(WC()->cart->get_cart() as $ci){
-            $exclude_ids[] = $ci['product_id'];
-            if($ci['variation_id']) $exclude_ids[] = $ci['variation_id'];
-        }
-    }
-    $exclude_ids = array_unique(array_filter($exclude_ids));
+    return WC()->cart instanceof WC_Cart;
+}
 
-    $limit = (int)($request->get_param('limit') ?: 4);
-    $limit = max(1, min(8, $limit));
+function alookhor_cc_cart_nonce_ok(WP_REST_Request $request) {
+    $nonce = $request->get_header('X-ALOOKHOR-CART-NONCE');
+    if (!$nonce) $nonce = $request->get_header('X-WP-Nonce');
+    return $nonce && wp_verify_nonce($nonce, 'alookhor_cart');
+}
 
-    // Try to get related products from cart first item
-    $related_ids = [];
-    if(!empty($exclude_ids) && function_exists('wc_get_related_products')){
-        $first_id = $exclude_ids[0] ?? 0;
-        if($first_id){
-            $related_ids = wc_get_related_products($first_id, 20);
-        }
+function alookhor_cc_cart_payload() {
+    if (!alookhor_cc_cart_bootstrap()) {
+        return new WP_Error('cart_unavailable', 'WooCommerce cart is unavailable.', ['status' => 503]);
     }
 
-    // Filter out Samsung and excluded
-    $filtered = [];
-    $check_product = function($pid) use ($exclude_ids){
-        if(in_array($pid, $exclude_ids)) return false;
-        $p = wc_get_product($pid);
-        if(!$p) return false;
-        if(!$p->is_purchasable() || $p->get_status() !== 'publish') return false;
-        $name = $p->get_name();
-        // Filter Samsung / phone demo products
-        if(strpos($name, 'سامسونگ')!==false || strpos($name, 'گوشی')!==false || stripos($name, 'samsung')!==false || stripos($name, 'phone')!==false) return false;
-        return true;
-    };
+    $items = [];
+    foreach (WC()->cart->get_cart() as $key => $item) {
+        $product = isset($item['data']) && $item['data'] instanceof WC_Product ? $item['data'] : null;
+        if (!$product) continue;
 
-    if(!empty($related_ids)){
-        foreach($related_ids as $fid){
-            if($check_product($fid)){
-                $filtered[] = $fid;
-                if(count($filtered) >= $limit) break;
-            }
-        }
-    }
-
-    // Fallback to bestsellers / recent
-    if(count($filtered) < $limit){
-        $fallback = wc_get_products([
-            'limit' => 30,
-            'return' => 'ids',
-            'status' => 'publish',
-            'orderby' => 'popularity',
-            'order' => 'DESC',
-        ]);
-        foreach($fallback as $fid){
-            if(count($filtered) >= $limit) break;
-            if(in_array($fid, $filtered)) continue;
-            if($check_product($fid)){
-                $filtered[] = $fid;
-            }
-        }
-    }
-
-    // Fallback to any products
-    if(count($filtered) < $limit){
-        $any = wc_get_products([
-            'limit' => 30,
-            'return' => 'ids',
-            'status' => 'publish',
-            'orderby' => 'date',
-            'order' => 'DESC',
-        ]);
-        foreach($any as $fid){
-            if(count($filtered) >= $limit) break;
-            if(in_array($fid, $filtered)) continue;
-            if($check_product($fid)){
-                $filtered[] = $fid;
-            }
-        }
-    }
-
-    $result = [];
-    foreach(array_slice($filtered, 0, $limit) as $pid){
-        $prod = wc_get_product($pid);
-        if(!$prod) continue;
-        $img = wp_get_attachment_image_url($prod->get_image_id(), 'woocommerce_thumbnail');
-        if(!$img) $img = wp_get_attachment_image_url($prod->get_image_id(), 'full');
-        if(!$img) {
-            $gallery = $prod->get_gallery_image_ids();
-            if(!empty($gallery)){
-                $img = wp_get_attachment_image_url($gallery[0], 'woocommerce_thumbnail');
-            }
-        }
-        $price = (float)$prod->get_price();
-        $regular = (float)$prod->get_regular_price();
-        if(!$price && $prod->is_type('variable')){
-            $price = (float)$prod->get_variation_price('min', true);
-            $regular = (float)$prod->get_variation_regular_price('min', true);
-        }
-        $on_sale = $prod->is_on_sale();
-        $discount_percent = 0;
-        if($on_sale && $regular > 0 && $price < $regular){
-            $discount_percent = (int)round((($regular - $price) / $regular) * 100);
-        }
-
-        $variations = [];
-        if($prod->is_type('variable')){
-            $available_vars = $prod->get_available_variations();
-            foreach(array_slice($available_vars, 0, 10) as $var){
-                $var_id = $var['variation_id'];
-                $var_prod = wc_get_product($var_id);
-                if(!$var_prod) continue;
-                $v_price = (float)$var_prod->get_price();
-                $v_regular = (float)$var_prod->get_regular_price();
-                $v_stock = $var_prod->get_stock_status();
-                $v_purchasable = $var_prod->is_purchasable() && $var_prod->is_in_stock();
-                $attrs = [];
-                foreach($var['attributes'] as $k=>$v){
-                    $attrs[$k] = $v;
-                }
-                $variations[] = [
-                    'id' => $var_id,
-                    'attributes' => $attrs,
-                    'price' => $v_price,
-                    'regular_price' => $v_regular,
-                    'sale_price' => $v_price,
-                    'stock_status' => $v_stock,
-                    'purchasable' => $v_purchasable,
-                    'is_purchasable' => $v_purchasable,
+        $variation = [];
+        if (!empty($item['variation']) && is_array($item['variation'])) {
+            foreach ($item['variation'] as $attr => $value) {
+                $variation[] = [
+                    'name' => wc_attribute_label(str_replace('attribute_', '', $attr), $product),
+                    'value' => wc_clean($value),
                 ];
             }
         }
 
-        $result[] = [
-            'id' => $prod->get_id(),
-            'name' => $prod->get_name(),
-            'permalink' => get_permalink($prod->get_id()),
-            'image' => $img ?: ALOOKHOR_CC_URL.'assets/images/bowl.jpg',
-            'type' => $prod->get_type(),
-            'sku' => $prod->get_sku(),
-            'price' => $price,
-            'regular_price' => $regular ?: $price,
-            'sale_price' => $price,
-            'on_sale' => $on_sale,
-            'discount_percent' => $discount_percent,
-            'stock_status' => $prod->get_stock_status(),
-            'purchasable' => $prod->is_purchasable(),
-            'is_purchasable' => $prod->is_purchasable() && $prod->is_in_stock(),
-            'variations' => $variations,
-        ];
-    }
-
-    return rest_ensure_response($result);
-}
-
-function alookhor_cc_cart_rest_cart_data($request){
-    if(!function_exists('WC') || !WC() || !WC()->cart){
-        return rest_ensure_response(['items'=>[], 'count'=>0, 'totals'=>[]]);
-    }
-    $cart = WC()->cart;
-    $items = [];
-    foreach($cart->get_cart() as $key=>$ci){
-        $prod = $ci['data'];
-        if(!$prod) continue;
         $items[] = [
-            'key' => $key,
-            'id' => $ci['product_id'],
-            'variation_id' => $ci['variation_id'],
-            'name' => $prod->get_name(),
-            'quantity' => $ci['quantity'],
-            'price' => (float)$prod->get_price(),
-            'regular_price' => (float)$prod->get_regular_price(),
-            'image' => wp_get_attachment_image_url($prod->get_image_id(), 'thumbnail'),
-            'permalink' => get_permalink($ci['product_id']),
-            'variation' => $ci['variation'],
+            'key' => (string) $key,
+            'id' => (int) $product->get_id(),
+            'variation_id' => !empty($item['variation_id']) ? (int) $item['variation_id'] : 0,
+            'name' => $product->get_name(),
+            'permalink' => $product->get_permalink($product->is_visible() ? [] : ['force_redirect' => true]),
+            'quantity' => max(1, (int) ($item['quantity'] ?? 1)),
+            'variation' => $variation,
+            'image' => wp_get_attachment_image_url($product->get_image_id(), 'woocommerce_thumbnail') ?: wc_placeholder_img_src(),
+            'price' => (float) wc_get_price_to_display($product),
+            'line_total' => (float) wc_get_price_to_display($product, ['qty' => (int) ($item['quantity'] ?? 1)]),
         ];
     }
-    return rest_ensure_response([
+
+    $totals = WC()->cart->get_totals();
+    return [
         'items' => $items,
-        'count' => $cart->get_cart_contents_count(),
-        'subtotal' => $cart->get_subtotal(),
-        'total' => $cart->get_total('edit'),
-        'coupons' => $cart->get_applied_coupons(),
-    ]);
+        'count' => (int) WC()->cart->get_cart_contents_count(),
+        'totals' => [
+            'subtotal' => (float) ($totals['subtotal'] ?? 0),
+            'discount_total' => (float) ($totals['discount_total'] ?? 0),
+            'shipping_total' => (float) ($totals['shipping_total'] ?? 0),
+            'fee_total' => (float) ($totals['fee_total'] ?? 0),
+            'total' => (float) ($totals['total'] ?? 0),
+            'currency' => get_woocommerce_currency(),
+        ],
+    ];
 }
+
+function alookhor_cc_cart_response() {
+    $payload = alookhor_cc_cart_payload();
+    return is_wp_error($payload) ? $payload : rest_ensure_response($payload);
+}
+
+function alookhor_cc_cart_mutation_guard(WP_REST_Request $request) {
+    if (!alookhor_cc_cart_nonce_ok($request)) {
+        return new WP_Error('invalid_cart_nonce', 'درخواست سبد خرید معتبر نیست. صفحه را تازه‌سازی کنید.', ['status' => 403]);
+    }
+    return true;
+}
+
+add_action('rest_api_init', function () {
+    register_rest_route('alookhor-cart/v4', '/cart', [
+        'methods' => 'GET',
+        'permission_callback' => '__return_true',
+        'callback' => 'alookhor_cc_cart_response',
+    ]);
+
+    register_rest_route('alookhor-cart/v4', '/cart/update', [
+        'methods' => 'POST',
+        'permission_callback' => 'alookhor_cc_cart_mutation_guard',
+        'callback' => function (WP_REST_Request $request) {
+            if (!alookhor_cc_cart_bootstrap()) return new WP_Error('cart_unavailable', 'WooCommerce cart is unavailable.', ['status' => 503]);
+            $key = sanitize_text_field((string) $request->get_param('key'));
+            $qty = max(0, absint($request->get_param('quantity')));
+            if (!$key) return new WP_Error('missing_key', 'شناسه محصول سبد خرید نامعتبر است.', ['status' => 400]);
+            if (!WC()->cart->get_cart_item($key)) return new WP_Error('item_not_found', 'محصول در سبد خرید پیدا نشد.', ['status' => 404]);
+            if ($qty === 0) WC()->cart->remove_cart_item($key);
+            else if (!WC()->cart->set_quantity($key, $qty, true)) return new WP_Error('quantity_failed', 'تغییر تعداد محصول انجام نشد.', ['status' => 400]);
+            WC()->cart->calculate_totals();
+            WC()->cart->set_session();
+            return alookhor_cc_cart_response();
+        },
+    ]);
+
+    register_rest_route('alookhor-cart/v4', '/cart/remove', [
+        'methods' => 'POST',
+        'permission_callback' => 'alookhor_cc_cart_mutation_guard',
+        'callback' => function (WP_REST_Request $request) {
+            if (!alookhor_cc_cart_bootstrap()) return new WP_Error('cart_unavailable', 'WooCommerce cart is unavailable.', ['status' => 503]);
+            $key = sanitize_text_field((string) $request->get_param('key'));
+            if (!$key || !WC()->cart->get_cart_item($key)) return new WP_Error('item_not_found', 'محصول در سبد خرید پیدا نشد.', ['status' => 404]);
+            WC()->cart->remove_cart_item($key);
+            WC()->cart->calculate_totals();
+            WC()->cart->set_session();
+            return alookhor_cc_cart_response();
+        },
+    ]);
+
+    register_rest_route('alookhor-cart/v4', '/cart/add', [
+        'methods' => 'POST',
+        'permission_callback' => 'alookhor_cc_cart_mutation_guard',
+        'callback' => function (WP_REST_Request $request) {
+            if (!alookhor_cc_cart_bootstrap()) return new WP_Error('cart_unavailable', 'WooCommerce cart is unavailable.', ['status' => 503]);
+            $product_id = absint($request->get_param('product_id'));
+            $quantity = max(1, absint($request->get_param('quantity') ?: 1));
+            $variation_id = absint($request->get_param('variation_id'));
+            $variation = $request->get_param('variation');
+            $variation = is_array($variation) ? array_map('wc_clean', $variation) : [];
+
+            if (!$product_id) return new WP_Error('missing_product', 'محصول نامعتبر است.', ['status' => 400]);
+            $product = wc_get_product($variation_id ?: $product_id);
+            if (!$product || !$product->is_purchasable() || !$product->is_in_stock()) {
+                return new WP_Error('product_unavailable', 'این محصول در حال حاضر قابل خرید نیست.', ['status' => 400]);
+            }
+
+            $added_key = WC()->cart->add_to_cart($product_id, $quantity, $variation_id, $variation);
+            if (!$added_key) return new WP_Error('add_failed', 'افزودن محصول به سبد خرید انجام نشد.', ['status' => 400]);
+
+            WC()->cart->calculate_totals();
+            WC()->cart->set_session();
+            return alookhor_cc_cart_response();
+        },
+    ]);
+
+    register_rest_route('alookhor-cart/v4', '/cart/coupon', [
+        'methods' => 'POST',
+        'permission_callback' => 'alookhor_cc_cart_mutation_guard',
+        'callback' => function (WP_REST_Request $request) {
+            if (!alookhor_cc_cart_bootstrap()) return new WP_Error('cart_unavailable', 'WooCommerce cart is unavailable.', ['status' => 503]);
+            $code = wc_format_coupon_code((string) $request->get_param('code'));
+            if (!$code) return new WP_Error('missing_coupon', 'کد تخفیف را وارد کنید.', ['status' => 400]);
+            $result = WC()->cart->apply_coupon($code);
+            if (!$result) {
+                $messages = wc_get_notices('error');
+                wc_clear_notices();
+                return new WP_Error('coupon_failed', !empty($messages[0]['notice']) ? wp_strip_all_tags($messages[0]['notice']) : 'کد تخفیف قابل اعمال نیست.', ['status' => 400]);
+            }
+            WC()->cart->calculate_totals();
+            WC()->cart->set_session();
+            wc_clear_notices();
+            return alookhor_cc_cart_response();
+        },
+    ]);
+
+    register_rest_route('alookhor-cart/v4', '/recommendations', [
+        'methods' => 'GET',
+        'permission_callback' => '__return_true',
+        'callback' => function () {
+            if (!function_exists('wc_get_products')) return rest_ensure_response([]);
+            $products = wc_get_products([
+                'status' => 'publish',
+                'limit' => 8,
+                'orderby' => 'popularity',
+                'order' => 'DESC',
+                'return' => 'objects',
+            ]);
+            $out = [];
+            foreach ($products as $product) {
+                if (!$product || !$product->is_purchasable() || !$product->is_in_stock()) continue;
+                $out[] = [
+                    'id' => (int) $product->get_id(),
+                    'name' => $product->get_name(),
+                    'price' => (float) wc_get_price_to_display($product),
+                    'image' => wp_get_attachment_image_url($product->get_image_id(), 'woocommerce_thumbnail') ?: wc_placeholder_img_src(),
+                    'on_sale' => $product->is_on_sale(),
+                ];
+                if (count($out) >= 4) break;
+            }
+            return rest_ensure_response($out);
+        },
+    ]);
+});
