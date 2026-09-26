@@ -1,4 +1,4 @@
-/* ALOOKHOR CART v3.10.405 — v4 client (SSR consume + live refresh, no X-WP-Nonce!) */
+/* ALOOKHOR CART v3.10.412 — v4 client (SSR consume + live refresh, no X-WP-Nonce!) */
 (function(){
 'use strict';
 const ROOT='#alookhor-cart', cfg=window.ALOOKHOR_CART_CONFIG||{}, API=String(cfg.cartApi||'/wp-json/alookhor-cart/v4/').replace(/\/+$/,'');
@@ -115,7 +115,7 @@ function hideLegacy(){const root=q(ROOT);if(!root)return;qa('.woocommerce-cart-f
 function init(){const r=q(ROOT);if(!r)return;
  /* 3.10.405 — خودترمیم‌گری کش کهنه: اگر HTML صفحه با بیلد این فایل JS جفت نباشد
     (کش مرورگر/LiteSpeed نسخهٔ قدیمی را سرو کرده)، یک‌بار با پارامتر کش‌شکن ریلود می‌کنیم. */
- try{const BUILD='3.10.405';const mb=r.getAttribute('data-ac-build')||'';
+ try{const BUILD='3.10.412';const mb=r.getAttribute('data-ac-build')||'';
   if(mb&&mb!==BUILD){const k='ac_heal_'+BUILD;let done=false;try{done=sessionStorage.getItem(k)==='1';}catch(e){}
    if(!done){try{sessionStorage.setItem(k,'1');}catch(e){}
     const u=new URL(location.href);u.searchParams.set('ac_b',BUILD);location.replace(u.toString());return;}
