@@ -83,8 +83,34 @@ printf 'WP base: home=%s siteurl=%s\n' "$(wp option get home)" "$(wp option get 
 stage='activate WooCommerce and verified 405 baseline'
 wp plugin activate woocommerce
 wp plugin activate alookhor-control-center
+verify_installed_zip() {
+  # Inspect installed on-disk bytes after WordPress replaced the old plugin.
+  # Matching the ZIP is stronger than checking the new Version header alone.
+  python3 - <<'PY'
+import os
+from pathlib import Path
+from zipfile import ZipFile
+root = Path(os.environ['WP_SMOKE_ROOT']) / 'wp-content/plugins/alookhor-control-center'
+with ZipFile(os.environ['WP_SMOKE_CANDIDATE_ZIP']) as archive:
+    prefix = 'alookhor-control-center/'
+    expected = {name[len(prefix):]: archive.read(name) for name in archive.namelist()
+                if name.startswith(prefix) and not name.endswith('/')}
+actual = {str(path.relative_to(root)): path.read_bytes() for path in root.rglob('*') if path.is_file()}
+assert actual == expected, ('Installed plugin bytes differ from candidate ZIP', sorted(set(actual) ^ set(expected)))
+print('Real WordPress installed all', len(actual), 'candidate files byte-for-byte')
+PY
+}
+stage='WordPress manual ZIP replacement from active 405'
+wp eval-file scripts/cart-tests/wordpress_manual_upload.php
+verify_installed_zip
+stage='restore pinned 405 fixture for independent native-update test'
+test "$root" = "$RUNNER_TEMP/alookhor-wordpress-smoke"
+rm -rf -- "$root/wp-content/plugins/alookhor-control-center"
+unzip -q "$baseline" -d "$root/wp-content/plugins"
+wp eval 'if (ALOOKHOR_CC_VERSION !== "3.10.405" || !is_plugin_active("alookhor-control-center/alookhor-control-center.php")) { throw new RuntimeException("405 was not restored in the isolated fixture"); } echo "Restored isolated 405 baseline for native update.\n";'
 stage='real Plugin_Upgrader rejects corruption and installs 405 to 412'
 wp eval-file scripts/cart-tests/wordpress_upgrader_install.php
+verify_installed_zip
 # A fresh request must load the updated files, not just PHP's already-loaded
 # 405 functions from the request that performed the upgrade.
 wp eval 'if (ALOOKHOR_CC_VERSION !== "3.10.412" || !is_plugin_active("alookhor-control-center/alookhor-control-center.php")) { throw new RuntimeException("Updated plugin was not active on a fresh WordPress load"); } echo "Active plugin after upgrade: ", ALOOKHOR_CC_VERSION, PHP_EOL;'

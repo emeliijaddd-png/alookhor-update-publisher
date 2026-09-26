@@ -2,7 +2,7 @@
 /**
  * Isolated WordPress Core Plugin_Upgrader transition from the pinned 405 ZIP
  * to the release ZIP. HTTP is mocked at WordPress's transport boundary: the
- * updater, SHA hook, unzip, rollback and filesystem replacement are real.
+ * updater, SHA hook, unzip and filesystem replacement are real.
  * Never run against a production site or a production database.
  */
 if (getenv('GITHUB_ACTIONS') !== 'true'
@@ -29,6 +29,7 @@ if (!is_array($manifest) || !is_file($zip)
 $manifest_url = 'https://updates.alookhor.ir/manifest.json';
 $package_url = $manifest['download_url'];
 $served_files = [];
+$sha_hook_codes = [];
 $serve_corrupt = true;
 $unexpected_http = false;
 
@@ -71,6 +72,16 @@ add_filter('pre_http_request', static function($pre, $args, $url) use (
     }
     return $pre;
 }, 1, 3);
+// Core Plugin_Upgrader::upgrade() can return NULL when its download fails,
+// even though the actual pre-download filter returned a precise WP_Error.
+// Inspect that real hook result rather than mistaking NULL for no SHA check.
+add_filter('upgrader_pre_download', static function($reply, $package) use ($package_url, &$sha_hook_codes) {
+    if ($package === $package_url) {
+        $sha_hook_codes[] = is_wp_error($reply) ? $reply->get_error_code()
+            : (is_string($reply) && is_file($reply) ? 'verified_file' : gettype($reply));
+    }
+    return $reply;
+}, PHP_INT_MAX, 2);
 
 $item = (object) [
     'id' => 'alookhor-control-center',
@@ -89,14 +100,16 @@ add_filter('pre_site_transient_update_plugins', static fn() => (object) [
 
 $upgrader = new Plugin_Upgrader(new Automatic_Upgrader_Skin());
 $rejected = $upgrader->upgrade($plugin);
-if (!is_wp_error($rejected) || $rejected->get_error_code() !== 'alookhor_sha256_mismatch'
+if ($sha_hook_codes !== ['alookhor_sha256_mismatch']
+    || ($rejected !== null && !is_wp_error($rejected))
     || count($served_files) !== 1 || file_exists($served_files[0])
     || get_file_data($installed, ['Version' => 'Version'])['Version'] !== '3.10.405') {
     $result_code = is_wp_error($rejected) ? $rejected->get_error_code() : gettype($rejected);
     $current_version = get_file_data($installed, ['Version' => 'Version'])['Version'] ?? 'missing';
     throw new RuntimeException(sprintf(
-        '405 corrupt-ZIP guard failed: result=%s downloads=%d temp_exists=%s installed=%s',
-        $result_code, count($served_files), isset($served_files[0]) && file_exists($served_files[0]) ? 'yes' : 'no', $current_version
+        '405 corrupt-ZIP guard failed: result=%s hook=%s downloads=%d temp_exists=%s installed=%s',
+        $result_code, implode(',', $sha_hook_codes), count($served_files),
+        isset($served_files[0]) && file_exists($served_files[0]) ? 'yes' : 'no', $current_version
     ));
 }
 echo "Installed 405 rejected the corrupt ZIP; original plugin is unchanged.\n";
@@ -105,6 +118,7 @@ $serve_corrupt = false;
 $upgrader = new Plugin_Upgrader(new Automatic_Upgrader_Skin());
 $success = $upgrader->upgrade($plugin);
 if ($success !== true || $unexpected_http || count($served_files) !== 2
+    || $sha_hook_codes !== ['alookhor_sha256_mismatch', 'verified_file']
     || get_file_data($installed, ['Version' => 'Version'])['Version'] !== '3.10.412'
     || !is_plugin_active($plugin)
     || is_file(WP_PLUGIN_DIR . '/alookhor-control-center/includes/cart-probe.php')) {
