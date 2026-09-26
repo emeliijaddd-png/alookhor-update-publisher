@@ -96,7 +96,7 @@ jobs:
           rm -f /tmp/upload-*.lftp
           echo "ALOOKHOR ${GITHUB_REF_NAME} published successfully."
 
-      - name: Direct live repair — replace PHP file inode
+      - name: Verify exact live PHP file
         env:
           FTP_SERVER: ${{ secrets.FTP_SERVER }}
           FTP_PORT: ${{ secrets.FTP_PORT }}
@@ -105,20 +105,21 @@ jobs:
         run: |
           set -euo pipefail
           python3 - <<'PY'
-          import os,subprocess
+          import os,subprocess,hashlib
           from pathlib import Path
           from urllib.parse import quote
           server=os.environ['FTP_SERVER'].strip(); port=os.environ['FTP_PORT'].strip(); user=os.environ['FTP_USERNAME'].strip(); password=os.environ['FTP_PASSWORD']
           auth=f"ftp://{quote(user,safe='')}:{quote(password,safe='')}@{server}"
-          local=str(Path('plugin/alookhor-control-center/includes/shortcode-header.php').resolve())
-          c=['set cmd:fail-exit true','set net:max-retries 3','set net:timeout 30','set ftp:passive-mode true','set ftp:ssl-auth TLS','set ftp:ssl-force true','set ftp:ssl-protect-data true','set ssl:verify-certificate true',f'open -p {port} "{auth}"','cd "public_html/wp-content/plugins/alookhor-control-center/includes"','rm -f shortcode-header.php',f'put "{local}" -o shortcode-header.php','bye']
-          s=Path('/tmp/inode.lftp'); s.write_text('\\n'.join(c)+'\\n'); s.chmod(0o600)
+          local=Path('plugin/alookhor-control-center/includes/shortcode-header.php').resolve()
+          c=['set cmd:fail-exit true','set net:max-retries 3','set net:timeout 30','set ftp:passive-mode true','set ftp:ssl-auth TLS','set ftp:ssl-force true','set ftp:ssl-protect-data true','set ssl:verify-certificate true',f'open -p {port} "{auth}"','cd "public_html/wp-content/plugins/alookhor-control-center/includes"', 'get shortcode-header.php -o /tmp/live.php','bye']
+          s=Path('/tmp/check.lftp'); s.write_text('\\n'.join(c)+'\\n'); s.chmod(0o600)
           q=subprocess.run(['lftp','-f',str(s)],capture_output=True,text=True); print(q.stdout); print(q.stderr); q.check_returncode()
+          a=hashlib.sha256(local.read_bytes()).hexdigest(); b=hashlib.sha256(Path('/tmp/live.php').read_bytes()).hexdigest()
+          print('LOCAL_SHA256='+a); print('LIVE_SHA256='+b)
+          print('LIVE_HAS_DUPLICATE='+str('function alookhor_cc_front_header_settings' in Path('/tmp/live.php').read_text(errors='replace')))
+          if a!=b: raise SystemExit('LIVE_FILE_MISMATCH')
           PY
-          sleep 2
-          curl -sS --max-time 30 -o /tmp/live.html -w 'HTTP=%{http_code}\\n' https://alookhor.ir/
-          ! grep -qi 'Fatal error' /tmp/live.html
-          echo "LIVE_INODE_REPAIR_OK"
+          echo "LIVE_FILE_MATCHES_REPOSITORY"
 
 
       - name: Reset PHP opcode cache and verify site
