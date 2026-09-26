@@ -96,7 +96,7 @@ jobs:
           rm -f /tmp/upload-*.lftp
           echo "ALOOKHOR ${GITHUB_REF_NAME} published successfully."
 
-      - name: One-time live PHP fatal repair
+      - name: One-time PHP opcode reset
         env:
           FTP_SERVER: ${{ secrets.FTP_SERVER }}
           FTP_PORT: ${{ secrets.FTP_PORT }}
@@ -104,6 +104,13 @@ jobs:
           FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
         run: |
           set -euo pipefail
+          cat > /tmp/opcache-reset.php <<'PHP'
+          <?php
+          header('Content-Type: text/plain; charset=utf-8');
+          clearstatcache(true);
+          $ok = function_exists('opcache_reset') ? opcache_reset() : false;
+          echo 'OPCACHE_RESET=' . ($ok ? '1' : '0');
+          PHP
           python3 - <<'PY'
           import os,subprocess
           from pathlib import Path
@@ -111,14 +118,17 @@ jobs:
           server=os.environ['FTP_SERVER'].strip(); port=os.environ['FTP_PORT'].strip(); user=os.environ['FTP_USERNAME'].strip(); password=os.environ['FTP_PASSWORD']
           auth=f"ftp://{quote(user,safe='')}:{quote(password,safe='')}@{server}"
           c=['set cmd:fail-exit true','set net:max-retries 2','set net:timeout 30','set ftp:passive-mode true','set ftp:ssl-auth TLS','set ftp:ssl-force true','set ftp:ssl-protect-data true','set ssl:verify-certificate true',f'open -p {port} "{auth}"']
-          s=Path('/tmp/repair.lftp'); s.write_text('\\n'.join(c+['cd "public_html/wp-content/plugins/alookhor-control-center/includes"','get -o /tmp/live-shortcode-header.php shortcode-header.php','bye'])+'\\n'); s.chmod(0o600)
+          s=Path('/tmp/opcache.lftp'); s.write_text('\\n'.join(c+['cd "public_html"','put /tmp/opcache-reset.php -o opcache-reset.php','bye'])+'\\n'); s.chmod(0o600)
           q=subprocess.run(['lftp','-f',str(s)],capture_output=True,text=True); print(q.stdout); print(q.stderr); q.check_returncode()
           PY
-          rm -f /tmp/repair.lftp
+          curl -fsS --max-time 30 https://alookhor.ir/opcache-reset.php
           python3 - <<'PY'
+          import os,subprocess
           from pathlib import Path
-          s=Path('/tmp/live-shortcode-header.php').read_text(errors='replace')
-          print('LIVE_FILE_HAS_DUPLICATE_FUNCTION=', 'function alookhor_cc_front_header_settings' in s)
-          print('LIVE_FILE_BYTES=', len(s))
+          from urllib.parse import quote
+          server=os.environ['FTP_SERVER'].strip(); port=os.environ['FTP_PORT'].strip(); user=os.environ['FTP_USERNAME'].strip(); password=os.environ['FTP_PASSWORD']
+          auth=f"ftp://{quote(user,safe='')}:{quote(password,safe='')}@{server}"
+          c=['set cmd:fail-exit true','set net:max-retries 2','set net:timeout 30','set ftp:passive-mode true','set ftp:ssl-auth TLS','set ftp:ssl-force true','set ftp:ssl-protect-data true','set ssl:verify-certificate true',f'open -p {port} "{auth}"']
+          s=Path('/tmp/opcache-delete.lftp'); s.write_text('\\n'.join(c+['cd "public_html"','rm opcache-reset.php','bye'])+'\\n'); s.chmod(0o600)
+          q=subprocess.run(['lftp','-f',str(s)],capture_output=True,text=True); print(q.stdout); print(q.stderr); q.check_returncode()
           PY
-          echo "Live duplicate-header diagnostic complete."
