@@ -1,23 +1,27 @@
 {
   "name": "ALOOKHOR Control Center",
-  "version": "3.10.385",
-  "download_url": "https://raw.githubusercontent.com/emeliijaddd-png/alookhor-update-publisher/main/public/releases/alookhor-control-center-3.10.385.zip",
+  "version": "3.10.408",
+  "download_url": "https://updates.alookhor.ir/releases/alookhor-control-center-3.10.408.zip",
   "details_url": "https://updates.alookhor.ir/changelog.html",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "sha256": "38250b557f6c67bbc2db4f55fc7197c40885dceea9afd5c86ced80941b59cbe0",
-  "description": "فیکس سفید سمت چپ سبد خرید + Cart Store API نهایی",
+  "description": "نسخه بازیابی امن بر پایه مسیر پایدار 3.10.405؛ بازگشت سبد خرید به Renderer و REST bridge پایدار.",
   "changelog": [
     {
-      "tag": "FIX",
-      "title": "فیکس سفید سمت چپ Cart",
-      "desc": "کاربر اسکرین‌شات فرستاد که سمت چپ سبد خرید یک مستطیل سفید بزرگ دیده می‌شود (1912px). علت: Woodmart cart قدیمی و Elementor section سفید که با CSS قبلی hide نمی‌شد. فیکس v3.10.385: CSS جدید body.woocommerce-cart .woocommerce > .woocommerce-cart-form:not(#alookhor-cart *) و site-content > container > row > div و JS جدید که هر div با background سفید و عرض >200px و خارج از #alookhor-cart را hide می‌کند، بدون hide کردن parent که luxury را دارد"
+      "tag": "RECOVERY",
+      "title": "بازگشت به هسته پایدار",
+      "desc": "هسته افزونه به آخرین نسخه شناخته‌شده سالم 3.10.405 بازگردانده شد و فقط شماره نسخه افزایش یافت."
     },
     {
-      "tag": "FEAT",
-      "title": "Cart Store API بدون reload",
-      "desc": "معماری جدید با Single State، quantity +/−, remove, coupon, add recommendation بدون reload، Header Count sync"
+      "tag": "UPDATE",
+      "title": "مسیر آپدیت WordPress",
+      "desc": "انتشار فقط از کانال خصوصی Manifest و ZIP انجام می‌شود و مسیر FTP مستقیم فایل‌های افزونه استفاده نمی‌شود."
+    },
+    {
+      "tag": "CART",
+      "title": "پایداری سبد خرید",
+      "desc": "کد سبد خرید نسخه پایدار شناخته‌شده حفظ شده است."
     }
   ]
 }
