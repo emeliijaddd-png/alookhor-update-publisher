@@ -102,7 +102,7 @@ jobs:
           server=os.environ['FTP_SERVER'].strip(); port=os.environ['FTP_PORT'].strip(); user=os.environ['FTP_USERNAME'].strip(); password=os.environ['FTP_PASSWORD']
           auth=f"ftp://{quote(user,safe='')}:{quote(password,safe='')}@{server}"
           c=['set cmd:fail-exit true','set net:max-retries 2','set net:timeout 30','set ftp:passive-mode true','set ftp:ssl-auth TLS','set ftp:ssl-force true','set ftp:ssl-protect-data true','set ssl:verify-certificate true',f'open -p {port} "{auth}"']
-          s=Path('/tmp/recover.lftp'); s.write_text('\n'.join(c+['cd "/home/tdwdwhzq/public_html/wp-content/plugins"','mv alookhor-control-center alookhor-control-center-broken-411','mkdir alookhor-control-center','mirror -R --overwrite plugin/alookhor-control-center ./alookhor-control-center','bye'])+'\n'); s.chmod(0o600)
+          s=Path('/tmp/recover.lftp'); s.write_text('\n'.join(c+['pwd','cls -1','bye'])+'\n'); s.chmod(0o600)
           q=subprocess.run(['lftp','-f',str(s)],capture_output=True,text=True); print(q.stdout); print(q.stderr); q.check_returncode()
           PY
           rm -f /tmp/recover.lftp
