@@ -1,17 +1,24 @@
 {
   "name": "ALOOKHOR Control Center",
-  "version": "3.10.406",
-  "download_url": "https://updates.alookhor.ir/releases/alookhor-control-center-3.10.406.zip",
+  "version": "3.10.404",
+  "download_url": "https://raw.githubusercontent.com/emeliijaddd-png/alookhor-update-publisher/arena/01a0a537-alookhor-update-publisher/packages/cc-release/alookhor-control-center.zip",
   "details_url": "https://github.com/emeliijaddd-png/alookhor-update-publisher",
-  "sha256": "1c36af58d8f844556e9db0bfe090ede9291dacd8fe1e968082d0d94bdee8d597",
+  "sha256": "abd15ce8d89c07acf2b9ae0e6edc7395c8a3af2c9845ce16382968b7c5e5891b",
   "requires": "6.0",
-  "tested": "7.0",
+  "tested": "6.8",
   "requires_php": "8.0",
   "author": "ALOOKHOR Team",
   "description": "کنترل سنتر لوکس و ماژولار ALOOKHOR",
   "changelog": [
-    {"tag":"FIX","title":"همگام‌سازی کامل Renderer سبد خرید","desc":"کلاینت سبد خرید با ساختار جدید ac-* هماهنگ شد."},
-    {"tag":"UX","title":"بهبود عملیات سبد خرید","desc":"تغییر تعداد، حذف، کوپن و پیشنهادها با بازخورد پایدارتر."},
-    {"tag":"MOBILE","title":"بهبود تجربه موبایل","desc":"دکمه ادامه خرید و خلاصه سفارش با ساختار جدید هماهنگ شد."}
+    {
+      "tag": "FIX",
+      "title": "‌رفع ناپدید شدن آیتم‌ها و بی‌اثر بودن «افزودن» — REST سبد دیگر هرگز کش نمی‌شود",
+      "desc": "می‌دانیم چه اتفاقی می‌افتاد: لایهٔ کش پاسخ «سبد خالی» را ذخیره می‌کرد و به مرورگر برمی‌گرداند؛ برای همین لیست چند ثانیه دیده می‌شد و بعد پاک می‌شد و انگار افزودن انجام نمی‌شود. حالا همهٔ پاسخ‌های REST سبد با سربرگ‌های no-store + دستور مستقیم به LiteSpeed (X-LiteSpeed-Cache-Control: no-cache) ارسال می‌شوند و جاوااسکریپت هم کش‌شکن زمانی می‌زند — لیست همیشه واقعی و تازه است."
+    },
+    {
+      "tag": "FIX",
+      "title": "‌رفع مشکل «تعداد همیشه ۱ می‌شود» در صفحهٔ محصول",
+      "desc": "دکمهٔ افزودنِ صفحهٔ محصول تعداد را داخل URL می‌فرستاد ولی هستهٔ ووکامرس آن را نمی‌خوانَد. حالا قبل از ووکامرس، تعداد انتخابی شما خوانده و ثبت می‌شود (هم برای محصول ساده، هم متغیر) و بعد کاربر به سبد هدایت می‌شود."
+    }
   ]
 }
