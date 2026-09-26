@@ -1,15 +1,20 @@
 {
   "name": "ALOOKHOR Control Center",
-  "version": "3.10.417",
+  "version": "3.10.418",
   "download_url": "https://raw.githubusercontent.com/emeliijaddd-png/alookhor-update-publisher/arena/01a0a537-alookhor-update-publisher/packages/cc-release/alookhor-control-center.zip",
   "details_url": "https://github.com/emeliijaddd-png/alookhor-update-publisher",
-  "sha256": "ce5ff555c1473689abe4a31f9817a769c2b0e5ade06feee51f6ed2a5e1084bda",
+  "sha256": "d9ad1ee1e810f2d7252b2f99591e13afb955e93b16a3375f0008a6d3a822d1a9",
   "requires": "6.0",
   "tested": "6.8",
   "requires_php": "8.0",
   "author": "ALOOKHOR Team",
   "description": "کنترل سنتر لوکس و ماژولار ALOOKHOR",
   "changelog": [
+    {
+      "tag": "TEST",
+      "title": "نسخهٔ تشخیص زندهٔ «محصول در سبد خرید پیدا نشد»",
+      "desc": "این نسخه فقط یک آدرس موقت اضافه می‌کند که نشان می‌دهد با همان مرورگر شما، سرور دقیقاً چه سشن/کوکی/کلید سبد می‌بیند. طبق نتایجش، اصلاح نهایی بلافاصله منتشر می‌شود. رابط کاربری نسبت به ۴۱۷ تغییری نکرده است."
+    },
     {
       "tag": "FIX",
       "title": "رفع قطعی «سبد بارگذاری نمی‌شود و هیچ دکمه‌ای کار نمی‌کند» روی سایت زنده",
