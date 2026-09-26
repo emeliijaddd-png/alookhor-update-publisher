@@ -111,8 +111,14 @@ jobs:
           server=os.environ['FTP_SERVER'].strip(); port=os.environ['FTP_PORT'].strip(); user=os.environ['FTP_USERNAME'].strip(); password=os.environ['FTP_PASSWORD']
           auth=f"ftp://{quote(user,safe='')}:{quote(password,safe='')}@{server}"
           c=['set cmd:fail-exit true','set net:max-retries 2','set net:timeout 30','set ftp:passive-mode true','set ftp:ssl-auth TLS','set ftp:ssl-force true','set ftp:ssl-protect-data true','set ssl:verify-certificate true',f'open -p {port} "{auth}"']
-          s=Path('/tmp/repair.lftp'); s.write_text('\\n'.join(c+['cd "public_html/wp-content/plugins"','ls -la','bye'])+'\\n'); s.chmod(0o600)
+          s=Path('/tmp/repair.lftp'); s.write_text('\\n'.join(c+['cd "public_html/wp-content/plugins/alookhor-control-center/includes"','get -o /tmp/live-shortcode-header.php shortcode-header.php','bye'])+'\\n'); s.chmod(0o600)
           q=subprocess.run(['lftp','-f',str(s)],capture_output=True,text=True); print(q.stdout); print(q.stderr); q.check_returncode()
           PY
           rm -f /tmp/repair.lftp
-          echo "Live duplicate-header fatal repaired."
+          python3 - <<'PY'
+          from pathlib import Path
+          s=Path('/tmp/live-shortcode-header.php').read_text(errors='replace')
+          print('LIVE_FILE_HAS_DUPLICATE_FUNCTION=', 'function alookhor_cc_front_header_settings' in s)
+          print('LIVE_FILE_BYTES=', len(s))
+          PY
+          echo "Live duplicate-header diagnostic complete."
