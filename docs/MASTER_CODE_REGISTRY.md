@@ -199,7 +199,7 @@ STATUS: SOURCE DRAFT — deployment status must be verified separately.
 
 | File | Lines | SHA-256 |
 |---|---:|---|
-| `.github/workflows/publish.yml` | 124 | `7d4a8d36a0798881235bb147c9256413ac538fd456b09fbb1c4d0f70afb2b547` |
+| `.github/workflows/publish.yml` | 150 | `6a7df8354d59eea1ef6e96660ac65c4b4d8fc012cb584db22606582a1dae98ad` |
 | `ops/wordpress-ci-bootstrap.php` | 215 | `409c23f2be99c6651b0e75dc877c91c884534e6b16f9985c177cf65d14fd4c95` |
 | `plugin/alookhor-control-center/alookhor-control-center.php` | 446 | `e83949db456d53d0cb589cc423aa2fac1b7a8683706f4ae3cb07e61725885a03` |
 | `plugin/alookhor-control-center/assets/css/frontend-about-page.css` | 37 | `4a895038f4ede91f1172279e86e10ed6939a8a406c16ee780c326f6f4f5df5c2` |
@@ -376,6 +376,32 @@ jobs:
           if-no-files-found: error
           retention-days: 7
 
+  # Real WordPress/WooCommerce in an isolated runner and local database. It
+  # cannot write to the live store. A version tag cannot deploy if it fails.
+  cart-wordpress:
+    if: github.event_name == 'push'
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: local-smoke-root
+          MYSQL_DATABASE: wp_smoke
+          MYSQL_USER: wp_smoke
+          MYSQL_PASSWORD: local-smoke-only
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h 127.0.0.1 -uroot -plocal-smoke-root"
+          --health-interval=10s --health-timeout=5s --health-retries=8
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+      - name: Test guest cart in isolated WordPress 6.8 and WooCommerce 10.2.0
+        run: bash scripts/cart-tests/wordpress_smoke.sh
+
   # This diagnostic is strictly read-only. Credentials, if configured, are
   # used only for GET /wp/v2/users/me and GET /alookhor-cc/v1/status.
   diagnose:
@@ -394,7 +420,7 @@ jobs:
         run: python3 scripts/diagnose_production.py
 
   deploy:
-    needs: build
+    needs: [build, cart-wordpress]
     if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
     runs-on: ubuntu-latest
     environment: production

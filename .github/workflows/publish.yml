@@ -53,6 +53,32 @@ jobs:
           if-no-files-found: error
           retention-days: 7
 
+  # Real WordPress/WooCommerce in an isolated runner and local database. It
+  # cannot write to the live store. A version tag cannot deploy if it fails.
+  cart-wordpress:
+    if: github.event_name == 'push'
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: local-smoke-root
+          MYSQL_DATABASE: wp_smoke
+          MYSQL_USER: wp_smoke
+          MYSQL_PASSWORD: local-smoke-only
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h 127.0.0.1 -uroot -plocal-smoke-root"
+          --health-interval=10s --health-timeout=5s --health-retries=8
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+      - name: Test guest cart in isolated WordPress 6.8 and WooCommerce 10.2.0
+        run: bash scripts/cart-tests/wordpress_smoke.sh
+
   # This diagnostic is strictly read-only. Credentials, if configured, are
   # used only for GET /wp/v2/users/me and GET /alookhor-cc/v1/status.
   diagnose:
@@ -71,7 +97,7 @@ jobs:
         run: python3 scripts/diagnose_production.py
 
   deploy:
-    needs: build
+    needs: [build, cart-wordpress]
     if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
     runs-on: ubuntu-latest
     environment: production
