@@ -7,6 +7,7 @@
     "test": "node --test cart.test.cjs"
   },
   "devDependencies": {
-    "jsdom": "26.1.0"
+    "jsdom": "26.1.0",
+    "playwright-core": "1.55.1"
   }
 }

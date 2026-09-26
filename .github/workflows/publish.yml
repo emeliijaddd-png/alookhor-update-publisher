@@ -76,7 +76,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v5
-      - name: Test guest cart in isolated WordPress 6.8 and WooCommerce 10.2.0
+      - name: Test isolated WordPress 6.8, WooCommerce 10.2.0 and Chromium cart
         run: bash scripts/cart-tests/wordpress_smoke.sh
 
   # This diagnostic is strictly read-only. Credentials, if configured, are

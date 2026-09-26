@@ -199,7 +199,7 @@ STATUS: SOURCE DRAFT — deployment status must be verified separately.
 
 | File | Lines | SHA-256 |
 |---|---:|---|
-| `.github/workflows/publish.yml` | 150 | `6a7df8354d59eea1ef6e96660ac65c4b4d8fc012cb584db22606582a1dae98ad` |
+| `.github/workflows/publish.yml` | 150 | `37b333c526cda57b9f14b0c9176b989fa8ce77aacfe91a0074b94147965bf0b9` |
 | `ops/wordpress-ci-bootstrap.php` | 215 | `409c23f2be99c6651b0e75dc877c91c884534e6b16f9985c177cf65d14fd4c95` |
 | `plugin/alookhor-control-center/alookhor-control-center.php` | 446 | `e83949db456d53d0cb589cc423aa2fac1b7a8683706f4ae3cb07e61725885a03` |
 | `plugin/alookhor-control-center/assets/css/frontend-about-page.css` | 37 | `4a895038f4ede91f1172279e86e10ed6939a8a406c16ee780c326f6f4f5df5c2` |
@@ -399,7 +399,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v5
-      - name: Test guest cart in isolated WordPress 6.8 and WooCommerce 10.2.0
+      - name: Test isolated WordPress 6.8, WooCommerce 10.2.0 and Chromium cart
         run: bash scripts/cart-tests/wordpress_smoke.sh
 
   # This diagnostic is strictly read-only. Credentials, if configured, are

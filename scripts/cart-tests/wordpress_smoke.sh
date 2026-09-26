@@ -68,7 +68,12 @@ wp rewrite flush
 stage='seed real WooCommerce products'
 wp eval-file scripts/cart-tests/wordpress_smoke_seed.php
 printf 'Active REST root: '; wp eval "echo rest_url('alookhor-cart/v4/'), PHP_EOL;"
+stage='real WordPress updater rejects a mocked corrupt ZIP'
+wp eval-file scripts/cart-tests/wordpress_updater_negative.php
 stage='HTTP guest cart and variation assertions'
 php -d memory_limit=512M -S 127.0.0.1:8099 -t "$root" "$(pwd)/scripts/cart-tests/wordpress_router.php" >"$server_log" 2>&1 &
 server_pid=$!
 python3 scripts/cart-tests/wordpress_smoke.py
+stage='real Chromium guest cart browser assertions'
+npm ci --prefix scripts/cart-tests --ignore-scripts --no-audit --no-fund
+node scripts/cart-tests/wordpress_browser.cjs
