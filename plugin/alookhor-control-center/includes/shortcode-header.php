@@ -362,4 +362,3 @@ function alookhor_cc_register_portal_header_shortcode(){
 add_action('init', 'alookhor_cc_register_portal_header_shortcode', 100);
 
 }
-}
