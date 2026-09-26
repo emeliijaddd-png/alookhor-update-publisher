@@ -10,65 +10,8 @@
 
 if (!defined('ABSPATH')) exit;
 
+if (!function_exists('alookhor_cc_front_header_settings')) {
 function alookhor_cc_front_header_settings(){
-    $site = alookhor_cc_get_settings();
-    $saved = get_option(ALOOKHOR_CC_HEADER_OPTION, []);
-    if (!is_array($saved)) $saved = [];
-
-    $defaults = [
-        'logo_text'       => $site['header_settings']['logo_text'] ?? $site['site']['name'] ?? 'ALOOKHOR',
-        'logo_sub'        => $site['header_settings']['logo_sub'] ?? $site['site']['subtitle'] ?? 'آلوخور؛ طعم اصیل خراسان',
-        'logo_letter'     => $site['site']['logoLetter'] ?? 'A',
-        'gold'            => $site['site']['goldAccent'] ?? '#D49A2E',
-        'header_surface'  => '#0D0510',
-        'header_text_color' => '#F5F3F0',
-        'header_muted_color' => '#C8C2C9',
-        'capsule_background' => '#0D0510',
-        'capsule_card' => '#1C1024',
-        'capsule_glass' => 'rgba(33,20,38,.75)',
-        'capsule_gold' => '#D49A2E',
-        'capsule_gold_light' => '#E8B84A',
-        'capsule_text' => '#F5F3F0',
-        'capsule_muted' => '#C8C2C9',
-        'capsule_blur' => 24,
-        'header_logo_desktop_width' => 118,
-        'header_logo_mobile_width' => 58,
-        'sticky'          => true,
-        'show_search'     => false,
-        'search_placeholder' => 'جستجوی محصول…',
-        'show_topbar'     => true,
-        'show_account'    => true,
-        'show_contact'    => true,
-        'show_phone'      => true,
-        'show_email'      => true,
-        'show_whatsapp'   => true,
-        'show_export'     => true,
-        'show_wholesale'  => true,
-        'email'           => sanitize_email(get_option('admin_email')),
-        'phone'           => '09222942808',
-        'whatsapp'        => '989222942808',
-        'export_text'     => 'صادرات به ۵ کشور جهان',
-        'export_url'      => '',
-        'wholesale_text'  => 'خرید عمده آلو بخارا',
-        'wholesale_url'   => home_url('/#b2b'),
-        'wholesale_new_tab' => false,
-        'top_logo_url'    => '',
-        'top_logo_alt'    => get_bloginfo('name'),
-        'top_logo_link'   => home_url('/'),
-        'topbar_bg'       => '#1C1024',
-        'topbar_text_color' => '#F5F3F0',
-        'topbar_border_color' => '#D49A2E',
-        'topbar_button_bg' => '#D49A2E',
-        'topbar_button_text' => '#0D0510',
-        'topbar_height'   => 38,
-        'top_logo_width'  => 96,
-        'account_text'    => 'ورود / ثبت‌نام',
-        'primary_menu'    => 0,
-    ];
-
-    $settings = wp_parse_args($saved, $defaults);
-    return apply_filters('alookhor_cc_front_header_settings', $settings);
-}
 
 /**
  * Resolve the main menu automatically. A saved override is optional; otherwise
@@ -359,3 +302,6 @@ function alookhor_cc_register_portal_header_shortcode(){
     add_shortcode('alookhor_portal_header', 'alookhor_cc_render_portal_header');
 }
 add_action('init', 'alookhor_cc_register_portal_header_shortcode', 100);
+
+}
+}
