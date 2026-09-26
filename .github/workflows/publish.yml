@@ -109,6 +109,28 @@ jobs:
           ! grep -qi 'Fatal error' /tmp/site.html
           echo "REPAIRED_PLUGIN_ACTIVE"
 
+      - name: Verify live plugin files before any publish
+        env:
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+          FTP_PORT: ${{ secrets.FTP_PORT }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import os,subprocess,hashlib
+          from pathlib import Path
+          from urllib.parse import quote
+          server=os.environ['FTP_SERVER'].strip(); port=os.environ['FTP_PORT'].strip(); user=os.environ['FTP_USERNAME'].strip(); password=os.environ['FTP_PASSWORD']
+          auth=f"ftp://{quote(user,safe='')}:{quote(password,safe='')}@{server}"
+          cmds=['set cmd:fail-exit true','set net:max-retries 3','set net:timeout 30','set ftp:passive-mode true','set ftp:ssl-auth TLS','set ftp:ssl-force true','set ftp:ssl-protect-data true','set ssl:verify-certificate true',f'open -p {port} "{auth}"','cd "public_html/wp-content/plugins/alookhor-control-center"','get alookhor-control-center.php -o /tmp/live-main.php','get includes/shortcode-header.php -o /tmp/live-header.php','bye']
+          p=Path('/tmp/verify.lftp'); p.write_text('\\n'.join(cmds)+'\\n'); p.chmod(0o600)
+          q=subprocess.run(['lftp','-f',str(p)],capture_output=True,text=True); print(q.stdout); print(q.stderr); q.check_returncode()
+          for f in ['/tmp/live-main.php','/tmp/live-header.php']:
+            b=Path(f).read_bytes(); print(f,hashlib.sha256(b).hexdigest(),len(b),b.count(b'function alookhor_cc_front_header_settings'))
+          h=Path('/tmp/live-header.php').read_text(errors='replace')
+          assert 'function alookhor_cc_front_header_settings' not in h, 'LIVE HEADER STILL CONTAINS DUPLICATE FUNCTION'
+          PY
       - name: Publish through explicit FTPS
         env:
           FTP_SERVER: ${{ secrets.FTP_SERVER }}
