@@ -144,7 +144,7 @@ import sys
 from zipfile import ZipFile
 with ZipFile(sys.argv[1]) as archive:
     names = archive.namelist()
-    assert len(names) == 132 and archive.testzip() is None
+    assert sum(not name.endswith('/') for name in names) == 132 and archive.testzip() is None
     assert 'alookhor-control-center/includes/cart-probe.php' in names
     assert b'empty_cart(true)' in archive.read('alookhor-control-center/includes/cart-probe.php')
     assert b'API+bust' in archive.read('alookhor-control-center/assets/js/frontend-cart.js')
