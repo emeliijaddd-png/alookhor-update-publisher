@@ -108,7 +108,12 @@ assert updated['count'] == 8 and updated['lines'] == 4, updated
 cart = verified_cart(4, 8)
 page = request('/cart/')
 badge = re.search(r'class="ak-cart-badge"[^>]*>([^<]*)</em>', page)
-assert badge and badge.group(1).strip() == '۸', 'Unhydrated WordPress header badge must count eight units, not four lines'
+badge_value = badge.group(1) if badge else 'absent'
+fragments = re.findall(r'<em[^>]*ak-cart-badge[^>]*>[^<]*</em>', page)[:2]
+assert badge and badge_value.strip() == '۸', (
+    'Unhydrated WordPress header badge must count eight units, not four lines: '
+    f'badge={badge_value!r}, header={"akx-header" in page}, badge_fragments={fragments!r}'
+)
 second = next(row for row in cart['items'] if row['id'] == ids['simple'][1])
 removed = api('cart/remove', 'POST', {'key': second['key']})
 assert removed['count'] == 7 and removed['lines'] == 3, removed
