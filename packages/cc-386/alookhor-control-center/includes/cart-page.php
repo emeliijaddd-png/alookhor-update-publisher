@@ -84,11 +84,18 @@ function alookhor_cc_cart_suggestions_html($recs, $wish_ids = array()) {
         $regular = (float) (isset($p['regular_price']) ? $p['regular_price'] : 0);
         $on_sale = !empty($p['on_sale']);
         $percent = (int) (isset($p['percent']) ? $p['percent'] : 0);
-        $attrs = isset($p['variations']) && is_array($p['variations']) ? $p['variations'] : array();
-        $attr_txt = implode(' · ', array_map(function($k,$v){
-            $lab = function_exists('wc_attribute_label') ? wc_attribute_label($k) : preg_replace('/^attribute_/','',(string)$k);
-            return $lab.': '.$v;
-        }, array_keys($attrs), array_values($attrs)));
+        $attrs_label = isset($p['variations_label']) && is_array($p['variations_label']) ? $p['variations_label'] : array();
+        if ($attrs_label) {
+            $attr_txt = implode(' · ', array_map(function($k,$v){
+                return $k.': '.$v;
+            }, array_keys($attrs_label), array_values($attrs_label)));
+        } else {
+            $attrs = isset($p['variations']) && is_array($p['variations']) ? $p['variations'] : array();
+            $attr_txt = implode(' · ', array_map(function($k,$v){
+                $lab = function_exists('wc_attribute_label') ? wc_attribute_label($k) : preg_replace('/^attribute_/','',(string)$k);
+                return $lab.': '.$v;
+            }, array_keys($attrs), array_values($attrs)));
+        }
         ?>
 <article class="sg-card">
   <span class="sg-img">
@@ -132,6 +139,11 @@ function alookhor_cc_cart_recommendations($limit = 4) {
             }
             if (!$variation_id) continue;
             if (method_exists($product, 'get_variation_attributes')) $variation_attrs = (array) $product->get_variation_attributes();
+            $variation_labels = array();
+            foreach ($variation_attrs as $ak => $av) {
+                $human = alookhor_cc_variation_human_label($ak, $av, $product);
+                $variation_labels[$human['name']] = $human['value'];
+            }
         }
         if (method_exists($product, 'is_purchasable') && !$product->is_purchasable()) continue;
         if (method_exists($product, 'is_in_stock') && !$product->is_in_stock()) continue;
@@ -145,6 +157,7 @@ function alookhor_cc_cart_recommendations($limit = 4) {
             'id' => $parent_id,
             'variation_id' => $variation_id,
             'variations' => $variation_attrs,
+            'variations_label' => $variation_labels,
             'type' => method_exists($product, 'get_type') ? (string) $product->get_type() : 'simple',
             'name' => $product->get_name(),
             'price' => (float) (function_exists('wc_get_price_to_display') ? wc_get_price_to_display($product) : $product->get_price()),

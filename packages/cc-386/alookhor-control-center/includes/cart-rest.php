@@ -16,6 +16,19 @@ function alookhor_cc_cart_bootstrap() {
     return WC()->cart instanceof WC_Cart;
 }
 
+if (!function_exists('alookhor_cc_variation_human_label')) {
+    function alookhor_cc_variation_human_label($attr_key, $value, $product = null) {
+        $tax = preg_replace('/^attribute_/', '', (string) $attr_key);
+        $label = function_exists('wc_attribute_label') ? wc_attribute_label($tax, $product) : $tax;
+        $val = (string) $value;
+        if ($tax && function_exists('taxonomy_exists') && taxonomy_exists($tax) && function_exists('get_term_by')) {
+            $t = get_term_by('slug', $val, $tax);
+            if ($t && !is_wp_error($t) && !empty($t->name)) $val = $t->name;
+        }
+        return ['name' => $label, 'value' => $val];
+    }
+}
+
 function alookhor_cc_cart_nonce_ok(WP_REST_Request $request) {
     $nonce = $request->get_header('X-ALOOKHOR-CART-NONCE');
     if (!$nonce) $nonce = $request->get_header('X-WP-Nonce');
@@ -35,9 +48,10 @@ function alookhor_cc_cart_payload() {
         $variation = [];
         if (!empty($item['variation']) && is_array($item['variation'])) {
             foreach ($item['variation'] as $attr => $value) {
+                $human = alookhor_cc_variation_human_label($attr, $value, $product);
                 $variation[] = [
-                    'name' => wc_attribute_label(str_replace('attribute_', '', $attr), $product),
-                    'value' => wc_clean($value),
+                    'name' => $human['name'],
+                    'value' => $human['value'],
                 ];
             }
         }
