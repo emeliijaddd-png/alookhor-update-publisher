@@ -122,6 +122,7 @@ function alookhor_cc_cart_recommendations($limit = 4) {
         if (!is_object($product) && function_exists('wc_get_product')) $product = wc_get_product($product);
         if (!$product || !is_object($product)) continue;
         /* 3.10.413: محصول متغیر خودش قابل‌افزودن نیست — بهترین ورییشن قابل‌خرید را resolve می‌کنیم */
+        $parent_id = (int) $product->get_id();
         $variation_id = 0; $variation_attrs = array();
         if (method_exists($product, 'is_type') && $product->is_type('variable')) {
             $children = method_exists($product, 'get_children') ? (array) $product->get_children() : array();
@@ -141,7 +142,7 @@ function alookhor_cc_cart_recommendations($limit = 4) {
         $on_sale = method_exists($product, 'is_on_sale') ? (bool) $product->is_on_sale() : ($sale > 0 && $regular > $sale);
         $percent = ($on_sale && $regular > 0) ? (int) round((($regular - $sale) / $regular) * 100) : 0;
         $out[] = array(
-            'id' => (int) $product->get_id(),
+            'id' => $parent_id,
             'variation_id' => $variation_id,
             'variations' => $variation_attrs,
             'type' => method_exists($product, 'get_type') ? (string) $product->get_type() : 'simple',
