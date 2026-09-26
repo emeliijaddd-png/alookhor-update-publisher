@@ -1,6 +1,6 @@
 {
   "version": "3.10.413",
-  "previous": "3.10.405",
+  "previous": "3.10.412",
   "state": "draft",
   "requires": "6.0",
   "tested": "6.8",
@@ -13,7 +13,7 @@
     {"tag":"FIX","title":"شمارش دقیق و نصب امن","desc":"تعداد نوع/عدد کالا از هم جداست؛ بسته کامل از منبع GitHub 3.10.405 بازیابی شد و کنترل SHA برای همه میزبان‌های مجاز فعال است."}
   ],
   "project": "ALOOKHOR",
-  "area": "cart repair candidate; not installable until staged validation and channel verification",
+  "area": "owner-only manual cart repair trial; not published on the production update channel",
   "reason": "رفتار گزارش‌شده در سبد نسخه 3.10.405 و خطاهای قابل بازتولید در مسیرهای REST و پیشنهادهای متغیر.",
   "source": "GitHub commit 9ce51fdc897182811db4f808df8c7046de1221f5, packages/cc-release/alookhor-control-center.zip, SHA-256 09fd472b032b3602acc8f2779ab2d1906040c5fa426d8f82f291557161b3f602"
 }

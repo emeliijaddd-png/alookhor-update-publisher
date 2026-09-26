@@ -27,7 +27,7 @@
 
 ```text
 PROJECT: ALOOKHOR
-AREA: cart repair candidate; not installable until staged validation and channel verification
+AREA: owner-only manual cart repair trial; not published on the production update channel
 SOURCE CANDIDATE VERSION: 3.10.413
 CHANGE: پیش‌نویس بازیابی منبع کامل 3.10.405 و ترمیم سبد خرید و محصولات متغیر؛ هنوز برای نصب در سایت منتشر نشده است.
 REASON: رفتار گزارش‌شده در سبد نسخه 3.10.405 و خطاهای قابل بازتولید در مسیرهای REST و پیشنهادهای متغیر.
@@ -199,7 +199,7 @@ STATUS: SOURCE DRAFT — deployment status must be verified separately.
 
 | File | Lines | SHA-256 |
 |---|---:|---|
-| `.github/workflows/publish.yml` | 150 | `9cbcc89d0e03d54df6feea056e9fe252bb7975fe6c4ca67023f92b77b56da0bf` |
+| `.github/workflows/publish.yml` | 150 | `bbbafaee434cfd7598e7dbd654bc6b1689f265d60398b0686010ba30a9dee618` |
 | `ops/wordpress-ci-bootstrap.php` | 215 | `409c23f2be99c6651b0e75dc877c91c884534e6b16f9985c177cf65d14fd4c95` |
 | `plugin/alookhor-control-center/alookhor-control-center.php` | 446 | `e6d994edf60ba0d24d255e1d81b46737ae07472d27c0d712d1c52fa6e03188fa` |
 | `plugin/alookhor-control-center/assets/css/frontend-about-page.css` | 37 | `4a895038f4ede91f1172279e86e10ed6939a8a406c16ee780c326f6f4f5df5c2` |
@@ -399,7 +399,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v5
-      - name: Test real 405-to-413 WordPress upgrade, WooCommerce and Chromium cart
+      - name: Test 405/other-channel 412 to 413 WordPress, WooCommerce and Chromium
         run: bash scripts/cart-tests/wordpress_smoke.sh
 
   # This diagnostic is strictly read-only. Credentials, if configured, are

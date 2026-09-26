@@ -16,11 +16,13 @@ $plugin = 'alookhor-control-center/alookhor-control-center.php';
 $installed = WP_PLUGIN_DIR . '/' . $plugin;
 $zip = getenv('WP_SMOKE_CANDIDATE_ZIP');
 $manifest = json_decode((string) file_get_contents(getenv('WP_SMOKE_CANDIDATE_MANIFEST')), true);
-if (!is_array($manifest) || !is_file($zip)
+$source_version = (string) getenv('WP_SMOKE_SOURCE_VERSION');
+if (!in_array($source_version, ['3.10.405', '3.10.412'], true)
+    || !is_array($manifest) || !is_file($zip)
     || !hash_equals($manifest['sha256'] ?? '', hash_file('sha256', $zip))
     || !is_plugin_active($plugin)
-    || get_file_data($installed, ['Version' => 'Version'])['Version'] !== '3.10.405') {
-    throw new RuntimeException('The manual upload fixture is not the pinned active 405 plugin and verified candidate ZIP.');
+    || get_file_data($installed, ['Version' => 'Version'])['Version'] !== $source_version) {
+    throw new RuntimeException('The manual upload fixture is not a pinned active source plugin and verified candidate ZIP.');
 }
 
 // WordPress uses Plugin_Upgrader::install(overwrite_package=true) for the
@@ -32,6 +34,6 @@ if ($result !== true
     || get_file_data($installed, ['Version' => 'Version'])['Version'] !== '3.10.413'
     || is_file(WP_PLUGIN_DIR . '/alookhor-control-center/includes/cart-probe.php')) {
     $reason = is_wp_error($result) ? $result->get_error_code() : gettype($result);
-    throw new RuntimeException('Manual uploaded ZIP did not replace 405 cleanly: ' . $reason);
+    throw new RuntimeException('Manual uploaded ZIP did not replace source cleanly: ' . $reason);
 }
-echo "WordPress local ZIP replacement installed 413 from active 405.\n";
+echo "WordPress local ZIP replacement installed 413 from active {$source_version}.\n";

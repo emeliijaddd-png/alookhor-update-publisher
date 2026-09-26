@@ -10,6 +10,7 @@ root="$RUNNER_TEMP/alookhor-wordpress-smoke"
 cli="$RUNNER_TEMP/alookhor-wp-cli.phar"
 woo="$RUNNER_TEMP/alookhor-woocommerce.zip"
 baseline="$RUNNER_TEMP/alookhor-405-source.zip"
+other_412="$RUNNER_TEMP/alookhor-other-channel-412-source.zip"
 server_log="$RUNNER_TEMP/alookhor-wp-server.log"
 setup_log="$RUNNER_TEMP/alookhor-wp-setup.log"
 export WP_SMOKE_ROOT="$root" WP_SMOKE_IDS="/tmp/alookhor-wp-smoke-products-$$.json"
@@ -102,7 +103,7 @@ print('Real WordPress installed all', len(actual), 'candidate files byte-for-byt
 PY
 }
 stage='WordPress manual ZIP replacement from active 405'
-wp eval-file scripts/cart-tests/wordpress_manual_upload.php
+WP_SMOKE_SOURCE_VERSION=3.10.405 wp eval-file scripts/cart-tests/wordpress_manual_upload.php
 verify_installed_zip
 stage='restore pinned 405 fixture for independent native-update test'
 test "$root" = "$RUNNER_TEMP/alookhor-wordpress-smoke"
@@ -128,4 +129,38 @@ server_pid=$!
 python3 scripts/cart-tests/wordpress_smoke.py
 stage='real Chromium guest cart browser assertions'
 npm ci --prefix scripts/cart-tests --ignore-scripts --no-audit --no-fund
+node scripts/cart-tests/wordpress_browser.cjs
+# Public read-only checks have since reported 412 and exposed the old broken JS.
+# Test the *different* ZIP advertised by the pinned older updater, not our old
+# repaired 412 draft. This is still strictly an isolated CI WordPress install:
+# never call its public cart-probe endpoint or touch production.
+stage='fetch immutable other-channel 412 fixture for a separate manual replacement'
+git fetch -q --no-tags --depth=1 --filter=blob:none origin 74414472235602e04465e7084765c7d22d19e86e
+test "$(git rev-parse FETCH_HEAD)" = '74414472235602e04465e7084765c7d22d19e86e'
+git show 74414472235602e04465e7084765c7d22d19e86e:packages/cc-release/alookhor-control-center.zip > "$other_412"
+printf '47456a5646a2f870bfdee4dd1dd460c9196dc5f47bd1a0071e6b46cf87ea941d  %s\n' "$other_412" | sha256sum -c -
+python3 - "$other_412" <<'PYTEST'
+import sys
+from zipfile import ZipFile
+with ZipFile(sys.argv[1]) as archive:
+    names = archive.namelist()
+    assert len(names) == 132 and archive.testzip() is None
+    assert 'alookhor-control-center/includes/cart-probe.php' in names
+    assert b'empty_cart(true)' in archive.read('alookhor-control-center/includes/cart-probe.php')
+    assert b'API+bust' in archive.read('alookhor-control-center/assets/js/frontend-cart.js')
+print('Other channel 412 fixture verified; never call its destructive endpoint.')
+PYTEST
+stage='replace isolated other-channel 412 by explicit manual ZIP upload'
+if [[ -n "$server_pid" ]]; then kill "$server_pid" 2>/dev/null || true; wait "$server_pid" 2>/dev/null || true; server_pid=''; fi
+test "$root" = "$RUNNER_TEMP/alookhor-wordpress-smoke"
+rm -rf -- "$root/wp-content/plugins/alookhor-control-center"
+unzip -q "$other_412" -d "$root/wp-content/plugins"
+wp eval 'if (ALOOKHOR_CC_VERSION !== "3.10.412" || !is_plugin_active("alookhor-control-center/alookhor-control-center.php")) { throw new RuntimeException("Other-channel 412 was not restored in the isolated fixture"); } echo "Restored isolated other-channel 412 fixture.\n";'
+WP_SMOKE_SOURCE_VERSION=3.10.412 wp eval-file scripts/cart-tests/wordpress_manual_upload.php
+verify_installed_zip
+wp eval 'if (ALOOKHOR_CC_VERSION !== "3.10.413" || !is_plugin_active("alookhor-control-center/alookhor-control-center.php") || is_file(WP_PLUGIN_DIR . "/alookhor-control-center/includes/cart-probe.php")) { throw new RuntimeException("413 did not fully replace the other-channel 412 fixture"); } echo "413 active on fresh WordPress load after 412 manual replacement.\n";'
+stage='real HTTP and Chromium cart after isolated 412-to-413 replacement'
+php -d memory_limit=512M -S 127.0.0.1:8099 -t "$root" "$(pwd)/scripts/cart-tests/wordpress_router.php" >"$server_log" 2>&1 &
+server_pid=$!
+python3 scripts/cart-tests/wordpress_smoke.py
 node scripts/cart-tests/wordpress_browser.cjs
