@@ -1,4 +1,4 @@
-## 3.10.417 — Cart interaction repair
+## 3.10.418 — Cart interaction repair
 
 - Fixed all Cart REST mutation URLs so update, remove, add, coupon and undo calls resolve to `/wp-json/alookhor-cart/v4/...` instead of concatenating the path without a slash.
 - Added defensive API path normalization so future mutation calls cannot reproduce the same route mismatch.

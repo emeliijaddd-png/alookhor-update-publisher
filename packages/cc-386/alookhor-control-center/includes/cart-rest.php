@@ -218,7 +218,7 @@ add_action('rest_api_init', function () {
                 }
             }
 
-            /* ── 3.10.417: اگر variation_id آمد ولی نقشهٔ ویژگی خالی بود (مثل دکمهٔ «افزودن»
+            /* ── 3.10.418: اگر variation_id آمد ولی نقشهٔ ویژگی خالی بود (مثل دکمهٔ «افزودن»
              * کارت پیشنهاد)، از روی خود ورییشن پرش می‌کنیم وگرنه در ردیف سبد گزینه‌اش
              * «بسته استاندارد» نمایش داده می‌شد. */
             if ($variation_id && empty($variation)) {
@@ -272,6 +272,28 @@ add_action('rest_api_init', function () {
             WC()->cart->set_session();
             wc_clear_notices();
             return alookhor_cc_cart_response();
+        },
+    ]);
+
+    /* ── 3.10.418: اندپوینت تشخیص موقت — برای یافتنِ علت «محصول در سبد پیدا نشد» روی لایو
+     *  کاربر با همان مرورگر خودش بازش می‌کند؛ نشان می‌دهد REST با همان کوکی چه می‌بیند. */
+    register_rest_route('alookhor-cart/v4', '/diagnose', [
+        'methods' => 'GET',
+        'permission_callback' => function () {
+            return !empty($_GET['alookhor-diag']) || current_user_can('manage_options');
+        },
+        'callback' => function () {
+            alookhor_cc_cart_bootstrap();
+            $cart = WC()->cart ? WC()->cart->get_cart() : array();
+            return rest_ensure_response(array(
+                'session_id' => method_exists(WC()->session, 'get_customer_id') ? WC()->session->get_customer_id() : null,
+                'cookie_keys' => array_keys((array)$_COOKIE),
+                'woo_session_cookie' => isset($_COOKIE['wp_woocommerce_session_'.COOKIEHASH]) ? substr((string)$_COOKIE['wp_woocommerce_session_'.COOKIEHASH], 0, 20).'…' : null,
+                'logged_in' => is_user_logged_in(),
+                'cart_items' => count($cart),
+                'cart_keys' => array_keys($cart),
+                'plugin' => defined('ALOOKHOR_CC_VERSION') ? ALOOKHOR_CC_VERSION : '?',
+            ));
         },
     ]);
 
