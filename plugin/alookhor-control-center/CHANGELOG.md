@@ -1,3 +1,7 @@
+## v3.10.409 — 2026-09-26 — Fatal Guard
+- Guarded the duplicated header-settings function declaration that caused the live WordPress 500.
+- Kept the known-good cart and WordPress-native updater path unchanged.
+
 ## v3.10.408 — 2026-09-26 — Safe Recovery
 - Restored the known-good 3.10.405 plugin tree and incremented only the release version.
 - Restored the WordPress-native private updater publication route.
