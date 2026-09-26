@@ -1,4 +1,17 @@
 <?php
+if (!function_exists('alookhor_cc_rest_route_url')) {
+    /* rest_url به $wp_rewrite وابسته است که تا قبل از init ساخته نشده است (Fatal در آپایتر).
+     * این همپر درون plugins_loaded هم امن است. */
+    function alookhor_cc_rest_route_url($route) {
+        $route = '/' . ltrim((string) $route, '/');
+        global $wp_rewrite;
+        if (defined('ABSPATH') && function_exists('rest_url') && $wp_rewrite instanceof WP_Rewrite) {
+            return rest_url(ltrim($route, '/'));
+        }
+        return home_url('/wp-json' . $route);
+    }
+}
+
 if (!defined('ABSPATH')) exit;
 
 /**
@@ -86,7 +99,7 @@ add_action('init', function () {
 }, 998);
 
 /**
- * 3.10.419: پاکسازی خودکار و قطعی بلافاصله بعد از هر بروزرسانی پلاگین.
+ * 3.10.420: پاکسازی خودکار و قطعی بلافاصله بعد از هر بروزرسانی پلاگین.
  * مشکل لایو: مدخل‌های کش‌شدهٔ قدیمی (مثل «سبد خالی/دو محصول» یا صفحهٔ اصلیِ
  * مسموم‌شده با ?add-to-cart) بدون اجرای PHP سرو می‌شدند؛ هدر/مستثنی‌سازی فقط
  * از کشِ «آینده» جلوگیری می‌کند و مدخل قدیمی را پاک نمی‌کند. با هر تغییر نسخه،
@@ -106,12 +119,12 @@ add_action('plugins_loaded', function () {
         do_action('litespeed_purge_url', $u);
     }
     if (function_exists('rest_url')) {
-        do_action('litespeed_purge_url', rest_url('alookhor-cart/v4/cart'));
+        do_action('litespeed_purge_url', alookhor_cc_rest_route_url('alookhor-cart/v4/cart'));
     }
 }, 3);
 
 /**
- * 3.10.419: پاسخ هر تغییر سبد (add/update/remove/coupon) دستور پرژ مدخل‌های
+ * 3.10.420: پاسخ هر تغییر سبد (add/update/remove/coupon) دستور پرژ مدخل‌های
  * مرتبط را هم به سرور لایسسپید بدهد — حتی اگر ابزار purge API در دسترس نباشد.
  */
 add_filter('rest_post_dispatch', function ($response) {
@@ -145,8 +158,8 @@ add_action('init', function () {
     $urls[] = home_url('/checkout/');
     $urls[] = home_url('/my-account/');
     /* 3.10.414: مسیرهای REST سبد هم از کش LiteSpeed پاک شوند (کپیٔ قدیمی «سبد خالی») */
-    $urls[] = rest_url('alookhor-cart/v4/cart');
-    $urls[] = rest_url('alookhor-cart/v4/recommendations');
+    $urls[] = alookhor_cc_rest_route_url('alookhor-cart/v4/cart');
+    $urls[] = alookhor_cc_rest_route_url('alookhor-cart/v4/recommendations');
     $urls   = array_unique(array_filter($urls));
     foreach ($urls as $u) {
         do_action('litespeed_purge_url', $u);
