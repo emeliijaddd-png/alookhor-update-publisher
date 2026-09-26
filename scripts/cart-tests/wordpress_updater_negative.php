@@ -8,7 +8,7 @@ if (!defined('WP_CLI') || !WP_CLI || !defined('ABSPATH') || !defined('ALOOKHOR_C
 $package = 'https://raw.githubusercontent.com/emeliijaddd-png/alookhor-update-publisher/0123456789abcdef0123456789abcdef01234567/packages/cc-release/alookhor-control-center.zip';
 $manifest_url = alookhor_cc_update_manifest_url();
 $manifest = array(
-    'version' => '3.10.413',
+    'version' => '3.10.414',
     'download_url' => $package,
     'sha256' => hash('sha256', 'expected trusted ZIP'),
 );

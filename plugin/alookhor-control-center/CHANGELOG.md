@@ -1,6 +1,7 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
-## v3.10.412 — 2026-09-26 — Cart repair candidate (not published)
+## v3.10.413 — 2026-09-26 — Cart repair candidate (not published)
+- Distinguish this verified cart-repair ZIP from an unrelated 3.10.412 offered by the older GitHub-raw updater channel; that older-channel ZIP retains the destructive cart probe and the broken cart route join. No native update channel has been published for this draft.
 - Restore the complete 3.10.405 GitHub plugin tree (132 source files) before changing code; keep header, hero, checkout and assets from that tree rather than publishing the incomplete main/3.10.387 tree.
 - Join all v4 cart routes with exactly one slash; use the server's mutation response, so delayed/stale GETs cannot erase a successful add. A suspicious empty or partially stale GET no longer silently removes SSR items; it blocks checkout pending refresh.
 - Make recommended variable products require an explicit in-stock variation and attribute selection. The related-product link on a product page now honestly says selection is needed.
