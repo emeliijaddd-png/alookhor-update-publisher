@@ -66,6 +66,10 @@
 #alookhor-cart .c-qty button.c-plus{background:var(--ac-gold);color:#241505}
 #alookhor-cart .c-qty button.c-plus:hover{background:var(--ac-gold2)}
 #alookhor-cart .c-qty b{min-width:26px;text-align:center;font-size:13.5px;font-weight:800}
+#alookhor-cart .c-qty-input{width:42px;min-width:42px;height:30px;padding:0 2px;border:0;background:transparent;color:var(--ac-txt);text-align:center;font:800 13.5px/30px inherit;outline:none;-moz-appearance:textfield}
+#alookhor-cart .c-qty-input::-webkit-outer-spin-button,#alookhor-cart .c-qty-input::-webkit-inner-spin-button{margin:0;-webkit-appearance:none}
+#alookhor-cart .c-qty:focus-within{border-color:rgba(232,184,74,.55);box-shadow:0 0 0 2px rgba(232,184,74,.12)}
+body.alookhor-cart-busy #alookhor-cart .c-qty-input,body.alookhor-cart-busy #alookhor-cart .c-qty button{cursor:wait}
 #alookhor-cart .c-ops{display:flex;gap:8px;justify-self:end}
 #alookhor-cart .c-op{width:36px;height:36px;border-radius:12px;border:1px solid var(--ac-line);background:rgba(255,255,255,.03);color:rgba(245,241,234,.75);display:grid;place-items:center;cursor:pointer;transition:.18s;padding:0}
 #alookhor-cart .c-op:hover{color:var(--ac-gold);border-color:rgba(232,184,74,.5)}

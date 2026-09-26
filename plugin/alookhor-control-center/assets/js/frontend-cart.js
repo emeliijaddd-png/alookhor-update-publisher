@@ -12,7 +12,7 @@ const units=()=>state.items.reduce((n,i)=>n+(Number(i.quantity)||0),0);
 function error(msg){const el=q('.cart-error',q(ROOT));if(el){el.textContent=msg||'';el.hidden=!msg;}}
 function toast(msg){let t=q('.ac-toast');if(!t){t=document.createElement('div');t.className='ac-toast';t.setAttribute('role','status');document.body.appendChild(t);}t.textContent=msg;t.classList.add('show');clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove('show'),2600);}
 function setCheckout(ready){const link=q('.ac-checkout',q(ROOT));if(!link)return;link.setAttribute('aria-disabled',ready?'false':'true');link.classList.toggle('ac-disabled',!ready);link.onclick=ready?null:(event=>event.preventDefault());}
-async function api(path,opt={}){
+async function api(path,opt={},attempt=0){
  const method=String(opt.method||'GET').toUpperCase();
  const h={'Accept':'application/json','Cache-Control':'no-store','Pragma':'no-cache'};
  if(method!=='GET')h['Content-Type']='application/json';
@@ -22,7 +22,7 @@ async function api(path,opt={}){
  const res=await fetch(url,{method,headers:h,credentials:'include',cache:'no-store',body:opt.body?JSON.stringify(opt.body):undefined});
  const rn=res.headers.get('X-ALOOKHOR-CART-NONCE');if(rn)state.nonce=rn;
  const raw=await res.text();let data={};try{data=raw?JSON.parse(raw):{};}catch(e){data={};}
- if(!res.ok)throw new Error(data.message||data.code||('خطای سبد خرید '+res.status));
+ if(!res.ok){const msg=data.message||data.code||('خطای سبد خرید '+res.status);if(attempt<1&&(res.status>=500||res.status===429)){await new Promise(r=>setTimeout(r,350));return api(path,opt,attempt+1);}throw new Error(msg);}
  if(data.nonce)state.nonce=data.nonce;
  return data;
 }
@@ -35,7 +35,7 @@ function rowHTML(i){
  return '<article class="cart-row" data-key="'+esc(key)+'">'
  +'<div class="c-prod"><span class="c-thumb"><img src="'+esc(img)+'" alt="'+esc(name)+'" loading="lazy" decoding="async"></span><span class="c-meta"><a class="c-name" href="'+esc(i.permalink||'#')+'">'+esc(name)+'</a>'+(desc?'<small class="c-desc">'+esc(desc)+'</small>':'')+(badges?'<span class="c-badges">'+badges+'</span>':'')+'</span></div>'
  +'<span class="c-variant">'+variant+'</span><span class="c-price">'+fa(price)+'<small>تومان</small></span>'
- +'<span class="c-qty"><button type="button" data-cart-qty="-" data-key="'+esc(key)+'" aria-label="کاهش تعداد">−</button><b>'+fp(i.quantity||1)+'</b><button class="c-plus" type="button" data-cart-qty="+" data-key="'+esc(key)+'" aria-label="افزایش تعداد">+</button></span>'
+ +'<span class="c-qty" role="group" aria-label="تعداد '+esc(name)+'"><button type="button" data-cart-qty="-" data-key="'+esc(key)+'" aria-label="کاهش تعداد">−</button><input class="c-qty-input" type="number" min="1" step="1" inputmode="numeric" data-cart-qty-input data-key="'+esc(key)+'" value="'+esc(Number(i.quantity)||1)+'" aria-label="تعداد '+esc(name)+'"><button class="c-plus" type="button" data-cart-qty="+" data-key="'+esc(key)+'" aria-label="افزایش تعداد">+</button></span>'
  +'<span class="c-total">'+fa(line)+'<small>تومان</small></span>'
  +'<span class="c-ops"><button type="button" class="c-op c-del" data-cart-remove="'+esc(key)+'" aria-label="حذف '+esc(name)+'">'+trash+'</button><button type="button" class="c-op c-wish" data-wish="'+esc(pid)+'" aria-label="افزودن به علاقه‌مندی">'+heart+'</button></span></article>';
 }
@@ -60,7 +60,7 @@ function render(){
 }
 function applyPayload(d){
  if(!d||!Array.isArray(d.items)||!d.totals||typeof d.totals!=='object')throw new Error('پاسخ سبد خرید معتبر نیست.');
- state.items=d.items;state.totals=d.totals;state.verified=true;
+ state.items=d.items.map(i=>({...i,quantity:Math.max(1,Number(i.quantity)||1)}));state.totals=d.totals;state.verified=true;
  if(d.nonce)state.nonce=d.nonce;
  render();setCheckout(true);error('');
 }
@@ -88,7 +88,7 @@ async function load(){
 }
 async function mutate(path,body,success){
  if(state.busy)return false;
- state.busy=true;state.revision++;
+ state.busy=true;state.revision++;document.body.classList.add('alookhor-cart-busy');
  try{
   const d=await api(path,{method:'POST',body});
   if(path==='cart/add' && !d.items?.some(i=>Number(i.id)===Number(body.product_id)||(body.variation_id&&Number(i.variation_id)===Number(body.variation_id)))){
@@ -96,11 +96,12 @@ async function mutate(path,body,success){
   }
   applyPayload(d);if(success)toast(success);return true;
  }catch(e){error(e.message||'تغییر سبد خرید انجام نشد.');return false;}
- finally{state.busy=false;}
+ finally{state.busy=false;document.body.classList.remove('alookhor-cart-busy');}
 }
 function bindRows(){
  const r=q(ROOT);if(!r)return;
- qa('[data-cart-qty]',r).forEach(b=>b.onclick=()=>{const i=state.items.find(x=>String(x.key)===String(b.dataset.key));if(i)mutate('cart/update',{key:i.key,quantity:b.dataset.cartQty==='+'?Number(i.quantity)+1:Math.max(0,Number(i.quantity)-1)});});
+ qa('[data-cart-qty]',r).forEach(b=>b.onclick=()=>{const i=state.items.find(x=>String(x.key)===String(b.dataset.key));if(i)mutate('cart/update',{key:i.key,quantity:b.dataset.cartQty==='+'?Number(i.quantity)+1:Math.max(1,Number(i.quantity)-1)});});
+ qa('[data-cart-qty-input]',r).forEach(input=>{input.onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();input.blur();}};input.onchange=()=>{const i=state.items.find(x=>String(x.key)===String(input.dataset.key));if(!i)return;const raw=String(input.value||'').replace(/[۰-۹]/g,d=>'۰۱۲۳۴۵۶۷۸۹'.indexOf(d));const qty=Math.max(1,Math.min(9999,parseInt(raw,10)||1));input.value=String(qty);mutate('cart/update',{key:i.key,quantity:qty});};});
  qa('[data-cart-remove]',r).forEach(b=>b.onclick=()=>mutate('cart/remove',{key:b.dataset.cartRemove},'محصول از سبد حذف شد'));
 }
 function bindStatics(){
@@ -133,7 +134,7 @@ function bindSuggestions(){
    const opt=select.selectedOptions[0];body.variation_id=Number(select.value);
    try{body.variation=JSON.parse(opt.dataset.attributes||'{}');}catch(e){error('گزینهٔ محصول نامعتبر است؛ صفحه را تازه‌سازی کنید.');return;}
   }
-  button.disabled=true;try{await mutate('cart/add',body,'محصول به سبد اضافه شد');}finally{button.disabled=false;}
+  button.disabled=true;button.setAttribute('aria-busy','true');try{await mutate('cart/add',body,'محصول به سبد اضافه شد');}finally{button.disabled=false;button.removeAttribute('aria-busy');}
  });
  grid.addEventListener('change',ev=>{const select=ev.target.closest&&ev.target.closest('select.sg-variant');if(!select)return;const card=select.closest('.sg-card'),price=q('.sg-price',card),chosen=select.selectedOptions[0];if(price)price.innerHTML=fa(chosen?.dataset.price||card.dataset.basePrice)+'<small>تومان</small>';});
 }
