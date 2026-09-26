@@ -1,27 +1,27 @@
 {
   "name": "ALOOKHOR Control Center",
-  "version": "3.10.409",
-  "download_url": "https://updates.alookhor.ir/releases/alookhor-control-center-3.10.409.zip",
+  "version": "3.10.410",
+  "download_url": "https://updates.alookhor.ir/releases/alookhor-control-center-3.10.410.zip",
   "details_url": "https://updates.alookhor.ir/changelog.html",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "نسخه بازیابی 3.10.409؛ رفع fatal ناشی از تعریف تکراری تابع هدر.",
+  "description": "نسخه بازیابی 3.10.410؛ حذف کامل تعریف تکراری تابع هدر که باعث HTTP 500 شده بود.",
   "changelog": [
     {
       "tag": "FIX",
-      "title": "رفع Fatal تابع هدر",
-      "desc": "تعریف تابع alookhor_cc_front_header_settings در برابر تعریف قبلی محافظت شد تا افزونه هنگام بارگذاری WordPress خطای Cannot redeclare ندهد."
+      "title": "رفع قطعی Fatal هدر",
+      "desc": "تعریف تکراری alookhor_cc_front_header_settings از shortcode-header حذف شد و فقط تعریف اصلی افزونه باقی ماند."
     },
     {
       "tag": "RECOVERY",
-      "title": "حفظ هسته پایدار",
-      "desc": "هسته نسخه بازیابی قبلی حفظ شد و فقط اصلاح ضروری سازگاری PHP/WordPress اعمال شد."
+      "title": "بازیابی WordPress",
+      "desc": "نسخه برای جایگزینی امن افزونه خراب 406 آماده شده است."
     },
     {
       "tag": "UPDATE",
-      "title": "مسیر انتشار ثابت",
-      "desc": "کانال Manifest و ZIP خصوصی WordPress بدون تغییر معماری حفظ شد."
+      "title": "مسیر WordPress Native",
+      "desc": "مسیر خصوصی Manifest و ZIP بدون تغییر حفظ شده است."
     }
   ]
 }
