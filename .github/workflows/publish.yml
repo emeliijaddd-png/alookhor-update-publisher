@@ -86,7 +86,7 @@ jobs:
           ! grep -qi 'Fatal error' /tmp/site.html
           echo "SITE_RECOVERED_WITH_PLUGIN_DISABLED"
 
-      - name: Inspect exact live plugin filesystem
+      - name: Repair real PHP files before WordPress loads
         env:
           FTP_SERVER: ${{ secrets.FTP_SERVER }}
           FTP_PORT: ${{ secrets.FTP_PORT }}
@@ -98,11 +98,54 @@ jobs:
           import os,subprocess
           from pathlib import Path
           from urllib.parse import quote
+          repo=Path('plugin/alookhor-control-center')
+          main=repo/'alookhor-control-center.php'; header=repo/'includes/shortcode-header.php'
+          prepend=Path('/tmp/alookhor-repair-prepend.php')
+          prepend.write_text("""<?php
+          $base='/home/tdwdwhzq/public_html/wp-content/plugins/alookhor-control-center';
+          $st='/home/tdwdwhzq/public_html/wp-content/upgrade/alookhor-repair';
+          foreach ([['alookhor-control-center.php','alookhor-control-center.php'],['shortcode-header.php','includes/shortcode-header.php']] as $p) {
+              $src=$st.'/'.$p[0]; $dst=$base.'/'.$p[1];
+              if (is_file($src)) { @mkdir(dirname($dst),0755,true); @copy($src,$dst); }
+          }
+          foreach ([$base.'/alookhor-control-center.php',$base.'/includes/shortcode-header.php'] as $f) { if (function_exists('opcache_invalidate')) @opcache_invalidate($f,true); }
+          if (function_exists('opcache_reset')) @opcache_reset();
+          ?>""")
+          userini=Path('/tmp/site-user.ini'); userini.write_text('auto_prepend_file=/home/tdwdwhzq/public_html/alookhor-repair-prepend.php\\n')
           server=os.environ['FTP_SERVER'].strip(); port=os.environ['FTP_PORT'].strip(); user=os.environ['FTP_USERNAME'].strip(); password=os.environ['FTP_PASSWORD']
           auth=f"ftp://{quote(user,safe='')}:{quote(password,safe='')}@{server}"
-          cmds=['set cmd:fail-exit true','set net:max-retries 3',f'open -p {port} "{auth}"','cd "public_html/wp-content/plugins"','ls -la','ls -la alookhor-control-center-disabled','ls -la alookhor-control-center-disabled/includes','bye']
-          p=Path('/tmp/inspect.lftp'); p.write_text('\\n'.join(cmds)+'\\n'); p.chmod(0o600); q=subprocess.run(['lftp','-f',str(p)],capture_output=True,text=True,check=True); print(q.stdout); print(q.stderr)
+          common=['set cmd:fail-exit true','set net:max-retries 3','set net:timeout 30','set ftp:passive-mode true','set ftp:ssl-auth TLS','set ftp:ssl-force true','set ftp:ssl-protect-data true','set ssl:verify-certificate true',f'open -p {port} "{auth}"']
+          cmds=common+['cd "public_html/wp-content/plugins"','mv alookhor-control-center-disabled alookhor-control-center','cd "../.."','mkdir upgrade/alookhor-repair','put /tmp/alookhor-repair-prepend.php -o ../alookhor-repair-prepend.php','put /tmp/site-user.ini -o ../.user.ini','put /tmp/fixed-main.php -o upgrade/alookhor-repair/alookhor-control-center.php','put /tmp/fixed-header.php -o upgrade/alookhor-repair/shortcode-header.php','bye']
+          Path('/tmp/fixed-main.php').write_bytes(main.read_bytes()); Path('/tmp/fixed-header.php').write_bytes(header.read_bytes())
+          p=Path('/tmp/repair.lftp'); p.write_text('\\n'.join(cmds)+'\\n'); p.chmod(0o600); subprocess.run(['lftp','-f',str(p)],check=True)
           PY
+          sleep 8
+          for i in 1 2 3 4 5; do
+            code=$(curl -sS --no-cache --max-time 30 -H 'Cache-Control: no-cache' -o "/tmp/repair-$i.html" -w '%{http_code}' "https://alookhor.ir/?alookhor_repair=$i-$(date +%s)")
+            echo "REPAIR_TEST_$i HTTP=$code"
+            test "$code" = "200"
+            ! grep -qi 'Fatal error' "/tmp/repair-$i.html"
+            ! grep -qi 'Cannot redeclare' "/tmp/repair-$i.html"
+          done
+          echo "REAL_PHP_REPAIR_TESTS_PASSED"
+          python3 - <<'PY'
+          import os,subprocess
+          from pathlib import Path
+          from urllib.parse import quote
+          server=os.environ['FTP_SERVER'].strip(); port=os.environ['FTP_PORT'].strip(); user=os.environ['FTP_USERNAME'].strip(); password=os.environ['FTP_PASSWORD']
+          auth=f"ftp://{quote(user,safe='')}:{quote(password,safe='')}@{server}"
+          cmds=['set cmd:fail-exit true','set net:max-retries 3',f'open -p {port} "{auth}"','cd "public_html"','rm alookhor-repair-prepend.php','rm .user.ini','rm -rf wp-content/upgrade/alookhor-repair','bye']
+          p=Path('/tmp/cleanup.lftp'); p.write_text('\\n'.join(cmds)+'\\n'); p.chmod(0o600); subprocess.run(['lftp','-f',str(p)],check=True)
+          PY
+          sleep 8
+          for i in 1 2 3 4 5; do
+            code=$(curl -sS --no-cache --max-time 30 -H 'Cache-Control: no-cache' -o "/tmp/final-$i.html" -w '%{http_code}' "https://alookhor.ir/?alookhor_final=$i-$(date +%s)")
+            echo "FINAL_LIVE_TEST_$i HTTP=$code"
+            test "$code" = "200"
+            ! grep -qi 'Fatal error' "/tmp/final-$i.html"
+            ! grep -qi 'Cannot redeclare' "/tmp/final-$i.html"
+          done
+          echo "FIVE_FINAL_LIVE_TESTS_PASSED"
 
       - name: Five live site tests before publish
         run: |
