@@ -140,6 +140,10 @@ function alookhor_cc_render_akx_header() {
 
     $home_url    = esc_url(home_url('/'));
     // Badge counts units, not distinct product lines, even before cart JS loads.
+    // Ensure WooCommerce has hydrated the guest session before SSR reads the cart.
+    if (function_exists('wc_load_cart') && function_exists('WC') && !WC()->cart) {
+        wc_load_cart();
+    }
     $cart_count  = function_exists('WC') && WC()->cart ? (int) WC()->cart->get_cart_contents_count() : 0;
     $cart_url    = function_exists('wc_get_cart_url') ? esc_url(wc_get_cart_url()) : $home_url . 'cart/';
     $account_url = function_exists('wc_get_page_permalink') ? esc_url(wc_get_page_permalink('myaccount')) : $home_url . 'my-account/';
