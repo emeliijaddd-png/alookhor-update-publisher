@@ -1,31 +1,31 @@
 {
-  "version": "3.10.408",
-  "previous": "3.10.406",
+  "version": "3.10.409",
+  "previous": "3.10.408",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "نسخه بازیابی امن بر پایه مسیر پایدار 3.10.405؛ بازگشت سبد خرید به Renderer و REST bridge پایدار.",
+  "description": "نسخه بازیابی 3.10.409؛ رفع fatal ناشی از تعریف تکراری تابع هدر.",
   "changelog": [
     {
+      "tag": "FIX",
+      "title": "رفع Fatal تابع هدر",
+      "desc": "تعریف تابع alookhor_cc_front_header_settings در برابر تعریف قبلی محافظت شد تا افزونه هنگام بارگذاری WordPress خطای Cannot redeclare ندهد."
+    },
+    {
       "tag": "RECOVERY",
-      "title": "بازگشت به هسته پایدار",
-      "desc": "هسته افزونه به آخرین نسخه شناخته‌شده سالم 3.10.405 بازگردانده شد و فقط شماره نسخه افزایش یافت."
+      "title": "حفظ هسته پایدار",
+      "desc": "هسته نسخه بازیابی قبلی حفظ شد و فقط اصلاح ضروری سازگاری PHP/WordPress اعمال شد."
     },
     {
       "tag": "UPDATE",
-      "title": "مسیر آپدیت WordPress",
-      "desc": "انتشار فقط از کانال خصوصی Manifest و ZIP انجام می‌شود و مسیر FTP مستقیم فایل‌های افزونه استفاده نمی‌شود."
-    },
-    {
-      "tag": "CART",
-      "title": "پایداری سبد خرید",
-      "desc": "کد سبد خرید نسخه پایدار شناخته‌شده حفظ شده است."
+      "title": "مسیر انتشار ثابت",
+      "desc": "کانال Manifest و ZIP خصوصی WordPress بدون تغییر معماری حفظ شد."
     }
   ],
   "project": "ALOOKHOR",
   "area": "cart UX + renderer synchronization",
-  "reason": "بازیابی نسخه پایدار پس از خطای 3.10.406؛ حفظ مسیر WordPress Native Updater و حذف مسیر FTP مستقیم افزونه.",
+  "reason": "پس از تست واقعی روی WordPress، خطای Cannot redeclare در تابع هدر شناسایی و با function_exists guard اصلاح شد؛ مسیر انتشار همان WordPress Native Updater باقی ماند.",
   "files": [
     "plugin/alookhor-control-center/assets/css/frontend-cart.css",
     "plugin/alookhor-control-center/assets/js/frontend-cart.js",
