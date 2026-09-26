@@ -273,7 +273,7 @@ STATUS: SOURCE DRAFT — deployment status must be verified separately.
 | `plugin/alookhor-control-center/includes/bestselling-products.php` | 14 | `9c46ee8f461a1b8437713eda03e65e8f9f3c9182d70e0c05f497b5723f5e5f0c` |
 | `plugin/alookhor-control-center/includes/campaign-slider.php` | 11 | `e4e389f2847efcd3892dfd45b1f935725d874fb6bf17af7f9c4f14c614e812df` |
 | `plugin/alookhor-control-center/includes/cart-page.php` | 332 | `ffb6073f410b7a78ca2345b2e0a69b2e9b76d6a29d67a291af337261b7d80b44` |
-| `plugin/alookhor-control-center/includes/cart-rest.php` | 259 | `edb61ba1082a5786f27f6520a711529536d086d82d2d39ae7a373658e07d68b3` |
+| `plugin/alookhor-control-center/includes/cart-rest.php` | 267 | `bb642425cdf3b301196a39c82354d966783ecdfdbb1214e5912cc2d6936bffe4` |
 | `plugin/alookhor-control-center/includes/cart-shortcodes.php` | 92 | `07a6987256f6b3806b3dc3c6a5f87f224ff99cf286ae369df01cd595e1e6f7dc` |
 | `plugin/alookhor-control-center/includes/checkout-page.php` | 447 | `71dd6564e4c37534a16b261a22f7fdce7790edba70c954c8873aca9af1c66946` |
 | `plugin/alookhor-control-center/includes/commerce-cache-shield.php` | 91 | `1f9e25296290ba7f60d55888b2b676cf1fa22545bdbf1da24448ffb587ef7f42` |
@@ -14682,7 +14682,15 @@ function alookhor_cc_cart_bootstrap() {
     if (function_exists('wc_load_cart') && (!WC()->cart || !WC()->session)) {
         wc_load_cart();
     }
-    return WC()->cart instanceof WC_Cart;
+    if (!(WC()->cart instanceof WC_Cart)) return false;
+    // Woo does not initialize frontend carts on REST requests. wc_load_cart()
+    // registers a wp_loaded session hook, but REST callbacks run *after* that hook.
+    // Without loading the saved cart here, each POST starts with an empty cart and
+    // can replace earlier items in the guest's session (GET also appears empty).
+    if (did_action('wp_loaded') && !did_action('woocommerce_load_cart_from_session')) {
+        WC()->cart->get_cart_from_session();
+    }
+    return true;
 }
 
 function alookhor_cc_cart_nonce_ok(WP_REST_Request $request) {

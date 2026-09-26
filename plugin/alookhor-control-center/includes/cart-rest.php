@@ -13,7 +13,15 @@ function alookhor_cc_cart_bootstrap() {
     if (function_exists('wc_load_cart') && (!WC()->cart || !WC()->session)) {
         wc_load_cart();
     }
-    return WC()->cart instanceof WC_Cart;
+    if (!(WC()->cart instanceof WC_Cart)) return false;
+    // Woo does not initialize frontend carts on REST requests. wc_load_cart()
+    // registers a wp_loaded session hook, but REST callbacks run *after* that hook.
+    // Without loading the saved cart here, each POST starts with an empty cart and
+    // can replace earlier items in the guest's session (GET also appears empty).
+    if (did_action('wp_loaded') && !did_action('woocommerce_load_cart_from_session')) {
+        WC()->cart->get_cart_from_session();
+    }
+    return true;
 }
 
 function alookhor_cc_cart_nonce_ok(WP_REST_Request $request) {

@@ -16,6 +16,7 @@ define('DAY_IN_SECONDS', 86400);
 $GLOBALS['actions'] = $GLOBALS['filters'] = $GLOBALS['routes'] = $GLOBALS['transients'] = array();
 $GLOBALS['saved_cart'] = array();
 $GLOBALS['cookie_sent'] = 0;
+$GLOBALS['cart_session_loaded'] = true; // the first page was populated at wp_loaded
 
 function check($condition, $message) {
     if (!$condition) throw new RuntimeException('FAIL: ' . $message);
@@ -48,6 +49,11 @@ function is_wp_error($data) { return $data instanceof WP_Error; }
 function __return_true() { return true; }
 function is_cart() { return true; }
 function is_admin() { return false; }
+function did_action($hook) {
+    if ($hook === 'wp_loaded') return 1;
+    if ($hook === 'woocommerce_load_cart_from_session') return (int) $GLOBALS['cart_session_loaded'];
+    return 0;
+}
 function shortcode_exists($x) { return false; }
 function remove_shortcode($x) {}
 function add_shortcode($x,$fn) {}
@@ -125,6 +131,7 @@ class WC_Cart {
     private $items;
     public function __construct($items=array()) { $this->items=$items; }
     public function get_cart() { return $this->items; }
+    public function get_cart_from_session() { $this->items=$GLOBALS['saved_cart']; $GLOBALS['cart_session_loaded']=true; }
     public function get_cart_item($key) { return $this->items[$key] ?? null; }
     public function is_empty() { return !$this->items; }
     public function get_cart_contents_count() { return array_sum(array_column($this->items,'quantity')); }
@@ -202,17 +209,30 @@ $invalid=route('cart/add',array('product_id'=>11,'variation_id'=>150));
 check(is_wp_error($invalid) && $invalid->get_error_code()==='invalid_variation', 'variation cannot be attached to a different parent');
 $forged=route('cart/add',array('product_id'=>11),'invalid');
 check(is_wp_error($forged) && $forged->get_error_code()==='invalid_cart_nonce', 'cart mutation rejects a bad nonce');
+// In real Woo, REST bypasses frontend wc_load_cart() at init. wc_load_cart() inside
+// the callback runs after wp_loaded and its session hook never fires automatically.
+WC()->cart->set_session(); // persist the previous page's three products
+WC()->cart=new WC_Cart(); // new REST request, cart object starts empty
+$GLOBALS['cart_session_loaded']=false;
 $added=route('cart/add',array('product_id'=>148,'variation_id'=>150,'quantity'=>2,'variation'=>array('attribute_pa_weight'=>'500g')));
+check($GLOBALS['cart_session_loaded']===true, 'REST POST explicitly loads the saved Woo cart before adding');
 check($added instanceof WP_REST_Response && $added->get_data()['lines']===4 && $added->get_data()['count']===7, 'chosen variable product adds two units as a fourth line');
 check($GLOBALS['cookie_sent']>0 && count($GLOBALS['saved_cart'])===4, 'mutation saves the cart and explicitly sends a guest session cookie');
-WC()->cart=new WC_Cart($GLOBALS['saved_cart']);
-check(route('cart')->get_data()['count']===7, 'fresh request with the same session sees all items');
+WC()->cart=new WC_Cart();
+$GLOBALS['cart_session_loaded']=false;
+check(route('cart')->get_data()['count']===7 && $GLOBALS['cart_session_loaded']===true, 'fresh REST GET with the same session sees all items');
+WC()->cart=new WC_Cart();
+$GLOBALS['cart_session_loaded']=false;
 $updated=route('cart/update',array('key'=>'item-33-0','quantity'=>4));
-check($updated->get_data()['count']===8, 'quantity can exceed two and survives update');
+check($GLOBALS['cart_session_loaded'] && $updated instanceof WP_REST_Response && $updated->get_data()['count']===8, 'fresh REST update loads all previous rows and changes quantity above two');
+WC()->cart=new WC_Cart();
+$GLOBALS['cart_session_loaded']=false;
 $removed=route('cart/remove',array('key'=>'item-22-0'));
-check($removed->get_data()['lines']===3 && $removed->get_data()['count']===7, 'remove leaves the other lines intact');
+check($GLOBALS['cart_session_loaded'] && $removed instanceof WP_REST_Response && $removed->get_data()['lines']===3 && $removed->get_data()['count']===7, 'fresh REST remove leaves the other lines intact');
+WC()->cart=new WC_Cart();
+$GLOBALS['cart_session_loaded']=false;
 $coupon=route('cart/coupon',array('code'=>'SAVE10'));
-check($coupon instanceof WP_REST_Response, 'coupon uses the same cart session');
+check($GLOBALS['cart_session_loaded'] && $coupon instanceof WP_REST_Response && $coupon->get_data()['count']===7, 'fresh REST coupon retains the same cart session');
 
 // JSON embedded inside an HTML <script> must not be able to terminate that script.
 $GLOBALS['products'][33]=new WC_Product(33,'simple',1000,array(),'</script><img src=x onerror=alert(1)>');
