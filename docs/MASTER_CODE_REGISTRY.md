@@ -199,7 +199,7 @@ STATUS: SOURCE DRAFT — deployment status must be verified separately.
 
 | File | Lines | SHA-256 |
 |---|---:|---|
-| `.github/workflows/publish.yml` | 121 | `e87c61140734292d92e531a4a77d39dc862a22202ec28819355d0041d6575417` |
+| `.github/workflows/publish.yml` | 124 | `7d4a8d36a0798881235bb147c9256413ac538fd456b09fbb1c4d0f70afb2b547` |
 | `ops/wordpress-ci-bootstrap.php` | 215 | `409c23f2be99c6651b0e75dc877c91c884534e6b16f9985c177cf65d14fd4c95` |
 | `plugin/alookhor-control-center/alookhor-control-center.php` | 446 | `e83949db456d53d0cb589cc423aa2fac1b7a8683706f4ae3cb07e61725885a03` |
 | `plugin/alookhor-control-center/assets/css/frontend-about-page.css` | 37 | `4a895038f4ede91f1172279e86e10ed6939a8a406c16ee780c326f6f4f5df5c2` |
@@ -334,7 +334,10 @@ permissions:
   contents: read
 
 concurrency:
-  group: alookhor-production-publisher
+  # Older production runs can wait for the owner's environment approval. Do not
+  # let them block independent build-only branch checks, or bypass their gate.
+  # Version tags retain the original serialized production group.
+  group: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v') && 'alookhor-production-publisher' || format('alookhor-{0}-{1}', github.event_name, github.ref) }}
   cancel-in-progress: false
 
 jobs:

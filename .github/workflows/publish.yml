@@ -11,7 +11,10 @@ permissions:
   contents: read
 
 concurrency:
-  group: alookhor-production-publisher
+  # Older production runs can wait for the owner's environment approval. Do not
+  # let them block independent build-only branch checks, or bypass their gate.
+  # Version tags retain the original serialized production group.
+  group: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v') && 'alookhor-production-publisher' || format('alookhor-{0}-{1}', github.event_name, github.ref) }}
   cancel-in-progress: false
 
 jobs:
