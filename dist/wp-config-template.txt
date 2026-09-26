@@ -1,0 +1,35 @@
+<?php
+/** ALOOKHOR - wp-config.php - 2026-09-15 */
+
+define( 'DB_NAME', 'ALOOKHOR_DB_NAME' );
+define( 'DB_USER', 'ALOOKHOR_DB_USER' );
+define( 'DB_PASSWORD', 'ALOOKHOR_DB_PASSWORD' );
+define( 'DB_HOST', 'localhost' );
+define( 'DB_CHARSET', 'utf8mb4' );
+define( 'DB_COLLATE', '' );
+
+$table_prefix = 'wp_';
+
+define( 'AUTH_KEY',         '8c2ed41593549c47e3607f3f3e6ab6c4' );
+define( 'SECURE_AUTH_KEY',  '775d67bf87eef7998bcc30286a0412cc' );
+define( 'LOGGED_IN_KEY',    '9a7a7b39e37e158689d59cfd90a226f6' );
+define( 'NONCE_KEY',        '3e243e187a1f866b0242b04218f905e1' );
+define( 'AUTH_SALT',        'd1d4d7deb719732f5db09eb140797f94' );
+define( 'SECURE_AUTH_SALT', '72e6292043a9072a8fc444d6967ee6cd' );
+define( 'LOGGED_IN_SALT',   '029efcbd2bc53c2afa359d5361dc6ae8' );
+define( 'NONCE_SALT',       '973c9141b76ae283bdb1b75b2a4d1e64' );
+
+define( 'WP_DEBUG', false );
+define( 'WP_DEBUG_LOG', false );
+define( 'WP_DEBUG_DISPLAY', false );
+define( 'SCRIPT_DEBUG', false );
+define( 'FORCE_SSL', true );
+define( 'FORCE_SSL_ADMIN', true );
+define( 'WP_MEMORY_LIMIT', '256M' );
+define( 'WP_MAX_MEMORY_LIMIT', '512M' );
+
+if ( ! defined( 'ABSPATH' ) ) {
+	define( 'ABSPATH', __DIR__ . '/' );
+}
+
+require_once ABSPATH . 'wp-settings.php';

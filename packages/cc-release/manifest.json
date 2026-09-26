@@ -1,0 +1,29 @@
+{
+  "name": "ALOOKHOR Control Center",
+  "version": "3.10.405",
+  "download_url": "https://raw.githubusercontent.com/emeliijaddd-png/alookhor-update-publisher/arena/01a0a537-alookhor-update-publisher/packages/cc-release/alookhor-control-center.zip",
+  "details_url": "https://github.com/emeliijaddd-png/alookhor-update-publisher",
+  "sha256": "09fd472b032b3602acc8f2779ab2d1906040c5fa426d8f82f291557161b3f602",
+  "requires": "6.0",
+  "tested": "6.8",
+  "requires_php": "8.0",
+  "author": "ALOOKHOR Team",
+  "description": "کنترل سنتر لوکس و ماژولار ALOOKHOR",
+  "changelog": [
+    {
+      "tag": "FIX",
+      "title": "‌خودترمیم‌گری کش کهنه — پایانِ خطای «مسیری منطبق پیدا نشد» و رفتَنِ اقلام سبد",
+      "desc": "اگر مرورگر یا لایهٔ کش سرور، نسخهٔ قدیمی صفحه را با فایل جدید جفت کرده باشد (همان چیزی که باعث می‌شد سبد خالی دیده شود یا خطای مسیر بگیرید)، نسخهٔ ۴۰۵ خودش این ناسازگاری را تشخیص می‌دهد، یک‌بار صفحه را با کش‌شکن تازه می‌کند و اگر باز هم کش قدیمی برگشت، به شما راهنمای رفرش کامل (Ctrl+F5) را نشان می‌دهد. صفحهٔ سبد حالا شناسهٔ بیلد خود را اعلام می‌کند تا جاوااسکریپت همیشه با همتای درستش کار کند."
+    },
+    {
+      "tag": "FIX",
+      "title": "‌رفع ناپدید شدن آیتم‌ها و بی‌اثر بودن «افزودن» — REST سبد دیگر هرگز کش نمی‌شود",
+      "desc": "همهٔ پاسخ‌های REST سبد با سربرگ‌های no-store + دستور مستقیم به LiteSpeed (X-LiteSpeed-Cache-Control: no-cache) ارسال می‌شوند و جاوااسکریپت کش‌شکن زمانی می‌زند — لیست همیشه واقعی و تازه است."
+    },
+    {
+      "tag": "FIX",
+      "title": "‌رفع مشکل «تعداد همیشه ۱ می‌شود» در صفحهٔ محصول",
+      "desc": "تعداد انتخابی شما قبل از ووکامرس خوانده و ثبت می‌شود (هم محصول ساده، هم متغیر) و بعد کاربر به سبد هدایت می‌شود."
+    }
+  ]
+}

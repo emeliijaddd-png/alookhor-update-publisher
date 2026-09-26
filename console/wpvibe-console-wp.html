@@ -1,0 +1,634 @@
+<meta charset="utf-8">
+<style>
+  :root { --bg:#0f0b14; --card:#1c1424; --gold:#d49a2e; --text:#f5f3f0; --muted:#b8b0c0; --ok:#3fbf6f; --err:#e05555; --line:#33283f; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--text); font-family:"Vazirmatn","Tahoma",sans-serif; padding:20px; }
+  h1 { font-size:20px; margin:0 0 4px; color:var(--gold); }
+  .sub { color:var(--muted); font-size:13px; margin-bottom:16px; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px; margin-bottom:14px; }
+  .steps { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:8px; }
+  .step { display:flex; gap:8px; align-items:center; font-size:13px; color:var(--muted); padding:8px 10px; border:1px solid var(--line); border-radius:8px; }
+  .step .dot { width:10px; height:10px; border-radius:50%; background:#4a3d5c; flex:none; }
+  .step.done { color:var(--text); }
+  .step.done .dot { background:var(--ok); }
+  .step.active { border-color:var(--gold); color:var(--text); }
+  .step.active .dot { background:var(--gold); }
+  button { background:var(--gold); color:#150d02; border:0; border-radius:8px; padding:9px 16px; font-size:14px; font-weight:700; cursor:pointer; font-family:inherit; }
+  button.big { font-size:16px; padding:13px 26px; }
+  button.sec { background:transparent; color:var(--text); border:1px solid var(--line); font-weight:400; }
+  button:disabled { opacity:.45; cursor:not-allowed; }
+  .row { display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
+  #log { background:#0a0710; border:1px solid var(--line); border-radius:8px; padding:12px; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:12px; direction:ltr; text-align:left; height:420px; overflow:auto; white-space:pre-wrap; word-break:break-word; color:#d8d0e4; }
+  .ok { color:var(--ok); } .err { color:var(--err); } .hdr { color:var(--gold); } .dim { color:var(--muted); }
+  .note { font-size:12.5px; color:var(--muted); line-height:1.9; }
+  .note b { color:var(--text); }
+  code, .code { background:#0a0710; border:1px solid var(--line); border-radius:6px; padding:2px 6px; font-family:ui-monospace,Menlo,monospace; font-size:12px; direction:ltr; display:inline-block; }
+  textarea { width:100%; background:#0a0710; color:var(--text); border:1px solid var(--line); border-radius:8px; padding:10px; font-family:ui-monospace,monospace; font-size:12px; direction:ltr; text-align:left; min-height:90px; }
+  input[type=text] { background:#0a0710; color:var(--text); border:1px solid var(--line); border-radius:8px; padding:8px 10px; font-size:12px; direction:ltr; flex:1; min-width:200px; }
+  .tok { font-size:12px; color:var(--muted); direction:ltr; }
+  #approveBox { display:none; background:#241a10; border:2px solid var(--gold); border-radius:12px; padding:14px; margin-top:12px; }
+</style>
+
+<h1>⚙️ کنسول اتصال WPVibe — آلوخور</h1>
+<div class="sub">این کنسول در مرورگر شما اجرا می‌شود و مستقیم با سرور رسمی MCP در ارتباط است. هیچ توکنی به جایی جز mcp.wpvibe.ai فرستاده نمی‌شود.</div>
+
+<div class="card">
+  <div class="steps">
+    <div class="step" id="st1"><span class="dot"></span> ۱) ثبت کلاینت</div>
+    <div class="step" id="st2"><span class="dot"></span> ۲) ورود حساب WPVibe</div>
+    <div class="step" id="st3"><span class="dot"></span> ۳) اتصال به MCP</div>
+    <div class="step" id="st4"><span class="dot"></span> ۴) شناسایی ابزارها</div>
+    <div class="step" id="st5"><span class="dot"></span> ۵) اتصال سایت</div>
+    <div class="step" id="st6"><span class="dot"></span> ۶) تنظیم کامل سایت</div>
+  </div>
+  <div class="row" style="margin-top:12px">
+    <button onclick="doRegister()">۱) ثبت کلاینت</button>
+    <button onclick="doSignIn()">۲) ورود با ایمیل</button>
+    <button class="sec" onclick="checkAuth()">بررسی وضعیت ورود</button>
+    <button onclick="doConnect()">۳) اتصال MCP</button>
+    <button onclick="doDiscover()">۴) لیست ابزارها</button>
+    <button class="big" onclick="runAuto()">▶ شروع تنظیم کامل سایت</button>
+    <button class="sec" onclick="copyLog()">📋 کپی کل لاگ</button>
+    <button class="sec" onclick="doSignOut()">خروج</button>
+  </div>
+  <div id="approveBox">
+    <b style="color:var(--gold)">🔗 لینک تأیید سایت دریافت شد:</b>
+    <div style="margin:8px 0; word-break:break-all; direction:ltr; font-size:12px; font-family:ui-monospace,monospace" id="approveUrl"></div>
+    <div class="note">این لینک را <b>در همین مرورگر</b> (جایی که به وردپرس لاگین هستید) باز کنید و روی «تأیید / Approve» بزنید. بعد از تأیید، دکمه‌ی زیر را بزنید:</div>
+    <button style="margin-top:10px" onclick="doContinue()">✔ تأیید کردم — ادامه بده</button>
+  </div>
+  <div class="row" style="margin-top:10px">
+    <span class="tok" id="tokinfo"></span>
+  </div>
+</div>
+
+<div class="card">
+  <div class="note">
+    <b>راهنمای سریع (فقط یک‌بار):</b><br>
+    ۱. «ثبت کلاینت» ← ۲. «ورود با ایمیل» (ایمیل WPVibe را وارد کنید؛ کد ۶ رقمی در <b>مضمون ایمیل</b> می‌آید) ← ۳. بعد از ورود، فقط دکمه‌ی بزرگ <b>«▶ شروع تنظیم کامل سایت»</b> را بزنید — بقیه‌اش خودکار است.<br>
+    ۴. اگر جایی <b>لینک تأیید</b> داد، آن لینک را در همین مرورگر (حالت لاگین وردپرس) باز و تأیید کنید، بعد «✔ تأیید کردم — ادامه بده».<br>
+    ۵. در آخر: «📋 کپی کل لاگ» را بزنید و لاگ را برای من بفرستید (برای گزارش نهایی و اصلاح هر خطا).<br>
+    Redirect URI: <span class="code" id="redirectshow"></span>
+  </div>
+  <div class="row" style="margin-top:10px">
+    <input type="text" id="redirectUri" placeholder="redirect URI (advanced)">
+  </div>
+</div>
+
+<div class="card">
+  <div class="row" style="margin-bottom:8px"><b style="font-size:13px">دستور یک‌باره (اختیاری):</b></div>
+  <textarea id="adhoc" placeholder='{"name": "site_info", "args": {}}'></textarea>
+  <div class="row" style="margin-top:8px">
+    <button class="sec" onclick="runAdhoc()">اجرای دستور</button>
+  </div>
+</div>
+
+<div class="card">
+  <div class="row" style="margin-bottom:8px"><b style="font-size:13px">لاگ:</b></div>
+  <div id="log"></div>
+</div>
+
+<script>
+/* ================= pure-JS SHA-256 fallback ================= */
+function sha256Fallback(ascii) {
+  function rr(v,a){ return (v>>>a)|(v<<(32-a)); }
+  var mathPow=Math.pow, maxWord=mathPow(2,32), result="";
+  var words=[], asciiBitLength=ascii.length*8;
+  var hash=sha256Fallback.h=sha256Fallback.h||[];
+  var k=sha256Fallback.k=sha256Fallback.k||[];
+  var primeCounter=k.length;
+  var isComposite={};
+  for(var candidate=2; primeCounter<64; candidate++){
+    if(!isComposite[candidate]){
+      for(var i=0;i<313;i+=candidate){ isComposite[i]=candidate; }
+      hash[primeCounter]=(mathPow(candidate,.5)*maxWord)|0;
+      k[primeCounter++]=(mathPow(candidate,1/3)*maxWord)|0;
+    }
+  }
+  ascii+="\x80";
+  while(ascii.length%64-56) ascii+="\x00";
+  for(i=0;i<ascii.length;i++){
+    var j=ascii.charCodeAt(i);
+    if(j>>8) return "";
+    words[i>>2]|=j<<((3-i)%4)*8;
+  }
+  words[words.length]=(asciiBitLength/maxWord)|0;
+  words[words.length]=asciiBitLength;
+  for(j=0;j<words.length;){
+    var w=words.slice(j,j+=16);
+    var oldHash=hash;
+    hash=hash.slice(0,8);
+    for(i=0;i<64;i++){
+      var w15=w[i-15], w2=w[i-2];
+      var a=hash[0], e=hash[4];
+      var temp1=hash[7]
+        +(rr(e,6)^rr(e,11)^rr(e,25))
+        +((e&hash[5])^((~e)&hash[6]))
+        +k[i]
+        +(w[i]=(i<16)?w[i]:(w[i-16]+(rr(w15,7)^rr(w15,18)^(w15>>>3))+w[i-7]+(rr(w2,17)^rr(w2,19)^(w2>>>10)))|0);
+      var temp2=(rr(a,2)^rr(a,13)^rr(a,22))+((a&hash[1])^(a&hash[2])^(hash[1]&hash[2]));
+      hash=[(temp1+temp2)|0].concat(hash);
+      hash[4]=(hash[4]+temp1)|0;
+    }
+    for(i=0;i<8;i++){ hash[i]=(hash[i]+oldHash[i])|0; }
+  }
+  for(i=0;i<8;i++){
+    for(j=3;j+1;j--){
+      var b=(hash[i]>>(j*8))&255;
+      result+=((b<16)?0:"")+b.toString(16);
+    }
+  }
+  return result;
+}
+
+const SITE = "https://alookhor.ir";
+const MCP_URL = "https://mcp.wpvibe.ai/mcp";
+const AUTHZ   = "https://mcp.wpvibe.ai/authorize";
+const TOKEN_E = "https://mcp.wpvibe.ai/token";
+const REG_E   = "https://mcp.wpvibe.ai/register";
+const PAGE_URL = location.origin + location.pathname;
+const SCRIPT_REMOTE = "https://raw.githubusercontent.com/emeliijaddd-png/alookhor-update-publisher/arena/01a0a537-alookhor-update-publisher/console/wpvibe-script.json";
+
+const LS = {
+  get k(){ try { return "wpvibe_" + btoa(PAGE_URL).replace(/[^a-z0-9]/gi,"").slice(0,24); } catch(e){ return "wpvibe_generic"; } },
+  get client(){ return JSON.parse(localStorage.getItem(this.k + "_client") || "null"); },
+  set client(v){ localStorage.setItem(this.k + "_client", JSON.stringify(v)); },
+  get auth(){ return JSON.parse(localStorage.getItem(this.k + "_auth") || "null"); },
+  set auth(v){ localStorage.setItem(this.k + "_auth", v ? JSON.stringify(v) : null); }
+};
+let SESSION = null, CALL_ID = 0, CLIENT_ID = null, VERIFIER = null, VERIFIER_TS = 0;
+let TOOLS = [];
+let AUTO_RESUME = null;
+const redirectUriEl = document.getElementById("redirectUri");
+redirectUriEl.value = PAGE_URL;
+document.getElementById("redirectshow").textContent = PAGE_URL;
+
+function $(id){ return document.getElementById(id); }
+function mark(id, cls){ const e = $(id); e.className = "step" + (cls ? " " + cls : ""); }
+function clearMarks(){ for (let i=1;i<=6;i++) mark("st"+i, ""); }
+function log(msg, cls){
+  const el = $("log");
+  const t = new Date().toLocaleTimeString("en-GB");
+  el.innerHTML += '<span class="' + (cls||'') + '">[' + t + '] ' + String(msg).replace(/&/g,"&amp;").replace(/</g,"&lt;") + "</span>\n";
+  el.scrollTop = el.scrollHeight;
+}
+function copyLog(){
+  const txt = $("log").innerText;
+  const ta = document.createElement("textarea");
+  ta.value = txt; document.body.appendChild(ta); ta.select();
+  try { document.execCommand("copy"); log("log copied ✓ — paste it to the AI","ok"); }
+  catch(e){ navigator.clipboard.writeText(txt).then(()=>log("log copied ✓","ok")).catch(()=>log("copy failed — select the log text manually","err")); }
+  ta.remove();
+}
+function b64url(buf){
+  let s = ""; const b = new Uint8Array(buf);
+  for (const c of b) s += String.fromCharCode(c);
+  return btoa(s).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,"");
+}
+async function sha256B64url(str){
+  const enc = new TextEncoder().encode(str);
+  try {
+    if (crypto && crypto.subtle) return b64url(await crypto.subtle.digest("SHA-256", enc));
+  } catch(e){}
+  let ascii = ""; for (const b of enc) ascii += String.fromCharCode(b);
+  const hex = sha256Fallback(ascii);
+  const raw = Uint8Array.from(hex.match(/.{2}/g).map(h => parseInt(h,16)));
+  return b64url(raw);
+}
+function trunc(s, n){ s = String(s); return s.length > n ? s.slice(0, n) + " …[+" + (s.length - n) + "]" : s; }
+
+/* ---------- 1) dynamic client registration ---------- */
+async function doRegister(){
+  clearMarks(); mark("st1","active");
+  try {
+    const saved = LS.client;
+    if (saved && saved.client_id) { CLIENT_ID = saved.client_id; log("registered (cached): " + CLIENT_ID, "ok"); }
+    else {
+      let r;
+      try {
+        r = await fetch(REG_E, {
+          method:"POST",
+          headers:{"Content-Type":"application/json"},
+          body: JSON.stringify({
+            client_name: "ALOOKHOR Arena Console",
+            redirect_uris: [redirectUriEl.value],
+            grant_types: ["authorization_code","refresh_token"],
+            response_types: ["code"],
+            token_endpoint_auth_method: "none"
+          })
+        });
+      } catch(netErr){
+        throw new Error("NETWORK/CORS error while registering client: " + netErr.message + " — if this says 'CORS' the browser blocked cross-origin access; tell the AI the exact message.");
+      }
+      const txt = await r.text();
+      let j = {}; try { j = JSON.parse(txt); } catch(e){}
+      if (!r.ok) throw new Error("register failed: HTTP " + r.status + " " + txt.slice(0,400));
+      CLIENT_ID = j.client_id;
+      LS.client = { client_id: CLIENT_ID, redirect: redirectUriEl.value };
+      log("registered client: " + CLIENT_ID, "ok");
+    }
+    mark("st1","done");
+  } catch(e){ log("REGISTER ERROR: " + e.message, "err"); mark("st1",""); }
+}
+
+/* ---------- 2) sign-in ---------- */
+async function doSignIn(){
+  if (!CLIENT_ID) { log("run step 1 first","err"); return; }
+  mark("st2","active");
+  VERIFIER = b64url(crypto.getRandomValues(new Uint8Array(32)));
+  const challenge = await sha256B64url(VERIFIER);
+  VERIFIER_TS = Date.now();
+  const params = new URLSearchParams({
+    response_type:"code",
+    client_id: CLIENT_ID,
+    redirect_uri: redirectUriEl.value,
+    code_challenge: challenge,
+    code_challenge_method:"S256"
+  });
+  const url = AUTHZ + "?" + params.toString();
+  log("opening sign-in page…", "hdr");
+  log(url);
+  window.open(url, "_blank");
+  log("در تب جدید: ایمیل WPVibe را وارد کنید ← کد ۶ رقمی از ایمیل را وارد کنید.", "hdr");
+}
+
+async function handleRedirectCode(){
+  const p = new URLSearchParams(location.search);
+  const code = p.get("code");
+  const err = p.get("error");
+  if (code || err) history.replaceState({}, "", PAGE_URL);
+  if (err) { log("AUTH ERROR from redirect: " + err + " " + (p.get("error_description")||""), "err"); return; }
+  if (!code) return;
+  if (!VERIFIER || (Date.now() - VERIFIER_TS) > 30*60*1000) {
+    log("code received here but the PKCE verifier lives in the tab where you pressed «ورود با ایمیل» — that tab processes it automatically. If nothing happened, press «بررسی وضعیت ورود».", "err");
+    return;
+  }
+  try {
+    const r = await fetch(TOKEN_E, {
+      method:"POST",
+      headers:{"Content-Type":"application/x-www-form-urlencoded"},
+      body: new URLSearchParams({
+        grant_type:"authorization_code",
+        code,
+        redirect_uri: redirectUriEl.value,
+        client_id: CLIENT_ID,
+        code_verifier: VERIFIER
+      })
+    });
+    const j = await r.json().catch(()=>({}));
+    if (!r.ok) throw new Error("token exchange failed: HTTP " + r.status + " " + JSON.stringify(j).slice(0,400));
+    LS.auth = { access_token:j.access_token, refresh_token:j.refresh_token||null, expires_at: Date.now() + (j.expires_in||3600)*1000 };
+    VERIFIER = null;
+    log("SIGNED IN ✓ token: " + String(j.access_token).slice(0,8) + "…", "ok");
+    mark("st2","done");
+    updateTok();
+    doConnect();
+  } catch(e){ log("TOKEN ERROR: " + e.message, "err"); }
+}
+
+async function refreshAuth(){
+  const a = LS.auth;
+  if (!a || !a.refresh_token) return false;
+  try {
+    const r = await fetch(TOKEN_E, {
+      method:"POST",
+      headers:{"Content-Type":"application/x-www-form-urlencoded"},
+      body: new URLSearchParams({ grant_type:"refresh_token", refresh_token:a.refresh_token, client_id: CLIENT_ID })
+    });
+    const j = await r.json().catch(()=>({}));
+    if (!r.ok) return false;
+    LS.auth = { access_token:j.access_token, refresh_token:j.refresh_token||a.refresh_token, expires_at: Date.now() + (j.expires_in||3600)*1000 };
+    updateTok();
+    return true;
+  } catch(e){ return false; }
+}
+
+function checkAuth(){
+  const a = LS.auth;
+  if (!a) { log("no token stored — complete step 2","err"); return; }
+  if (Date.now() > a.expires_at - 60000) {
+    log("token expired — refreshing…");
+    refreshAuth().then(ok => log(ok ? "refreshed ✓" : "refresh failed — sign in again", ok ? "ok" : "err"));
+  } else {
+    log("token OK (expires in " + Math.round((a.expires_at - Date.now())/60000) + " min)", "ok");
+    mark("st2","done");
+  }
+  updateTok();
+}
+function updateTok(){ const a = LS.auth; $("tokinfo").textContent = a ? "token: " + a.access_token.slice(0,10) + "…" : "no token"; }
+function doSignOut(){ LS.auth = null; SESSION = null; updateTok(); clearMarks(); log("signed out","dim"); }
+
+/* ---------- MCP transport ---------- */
+async function mcpCall(method, params, opts){
+  opts = opts || {};
+  const a = LS.auth;
+  if (!a) throw new Error("not signed in");
+  if (Date.now() > a.expires_at - 60000) {
+    if (!(await refreshAuth())) throw new Error("token expired, refresh failed");
+  }
+  const headers = { "Content-Type":"application/json", "Accept":"application/json, text/event-stream", "Authorization":"Bearer " + LS.auth.access_token };
+  if (SESSION) headers["Mcp-Session-Id"] = SESSION;
+  const body = { jsonrpc:"2.0", method, params };
+  if (!opts.notify) body.id = ++CALL_ID;
+  let res;
+  try {
+    res = await fetch(MCP_URL, { method:"POST", headers, body: JSON.stringify(body) });
+  } catch(netErr){
+    throw new Error("NETWORK/CORS error talking to MCP server: " + netErr.message);
+  }
+  const sid = res.headers.get("mcp-session-id");
+  if (sid) SESSION = sid;
+  if (res.status === 202) return null;
+  const ct = res.headers.get("content-type") || "";
+  const text = await res.text();
+  if (ct.includes("event-stream")) {
+    let last = null;
+    for (const line of text.split(/\r?\n/)) {
+      if (line.startsWith("data:")) { const d = line.slice(5).trim(); if (d) { try { last = JSON.parse(d); } catch(e){} } }
+    }
+    return last;
+  }
+  if (!text) return null;
+  try { return JSON.parse(text); } catch(e){ throw new Error("bad MCP response: " + text.slice(0,300)); }
+}
+
+/* ---------- 3) initialize ---------- */
+async function doConnect(){
+  mark("st3","active");
+  try {
+    const protos = ["2025-03-26","2024-11-05"];
+    let lastErr = null;
+    for (const p of protos) {
+      try {
+        SESSION = null;
+        const r = await mcpCall("initialize", {
+          protocolVersion: p,
+          capabilities: {},
+          clientInfo: { name:"alookhor-console", version:"2.0" }
+        });
+        if (r && r.error) throw new Error(JSON.stringify(r.error).slice(0,300));
+        await mcpCall("notifications/initialized", {}, {notify:true});
+        log("MCP connected ✓ (session " + (SESSION ? SESSION.slice(0,8) : "n/a") + ", proto " + p + ")", "ok");
+        mark("st3","done");
+        return;
+      } catch(e){ lastErr = e; }
+    }
+    throw lastErr || new Error("all protocol versions failed");
+  } catch(e){ log("CONNECT ERROR: " + e.message, "err"); mark("st3",""); }
+}
+
+/* ---------- 4) discover ---------- */
+async function doDiscover(){
+  mark("st4","active");
+  try {
+    const r = await mcpCall("tools/list", {});
+    if (r && r.error) throw new Error(JSON.stringify(r.error).slice(0,300));
+    TOOLS = (r && r.result && r.result.tools) || [];
+    log("TOOLS (" + TOOLS.length + "):", "hdr");
+    for (const t of TOOLS) {
+      log("  • " + t.name + (t.description ? " — " + String(t.description).split("\n")[0].slice(0,110) : ""));
+      if (t.inputSchema && t.inputSchema.properties) log("      args: " + Object.keys(t.inputSchema.properties).join(", ") + "  (required: " + (t.inputSchema.required||[]).join(", ") + ")");
+    }
+    mark("st4","done");
+  } catch(e){ log("DISCOVER ERROR: " + e.message, "err"); mark("st4",""); }
+}
+
+/* ---------- tool calls ---------- */
+async function callTool(name, args){
+  const r = await mcpCall("tools/call", { name, arguments: args || {} });
+  if (r && r.error) throw new Error("jsonrpc: " + JSON.stringify(r.error).slice(0,300));
+  const res = r && r.result;
+  const text = (res && res.content ? res.content.map(c => c.text !== undefined ? c.text : JSON.stringify(c)).join("\n") : JSON.stringify(res));
+  if (res && res.isError) throw new Error("tool error: " + trunc(text, 500));
+  return text;
+}
+/* try a tool with several argument variants; returns first success text */
+async function tryVariants(name, variants, quiet){
+  for (const args of variants) {
+    try {
+      const t0 = Date.now();
+      const out = await callTool(name, args);
+      if (!quiet) log("  ✓ " + name + " " + JSON.stringify(args).slice(0,120) + " | " + Math.round((Date.now()-t0)/1000) + "s | " + trunc(out, 900));
+      return out;
+    } catch(e){
+      if (!quiet) log("  ✗ " + name + " " + JSON.stringify(args).slice(0,120) + " → " + e.message.slice(0,300));
+    }
+  }
+  return null;
+}
+function SITE_ARGS(){ return [ {site_url:SITE}, {url:SITE}, {site:SITE}, {} ]; }
+
+/* ---------- 5/6) autonomous full setup ---------- */
+function matchTools(){
+  const roles = {
+    site_info:      [/^site_info$/i, /site (info|details|status)/i],
+    connect:        [/^connect/i, /approve/i, /link_site/i, /attach_site/i, /pair_site/i, /site (approval|verification|link)/i],
+    list_themes:    [/list_themes/i, /get_themes/i, /available_themes/i, /active_theme/i, /current_theme/i, /^themes$/i],
+    activate_theme: [/activate_theme/i, /set_theme/i, /switch_theme/i, /select_theme/i],
+    install_theme:  [/install_theme/i, /upload_theme/i, /add_theme/i],
+    list_pages:     [/list_pages/i, /get_pages/i, /read_pages/i, /^pages$/i],
+    create_page:    [/create_page/i, /add_page/i, /new_page/i],
+    list_menus:     [/list_menus/i, /get_menus/i, /^menus$/i],
+    save_menu:      [/create_menu/i, /add_menu/i, /save_menu/i, /update_menu/i],
+    list_settings:  [/list_settings/i, /get_settings/i, /get_options/i, /read_settings/i, /^settings$/i],
+    save_settings:  [/save_settings/i, /update_settings/i, /set_settings/i, /update_option/i, /set_option/i],
+    list_categor:   [/list_product_categor/i, /get_product_categor/i, /list_categor/i, /get_categor/i],
+    create_categor: [/create_product_categor/i, /add_product_categor/i, /create_categor/i, /add_categor/i],
+    list_products:  [/list_products/i, /get_products/i, /^products$/i],
+    create_product: [/create_product/i, /add_product/i]
+  };
+  const M = {};
+  for (const role in roles) {
+    for (const t of TOOLS) {
+      if (roles[role].some(re => re.test(t.name))) { M[role] = t.name; break; }
+    }
+  }
+  return M;
+}
+
+function showApprove(url){
+  $("approveUrl").textContent = url;
+  $("approveBox").style.display = "block";
+}
+function hideApprove(){ $("approveBox").style.display = "none"; }
+async function doContinue(){
+  hideApprove();
+  const fn = AUTO_RESUME; AUTO_RESUME = null;
+  if (fn) {
+    await fn();
+    log("================ AUTO SETUP FINISHED — press 📋 and send the log to the AI ================","hdr");
+  }
+}
+
+async function runAuto(){
+  if (AUTO_RESUME) { log("auto run already in progress…","dim"); return; }
+  mark("st5","active");
+  log("\n================ FULL AUTO SETUP ================","hdr");
+  try {
+    if (!LS.auth) throw new Error("sign in first (step 2)");
+    if (!TOOLS.length) await doDiscover();
+    const M = matchTools();
+    log("TOOL MAP: " + JSON.stringify(M), "dim");
+
+    /* --- 1. site connection check --- */
+    let connected = true;
+    if (M.site_info) {
+      const out = await tryVariants(M.site_info, SITE_ARGS(), true);
+      if (out === null) { connected = false; log("site_info failed — site not connected yet?","err"); }
+      else log("SITE: " + trunc(out, 400), "ok");
+    } else log("no site_info tool found","dim");
+
+    if (!connected && M.connect) {
+      log("trying connect/approval tool: " + M.connect, "hdr");
+      const out = await tryVariants(M.connect, SITE_ARGS(), false);
+      if (out) {
+        const urlm = out.match(/https?:\/\/[^\s"'<>)\]]+/);
+        if (urlm) {
+          log("APPROVAL LINK RECEIVED — open it in THIS browser (wp-admin logged in):", "hdr");
+          showApprove(urlm[0]);
+          AUTO_RESUME = function(){ return runSetup(M); };
+          mark("st5","active");
+          return;
+        }
+        log("connect result: " + trunc(out, 600));
+      }
+    } else if (!connected) {
+      log("site not connected and no connect tool found — the AI needs the log; continue anyway with what exists","err");
+    }
+    mark("st5","done");
+    await runSetup(M);
+  } catch(e){ log("AUTO ERROR: " + e.message, "err"); }
+  log("================ AUTO SETUP FINISHED — press 📋 and send the log to the AI ================","hdr");
+}
+
+async function runSetup(M){
+  mark("st6","active");
+
+  /* --- 2. theme --- */
+  log("\n── 1/5 قالب (theme) ──","hdr");
+  let themeOk = false;
+  let themesOut = M.list_themes ? await tryVariants(M.list_themes, [{}], false) : null;
+  if (themesOut && /alookhor/i.test(themesOut)) {
+    const entry = (themesOut.match(/[^{}]*alookhor[^{}]*/i) || [""])[0];
+    if (/"active"\s*:\s*true/i.test(entry) || /\bactive\b/i.test(entry) && !/"active"\s*:\s*false/.test(entry)) themeOk = true;
+  }
+  if (!themeOk && M.activate_theme) {
+    const out = await tryVariants(M.activate_theme, [
+      {theme:"alookhor"}, {stylesheet:"alookhor"}, {theme_slug:"alookhor"},
+      {theme:"alookhor", site_url:SITE}
+    ], false);
+    themeOk = !!(out && !/error|fail|not found|unknown|no such/i.test(out));
+  }
+  if (themeOk) log("  قالب ALOOKHOR فعال است ✓","ok");
+  else log("  ⚠ فعال‌سازی قالب از API ممکن نشد — دستی: ظاهر ← پوسته‌ها ← ALOOKHOR ← «فعال‌سازی» (فایل zip نسخه ۱.۱.۰)","err");
+
+  /* --- 3. pages --- */
+  log("\n── 2/5 صفحات ──","hdr");
+  const wantPages = [
+    { title:"خانه",       slug:"home",    note:"صفحه‌ی اصلی" },
+    { title:"درباره ما",  slug:"about",   note:"درباره" },
+    { title:"تماس با ما", slug:"contact", note:"تماس" }
+  ];
+  const pageIds = {};
+  if (M.list_pages) {
+    const out = await tryVariants(M.list_pages, [{}], false);
+    if (out) {
+      for (const w of wantPages) {
+        const re = new RegExp(w.title, "u");
+        if (re.test(out)) {
+          const idm = out.match(new RegExp("[\'\"]?(" + w.slug + "|" + w.title + ")[\'\"]?\\s*[:#-]?\\s*[\'\"]?([0-9]{1,6})"));
+          pageIds[w.slug] = idm ? idm[2] : null;
+          log("  صفحه‌ی «" + w.title + "» موجود است ✓","ok");
+        }
+      }
+    }
+  }
+  for (const w of wantPages) {
+    if (pageIds[w.slug] !== undefined) continue;
+    if (!M.create_page) { log("  ⚠ صفحه‌ی «" + w.title + "» — ابزار ساخت صفحه پیدا نشد — دستی: صفحه‌ها ← صفحه جدید با عنوان «" + w.title + "»","err"); continue; }
+    const out = await tryVariants(M.create_page, [
+      {title:w.title, slug:w.slug},
+      {title:w.title, slug:w.slug, content:""},
+      {title:w.title, url:w.slug},
+      {name:w.title, slug:w.slug}
+    ], false);
+    if (out) {
+          const idm = out.match(new RegExp("[\'\"]?(" + w.slug + "|" + w.title + ")[\'\"]?\\s*[:#-]?\\s*[\'\"]?([0-9]{1,6})"));
+      pageIds[w.slug] = idm ? idm[2] : null;
+      log("  صفحه‌ی «" + w.title + "» ساخته شد ✓","ok");
+    } else {
+      log("  ⚠ ساخت صفحه‌ی «" + w.title + "» از API ممکن نشد — دستی: صفحه‌ها ← صفحه جدید با عنوان «" + w.title + "»","err");
+    }
+  }
+
+  /* --- 4. static front page --- */
+  log("\n── 3/5 صفحه‌ی اصلی ثابت ──","hdr");
+  if (M.save_settings && pageIds.home) {
+    const out = await tryVariants(M.save_settings, [
+      {settings:{show_on_front:"page", page_on_front:Number(pageIds.home)}, site_url:SITE},
+      {show_on_front:"page", page_on_front:Number(pageIds.home)},
+      {settings:{show_on_front:"page", page_on_front:Number(pageIds.home)}},
+      {option:"show_on_front", value:"page"}
+    ], false);
+    if (out === null) log("  ⚠ تنظیم صفحه‌ی اصلی از API ممکن نشد — دستی: تنظیمات ← خواندن ← صفحه‌ی اصلی ثابت = «خانه»","err");
+  } else if (M.save_settings) {
+    log("  ⚠ id صفحه‌ی «خانه» در دسترس نبود — دستی: تنظیمات ← خواندن ← صفحه‌ی اصلی ثابت = «خانه»","err");
+  } else log("  ⚠ ابزار تنظیمات پیدا نشد — دستی: تنظیمات ← خواندن ← صفحه‌ی اصلی ثابت = «خانه»","err");
+
+  /* --- 5. menu --- */
+  log("\n── 4/5 منوی اصلی ──","hdr");
+  if (M.save_menu) {
+    const items = [
+      {title:"خانه", url:SITE + "/"},
+      {title:"درباره ما", url:SITE + "/about/"},
+      {title:"تماس با ما", url:SITE + "/contact/"},
+      {title:"فروشگاه", url:SITE + "/shop/"}
+    ];
+    const out = await tryVariants(M.save_menu, [
+      {name:"منوی اصلی", location:"primary", items},
+      {menu:"primary", items},
+      {location:"primary", items},
+      {name:"ALOOKHOR Main", location:"primary", items}
+    ], false);
+    if (out === null) log("  ⚠ ساخت منو از API ممکن نشد — دستی: ظاهر ← منوها ← منوی «منوی اصلی» با ۴ صفحه ← محل «منوی اصلی»","err");
+  } else log("  ⚠ ابزار منو پیدا نشد — دستی: ظاهر ← منوها","err");
+
+  /* --- 6. WooCommerce categories --- */
+  log("\n── 5/5 دسته‌های محصولات ──","hdr");
+  const cats = ["آلو بخارا","برگه و میوه‌های خشک","تنقلات طبیعی","گردو و مغزها"];
+  let catsExist = false;
+  if (M.list_categor) {
+    const out = await tryVariants(M.list_categor, [{}], false);
+    if (out && /آلو بخارا/.test(out)) { catsExist = true; log("  دسته‌ها موجود هستند ✓","ok"); }
+  }
+  if (!catsExist && M.create_categor) {
+    for (const c of cats) {
+      const out = await tryVariants(M.create_categor, [ {name:c, taxonomy:"product_cat"}, {name:c}, {name:c, taxonomy:"product_cat", slug:slugify(c)} ], true);
+      log("  دسته «" + c + "» — " + (out ? "ساخته شد ✓" : "خطا (دستی: محصولات ← دسته‌ها)"), out ? "ok" : "err");
+    }
+  } else if (!M.create_categor) {
+    log("  ⚠ ابزار دسته پیدا نشد — دستی: فروشگاه ووکامرس ← دسته‌ها","err");
+  }
+
+  mark("st6","done");
+}
+
+function slugify(s){
+  const map = {"آلو بخارا":"alu-bakhara","برگه و میوه‌های خشک":"baraghe-mooyeh-haye-koshk","تنقلات طبیعی":"teneghalat-tabiie","گردو و مغزها":"gardoo-va-moghazha"};
+  return map[s] || s;
+}
+
+/* ---------- ad-hoc ---------- */
+async function runAdhoc(){
+  try {
+    const { name, args } = JSON.parse($("adhoc").value);
+    log("\n▶ adhoc: " + name, "hdr");
+    const out = await callTool(name, args || {});
+    log(trunc(out, 8000), "ok");
+  } catch(e){ log("adhoc error: " + e.message, "err"); }
+}
+
+updateTok();
+log("console v2 ready @ " + PAGE_URL, "dim");
+handleRedirectCode();
+</script>

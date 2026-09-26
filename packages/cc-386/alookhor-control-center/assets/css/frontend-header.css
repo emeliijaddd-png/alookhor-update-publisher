@@ -1,0 +1,357 @@
+/* ALOOKHOR Luxury Portal Header — recovered two-level design.
+ * Every rule is scoped to the shortcode so Woodmart/Elementor remain untouched.
+ */
+.alookhor-portal-header{
+  --alookhor-gold:#c9a86a;
+  --alookhor-gold-soft:#e6cf9a;
+  --alookhor-gold-line:rgba(201,168,106,.28);
+  --alookhor-gold-faint:rgba(201,168,106,.12);
+  --alookhor-ink:#0b0612;
+  --alookhor-plum:#12091f;
+  --alookhor-panel:#15101b;
+  --alookhor-text:#f5efe4;
+  --alookhor-muted:#b6acb9;
+  position:relative;
+  z-index:999;
+  width:100%;
+  min-width:0;
+  color:var(--alookhor-text);
+  direction:rtl;
+  isolation:isolate;
+  font-family:Tahoma,"Segoe UI",Arial,sans-serif;
+}
+.alookhor-portal-header.is-sticky{position:relative;top:auto}.alookhor-portal-header.is-sticky .alookhor-nav-stage{position:sticky;top:0;z-index:9996}body.admin-bar .alookhor-portal-header.is-sticky .alookhor-nav-stage{top:32px}@media(max-width:782px){body.admin-bar .alookhor-portal-header.is-sticky .alookhor-nav-stage{top:46px}}
+.alookhor-portal-header,
+.alookhor-portal-header *{box-sizing:border-box}
+.alookhor-portal-header a{color:inherit;text-decoration:none}
+.alookhor-portal-header button,
+.alookhor-portal-header input{font:inherit}
+.alookhor-portal-header button{color:inherit}
+.alookhor-portal-header img,
+.alookhor-portal-header svg{display:block;max-width:100%}
+.alookhor-portal-header svg{fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.alookhor-portal-header .screen-reader-text{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+
+/* Top utility bar */
+.alookhor-topbar{
+  height:var(--alookhor-topbar-height,38px);
+  color:var(--alookhor-topbar-text,#F5F3F0);
+  background:linear-gradient(90deg,rgba(0,0,0,.16),rgba(255,255,255,.025),rgba(0,0,0,.16)),var(--alookhor-topbar-bg,#1C1024);
+  border-bottom:1px solid var(--alookhor-topbar-border,#D49A2E);
+  box-shadow:0 8px 28px rgba(0,0,0,.22);
+}
+.alookhor-topbar-inner{
+  width:min(1440px,calc(100% - 48px));
+  height:100%;
+  margin:0 auto;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);
+  align-items:center;
+  gap:20px;
+}
+.alookhor-trade-meta{display:flex;align-items:center;justify-self:start;gap:18px;min-width:0}
+.alookhor-wholesale{
+  min-height:27px;
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  padding:4px 14px;
+  border-radius:999px;
+  color:var(--alookhor-topbar-button-text,#0D0510)!important;
+  background:var(--alookhor-topbar-button-bg,#D49A2E);
+  border:1px solid rgba(255,236,186,.28);
+  box-shadow:0 4px 15px rgba(190,136,39,.2),inset 0 1px 0 rgba(255,255,255,.22);
+  font-size:11px;
+  font-weight:800;
+  white-space:nowrap;
+  transition:transform .2s ease,filter .2s ease;
+}
+.alookhor-wholesale:hover{transform:translateY(-1px);filter:brightness(1.08)}
+.alookhor-wholesale svg{width:13px;height:13px;stroke-width:1.9}
+.alookhor-export-note{display:inline-flex;align-items:center;gap:7px;color:var(--alookhor-topbar-text,#F5F3F0)!important;font-size:10.5px;white-space:nowrap}
+.alookhor-export-note svg{width:14px;height:14px;color:var(--alookhor-gold)}
+.alookhor-top-logo{height:34px;min-width:80px;display:grid;place-items:center;padding:2px 12px;border-inline:1px solid rgba(201,168,106,.12)}
+.alookhor-top-logo-image{width:auto!important;max-width:var(--alookhor-top-logo-width,96px)!important;height:31px!important;object-fit:contain;filter:drop-shadow(0 2px 8px rgba(201,168,106,.14))}
+.alookhor-top-logo-fallback{font-family:Georgia,"Times New Roman",serif;color:var(--alookhor-gold-soft);font-size:13px;font-weight:700;letter-spacing:.13em}
+.alookhor-contact-meta{justify-self:end;display:flex;align-items:center;gap:10px;min-width:0;color:#d2cad4;font-family:Arial,sans-serif;font-size:10.5px}
+.alookhor-contact-link{direction:ltr;white-space:nowrap;transition:color .2s ease}
+.alookhor-contact-link:hover{color:var(--alookhor-gold-soft)}
+.alookhor-contact-separator{width:1px;height:14px;background:rgba(201,168,106,.2)}
+.alookhor-whatsapp{width:23px;height:23px;border-radius:50%;display:grid;place-items:center;background:#26d366;color:#fff!important;box-shadow:0 0 0 2px rgba(38,211,102,.16)}
+.alookhor-whatsapp svg{width:15px;height:15px;fill:currentColor;stroke:none}
+
+/* Floating glass navigation */
+.alookhor-nav-stage{
+  min-height:75px;
+  display:flex;
+  align-items:flex-start;
+  padding:0 20px;
+  background:linear-gradient(180deg,rgba(10,5,17,.96),rgba(10,5,17,.84) 66%,rgba(10,5,17,0));
+}
+.alookhor-nav-shell{
+  width:min(1120px,100%);
+  min-height:68px;
+  margin:0 auto;
+  padding:7px 17px 7px 12px;
+  display:flex;
+  align-items:center;
+  gap:20px;
+  border:1px solid var(--alookhor-gold-line);
+  border-top-color:rgba(230,207,154,.34);
+  border-radius:38px;
+  background:
+    radial-gradient(520px 100px at 50% 0,rgba(201,168,106,.11),transparent 72%),
+    linear-gradient(180deg,rgba(35,29,39,.95),rgba(21,16,27,.9));
+  -webkit-backdrop-filter:blur(18px) saturate(135%);
+  backdrop-filter:blur(18px) saturate(135%);
+  box-shadow:0 13px 35px rgba(0,0,0,.43),inset 0 1px 0 rgba(255,255,255,.04),0 0 22px rgba(201,168,106,.05);
+}
+.alookhor-nav-logo{display:flex;align-items:center;gap:9px;min-width:85px;max-width:190px;flex:0 0 auto}
+.alookhor-nav-logo img{width:55px;height:55px;object-fit:contain;border-radius:50%;filter:drop-shadow(0 4px 10px rgba(201,168,106,.18))}
+.alookhor-nav-logo-mark{width:47px;height:47px;display:grid;place-items:center;border-radius:50%;border:1px solid var(--alookhor-gold-line);background:#0d0910;color:var(--alookhor-gold);font-family:Georgia,serif;font-size:20px;font-weight:700}
+.alookhor-nav-logo-copy{display:none;min-width:0;line-height:1.2}
+.alookhor-nav-logo-copy b{display:block;font-family:Georgia,serif;font-size:13px;letter-spacing:.08em;color:var(--alookhor-gold-soft)}
+.alookhor-nav-logo-copy small{display:block;margin-top:3px;color:var(--alookhor-muted);font-size:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.alookhor-desktop-nav{min-width:0;align-self:stretch;display:flex;align-items:center}
+.alookhor-primary-menu{display:flex!important;align-items:center;gap:1px!important;min-height:100%;padding:0!important;margin:0!important;list-style:none!important}
+.alookhor-primary-menu>li{position:relative;display:flex;align-items:center;min-height:52px;margin:0!important;padding:0!important;list-style:none!important}
+.alookhor-primary-menu>li>a{position:relative;display:inline-flex;align-items:center;gap:7px;padding:11px 16px;color:#e4dde5!important;font-size:12px;font-weight:600;white-space:nowrap;transition:color .2s ease}
+.alookhor-primary-menu>li>a::after{content:"";position:absolute;right:16px;left:16px;bottom:5px;height:1px;transform:scaleX(0);background:linear-gradient(90deg,transparent,var(--alookhor-gold),transparent);transition:transform .22s ease}
+.alookhor-primary-menu>li:hover>a,.alookhor-primary-menu>li.current-menu-item>a,.alookhor-primary-menu>li.current-menu-ancestor>a{color:var(--alookhor-gold-soft)!important}
+.alookhor-primary-menu>li:hover>a::after,.alookhor-primary-menu>li.current-menu-item>a::after{transform:scaleX(1)}
+.alookhor-primary-menu .menu-item-has-children>a{padding-left:27px}
+.alookhor-primary-menu .menu-item-has-children>a::before{content:"";position:absolute;left:13px;top:50%;width:5px;height:5px;border-left:1px solid currentColor;border-bottom:1px solid currentColor;transform:translateY(-65%) rotate(-45deg);opacity:.7}
+.alookhor-primary-menu .sub-menu{
+  position:absolute;
+  z-index:9;
+  top:calc(100% - 2px);
+  right:8px;
+  width:235px;
+  margin:0!important;
+  padding:9px!important;
+  list-style:none!important;
+  border:1px solid var(--alookhor-gold-line);
+  border-radius:16px;
+  background:rgba(17,11,23,.98);
+  box-shadow:0 20px 45px rgba(0,0,0,.5);
+  -webkit-backdrop-filter:blur(18px);
+  backdrop-filter:blur(18px);
+  opacity:0;
+  visibility:hidden;
+  transform:translateY(8px);
+  transition:opacity .2s ease,transform .2s ease,visibility .2s;
+}
+.alookhor-primary-menu li:hover>.sub-menu,.alookhor-primary-menu li:focus-within>.sub-menu{opacity:1;visibility:visible;transform:none}
+.alookhor-primary-menu .sub-menu li{position:relative;margin:0!important;padding:0!important;list-style:none!important}
+.alookhor-primary-menu .sub-menu a{display:flex;padding:10px 11px;border-radius:10px;color:#d7ced9!important;font-size:11.5px;line-height:1.5;transition:background .18s ease,color .18s ease}
+.alookhor-primary-menu .sub-menu a:hover{background:rgba(201,168,106,.1);color:var(--alookhor-gold-soft)!important}
+.alookhor-primary-menu .sub-menu .sub-menu{top:-9px;right:calc(100% + 6px)}
+.alookhor-nav-spacer{flex:1;min-width:8px}
+.alookhor-nav-actions{display:flex;align-items:center;gap:18px;flex:0 0 auto}
+.alookhor-account-link{min-height:39px;display:inline-flex;align-items:center;gap:7px;padding:7px 18px;border:1px solid rgba(201,168,106,.35);border-radius:999px;background:linear-gradient(180deg,rgba(201,168,106,.08),rgba(201,168,106,.025));color:#eee8ee!important;font-size:11px;font-weight:700;white-space:nowrap;transition:background .2s ease,border-color .2s ease,transform .2s ease}
+.alookhor-account-link:hover{background:rgba(201,168,106,.14);border-color:var(--alookhor-gold);transform:translateY(-1px)}
+.alookhor-account-link svg{width:14px;height:14px}
+.alookhor-nav-divider{width:1px;height:31px;background:linear-gradient(180deg,transparent,rgba(201,168,106,.32),transparent)}
+.alookhor-menu-toggle{appearance:none;width:42px;height:42px;padding:0;border-radius:50%;border:1px solid rgba(201,168,106,.32);background:rgba(201,168,106,.055);display:grid;align-content:center;justify-content:center;gap:4px;cursor:pointer;transition:background .2s ease,border-color .2s ease,transform .2s ease}
+.alookhor-menu-toggle:hover{background:rgba(201,168,106,.14);border-color:var(--alookhor-gold);transform:rotate(3deg)}
+.alookhor-menu-toggle span{display:block;width:15px;height:1px;border-radius:2px;background:var(--alookhor-gold-soft);transition:transform .25s ease,opacity .2s ease}
+.alookhor-portal-header.menu-open .alookhor-menu-toggle span:nth-child(1){transform:translateY(5px) rotate(45deg)}
+.alookhor-portal-header.menu-open .alookhor-menu-toggle span:nth-child(2){opacity:0}
+.alookhor-portal-header.menu-open .alookhor-menu-toggle span:nth-child(3){transform:translateY(-5px) rotate(-45deg)}
+
+/* Off-canvas professional menu */
+.alookhor-drawer-backdrop{position:fixed;inset:0;z-index:9997;background:rgba(5,2,8,.68);-webkit-backdrop-filter:blur(7px);backdrop-filter:blur(7px);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .28s ease,visibility .28s}
+.alookhor-menu-drawer{position:fixed;z-index:9998;inset:0 auto 0 0;width:min(410px,92vw);height:100dvh;padding:18px;display:flex;flex-direction:column;overflow:hidden;border-right:1px solid var(--alookhor-gold-line);background:radial-gradient(520px 280px at 0 0,rgba(201,168,106,.11),transparent 65%),linear-gradient(180deg,#17101e,#0d0912 72%);box-shadow:30px 0 75px rgba(0,0,0,.62);transform:translateX(-102%);visibility:hidden;transition:transform .34s cubic-bezier(.2,.8,.2,1),visibility .34s}
+.alookhor-portal-header.menu-open .alookhor-drawer-backdrop{opacity:1;visibility:visible;pointer-events:auto}
+.alookhor-portal-header.menu-open .alookhor-menu-drawer{transform:none;visibility:visible}
+body.alookhor-menu-open{overflow:hidden!important}
+.alookhor-drawer-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-bottom:16px;border-bottom:1px solid var(--alookhor-gold-faint)}
+.alookhor-drawer-brand{display:flex;align-items:center;gap:11px;min-width:0}
+.alookhor-drawer-brand>img,.alookhor-drawer-brand>span{width:46px;height:46px;flex:0 0 46px;object-fit:contain;border-radius:50%;border:1px solid var(--alookhor-gold-line);background:#0c0810;display:grid;place-items:center;color:var(--alookhor-gold);font-family:Georgia,serif;font-weight:700}
+.alookhor-drawer-brand div{min-width:0}.alookhor-drawer-brand b{display:block;color:var(--alookhor-gold-soft);font-family:Georgia,serif;font-size:16px;letter-spacing:.07em}.alookhor-drawer-brand small{display:block;margin-top:3px;color:var(--alookhor-muted);font-size:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.alookhor-drawer-close{appearance:none;width:36px;height:36px;flex:0 0 36px;border:1px solid var(--alookhor-gold-line);border-radius:50%;background:rgba(255,255,255,.025);display:grid;place-items:center;color:var(--alookhor-muted)!important;font-size:22px;line-height:1;cursor:pointer;transition:.2s ease}
+.alookhor-drawer-close:hover{color:var(--alookhor-gold-soft)!important;background:rgba(201,168,106,.1);transform:rotate(90deg)}
+.alookhor-drawer-search{display:flex;align-items:center;margin:15px 0 11px;border:1px solid var(--alookhor-gold-faint);border-radius:13px;background:rgba(255,255,255,.025);overflow:hidden;transition:border-color .2s ease,box-shadow .2s ease}
+.alookhor-drawer-search:focus-within{border-color:var(--alookhor-gold-line);box-shadow:0 0 0 3px rgba(201,168,106,.06)}
+.alookhor-drawer-search input{width:100%;min-width:0;height:43px;padding:0 13px;border:0!important;outline:0!important;box-shadow:none!important;background:transparent!important;color:var(--alookhor-text)!important;font-size:12px}
+.alookhor-drawer-search input::placeholder{color:#786f7a}
+.alookhor-drawer-search button{appearance:none;width:43px;height:43px;flex:0 0 43px;border:0;border-right:1px solid var(--alookhor-gold-faint);background:transparent;display:grid;place-items:center;color:var(--alookhor-gold);cursor:pointer}
+.alookhor-drawer-search svg{width:17px;height:17px}
+.alookhor-drawer-menus{flex:1;min-height:0;overflow:auto;padding:3px 1px 12px;scrollbar-width:thin;scrollbar-color:rgba(201,168,106,.25) transparent}
+.alookhor-drawer-menu-group{border-bottom:1px solid rgba(201,168,106,.09)}
+.alookhor-drawer-menu-title{appearance:none;width:100%;min-height:47px;padding:7px 4px;border:0;background:transparent;display:flex;align-items:center;justify-content:space-between;gap:12px;color:#eee7ef!important;font-size:12.5px;font-weight:800;text-align:right;cursor:pointer}
+.alookhor-drawer-menu-title svg{width:15px;height:15px;color:var(--alookhor-gold);transition:transform .22s ease}
+.alookhor-drawer-menu-group.is-open .alookhor-drawer-menu-title svg{transform:rotate(180deg)}
+.alookhor-drawer-menu-panel[hidden]{display:none}
+.alookhor-drawer-menu,.alookhor-drawer-menu .sub-menu{margin:0!important;padding:0!important;list-style:none!important}
+.alookhor-drawer-menu{padding:0 6px 11px!important}
+.alookhor-drawer-menu li{margin:0!important;padding:0!important;list-style:none!important;position:relative}
+.alookhor-drawer-menu a{position:relative;display:flex;align-items:center;min-height:38px;padding:8px 20px 8px 10px;border-radius:9px;color:#c9c0cb!important;font-size:11.5px;line-height:1.5;transition:background .18s ease,color .18s ease,padding .18s ease}
+.alookhor-drawer-menu a::before{content:"";position:absolute;right:8px;width:4px;height:4px;border-radius:50%;background:rgba(201,168,106,.5)}
+.alookhor-drawer-menu a:hover{padding-right:24px;background:rgba(201,168,106,.08);color:var(--alookhor-gold-soft)!important}
+.alookhor-drawer-menu .sub-menu{margin-right:14px!important;border-right:1px solid rgba(201,168,106,.14)}
+.alookhor-drawer-menu .sub-menu a{font-size:11px;min-height:34px}
+.alookhor-drawer-empty{padding:20px;text-align:center;color:var(--alookhor-muted);font-size:12px;border:1px dashed var(--alookhor-gold-faint);border-radius:13px}
+.alookhor-drawer-footer{padding-top:13px;border-top:1px solid var(--alookhor-gold-faint);display:grid;gap:9px}
+.alookhor-drawer-quick-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.alookhor-drawer-quick-actions a,.alookhor-drawer-whatsapp{min-height:38px;display:grid;place-items:center;padding:8px 10px;border:1px solid var(--alookhor-gold-faint);border-radius:11px;background:rgba(255,255,255,.025);color:#d8d0da!important;font-size:11px;font-weight:700;text-align:center}
+.alookhor-drawer-wholesale{min-height:42px;display:grid;place-items:center;padding:9px 12px;border-radius:11px;background:linear-gradient(135deg,#d5ad5a,#a97220);color:#1d1105!important;font-size:11.5px;font-weight:900;text-align:center}
+.alookhor-drawer-whatsapp{border-color:rgba(38,211,102,.22);color:#7de7a4!important;background:rgba(38,211,102,.07)}
+
+.alookhor-portal-header :focus-visible{outline:2px solid var(--alookhor-gold)!important;outline-offset:3px!important}
+
+@media(min-width:1280px){
+  .alookhor-nav-shell{width:min(1120px,calc(100% - 180px))}
+}
+@media(max-width:1180px){
+  .alookhor-nav-shell{gap:13px}
+  .alookhor-primary-menu>li>a{padding-inline:11px;font-size:11px}
+  .alookhor-account-link{padding-inline:13px}
+}
+@media(max-width:1023px){
+  .alookhor-topbar-inner{width:calc(100% - 28px)}
+  .alookhor-export-note{display:none}
+  .alookhor-desktop-nav{display:none}
+  .alookhor-nav-stage{padding-inline:14px}
+  .alookhor-nav-shell{width:100%;min-height:64px;border-radius:30px;padding-inline:14px}
+  .alookhor-nav-logo-copy{display:block}
+  .alookhor-nav-logo{max-width:250px}
+  .alookhor-nav-logo img{width:48px;height:48px}
+}
+@media(max-width:767px){
+  .alookhor-topbar{height:34px}
+  .alookhor-topbar-inner{width:calc(100% - 18px);grid-template-columns:1fr auto auto;gap:9px}
+  .alookhor-top-logo{justify-self:center;min-width:55px;padding-inline:6px;border:0}
+  .alookhor-top-logo-image{max-width:69px!important;height:27px!important}
+  .alookhor-contact-link,.alookhor-contact-separator{display:none}
+  .alookhor-contact-meta{gap:0}
+  .alookhor-trade-meta{gap:6px}
+  .alookhor-wholesale{padding:3px 9px;font-size:9.5px;max-width:145px;overflow:hidden;text-overflow:ellipsis}
+  .alookhor-nav-stage{min-height:69px;padding-inline:8px}
+  .alookhor-nav-shell{min-height:60px;padding:6px 10px;border-radius:25px;gap:8px}
+  .alookhor-nav-logo{gap:7px;max-width:180px;min-width:0}
+  .alookhor-nav-logo img{width:44px;height:44px;flex:0 0 44px}
+  .alookhor-nav-logo-copy b{font-size:12px}.alookhor-nav-logo-copy small{max-width:105px}
+  .alookhor-nav-actions{gap:9px}
+  .alookhor-account-link{width:39px;height:39px;min-height:39px;padding:0;display:grid;place-items:center}
+  .alookhor-account-link span{display:none}
+  .alookhor-account-link svg{width:16px;height:16px}
+  .alookhor-nav-divider{height:27px}
+  .alookhor-menu-toggle{width:39px;height:39px}
+  .alookhor-menu-drawer{padding:14px}
+}
+@media(max-width:374px){
+  .alookhor-topbar-inner{grid-template-columns:1fr auto}
+  .alookhor-contact-meta{display:none}
+  .alookhor-nav-stage{padding-inline:5px}
+  .alookhor-nav-shell{padding-inline:8px}
+  .alookhor-nav-logo-copy small{display:none}
+  .alookhor-nav-logo-copy b{max-width:82px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .alookhor-nav-actions{gap:6px}
+  .alookhor-nav-divider{display:none}
+}
+@media(prefers-reduced-motion:reduce){
+  .alookhor-portal-header *{scroll-behavior:auto!important;transition-duration:.01ms!important;animation-duration:.01ms!important;animation-iteration-count:1!important}
+}
+
+/* v3.10.19 — Luxury Burgundy/Gold image-accurate — fallback renderer (approved palette locked) */
+.alookhor-portal-header{--alookhor-gold:#D49A2E;--alookhor-gold-soft:#E8B84A;--alookhor-gold-line:color-mix(in srgb,#D49A2E 38%,transparent);--alookhor-gold-faint:color-mix(in srgb,#D49A2E 13%,transparent);--alookhor-text:#F5F3F0;--alookhor-muted:#C8C2C9;--alookhor-ink:#0D0510;--alookhor-plum:#1C1024;--alookhor-panel:#1C1024;--alookhor-capsule-background:#0D0510;--alookhor-capsule-card:#1C1024;--alookhor-capsule-glass:rgba(33,20,38,.75);--alookhor-capsule-gold:#D49A2E;--alookhor-capsule-gold-light:#E8B84A;--alookhor-capsule-text:#F5F3F0;--alookhor-capsule-muted:#C8C2C9;--alookhor-capsule-blur:24px}
+.alookhor-portal-header .alookhor-topbar{background-color:var(--alookhor-topbar-bg,#1C1024)!important;background-color:#1C1024!important;background-image:linear-gradient(90deg,rgba(0,0,0,.14),rgba(255,255,255,.03),rgba(0,0,0,.14)),linear-gradient(180deg,color-mix(in srgb,#1C1024 96%,transparent),color-mix(in srgb,rgba(33,20,38,.75) 92%,transparent))!important;-webkit-backdrop-filter:blur(20px) saturate(140%)!important;backdrop-filter:blur(20px) saturate(140%)!important;border-bottom:1px solid color-mix(in srgb,#D49A2E 34%,transparent)!important;box-shadow:0 8px 28px rgba(0,0,0,.30),inset 0 -1px 0 color-mix(in srgb,#E8B84A 10%,transparent),inset 0 1px 0 rgba(255,255,255,.04)!important}
+.alookhor-portal-header .alookhor-topbar-inner{width:min(1360px,calc(100% - 72px));grid-template-columns:minmax(0,1fr) minmax(0,1.7fr) minmax(0,1fr);grid-template-areas:"support message phone";direction:ltr}
+.alookhor-fallback-support{grid-area:support;justify-self:start;display:inline-flex;align-items:center;gap:7px;direction:rtl;color:#E8B84A;font-size:10.5px;font-weight:700;white-space:nowrap}.alookhor-fallback-support svg{width:15px;height:15px;color:#D49A2E}
+.alookhor-portal-header .alookhor-trade-meta{grid-area:message;justify-self:center;direction:rtl;padding-inline:clamp(18px,4vw,58px);border-inline:1px solid color-mix(in srgb,#D49A2E 13%,transparent)}
+.alookhor-portal-header .alookhor-wholesale,.alookhor-portal-header .alookhor-top-logo{display:none!important}
+.alookhor-portal-header .alookhor-export-note{display:inline-flex!important;align-items:center;gap:7px;color:#F5F3F0!important;font-size:10.5px;white-space:nowrap}.alookhor-portal-header .alookhor-export-note svg{color:#D49A2E}
+.alookhor-portal-header .alookhor-contact-meta{grid-area:phone;justify-self:end;color:#E8B84A;direction:ltr;display:flex;align-items:center;gap:7px}
+.alookhor-portal-header .alookhor-contact-link[href^="mailto:"],.alookhor-portal-header .alookhor-contact-separator,.alookhor-portal-header .alookhor-whatsapp{display:none!important}
+.alookhor-portal-header .alookhor-contact-link[href^="tel:"]{display:block!important;color:#E8B84A!important;font-weight:700;letter-spacing:.02em}
+.alookhor-portal-header .alookhor-nav-stage{min-height:90px;padding:6px 18px;background:transparent}
+.alookhor-portal-header .alookhor-nav-shell{position:relative;overflow:visible;width:calc(100% - 36px);max-width:1360px;min-height:78px;padding:8px 24px;gap:18px;border:1px solid color-mix(in srgb,#D49A2E 46%,transparent);border-top-color:color-mix(in srgb,#E8B84A 54%,transparent);border-radius:32px;background-color:rgba(33,20,38,.75);background-image:radial-gradient(720px 140px at 50% 0%,color-mix(in srgb,#E8B84A 13%,transparent) 0%,transparent 68%),linear-gradient(135deg,color-mix(in srgb,#1C1024 42%,transparent) 0%,transparent 58%,color-mix(in srgb,#1C1024 18%,transparent) 100%);-webkit-backdrop-filter:blur(24px) saturate(150%);backdrop-filter:blur(24px) saturate(150%);box-shadow:0 18px 44px color-mix(in srgb,#0D0510 74%,transparent),0 0 36px rgba(212,154,46,.075),inset 0 1px 0 color-mix(in srgb,#E8B84A 22%,transparent),inset 0 -1px 0 color-mix(in srgb,#D49A2E 12%,transparent)}
+.alookhor-portal-header .alookhor-nav-shell::before{content:"";position:absolute;inset:1px;border-radius:31px;pointer-events:none;background:linear-gradient(100deg,rgba(255,255,255,.055) 0%,transparent 26%,transparent 74%,color-mix(in srgb,#E8B84A 7%,transparent) 100%)}
+.alookhor-portal-header .alookhor-nav-shell::after{content:"";position:absolute;left:18%;right:18%;top:-1px;height:1px;pointer-events:none;background:linear-gradient(90deg,transparent,color-mix(in srgb,#E8B84A 46%,transparent),transparent);opacity:.9}
+.alookhor-portal-header .alookhor-nav-shell > *{position:relative;z-index:1}
+.alookhor-portal-header .alookhor-nav-logo-copy{display:block}.alookhor-portal-header .alookhor-nav-logo-copy b{color:#E8B84A;font-weight:900}.alookhor-portal-header .alookhor-nav-logo-copy small{color:#C8C2C9}
+.alookhor-fallback-cart{position:relative;width:42px;height:42px;display:grid;place-items:center;color:#F5F3F0!important;transition:transform .2s ease,color .2s ease}.alookhor-fallback-cart:hover{color:#E8B84A!important;transform:translateY(-1px)}.alookhor-fallback-cart svg{width:25px;height:25px}.alookhor-fallback-cart>span{position:absolute;top:-5px;right:-4px;min-width:18px;height:18px;padding:0 4px;border-radius:999px;background:#E8B84A;color:#0D0510;font:900 9px/18px Tahoma;text-align:center;box-shadow:0 3px 10px rgba(0,0,0,.38)}
+.alookhor-portal-header .alookhor-account-link{width:42px;height:42px;min-height:42px;padding:0;display:grid;place-items:center;border:0;background:transparent;color:#F5F3F0!important;transition:transform .2s ease,color .2s ease}.alookhor-portal-header .alookhor-account-link:hover{color:#E8B84A!important;transform:translateY(-1px)}.alookhor-portal-header .alookhor-account-link span{display:none}.alookhor-portal-header .alookhor-account-link svg{width:25px;height:25px}
+.alookhor-portal-header .alookhor-nav-divider{display:none}.alookhor-portal-header .alookhor-menu-toggle{color:#D49A2E;border:0;background:transparent;transition:transform .2s ease,color .2s ease}.alookhor-portal-header .alookhor-menu-toggle:hover{color:#E8B84A;transform:rotate(3deg)}.alookhor-portal-header .alookhor-menu-toggle span{width:23px;height:2px;background:currentColor}
+.alookhor-portal-header .alookhor-primary-menu > li > a{font-weight:600;letter-spacing:.01em;transition:color .22s ease}
+.alookhor-portal-header .alookhor-primary-menu .sub-menu{position:absolute;z-index:9;top:calc(100% + 10px);right:50%;transform:translateX(50%) translateY(8px);min-width:240px;width:max-content;max-width:min(760px,calc(100vw - 32px));margin:0!important;padding:10px!important;list-style:none!important;border:1px solid color-mix(in srgb,#D49A2E 36%,transparent);border-top-color:color-mix(in srgb,#E8B84A 38%,transparent);border-radius:20px;background:linear-gradient(145deg,rgba(28,16,36,.97),rgba(13,5,16,.98));box-shadow:0 28px 68px rgba(0,0,0,.58),0 0 36px rgba(212,154,46,.07),inset 0 1px 0 rgba(255,255,255,.05);-webkit-backdrop-filter:blur(22px) saturate(145%);backdrop-filter:blur(22px) saturate(145%);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .22s ease,transform .22s ease,visibility .22s}
+.alookhor-portal-header .alookhor-primary-menu li:hover > .sub-menu,.alookhor-portal-header .alookhor-primary-menu li:focus-within > .sub-menu{opacity:1;visibility:visible;transform:translateX(50%) translateY(0);pointer-events:auto}
+.alookhor-portal-header .alookhor-primary-menu .sub-menu a{border:1px solid transparent;border-radius:11px;transition:background .18s ease,color .18s ease,transform .18s ease,border-color .18s ease}
+.alookhor-portal-header .alookhor-primary-menu .sub-menu a:hover{color:#E8B84A!important;background:linear-gradient(90deg,rgba(212,154,46,.11),rgba(255,255,255,.025));border-color:rgba(212,154,46,.18);transform:translateX(-2px)}
+@media(min-width:1024px){.alookhor-portal-header .alookhor-nav-shell{display:grid;grid-template-columns:190px 270px minmax(0,1fr) 48px;grid-template-areas:"actions logo navigation menu";direction:ltr}.alookhor-portal-header .alookhor-nav-actions{grid-area:actions;justify-self:start;direction:ltr}.alookhor-portal-header .alookhor-nav-logo{grid-area:logo;justify-self:start;max-width:270px;direction:rtl}.alookhor-portal-header .alookhor-desktop-nav{grid-area:navigation;justify-self:end;direction:rtl}.alookhor-portal-header .alookhor-nav-spacer{display:none}.alookhor-portal-header .alookhor-menu-toggle{grid-area:menu;justify-self:end}.alookhor-portal-header .alookhor-primary-menu{justify-content:flex-end}}
+@media(max-width:1023px){.alookhor-portal-header .alookhor-topbar-inner{width:calc(100% - 28px);grid-template-columns:minmax(0,1fr) minmax(0,1.6fr) minmax(0,1fr);grid-template-areas:"support message phone";gap:8px}.alookhor-portal-header .alookhor-nav-shell{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);grid-template-areas:"actions logo menu";direction:ltr}.alookhor-portal-header .alookhor-nav-actions{grid-area:actions;justify-self:start;direction:ltr;gap:8px}.alookhor-portal-header .alookhor-nav-logo{grid-area:logo;justify-self:center;direction:rtl}.alookhor-portal-header .alookhor-menu-toggle{grid-area:menu;justify-self:end}.alookhor-portal-header .alookhor-nav-spacer{display:none}}
+@media(max-width:767px){.alookhor-fallback-support{font-size:8px;gap:4px}.alookhor-fallback-support svg{width:12px;height:12px}.alookhor-portal-header .alookhor-trade-meta{padding-inline:5px;border-inline:0}.alookhor-portal-header .alookhor-export-note{font-size:8px}.alookhor-portal-header .alookhor-contact-meta{font-size:8px}.alookhor-portal-header .alookhor-nav-stage{min-height:70px;padding:0 8px}.alookhor-portal-header .alookhor-nav-shell{width:100%;min-height:60px;padding:6px 10px;border-radius:28px}.alookhor-fallback-cart,.alookhor-portal-header .alookhor-account-link{width:38px;height:38px}.alookhor-fallback-cart svg,.alookhor-portal-header .alookhor-account-link svg{width:24px;height:24px}}
+
+
+/* v3.10.48 — No-gap + sticky capsule + luxury mega promo — fallback */
+html:has(.alookhor-portal-header),body:has(.alookhor-portal-header){margin-top:0!important;padding-top:0!important}
+.website-wrapper:has(.alookhor-portal-header),.main-page-wrapper:has(.alookhor-portal-header){padding-top:0!important;margin-top:0!important}
+.whb-header{display:none!important}
+.alookhor-portal-header .alookhor-nav-stage{position:sticky!important;top:0!important;z-index:9995!important}
+body.admin-bar .alookhor-portal-header .alookhor-nav-stage{top:32px!important}
+@media(max-width:782px){body.admin-bar .alookhor-portal-header .alookhor-nav-stage{top:46px!important}}
+/* Luxury mega promo for fallback — same as legacy */
+.alookhor-portal-header .alookhor-primary-menu li.megamenu > .sub-menu,
+.alookhor-portal-header .alookhor-primary-menu li.menu-item-has-children.mega > .sub-menu{width:min(920px,calc(100vw - 24px))!important;display:grid!important;grid-template-columns:220px repeat(3,minmax(0,1fr))!important;gap:0!important;padding:0!important;overflow:hidden!important}
+.alookhor-portal-header .alookhor-mega-promo{grid-column:1;grid-row:1 / -1;padding:14px 12px 16px;background:linear-gradient(180deg,color-mix(in srgb,#1C1024 96%,transparent),rgba(13,5,16,.92));border-left:1px solid color-mix(in srgb,#D49A2E 14%,transparent);display:flex!important;flex-direction:column!important;gap:10px!important;min-width:0}
+.alookhor-portal-header .alookhor-mega-promo-img{width:100%;aspect-ratio:1.15;border-radius:14px;overflow:hidden;background:radial-gradient(180px 120px at 30% 20%,rgba(212,154,46,.18),transparent 60%),linear-gradient(135deg,#1A0F2A,#0D0510);border:1px solid color-mix(in srgb,#D49A2E 18%,transparent);display:grid;place-items:center;padding:8px}
+.alookhor-portal-header .alookhor-mega-promo-img img{width:100%;height:100%;object-fit:cover;border-radius:10px;display:block}
+.alookhor-portal-header .alookhor-mega-promo-title{font-size:11px;font-weight:800;color:#E8B84A;text-align:center;line-height:1.5}
+.alookhor-portal-header .alookhor-mega-promo-desc{font-size:9.5px;color:#C8C2C9;text-align:center;line-height:1.6}
+.alookhor-portal-header .alookhor-mega-promo-btn{display:block;width:100%;padding:9px 12px;border-radius:999px;background:linear-gradient(135deg,#E8B84A,#D49A2E);color:#0D0510!important;font-size:10.5px;font-weight:800;text-align:center;text-decoration:none!important;box-shadow:0 6px 18px rgba(212,154,46,.22)}
+
+/* v3.10.49 — Pixel-perfect 1:1 rebuild — fallback also no-gap sticky */
+html:has(.alookhor-portal-header),body:has(.alookhor-portal-header){margin-top:0!important;padding-top:0!important}
+.alookhor-portal-header .alookhor-nav-stage{position:sticky!important;top:0!important;z-index:9995!important}
+body.admin-bar .alookhor-portal-header .alookhor-nav-stage{top:32px!important}
+@media(max-width:782px){body.admin-bar .alookhor-portal-header .alookhor-nav-stage{top:46px!important}}
+
+/* 3.10.56 — authoritative single Header matching owner reference. The external
+   experimental wrapper is suppressed; the source-backed portal Header remains. */
+body:has(.alookhor-portal-header) .alookhor-header-wrapper{display:none!important}
+.alookhor-portal-header{--alookhor-gold:#d4af37;--alookhor-gold-soft:#f3e5ab;--alookhor-topbar-bg:#270408;--alookhor-plum:#3b0910;--alookhor-text:#fff;--alookhor-muted:#c8b9c4;background:#12040b!important}
+.alookhor-portal-header .alookhor-topbar{height:40px!important;background:linear-gradient(90deg,rgba(39,4,8,.96),rgba(71,15,42,.96),rgba(39,4,8,.96))!important;border-bottom:1px solid rgba(212,175,55,.22)!important;color:#f3e5ab!important}
+.alookhor-portal-header .alookhor-topbar-inner{width:min(1360px,calc(100% - 72px))!important;grid-template-columns:minmax(0,1fr) minmax(0,1.6fr) minmax(0,1fr)!important;grid-template-areas:"support message phone"!important}
+.alookhor-portal-header .alookhor-fallback-support{grid-area:support!important;justify-self:start!important;color:#f3e5ab!important}
+.alookhor-portal-header .alookhor-trade-meta{grid-area:message!important;justify-self:center!important}
+.alookhor-portal-header .alookhor-export-note{display:inline-flex!important;color:#f3e5ab!important}
+.alookhor-portal-header .alookhor-wholesale,.alookhor-portal-header .alookhor-top-logo,.alookhor-portal-header .alookhor-whatsapp,.alookhor-portal-header .alookhor-contact-link[href^="mailto:"],.alookhor-portal-header .alookhor-contact-separator{display:none!important}
+.alookhor-portal-header .alookhor-contact-meta{grid-area:phone!important;justify-self:end!important;color:#f3e5ab!important;font-size:12px!important;font-weight:700!important}
+.alookhor-portal-header .alookhor-nav-stage{min-height:108px!important;padding:10px 24px 16px!important;background:linear-gradient(180deg,#18050e,#11030a)!important}
+.alookhor-portal-header .alookhor-nav-shell{width:min(1360px,calc(100% - 8px))!important;min-height:82px!important;padding:8px 24px!important;display:grid!important;grid-template-columns:auto minmax(240px,320px) minmax(0,1fr) auto!important;grid-template-areas:"actions logo nav menu"!important;gap:24px!important;border:1px solid rgba(243,229,171,.42)!important;border-radius:30px!important;background:radial-gradient(700px 120px at 50% 0,rgba(236,93,204,.16),transparent 72%),linear-gradient(180deg,rgba(83,18,63,.96),rgba(55,8,28,.96))!important;box-shadow:0 15px 34px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,207,244,.18),0 0 24px rgba(236,93,204,.12)!important;-webkit-backdrop-filter:blur(22px) saturate(145%)!important;backdrop-filter:blur(22px) saturate(145%)!important;direction:ltr!important}
+.alookhor-portal-header .alookhor-nav-logo{grid-area:logo!important;justify-self:center!important;direction:rtl!important;max-width:320px!important}
+.alookhor-portal-header .alookhor-nav-logo img{width:62px!important;height:62px!important}
+.alookhor-portal-header .alookhor-nav-logo-copy{display:block!important}
+.alookhor-portal-header .alookhor-nav-logo-copy b{font-size:23px!important;color:#e6ca65!important;letter-spacing:0!important}
+.alookhor-portal-header .alookhor-nav-logo-copy small{font-size:9px!important;color:#f3e5ab!important}
+.alookhor-portal-header .alookhor-desktop-nav{grid-area:nav!important;justify-self:end!important;direction:rtl!important}
+.alookhor-portal-header .alookhor-primary-menu{justify-content:flex-end!important;gap:8px!important}
+.alookhor-portal-header .alookhor-primary-menu>li>a{font-size:13px!important;color:#fff!important;padding-inline:14px!important}
+.alookhor-portal-header .alookhor-primary-menu>li.current-menu-item>a,.alookhor-portal-header .alookhor-primary-menu>li:hover>a{color:#e6ca65!important}
+.alookhor-portal-header .alookhor-nav-spacer{display:none!important}
+.alookhor-portal-header .alookhor-nav-actions{grid-area:actions!important;justify-self:start!important;direction:ltr!important}
+.alookhor-portal-header .alookhor-account-link{width:42px!important;height:42px!important;min-height:42px!important;padding:0!important;border:0!important;background:transparent!important;font-size:0!important}
+.alookhor-portal-header .alookhor-account-link svg{width:28px!important;height:28px!important;color:#fff!important}
+.alookhor-portal-header .alookhor-fallback-cart{color:#e6ca65!important}
+.alookhor-portal-header .alookhor-menu-toggle{grid-area:menu!important;justify-self:end!important;direction:ltr!important;border:0!important;background:transparent!important;border-radius:0!important}
+.alookhor-portal-header .alookhor-menu-toggle span{width:25px!important;height:2px!important;background:#e6ca65!important}
+@media(max-width:1023px){
+ .alookhor-portal-header .alookhor-topbar{height:36px!important}
+ .alookhor-portal-header .alookhor-topbar-inner{width:calc(100% - 20px)!important;gap:5px!important}
+ .alookhor-portal-header .alookhor-fallback-support,.alookhor-portal-header .alookhor-export-note,.alookhor-portal-header .alookhor-contact-meta{font-size:8px!important;white-space:nowrap!important}
+ .alookhor-portal-header .alookhor-nav-stage{min-height:78px!important;padding:4px 10px 10px!important}
+ .alookhor-portal-header .alookhor-nav-shell{width:100%!important;min-height:66px!important;padding:5px 14px!important;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr)!important;grid-template-areas:"actions logo menu"!important;gap:6px!important;border-radius:28px!important}
+ .alookhor-portal-header .alookhor-desktop-nav{display:none!important}
+ .alookhor-portal-header .alookhor-nav-logo{max-width:210px!important}
+ .alookhor-portal-header .alookhor-nav-logo img{width:48px!important;height:48px!important}
+ .alookhor-portal-header .alookhor-nav-logo-copy b{font-size:18px!important}
+ .alookhor-portal-header .alookhor-nav-logo-copy small{font-size:7px!important}
+ .alookhor-portal-header .alookhor-nav-actions{gap:8px!important}
+}
+@media(max-width:430px){
+ .alookhor-portal-header .alookhor-topbar-inner{grid-template-columns:1fr 1.45fr 1fr!important}
+ .alookhor-portal-header .alookhor-export-note{font-size:7px!important}
+ .alookhor-portal-header .alookhor-nav-logo-copy b{font-size:16px!important}
+}
+.elementor-element:has(.alookhor-portal-header),.e-con:has(.alookhor-portal-header),.elementor-widget:has(.alookhor-portal-header),.elementor-widget-container:has(.alookhor-portal-header),.elementor-shortcode:has(.alookhor-portal-header){margin-top:0!important;padding-top:0!important;--padding-top:0px!important;gap:0!important}

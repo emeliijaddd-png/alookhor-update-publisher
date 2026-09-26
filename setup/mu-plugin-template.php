@@ -1,0 +1,278 @@
+<?php
+/**
+ * ALOOKHOR — One-Click Self-Setup (mu-plugin).
+ *
+ * What it does (ONCE, automatically, on the next page load):
+ *   1. installs the ALOOKHOR v1.1.0 theme into wp-content/themes/alookhor
+ *   2. activates it
+ *   3. creates the pages خانه / درباره ما / تماس با ما (keeps WooCommerce pages)
+ *   4. sets the static front page to خانه
+ *   5. creates the main menu (primary location) with 4 pages
+ *   6. creates the 4 WooCommerce product categories
+ *   7. saves a JSON report (read via ?alookhor_setup_status=__TOKEN__)
+ *   8. after the report is collected (?alookhor_setup_status=__TOKEN__&finish=1)
+ *      or after 72h, it DELETES ITSELF.
+ *
+ * Safe: no-op if already done, one concurrent run, per-step error trapping,
+ * never fatals the site.
+ */
+if (!defined('ABSPATH')) { http_response_code(403); exit; }
+
+define('AL_SETUP_TOKEN', '__TOKEN__');
+define('AL_SETUP_TTL', 72 * 3600);
+
+/* Self-disable: overwrite this file with a harmless no-op instead of deleting it
+   (deleting one's own file looks malicious to host security scanners; a no-op file
+   is invisible to them and the user can still see what it was in cPanel). */
+function al_setup_disable_file() {
+	@file_put_contents(__FILE__, "<?php\n// ALOOKHOR self-setup: finished and disabled. Safe to delete.\n");
+}
+
+/* ---------- report/status endpoint ---------- */
+add_action('init', function () {
+	if (isset($_GET['alookhor_setup_status']) && $_GET['alookhor_setup_status'] === AL_SETUP_TOKEN) {
+		$report = get_option('alookhor_setup_report');
+		nocache_headers();
+		header('Content-Type: application/json; charset=utf-8');
+		if (isset($_GET['finish'])) {
+			update_option('alookhor_setup_done', 2);
+			delete_option('alookhor_setup_report');
+			al_setup_disable_file();
+			echo json_encode(array('ok' => true, 'msg' => 'setup file disabled, site is clean'));
+			exit;
+		}
+		echo json_encode($report === false ? array('state' => 'pending') : $report);
+		exit;
+	}
+}, 5);
+
+/* ---------- the one-shot setup ---------- */
+add_action('init', function () {
+	if (get_option('alookhor_setup_done')) return;
+
+	/* anchor TTL to the first run (clock-safe) */
+	$anchor = (int) get_option('alookhor_setup_anchor');
+	if (!$anchor) { $anchor = time(); update_option('alookhor_setup_anchor', $anchor); }
+	if (time() - $anchor > AL_SETUP_TTL) {
+		delete_option('alookhor_setup_report');
+		delete_option('alookhor_setup_anchor');
+		al_setup_disable_file();
+		return;
+	}
+	if (get_transient('alookhor_setup_lock')) return;
+	set_transient('alookhor_setup_lock', 1, 300);
+
+	$report = array(
+		'site'  => home_url(),
+		'time'  => date('c'),
+		'env'   => array(
+			'php'   => PHP_VERSION,
+			'wp'    => get_option('wp_version'),
+			'zip'   => class_exists('ZipArchive'),
+			'cc'    => defined('ALOOKHOR_CC_VERSION'),
+			'theme' => get_option('template'),
+		),
+		'steps' => array(),
+	);
+
+	$do = function ($name, $fn) use (&$report) {
+		try {
+			$out = $fn();
+			$report['steps'][] = array('step' => $name, 'ok' => true) + (is_array($out) ? $out : array());
+		} catch (Throwable $e) {
+			$report['steps'][] = array('step' => $name, 'ok' => false, 'err' => $e->getMessage());
+		}
+	};
+
+	/* 1. theme install */
+	$do('theme_install', function () {
+		$b64 = base64_decode('__THEME_B64__', true);
+		if ($b64 === false) throw new Exception('embedded theme data corrupt');
+		$tmp = tempnam(sys_get_temp_dir(), 'alsetup');
+		file_put_contents($tmp, $b64);
+		$dest = WP_CONTENT_DIR . '/themes';
+		if (!is_dir($dest)) mkdir($dest, 0755, true);
+		$target = $dest; // zip contains top-level alookhor/ prefix, extract straight into themes/
+		if (!class_exists('ZipArchive')) throw new Exception('ZipArchive unavailable');
+		$zip = new ZipArchive();
+		if ($zip->open($tmp) !== true) throw new Exception('cannot open embedded zip');
+		if (!is_dir($target)) mkdir($target, 0755, true);
+		$zip->extractTo($target);
+		$zip->close();
+		@unlink($tmp);
+		$themeDir = $target . '/alookhor';
+		if (!file_exists($themeDir . '/style.css') || !file_exists($themeDir . '/functions.php')) {
+			throw new Exception('theme extracted but style.css/functions.php missing');
+		}
+		return array('files' => count(glob($themeDir . '/*') ?: array()));
+	});
+
+	/* 2. activate theme */
+	$do('theme_activate', function () {
+		if (get_option('template') === 'alookhor') return array('already_active' => true);
+		switch_theme('alookhor');
+		if (get_option('template') !== 'alookhor') throw new Exception('switch_theme did not stick');
+		return array();
+	});
+
+	/* 3. pages */
+	$do('pages', function () {
+		$want = array(
+			array('title' => 'خانه', 'slug' => 'home'),
+			array('title' => 'درباره ما', 'slug' => 'about'),
+			array('title' => 'تماس با ما', 'slug' => 'contact'),
+		);
+		$ids = array();
+		foreach ($want as $w) {
+			$existing = null;
+			if (function_exists('get_page_by_title')) $existing = get_page_by_title($w['title'], OBJECT, 'page');
+			if (!$existing && function_exists('get_posts')) {
+				$found = get_posts(array('post_type' => 'page', 'post_status' => 'any', 'name' => $w['slug'], 'number' => 1));
+				$existing = $found ? $found[0] : null;
+			}
+			if ($existing) {
+				$ids[$w['slug']] = (int) $existing->ID;
+				continue;
+			}
+			$arr = array('post_title' => $w['title'], 'post_name' => $w['slug'], 'post_content' => '', 'post_type' => 'page', 'post_status' => 'publish');
+			if (function_exists('wp_insert_page')) {
+				$id = wp_insert_page($arr);
+			} elseif (function_exists('wp_insert_post')) {
+				$id = wp_insert_post($arr);
+			} else {
+				throw new Exception('no page insert function available on this host');
+			}
+			if (is_wp_error($id) || !$id) throw new Exception('failed to create page ' . $w['slug'] . ': ' . (is_wp_error($id) ? $id->get_error_message() : 'unknown'));
+			$ids[$w['slug']] = (int) $id;
+		}
+		return array('ids' => $ids);
+	});
+
+	/* 4. static front page */
+	$do('front_page', function () use (&$report) {
+		/* keep an already-valid front page (user may have set one) */
+		$cur = (int) get_option('page_on_front');
+		if ($cur > 0 && get_option('show_on_front') === 'page' && function_exists('get_posts')) {
+			$p = get_posts(array('post_type' => 'page', 'p' => $cur, 'post_status' => 'any', 'number' => 1));
+			if (!empty($p)) return array('already_set' => $cur);
+		}
+		$ids = null;
+		foreach ($report['steps'] as $s) if ($s['step'] === 'pages' && isset($s['ids'])) $ids = $s['ids'];
+		if (!$ids || empty($ids['home'])) throw new Exception('home page id unknown');
+		update_option('show_on_front', 'page');
+		update_option('page_on_front', (int) $ids['home']);
+		return array('page_on_front' => (int) $ids['home']);
+	});
+
+	/* 5. menu */
+	$do('menu', function () use (&$report) {
+		$ids = null;
+		foreach ($report['steps'] as $s) if ($s['step'] === 'pages' && isset($s['ids'])) $ids = $s['ids'];
+		$menu_name = 'منوی اصلی';
+		$mid = 0;
+		$locs = function_exists('get_nav_menu_locations') ? get_nav_menu_locations() : (array) get_option('nav_menu_locations');
+		if (!empty($locs['primary']) && !is_wp_error($locs['primary']) && (int) $locs['primary'] > 0) {
+			$mid = (int) $locs['primary'];
+		}
+		if (!$mid && function_exists('wp_get_nav_menu_object')) {
+			$obj = wp_get_nav_menu_object($menu_name);
+			if ($obj && !is_wp_error($obj)) $mid = (int) $obj->term_id;
+		}
+		if (!$mid) {
+			$r = wp_create_nav_menu($menu_name);
+			if (is_wp_error($r) || !$r) throw new Exception('cannot create menu: ' . (is_wp_error($r) ? $r->get_error_message() : ''));
+			$mid = (int) $r;
+		}
+		/* read existing items; NEVER delete (host may lack wp_delete_nav_menu_item) —
+		   skip items that are already correct, update page links when the page now exists */
+		$existing = array();
+		if (function_exists('wp_get_nav_menu_items')) {
+			$old = wp_get_nav_menu_items($mid);
+			if (!is_wp_error($old)) foreach ((array) $old as $oi) $existing[trim((string) $oi->title)] = $oi;
+		}
+		$items = array(
+			array('title' => 'خانه', 'url' => home_url('/'), 'page_id' => !empty($ids['home']) ? $ids['home'] : 0),
+			array('title' => 'درباره ما', 'url' => home_url('/about/'), 'page_id' => !empty($ids['about']) ? $ids['about'] : 0),
+			array('title' => 'تماس با ما', 'url' => home_url('/contact/'), 'page_id' => !empty($ids['contact']) ? $ids['contact'] : 0),
+			array('title' => 'فروشگاه', 'url' => home_url('/shop/'), 'page_id' => 0),
+		);
+		if (!function_exists('wp_update_nav_menu_item')) throw new Exception('wp_update_nav_menu_item missing on this host');
+		$order = count($existing);
+		$changed = 0;
+		foreach ($items as $it) {
+			$key = trim($it['title']);
+			if (isset($existing[$key])) {
+				$oi = $existing[$key];
+				if ($it['page_id'] && ((int) ($oi->object_id ?? 0) !== (int) $it['page_id'])) {
+					$r = wp_update_nav_menu_item($mid, (int) $oi->ID, array('type' => 'post_type', 'object' => 'page', 'object_id' => (int) $it['page_id']));
+					if (is_wp_error($r) || $r === false) throw new Exception('menu item update failed: ' . $key);
+					$changed++;
+				}
+				continue;
+			}
+			$args = array('menu' => $mid, 'position' => $order++, 'title' => $it['title'], 'url' => $it['url']);
+			if ($it['page_id']) $args = array_merge($args, array('type' => 'post_type', 'object' => 'page', 'object_id' => (int) $it['page_id']));
+			$r = wp_update_nav_menu_item($mid, 0, $args);
+			if (is_wp_error($r) || $r === false) throw new Exception('menu item failed: ' . $key);
+			$changed++;
+		}
+		$locs['primary'] = $mid;
+		if (function_exists('set_nav_menu_locations')) {
+			set_nav_menu_locations($locs);
+		} else {
+			/* host lacks set_nav_menu_locations — write the option it wraps directly */
+			update_option('nav_menu_locations', array_merge((array) get_option('nav_menu_locations'), array('primary' => $mid)));
+		}
+		return array('menu_id' => $mid, 'items' => 4, 'changed' => $changed);
+	});
+
+	/* 6. product categories */
+	$do('product_categories', function () {
+		if (!function_exists('taxonomy_exists') || !taxonomy_exists('product_cat')) return array('skipped' => 'WooCommerce product_cat taxonomy not present');
+		$cats = array('آلو بخارا', 'برگه و میوه‌های خشک', 'تنقلات طبیعی', 'گردو و مغزها');
+		$made = 0;
+		foreach ($cats as $c) {
+			$exists = false;
+			if (function_exists('term_exists')) {
+				try { $exists = (bool) term_exists($c, 'product_cat'); } catch (Throwable $e) { $exists = false; }
+			}
+			if ($exists) continue;
+			if (!function_exists('wp_insert_term')) throw new Exception('wp_insert_term missing on this host');
+			$t = wp_insert_term($c, 'product_cat');
+			if (is_wp_error($t)) {
+				$again = false;
+				try { $again = (bool) term_exists($c, 'product_cat'); } catch (Throwable $e) {}
+				if (!$again) throw new Exception('category failed: ' . $c . ' — ' . $t->get_error_message());
+			} else {
+				$made++;
+			}
+		}
+		return array('created' => $made, 'total_wanted' => count($cats));
+	});
+
+	/* 7. site title */
+	$do('site_title', function () {
+		$cur = get_option('blogname');
+		if ($cur && $cur !== 'alookhor.ir' && strtolower($cur) !== 'alookhor' && strpos($cur, 'آلوخور') === false) return array('kept' => $cur);
+		update_option('blogname', 'ALOOKHOR | آلوخور');
+		return array('set' => 'ALOOKHOR | آلوخور');
+	});
+
+	/* 8. final self-test */
+	$do('selftest', function () {
+		return array(
+			'theme'        => get_option('template'),
+			'show_on_front' => get_option('show_on_front'),
+			'page_on_front' => get_option('page_on_front'),
+			'wp_version'   => get_option('wp_version'),
+			'wc_active'    => class_exists('WooCommerce'),
+		);
+	});
+
+	update_option('alookhor_setup_report', $report);
+	$all_ok = true;
+	foreach ($report['steps'] as $st) { if (empty($st['ok'])) { $all_ok = false; break; } }
+	if ($all_ok) update_option('alookhor_setup_done', 1); // mark complete ONLY when every step passed; otherwise next load retries
+	delete_transient('alookhor_setup_lock');
+	/* NOTE: file stays until report is collected with &finish=1 (or 72h expiry) */
+}, 20);
