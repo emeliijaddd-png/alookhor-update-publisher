@@ -1,15 +1,20 @@
 {
   "name": "ALOOKHOR Control Center",
-  "version": "3.10.415",
+  "version": "3.10.416",
   "download_url": "https://raw.githubusercontent.com/emeliijaddd-png/alookhor-update-publisher/arena/01a0a537-alookhor-update-publisher/packages/cc-release/alookhor-control-center.zip",
   "details_url": "https://github.com/emeliijaddd-png/alookhor-update-publisher",
-  "sha256": "c2dd25b3797d58dc4d72fa2941b2945f5fb6c994868309831a9e943282d0cbfc",
+  "sha256": "1e614213c95fdd915d9ae57b3e07870e45c792743f78c7d6771cf4c266e3c1a6",
   "requires": "6.0",
   "tested": "6.8",
   "requires_php": "8.0",
   "author": "ALOOKHOR Team",
   "description": "کنترل سنتر لوکس و ماژولار ALOOKHOR",
   "changelog": [
+    {
+      "tag": "FIX",
+      "title": "رفع دو نقص سبد روی سایت زنده: نمایش نامگذاری‌های خام و خطای احتمالی route",
+      "desc": "در کارت‌های پیشنهاد و ردیف‌های سبد، به‌جای «attribute_pa_weight: w5» حالا برچسب و مقدار واقعی دیده می‌شود (مثل «وزن: ۵ کیلوگرم»). همچنین مسیر API سبد نرمال‌سازی شد تا در هیچ هاستی با دابل‌اسلش به ۴۰۴ نخورد. همهٔ دفاع‌های ضدکش LiteSpeed باقی است."
+    },
     {
       "tag": "IMPROVE",
       "title": "سبد خرید: تجربهٔ کاربری نسخهٔ ۲ (Cart UX v2)",
