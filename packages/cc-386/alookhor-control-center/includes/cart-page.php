@@ -81,8 +81,14 @@ function alookhor_cc_cart_suggestions_html($recs, $wish_ids = array()) {
         $name = isset($p['name']) ? (string) $p['name'] : '';
         $img = isset($p['image']) ? (string) $p['image'] : '';
         $price = (float) (isset($p['price']) ? $p['price'] : 0);
+        $regular = (float) (isset($p['regular_price']) ? $p['regular_price'] : 0);
         $on_sale = !empty($p['on_sale']);
         $percent = (int) (isset($p['percent']) ? $p['percent'] : 0);
+        $attrs = isset($p['variations']) && is_array($p['variations']) ? $p['variations'] : array();
+        $attr_txt = implode(' · ', array_map(function($k,$v){
+            $lab = function_exists('wc_attribute_label') ? wc_attribute_label($k) : preg_replace('/^attribute_/','',(string)$k);
+            return $lab.': '.$v;
+        }, array_keys($attrs), array_values($attrs)));
         ?>
 <article class="sg-card">
   <span class="sg-img">
@@ -92,8 +98,9 @@ function alookhor_cc_cart_suggestions_html($recs, $wish_ids = array()) {
     <button type="button" class="c-op c-wish sg-wish" data-wish="<?php echo esc_attr($id); ?>" aria-label="افزودن به علاقه‌مندی"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.7-9.8-9C.7 9.2 2.3 5.5 5.8 4.7c2-.5 4 .3 5.2 1.9 1.2-1.6 3.2-2.4 5.2-1.9 3.5.8 5.1 4.5 3.6 7.3-2.3 4.3-9.8 9-9.8 9Z"/></svg></button>
   </span>
   <strong class="sg-name"><?php echo esc_html($name); ?></strong>
-  <span class="sg-price"><?php echo esc_html(alookhor_cc_cart_fa($price)); ?><small>تومان</small></span>
-  <button type="button" class="sg-add" data-add-id="<?php echo esc_attr($id); ?>"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3h2l2.4 12.2A2 2 0 0 0 9.4 17H18a2 2 0 0 0 2-1.6L21.6 8H6"/><circle cx="10" cy="21" r="1.4"/><circle cx="18" cy="21" r="1.4"/></svg> افزودن</button>
+  <?php if ($attr_txt): ?><span class="sg-attrs"><?php echo esc_html($attr_txt); ?></span><?php endif; ?>
+  <span class="sg-price"><?php if ($on_sale && $regular > 0 && $regular > $price): ?><del><?php echo esc_html(alookhor_cc_cart_fa($regular)); ?></del><?php endif; ?><?php echo esc_html(alookhor_cc_cart_fa($price)); ?><small>تومان</small></span>
+  <button type="button" class="sg-add" data-add-id="<?php echo esc_attr($id); ?>" <?php $vid = (int) (isset($p['variation_id']) ? $p['variation_id'] : 0); echo $vid ? 'data-add-variation="' . esc_attr($vid) . '"' : ''; ?>><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3h2l2.4 12.2A2 2 0 0 0 9.4 17H18a2 2 0 0 0 2-1.6L21.6 8H6"/><circle cx="10" cy="21" r="1.4"/><circle cx="18" cy="21" r="1.4"/></svg> افزودن</button>
 </article>
         <?php
     }
@@ -114,6 +121,17 @@ function alookhor_cc_cart_recommendations($limit = 4) {
     foreach ($products as $product) {
         if (!is_object($product) && function_exists('wc_get_product')) $product = wc_get_product($product);
         if (!$product || !is_object($product)) continue;
+        /* 3.10.413: محصول متغیر خودش قابل‌افزودن نیست — بهترین ورییشن قابل‌خرید را resolve می‌کنیم */
+        $variation_id = 0; $variation_attrs = array();
+        if (method_exists($product, 'is_type') && $product->is_type('variable')) {
+            $children = method_exists($product, 'get_children') ? (array) $product->get_children() : array();
+            foreach ($children as $vid) {
+                $ch = function_exists('wc_get_product') ? wc_get_product($vid) : null;
+                if ($ch && is_object($ch) && $ch->is_purchasable() && $ch->is_in_stock()) { $variation_id = (int) $vid; $product = $ch; break; }
+            }
+            if (!$variation_id) continue;
+            if (method_exists($product, 'get_variation_attributes')) $variation_attrs = (array) $product->get_variation_attributes();
+        }
         if (method_exists($product, 'is_purchasable') && !$product->is_purchasable()) continue;
         if (method_exists($product, 'is_in_stock') && !$product->is_in_stock()) continue;
         $img = function_exists('wp_get_attachment_image_url') ? wp_get_attachment_image_url($product->get_image_id(), 'woocommerce_thumbnail') : '';
@@ -124,6 +142,9 @@ function alookhor_cc_cart_recommendations($limit = 4) {
         $percent = ($on_sale && $regular > 0) ? (int) round((($regular - $sale) / $regular) * 100) : 0;
         $out[] = array(
             'id' => (int) $product->get_id(),
+            'variation_id' => $variation_id,
+            'variations' => $variation_attrs,
+            'type' => method_exists($product, 'get_type') ? (string) $product->get_type() : 'simple',
             'name' => $product->get_name(),
             'price' => (float) (function_exists('wc_get_price_to_display') ? wc_get_price_to_display($product) : $product->get_price()),
             'regular_price' => $regular,

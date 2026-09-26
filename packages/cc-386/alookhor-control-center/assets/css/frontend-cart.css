@@ -1,4 +1,4 @@
-/* ── ALOOKHOR Cart v3.10.412 — reference design (dark luxury purple + gold) ── */
+/* ── ALOOKHOR Cart v3.10.413 — reference design (dark luxury purple + gold) ── */
 #alookhor-cart{
   --ac-bg:#150a24; --ac-card:#1d0f31; --ac-card2:#221140; --ac-line:rgba(255,255,255,.08);
   --ac-gold:#E8B84A; --ac-gold2:#F5CE6B; --ac-txt:#F5F1EA; --ac-muted:rgba(245,241,234,.62);
@@ -200,3 +200,6 @@
 /* hide legacy woo cart remnants around our section */
 body.alookhor-cart-active .woocommerce-cart-form:not(#alookhor-cart *),
 body.alookhor-cart-active .cart-collaterals:not(#alookhor-cart *){display:none!important}
+/* 3.10.413 — ویژگی ورییشن پیشنهادها + قیمت خط‌خورده */
+.sg-attrs{display:block;font-size:11px;color:rgba(60,45,70,.6);margin-top:2px;line-height:1.5}
+.sg-price del{opacity:.45;font-size:.78rem;margin-left:6px;text-decoration:line-through}

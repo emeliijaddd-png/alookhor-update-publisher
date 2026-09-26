@@ -183,6 +183,25 @@ add_action('rest_api_init', function () {
             $variation = is_array($variation) ? array_map('wc_clean', $variation) : [];
 
             if (!$product_id) return new WP_Error('missing_product', 'محصول نامعتبر است.', ['status' => 400]);
+
+            /* ── 3.10.413: پیشنهادهای سبد روی لایو «محصول متغیر» هستند؛ اگر variation_id
+             * نیامده باشد خودمان بهترین ورییشن موجود را انتخاب می‌کنیم تا «افزودن» کار کند. */
+            if (!$variation_id) {
+                $parent = wc_get_product($product_id);
+                if ($parent && method_exists($parent, 'is_type') && $parent->is_type('variable')) {
+                    $children = method_exists($parent, 'get_children') ? (array) $parent->get_children() : array();
+                    foreach ($children as $vid) {
+                        $ch = wc_get_product($vid);
+                        if ($ch && $ch->is_purchasable() && $ch->is_in_stock()) { $variation_id = (int) $vid; break; }
+                    }
+                    if (!$variation_id) {
+                        return new WP_Error('product_unavailable', 'این محصول در حال حاضر قابل خرید نیست.', ['status' => 400]);
+                    }
+                    $vprod0 = wc_get_product($variation_id);
+                    if ($vprod0 && method_exists($vprod0, 'get_variation_attributes')) $variation = (array) $vprod0->get_variation_attributes();
+                }
+            }
+
             $product = wc_get_product($variation_id ?: $product_id);
             if (!$product || !$product->is_purchasable() || !$product->is_in_stock()) {
                 return new WP_Error('product_unavailable', 'این محصول در حال حاضر قابل خرید نیست.', ['status' => 400]);

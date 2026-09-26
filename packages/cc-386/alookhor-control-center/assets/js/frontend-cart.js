@@ -94,11 +94,15 @@ function bindStatics(){
  document.addEventListener('click',ev=>{const w=ev.target.closest&&ev.target.closest('[data-wish]');if(!w||!w.closest(ROOT))return;const on=WISH.toggle(Number(w.dataset.wish));w.classList.toggle('on',on);toast(on?'به علاقه‌مندی‌ها اضافه شد':'از علاقه‌مندی‌ها حذف شد');});
 }
 function cardHTML(p){
- const img=p.image||'',name=String(p.name||''),id=Number(p.id)||0,price=Number(p.price)||0,percent=Number(p.percent)||0;
+ const img=p.image||'',name=String(p.name||''),id=Number(p.id)||0,price=Number(p.price)||0,regular=Number(p.regular_price)||0,percent=Number(p.percent)||0;
+ const vid=Number(p.variation_id)||0;
  const badge=(p.on_sale&&percent>0)?'<span class="sg-badge sg-badge-sale">٪'+fp(percent)+' تخفیف</span>':'<span class="sg-badge sg-badge-special">پیشنهاد ویژه</span>';
  const heart='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.7-9.8-9C.7 9.2 2.3 5.5 5.8 4.7c2-.5 4 .3 5.2 1.9 1.2-1.6 3.2-2.4 5.2-1.9 3.5.8 5.1 4.5 3.6 7.3-2.3 4.3-9.8 9-9.8 9Z"/></svg>';
  const cart='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3h2l2.4 12.2A2 2 0 0 0 9.4 17H18a2 2 0 0 0 2-1.6L21.6 8H6"/><circle cx="10" cy="21" r="1.4"/><circle cx="18" cy="21" r="1.4"/></svg>';
- return '<article class="sg-card"><span class="sg-img"><img src="'+esc(img)+'" alt="'+esc(name)+'" loading="lazy" decoding="async">'+badge+'<button type="button" class="c-op c-wish sg-wish" data-wish="'+esc(id)+'" aria-label="افزودن به علاقه‌مندی">'+heart+'</button></span><strong class="sg-name">'+esc(name)+'</strong><span class="sg-price">'+fa(price)+'<small>تومان</small></span><button type="button" class="sg-add" data-add-id="'+esc(id)+'">'+cart+' افزودن</button></article>';
+ const at=(p.variations&&typeof p.variations==='object')?Object.keys(p.variations).map(k=>String(k).replace(/^attribute_/,'')+': '+p.variations[k]).join(' · '):'';
+ const attrsLine=at?('<span class="sg-attrs">'+esc(at)+'</span>'):'';
+ const priceHtml=(p.on_sale&&regular>price&&regular>0)?('<del>'+fa(regular)+'</del>'+fa(price)+'<small>تومان</small>'):(fa(price)+'<small>تومان</small>');
+ return '<article class="sg-card"><span class="sg-img"><img src="'+esc(img)+'" alt="'+esc(name)+'" loading="lazy" decoding="async">'+badge+'<button type="button" class="c-op c-wish sg-wish" data-wish="'+esc(id)+'" aria-label="افزودن به علاقه‌مندی">'+heart+'</button></span><strong class="sg-name">'+esc(name)+'</strong>'+attrsLine+'<span class="sg-price">'+priceHtml+'</span><button type="button" class="sg-add" data-add-id="'+esc(id)+'"'+(vid?' data-add-variation="'+vid+'"':'')+'>'+cart+' افزودن</button></article>';
 }
 async function recommend(){
  const grid=q('.suggested-grid',q(ROOT));if(!grid)return;
@@ -106,7 +110,7 @@ async function recommend(){
   const res=await fetch(API+'recommendations?_='+Date.now(),{credentials:'include',cache:'no-store',headers:{'Accept':'application/json'}});
   if(!res.ok)return;const data=await res.json();
   if(Array.isArray(data)&&data.length){grid.innerHTML=data.slice(0,4).map(cardHTML).join('');
-   qa('[data-add-id]',grid).forEach(b=>b.onclick=async()=>{if(b.disabled)return;b.disabled=true;try{await api('cart/add',{method:'POST',body:{product_id:Number(b.dataset.addId),quantity:1}});await load();toast('محصول به سبد اضافه شد');}catch(e){error(e.message||'افزودن محصول انجام نشد.');}finally{b.disabled=false;}});
+   qa('[data-add-id]',grid).forEach(b=>b.onclick=async()=>{if(b.disabled)return;b.disabled=true;const v0=Number(b.dataset.addVariation)||0;try{await api('cart/add',{method:'POST',body:(v0?{product_id:Number(b.dataset.addId),variation_id:v0,quantity:1}:{product_id:Number(b.dataset.addId),quantity:1})});await load();toast('محصول به سبد اضافه شد');}catch(e){error(e.message||'افزودن محصول انجام نشد.');}finally{b.disabled=false;}});
    paintWish();
   }
  }catch(e){console.error(e);}
@@ -115,7 +119,7 @@ function hideLegacy(){const root=q(ROOT);if(!root)return;qa('.woocommerce-cart-f
 function init(){const r=q(ROOT);if(!r)return;
  /* 3.10.405 — خودترمیم‌گری کش کهنه: اگر HTML صفحه با بیلد این فایل JS جفت نباشد
     (کش مرورگر/LiteSpeed نسخهٔ قدیمی را سرو کرده)، یک‌بار با پارامتر کش‌شکن ریلود می‌کنیم. */
- try{const BUILD='3.10.412';const mb=r.getAttribute('data-ac-build')||'';
+ try{const BUILD='3.10.413';const mb=r.getAttribute('data-ac-build')||'';
   if(mb&&mb!==BUILD){const k='ac_heal_'+BUILD;let done=false;try{done=sessionStorage.getItem(k)==='1';}catch(e){}
    if(!done){try{sessionStorage.setItem(k,'1');}catch(e){}
     const u=new URL(location.href);u.searchParams.set('ac_b',BUILD);location.replace(u.toString());return;}
