@@ -28,8 +28,13 @@ cleanup() {
       if [[ -f "$log" ]]; then
         echo "Recent local log lines ($log):" >&4
         tail -n 22 "$log" >&4
-        # One annotation per log keeps the real final exception within GitHub's
-        # per-step annotation cap (many separate lines hide the last error).
+        # WP-CLI's traceback can push the actual error outside the log tail.
+        # Annotate the first root-cause line as well as the traceback tail.
+        cause=$(grep -m1 -E 'PHP Fatal error:|Uncaught RuntimeException:|^Error:' "$log" | cut -c 1-1600 || true)
+        if [[ -n "$cause" ]]; then
+          cause=${cause//'%'/'%25'}
+          printf '::error title=Isolated cart root cause::%s\n' "$cause" >&4
+        fi
         detail=$(tail -n 16 "$log" | tr '\n' '|' | cut -c 1-2400)
         detail=${detail//'%'/'%25'}
         printf '::error title=Isolated cart diagnostic::%s\n' "$detail" >&4

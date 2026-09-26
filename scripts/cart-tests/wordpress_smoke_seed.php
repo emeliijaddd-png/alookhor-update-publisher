@@ -11,15 +11,17 @@ if (!$ids_path || !str_starts_with($ids_path, sys_get_temp_dir() . '/')) {
     throw new RuntimeException('WP_SMOKE_IDS must be a temporary local file.');
 }
 
-// The stock Woo install may set a Cart block; our custom cart renderer uses is_cart().
+// Render both the plugin header badge and the cart in real WordPress so an
+// unhydrated server response cannot misleadingly show two lines as two units.
+$cart_content = '[alookhor_portal_header][woocommerce_cart]';
 $cart_page = wc_get_page_id('cart');
 if ($cart_page <= 0) {
     $cart_page = wp_insert_post(array(
         'post_title' => 'Cart', 'post_name' => 'cart', 'post_status' => 'publish',
-        'post_type' => 'page', 'post_content' => '[woocommerce_cart]',
+        'post_type' => 'page', 'post_content' => $cart_content,
     ));
 } else {
-    wp_update_post(array('ID' => $cart_page, 'post_status' => 'publish', 'post_content' => '[woocommerce_cart]'));
+    wp_update_post(array('ID' => $cart_page, 'post_status' => 'publish', 'post_content' => $cart_content));
 }
 if (!$cart_page || is_wp_error($cart_page)) throw new RuntimeException('Cart page setup failed.');
 update_option('woocommerce_cart_page_id', $cart_page);

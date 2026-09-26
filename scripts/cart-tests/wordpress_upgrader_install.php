@@ -92,7 +92,12 @@ $rejected = $upgrader->upgrade($plugin);
 if (!is_wp_error($rejected) || $rejected->get_error_code() !== 'alookhor_sha256_mismatch'
     || count($served_files) !== 1 || file_exists($served_files[0])
     || get_file_data($installed, ['Version' => 'Version'])['Version'] !== '3.10.405') {
-    throw new RuntimeException('The installed 405 updater did not reject and clean the corrupt archive without replacement.');
+    $result_code = is_wp_error($rejected) ? $rejected->get_error_code() : gettype($rejected);
+    $current_version = get_file_data($installed, ['Version' => 'Version'])['Version'] ?? 'missing';
+    throw new RuntimeException(sprintf(
+        '405 corrupt-ZIP guard failed: result=%s downloads=%d temp_exists=%s installed=%s',
+        $result_code, count($served_files), isset($served_files[0]) && file_exists($served_files[0]) ? 'yes' : 'no', $current_version
+    ));
 }
 echo "Installed 405 rejected the corrupt ZIP; original plugin is unchanged.\n";
 

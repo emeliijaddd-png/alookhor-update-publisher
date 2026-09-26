@@ -106,6 +106,9 @@ first = next(row for row in cart['items'] if row['id'] == ids['simple'][0])
 updated = api('cart/update', 'POST', {'key': first['key'], 'quantity': 4})
 assert updated['count'] == 8 and updated['lines'] == 4, updated
 cart = verified_cart(4, 8)
+page = request('/cart/')
+badge = re.search(r'class="ak-cart-badge"[^>]*>([^<]*)</em>', page)
+assert badge and badge.group(1).strip() == '۸', 'Unhydrated WordPress header badge must count eight units, not four lines'
 second = next(row for row in cart['items'] if row['id'] == ids['simple'][1])
 removed = api('cart/remove', 'POST', {'key': second['key']})
 assert removed['count'] == 7 and removed['lines'] == 3, removed

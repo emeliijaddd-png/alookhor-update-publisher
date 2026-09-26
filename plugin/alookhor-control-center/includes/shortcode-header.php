@@ -139,7 +139,8 @@ function alookhor_cc_render_akx_header() {
     $search_ph  = esc_attr($h['search_placeholder']);
 
     $home_url    = esc_url(home_url('/'));
-    $cart_count  = function_exists('WC') && WC()->cart ? (int) count((array) WC()->cart->get_cart()) : 0;
+    // Badge counts units, not distinct product lines, even before cart JS loads.
+    $cart_count  = function_exists('WC') && WC()->cart ? (int) WC()->cart->get_cart_contents_count() : 0;
     $cart_url    = function_exists('wc_get_cart_url') ? esc_url(wc_get_cart_url()) : $home_url . 'cart/';
     $account_url = function_exists('wc_get_page_permalink') ? esc_url(wc_get_page_permalink('myaccount')) : $home_url . 'my-account/';
 

@@ -295,7 +295,7 @@ STATUS: SOURCE DRAFT — deployment status must be verified separately.
 | `plugin/alookhor-control-center/includes/seo-cleaner.php` | 169 | `7b799f9a0b53d0720cca82c1c0056efed41cf0e4a2f6f1dcd7dda722675eb43d` |
 | `plugin/alookhor-control-center/includes/seo-meta.php` | 45 | `952ec10a1d5a674807db5a57f7ad4c02b13eb8d244ba610a60f26691c36a2ad3` |
 | `plugin/alookhor-control-center/includes/shortcode-export-banner.php` | 210 | `b4aa9914793e0d716e0f4f961c38b626ee472f82aa6b797e29782c6d282ca9cd` |
-| `plugin/alookhor-control-center/includes/shortcode-header.php` | 422 | `5f4f6cb899bfbf7ae3b90e498d38fdf4f649c8c618db0ded02428ebae66bfe76` |
+| `plugin/alookhor-control-center/includes/shortcode-header.php` | 423 | `6363e22e947393a5ddf74e7678a664377bc5e971d96ad63b3dfe6103d41e0e57` |
 | `plugin/alookhor-control-center/includes/site-features.php` | 133 | `8c0f550195121550d1085b5415fd63291fcf1e8d17bfaf0bca491e2df7468c72` |
 | `plugin/alookhor-control-center/includes/sort-center.php` | 73 | `d0ed777185c7bd0a6b2c476bc0c8c7886c2ece7b519d7658ee23673038b81999` |
 | `plugin/alookhor-control-center/includes/updater.php` | 404 | `9fe228037dd728c5071661959adfb31653c9c9e8a8cc035607c9c687b589b278` |
@@ -19275,7 +19275,8 @@ function alookhor_cc_render_akx_header() {
     $search_ph  = esc_attr($h['search_placeholder']);
 
     $home_url    = esc_url(home_url('/'));
-    $cart_count  = function_exists('WC') && WC()->cart ? (int) count((array) WC()->cart->get_cart()) : 0;
+    // Badge counts units, not distinct product lines, even before cart JS loads.
+    $cart_count  = function_exists('WC') && WC()->cart ? (int) WC()->cart->get_cart_contents_count() : 0;
     $cart_url    = function_exists('wc_get_cart_url') ? esc_url(wc_get_cart_url()) : $home_url . 'cart/';
     $account_url = function_exists('wc_get_page_permalink') ? esc_url(wc_get_page_permalink('myaccount')) : $home_url . 'my-account/';
 
