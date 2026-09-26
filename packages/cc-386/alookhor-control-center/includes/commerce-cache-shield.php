@@ -2,7 +2,7 @@
 if (!defined('ABSPATH')) exit;
 
 /**
- * ALOOKHOR Commerce Cache Shield v1 (3.10.398)
+ * ALOOKHOR Commerce Cache Shield v2 (3.10.415)
  * منعِ کش شدنِ صفحات تجاری (سبد خرید، تسویه حساب، حساب کاربری، درخواست‌های add-to-cart)
  * در برابر LiteSpeed/Cloudflare و هر کش لبه‌ای — منشأِ خرابی «محصول اضافه می‌شود
  * ولی سبد خالی دیده می‌شود» و «صفحه ادمین به مهمان نشان داده می‌شود».

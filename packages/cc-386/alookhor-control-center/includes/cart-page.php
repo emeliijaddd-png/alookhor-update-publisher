@@ -188,7 +188,8 @@ function alookhor_cc_cart_markup(){
   </div>
 
   <div class="ac-wrap">
-    <div class="cart-error" role="alert" hidden></div>
+    <nav class="ac-steps" aria-label="مراحل خرید"><span class="ac-step is-active"><b>۱</b><span>سبد خرید</span></span><i aria-hidden="true"></i><span class="ac-step"><b>۲</b><span>ثبت سفارش</span></span><i aria-hidden="true"></i><span class="ac-step"><b>۳</b><span>پرداخت</span></span></nav>
+    <div class="cart-error" role="alert" aria-live="assertive" hidden></div>
 
     <div class="ac-grid">
       <section class="ac-products" aria-labelledby="ac-products-title">
@@ -206,6 +207,7 @@ function alookhor_cc_cart_markup(){
           <div class="alookhor-cart-empty"><span class="ace-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6h15l-1.5 9.5a2 2 0 0 1-2 1.5H9.7a2 2 0 0 1-2-1.6L6 3H3"/><circle cx="10" cy="21" r="1.4"/><circle cx="18" cy="21" r="1.4"/></svg></span><strong>سبد خرید شما خالی است</strong><p>محصول موردنظر خود را از فروشگاه انتخاب کنید.</p><a href="<?php echo esc_url($shop); ?>">رفتن به فروشگاه</a></div>
           <?php else: echo alookhor_cc_cart_items_html($items); endif; ?>
         </div>
+        <div class="ac-undo" hidden role="status" aria-live="polite"><span><strong>محصول حذف شد.</strong> می‌توانید آن را برگردانید.</span><button type="button" data-cart-undo>بازگردانی</button></div>
         <div class="ac-products-foot">
           <button type="button" class="ac-share" data-ac-share><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="12" r="2.4"/><circle cx="18" cy="6" r="2.4"/><circle cx="18" cy="18" r="2.4"/><path d="m8.2 10.8 7.6-3.6m-7.6 6 7.6 3.6"/></svg> سبد خرید را به اشتراک بگذارید</button>
           <a class="ac-continue" href="<?php echo esc_url($shop); ?>"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5m6-6-6 6 6 6"/></svg> ادامه خرید</a>
@@ -220,13 +222,14 @@ function alookhor_cc_cart_markup(){
           <div class="sum-row sr-ship"><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h9v6H5zM14 14h3.2L20 17v1h-6z"/><circle cx="8" cy="19" r="1.6"/><circle cx="17" cy="19" r="1.6"/></svg> هزینه ارسال</span><span class="value"><?php echo $val('shipping_total') ? esc_html(alookhor_cc_cart_fa($val('shipping_total')) . ' تومان') : 'رایگان'; ?></span></div>
         </div>
         <div class="sum-total sr-total"><span>مبلغ قابل پرداخت</span><b class="value"><?php echo esc_html(alookhor_cc_cart_fa($val('total'))); ?> تومان</b></div>
+        <small class="sum-reassure">مبلغ نهایی پس از انتخاب روش ارسال و آدرس در تسویه‌حساب قطعی می‌شود.</small>
         <a class="ac-checkout" href="<?php echo esc_url($checkout); ?>">ادامه و ثبت سفارش <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5m6-6-6 6 6 6"/></svg></a>
 
         <div class="ac-coupon">
           <label for="alookhor-cart-coupon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 15 6-6M9.5 9.5h.01m5 5h.01M4 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v2.5a1.5 1.5 0 0 0 0 3V15a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-2.5a1.5 1.5 0 0 0 0-3V7Z"/></svg> کد تخفیف دارید؟</label>
           <div class="ac-coupon-row">
             <input id="alookhor-cart-coupon" type="text" autocomplete="off" inputmode="text" placeholder="کد تخفیف را وارد کنید …">
-            <button type="button">اعمال</button>
+            <button type="button" disabled>اعمال</button>
           </div>
         </div>
 
@@ -272,6 +275,7 @@ function alookhor_cc_cart_markup(){
         </div>
       </div>
     </section>
+    <div class="ac-mobile-checkout" aria-label="ثبت سفارش در موبایل"><div><small>قابل پرداخت</small><strong class="mobile-total"><?php echo esc_html(alookhor_cc_cart_fa($val('total'))); ?> تومان</strong></div><a class="mobile-checkout-btn" href="<?php echo esc_url($checkout); ?>" aria-label="ادامه و ثبت سفارش">ثبت سفارش <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5m6-6-6 6"/></svg></a></div>
   </div>
 </section>
 <?php if ($initial !== null) echo '<script id="alookhor-cart-initial" type="application/json">' . wp_json_encode($initial, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . '</script>'; ?>

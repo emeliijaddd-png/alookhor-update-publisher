@@ -53,6 +53,7 @@ function alookhor_cc_cart_payload() {
             'permalink' => $product->get_permalink($product->is_visible() ? [] : ['force_redirect' => true]),
             'quantity' => max(1, (int) ($item['quantity'] ?? 1)),
             'variation' => $variation,
+            'variation_attributes' => !empty($item['variation']) && is_array($item['variation']) ? array_map('wc_clean', $item['variation']) : [],
             'image' => wp_get_attachment_image_url($product->get_image_id(), 'woocommerce_thumbnail') ?: wc_placeholder_img_src(),
             'price' => (float) wc_get_price_to_display($product),
             'line_total' => (float) wc_get_price_to_display($product, ['qty' => (int) ($item['quantity'] ?? 1)]),
@@ -64,6 +65,7 @@ function alookhor_cc_cart_payload() {
         'items' => $items,
         'count' => (int) WC()->cart->get_cart_contents_count(),
         'lines' => count($items),
+        'coupons' => function_exists('WC') && WC()->cart ? array_values((array) WC()->cart->get_applied_coupons()) : [],
         'totals' => [
             'subtotal' => (float) ($totals['subtotal'] ?? 0),
             'discount_total' => (float) ($totals['discount_total'] ?? 0),
@@ -229,6 +231,19 @@ add_action('rest_api_init', function () {
                 wc_clear_notices();
                 return new WP_Error('coupon_failed', !empty($messages[0]['notice']) ? wp_strip_all_tags($messages[0]['notice']) : 'کد تخفیف قابل اعمال نیست.', ['status' => 400]);
             }
+            WC()->cart->calculate_totals();
+            WC()->cart->set_session();
+            wc_clear_notices();
+            return alookhor_cc_cart_response();
+        },
+    ]);
+
+    register_rest_route('alookhor-cart/v4', '/cart/coupon/remove', [
+        'methods' => 'POST',
+        'permission_callback' => 'alookhor_cc_cart_mutation_guard',
+        'callback' => function () {
+            if (!alookhor_cc_cart_bootstrap()) return new WP_Error('cart_unavailable', 'WooCommerce cart is unavailable.', ['status' => 503]);
+            foreach ((array) WC()->cart->get_applied_coupons() as $coupon) WC()->cart->remove_coupon($coupon);
             WC()->cart->calculate_totals();
             WC()->cart->set_session();
             wc_clear_notices();

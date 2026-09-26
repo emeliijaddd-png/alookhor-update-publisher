@@ -1,8 +1,8 @@
-/* ALOOKHOR CART v3.10.412 — v4 client (SSR consume + live refresh, no X-WP-Nonce!) */
+/* ALOOKHOR CART v3.10.415 — Cart UX v2 + Woo session bridge (no X-WP-Nonce!) */
 (function(){
 'use strict';
 const ROOT='#alookhor-cart', cfg=window.ALOOKHOR_CART_CONFIG||{}, API=String(cfg.cartApi||'/wp-json/alookhor-cart/v4/').replace(/\/+$/,'');
-const state={items:[],totals:{},nonce:cfg.nonce||'',busy:false};
+const state={items:[],totals:{},coupons:[],nonce:cfg.nonce||'',busy:false,lastRemoved:null};
 const q=(s,r=document)=>r.querySelector(s), qa=(s,r=document)=>Array.from(r.querySelectorAll(s));
 const fa=n=>(Number(n)||0).toLocaleString('fa-IR'), fp=n=>String(n).replace(/[0-9]/g,d=>'۰۱۲۳۴۵۶۷۸۹'[d]);
 const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
@@ -45,40 +45,60 @@ function render(){
  const r=q(ROOT),box=q('.cart-items',r);if(!r||!box)return;
  const lines=linesCount(),ce=q('.cart-items-count',r);if(ce)ce.textContent='('+fp(lines)+' کالا)';
  box.innerHTML=lines?state.items.map(rowHTML).join(''):emptyHTML();
- renderSummary();syncCount();bindRows();paintWish();hideLegacy();
+ renderSummary();syncCount();bindRows();paintWish();hideLegacy();const mb=q('.ac-mobile-checkout',r);if(mb)mb.classList.toggle('is-visible',window.innerWidth<=760&&state.items.length>0);
+}
+function applyPayload(d){
+ if(!d||typeof d!=='object'||!Array.isArray(d.items)||!d.totals)return false;
+ state.items=d.items;state.totals=d.totals||{};state.coupons=Array.isArray(d.coupons)?d.coupons:[];if(d.nonce)state.nonce=d.nonce;render();return true;
 }
 function renderSummary(){
  const r=q(ROOT),t=state.totals||{},v=k=>(Number(t[k])||0);if(!r)return;
  const set=(sel,txt)=>{const el=q(sel+' .value',r);if(el)el.textContent=txt;};
  set('.sr-sub',fa(v('subtotal'))+' تومان');
  set('.sr-disc',v('discount_total')?'−'+fa(v('discount_total'))+' تومان':'۰ تومان');
- set('.sr-ship',v('shipping_total')?fa(v('shipping_total'))+' تومان':'رایگان');
+ set('.sr-ship',v('shipping_total')?fa(v('shipping_total'))+' تومان':'محاسبه در تسویه‌حساب');
  set('.sr-total',fa(v('total'))+' تومان');
+ const mt=q('.mobile-total',r);if(mt)mt.textContent=fa(v('total'))+' تومان';
 }
 function syncCount(){const n=linesCount();qa('.wd-cart-number,.ak-cart-badge,.alookhor-header-cart-count,.cart-count,[data-cart-count]').forEach(el=>{el.textContent=fp(n);el.style.display=n?'':'none';});}
 async function load(){
  const r=q(ROOT);if(!r)return;hideLegacy();
- try{const d=await api('/cart');state.items=d.items||[];state.totals=d.totals||{};if(d.nonce)state.nonce=d.nonce;render();error('');}
+ try{const d=await api('/cart');if(!applyPayload(d))throw new Error('پاسخ سبد ناقص است');error('');}
  catch(e){error('بارگذاری سبد خرید انجام نشد. لطفاً دوباره تلاش کنید.');console.error(e);}
 }
 async function update(key,qty){
  if(state.busy)return;state.busy=true;
- try{await api('cart/update',{method:'POST',body:{key,quantity:qty}});await load();}
+ try{const d=await api('cart/update',{method:'POST',body:{key,quantity:qty}});applyPayload(d);error('');}
  catch(e){error(e.message||'تغییر تعداد انجام نشد.');}
- finally{state.busy=false;}
+ finally{state.busy=false;renderSummary();}
 }
 async function remove(key){
- if(state.busy)return;state.busy=true;
- try{await api('cart/remove',{method:'POST',body:{key}});await load();toast('محصول از سبد حذف شد');}
+ if(state.busy)return;state.busy=true;const old=state.items.find(x=>String(x.key)===String(key));if(old)state.lastRemoved=JSON.parse(JSON.stringify(old));
+ try{const d=await api('cart/remove',{method:'POST',body:{key}});applyPayload(d);error('');showUndo();toast('محصول از سبد حذف شد');}
  catch(e){error(e.message||'حذف محصول انجام نشد.');}
  finally{state.busy=false;}
 }
 async function coupon(code){
  const b=q('.ac-coupon button',q(ROOT));if(b)b.disabled=true;
- try{await api('cart/coupon',{method:'POST',body:{code}});await load();toast('کد تخفیف اعمال شد');}
+ try{const d=await api('cart/coupon',{method:'POST',body:{code}});applyPayload(d);error('');toast('کد تخفیف اعمال شد');}
  catch(e){error(e.message||'کد تخفیف قابل اعمال نیست.');}
- finally{if(b)b.disabled=false;}
+ finally{renderSummary();}
 }
+async function removeCoupon(){
+ if(state.busy)return;state.busy=true;
+ try{const d=await api('cart/coupon/remove',{method:'POST',body:{}});applyPayload(d);toast('کد تخفیف حذف شد');}
+ catch(e){error(e.message||'حذف کد تخفیف انجام نشد.');}
+ finally{state.busy=false;renderSummary();}
+}
+async function undoRemove(){
+ const x=state.lastRemoved;if(!x||state.busy)return;state.busy=true;
+ try{const d=await api('cart/add',{method:'POST',body:{product_id:Number(x.id)||0,variation_id:Number(x.variation_id)||0,variation:x.variation_attributes||{},quantity:Number(x.quantity)||1}});applyPayload(d);state.lastRemoved=null;hideUndo();toast('محصول به سبد بازگردانده شد');}
+ catch(e){error(e.message||'بازگردانی محصول انجام نشد.');}
+ finally{state.busy=false;}
+}
+function showUndo(){const e=q('.ac-undo',q(ROOT));if(!e)return;e.hidden=false;clearTimeout(e._t);e._t=setTimeout(()=>{state.lastRemoved=null;hideUndo();},7000);}
+function hideUndo(){const e=q('.ac-undo',q(ROOT));if(e)e.hidden=true;}
+function enhanceCartUX(){const r=q(ROOT);if(!r)return;const u=q('[data-cart-undo]',r);if(u)u.onclick=undoRemove;const bar=q('.ac-mobile-checkout',r);if(bar){const update=()=>bar.classList.toggle('is-visible',window.innerWidth<=760&&state.items.length>0);update();window.addEventListener('resize',update,{passive:true});}}
 function bindRows(){
  const r=q(ROOT);if(!r)return;
  qa('[data-cart-qty]',r).forEach(b=>b.onclick=()=>{const i=state.items.find(x=>String(x.key)===String(b.dataset.key));if(i)update(b.dataset.key,b.dataset.cartQty==='+'?Number(i.quantity)+1:Math.max(1,Number(i.quantity)-1));});
@@ -87,7 +107,7 @@ function bindRows(){
 function bindStatics(){
  const r=q(ROOT);if(!r)return;
  const cb=q('.ac-coupon button',r),ci=q('.ac-coupon input',r);
- if(cb&&ci){cb.onclick=()=>{const code=ci.value.trim();if(code)coupon(code);};ci.onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();cb.click();}};}
+ if(cb&&ci){cb.onclick=()=>{const code=ci.value.trim();if(code)coupon(code);};ci.oninput=()=>{cb.disabled=!ci.value.trim()||state.busy;};ci.onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();if(!cb.disabled)cb.click();}};}
  const share=q('[data-ac-share]',r);
  if(share)share.onclick=async()=>{const url=location.href.split('#')[0];try{await navigator.clipboard.writeText(url);toast('لینک سبد خرید کپی شد');}catch(e){const ta=document.createElement('textarea');ta.value=url;document.body.appendChild(ta);ta.select();try{document.execCommand('copy');toast('لینک سبد خرید کپی شد');}catch(x){toast('کپی لینک انجام نشد');}ta.remove();}};
  qa('.faq-q',r).forEach(btn=>btn.onclick=()=>{const it=btn.closest('.faq-item');const open=it.classList.toggle('open');const a=q('.faq-a',it);if(a)a.style.maxHeight=open?(a.scrollHeight+24)+'px':'0px';});
@@ -110,7 +130,7 @@ async function recommend(){
   const res=await fetch(API+'recommendations?_='+Date.now(),{credentials:'include',cache:'no-store',headers:{'Accept':'application/json'}});
   if(!res.ok)return;const data=await res.json();
   if(Array.isArray(data)&&data.length){grid.innerHTML=data.slice(0,4).map(cardHTML).join('');
-   qa('[data-add-id]',grid).forEach(b=>b.onclick=async()=>{if(b.disabled)return;b.disabled=true;const v0=Number(b.dataset.addVariation)||0;try{await api('cart/add',{method:'POST',body:(v0?{product_id:Number(b.dataset.addId),variation_id:v0,quantity:1}:{product_id:Number(b.dataset.addId),quantity:1})});await load();toast('محصول به سبد اضافه شد');}catch(e){error(e.message||'افزودن محصول انجام نشد.');}finally{b.disabled=false;}});
+   qa('[data-add-id]',grid).forEach(b=>b.onclick=async()=>{if(b.disabled)return;b.disabled=true;const v0=Number(b.dataset.addVariation)||0;try{const d=await api('cart/add',{method:'POST',body:(v0?{product_id:Number(b.dataset.addId),variation_id:v0,quantity:1}:{product_id:Number(b.dataset.addId),quantity:1})});applyPayload(d);toast('محصول به سبد اضافه شد');}catch(e){error(e.message||'افزودن محصول انجام نشد.');}finally{b.disabled=false;}});
    paintWish();
   }
  }catch(e){console.error(e);}
@@ -119,7 +139,7 @@ function hideLegacy(){const root=q(ROOT);if(!root)return;qa('.woocommerce-cart-f
 function init(){const r=q(ROOT);if(!r)return;
  /* 3.10.405 — خودترمیم‌گری کش کهنه: اگر HTML صفحه با بیلد این فایل JS جفت نباشد
     (کش مرورگر/LiteSpeed نسخهٔ قدیمی را سرو کرده)، یک‌بار با پارامتر کش‌شکن ریلود می‌کنیم. */
- try{const BUILD='3.10.414';const mb=r.getAttribute('data-ac-build')||'';
+ try{const BUILD='3.10.415';const mb=r.getAttribute('data-ac-build')||'';
   if(mb&&mb!==BUILD){const k='ac_heal_'+BUILD;let done=false;try{done=sessionStorage.getItem(k)==='1';}catch(e){}
    if(!done){try{sessionStorage.setItem(k,'1');}catch(e){}
     const u=new URL(location.href);u.searchParams.set('ac_b',BUILD);location.replace(u.toString());return;}
@@ -127,6 +147,6 @@ function init(){const r=q(ROOT);if(!r)return;
  }catch(e){}
  document.body.classList.add('alookhor-cart-active');hideLegacy();
  try{const j=q('#alookhor-cart-initial');if(j){const d=JSON.parse(j.textContent||'{}');if(d&&Array.isArray(d.items)){state.items=d.items;state.totals=d.totals||{};render();}}}catch(err){console.error(err);}
- bindStatics();load();recommend();}
+ bindStatics();enhanceCartUX();load();recommend();}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();

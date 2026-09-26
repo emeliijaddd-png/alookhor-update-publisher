@@ -1,5 +1,12 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.415 — 2026-09-26 — Cart UX v2
+- Added a 3-step purchase indicator, denser mobile cart cards, sticky mobile checkout, accessible focus states and reduced-motion support.
+- Added undo-after-remove and direct mutation-response hydration so delayed/stale GET responses cannot overwrite a successful cart mutation.
+- Added progressive coupon controls and a coupon-removal route; shipping shows as calculated at checkout when WooCommerce reports zero.
+- Preserved the verified 3.10.414 LiteSpeed defenses, no-store cart headers, custom cart nonce, variable-product resolution and quantity-preserving add-to-cart path.
+
+
 ## v3.10.19 — 2026-08-16 — Two-Row Header Reference Match
 - TOP BAR: Burgundy glass surface, 18px Blur, subtle Gold separators and physical order Support (left), shipping/export message (center), Phone (right).
 - ICON: support dot replaced by a scoped headset SVG while existing Phone/Globe content remains dynamic.
