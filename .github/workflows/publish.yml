@@ -137,3 +137,5 @@ jobs:
           lftp -f /tmp/alookhor-upload-manifest.lftp
           python3 scripts/verify_public_release.py manifest
           echo "ALOOKHOR ${GITHUB_REF_NAME} verified over public HTTPS."
+
+# verified publish trigger
