@@ -86,7 +86,7 @@ jobs:
           ! grep -qi 'Fatal error' /tmp/site.html
           echo "SITE_RECOVERED_WITH_PLUGIN_DISABLED"
 
-      - name: Exact live file repair and verification
+      - name: Inspect exact live plugin filesystem
         env:
           FTP_SERVER: ${{ secrets.FTP_SERVER }}
           FTP_PORT: ${{ secrets.FTP_PORT }}
@@ -95,37 +95,14 @@ jobs:
         run: |
           set -euo pipefail
           python3 - <<'PY'
-          import os,subprocess,hashlib
-          from pathlib import Path
-          from urllib.parse import quote
-          repo=Path('plugin/alookhor-control-center')
-          files={'alookhor-control-center.php':repo/'alookhor-control-center.php','includes/shortcode-header.php':repo/'includes/shortcode-header.php'}
-          server=os.environ['FTP_SERVER'].strip(); port=os.environ['FTP_PORT'].strip(); user=os.environ['FTP_USERNAME'].strip(); password=os.environ['FTP_PASSWORD']
-          auth=f"ftp://{quote(user,safe='')}:{quote(password,safe='')}@{server}"
-          common=['set cmd:fail-exit true','set net:max-retries 3','set net:timeout 30','set ftp:passive-mode true','set ftp:ssl-auth TLS','set ftp:ssl-force true','set ftp:ssl-protect-data true','set ssl:verify-certificate true',f'open -p {port} "{auth}"']
-          for rel,src in files.items():
-            local=f'/tmp/{Path(rel).name}'; Path(local).write_bytes(src.read_bytes())
-            remote_dir='public_html/wp-content/plugins/alookhor-control-center'
-            remote=remote_dir+'/'+rel
-            tmp=remote+'.repairtmp'
-            cmds=common+[f'put {local} -o {tmp}',f'mv {tmp} {remote}','bye']
-            p=Path('/tmp/fix.lftp'); p.write_text('\\n'.join(cmds)+'\\n'); p.chmod(0o600); subprocess.run(['lftp','-f',str(p)],check=True)
-            cmds=common+[f'cd "{remote_dir}"',f'cat "{rel}"','bye']
-            p.write_text('\\n'.join(cmds)+'\\n'); q=subprocess.run(['lftp','-f',str(p)],capture_output=True,check=True)
-            actual=q.stdout
-            expected=src.read_bytes(); print(rel,'EXPECTED',hashlib.sha256(expected).hexdigest(),'REMOTE',hashlib.sha256(actual).hexdigest(),'BYTES',len(actual)); assert actual==expected, rel+' remote content mismatch'
-          print('EXACT_LIVE_FILES_MATCH_REPOSITORY')
-          PY
-          python3 - <<'PY'
           import os,subprocess
           from pathlib import Path
           from urllib.parse import quote
           server=os.environ['FTP_SERVER'].strip(); port=os.environ['FTP_PORT'].strip(); user=os.environ['FTP_USERNAME'].strip(); password=os.environ['FTP_PASSWORD']
           auth=f"ftp://{quote(user,safe='')}:{quote(password,safe='')}@{server}"
-          c=['set cmd:fail-exit true','set net:max-retries 3',f'open -p {port} "{auth}"','cd "public_html/wp-content/plugins"','mv alookhor-control-center-disabled alookhor-control-center','bye']
-          p=Path('/tmp/activate.lftp'); p.write_text('\\n'.join(c)+'\\n'); p.chmod(0o600); subprocess.run(['lftp','-f',str(p)],check=True)
+          cmds=['set cmd:fail-exit true','set net:max-retries 3',f'open -p {port} "{auth}"','cd "public_html/wp-content/plugins"','ls -la','ls -la alookhor-control-center-disabled','ls -la alookhor-control-center-disabled/includes','bye']
+          p=Path('/tmp/inspect.lftp'); p.write_text('\\n'.join(cmds)+'\\n'); p.chmod(0o600); q=subprocess.run(['lftp','-f',str(p)],capture_output=True,text=True,check=True); print(q.stdout); print(q.stderr)
           PY
-          sleep 3
 
       - name: Five live site tests before publish
         run: |
