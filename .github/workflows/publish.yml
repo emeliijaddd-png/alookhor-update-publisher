@@ -105,15 +105,25 @@ jobs:
           common=['set cmd:fail-exit true','set net:max-retries 3','set net:timeout 30','set ftp:passive-mode true','set ftp:ssl-auth TLS','set ftp:ssl-force true','set ftp:ssl-protect-data true','set ssl:verify-certificate true',f'open -p {port} "{auth}"']
           for rel,src in files.items():
             local=f'/tmp/{Path(rel).name}'; Path(local).write_bytes(src.read_bytes())
-            remote='public_html/wp-content/plugins/alookhor-control-center/'+rel
+            remote_dir='public_html/wp-content/plugins/alookhor-control-center'
+            remote=remote_dir+'/'+rel
             tmp=remote+'.repairtmp'
             cmds=common+[f'put {local} -o {tmp}',f'mv {tmp} {remote}','bye']
             p=Path('/tmp/fix.lftp'); p.write_text('\\n'.join(cmds)+'\\n'); p.chmod(0o600); subprocess.run(['lftp','-f',str(p)],check=True)
-            cmds=common+[f'get {remote} -o /tmp/verify-{Path(rel).name}','bye']
-            p.write_text('\\n'.join(cmds)+'\\n'); subprocess.run(['lftp','-f',str(p)],check=True)
-            expected=hashlib.sha256(src.read_bytes()).hexdigest(); actual=hashlib.sha256(Path(f'/tmp/verify-{Path(rel).name}').read_bytes()).hexdigest()
-            print(rel,'EXPECTED',expected,'REMOTE',actual); assert expected==actual, rel+' remote hash mismatch'
+            cmds=common+[f'cd "{remote_dir}"',f'cat "{rel}"','bye']
+            p.write_text('\\n'.join(cmds)+'\\n'); q=subprocess.run(['lftp','-f',str(p)],capture_output=True,check=True)
+            actual=q.stdout
+            expected=src.read_bytes(); print(rel,'EXPECTED',hashlib.sha256(expected).hexdigest(),'REMOTE',hashlib.sha256(actual).hexdigest(),'BYTES',len(actual)); assert actual==expected, rel+' remote content mismatch'
           print('EXACT_LIVE_FILES_MATCH_REPOSITORY')
+          PY
+          python3 - <<'PY'
+          import os,subprocess
+          from pathlib import Path
+          from urllib.parse import quote
+          server=os.environ['FTP_SERVER'].strip(); port=os.environ['FTP_PORT'].strip(); user=os.environ['FTP_USERNAME'].strip(); password=os.environ['FTP_PASSWORD']
+          auth=f"ftp://{quote(user,safe='')}:{quote(password,safe='')}@{server}"
+          c=['set cmd:fail-exit true','set net:max-retries 3',f'open -p {port} "{auth}"','cd "public_html/wp-content/plugins"','mv alookhor-control-center-disabled alookhor-control-center','bye']
+          p=Path('/tmp/activate.lftp'); p.write_text('\\n'.join(c)+'\\n'); p.chmod(0o600); subprocess.run(['lftp','-f',str(p)],check=True)
           PY
           sleep 3
 
