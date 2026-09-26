@@ -61,8 +61,29 @@ add_filter('rest_post_dispatch', function ($response) {
     if (strpos($route, '/alookhor-') === false) return $response;
     $response->header('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0');
     $response->header('X-LiteSpeed-Cache-Control', 'no-cache');
+    /* 3.10.414: تگ اختصاصی برای پاکسازی هدفمند کش LiteSpeed */
+    if (class_exists('LiteSpeed_Cache_API') && method_exists('LiteSpeed_Cache_API','tag_add')) {
+        try { LiteSpeed_Cache_API::tag_add(array('ALOOKHOR_CART')); } catch (Throwable $e) {}
+    }
+    $response->header('X-LiteSpeed-Tag', 'ALOOKHOR_CART');
     return $response;
 }, 5, 1);
+
+/* ── 3.10.414: پیدایش واقعی روی لایو — کش سرور رشتهٔ کوئری را نادیده می‌گرفت و
+ *  GET /wp-json/alookhor-… و لینک‌های ?add-to-cart=… را از روی کپیٔ کش‌شده سرو می‌کرد؛
+ *  نتیجه: آیتم‌ها «بعد چند ثانیه» با پاسخ کش‌شدهٔ «سبد خالی» جایگزین می‌شدند.
+ *  در اینجا (الف) مسیرهای ما از لیست کش LiteSpeed خارج می‌شوند، (ب) پارامترهای حیاتی
+ *  از کش کوئری مستثنا می‌شوند — فقط اگر افزونهٔ LiteSpeed Cache فعال و API موجود باشد. */
+add_action('init', function () {
+    if (!class_exists('LiteSpeed_Cache_API')) return;
+    if (!method_exists('LiteSpeed_Cache_API', 'conf_append')) return;
+    try {
+        LiteSpeed_Cache_API::conf_append('cache-uri_exc', '/alookhor-');
+        LiteSpeed_Cache_API::conf_append('cache-qs_exc', 'add-to-cart');
+        LiteSpeed_Cache_API::conf_append('cache-qs_exc', 'quantity');
+        LiteSpeed_Cache_API::conf_append('cache-qs_exc', 'variation_id');
+    } catch (Throwable $e) {}
+}, 998);
 
 /**
  * دفاع فعال: هر ساعت، نسخه‌های کش‌شدهٔ صفحات حساس را از LiteSpeed پاک می‌کنیم.
@@ -83,9 +104,16 @@ add_action('init', function () {
     $urls[] = home_url('/cart/');
     $urls[] = home_url('/checkout/');
     $urls[] = home_url('/my-account/');
+    /* 3.10.414: مسیرهای REST سبد هم از کش LiteSpeed پاک شوند (کپیٔ قدیمی «سبد خالی») */
+    $urls[] = rest_url('alookhor-cart/v4/cart');
+    $urls[] = rest_url('alookhor-cart/v4/recommendations');
     $urls   = array_unique(array_filter($urls));
     foreach ($urls as $u) {
         do_action('litespeed_purge_url', $u);
     }
     do_action('litespeed_purge_all_esi');
+    /* پاکسازی با تگ اختصاصی هم (اگر API افزونهٔ LiteSpeed موجود باشد) */
+    if (class_exists('LiteSpeed_Cache_API') && method_exists('LiteSpeed_Cache_API','purge_tag')) {
+        try { LiteSpeed_Cache_API::purge_tag('ALOOKHOR_CART'); } catch (Throwable $e) {}
+    }
 }, 999);
