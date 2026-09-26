@@ -29,11 +29,11 @@ jobs:
           import json,re
           v="${{ env.RECOVERY_VERSION }}"
           p=Path("plugin/alookhor-control-center/alookhor-control-center.php")
-          s=p.read_text(); s=re.sub(r'(\\* Version:\\s*)\\S+',r'\\g<1>'+v,s,1); s=s.replace("define('ALOOKHOR_CC_VERSION', '3.10.405');",f"define('ALOOKHOR_CC_VERSION', '{v}');").replace("define('ALOOKHOR_CC_BUILD', '3.10.405');",f"define('ALOOKHOR_CC_BUILD', '{v}');"); p.write_text(s)
-          r=Path("plugin/alookhor-control-center/readme.txt"); s=r.read_text(); s=re.sub(r'(?m)^Stable tag:\\s*\\S+',f'Stable tag: {v}',s); r.write_text(s)
-          c=Path("plugin/alookhor-control-center/config/site.json"); d=json.loads(c.read_text()); d["version"]=v; c.write_text(json.dumps(d,ensure_ascii=False,indent=2)+"\\n")
+          s=p.read_text(); s=re.sub(r'(\* Version:\s*)\S+',r'\g<1>'+v,s,1); s=s.replace("define('ALOOKHOR_CC_VERSION', '3.10.405');",f"define('ALOOKHOR_CC_VERSION', '{v}');").replace("define('ALOOKHOR_CC_BUILD', '3.10.405');",f"define('ALOOKHOR_CC_BUILD', '{v}');"); p.write_text(s)
+          r=Path("plugin/alookhor-control-center/readme.txt"); s=r.read_text(); s=re.sub(r'(?m)^Stable tag:\s*\S+',f'Stable tag: {v}',s); r.write_text(s)
+          c=Path("plugin/alookhor-control-center/config/site.json"); d=json.loads(c.read_text()); d["version"]=v; c.write_text(json.dumps(d,ensure_ascii=False,indent=2)+"\n")
           rel={"version":v,"previous":"3.10.410","state":"ready","requires":"6.0","tested":"7.0","requires_php":"8.0","description":"نسخه بازیابی امن بر پایه آخرین درخت سالم 3.10.405.","changelog":[{"tag":"RECOVERY","title":"بازیابی افزونه","desc":"درخت سالم 3.10.405 با شماره نسخه جدید برای جایگزینی نسخه خراب منتشر شد."},{"tag":"UPDATE","title":"بازگشت مسیر انتشار سالم","desc":"کانال Manifest و ZIP همان مسیر انتشار قبلی است."}]}
-          Path("release.json").write_text(json.dumps(rel,ensure_ascii=False,indent=2)+"\\n")
+          Path("release.json").write_text(json.dumps(rel,ensure_ascii=False,indent=2)+"\n")
           PY
           python3 -m py_compile scripts/*.py
           find plugin/alookhor-control-center -name '*.php' -type f -print0 | xargs -0 -n1 php -l
@@ -76,11 +76,11 @@ jobs:
           from pathlib import Path
           import json,re
           v="${{ env.RECOVERY_VERSION }}"
-          p=Path("plugin/alookhor-control-center/alookhor-control-center.php"); s=p.read_text(); s=re.sub(r'(\\* Version:\\s*)\\S+',r'\\g<1>'+v,s,1); s=s.replace("define('ALOOKHOR_CC_VERSION', '3.10.405');",f"define('ALOOKHOR_CC_VERSION', '{v}');").replace("define('ALOOKHOR_CC_BUILD', '3.10.405');",f"define('ALOOKHOR_CC_BUILD', '{v}');"); p.write_text(s)
-          r=Path("plugin/alookhor-control-center/readme.txt"); s=r.read_text(); s=re.sub(r'(?m)^Stable tag:\\s*\\S+',f'Stable tag: {v}',s); r.write_text(s)
-          c=Path("plugin/alookhor-control-center/config/site.json"); d=json.loads(c.read_text()); d["version"]=v; c.write_text(json.dumps(d,ensure_ascii=False,indent=2)+"\\n")
+          p=Path("plugin/alookhor-control-center/alookhor-control-center.php"); s=p.read_text(); s=re.sub(r'(\* Version:\s*)\S+',r'\g<1>'+v,s,1); s=s.replace("define('ALOOKHOR_CC_VERSION', '3.10.405');",f"define('ALOOKHOR_CC_VERSION', '{v}');").replace("define('ALOOKHOR_CC_BUILD', '3.10.405');",f"define('ALOOKHOR_CC_BUILD', '{v}');"); p.write_text(s)
+          r=Path("plugin/alookhor-control-center/readme.txt"); s=r.read_text(); s=re.sub(r'(?m)^Stable tag:\s*\S+',f'Stable tag: {v}',s); r.write_text(s)
+          c=Path("plugin/alookhor-control-center/config/site.json"); d=json.loads(c.read_text()); d["version"]=v; c.write_text(json.dumps(d,ensure_ascii=False,indent=2)+"\n")
           rel={"version":v,"previous":"3.10.410","state":"ready","requires":"6.0","tested":"7.0","requires_php":"8.0","description":"نسخه بازیابی امن بر پایه آخرین درخت سالم 3.10.405.","changelog":[{"tag":"RECOVERY","title":"بازیابی افزونه","desc":"درخت سالم 3.10.405 با شماره نسخه جدید برای جایگزینی نسخه خراب منتشر شد."},{"tag":"UPDATE","title":"بازگشت مسیر انتشار سالم","desc":"کانال Manifest و ZIP همان مسیر انتشار قبلی است."}]}
-          Path("release.json").write_text(json.dumps(rel,ensure_ascii=False,indent=2)+"\\n")
+          Path("release.json").write_text(json.dumps(rel,ensure_ascii=False,indent=2)+"\n")
           PY
           python3 scripts/build_release.py
       - name: Install FTPS client
@@ -100,7 +100,7 @@ jobs:
           server=os.environ['FTP_SERVER'].strip(); port=os.environ['FTP_PORT'].strip(); user=os.environ['FTP_USERNAME'].strip(); password=os.environ['FTP_PASSWORD']
           auth=f"ftp://{quote(user,safe='')}:{quote(password,safe='')}@{server}"
           c=['set cmd:fail-exit true','set net:max-retries 2','set net:timeout 30','set ftp:passive-mode true','set ftp:ssl-auth TLS','set ftp:ssl-force true','set ftp:ssl-protect-data true','set ssl:verify-certificate true',f'open -p {port} "{auth}"']
-          s=Path('/tmp/recover.lftp'); s.write_text('\\n'.join(c+['cd "/home/tdwdwhzq/public_html/wp-content/plugins"','mv alookhor-control-center alookhor-control-center-broken-411','mkdir alookhor-control-center','mirror -R --overwrite plugin/alookhor-control-center ./alookhor-control-center','bye'])+'\\n'); s.chmod(0o600)
+          s=Path('/tmp/recover.lftp'); s.write_text('\n'.join(c+['cd "/home/tdwdwhzq/public_html/wp-content/plugins"','mv alookhor-control-center alookhor-control-center-broken-411','mkdir alookhor-control-center','mirror -R --overwrite plugin/alookhor-control-center ./alookhor-control-center','bye'])+'\n'); s.chmod(0o600)
           q=subprocess.run(['lftp','-f',str(s)],capture_output=True,text=True); print(q.stdout); print(q.stderr); q.check_returncode()
           PY
           rm -f /tmp/recover.lftp
@@ -121,7 +121,7 @@ jobs:
           auth=f"ftp://{quote(user,safe='')}:{quote(password,safe='')}@{server}"
           c=['set cmd:fail-exit true','set net:max-retries 2','set net:timeout 30','set ftp:passive-mode true','set ftp:ssl-auth TLS','set ftp:ssl-force true','set ftp:ssl-protect-data true','set ssl:verify-certificate true',f'open -p {port} "{auth}"']
           files={'/tmp/a.lftp':c+[f'put public/releases/{package} -o releases/{package}','bye'],'/tmp/b.lftp':c+['put public/releases/SHA256SUMS.txt -o releases/SHA256SUMS.txt','put public/index.html -o index.html','put public/changelog.html -o changelog.html','put public/.htaccess -o .htaccess','bye'],'/tmp/c.lftp':c+['put public/manifest.json -o manifest.json.next','mv manifest.json.next manifest.json','bye']}
-          for n,cmd in files.items(): Path(n).write_text('\\n'.join(cmd)+'\\n'); Path(n).chmod(0o600)
+          for n,cmd in files.items(): Path(n).write_text('\n'.join(cmd)+'\n'); Path(n).chmod(0o600)
           for n in files: subprocess.run(['lftp','-f',n],check=True)
           PY
           rm -f /tmp/a.lftp /tmp/b.lftp /tmp/c.lftp
