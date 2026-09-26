@@ -47,6 +47,9 @@ License URI: https://alookhor.ir
 
 == Changelog ==
 
+= 3.10.414 =
+* Cart UX hardening: direct quantity input with Persian-digit normalization, accessible labels, bounded quantity updates, transient API retry, and busy-state feedback.
+
 = 3.10.354 =
 * Built on 3.10.345 (the last green, live release); the parallel 3.10.346-3.10.349 tags failed CI at "Validate source syntax" and were never deployed.
 * Desktop (>=1280px) "درباره آلو بخارایی الخور" card rebuilt per the owner mockup: one compact two-column card — copy on the left (kicker, title, intro paragraph, five gold check items one per line), orchard-bowl photo on the right filling the full card height with the round "100% طبیعی" badge at its top-right; no "مشاهده بیشتر" button and no empty plum area (root cause: `.pdp-pane .below-section{display:block}` out-specified the `.about-story{display:grid}` rules, so the photo rendered as a banner under the text). Phone/tablet layout of the section unchanged (all rules inside @media(min-width:1280px)); the rest of the desktop page is pixel-identical.
