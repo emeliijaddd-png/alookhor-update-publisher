@@ -13,6 +13,12 @@ function alookhor_cc_cart_bootstrap() {
     if (function_exists('wc_load_cart') && (!WC()->cart || !WC()->session)) {
         wc_load_cart();
     }
+    /* ── 3.10.419: ریشهٔ زندهٔ «هر درخواست = سشن خالی» — روی لایو پاسخ‌های REST
+     *  کوکی سشن Woo را نمی‌فرستند در نتیجه هر GET/POST سشن تازهٔ خالی می‌سازد و
+     *  کلیک روی کلیدها «محصول در سبد پیدا نشد» می‌کند. این‌جا صریح می‌نویسیم. */
+    if (WC()->session && method_exists(WC()->session, 'set_customer_session_cookie')) {
+        WC()->session->set_customer_session_cookie(true);
+    }
     return WC()->cart instanceof WC_Cart;
 }
 
@@ -218,7 +224,7 @@ add_action('rest_api_init', function () {
                 }
             }
 
-            /* ── 3.10.418: اگر variation_id آمد ولی نقشهٔ ویژگی خالی بود (مثل دکمهٔ «افزودن»
+            /* ── 3.10.419: اگر variation_id آمد ولی نقشهٔ ویژگی خالی بود (مثل دکمهٔ «افزودن»
              * کارت پیشنهاد)، از روی خود ورییشن پرش می‌کنیم وگرنه در ردیف سبد گزینه‌اش
              * «بسته استاندارد» نمایش داده می‌شد. */
             if ($variation_id && empty($variation)) {
@@ -275,7 +281,7 @@ add_action('rest_api_init', function () {
         },
     ]);
 
-    /* ── 3.10.418: اندپوینت تشخیص موقت — برای یافتنِ علت «محصول در سبد پیدا نشد» روی لایو
+    /* ── 3.10.419: اندپوینت تشخیص موقت — برای یافتنِ علت «محصول در سبد پیدا نشد» روی لایو
      *  کاربر با همان مرورگر خودش بازش می‌کند؛ نشان می‌دهد REST با همان کوکی چه می‌بیند. */
     register_rest_route('alookhor-cart/v4', '/diagnose', [
         'methods' => 'GET',
@@ -292,6 +298,7 @@ add_action('rest_api_init', function () {
                 'logged_in' => is_user_logged_in(),
                 'cart_items' => count($cart),
                 'cart_keys' => array_keys($cart),
+                'session_cookie_capable' => (WC()->session && method_exists(WC()->session, 'set_customer_session_cookie')) ? true : false,
                 'plugin' => defined('ALOOKHOR_CC_VERSION') ? ALOOKHOR_CC_VERSION : '?',
             ));
         },
