@@ -199,7 +199,7 @@ STATUS: SOURCE DRAFT — deployment status must be verified separately.
 
 | File | Lines | SHA-256 |
 |---|---:|---|
-| `.github/workflows/publish.yml` | 152 | `fbf09928ff3d1d383d3d07ea265e58b20bbcc5452e25db4a2f5e824466cb24c3` |
+| `.github/workflows/publish.yml` | 150 | `234ffa1d9724dba7b91586c3c6ad7a3f03c74306321e86b3fedb6af25d88cc8b` |
 | `ops/wordpress-ci-bootstrap.php` | 215 | `409c23f2be99c6651b0e75dc877c91c884534e6b16f9985c177cf65d14fd4c95` |
 | `plugin/alookhor-control-center/alookhor-control-center.php` | 446 | `e83949db456d53d0cb589cc423aa2fac1b7a8683706f4ae3cb07e61725885a03` |
 | `plugin/alookhor-control-center/assets/css/frontend-about-page.css` | 37 | `4a895038f4ede91f1172279e86e10ed6939a8a406c16ee780c326f6f4f5df5c2` |
@@ -400,8 +400,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v5
       - name: Test real 405-to-412 WordPress upgrade, WooCommerce and Chromium cart
-        env:
-          GH_TOKEN: ${{ github.token }}
         run: bash scripts/cart-tests/wordpress_smoke.sh
 
   # This diagnostic is strictly read-only. Credentials, if configured, are

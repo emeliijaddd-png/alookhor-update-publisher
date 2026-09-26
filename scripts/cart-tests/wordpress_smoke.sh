@@ -49,10 +49,11 @@ export WP_SMOKE_CANDIDATE_ZIP="$(pwd)/public/releases/alookhor-control-center-3.
 export WP_SMOKE_CANDIDATE_MANIFEST="$(pwd)/public/manifest.json"
 test -f "$WP_SMOKE_CANDIDATE_ZIP"
 stage='download and verify complete 405 installation source'
-# The pinned GitHub blob is 5 MB; gh api with read-only GITHUB_TOKEN works
-# for binary content whereas the JSON contents API omits files above 1 MB.
-gh api -H 'Accept: application/vnd.github.raw+json' \
-  'repos/emeliijaddd-png/alookhor-update-publisher/contents/packages/cc-release/alookhor-control-center.zip?ref=9ce51fdc897182811db4f808df8c7046de1221f5' > "$baseline"
+# Read the immutable Git blob from this same repository, not a mutable branch,
+# and verify its published SHA before installing it in the isolated runner.
+git fetch -q --no-tags --depth=1 --filter=blob:none origin 9ce51fdc897182811db4f808df8c7046de1221f5
+test "$(git rev-parse FETCH_HEAD)" = '9ce51fdc897182811db4f808df8c7046de1221f5'
+git show 9ce51fdc897182811db4f808df8c7046de1221f5:packages/cc-release/alookhor-control-center.zip > "$baseline"
 printf '09fd472b032b3602acc8f2779ab2d1906040c5fa426d8f82f291557161b3f602  %s\n' "$baseline" | sha256sum -c -
 stage='checkout pinned WordPress 6.8'
 git clone -q --depth 1 --branch 6.8 https://github.com/WordPress/WordPress.git "$root"
