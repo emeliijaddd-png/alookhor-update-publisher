@@ -86,6 +86,46 @@ add_action('init', function () {
 }, 998);
 
 /**
+ * 3.10.417: پاکسازی خودکار و قطعی بلافاصله بعد از هر بروزرسانی پلاگین.
+ * مشکل لایو: مدخل‌های کش‌شدهٔ قدیمی (مثل «سبد خالی/دو محصول» یا صفحهٔ اصلیِ
+ * مسموم‌شده با ?add-to-cart) بدون اجرای PHP سرو می‌شدند؛ هدر/مستثنی‌سازی فقط
+ * از کشِ «آینده» جلوگیری می‌کند و مدخل قدیمی را پاک نمی‌کند. با هر تغییر نسخه،
+ * یک‌بار و دقیقاً یک‌بار purge_all می‌زنیم و صفحهٔ اصلی و سبد را هم تکی پرژ می‌کنیم.
+ */
+add_action('plugins_loaded', function () {
+    if (!defined('ALOOKHOR_CC_VERSION')) return;
+    $seen = (string)get_option('alookhor_cc_cache_busted_ver', '');
+    if ($seen === ALOOKHOR_CC_VERSION) return;
+    update_option('alookhor_cc_cache_busted_ver', ALOOKHOR_CC_VERSION, false);
+    update_option('alookhor_cc_ls_purge_ts', time(), false);
+    if (class_exists('LiteSpeed_Cache_API') && method_exists('LiteSpeed_Cache_API', 'purge_all')) {
+        try { LiteSpeed_Cache_API::purge_all(); } catch (Throwable $e) {}
+    }
+    do_action('litespeed_purge_all');
+    foreach ([home_url('/'), rtrim(home_url('/'), '/')] as $u) {
+        do_action('litespeed_purge_url', $u);
+    }
+    if (function_exists('rest_url')) {
+        do_action('litespeed_purge_url', rest_url('alookhor-cart/v4/cart'));
+    }
+}, 3);
+
+/**
+ * 3.10.417: پاسخ هر تغییر سبد (add/update/remove/coupon) دستور پرژ مدخل‌های
+ * مرتبط را هم به سرور لایسسپید بدهد — حتی اگر ابزار purge API در دسترس نباشد.
+ */
+add_filter('rest_post_dispatch', function ($response) {
+    if (!($response instanceof WP_REST_Response)) return $response;
+    $route = isset($_SERVER['REQUEST_URI']) ? (string)$_SERVER['REQUEST_URI'] : '';
+    if (strpos($route, '/alookhor-cart/') === false) return $response;
+    $method = isset($_SERVER['REQUEST_METHOD']) ? $_SERVER['REQUEST_METHOD'] : 'GET';
+    if ($method !== 'GET' && $method !== 'HEAD' && !headers_sent()) {
+        header('X-LiteSpeed-Purge: ' . home_url('/cart/') . ',/,*ALOOKHOR_CART*', false);
+    }
+    return $response;
+}, 6, 1);
+
+/**
  * دفاع فعال: هر ساعت، نسخه‌های کش‌شدهٔ صفحات حساس را از LiteSpeed پاک می‌کنیم.
  * علت: هدرهای ضدکش فقط وقتی اعمال می‌شوند که PHP اجرا شود؛ نسخهٔ قدیمیِ کش‌شده
  * بدون اجرای PHP سرو می‌شد و همه «سبد خالیِ قدیمی» را می‌دیدند.

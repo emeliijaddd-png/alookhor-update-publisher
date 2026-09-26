@@ -1,8 +1,8 @@
-/* ALOOKHOR CART v3.10.416 — Cart UX v2 + route normalization + Woo session bridge */
+/* ALOOKHOR CART v3.10.417 — Cart UX v2 + route normalization + Woo session bridge */
 (function(){
 'use strict';
 const ROOT='#alookhor-cart', cfg=window.ALOOKHOR_CART_CONFIG||{}, API=String(cfg.cartApi||'/wp-json/alookhor-cart/v4/').replace(/\/+$/,'');
-const apiPath=path=>{path=String(path||'');return path.charAt(0)==='/'?path.slice(1):path;};
+const apiPath=path=>'/'+String(path||'').replace(/^\/+/,'');
 const state={items:[],totals:{},coupons:[],nonce:cfg.nonce||'',busy:false,lastRemoved:null};
 const q=(s,r=document)=>r.querySelector(s), qa=(s,r=document)=>Array.from(r.querySelectorAll(s));
 const fa=n=>(Number(n)||0).toLocaleString('fa-IR'), fp=n=>String(n).replace(/[0-9]/g,d=>'۰۱۲۳۴۵۶۷۸۹'[d]);
@@ -62,10 +62,10 @@ function renderSummary(){
  const mt=q('.mobile-total',r);if(mt)mt.textContent=fa(v('total'))+' تومان';
 }
 function syncCount(){const n=linesCount();qa('.wd-cart-number,.ak-cart-badge,.alookhor-header-cart-count,.cart-count,[data-cart-count]').forEach(el=>{el.textContent=fp(n);el.style.display=n?'':'none';});}
-async function load(){
+async function load(tryNo){
  const r=q(ROOT);if(!r)return;hideLegacy();
  try{const d=await api('/cart');if(!applyPayload(d))throw new Error('پاسخ سبد ناقص است');error('');}
- catch(e){error('بارگذاری سبد خرید انجام نشد. لطفاً دوباره تلاش کنید.');console.error(e);}
+ catch(e){if((tryNo||0)<1){setTimeout(()=>load(1),1200);return;}error('بارگذاری سبد خرید انجام نشد. لطفاً دوباره تلاش کنید.');console.error(e);}
 }
 async function update(key,qty){
  if(state.busy)return;state.busy=true;
@@ -140,7 +140,7 @@ function hideLegacy(){const root=q(ROOT);if(!root)return;qa('.woocommerce-cart-f
 function init(){const r=q(ROOT);if(!r)return;
  /* 3.10.405 — خودترمیم‌گری کش کهنه: اگر HTML صفحه با بیلد این فایل JS جفت نباشد
     (کش مرورگر/LiteSpeed نسخهٔ قدیمی را سرو کرده)، یک‌بار با پارامتر کش‌شکن ریلود می‌کنیم. */
- try{const BUILD='3.10.416';const mb=r.getAttribute('data-ac-build')||'';
+ try{const BUILD='3.10.417';const mb=r.getAttribute('data-ac-build')||'';
   if(mb&&mb!==BUILD){const k='ac_heal_'+BUILD;let done=false;try{done=sessionStorage.getItem(k)==='1';}catch(e){}
    if(!done){try{sessionStorage.setItem(k,'1');}catch(e){}
     const u=new URL(location.href);u.searchParams.set('ac_b',BUILD);location.replace(u.toString());return;}

@@ -218,6 +218,16 @@ add_action('rest_api_init', function () {
                 }
             }
 
+            /* ── 3.10.417: اگر variation_id آمد ولی نقشهٔ ویژگی خالی بود (مثل دکمهٔ «افزودن»
+             * کارت پیشنهاد)، از روی خود ورییشن پرش می‌کنیم وگرنه در ردیف سبد گزینه‌اش
+             * «بسته استاندارد» نمایش داده می‌شد. */
+            if ($variation_id && empty($variation)) {
+                $vp_fill = wc_get_product($variation_id);
+                if ($vp_fill && method_exists($vp_fill, 'get_variation_attributes')) {
+                    $variation = (array) $vp_fill->get_variation_attributes();
+                }
+            }
+
             $product = wc_get_product($variation_id ?: $product_id);
             if (!$product || !$product->is_purchasable() || !$product->is_in_stock()) {
                 return new WP_Error('product_unavailable', 'این محصول در حال حاضر قابل خرید نیست.', ['status' => 400]);
