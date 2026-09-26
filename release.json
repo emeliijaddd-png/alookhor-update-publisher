@@ -1,19 +1,31 @@
 {
-  "version":"3.10.407",
-  "previous":"3.10.406",
+  "version": "3.10.408",
+  "previous": "3.10.406",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "همگام‌سازی کامل سبد خرید با Renderer جدید، بهبود کوپن، پیشنهادها، بازخورد عملیات و تجربه موبایل",
+  "description": "نسخه بازیابی امن بر پایه مسیر پایدار 3.10.405؛ بازگشت سبد خرید به Renderer و REST bridge پایدار.",
   "changelog": [
-    {"tag":"FIX","title":"همگام‌سازی Renderer سبد خرید","desc":"کلاینت سبد خرید با ساختار جدید ac-* و Renderer فعلی همگام شد."},
-    {"tag":"UX","title":"عملیات سبد خرید","desc":"به‌روزرسانی تعداد، حذف، کوپن و افزودن پیشنهادها با وضعیت‌های بازخوردی پایدارتر انجام می‌شود."},
-    {"tag":"MOBILE","title":"تجربه موبایل","desc":"دکمه ادامه فرایند خرید و عناصر خلاصه سفارش با ساختار جدید سبد خرید سازگار شدند."}
+    {
+      "tag": "RECOVERY",
+      "title": "بازگشت به هسته پایدار",
+      "desc": "هسته افزونه به آخرین نسخه شناخته‌شده سالم 3.10.405 بازگردانده شد و فقط شماره نسخه افزایش یافت."
+    },
+    {
+      "tag": "UPDATE",
+      "title": "مسیر آپدیت WordPress",
+      "desc": "انتشار فقط از کانال خصوصی Manifest و ZIP انجام می‌شود و مسیر FTP مستقیم فایل‌های افزونه استفاده نمی‌شود."
+    },
+    {
+      "tag": "CART",
+      "title": "پایداری سبد خرید",
+      "desc": "کد سبد خرید نسخه پایدار شناخته‌شده حفظ شده است."
+    }
   ],
   "project": "ALOOKHOR",
   "area": "cart UX + renderer synchronization",
-  "reason":"رفع تداخل نام توابع با Renderer قدیمی و بازسازی سبد خرید با Store API.",
+  "reason": "بازیابی نسخه پایدار پس از خطای 3.10.406؛ حفظ مسیر WordPress Native Updater و حذف مسیر FTP مستقیم افزونه.",
   "files": [
     "plugin/alookhor-control-center/assets/css/frontend-cart.css",
     "plugin/alookhor-control-center/assets/js/frontend-cart.js",
