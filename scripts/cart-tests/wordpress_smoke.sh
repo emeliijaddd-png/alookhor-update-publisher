@@ -68,9 +68,10 @@ curl -fsSL --retry 3 https://github.com/wp-cli/wp-cli/releases/download/v2.12.0/
 printf 'ce34ddd838f7351d6759068d09793f26755463b4a4610a5a5c0a97b68220d85c  %s\n' "$cli" | sha256sum -c -
 curl -fsSL --retry 3 https://github.com/woocommerce/woocommerce/releases/download/10.2.0/woocommerce.zip -o "$woo"
 printf '8e9ab54e04280f1d49e0d8199761217d5d577482eb5fe47420f7dd42533ef1cb  %s\n' "$woo" | sha256sum -c -
-mkdir -p "$root/wp-content/plugins"
+mkdir -p "$root/wp-content/plugins" "$root/wp-content/mu-plugins"
 unzip -q "$woo" -d "$root/wp-content/plugins"
 unzip -q "$baseline" -d "$root/wp-content/plugins"
+cp scripts/cart-tests/wordpress_header_fixture.php "$root/wp-content/mu-plugins/alookhor-ci-header.php"
 wp() { php -d memory_limit=512M "$cli" --path="$root" "$@"; }
 stage='install isolated WordPress'
 wp core config --dbname=wp_smoke --dbuser=wp_smoke --dbpass=local-smoke-only --dbhost=127.0.0.1:3306 --skip-check
