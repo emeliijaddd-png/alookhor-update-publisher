@@ -1,5 +1,13 @@
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
+## v3.10.412 — 2026-09-26 — Cart repair candidate (not published)
+- Restore the complete 3.10.405 GitHub plugin tree (132 source files) before changing code; keep header, hero, checkout and assets from that tree rather than publishing the incomplete main/3.10.387 tree.
+- Join all v4 cart routes with exactly one slash; use the server's mutation response, so delayed/stale GETs cannot erase a successful add. A suspicious empty or partially stale GET no longer silently removes SSR items; it blocks checkout pending refresh.
+- Make recommended variable products require an explicit in-stock variation and attribute selection. The related-product link on a product page now honestly says selection is needed.
+- Persist guest session cookie on cart mutations, report distinct lines and total units separately, fix CSS for toast and add/option controls, use actual Woo line totals, and hex-escape embedded SSR JSON.
+- Remove the unauthenticated destructive GET cart-probe, reject bad-hash ZIPs from every accepted package host, and disable the stale CDN manifest fallback by default.
+- The release remains **draft** pending real WordPress/WooCommerce browser and release-channel validation; no production install was performed.
+
 ## v3.10.19 — 2026-08-16 — Two-Row Header Reference Match
 - TOP BAR: Burgundy glass surface, 18px Blur, subtle Gold separators and physical order Support (left), shipping/export message (center), Phone (right).
 - ICON: support dot replaced by a scoped headset SVG while existing Phone/Globe content remains dynamic.

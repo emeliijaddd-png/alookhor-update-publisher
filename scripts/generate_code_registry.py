@@ -11,7 +11,7 @@ ROOT = Path(__file__).resolve().parents[1]
 PLUGIN = ROOT / 'plugin' / 'alookhor-control-center'
 OUTPUT = ROOT / 'docs' / 'MASTER_CODE_REGISTRY.md'
 REGISTRY_VERSION = '1.0.0'
-GENERATED_DATE = '2026-08-14'
+GENERATED_DATE = '2026-09-26'
 
 
 def fence_language(path: Path) -> str:
@@ -52,7 +52,8 @@ def render() -> str:
     add('> این سند از روی فایل‌های واقعی Repository تولید می‌شود. Source اصلی همچنان فایل‌های اجرایی است؛ Snapshotهای کامل زیر برای بازیابی، ممیزی و انتقال دانش نگهداری می‌شوند.')
     add('')
     add(f'- **Registry version:** `{REGISTRY_VERSION}`')
-    add(f'- **Plugin/source version:** `{version}`')
+    add(f'- **Plugin/source candidate version:** `{version}`')
+    add(f'- **Release state:** `{release.get("state", "draft")}` (does not describe the installed live plugin)')
     add(f'- **Generated:** `{GENERATED_DATE}`')
     add('- **Repository:** `alookhor-update-publisher`')
     add('- **Production:** `https://alookhor.ir`')
@@ -60,9 +61,9 @@ def render() -> str:
     add('- **Authoritative option:** `alookhor_cc_settings`')
     add('- **Header option:** `alookhor_header_settings`')
     add('')
-    add('## Current Project State')
+    add('## Source Project State (not the installed site)')
     add('')
-    add(f'- CURRENT VERSION: `{version}`')
+    add(f'- SOURCE CANDIDATE VERSION: `{version}`')
     add(f'- LAST FUNCTIONAL CHANGE: {release.get("description", "Not recorded")}')
     add('- ACTIVE DESIGN: Luxury Black/Gold; actual component colors remain controlled by saved WordPress settings and existing module defaults.')
     add('- ACTIVE SHORTCODES: `[alookhor_portal_header]`, `[alookhor_managed_categories]`, `[alookhor_managed_hero]`, `[alookhor_managed_features]`.')
@@ -76,10 +77,10 @@ def render() -> str:
     add('```text')
     add(f'PROJECT: {release.get("project", "ALOOKHOR")}')
     add(f'AREA: {release.get("area", "Not recorded")}')
-    add(f'CURRENT VERSION: {version}')
+    add(f'SOURCE CANDIDATE VERSION: {version}')
     add(f'CHANGE: {release.get("description", "Not recorded")}')
     add(f'REASON: {release.get("reason", "Not recorded")}')
-    add('FILES: ' + '; '.join(str(item) for item in release.get('files', [])))
+    add('FILES: ' + ('; '.join(str(item) for item in release.get('files', [])) or 'See plugin/alookhor-control-center/'))
     add(f'STATUS: SOURCE {str(release.get("state", "draft")).upper()} — deployment status must be verified separately.')
     add('```')
     add('')

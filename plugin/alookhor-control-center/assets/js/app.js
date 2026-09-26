@@ -261,6 +261,22 @@ function initUpdateModal(updaterState){
     document.body.style.overflow='';
   }
   btnOpen?.addEventListener('click', open);
+
+  // v3.10.388: بررسی مجددِ اجباری از داخل همان پنجره
+  document.getElementById('btnRecheck')?.addEventListener('click', async (e)=>{
+    const btn = e.currentTarget;
+    btn.disabled = true;
+    const original = btn.textContent;
+    btn.textContent = 'در حال بررسی...';
+    try {
+      await updaterState.check(true);
+      close();
+      open();
+    } finally {
+      btn.disabled = false;
+      btn.textContent = original;
+    }
+  });
   btnClose?.addEventListener('click', close);
   btnDismiss?.addEventListener('click', ()=>{
     if(updaterState.hasUpdate){

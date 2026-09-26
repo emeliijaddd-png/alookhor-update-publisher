@@ -1,26 +1,19 @@
 {
-  "version": "3.10.387",
-  "previous": "3.10.386",
-  "state": "ready",
+  "version": "3.10.412",
+  "previous": "3.10.405",
+  "state": "draft",
   "requires": "6.0",
-  "tested": "7.0",
+  "tested": "6.8",
   "requires_php": "8.0",
-  "description": "رفع خرابی بسته Control Center و تثبیت سبد خرید اختصاصی آلوخور",
+  "description": "پیش‌نویس بازیابی منبع کامل 3.10.405 و ترمیم سبد خرید و محصولات متغیر؛ هنوز برای نصب در سایت منتشر نشده است.",
   "changelog": [
-    {"tag":"FIX","title":"رفع Fatal Error افزونه","desc":"فایل sort-center.php که bootstrap افزونه به آن وابسته است، اکنون صراحتاً داخل بسته انتشار قرار دارد."},
-    {"tag":"FIX","title":"سبد خرید اختصاصی آلوخور","desc":"Renderer اختصاصی Cart و فایل‌های cart-page و cart-rest در بسته حفظ می‌شوند."},
-    {"tag":"FIX","title":"حذف Cart موازی قدیمی","desc":"لایه‌های قدیمی Code Snippets مربوط به Cart Engine و Before Footer Mount غیرفعال شدند."},
-    {"tag":"RESPONSIVE","title":"پایداری Cart","desc":"ساختار Cart اختصاصی برای Refresh و نمایش پایدار قبل از Footer نگه داشته شد."}
+    {"tag":"FIX","title":"عملیات سبد با مسیر REST درست","desc":"آدرس افزودن، تغییر تعداد، حذف، تخفیف و پیشنهادها اکنون همیشه شامل جداکننده / است و خطای مسیر ناموجود نمی‌دهد."},
+    {"tag":"FIX","title":"گزینه واقعی محصولات پیشنهادی","desc":"برای کالای متغیر، وزن/بسته‌بندی موجود را پیش از افزودن به سبد انتخاب می‌کنید؛ قیمت همان گزینه نشان داده می‌شود. کالای بدون گزینه موجود به صفحه محصول هدایت می‌شود."},
+    {"tag":"FIX","title":"محافظت از اقلام سبد و نشست مهمان","desc":"نمایش اولیه سبد با پاسخ خالی مشکوک جایگزین نمی‌شود؛ اقلام با پاسخ خود عمل سبد به‌روز و کوکی نشست هنگام تغییر ذخیره می‌شود."},
+    {"tag":"FIX","title":"شمارش دقیق و نصب امن","desc":"تعداد نوع/عدد کالا از هم جداست؛ بسته کامل از منبع GitHub 3.10.405 بازیابی شد و کنترل SHA برای همه میزبان‌های مجاز فعال است."}
   ],
-  "project":"ALOOKHOR",
-  "area":"cart recovery + package repair",
-  "reason":"نسخه 3.10.386 پس از نصب به دلیل includeهای مفقود روی سایت Fatal Error ایجاد کرد.",
-  "files":[
-    "plugin/alookhor-control-center/assets/css/frontend-cart.css",
-    "plugin/alookhor-control-center/assets/js/frontend-cart.js",
-    "plugin/alookhor-control-center/includes/cart-page.php",
-    "plugin/alookhor-control-center/includes/cart-rest.php",
-    "plugin/alookhor-control-center/includes/sort-center.php",
-    "plugin/alookhor-control-center/alookhor-control-center.php"
-  ]
+  "project": "ALOOKHOR",
+  "area": "cart repair candidate; not installable until staged validation and channel verification",
+  "reason": "رفتار گزارش‌شده در سبد نسخه 3.10.405 و خطاهای قابل بازتولید در مسیرهای REST و پیشنهادهای متغیر.",
+  "source": "GitHub commit 9ce51fdc897182811db4f808df8c7046de1221f5, packages/cc-release/alookhor-control-center.zip, SHA-256 09fd472b032b3602acc8f2779ab2d1906040c5fa426d8f82f291557161b3f602"
 }

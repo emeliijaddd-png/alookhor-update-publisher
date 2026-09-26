@@ -315,6 +315,7 @@
           <!-- injected by JS -->
         </div>
         <div style="display:flex; gap:10px; margin-top:18px">
+          <button class="btn-ghost" id="btnRecheck" style="margin-inline-end:6px">بررسی مجدد</button>
           <button class="btn-gold" id="btnInstall" style="flex:1">نصب آنی — بدون رفرش</button>
           <button class="btn-ghost" id="btnDismiss">بعداً</button>
         </div>

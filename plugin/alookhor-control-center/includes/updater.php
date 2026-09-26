@@ -35,7 +35,7 @@ const ALOOKHOR_CC_UPDATE_CACHE_KEY = 'alookhor_cc_update_manifest_v1';
 function alookhor_cc_update_manifest_url(){
     $url = defined('ALOOKHOR_CC_UPDATE_MANIFEST_URL')
         ? (string) ALOOKHOR_CC_UPDATE_MANIFEST_URL
-        : 'https://updates.alookhor.ir/manifest.json';
+        : 'https://raw.githubusercontent.com/emeliijaddd-png/alookhor-update-publisher/arena/01a0a537-alookhor-update-publisher/packages/cc-release/manifest.json';
 
     $url = (string) apply_filters('alookhor_cc_update_manifest_url', $url);
     return esc_url_raw(trim($url));
@@ -61,7 +61,7 @@ function alookhor_cc_normalize_update_manifest($payload){
     if (!$download_url || wp_parse_url($download_url, PHP_URL_SCHEME) !== 'https') {
         return new WP_Error('alookhor_invalid_package_url', 'آدرس بسته بروزرسانی باید HTTPS معتبر باشد.');
     }
-    $allowed_hosts = (array) apply_filters('alookhor_cc_update_allowed_hosts', ['updates.alookhor.ir']);
+    $allowed_hosts = (array) apply_filters('alookhor_cc_update_allowed_hosts', ['updates.alookhor.ir', 'raw.githubusercontent.com']);
     $package_host = strtolower((string) wp_parse_url($download_url, PHP_URL_HOST));
     if (!$package_host || !in_array($package_host, array_map('strtolower', $allowed_hosts), true)) {
         return new WP_Error('alookhor_untrusted_package_host', 'دامنه بسته بروزرسانی مورد اعتماد نیست.');
@@ -108,8 +108,15 @@ function alookhor_cc_normalize_update_manifest($payload){
  * redirects/hosts and WordPress handles TLS verification.
  */
 function alookhor_cc_get_update_manifest($force = false){
-    $url = alookhor_cc_update_manifest_url();
-    if (!$url) {
+    $urls = [];
+    $primary = alookhor_cc_update_manifest_url();
+    if ($primary) $urls[] = $primary;
+    // A mutable CDN mirror has returned an older manifest pointing at a newer ZIP.
+    // Default to no fallback; a site owner may explicitly configure a verified mirror.
+    $fallback = (string) apply_filters('alookhor_cc_update_manifest_fallback_url', '');
+    if ($fallback && $fallback !== $primary) $urls[] = $fallback;
+
+    if (!$urls) {
         return new WP_Error('alookhor_updater_not_configured', 'آدرس Manifest سیستم آپدیت تنظیم نشده است.');
     }
 
@@ -118,28 +125,35 @@ function alookhor_cc_get_update_manifest($force = false){
         if (is_array($cached) && !empty($cached['version'])) return $cached;
     }
 
-    $response = wp_safe_remote_get($url, [
-        'timeout'     => 12,
-        'redirection' => 3,
-        'headers'     => [
-            'Accept'     => 'application/json',
-            'User-Agent' => 'ALOOKHOR-Control-Center/' . ALOOKHOR_CC_VERSION . '; ' . home_url('/'),
-        ],
-    ]);
+    $last_error = null;
+    foreach ($urls as $url) {
+        $response = wp_safe_remote_get($url, [
+            'timeout'     => 12,
+            'redirection' => 3,
+            'headers'     => [
+                'Accept'     => 'application/json',
+                'User-Agent' => 'ALOOKHOR-Control-Center/' . ALOOKHOR_CC_VERSION . '; ' . home_url('/'),
+            ],
+        ]);
 
-    if (is_wp_error($response)) return $response;
+        if (is_wp_error($response)) { $last_error = $response; continue; }
 
-    $status = (int) wp_remote_retrieve_response_code($response);
-    if ($status !== 200) {
-        return new WP_Error('alookhor_update_http_error', sprintf('سرور آپدیت کد HTTP %d برگرداند.', $status));
+        $status = (int) wp_remote_retrieve_response_code($response);
+        if ($status !== 200) {
+            $last_error = new WP_Error('alookhor_update_http_error', sprintf('سرور آپدیت کد HTTP %d برگرداند.', $status));
+            continue;
+        }
+
+        $decoded = json_decode(wp_remote_retrieve_body($response), true);
+        $manifest = alookhor_cc_normalize_update_manifest($decoded);
+        if (is_wp_error($manifest)) { $last_error = $manifest; continue; }
+
+        // v3.10.388: عمر کش از ۶ ساعت به ۳۰ دقیقه کاهش یافت
+        set_site_transient(ALOOKHOR_CC_UPDATE_CACHE_KEY, $manifest, 30 * MINUTE_IN_SECONDS);
+        return $manifest;
     }
 
-    $decoded = json_decode(wp_remote_retrieve_body($response), true);
-    $manifest = alookhor_cc_normalize_update_manifest($decoded);
-    if (is_wp_error($manifest)) return $manifest;
-
-    set_site_transient(ALOOKHOR_CC_UPDATE_CACHE_KEY, $manifest, 6 * HOUR_IN_SECONDS);
-    return $manifest;
+    return $last_error ?: new WP_Error('alookhor_update_http_error', 'پاسخی از سرور آپدیت دریافت نشد.');
 }
 
 /**
@@ -196,15 +210,19 @@ add_filter('pre_set_site_transient_update_plugins', function($transient){
 add_filter('upgrader_pre_download', function($reply, $package, $upgrader, $hook_extra){
     if (false !== $reply || !is_string($package)) return $reply;
 
-    $package_host = strtolower((string) wp_parse_url($package, PHP_URL_HOST));
-    $allowed_hosts = array_map('strtolower', (array) apply_filters('alookhor_cc_update_allowed_hosts', ['updates.alookhor.ir']));
-    if (!in_array($package_host, $allowed_hosts, true)) return $reply;
-
-    $plugin = $hook_extra['plugin'] ?? '';
-    $plugins = $hook_extra['plugins'] ?? [];
+    $plugin = is_array($hook_extra) ? ($hook_extra['plugin'] ?? '') : '';
+    $plugins = is_array($hook_extra) ? ($hook_extra['plugins'] ?? []) : [];
     $targets_alookhor = $plugin === ALOOKHOR_CC_PLUGIN_BASENAME
         || (is_array($plugins) && in_array(ALOOKHOR_CC_PLUGIN_BASENAME, $plugins, true));
-    if (!$targets_alookhor && strpos(wp_basename($package), 'alookhor-control-center-') !== 0) return $reply;
+    $basename = wp_basename($package);
+    if (!$targets_alookhor && strpos($basename, 'alookhor-control-center-') !== 0 && $basename !== 'alookhor-control-center.zip') return $reply;
+
+    $package_host = strtolower((string) wp_parse_url($package, PHP_URL_HOST));
+    // The same host policy MUST be used for accepting manifests and for hashing ZIPs.
+    $allowed_hosts = array_map('strtolower', (array) apply_filters('alookhor_cc_update_allowed_hosts', ['updates.alookhor.ir', 'raw.githubusercontent.com']));
+    if (!in_array($package_host, $allowed_hosts, true)) {
+        return new WP_Error('alookhor_untrusted_package_host', 'دامنه بسته بروزرسانی مورد اعتماد نیست؛ نصب متوقف شد.');
+    }
 
     $manifest = alookhor_cc_get_update_manifest(true);
     if (is_wp_error($manifest)) return $manifest;
@@ -270,8 +288,9 @@ add_filter('plugins_api', function($result, $action, $args){
 add_action('wp_ajax_alookhor_check_updates', function(){
     alookhor_cc_check();
 
+    // v3.10.388: باز کردن مرکز به‌روزرسانی یعنی نتیجه تازه، نه حافظه قدیمی
+    delete_site_transient(ALOOKHOR_CC_UPDATE_CACHE_KEY);
     $force = !empty($_POST['force']) && rest_sanitize_boolean(wp_unslash($_POST['force']));
-    if ($force) delete_site_transient(ALOOKHOR_CC_UPDATE_CACHE_KEY);
 
     $manifest = alookhor_cc_get_update_manifest($force);
     if (is_wp_error($manifest)) {

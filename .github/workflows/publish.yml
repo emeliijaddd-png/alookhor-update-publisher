@@ -2,7 +2,8 @@ name: Build and Publish ALOOKHOR Release
 
 on:
   push:
-    branches: [main]
+    # This branch runs only the build; the deploy job below still requires a version tag.
+    branches: [main, arena/01a0d253-alookhor-update-publisher]
     tags: ['v*.*.*']
   workflow_dispatch:
 
@@ -29,6 +30,11 @@ jobs:
           python3 -m unittest discover -s scripts/tests -v
           find plugin/alookhor-control-center -name '*.php' -type f -print0 | xargs -0 -n1 php -l
           while IFS= read -r file; do node --check "$file"; done < <(find plugin/alookhor-control-center/assets/js -name '*.js' -type f | sort)
+          php scripts/cart-tests/cart_contract.php
+      - name: Install offline browser test dependencies
+        run: npm ci --prefix scripts/cart-tests --ignore-scripts --no-audit --no-fund
+      - name: Test guest cart, variations, route URLs, and delayed responses
+        run: npm test --prefix scripts/cart-tests
       - name: Build release
         id: release
         run: python3 scripts/build_release.py

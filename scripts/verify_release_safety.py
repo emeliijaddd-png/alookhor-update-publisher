@@ -68,6 +68,9 @@ def source_problems(plugin, package):
         for path in plugin.rglob('*')
         if path.is_file() and not any(part in SKIP_PARTS for part in path.parts)
     }
+    for relative, data in files.items():
+        if relative.endswith('.php') and b'empty_cart(' in data and re.search(rb'''['"]methods['"]\s*=>\s*['"]GET['"]''', data):
+            problems.append('GET cart-probe empties customer carts: ' + relative)
     with ZipFile(package) as archive:
         if archive.testzip() is not None:
             problems.append('ZIP CRC verification failed')

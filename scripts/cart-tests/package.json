@@ -1,0 +1,12 @@
+{
+  "name": "alookhor-cart-contract-tests",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Offline JS DOM regression tests for the ALOOKHOR cart client",
+  "scripts": {
+    "test": "node --test cart.test.cjs"
+  },
+  "devDependencies": {
+    "jsdom": "26.1.0"
+  }
+}

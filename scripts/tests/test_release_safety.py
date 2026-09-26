@@ -102,6 +102,21 @@ class PackageSafetyTests(unittest.TestCase):
             self.assertTrue(any('bypass the SHA-256 download gate' in problem
                                 for problem in safety.source_problems(plugin, package)))
 
+    def test_public_destructive_cart_probe_is_blocked(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            self.make_release(root)
+            plugin = root / 'plugin/alookhor-control-center'
+            probe = plugin / 'includes/cart-diagnostics.php'
+            probe.write_text("<?php register_rest_route('cart', '/probe', "
+                             "['methods' => 'GET', 'permission_callback' => '__return_true']); "
+                             "WC()->cart->empty_cart(true);")
+            package = root / 'public/releases/alookhor-control-center-3.10.391.zip'
+            with ZipFile(package, 'a') as archive:
+                archive.write(probe, 'alookhor-control-center/includes/cart-diagnostics.php')
+            self.assertTrue(any('GET cart-probe empties' in problem and 'cart-diagnostics.php' in problem
+                                for problem in safety.source_problems(plugin, package)))
+
     def test_live_version_cannot_be_downgraded_or_reinstalled(self):
         class Response:
             status = 200
@@ -109,17 +124,18 @@ class PackageSafetyTests(unittest.TestCase):
             def __enter__(self): return self
             def __exit__(self, *args): return False
             def geturl(self): return 'https://alookhor.ir/wp-json/alookhor-cc/v1/topbar/'
-            def read(self, size): return b'{"version":"3.10.393"}'
+            def read(self, size): return b'{"version":"3.10.405"}'
 
         def fake_urlopen(request, **kwargs):
             self.assertIn('/wp-json/alookhor-cc/v1/topbar/?release_gate=', request.full_url)
             return Response()
 
         with patch.object(safety, 'urlopen', side_effect=fake_urlopen):
-            for version in ('3.10.387', '3.10.390', '3.10.391', '3.10.392', '3.10.393'):
+            for version in ('3.10.387', '3.10.390', '3.10.393', '3.10.404', '3.10.405'):
                 with self.subTest(version=version), self.assertRaisesRegex(ValueError, 'not newer'):
                     safety.check_live_version(version)
-            self.assertEqual(safety.check_live_version('3.10.394'), '3.10.393')
+            self.assertEqual(safety.check_live_version('3.10.406'), '3.10.405')
+            self.assertEqual(safety.check_live_version('3.10.412'), '3.10.405')
 
 
 class ReadbackTests(unittest.TestCase):
