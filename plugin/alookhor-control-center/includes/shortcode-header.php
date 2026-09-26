@@ -1,4 +1,9 @@
 <?php
+
+if (!function_exists('alookhor_cc_front_header_settings_v2')) {
+    function alookhor_cc_front_header_settings_v2(){ return alookhor_cc_get_header_settings(); }
+}
+
 /**
  * ALOOKHOR Luxury Portal Header — [alookhor_portal_header]
  *
@@ -66,7 +71,7 @@ function alookhor_cc_whatsapp_href($number){
 
 function alookhor_cc_render_portal_header($atts = []){
     $atts = shortcode_atts(['sticky' => '', 'menu' => ''], $atts, 'alookhor_portal_header');
-    $settings = alookhor_cc_front_header_settings();
+    $settings = alookhor_cc_front_header_settings_v2();
     if ($atts['sticky'] !== '') $settings['sticky'] = rest_sanitize_boolean($atts['sticky']);
     if ($atts['menu'] !== '') $settings['primary_menu'] = absint($atts['menu']);
 
