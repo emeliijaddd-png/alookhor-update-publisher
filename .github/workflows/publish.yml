@@ -132,6 +132,28 @@ jobs:
           print('ATOMIC_LIVE_PLUGIN_REPLACEMENT=SUCCESS')
           PY
           rm -f /tmp/atomic.lftp
+      - name: Verify live header file over FTPS
+        env:
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+          FTP_PORT: ${{ secrets.FTP_PORT }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import os, subprocess
+          from pathlib import Path
+          from urllib.parse import quote
+          server=os.environ['FTP_SERVER'].strip(); port=os.environ['FTP_PORT'].strip(); user=os.environ['FTP_USERNAME'].strip(); password=os.environ['FTP_PASSWORD']
+          auth=f"ftp://{quote(user,safe='')}:{quote(password,safe='')}@{server}"
+          s=Path('/tmp/check-live.lftp'); s.write_text('\\n'.join(['set cmd:fail-exit true','set net:max-retries 2','set net:timeout 30','set ftp:passive-mode true','set ftp:ssl-auth TLS','set ftp:ssl-force true','set ftp:ssl-protect-data true','set ssl:verify-certificate true',f'open -p {port} "{auth}"','cd "../public_html/wp-content/plugins/alookhor-control-center/includes"','get shortcode-header.php -o /tmp/live-header.php','bye'])+'\\n'); s.chmod(0o600)
+          subprocess.run(['lftp','-f',str(s)],check=True)
+          c=Path('/tmp/live-header.php').read_text(errors='replace')
+          print('LIVE_HAS_DUP_FUNC=', 'function alookhor_cc_front_header_settings' in c)
+          print('LIVE_HEADER_BYTES=',len(c))
+          print('LIVE_HEADER_LINE70=',c.splitlines()[69] if len(c.splitlines())>69 else 'N/A')
+          PY
+          rm -f /tmp/check-live.lftp /tmp/live-header.php
       - name: Publish through explicit FTPS
         env:
           FTP_SERVER: ${{ secrets.FTP_SERVER }}
