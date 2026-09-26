@@ -29,9 +29,9 @@ $upgrader = new Plugin_Upgrader(new Automatic_Upgrader_Skin());
 $result = $upgrader->install($zip, ['overwrite_package' => true]);
 if ($result !== true
     || !is_plugin_active($plugin)
-    || get_file_data($installed, ['Version' => 'Version'])['Version'] !== '3.10.412'
+    || get_file_data($installed, ['Version' => 'Version'])['Version'] !== '3.10.413'
     || is_file(WP_PLUGIN_DIR . '/alookhor-control-center/includes/cart-probe.php')) {
     $reason = is_wp_error($result) ? $result->get_error_code() : gettype($result);
     throw new RuntimeException('Manual uploaded ZIP did not replace 405 cleanly: ' . $reason);
 }
-echo "WordPress local ZIP replacement installed 412 from active 405.\n";
+echo "WordPress local ZIP replacement installed 413 from active 405.\n";

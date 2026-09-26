@@ -18,7 +18,7 @@ const payload = (items) => ({items, count: items.reduce((n, i) => n + i.quantity
     total: items.reduce((n, i) => n + i.line_total, 0)}});
 const tick = (ms = 20) => new Promise(resolve => setTimeout(resolve, ms));
 
-async function mount(handler, initial = payload([]), suggestions = '', build = '3.10.412', beforeEval = null) {
+async function mount(handler, initial = payload([]), suggestions = '', build = '3.10.413', beforeEval = null) {
   const html = '<!doctype html><html><body><section id="alookhor-cart" data-ac-build="'+build+'">'
     + '<div class="cart-error" hidden></div><div class="cart-items"></div><span class="cart-items-count"></span>'
     + '<a class="ac-checkout" href="/checkout/">checkout</a><span class="ak-cart-badge">0</span>'
@@ -91,7 +91,7 @@ test('a transient stale GET recovers all SSR products on the retry', async () =>
 
 test('stale cart HTML cannot hydrate after one attempted build repair', async () => {
   const ctx=await mount(async()=>{throw new Error('No request should be made with stale markup');},
-    payload([item(1,1)]),'','3.10.405',win=>win.sessionStorage.setItem('ac_heal_3.10.412','1'));
+    payload([item(1,1)]),'','3.10.405',win=>win.sessionStorage.setItem('ac_heal_3.10.413','1'));
   try {
     assert.equal(ctx.calls.length,0);
     assert.equal(ctx.document.querySelector('.ac-checkout').getAttribute('aria-disabled'),'true');

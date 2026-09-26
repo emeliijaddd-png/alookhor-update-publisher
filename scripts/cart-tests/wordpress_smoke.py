@@ -52,7 +52,7 @@ for attempt in range(30):
         if attempt == 29:
             raise AssertionError('Local WordPress web server did not start') from exc
         time.sleep(1)
-assert 'id="alookhor-cart"' in page and 'data-ac-build="3.10.412"' in page, 'Actual cart page/renderer did not load'
+assert 'id="alookhor-cart"' in page and 'data-ac-build="3.10.413"' in page, 'Actual cart page/renderer did not load'
 config_match = re.search(r'var ALOOKHOR_CART_CONFIG = (\{[^;]+\});', page)
 assert config_match, 'The cart page did not localize its nonce and REST root'
 config = json.loads(config_match.group(1))

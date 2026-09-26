@@ -70,7 +70,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v5
-      - name: Test real 405-to-412 WordPress upgrade, WooCommerce and Chromium cart
+      - name: Test real 405-to-413 WordPress upgrade, WooCommerce and Chromium cart
         run: bash scripts/cart-tests/wordpress_smoke.sh
 
   diagnose:

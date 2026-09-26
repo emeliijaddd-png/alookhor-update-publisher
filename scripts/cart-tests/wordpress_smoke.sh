@@ -50,7 +50,7 @@ trap cleanup EXIT
 stage='build and verify unpublished candidate ZIP'
 python3 scripts/build_release.py
 python3 scripts/verify_release_safety.py
-export WP_SMOKE_CANDIDATE_ZIP="$(pwd)/public/releases/alookhor-control-center-3.10.412.zip"
+export WP_SMOKE_CANDIDATE_ZIP="$(pwd)/public/releases/alookhor-control-center-3.10.413.zip"
 export WP_SMOKE_CANDIDATE_MANIFEST="$(pwd)/public/manifest.json"
 test -f "$WP_SMOKE_CANDIDATE_ZIP"
 stage='download and verify complete 405 installation source'
@@ -109,12 +109,12 @@ test "$root" = "$RUNNER_TEMP/alookhor-wordpress-smoke"
 rm -rf -- "$root/wp-content/plugins/alookhor-control-center"
 unzip -q "$baseline" -d "$root/wp-content/plugins"
 wp eval 'if (ALOOKHOR_CC_VERSION !== "3.10.405" || !is_plugin_active("alookhor-control-center/alookhor-control-center.php")) { throw new RuntimeException("405 was not restored in the isolated fixture"); } echo "Restored isolated 405 baseline for native update.\n";'
-stage='real Plugin_Upgrader rejects corruption and installs 405 to 412'
+stage='real Plugin_Upgrader rejects corruption and installs 405 to 413'
 wp eval-file scripts/cart-tests/wordpress_upgrader_install.php
 verify_installed_zip
 # A fresh request must load the updated files, not just PHP's already-loaded
 # 405 functions from the request that performed the upgrade.
-wp eval 'if (ALOOKHOR_CC_VERSION !== "3.10.412" || !is_plugin_active("alookhor-control-center/alookhor-control-center.php")) { throw new RuntimeException("Updated plugin was not active on a fresh WordPress load"); } echo "Active plugin after upgrade: ", ALOOKHOR_CC_VERSION, PHP_EOL;'
+wp eval 'if (ALOOKHOR_CC_VERSION !== "3.10.413" || !is_plugin_active("alookhor-control-center/alookhor-control-center.php")) { throw new RuntimeException("Updated plugin was not active on a fresh WordPress load"); } echo "Active plugin after upgrade: ", ALOOKHOR_CC_VERSION, PHP_EOL;'
 wp rewrite structure '/%postname%/'
 wp rewrite flush
 stage='seed real WooCommerce products'

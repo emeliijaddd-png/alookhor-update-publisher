@@ -1,4 +1,4 @@
-/* ALOOKHOR CART v3.10.412 — Woo session + SSR, explicit variant selection */
+/* ALOOKHOR CART v3.10.413 — Woo session + SSR, explicit variant selection */
 (function(){
 'use strict';
 const ROOT='#alookhor-cart', cfg=window.ALOOKHOR_CART_CONFIG||{};
@@ -149,7 +149,7 @@ async function recommend(){
 function init(){
  const r=q(ROOT);if(!r)return;
  // One cache-busted reload when old HTML and the installed script have different builds.
- try{const BUILD='3.10.412',mb=r.getAttribute('data-ac-build')||'';
+ try{const BUILD='3.10.413',mb=r.getAttribute('data-ac-build')||'';
   if(mb&&mb!==BUILD){const k='ac_heal_'+BUILD;let done=false;try{done=sessionStorage.getItem(k)==='1';}catch(e){}
    if(!done){try{sessionStorage.setItem(k,'1');}catch(e){}const u=new URL(location.href);u.searchParams.set('ac_b',BUILD);location.replace(u.toString());return;}
    setCheckout(false);

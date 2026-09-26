@@ -19,11 +19,11 @@ $zip = getenv('WP_SMOKE_CANDIDATE_ZIP');
 $manifest_file = getenv('WP_SMOKE_CANDIDATE_MANIFEST');
 $manifest = json_decode((string) file_get_contents($manifest_file), true);
 if (!is_array($manifest) || !is_file($zip)
-    || !preg_match('~^https://updates\.alookhor\.ir/releases/alookhor-control-center-3\.10\.412\.zip$~', $manifest['download_url'] ?? '')
+    || !preg_match('~^https://updates\.alookhor\.ir/releases/alookhor-control-center-3\.10\.413\.zip$~', $manifest['download_url'] ?? '')
     || !hash_equals($manifest['sha256'] ?? '', hash_file('sha256', $zip))
     || !is_plugin_active($plugin)
     || get_file_data($installed, ['Version' => 'Version'])['Version'] !== '3.10.405') {
-    throw new RuntimeException('The isolated 405 installation or 412 release manifest is invalid.');
+    throw new RuntimeException('The isolated 405 installation or 413 release manifest is invalid.');
 }
 
 $manifest_url = 'https://updates.alookhor.ir/manifest.json';
@@ -119,10 +119,10 @@ $upgrader = new Plugin_Upgrader(new Automatic_Upgrader_Skin());
 $success = $upgrader->upgrade($plugin);
 if ($success !== true || $unexpected_http || count($served_files) !== 2
     || $sha_hook_codes !== ['alookhor_sha256_mismatch', 'verified_file']
-    || get_file_data($installed, ['Version' => 'Version'])['Version'] !== '3.10.412'
+    || get_file_data($installed, ['Version' => 'Version'])['Version'] !== '3.10.413'
     || !is_plugin_active($plugin)
     || is_file(WP_PLUGIN_DIR . '/alookhor-control-center/includes/cart-probe.php')) {
     $reason = is_wp_error($success) ? $success->get_error_code() : var_export($success, true);
-    throw new RuntimeException('WordPress Plugin_Upgrader failed the complete 405 to 412 transition: ' . $reason);
+    throw new RuntimeException('WordPress Plugin_Upgrader failed the complete 405 to 413 transition: ' . $reason);
 }
-echo "Real WordPress Plugin_Upgrader installed 412 from 405; active plugin retained, dangerous probe removed.\n";
+echo "Real WordPress Plugin_Upgrader installed 413 from 405; active plugin retained, dangerous probe removed.\n";

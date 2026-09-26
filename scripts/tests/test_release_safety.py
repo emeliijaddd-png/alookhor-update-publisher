@@ -135,7 +135,7 @@ class PackageSafetyTests(unittest.TestCase):
                 with self.subTest(version=version), self.assertRaisesRegex(ValueError, 'not newer'):
                     safety.check_live_version(version)
             self.assertEqual(safety.check_live_version('3.10.406'), '3.10.405')
-            self.assertEqual(safety.check_live_version('3.10.412'), '3.10.405')
+            self.assertEqual(safety.check_live_version('3.10.413'), '3.10.405')
 
 
 class ReadbackTests(unittest.TestCase):
