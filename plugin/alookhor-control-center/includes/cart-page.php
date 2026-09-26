@@ -61,7 +61,7 @@ function alookhor_cc_cart_items_html($items) {
   </div>
   <span class="c-variant"><?php echo esc_html($variant); ?></span>
   <span class="c-price"><?php echo esc_html(alookhor_cc_cart_fa($price)); ?><small>تومان</small></span>
-  <span class="c-qty"><button type="button" data-cart-qty="-" data-key="<?php echo esc_attr($key); ?>" aria-label="کاهش تعداد">−</button><b><?php echo esc_html(alookhor_cc_cart_fp($qty)); ?></b><button class="c-plus" type="button" data-cart-qty="+" data-key="<?php echo esc_attr($key); ?>" aria-label="افزایش تعداد">+</button></span>
+  <span class="c-qty" role="group" aria-label="تعداد <?php echo esc_attr($name); ?>"><button type="button" data-cart-qty="-" data-key="<?php echo esc_attr($key); ?>" aria-label="کاهش تعداد">−</button><input class="c-qty-input" type="number" min="1" step="1" inputmode="numeric" data-cart-qty-input data-key="<?php echo esc_attr($key); ?>" value="<?php echo esc_attr($qty); ?>" aria-label="تعداد <?php echo esc_attr($name); ?>"><button class="c-plus" type="button" data-cart-qty="+" data-key="<?php echo esc_attr($key); ?>" aria-label="افزایش تعداد">+</button></span>
   <span class="c-total"><?php echo esc_html(alookhor_cc_cart_fa($line)); ?><small>تومان</small></span>
   <span class="c-ops">
     <button type="button" class="c-op c-del" data-cart-remove="<?php echo esc_attr($key); ?>" aria-label="حذف <?php echo esc_attr($name); ?>"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M8 6V4a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2m3 0v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6h13ZM10 11v6m4-6v6"/></svg></button>
