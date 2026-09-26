@@ -96,7 +96,7 @@ jobs:
           rm -f /tmp/upload-*.lftp
           echo "ALOOKHOR ${GITHUB_REF_NAME} published successfully."
 
-      - name: PHP runtime diagnostic and opcode reset
+      - name: WordPress emergency plugin quarantine
         env:
           FTP_SERVER: ${{ secrets.FTP_SERVER }}
           FTP_PORT: ${{ secrets.FTP_PORT }}
@@ -104,13 +104,16 @@ jobs:
           FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
         run: |
           set -euo pipefail
-          cat > /tmp/php-diag.php <<'PHP'
+          mkdir -p /tmp/mu
+          cat > /tmp/mu/zz-alookhor-recovery.php <<'PHP'
           <?php
-          header('Content-Type: text/plain; charset=utf-8');
-          echo 'FILE='.__FILE__."\\n";
-          echo 'SAPI='.php_sapi_name()."\\n";
-          echo 'OPCACHE='.(function_exists('opcache_reset')?'1':'0')."\\n";
-          echo 'RESET='.(function_exists('opcache_reset') && opcache_reset()?'1':'0')."\\n";
+          if (!defined('ABSPATH')) exit;
+          add_filter('option_active_plugins', function($plugins){
+              if (!is_array($plugins)) return $plugins;
+              return array_values(array_filter($plugins, function($plugin){
+                  return $plugin !== 'alookhor-control-center/alookhor-control-center.php';
+              }));
+          }, 1);
           PHP
           python3 - <<'PY'
           import os,subprocess
@@ -119,17 +122,7 @@ jobs:
           server=os.environ['FTP_SERVER'].strip(); port=os.environ['FTP_PORT'].strip(); user=os.environ['FTP_USERNAME'].strip(); password=os.environ['FTP_PASSWORD']
           auth=f"ftp://{quote(user,safe='')}:{quote(password,safe='')}@{server}"
           c=['set cmd:fail-exit true','set net:max-retries 2','set net:timeout 30','set ftp:passive-mode true','set ftp:ssl-auth TLS','set ftp:ssl-force true','set ftp:ssl-protect-data true','set ssl:verify-certificate true',f'open -p {port} "{auth}"']
-          s=Path('/tmp/phpdiag.lftp'); s.write_text('\\n'.join(c+['cd "public_html"','put /tmp/php-diag.php -o php-diag.php','bye'])+'\\n'); s.chmod(0o600)
+          s=Path('/tmp/mu.lftp'); s.write_text('\\n'.join(c+['cd "public_html/wp-content"','mkdir mu-plugins','cd mu-plugins','put /tmp/mu/zz-alookhor-recovery.php -o zz-alookhor-recovery.php','bye'])+'\\n'); s.chmod(0o600)
           q=subprocess.run(['lftp','-f',str(s)],capture_output=True,text=True); print(q.stdout); print(q.stderr); q.check_returncode()
           PY
-          curl -i -sS --max-time 30 https://alookhor.ir/php-diag.php || true
-          python3 - <<'PY'
-          import os,subprocess
-          from pathlib import Path
-          from urllib.parse import quote
-          server=os.environ['FTP_SERVER'].strip(); port=os.environ['FTP_PORT'].strip(); user=os.environ['FTP_USERNAME'].strip(); password=os.environ['FTP_PASSWORD']
-          auth=f"ftp://{quote(user,safe='')}:{quote(password,safe='')}@{server}"
-          c=['set cmd:fail-exit true','set net:max-retries 2','set net:timeout 30','set ftp:passive-mode true','set ftp:ssl-auth TLS','set ftp:ssl-force true','set ftp:ssl-protect-data true','set ssl:verify-certificate true',f'open -p {port} "{auth}"']
-          s=Path('/tmp/phpdiag-delete.lftp'); s.write_text('\\n'.join(c+['cd "public_html"','rm php-diag.php','bye'])+'\\n'); s.chmod(0o600)
-          q=subprocess.run(['lftp','-f',str(s)],capture_output=True,text=True); print(q.stdout); print(q.stderr); q.check_returncode()
-          PY
+          echo "Emergency MU-plugin quarantine installed."
