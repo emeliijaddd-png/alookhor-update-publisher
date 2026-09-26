@@ -109,46 +109,19 @@ jobs:
           ! grep -qi 'Fatal error' /tmp/site.html
           echo "REPAIRED_PLUGIN_ACTIVE"
 
-      - name: Live PHP content diagnostic
-        env:
-          FTP_SERVER: ${{ secrets.FTP_SERVER }}
-          FTP_PORT: ${{ secrets.FTP_PORT }}
-          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
-          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+      - name: Five live site tests before publish
         run: |
           set -euo pipefail
-          cat > /tmp/alookhor-live-diag.php <<'PHP'
-          <?php
-          header('Content-Type: text/plain; charset=utf-8');
-          foreach ([
-            '/home/tdwdwhzq/public_html/wp-content/plugins/alookhor-control-center/alookhor-control-center.php',
-            '/home/tdwdwhzq/public_html/wp-content/plugins/alookhor-control-center/includes/shortcode-header.php'
-          ] as $f) {
-            $x=@file_get_contents($f); echo $f."\\nSHA=".hash('sha256',$x?:'')."\\nLEN=".strlen($x?:'')."\\nCOUNT=".substr_count($x?:'','function alookhor_cc_front_header_settings')."\\n---\\n";
-          }
-          ?>
-          PHP
-          python3 - <<'PY'
-          import os,subprocess
-          from pathlib import Path
-          from urllib.parse import quote
-          server=os.environ['FTP_SERVER'].strip(); port=os.environ['FTP_PORT'].strip(); user=os.environ['FTP_USERNAME'].strip(); password=os.environ['FTP_PASSWORD']
-          auth=f"ftp://{quote(user,safe='')}:{quote(password,safe='')}@{server}"
-          cmds=['set cmd:fail-exit true','set net:max-retries 3','set net:timeout 30','set ftp:passive-mode true','set ftp:ssl-auth TLS','set ftp:ssl-force true','set ftp:ssl-protect-data true','set ssl:verify-certificate true',f'open -p {port} "{auth}"','cd "public_html"','put /tmp/alookhor-live-diag.php -o alookhor-live-diag.php','bye']
-          p=Path('/tmp/up.lftp'); p.write_text('\\n'.join(cmds)+'\\n'); p.chmod(0o600); subprocess.run(['lftp','-f',str(p)],check=True)
-          PY
-          sleep 2
-          curl -fsS --max-time 30 https://alookhor.ir/alookhor-live-diag.php | tee /tmp/diag.txt
-          grep -q 'COUNT=0' /tmp/diag.txt
-          python3 - <<'PY'
-          import os,subprocess
-          from pathlib import Path
-          from urllib.parse import quote
-          server=os.environ['FTP_SERVER'].strip(); port=os.environ['FTP_PORT'].strip(); user=os.environ['FTP_USERNAME'].strip(); password=os.environ['FTP_PASSWORD']
-          auth=f"ftp://{quote(user,safe='')}:{quote(password,safe='')}@{server}"
-          cmds=['set cmd:fail-exit true','set net:max-retries 3',f'open -p {port} "{auth}"','cd "public_html"','rm alookhor-live-diag.php','bye']
-          p=Path('/tmp/rm.lftp'); p.write_text('\\n'.join(cmds)+'\\n'); p.chmod(0o600); subprocess.run(['lftp','-f',str(p)],check=True)
-          PY
+          for i in 1 2 3 4 5; do
+            code=$(curl -sS --max-time 30 -o "/tmp/site-$i.html" -w '%{http_code}' https://alookhor.ir/)
+            echo "LIVE_TEST_$i HTTP=$code"
+            test "$code" = "200"
+            ! grep -qi 'Fatal error' "/tmp/site-$i.html"
+            ! grep -qi 'Cannot redeclare' "/tmp/site-$i.html"
+            sleep 2
+          done
+          echo "FIVE_LIVE_TESTS_PASSED"
+
       - name: Publish through explicit FTPS
         env:
           FTP_SERVER: ${{ secrets.FTP_SERVER }}
