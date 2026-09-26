@@ -156,7 +156,7 @@ function alookhor_cc_cart_markup(){
     $recs = alookhor_cc_cart_recommendations(4);
     ob_start(); ?>
 
-<section id="alookhor-cart" class="alookhor-cart-page" dir="rtl" aria-labelledby="alookhor-cart-title">
+<section id="alookhor-cart" class="alookhor-cart-page" dir="rtl" aria-labelledby="alookhor-cart-title" data-ac-build="<?php echo esc_attr(ALOOKHOR_CC_BUILD); ?>">
   <div class="ac-hero" style="background-image:linear-gradient(270deg,rgba(22,8,38,.94) 18%,rgba(22,8,38,.72) 55%,rgba(22,8,38,.55)),url('<?php echo esc_url($hero_img); ?>')">
     <div class="ac-hero-top">
       <nav class="ac-crumb" aria-label="مسیر صفحه"><a href="<?php echo esc_url($home); ?>">خانه</a><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 6-6 6 6 6"/></svg><span>سبد خرید</span></nav>
