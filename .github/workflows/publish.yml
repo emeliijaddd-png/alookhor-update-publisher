@@ -102,7 +102,7 @@ jobs:
           auth=f"ftp://{quote(user,safe='')}:{quote(password,safe='')}@{server}"
           common=['set cmd:fail-exit true','set net:max-retries 2','set net:timeout 30','set ftp:passive-mode true','set ftp:ssl-auth TLS','set ftp:ssl-force true','set ftp:ssl-protect-data true','set ssl:verify-certificate true',f'open -p {port} "{auth}"']
           script=Path('/tmp/force-header.lftp')
-          script.write_text('\\n'.join(common+['cd "../public_html/wp-content/plugins/alookhor-control-center/includes"','rm -f shortcode-header.php','put ../../../work/alookhor-update-publisher/alookhor-update-publisher/plugin/alookhor-control-center/includes/shortcode-header.php -o shortcode-header.php','bye'])+'\\n')
+          script.write_text('\\n'.join(common+['cd "../public_html/wp-content/plugins/alookhor-control-center/includes"','rm -f shortcode-header.php','put plugin/alookhor-control-center/includes/shortcode-header.php -o shortcode-header.php','bye'])+'\\n')
           script.chmod(0o600)
           q=subprocess.run(['lftp','-f',str(script)])
           if q.returncode: raise SystemExit('Forced header replacement failed')
