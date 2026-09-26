@@ -9,6 +9,7 @@ fi
 root="$RUNNER_TEMP/alookhor-wordpress-smoke"
 cli="$RUNNER_TEMP/alookhor-wp-cli.phar"
 woo="$RUNNER_TEMP/alookhor-woocommerce.zip"
+baseline="$RUNNER_TEMP/alookhor-405-source.zip"
 server_log="$RUNNER_TEMP/alookhor-wp-server.log"
 setup_log="$RUNNER_TEMP/alookhor-wp-setup.log"
 export WP_SMOKE_ROOT="$root" WP_SMOKE_IDS="/tmp/alookhor-wp-smoke-products-$$.json"
@@ -41,6 +42,19 @@ cleanup() {
 }
 trap cleanup EXIT
 
+stage='build and verify unpublished candidate ZIP'
+python3 scripts/build_release.py
+python3 scripts/verify_release_safety.py
+export WP_SMOKE_CANDIDATE_ZIP="$(pwd)/public/releases/alookhor-control-center-3.10.412.zip"
+export WP_SMOKE_CANDIDATE_MANIFEST="$(pwd)/public/manifest.json"
+test -f "$WP_SMOKE_CANDIDATE_ZIP"
+stage='download and verify complete 405 installation source'
+# The pinned GitHub blob is 5 MB; gh api with read-only GITHUB_TOKEN works
+# for binary content whereas the JSON contents API omits files above 1 MB.
+gh api -H 'Accept: application/vnd.github.raw+json' \
+  'repos/emeliijaddd-png/alookhor-update-publisher/contents/packages/cc-release/alookhor-control-center.zip?ref=9ce51fdc897182811db4f808df8c7046de1221f5' > "$baseline"
+printf '09fd472b032b3602acc8f2779ab2d1906040c5fa426d8f82f291557161b3f602  %s\n' "$baseline" | sha256sum -c -
+stage='checkout pinned WordPress 6.8'
 git clone -q --depth 1 --branch 6.8 https://github.com/WordPress/WordPress.git "$root"
 test "$(git -C "$root" rev-parse HEAD)" = '6ba3d560fc2b033654f6dbfc6093fefb5c50f148'
 stage='download pinned WP-CLI and WooCommerce'
@@ -50,7 +64,7 @@ curl -fsSL --retry 3 https://github.com/woocommerce/woocommerce/releases/downloa
 printf '8e9ab54e04280f1d49e0d8199761217d5d577482eb5fe47420f7dd42533ef1cb  %s\n' "$woo" | sha256sum -c -
 mkdir -p "$root/wp-content/plugins"
 unzip -q "$woo" -d "$root/wp-content/plugins"
-cp -a plugin/alookhor-control-center "$root/wp-content/plugins/"
+unzip -q "$baseline" -d "$root/wp-content/plugins"
 wp() { php -d memory_limit=512M "$cli" --path="$root" "$@"; }
 stage='install isolated WordPress'
 wp core config --dbname=wp_smoke --dbuser=wp_smoke --dbpass=local-smoke-only --dbhost=127.0.0.1:3306 --skip-check
@@ -60,9 +74,14 @@ wp core install --url=http://127.0.0.1:8099 --title='Local cart CI' --admin_user
 wp option update home http://127.0.0.1:8099
 wp option update siteurl http://127.0.0.1:8099
 printf 'WP base: home=%s siteurl=%s\n' "$(wp option get home)" "$(wp option get siteurl)"
-stage='activate WooCommerce and source candidate'
+stage='activate WooCommerce and verified 405 baseline'
 wp plugin activate woocommerce
 wp plugin activate alookhor-control-center
+stage='real Plugin_Upgrader rejects corruption and installs 405 to 412'
+wp eval-file scripts/cart-tests/wordpress_upgrader_install.php
+# A fresh request must load the updated files, not just PHP's already-loaded
+# 405 functions from the request that performed the upgrade.
+wp eval 'if (ALOOKHOR_CC_VERSION !== "3.10.412" || !is_plugin_active("alookhor-control-center/alookhor-control-center.php")) { throw new RuntimeException("Updated plugin was not active on a fresh WordPress load"); } echo "Active plugin after upgrade: ", ALOOKHOR_CC_VERSION, PHP_EOL;'
 wp rewrite structure '/%postname%/'
 wp rewrite flush
 stage='seed real WooCommerce products'

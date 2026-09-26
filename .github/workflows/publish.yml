@@ -76,7 +76,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v5
-      - name: Test isolated WordPress 6.8, WooCommerce 10.2.0 and Chromium cart
+      - name: Test real 405-to-412 WordPress upgrade, WooCommerce and Chromium cart
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: bash scripts/cart-tests/wordpress_smoke.sh
 
   # This diagnostic is strictly read-only. Credentials, if configured, are
