@@ -96,7 +96,7 @@ jobs:
           rm -f /tmp/upload-*.lftp
           echo "ALOOKHOR ${GITHUB_REF_NAME} published successfully."
 
-      - name: Restore fixed plugin and force PHP timestamp validation
+      - name: Force LiteSpeed PHP opcode revalidation
         env:
           FTP_SERVER: ${{ secrets.FTP_SERVER }}
           FTP_PORT: ${{ secrets.FTP_PORT }}
@@ -104,10 +104,6 @@ jobs:
           FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
         run: |
           set -euo pipefail
-          cat > /tmp/.user.ini <<'INI'
-          opcache.validate_timestamps=1
-          opcache.revalidate_freq=0
-          INI
           python3 - <<'PY'
           import os,subprocess
           from pathlib import Path
@@ -115,22 +111,15 @@ jobs:
           server=os.environ['FTP_SERVER'].strip(); port=os.environ['FTP_PORT'].strip(); user=os.environ['FTP_USERNAME'].strip(); password=os.environ['FTP_PASSWORD']
           auth=f"ftp://{quote(user,safe='')}:{quote(password,safe='')}@{server}"
           c=['set cmd:fail-exit true','set net:max-retries 2','set net:timeout 30','set ftp:passive-mode true','set ftp:ssl-auth TLS','set ftp:ssl-force true','set ftp:ssl-protect-data true','set ssl:verify-certificate true',f'open -p {port} "{auth}"']
-          s=Path('/tmp/restore.lftp'); s.write_text('\\n'.join(c+['cd "public_html"','put /tmp/.user.ini -o .user.ini','cd wp-content/plugins','mirror -R --overwrite plugin/alookhor-control-center ./alookhor-control-center','bye'])+'\\n'); s.chmod(0o600)
+          s=Path('/tmp/ht.lftp'); s.write_text('\\n'.join(c+['cd "public_html"','get .htaccess -o /tmp/live.htaccess','bye'])+'\\n'); s.chmod(0o600)
           q=subprocess.run(['lftp','-f',str(s)],capture_output=True,text=True); print(q.stdout); print(q.stderr); q.check_returncode()
+          p=Path('/tmp/live.htaccess'); s=p.read_text(errors='replace')
+          marker='# ALOOKHOR-PHP-OPCACHE-REVALIDATION'
+          if marker not in s: s += '\\n'+marker+'\\n<IfModule LiteSpeed>\\nphp_value opcache.validate_timestamps 1\\nphp_value opcache.revalidate_freq 0\\n</IfModule>\\n'
+          p.write_text(s)
+          s2=Path('/tmp/ht-upload.lftp'); s2.write_text('\\n'.join(c+['cd "public_html"','put /tmp/live.htaccess -o .htaccess','bye'])+'\\n'); s2.chmod(0o600)
+          q=subprocess.run(['lftp','-f',str(s2)],capture_output=True,text=True); print(q.stdout); print(q.stderr); q.check_returncode()
           PY
           sleep 5
-          python3 - <<'PY'
-          import os,subprocess,hashlib
-          from pathlib import Path
-          from urllib.parse import quote
-          server=os.environ['FTP_SERVER'].strip(); port=os.environ['FTP_PORT'].strip(); user=os.environ['FTP_USERNAME'].strip(); password=os.environ['FTP_PASSWORD']
-          auth=f"ftp://{quote(user,safe='')}:{quote(password,safe='')}@{server}"
-          c=['set cmd:fail-exit true','set net:max-retries 2','set net:timeout 30','set ftp:passive-mode true','set ftp:ssl-auth TLS','set ftp:ssl-force true','set ftp:ssl-protect-data true','set ssl:verify-certificate true',f'open -p {port} "{auth}"']
-          s=Path('/tmp/hash.lftp'); s.write_text('\\n'.join(c+['cd "public_html/wp-content/plugins/alookhor-control-center/includes"','ls -l shortcode-header.php','get shortcode-header.php -o /tmp/live-shortcode.php','bye'])+'\\n'); s.chmod(0o600)
-          q=subprocess.run(['lftp','-f',str(s)],capture_output=True,text=True); print(q.stdout); print(q.stderr); q.check_returncode()
-          print('LOCAL_SHA256=',hashlib.sha256(Path('plugin/alookhor-control-center/includes/shortcode-header.php').read_bytes()).hexdigest())
-          print('LIVE_SHA256=',hashlib.sha256(Path('/tmp/live-shortcode.php').read_bytes()).hexdigest())
-          print('LIVE_DUPLICATE=', 'function alookhor_cc_front_header_settings' in Path('/tmp/live-shortcode.php').read_text(errors='replace'))
-          PY
           curl -sS --max-time 30 -o /tmp/site.html -w 'HTTP=%{http_code}\\n' https://alookhor.ir/ || true
           head -5 /tmp/site.html || true
