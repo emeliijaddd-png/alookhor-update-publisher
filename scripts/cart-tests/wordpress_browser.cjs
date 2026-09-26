@@ -26,7 +26,10 @@ assert.ok(executable,'Chromium/Google Chrome is not installed on the isolated ru
  try{
   const context=await browser.newContext({locale:'fa-IR'});
   const page=await context.newPage();
-  page.setDefaultTimeout(20000);
+  page.setDefaultTimeout(30000);
+  // Real WooCommerce renders a session cart server-side; a busy CI runner can
+  // take over 20s on full-page reloads even when every route is healthy.
+  page.setDefaultNavigationTimeout(60000);
   await page.goto(BASE+'/cart/',{waitUntil:'domcontentloaded'});
   await page.locator('#alookhor-cart').waitFor();
   const api=async(route,method='GET',data)=>page.evaluate(async({route,method,data})=>{
