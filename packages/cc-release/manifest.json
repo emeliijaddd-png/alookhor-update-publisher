@@ -1,15 +1,20 @@
 {
   "name": "ALOOKHOR Control Center",
-  "version": "3.10.419",
+  "version": "3.10.420",
   "download_url": "https://raw.githubusercontent.com/emeliijaddd-png/alookhor-update-publisher/arena/01a0a537-alookhor-update-publisher/packages/cc-release/alookhor-control-center.zip",
   "details_url": "https://github.com/emeliijaddd-png/alookhor-update-publisher",
-  "sha256": "3974f08443340bfcca67c434d91b84e6d39abf803ee27c3a850b7d269cd7b0d8",
+  "sha256": "95e11efe1a88fc389ada7a8f446cf08157c0b7d4a9f87565139537875e88aadd",
   "requires": "6.0",
   "tested": "6.8",
   "requires_php": "8.0",
   "author": "ALOOKHOR Team",
   "description": "کنترل سنتر لوکس و ماژولار ALOOKHOR",
   "changelog": [
+    {
+      "tag": "FIX",
+      "title": "حذف خطای Fatal داخل پنجرهٔ بروزرسانی افزونه",
+      "desc": "در جریان نصب نسخهٔ قبل، صفحهٔ آپایتر یک Fatal استایا «using_index_permalinks» نمایش می‌داد. علت: صدا زدن rest_url در لحظهٔ plugins_loaded که هنوز شناسهٔ rewrite وردپرس ساخته نشده است. حالا یک سازندهٔ امن آدرس REST جایگزین شده و این Fatal به‌طور کامل بسته شده است. قابلیت‌ها و تغییر پیشین (سشن/کوکی) دست‌نخورده باقی است."
+    },
     {
       "tag": "FIX",
       "title": "رفع ریشهٔ «همه‌چیز کار نمی‌کند»: سشن ووکامرس بین درخواست‌ها نمی‌ماند",
@@ -39,11 +44,6 @@
       "tag": "FIX",
       "title": "‌ریشهٔ «محصولات بعد چند ثانیه ناپدید می‌شوند» روی سرور شما پیدا و بسته شد",
       "desc": "کش سرور شما URL را بدون پارامتر ذخیره می‌کند؛ به همین دلیل همهٔ درخواست‌های دادهٔ سبد یک جواب کش‌شدهٔ قدیمی می‌گرفتند: محصول یک لحظه دیده می‌شد و بعد پاسخ کش‌شدهٔ «سبد خالی» جایگزینش می‌کرد — و حتی بعضی افزودن‌ها هرگز به کد نمی‌رسیدند. حالا مسیرهای سبد از کش LiteSpeed خارج می‌شوند، پارامترهای افزودن/تعداد از کش کوئری مستثنا می‌شوند، پاسخ‌های سبد تگ اختصاصی می‌گیرند و هر ساعت به‌صورت هدفمند از کش پاک می‌شوند."
-    },
-    {
-      "tag": "FIX",
-      "title": "‌رفع قطعی «افزودن کار نمی‌کند» در پیشنهادها (محصول متغیر)",
-      "desc": "خودِ سرور بهترین گزینهٔ موجود هر محصول متغیر را انتخاب و به سبد اضافه می‌کند."
     }
   ]
 }
