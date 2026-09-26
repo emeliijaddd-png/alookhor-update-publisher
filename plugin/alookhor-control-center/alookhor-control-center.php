@@ -87,7 +87,7 @@ function alookhor_cc_get_header_settings(){
     return wp_parse_args($saved, wp_parse_args($s['header_settings'] ?? [], $defaults));
 }
 
-function alookhor_cc_front_header_settings(){ return alookhor_cc_get_header_settings(); }
+function alookhor_cc_front_header_settings_v2(){ return alookhor_cc_get_header_settings(); }
 function alookhor_cc_should_inline_shortcode_css(){ return !is_admin() && !wp_doing_ajax(); }
 
 require_once ALOOKHOR_CC_DIR . 'includes/admin.php';
