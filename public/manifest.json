@@ -1,27 +1,27 @@
 {
   "name": "ALOOKHOR Control Center",
-  "version": "3.10.408",
-  "download_url": "https://updates.alookhor.ir/releases/alookhor-control-center-3.10.408.zip",
+  "version": "3.10.409",
+  "download_url": "https://updates.alookhor.ir/releases/alookhor-control-center-3.10.409.zip",
   "details_url": "https://updates.alookhor.ir/changelog.html",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "نسخه بازیابی امن بر پایه مسیر پایدار 3.10.405؛ بازگشت سبد خرید به Renderer و REST bridge پایدار.",
+  "description": "نسخه بازیابی 3.10.409؛ رفع fatal ناشی از تعریف تکراری تابع هدر.",
   "changelog": [
     {
+      "tag": "FIX",
+      "title": "رفع Fatal تابع هدر",
+      "desc": "تعریف تابع alookhor_cc_front_header_settings در برابر تعریف قبلی محافظت شد تا افزونه هنگام بارگذاری WordPress خطای Cannot redeclare ندهد."
+    },
+    {
       "tag": "RECOVERY",
-      "title": "بازگشت به هسته پایدار",
-      "desc": "هسته افزونه به آخرین نسخه شناخته‌شده سالم 3.10.405 بازگردانده شد و فقط شماره نسخه افزایش یافت."
+      "title": "حفظ هسته پایدار",
+      "desc": "هسته نسخه بازیابی قبلی حفظ شد و فقط اصلاح ضروری سازگاری PHP/WordPress اعمال شد."
     },
     {
       "tag": "UPDATE",
-      "title": "مسیر آپدیت WordPress",
-      "desc": "انتشار فقط از کانال خصوصی Manifest و ZIP انجام می‌شود و مسیر FTP مستقیم فایل‌های افزونه استفاده نمی‌شود."
-    },
-    {
-      "tag": "CART",
-      "title": "پایداری سبد خرید",
-      "desc": "کد سبد خرید نسخه پایدار شناخته‌شده حفظ شده است."
+      "title": "مسیر انتشار ثابت",
+      "desc": "کانال Manifest و ZIP خصوصی WordPress بدون تغییر معماری حفظ شد."
     }
   ]
 }
