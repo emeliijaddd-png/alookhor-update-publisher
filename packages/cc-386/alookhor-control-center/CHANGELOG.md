@@ -1,3 +1,10 @@
+## 3.10.416 — Cart interaction repair
+
+- Fixed all Cart REST mutation URLs so update, remove, add, coupon and undo calls resolve to `/wp-json/alookhor-cart/v4/...` instead of concatenating the path without a slash.
+- Added defensive API path normalization so future mutation calls cannot reproduce the same route mismatch.
+- Fixed recommended variable products to send the parent product ID together with the selected purchasable variation ID.
+- Preserved the native WooCommerce session/cart bridge, guest nonce flow, no-store cache headers, quantity handling and LiteSpeed protections.
+
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
 ## v3.10.415 — 2026-09-26 — Cart UX v2
