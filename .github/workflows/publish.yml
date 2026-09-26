@@ -63,6 +63,29 @@ jobs:
         run: python3 scripts/build_release.py
       - name: Install FTPS client
         run: sudo apt-get update -qq && sudo apt-get install -y -qq lftp
+      - name: Emergency disable broken live plugin
+        env:
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+          FTP_PORT: ${{ secrets.FTP_PORT }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import os,subprocess
+          from pathlib import Path
+          from urllib.parse import quote
+          server=os.environ['FTP_SERVER'].strip(); port=os.environ['FTP_PORT'].strip(); user=os.environ['FTP_USERNAME'].strip(); password=os.environ['FTP_PASSWORD']
+          auth=f"ftp://{quote(user,safe='')}:{quote(password,safe='')}@{server}"
+          c=['set cmd:fail-exit true','set net:max-retries 3','set net:timeout 30','set ftp:passive-mode true','set ftp:ssl-auth TLS','set ftp:ssl-force true','set ftp:ssl-protect-data true','set ssl:verify-certificate true',f'open -p {port} "{auth}"','cd "public_html/wp-content/plugins"','mv alookhor-control-center alookhor-control-center-disabled','bye']
+          p=Path('/tmp/disable.lftp'); p.write_text('\\n'.join(c)+'\\n'); p.chmod(0o600)
+          q=subprocess.run(['lftp','-f',str(p)],capture_output=True,text=True); print(q.stdout); print(q.stderr); q.check_returncode()
+          PY
+          sleep 3
+          curl -sS --max-time 30 -o /tmp/site.html -w 'HTTP=%{http_code}\\n' https://alookhor.ir/
+          ! grep -qi 'Fatal error' /tmp/site.html
+          echo "SITE_RECOVERED_WITH_PLUGIN_DISABLED"
+
       - name: Publish through explicit FTPS
         env:
           FTP_SERVER: ${{ secrets.FTP_SERVER }}
