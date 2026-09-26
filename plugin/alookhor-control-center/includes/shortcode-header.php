@@ -70,6 +70,8 @@ function alookhor_cc_front_header_settings(){
     $settings = wp_parse_args($saved, $defaults);
     return apply_filters('alookhor_cc_front_header_settings', $settings);
 }
+}
+
 /**
  * Resolve the main menu automatically. A saved override is optional; otherwise
  * registered primary/header locations are preferred, then the first WP menu.
