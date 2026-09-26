@@ -1,7 +1,8 @@
-/* ALOOKHOR CART v3.10.415 — Cart UX v2 + Woo session bridge (no X-WP-Nonce!) */
+/* ALOOKHOR CART v3.10.416 — Cart UX v2 + route normalization + Woo session bridge */
 (function(){
 'use strict';
 const ROOT='#alookhor-cart', cfg=window.ALOOKHOR_CART_CONFIG||{}, API=String(cfg.cartApi||'/wp-json/alookhor-cart/v4/').replace(/\/+$/,'');
+const apiPath=path=>{path=String(path||'');return path.charAt(0)==='/'?path:'/'+path;};
 const state={items:[],totals:{},coupons:[],nonce:cfg.nonce||'',busy:false,lastRemoved:null};
 const q=(s,r=document)=>r.querySelector(s), qa=(s,r=document)=>Array.from(r.querySelectorAll(s));
 const fa=n=>(Number(n)||0).toLocaleString('fa-IR'), fp=n=>String(n).replace(/[0-9]/g,d=>'۰۱۲۳۴۵۶۷۸۹'[d]);
@@ -12,8 +13,8 @@ async function api(path,opt={}){
  // فقط نانس سفارشی خودمان؛ ارسال آن به‌صورت X-WP-Nonce باعث 403 «Cookie check failed» هسته می‌شد.
  const h={'Accept':'application/json','Content-Type':'application/json'};
  if(state.nonce)h['X-ALOOKHOR-CART-NONCE']=state.nonce;
- const bust=path+(path.indexOf('?')>-1?'&':'?')+'_='+Date.now(); // کش‌شکن: LiteSpeed/کش‌های میانی نباید پاسخ سبد را کش کنند
- const res=await fetch(API+bust,{method:opt.method||'GET',headers:h,credentials:'include',cache:'no-store',body:opt.body?JSON.stringify(opt.body):undefined});
+ const bust=(apiPath(path).indexOf('?')>-1?'&':'?')+'_='+Date.now(); // کش‌شکن: LiteSpeed/کش‌های میانی نباید پاسخ سبد را کش کنند
+ const res=await fetch(API+apiPath(path)+bust,{method:opt.method||'GET',headers:h,credentials:'include',cache:'no-store',body:opt.body?JSON.stringify(opt.body):undefined});
  const rn=res.headers.get('X-ALOOKHOR-CART-NONCE');if(rn)state.nonce=rn;
  const raw=await res.text();let data={};try{data=raw?JSON.parse(raw):{};}catch(e){data={};}
  if(!res.ok)throw new Error(data.message||data.code||('خطای سبد خرید '+res.status));
@@ -68,31 +69,31 @@ async function load(){
 }
 async function update(key,qty){
  if(state.busy)return;state.busy=true;
- try{const d=await api('cart/update',{method:'POST',body:{key,quantity:qty}});applyPayload(d);error('');}
+ try{const d=await api('/cart/update',{method:'POST',body:{key,quantity:qty}});applyPayload(d);error('');}
  catch(e){error(e.message||'تغییر تعداد انجام نشد.');}
  finally{state.busy=false;renderSummary();}
 }
 async function remove(key){
  if(state.busy)return;state.busy=true;const old=state.items.find(x=>String(x.key)===String(key));if(old)state.lastRemoved=JSON.parse(JSON.stringify(old));
- try{const d=await api('cart/remove',{method:'POST',body:{key}});applyPayload(d);error('');showUndo();toast('محصول از سبد حذف شد');}
+ try{const d=await api('/cart/remove',{method:'POST',body:{key}});applyPayload(d);error('');showUndo();toast('محصول از سبد حذف شد');}
  catch(e){error(e.message||'حذف محصول انجام نشد.');}
  finally{state.busy=false;}
 }
 async function coupon(code){
  const b=q('.ac-coupon button',q(ROOT));if(b)b.disabled=true;
- try{const d=await api('cart/coupon',{method:'POST',body:{code}});applyPayload(d);error('');toast('کد تخفیف اعمال شد');}
+ try{const d=await api('/cart/coupon',{method:'POST',body:{code}});applyPayload(d);error('');toast('کد تخفیف اعمال شد');}
  catch(e){error(e.message||'کد تخفیف قابل اعمال نیست.');}
  finally{renderSummary();}
 }
 async function removeCoupon(){
  if(state.busy)return;state.busy=true;
- try{const d=await api('cart/coupon/remove',{method:'POST',body:{}});applyPayload(d);toast('کد تخفیف حذف شد');}
+ try{const d=await api('/cart/coupon/remove',{method:'POST',body:{}});applyPayload(d);toast('کد تخفیف حذف شد');}
  catch(e){error(e.message||'حذف کد تخفیف انجام نشد.');}
  finally{state.busy=false;renderSummary();}
 }
 async function undoRemove(){
  const x=state.lastRemoved;if(!x||state.busy)return;state.busy=true;
- try{const d=await api('cart/add',{method:'POST',body:{product_id:Number(x.id)||0,variation_id:Number(x.variation_id)||0,variation:x.variation_attributes||{},quantity:Number(x.quantity)||1}});applyPayload(d);state.lastRemoved=null;hideUndo();toast('محصول به سبد بازگردانده شد');}
+ try{const d=await api('/cart/add',{method:'POST',body:{product_id:Number(x.id)||0,variation_id:Number(x.variation_id)||0,variation:x.variation_attributes||{},quantity:Number(x.quantity)||1}});applyPayload(d);state.lastRemoved=null;hideUndo();toast('محصول به سبد بازگردانده شد');}
  catch(e){error(e.message||'بازگردانی محصول انجام نشد.');}
  finally{state.busy=false;}
 }
@@ -127,10 +128,10 @@ function cardHTML(p){
 async function recommend(){
  const grid=q('.suggested-grid',q(ROOT));if(!grid)return;
  try{
-  const res=await fetch(API+'recommendations?_='+Date.now(),{credentials:'include',cache:'no-store',headers:{'Accept':'application/json'}});
+  const res=await fetch(API+'/recommendations?_='+Date.now(),{credentials:'include',cache:'no-store',headers:{'Accept':'application/json'}});
   if(!res.ok)return;const data=await res.json();
   if(Array.isArray(data)&&data.length){grid.innerHTML=data.slice(0,4).map(cardHTML).join('');
-   qa('[data-add-id]',grid).forEach(b=>b.onclick=async()=>{if(b.disabled)return;b.disabled=true;const v0=Number(b.dataset.addVariation)||0;try{const d=await api('cart/add',{method:'POST',body:(v0?{product_id:Number(b.dataset.addId),variation_id:v0,quantity:1}:{product_id:Number(b.dataset.addId),quantity:1})});applyPayload(d);toast('محصول به سبد اضافه شد');}catch(e){error(e.message||'افزودن محصول انجام نشد.');}finally{b.disabled=false;}});
+   qa('[data-add-id]',grid).forEach(b=>b.onclick=async()=>{if(b.disabled)return;b.disabled=true;const v0=Number(b.dataset.addVariation)||0;try{const d=await api('/cart/add',{method:'POST',body:(v0?{product_id:Number(b.dataset.addId),variation_id:v0,quantity:1}:{product_id:Number(b.dataset.addId),quantity:1})});applyPayload(d);toast('محصول به سبد اضافه شد');}catch(e){error(e.message||'افزودن محصول انجام نشد.');}finally{b.disabled=false;}});
    paintWish();
   }
  }catch(e){console.error(e);}
@@ -139,7 +140,7 @@ function hideLegacy(){const root=q(ROOT);if(!root)return;qa('.woocommerce-cart-f
 function init(){const r=q(ROOT);if(!r)return;
  /* 3.10.405 — خودترمیم‌گری کش کهنه: اگر HTML صفحه با بیلد این فایل JS جفت نباشد
     (کش مرورگر/LiteSpeed نسخهٔ قدیمی را سرو کرده)، یک‌بار با پارامتر کش‌شکن ریلود می‌کنیم. */
- try{const BUILD='3.10.415';const mb=r.getAttribute('data-ac-build')||'';
+ try{const BUILD='3.10.416';const mb=r.getAttribute('data-ac-build')||'';
   if(mb&&mb!==BUILD){const k='ac_heal_'+BUILD;let done=false;try{done=sessionStorage.getItem(k)==='1';}catch(e){}
    if(!done){try{sessionStorage.setItem(k,'1');}catch(e){}
     const u=new URL(location.href);u.searchParams.set('ac_b',BUILD);location.replace(u.toString());return;}
