@@ -28,6 +28,7 @@ class WP_Error {
     public function get_error_code() { return $this->code; }
     public function get_error_message() { return $this->message; }
 }
+class RedirectSimulation extends RuntimeException {}
 class WP_REST_Request {
     private $headers; private $params;
     public function __construct($params = array(), $headers = array()) { $this->params=$params;$this->headers=array_change_key_case($headers, CASE_LOWER); }
@@ -49,6 +50,11 @@ function is_wp_error($data) { return $data instanceof WP_Error; }
 function __return_true() { return true; }
 function is_cart() { return true; }
 function is_admin() { return false; }
+function get_option($name) { return null; }
+function wp_get_referer() { return ''; }
+function __($text,$domain) { return $text; }
+function wc_add_notice($text,$type) {}
+function wp_safe_redirect($url) { throw new RedirectSimulation($url); }
 function did_action($hook) {
     if ($hook === 'wp_loaded') return 1;
     if ($hook === 'woocommerce_load_cart_from_session') return (int) $GLOBALS['cart_session_loaded'];
@@ -233,6 +239,21 @@ WC()->cart=new WC_Cart();
 $GLOBALS['cart_session_loaded']=false;
 $coupon=route('cart/coupon',array('code'=>'SAVE10'));
 check($GLOBALS['cart_session_loaded'] && $coupon instanceof WP_REST_Response && $coupon->get_data()['count']===7, 'fresh REST coupon retains the same cart session');
+
+// Product-page GET with quantity > 1 runs at wp_loaded priority 9, before Woo's
+// priority-10 session hook. Simulate the redirect without exiting this test.
+WC()->cart=new WC_Cart();
+$GLOBALS['cart_session_loaded']=false;
+$_GET=array('add-to-cart'=>11, 'quantity'=>3);
+$_REQUEST=$_GET;
+$redirected=false;
+try { $GLOBALS['actions']['wp_loaded'][0](); }
+catch (RedirectSimulation $e) { $redirected=true; }
+check($redirected && $GLOBALS['cart_session_loaded'] && count($GLOBALS['saved_cart'])===3
+    && $GLOBALS['saved_cart']['item-11-0']['quantity']===4
+    && $GLOBALS['saved_cart']['item-33-0']['quantity']===4,
+    'product-page GET quantity loads the previous cart before Woo session hook and redirect');
+$_GET=$_REQUEST=array();
 
 // JSON embedded inside an HTML <script> must not be able to terminate that script.
 $GLOBALS['products'][33]=new WC_Product(33,'simple',1000,array(),'</script><img src=x onerror=alert(1)>');

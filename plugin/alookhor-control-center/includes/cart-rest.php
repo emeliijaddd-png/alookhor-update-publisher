@@ -14,10 +14,9 @@ function alookhor_cc_cart_bootstrap() {
         wc_load_cart();
     }
     if (!(WC()->cart instanceof WC_Cart)) return false;
-    // Woo does not initialize frontend carts on REST requests. wc_load_cart()
-    // registers a wp_loaded session hook, but REST callbacks run *after* that hook.
-    // Without loading the saved cart here, each POST starts with an empty cart and
-    // can replace earlier items in the guest's session (GET also appears empty).
+    // REST callbacks run after Woo's wp_loaded session hook; our product-page
+    // quantity handler runs just before it. Both must hydrate the saved cart
+    // before mutating, or a new request can replace earlier guest items.
     if (did_action('wp_loaded') && !did_action('woocommerce_load_cart_from_session')) {
         WC()->cart->get_cart_from_session();
     }
@@ -127,7 +126,9 @@ add_action('wp_loaded', function () {
     if (is_admin() || !isset($_GET['add-to-cart']) || isset($_POST['quantity'])) return;
     $qty = isset($_GET['quantity']) ? max(1, absint($_GET['quantity'])) : 1;
     if ($qty < 2) return; // مسیر بومی ووکامرس برای qty=1 دست‌نخورده می‌ماند
-    if (!function_exists('WC') || !WC()->cart) return;
+    // Runs at wp_loaded priority 9, before Woo's priority-10 session hook.
+    // Hydrate the existing cart first or a quantity > 1 add may replace its rows.
+    if (!alookhor_cc_cart_bootstrap()) return;
     $pid = absint($_GET['add-to-cart']);
     if (!$pid) return;
     $variation_id = !empty($_GET['variation_id']) ? absint($_GET['variation_id']) : 0;
