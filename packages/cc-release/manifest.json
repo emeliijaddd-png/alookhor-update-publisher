@@ -1,15 +1,20 @@
 {
   "name": "ALOOKHOR Control Center",
-  "version": "3.10.418",
+  "version": "3.10.419",
   "download_url": "https://raw.githubusercontent.com/emeliijaddd-png/alookhor-update-publisher/arena/01a0a537-alookhor-update-publisher/packages/cc-release/alookhor-control-center.zip",
   "details_url": "https://github.com/emeliijaddd-png/alookhor-update-publisher",
-  "sha256": "d9ad1ee1e810f2d7252b2f99591e13afb955e93b16a3375f0008a6d3a822d1a9",
+  "sha256": "3974f08443340bfcca67c434d91b84e6d39abf803ee27c3a850b7d269cd7b0d8",
   "requires": "6.0",
   "tested": "6.8",
   "requires_php": "8.0",
   "author": "ALOOKHOR Team",
   "description": "کنترل سنتر لوکس و ماژولار ALOOKHOR",
   "changelog": [
+    {
+      "tag": "FIX",
+      "title": "رفع ریشهٔ «همه‌چیز کار نمی‌کند»: سشن ووکامرس بین درخواست‌ها نمی‌ماند",
+      "desc": "تشخیص زنده نشان داد هر کلیک سبد توسط یک «نشست تازهٔ خالی» جواب می‌شد چون کوکی سشن سرور برای کاربر سِت نمی‌شد؛ نتیجه: خطای «محصول در سبد خرید پیدا نشد» و ناپدید شدن اقلام. حالا روی همهٔ مسیرهای سبد، کوکی سشن صریحاً نوشته می‌شود. بعد از نصب یک‌بار Ctrl+Shift+R کنید."
+    },
     {
       "tag": "TEST",
       "title": "نسخهٔ تشخیص زندهٔ «محصول در سبد خرید پیدا نشد»",
@@ -39,11 +44,6 @@
       "tag": "FIX",
       "title": "‌رفع قطعی «افزودن کار نمی‌کند» در پیشنهادها (محصول متغیر)",
       "desc": "خودِ سرور بهترین گزینهٔ موجود هر محصول متغیر را انتخاب و به سبد اضافه می‌کند."
-    },
-    {
-      "tag": "IMPROVE",
-      "title": "‌کارت‌های پیشنهاد: متن گزینه + قیمت خط‌خورده + درصد تخفیف واقعی",
-      "desc": "زیر نام هر پیشنهاد گزینهٔ انتخاب‌شده (مثل «وزن: ۵۰۰ گرم») دیده می‌شود؛ تخفیف واقعی با قیمت قبلی خط‌خورده و درصد نمایش داده می‌شود."
     }
   ]
 }
