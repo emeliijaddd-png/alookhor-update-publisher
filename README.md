@@ -6,7 +6,7 @@ GitHub source and release checks for ALOOKHOR Control Center.
 - **This branch:** 3.10.412 **draft cart-repair candidate**, restored from the complete GitHub 3.10.405 ZIP and modified with focused fixes. It is **not published or install-ready**.
 - **Other `main` branch:** 3.10.411 at the time of this audit; its plugin tree is missing files that are present in the 3.10.405 ZIP. Do not replace the active installation with it or an older package.
 - **Build:** `python3 scripts/build_release.py && python3 scripts/verify_release_safety.py` (restore tracked `public/` after local verification; draft artifacts are not committed).
-- **Tests:** `python3 -m unittest discover -s scripts/tests -q`, `php scripts/cart-tests/cart_contract.php`, `npm ci --prefix scripts/cart-tests && npm test --prefix scripts/cart-tests`.
+- **Tests:** `python3 -m unittest discover -s scripts/tests -q`, `php scripts/cart-tests/cart_contract.php`, `npm ci --prefix scripts/cart-tests && npm test --prefix scripts/cart-tests`. [Isolated WordPress 6.8 + WooCommerce 10.2.0 HTTP guest-cart smoke passed in GitHub Actions](https://github.com/emeliijaddd-png/alookhor-update-publisher/actions/runs/36227996593); it does not reproduce the live theme, browser cache, or update channel.
 - **Review:** [Cart diagnosis, fixes, and remaining release gates](docs/CART_405_AUDIT.md). Previous release-channel history is archived in [RECOVERY_390.md](docs/RECOVERY_390.md).
 
 A branch push runs **build/tests only**. Production deployment is disabled for branch pushes; a version tag and gated checks are required. Nothing in this branch installs a plugin on the live site.
