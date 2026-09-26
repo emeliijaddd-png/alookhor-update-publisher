@@ -96,7 +96,7 @@ jobs:
           rm -f /tmp/upload-*.lftp
           echo "ALOOKHOR ${GITHUB_REF_NAME} published successfully."
 
-      - name: Inspect WordPress bootstrap configuration
+      - name: Restore fixed plugin and force PHP timestamp validation
         env:
           FTP_SERVER: ${{ secrets.FTP_SERVER }}
           FTP_PORT: ${{ secrets.FTP_PORT }}
@@ -104,6 +104,10 @@ jobs:
           FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
         run: |
           set -euo pipefail
+          cat > /tmp/.user.ini <<'INI'
+          opcache.validate_timestamps=1
+          opcache.revalidate_freq=0
+          INI
           python3 - <<'PY'
           import os,subprocess
           from pathlib import Path
@@ -111,12 +115,8 @@ jobs:
           server=os.environ['FTP_SERVER'].strip(); port=os.environ['FTP_PORT'].strip(); user=os.environ['FTP_USERNAME'].strip(); password=os.environ['FTP_PASSWORD']
           auth=f"ftp://{quote(user,safe='')}:{quote(password,safe='')}@{server}"
           c=['set cmd:fail-exit true','set net:max-retries 2','set net:timeout 30','set ftp:passive-mode true','set ftp:ssl-auth TLS','set ftp:ssl-force true','set ftp:ssl-protect-data true','set ssl:verify-certificate true',f'open -p {port} "{auth}"']
-          s=Path('/tmp/wpconfig.lftp'); s.write_text('\\n'.join(c+['cd "public_html"','get ../wp-config.php -o /tmp/wp-config.php','bye'])+'\\n'); s.chmod(0o600)
+          s=Path('/tmp/restore.lftp'); s.write_text('\\n'.join(c+['cd "public_html"','put /tmp/.user.ini -o .user.ini','cd wp-content/plugins','mirror -R --overwrite plugin/alookhor-control-center ./alookhor-control-center','bye'])+'\\n'); s.chmod(0o600)
           q=subprocess.run(['lftp','-f',str(s)],capture_output=True,text=True); print(q.stdout); print(q.stderr); q.check_returncode()
           PY
-          python3 - <<'PY'
-          from pathlib import Path
-          s=Path('/tmp/wp-config.php').read_text(errors='replace')
-          for line in s.splitlines():
-              if any(k in line.lower() for k in ['auto_prepend','alookhor','mu-plugins','active_plugins','require_once']): print(line[:500])
-          PY
+          sleep 5
+          curl -i -sS --max-time 30 https://alookhor.ir/ | head -40 || true
