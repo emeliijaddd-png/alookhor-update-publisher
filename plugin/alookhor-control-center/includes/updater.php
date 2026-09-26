@@ -24,6 +24,16 @@ if (!defined('ABSPATH')) exit;
 const ALOOKHOR_CC_UPDATE_CACHE_KEY = 'alookhor_cc_update_manifest_v1';
 
 /**
+ * Return the canonical trusted update hosts. Manifest and package download
+ * validation must use the same allow-list so the two stages cannot diverge.
+ */
+function alookhor_cc_update_allowed_hosts(){
+    $hosts = (array) apply_filters('alookhor_cc_update_allowed_hosts', ['updates.alookhor.ir']);
+    $hosts = array_map('strtolower', array_map('sanitize_text_field', $hosts));
+    return array_values(array_unique(array_filter($hosts)));
+}
+
+/**
  * Return the private release manifest URL.
  *
  * Production default: https://updates.alookhor.ir/manifest.json
@@ -61,7 +71,7 @@ function alookhor_cc_normalize_update_manifest($payload){
     if (!$download_url || wp_parse_url($download_url, PHP_URL_SCHEME) !== 'https') {
         return new WP_Error('alookhor_invalid_package_url', 'آدرس بسته بروزرسانی باید HTTPS معتبر باشد.');
     }
-    $allowed_hosts = (array) apply_filters('alookhor_cc_update_allowed_hosts', ['updates.alookhor.ir']);
+    $allowed_hosts = alookhor_cc_update_allowed_hosts();
     $package_host = strtolower((string) wp_parse_url($download_url, PHP_URL_HOST));
     if (!$package_host || !in_array($package_host, array_map('strtolower', $allowed_hosts), true)) {
         return new WP_Error('alookhor_untrusted_package_host', 'دامنه بسته بروزرسانی مورد اعتماد نیست.');
@@ -197,7 +207,7 @@ add_filter('upgrader_pre_download', function($reply, $package, $upgrader, $hook_
     if (false !== $reply || !is_string($package)) return $reply;
 
     $package_host = strtolower((string) wp_parse_url($package, PHP_URL_HOST));
-    $allowed_hosts = array_map('strtolower', (array) apply_filters('alookhor_cc_update_allowed_hosts', ['updates.alookhor.ir']));
+    $allowed_hosts = alookhor_cc_update_allowed_hosts();
     if (!in_array($package_host, $allowed_hosts, true)) return $reply;
 
     $plugin = $hook_extra['plugin'] ?? '';
