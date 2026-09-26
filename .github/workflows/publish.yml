@@ -121,7 +121,7 @@ jobs:
           PY
           sleep 8
           for i in 1 2 3 4 5; do
-            code=$(curl -sS --no-cache --max-time 30 -H 'Cache-Control: no-cache' -o "/tmp/repair-$i.html" -w '%{http_code}' "https://alookhor.ir/?alookhor_repair=$i-$(date +%s)")
+            code=$(curl -sS --max-time 30 -H 'Cache-Control: no-cache' -o "/tmp/repair-$i.html" -w '%{http_code}' "https://alookhor.ir/?alookhor_repair=$i-$(date +%s)")
             echo "REPAIR_TEST_$i HTTP=$code"
             test "$code" = "200"
             ! grep -qi 'Fatal error' "/tmp/repair-$i.html"
@@ -139,7 +139,7 @@ jobs:
           PY
           sleep 8
           for i in 1 2 3 4 5; do
-            code=$(curl -sS --no-cache --max-time 30 -H 'Cache-Control: no-cache' -o "/tmp/final-$i.html" -w '%{http_code}' "https://alookhor.ir/?alookhor_final=$i-$(date +%s)")
+            code=$(curl -sS --max-time 30 -H 'Cache-Control: no-cache' -o "/tmp/final-$i.html" -w '%{http_code}' "https://alookhor.ir/?alookhor_final=$i-$(date +%s)")
             echo "FINAL_LIVE_TEST_$i HTTP=$code"
             test "$code" = "200"
             ! grep -qi 'Fatal error' "/tmp/final-$i.html"
