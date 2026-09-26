@@ -1,41 +1,29 @@
 name: Build and Publish ALOOKHOR Release
+
 on:
   push:
     branches: [main]
     tags: ['v*.*.*']
   workflow_dispatch:
+
 permissions:
   contents: read
+
 concurrency:
-  group: alookhor-recovery-${{ github.ref }}-${{ github.run_id }}
+  group: alookhor-production-publisher-${{ github.ref }}-${{ github.run_id }}
   cancel-in-progress: false
-env:
-  RECOVERY_COMMIT: 1d76aa6a11e82df9255b7508167956990648fe87
-  RECOVERY_VERSION: 3.10.411
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v5
-        with:
-          fetch-depth: 0
-      - name: Prepare known-good recovery tree
+      - name: Validate and generate registry
         run: |
           set -euo pipefail
-          git checkout "$RECOVERY_COMMIT" -- plugin/alookhor-control-center
-          python3 - <<'PY'
-          from pathlib import Path
-          import json,re
-          v="${{ env.RECOVERY_VERSION }}"
-          p=Path("plugin/alookhor-control-center/alookhor-control-center.php")
-          s=p.read_text(); s=re.sub(r'(\* Version:\s*)\S+',r'\g<1>'+v,s,1); s=s.replace("define('ALOOKHOR_CC_VERSION', '3.10.405');",f"define('ALOOKHOR_CC_VERSION', '{v}');").replace("define('ALOOKHOR_CC_BUILD', '3.10.405');",f"define('ALOOKHOR_CC_BUILD', '{v}');"); p.write_text(s)
-          r=Path("plugin/alookhor-control-center/readme.txt"); s=r.read_text(); s=re.sub(r'(?m)^Stable tag:\s*\S+',f'Stable tag: {v}',s); r.write_text(s)
-          c=Path("plugin/alookhor-control-center/config/site.json"); d=json.loads(c.read_text()); d["version"]=v; c.write_text(json.dumps(d,ensure_ascii=False,indent=2)+"\n")
-          rel={"version":v,"previous":"3.10.410","state":"ready","requires":"6.0","tested":"7.0","requires_php":"8.0","description":"نسخه بازیابی امن بر پایه آخرین درخت سالم 3.10.405.","changelog":[{"tag":"RECOVERY","title":"بازیابی افزونه","desc":"درخت سالم 3.10.405 با شماره نسخه جدید برای جایگزینی نسخه خراب منتشر شد."},{"tag":"UPDATE","title":"بازگشت مسیر انتشار سالم","desc":"کانال Manifest و ZIP همان مسیر انتشار قبلی است."}]}
-          Path("release.json").write_text(json.dumps(rel,ensure_ascii=False,indent=2)+"\n")
-          PY
           python3 -m py_compile scripts/*.py
+          python3 scripts/generate_code_registry.py
           find plugin/alookhor-control-center -name '*.php' -type f -print0 | xargs -0 -n1 php -l
           while IFS= read -r file; do node --check "$file"; done < <(find plugin/alookhor-control-center/assets/js -name '*.js' -type f | sort)
       - name: Build release
@@ -47,10 +35,12 @@ jobs:
           import hashlib,json
           from pathlib import Path
           from zipfile import ZipFile
-          m=json.loads(Path('public/manifest.json').read_text()); p=Path('public/releases')/Path(m['download_url']).name
-          assert p.is_file() and hashlib.sha256(p.read_bytes()).hexdigest()==m['sha256']
+          m=json.loads(Path('public/manifest.json').read_text())
+          p=Path('public/releases')/Path(m['download_url']).name
+          assert p.is_file()
+          assert hashlib.sha256(p.read_bytes()).hexdigest()==m['sha256']
           with ZipFile(p) as z: assert z.testzip() is None
-          print("Recovery release verified:",m['version'],m['sha256'])
+          print('Release verification passed:',m['version'])
           PY
       - name: Store artifact
         uses: actions/upload-artifact@v4
@@ -59,6 +49,7 @@ jobs:
           path: public/
           if-no-files-found: error
           retention-days: 7
+
   deploy:
     needs: build
     if: github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/v')
@@ -68,26 +59,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v5
-        with:
-          fetch-depth: 0
-      - name: Prepare exact known-good recovery tree
-        run: |
-          set -euo pipefail
-          git checkout "$RECOVERY_COMMIT" -- plugin/alookhor-control-center
-          python3 - <<'PY'
-          from pathlib import Path
-          import json,re
-          v="${{ env.RECOVERY_VERSION }}"
-          p=Path("plugin/alookhor-control-center/alookhor-control-center.php"); s=p.read_text(); s=re.sub(r'(\* Version:\s*)\S+',r'\g<1>'+v,s,1); s=s.replace("define('ALOOKHOR_CC_VERSION', '3.10.405');",f"define('ALOOKHOR_CC_VERSION', '{v}');").replace("define('ALOOKHOR_CC_BUILD', '3.10.405');",f"define('ALOOKHOR_CC_BUILD', '{v}');"); p.write_text(s)
-          r=Path("plugin/alookhor-control-center/readme.txt"); s=r.read_text(); s=re.sub(r'(?m)^Stable tag:\s*\S+',f'Stable tag: {v}',s); r.write_text(s)
-          c=Path("plugin/alookhor-control-center/config/site.json"); d=json.loads(c.read_text()); d["version"]=v; c.write_text(json.dumps(d,ensure_ascii=False,indent=2)+"\n")
-          rel={"version":v,"previous":"3.10.410","state":"ready","requires":"6.0","tested":"7.0","requires_php":"8.0","description":"نسخه بازیابی امن بر پایه آخرین درخت سالم 3.10.405.","changelog":[{"tag":"RECOVERY","title":"بازیابی افزونه","desc":"درخت سالم 3.10.405 با شماره نسخه جدید برای جایگزینی نسخه خراب منتشر شد."},{"tag":"UPDATE","title":"بازگشت مسیر انتشار سالم","desc":"کانال Manifest و ZIP همان مسیر انتشار قبلی است."}]}
-          Path("release.json").write_text(json.dumps(rel,ensure_ascii=False,indent=2)+"\n")
-          PY
-          python3 scripts/build_release.py
+      - name: Build verified release
+        run: python3 scripts/build_release.py
       - name: Install FTPS client
         run: sudo apt-get update -qq && sudo apt-get install -y -qq lftp
-      - name: One-time recovery of live plugin
+      - name: Publish through explicit FTPS
         env:
           FTP_SERVER: ${{ secrets.FTP_SERVER }}
           FTP_PORT: ${{ secrets.FTP_PORT }}
@@ -95,36 +71,27 @@ jobs:
           FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
         run: |
           set -euo pipefail
+          test -n "$FTP_SERVER"; test -n "$FTP_PORT"; test -n "$FTP_USERNAME"; test -n "$FTP_PASSWORD"
           python3 - <<'PY'
-          import os,subprocess
+          import json,os
           from pathlib import Path
           from urllib.parse import quote
-          server=os.environ['FTP_SERVER'].strip(); port=os.environ['FTP_PORT'].strip(); user=os.environ['FTP_USERNAME'].strip(); password=os.environ['FTP_PASSWORD']
+          m=json.loads(Path('public/manifest.json').read_text())
+          package=Path(m['download_url']).name
+          server=os.environ['FTP_SERVER'].strip(); port=os.environ['FTP_PORT'].strip()
+          user=os.environ['FTP_USERNAME'].strip(); password=os.environ['FTP_PASSWORD']
+          if not port.isdigit(): raise SystemExit('Invalid FTP_PORT')
           auth=f"ftp://{quote(user,safe='')}:{quote(password,safe='')}@{server}"
-          c=['set cmd:fail-exit true','set net:max-retries 2','set net:timeout 30','set ftp:passive-mode true','set ftp:ssl-auth TLS','set ftp:ssl-force true','set ftp:ssl-protect-data true','set ssl:verify-certificate true',f'open -p {port} "{auth}"']
-          s=Path('/tmp/recover.lftp'); s.write_text('\n'.join(c+['pwd','cls -1','bye'])+'\n'); s.chmod(0o600)
-          q=subprocess.run(['lftp','-f',str(s)],capture_output=True,text=True); print(q.stdout); print(q.stderr); q.check_returncode()
+          common=['set cmd:fail-exit true','set net:max-retries 2','set net:timeout 30','set ftp:passive-mode true','set ftp:ssl-auth TLS','set ftp:ssl-force true','set ftp:ssl-protect-data true','set ssl:verify-certificate true',f'open -p {port} "{auth}"']
+          files={
+            '/tmp/upload-package.lftp':common+['# releases directory already exists on the FTP target',f'put public/releases/{package} -o releases/{package}','bye'],
+            '/tmp/upload-meta.lftp':common+['put public/releases/SHA256SUMS.txt -o releases/SHA256SUMS.txt','put public/index.html -o index.html','put public/changelog.html -o changelog.html','put public/.htaccess -o .htaccess','bye'],
+            '/tmp/upload-manifest.lftp':common+['put public/manifest.json -o manifest.json.next','mv manifest.json.next manifest.json','bye']}
+          for name,commands in files.items():
+            Path(name).write_text('\n'.join(commands)+'\n'); Path(name).chmod(0o600)
           PY
-          rm -f /tmp/recover.lftp
-      - name: Publish the normal update channel
-        env:
-          FTP_SERVER: ${{ secrets.FTP_SERVER }}
-          FTP_PORT: ${{ secrets.FTP_PORT }}
-          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
-          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
-        run: |
-          set -euo pipefail
-          python3 - <<'PY'
-          import json,os,subprocess
-          from pathlib import Path
-          from urllib.parse import quote
-          m=json.loads(Path('public/manifest.json').read_text()); package=Path(m['download_url']).name
-          server=os.environ['FTP_SERVER'].strip(); port=os.environ['FTP_PORT'].strip(); user=os.environ['FTP_USERNAME'].strip(); password=os.environ['FTP_PASSWORD']
-          auth=f"ftp://{quote(user,safe='')}:{quote(password,safe='')}@{server}"
-          c=['set cmd:fail-exit true','set net:max-retries 2','set net:timeout 30','set ftp:passive-mode true','set ftp:ssl-auth TLS','set ftp:ssl-force true','set ftp:ssl-protect-data true','set ssl:verify-certificate true',f'open -p {port} "{auth}"']
-          files={'/tmp/a.lftp':c+[f'put public/releases/{package} -o releases/{package}','bye'],'/tmp/b.lftp':c+['put public/releases/SHA256SUMS.txt -o releases/SHA256SUMS.txt','put public/index.html -o index.html','put public/changelog.html -o changelog.html','put public/.htaccess -o .htaccess','bye'],'/tmp/c.lftp':c+['put public/manifest.json -o manifest.json.next','mv manifest.json.next manifest.json','bye']}
-          for n,cmd in files.items(): Path(n).write_text('\n'.join(cmd)+'\n'); Path(n).chmod(0o600)
-          for n in files: subprocess.run(['lftp','-f',n],check=True)
-          PY
-          rm -f /tmp/a.lftp /tmp/b.lftp /tmp/c.lftp
-          echo "Recovery release published."
+          lftp -f /tmp/upload-package.lftp
+          lftp -f /tmp/upload-meta.lftp
+          lftp -f /tmp/upload-manifest.lftp
+          rm -f /tmp/upload-*.lftp
+          echo "ALOOKHOR ${GITHUB_REF_NAME} published successfully."

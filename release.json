@@ -1,36 +1,21 @@
 {
-  "version": "3.10.410",
-  "previous": "3.10.409",
+  "version": "3.10.411",
+  "previous": "3.10.410",
   "state": "ready",
   "requires": "6.0",
   "tested": "7.0",
   "requires_php": "8.0",
-  "description": "نسخه بازیابی 3.10.410؛ حذف کامل تعریف تکراری تابع هدر که باعث HTTP 500 شده بود.",
+  "description": "نسخه بازیابی امن بر پایه آخرین درخت سالم 3.10.405.",
   "changelog": [
     {
-      "tag": "FIX",
-      "title": "رفع قطعی Fatal هدر",
-      "desc": "تعریف تکراری alookhor_cc_front_header_settings از shortcode-header حذف شد و فقط تعریف اصلی افزونه باقی ماند."
-    },
-    {
       "tag": "RECOVERY",
-      "title": "بازیابی WordPress",
-      "desc": "نسخه برای جایگزینی امن افزونه خراب 406 آماده شده است."
+      "title": "بازیابی افزونه",
+      "desc": "درخت سالم 3.10.405 با شماره نسخه جدید برای جایگزینی نسخه خراب منتشر شد."
     },
     {
       "tag": "UPDATE",
-      "title": "مسیر WordPress Native",
-      "desc": "مسیر خصوصی Manifest و ZIP بدون تغییر حفظ شده است."
+      "title": "بازگشت مسیر انتشار سالم",
+      "desc": "کانال Manifest و ZIP همان مسیر انتشار قبلی است."
     }
-  ],
-  "project": "ALOOKHOR",
-  "area": "cart UX + renderer synchronization",
-  "reason": "تست واقعی نشان داد guard در فایل هدر کافی نیست؛ تعریف دوم تابع کاملاً حذف شد و فقط تعریف اصلی bootstrap باقی ماند.",
-  "files": [
-    "plugin/alookhor-control-center/assets/css/frontend-cart.css",
-    "plugin/alookhor-control-center/assets/js/frontend-cart.js",
-    "plugin/alookhor-control-center/includes/cart-page.php",
-    "plugin/alookhor-control-center/includes/cart-rest.php",
-    "plugin/alookhor-control-center/alookhor-control-center.php"
   ]
 }

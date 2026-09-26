@@ -1,12 +1,3 @@
-## v3.10.409 — 2026-09-26 — Fatal Guard
-- Guarded the duplicated header-settings function declaration that caused the live WordPress 500.
-- Kept the known-good cart and WordPress-native updater path unchanged.
-
-## v3.10.408 — 2026-09-26 — Safe Recovery
-- Restored the known-good 3.10.405 plugin tree and incremented only the release version.
-- Restored the WordPress-native private updater publication route.
-- Removed experimental direct live-plugin recovery from the publisher workflow.
-
 # Changelog — ALOOKHOR Control Center (WP Plugin)
 
 ## v3.10.19 — 2026-08-16 — Two-Row Header Reference Match
