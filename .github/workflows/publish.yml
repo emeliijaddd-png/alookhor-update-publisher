@@ -154,6 +154,24 @@ jobs:
           print('LIVE_HEADER_LINE70=',c.splitlines()[69] if len(c.splitlines())>69 else 'N/A')
           PY
           rm -f /tmp/check-live.lftp /tmp/live-header.php
+      - name: Locate live plugin path
+        env:
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+          FTP_PORT: ${{ secrets.FTP_PORT }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import os, subprocess
+          from pathlib import Path
+          from urllib.parse import quote
+          server=os.environ['FTP_SERVER'].strip(); port=os.environ['FTP_PORT'].strip(); user=os.environ['FTP_USERNAME'].strip(); password=os.environ['FTP_PASSWORD']
+          auth=f"ftp://{quote(user,safe='')}:{quote(password,safe='')}@{server}"
+          s=Path('/tmp/find-live.lftp'); s.write_text('\\n'.join(['set cmd:fail-exit true','set net:max-retries 2','set net:timeout 30','set ftp:passive-mode true','set ftp:ssl-auth TLS','set ftp:ssl-force true','set ftp:ssl-protect-data true','set ssl:verify-certificate true',f'open -p {port} "{auth}"','find . -type f -name shortcode-header.php','bye'])+'\\n'); s.chmod(0o600)
+          q=subprocess.run(['lftp','-f',str(s)],capture_output=True,text=True); print(q.stdout); print(q.stderr); q.check_returncode()
+          PY
+          rm -f /tmp/find-live.lftp
       - name: Publish through explicit FTPS
         env:
           FTP_SERVER: ${{ secrets.FTP_SERVER }}
