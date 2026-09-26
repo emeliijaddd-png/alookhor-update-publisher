@@ -55,6 +55,11 @@ wp() { php -d memory_limit=512M "$cli" --path="$root" "$@"; }
 stage='install isolated WordPress'
 wp core config --dbname=wp_smoke --dbuser=wp_smoke --dbpass=local-smoke-only --dbhost=127.0.0.1:3306 --skip-check
 wp core install --url=http://127.0.0.1:8099 --title='Local cart CI' --admin_user=ciadmin --admin_password=local-smoke-only --admin_email=smoke@example.test --skip-email
+# WP-CLI can infer its temporary directory name as a subdirectory URL. The
+# built-in router serves from /, so force both base options to that exact origin.
+wp option update home http://127.0.0.1:8099
+wp option update siteurl http://127.0.0.1:8099
+printf 'WP base: home=%s siteurl=%s\n' "$(wp option get home)" "$(wp option get siteurl)"
 stage='activate WooCommerce and source candidate'
 wp plugin activate woocommerce
 wp plugin activate alookhor-control-center
@@ -62,6 +67,7 @@ wp rewrite structure '/%postname%/'
 wp rewrite flush
 stage='seed real WooCommerce products'
 wp eval-file scripts/cart-tests/wordpress_smoke_seed.php
+printf 'Active REST root: '; wp eval "echo rest_url('alookhor-cart/v4/'), PHP_EOL;"
 stage='HTTP guest cart and variation assertions'
 php -d memory_limit=512M -S 127.0.0.1:8099 -t "$root" "$(pwd)/scripts/cart-tests/wordpress_router.php" >"$server_log" 2>&1 &
 server_pid=$!
