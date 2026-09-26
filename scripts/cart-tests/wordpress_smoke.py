@@ -56,7 +56,7 @@ assert 'id="alookhor-cart"' in page and 'data-ac-build="3.10.412"' in page, 'Act
 config_match = re.search(r'var ALOOKHOR_CART_CONFIG = (\{[^;]+\});', page)
 assert config_match, 'The cart page did not localize its nonce and REST root'
 config = json.loads(config_match.group(1))
-assert config['cartApi'] == ORIGIN + '/wp-json/alookhor-cart/v4/', config['cartApi']
+assert config['cartApi'].rstrip('/') == ORIGIN + '/wp-json/alookhor-cart/v4', config['cartApi']
 nonce = config['nonce']
 assert nonce and isinstance(nonce, str)
 

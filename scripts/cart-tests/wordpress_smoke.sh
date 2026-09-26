@@ -27,10 +27,11 @@ cleanup() {
       if [[ -f "$log" ]]; then
         echo "Recent local log lines ($log):" >&4
         tail -n 22 "$log" >&4
-        while IFS= read -r line; do
-          line=${line:0:300}; line=${line//'%'/'%25'}; line=${line//$'\n'/'%0A'}
-          printf '::error title=Isolated cart diagnostic::%s\n' "$line" >&4
-        done < <(tail -n 12 "$log")
+        # One annotation per log keeps the real final exception within GitHub's
+        # per-step annotation cap (many separate lines hide the last error).
+        detail=$(tail -n 16 "$log" | tr '\n' '|' | cut -c 1-2400)
+        detail=${detail//'%'/'%25'}
+        printf '::error title=Isolated cart diagnostic::%s\n' "$detail" >&4
       fi
     done
   else
