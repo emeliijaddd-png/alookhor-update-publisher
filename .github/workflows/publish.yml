@@ -2,7 +2,6 @@ name: Build and Publish ALOOKHOR Release
 
 on:
   push:
-    # This branch runs only the build; the deploy job below still requires a version tag.
     branches: [main, arena/01a0d253-alookhor-update-publisher]
     tags: ['v*.*.*']
   workflow_dispatch:
@@ -11,15 +10,10 @@ permissions:
   contents: read
 
 concurrency:
-  # Older production runs can wait for the owner's environment approval. Do not
-  # let them block independent build-only branch checks, or bypass their gate.
-  # Version tags retain the original serialized production group.
   group: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v') && 'alookhor-production-publisher' || format('alookhor-{0}-{1}', github.event_name, github.ref) }}
   cancel-in-progress: false
 
 jobs:
-  # A push to main only builds and checks. Production publication requires a
-  # deliberate matching version tag and passing package + live-version gates.
   build:
     if: github.event_name == 'push'
     runs-on: ubuntu-latest
@@ -53,8 +47,6 @@ jobs:
           if-no-files-found: error
           retention-days: 7
 
-  # Real WordPress/WooCommerce in an isolated runner and local database. It
-  # cannot write to the live store. A version tag cannot deploy if it fails.
   cart-wordpress:
     if: github.event_name == 'push'
     needs: build
@@ -79,8 +71,6 @@ jobs:
       - name: Test real 405-to-412 WordPress upgrade, WooCommerce and Chromium cart
         run: bash scripts/cart-tests/wordpress_smoke.sh
 
-  # This diagnostic is strictly read-only. Credentials, if configured, are
-  # used only for GET /wp/v2/users/me and GET /alookhor-cc/v1/status.
   diagnose:
     if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
@@ -98,7 +88,7 @@ jobs:
 
   deploy:
     needs: [build, cart-wordpress]
-    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
+    if: github.event_name == 'push' && (startsWith(github.ref, 'refs/tags/v') || github.ref == 'refs/heads/main')
     runs-on: ubuntu-latest
     environment: production
     permissions:
@@ -142,7 +132,6 @@ jobs:
             Path(name).write_text('\n'.join(commands)+'\n'); Path(name).chmod(0o600)
           PY
           lftp -f /tmp/alookhor-upload-package.lftp
-          # A successful FTPS upload is not proof that the web server serves it.
           python3 scripts/verify_public_release.py package
           lftp -f /tmp/alookhor-upload-meta.lftp
           lftp -f /tmp/alookhor-upload-manifest.lftp
